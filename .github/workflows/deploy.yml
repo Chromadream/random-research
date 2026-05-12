@@ -25,37 +25,7 @@ jobs:
       - uses: actions/configure-pages@v5
 
       - name: Generate index.html
-        run: |
-          python3 -c "
-          import re, glob, os
-          pages = []
-          for f in sorted(glob.glob('*.html')):
-            if f == 'index.html':
-              continue
-            content = open(f).read()
-            m = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE)
-            title = m.group(1) if m else os.path.splitext(f)[0]
-            pages.append((f, title))
-          html = '''<!DOCTYPE html>
-          <html>
-          <head>
-          <meta charset=\"utf-8\">
-          <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-          <title>Random Research</title>
-          <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css\">
-          <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/concrete.css@3.0.0/dist/concrete.min.css\">
-          </head>
-          <body>
-          <main>
-          <h1>Random Research</h1>
-          <ul>
-          '''
-          for f, title in pages:
-            html += f'<li><a href=\"{f}\">{title}</a></li>\n'
-          html += '</ul>\n</main>\n</body>\n</html>'
-          open('index.html', 'w').write(html)
-          print(f'Generated index with {len(pages)} pages')
-          "
+        run: python3 .github/scripts/generate_index.py
 
       - uses: actions/upload-pages-artifact@v3
         with:
