@@ -183,78 +183,102 @@
 <!-- ============= SECTION 2 ============= -->
 <h2 id="platform-selection">2. Platform &amp; Motherboard Selection</h2>
 
-<h3>The Core Constraint: PCIe Lanes</h3>
+<h3>The Core Constraint: PCIe Lanes + Physical Slot Count</h3>
 <p>
   Each P40 wants PCIe 3.0 ×16 (electrically). For four cards you need <strong>64 PCIe lanes minimum</strong>
   plus lanes for NVMe storage and chipset I/O. This rules out all consumer desktop platforms
   (LGA 1700, AM5, etc.) which top out at 20–28 CPU lanes.
 </p>
 
-<h3>Recommended Platforms</h3>
+<div class="callout danger">
+  <strong>Critical: Physical slot spacing.</strong> Tesla P40s are <strong>dual-slot cards</strong> — each card physically blocks two expansion slot positions. To fit 4 GPUs you need a motherboard with <strong>at least 7–8 expansion slot positions</strong> and slots physically spaced every other position. A board with 5 slots (like the X10DRi series — only 2× x16 + 3× x8) <strong>cannot fit 4 dual-slot GPUs</strong> regardless of PCIe lane count.
+
+  <br><br>Also: P40s have x16 physical connectors. They will run at x8 electrically, but the slot itself must be <strong>open-ended</strong> (cutout at the rear) for the x16 card edge to physically seat. Many server boards use closed-end x8 slots — check photos before buying.
+</div>
+
+<h3>Recommended Motherboards (Verified for 4× Dual-Slot GPUs)</h3>
 <div class="table-wrap">
 <table>
   <thead>
     <tr>
-      <th>Platform</th>
-      <th>PCIe Lanes</th>
-      <th>Typical CPU</th>
-      <th>Motherboard Example</th>
-      <th>Approx. Cost (Used)</th>
+      <th>Motherboard</th>
+      <th>Socket</th>
+      <th>PCIe Slots</th>
+      <th>Expansion Positions</th>
+      <th>4× P40 Fit?</th>
+      <th>Approx. AU$ (Used)</th>
       <th>Notes</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Dual Xeon E5 v3/v4</strong><br><span class="badge green">BEST VALUE</span></td>
-      <td>80 (40+40)</td>
-      <td>2× E5-2680 v4 (14c/28t, 2.4 GHz)</td>
-      <td>Supermicro X10DRi / X10DRG-Q</td>
-      <td>AU$400–650</td>
-      <td>DDR4 ECC RDIMM. Plentiful on eBay. 7 PCIe ×16 slots.</td>
+      <td><strong>Supermicro X10DRG-Q</strong><br><span class="badge green">BEST PICK</span></td>
+      <td>Dual LGA 2011-3</td>
+      <td>4× PCIe 3.0 x16 + 3× PCIe 3.0 x8</td>
+      <td>7</td>
+      <td><span class="badge green">YES ✓</span></td>
+      <td>$350–550</td>
+      <td>Purpose-built GPU server board. Dual-slot spacing. DDR4 ECC RDIMM.</td>
     </tr>
     <tr>
-      <td><strong>Single EPYC 7002</strong><br><span class="badge purple">MODERN</span></td>
-      <td>128</td>
-      <td>EPYC 7302P (16c/32t, 3.0 GHz)</td>
-      <td>Supermicro H11SSL-i</td>
-      <td>AU$800–1,200</td>
-      <td>DDR4 ECC RDIMM. Better single-thread. PCIe 4.0 (P40 is 3.0).</td>
+      <td><strong>ASUS Z10PE-D8 WS</strong></td>
+      <td>Dual LGA 2011-3</td>
+      <td>4× PCIe 3.0 x16 + 3× PCIe 3.0 x8</td>
+      <td>7</td>
+      <td><span class="badge green">YES ✓</span></td>
+      <td>$300–500</td>
+      <td>Workstation board, ATX form factor. Uses consumer DDR4 (cheaper). More available in AU.</td>
     </tr>
     <tr>
-      <td><strong>Dual Xeon Scalable v1</strong></td>
-      <td>96 (48+48)</td>
-      <td>2× Xeon Gold 6130</td>
-      <td>Supermicro X11DPi-NT</td>
-      <td>AU$800–1,300</td>
-      <td>DDR4 ECC. PCIe 3.0. Modern platform.</td>
+      <td><strong>Supermicro X10DRG-H</strong></td>
+      <td>Dual LGA 2011-3</td>
+      <td>4× PCIe 3.0 x16 + 2× PCIe 3.0 x8</td>
+      <td>6+</td>
+      <td><span class="badge green">YES ✓</span></td>
+      <td>$350–500</td>
+      <td>GPU-optimized variant. DDR4 ECC RDIMM.</td>
     </tr>
     <tr>
-      <td><strong>Threadripper 1st/2nd Gen</strong></td>
-      <td>60–64</td>
-      <td>TR 1920X / 2950X</td>
-      <td>ASRock X399 Taichi</td>
-      <td>AU$650–1,000</td>
-      <td>Consumer DDR4. Four ×16 slots. High single-thread perf.</td>
+      <td><strong>ASRock Rack EPYCD8-2T</strong></td>
+      <td>Single SP3 (EPYC 7002)</td>
+      <td>5× PCIe 3.0 x16 (all physical x16)</td>
+      <td>7</td>
+      <td><span class="badge green">YES ✓</span></td>
+      <td>$400–600</td>
+      <td>All slots x16 physical. DDR4 ECC RDIMM. Modern platform.</td>
+    </tr>
+    <tr>
+      <td><strong>Supermicro X10DRi / X10DRi-LN4+</strong></td>
+      <td>Dual LGA 2011-3</td>
+      <td>2× x16 + 3× x8 (5 slots)</td>
+      <td>5</td>
+      <td><span class="badge red">NO — only 3 GPUs max</span></td>
+      <td>$200–300</td>
+      <td>Only 5 expansion slots = max 2–3 dual-slot GPUs. Good for 2-GPU builds.</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 <div class="callout success">
-  <strong>Recommended budget pick:</strong> Dual Xeon E5-2680 v4 on a Supermicro X10DRi. AU$130–150 for both CPUs, AU$250–350 motherboard, AU$150–200 for 64 GB DDR4 ECC. Leaves budget for cooling and power supply.
+  <strong>Recommended budget pick:</strong> ASUS Z10PE-D8 WS + 2× Xeon E5-2680 v4. AU$300–500 for the board (more common on AU eBay than X10DRG-Q), AU$130–150 for both CPUs, AU$180–280 for 128 GB DDR4 (non-ECC consumer DDR4, cheaper than RDIMMs). <strong>Total platform cost ~AU$610–930.</strong> The Z10PE-D8 WS uses standard ATX mounting and fits in any 4U chassis.
 </div>
 
 <h3>Power Supply</h3>
 <p>
   4× P40 at 250W = 1,000W for GPUs alone. Add 200W for CPU + motherboard + fans.
-  <strong>Minimum 1,500W PSU</strong> recommended. Look for:
+  <strong>Minimum 1,500W PSU</strong> recommended. Must be ATX (PS2) form factor to fit 4U chassis like the SilverStone RM44/RM400. Check PSU length — most 4U chassis accept ≤220mm.
 </p>
-<ul>
-  <li><strong>Corsair HX1500i</strong> — 1500W, Platinum, fully modular, available at Scorptec/PCCG (~AU$529).</li>
-  <li><strong>be quiet! Dark Power Pro 13 1600W</strong> — Titanium efficiency, available at Scorptec (~AU$599).</li>
-  <li><strong>FSP Cannon 2000W</strong> — 2000W, 80+ Gold, available at Mwave (~AU$699).</li>
-  <li><strong>Supermicro PWS-1K62A-1R</strong> — If using a Supermicro chassis with redundant PSU (eBay AU).</li>
-</ul>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>PSU</th><th>Wattage</th><th>Length</th><th>Efficiency</th><th>AU Retailer</th><th>Price (AU$)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Corsair HX1500i</strong></td><td>1500W</td><td>200mm ✓</td><td>80+ Platinum</td><td>Scorptec, PCCG</td><td>~$529</td></tr>
+    <tr><td><strong>be quiet! Dark Power Pro 13</strong></td><td>1600W</td><td>180mm ✓</td><td>80+ Titanium</td><td>Scorptec, PCCG</td><td>~$599</td></tr>
+    <tr><td><strong>FSP Cannon 2000W</strong></td><td>2000W</td><td>200mm ✓</td><td>80+ Gold</td><td>Mwave, Umart</td><td>~$699</td></tr>
+  </tbody>
+</table>
+</div>
 
 <div class="callout warn">
   <strong>EPS 12V adapter needed:</strong> P40s use an 8-pin <em>EPS</em> connector (CPU-power type), not PCIe 8-pin. Buy <strong>dual PCIe 6+2 to EPS 8-pin</strong> adapter cables. Do NOT force a PCIe 8-pin into the EPS socket — the pinout is different.
@@ -284,9 +308,22 @@
 
 <h3>Option C: 4U Server Chassis</h3>
 <p>
-  A Rosewill RSV-L4500U or Supermicro 846 chassis with internal 80mm fan wall.
-  These chassis are designed for passive GPUs with high-static-pressure mid-wall fans.
-  Approx. AU$250–400 used.
+  <strong>SilverStone RM44</strong> — 4U rackmount, supports SSI-EEB motherboards (fits Supermicro X10DRi),
+  standard ATX (PS2) PSU, 7+2 expansion slots, mid-wall fan bracket for GPU cooling.
+  Available new from Scorptec/PCCaseGear (~AU$280–350). <strong>Accepts ATX PSUs up to ~220mm length</strong> — the Corsair HX1500i (200mm) and be quiet! Dark Power Pro 13 (180mm) fit comfortably.
+</p>
+<p>
+  <strong>SilverStone RM400</strong> — Deeper 4U for longer GPUs, ATX PSU, 8 expansion slots (~AU$300–380).
+</p>
+<p>
+  <strong>Supermicro 846 / 847</strong> — Enterprise 4U with hot-swap bays, high-static-pressure mid-wall.
+  <strong>Uses redundant PSUs only — does NOT accept ATX PSUs.</strong> If buying a Supermicro chassis,
+  ensure it comes with its redundant PSU and buy the matching PWS-1K62A-1R modules (~AU$150–250
+  used on eBay AU). Approx. AU$300–500 used with PSU.
+</p>
+<p>
+  <strong>Open-air mining frame</strong> — No PSU constraints. Simple aluminum extrusion frame.
+  Approx. AU$60–120 on eBay AU. Loud but effective; no chassis constraints on PSU or GPU size.
 </p>
 
 <div class="callout danger">
@@ -304,13 +341,13 @@
   <thead><tr><th>Component</th><th>Recommendation</th><th>Est. Cost</th></tr></thead>
   <tbody>
     <tr><td>GPUs (4×)</td><td>NVIDIA Tesla P40 24GB</td><td>AU$1,100–1,600</td></tr>
-    <tr><td>Motherboard</td><td>Supermicro X10DRi (dual LGA 2011-3)</td><td>AU$200–350</td></tr>
+    <tr><td>Motherboard</td><td>ASUS Z10PE-D8 WS (budget) or Supermicro X10DRG-Q</td><td>AU$300–550</td></tr>
     <tr><td>CPUs (2×)</td><td>Intel Xeon E5-2680 v4</td><td>AU$100–150</td></tr>
     <tr><td>CPU Coolers (2×)</td><td>Noctua NH-U12DX i4 or Supermicro 4U active</td><td>AU$150–220</td></tr>
-    <tr><td>RAM</td><td>8× 16GB DDR4 ECC RDIMM 2400 (128 GB total)</td><td>AU$180–280</td></tr>
+    <tr><td>RAM</td><td>8× 16GB DDR4 (consumer UDIMM for Z10PE-D8; ECC RDIMM for X10DRG-Q)</td><td>AU$180–280</td></tr>
     <tr><td>PSU</td><td>Corsair HX1500i / FSP Cannon 2000W / be quiet! Dark Power Pro 1500</td><td>AU$450–700</td></tr>
     <tr><td>Storage</td><td>1TB NVMe SSD (Samsung 990 EVO / Crucial P3 Plus)</td><td>AU$99–150</td></tr>
-    <tr><td>Chassis</td><td>4U server chassis or open-air mining frame</td><td>AU$180–400</td></tr>
+    <tr><td>Chassis</td><td>SilverStone RM44 4U (ATX PSU compatible) or open-air mining frame</td><td>AU$60–400</td></tr>
     <tr><td>GPU Cooling</td><td>3D-printed shrouds + 40mm fans (×8)</td><td>AU$100–180</td></tr>
     <tr><td>EPS Adapters</td><td>PCIe 6+2 to EPS 8-pin (×4)</td><td>AU$50–60</td></tr>
     <tr><td><strong>TOTAL (incl. GST)</strong></td><td></td><td><strong>AU$2,609–4,090</strong></td></tr>
@@ -1207,9 +1244,9 @@ sudo tailscale up
   <tr><td><strong>GPUs</strong></td><td>4× NVIDIA Tesla P40 (24 GB each, 96 GB total VRAM)</td></tr>
   <tr><td><strong>Compute</strong></td><td>Pascal SM 6.1, 47 INT8 TOPS per GPU</td></tr>
   <tr><td><strong>Recommended CPU</strong></td><td>Dual Xeon E5-2680 v4 (budget) or EPYC 7302P (modern)</td></tr>
-  <tr><td><strong>Recommended Board</strong></td><td>Supermicro X10DRi (budget) or H11SSL-i (modern)</td></tr>
-  <tr><td><strong>RAM</strong></td><td>128 GB DDR4 ECC (minimum 64 GB for MoE offloading)</td></tr>
-  <tr><td><strong>PSU</strong></td><td>1,500W+ (Corsair HX1500i, be quiet! Dark Power Pro 1600W, or FSP Cannon 2000W)</td></tr>
+  <tr><td><strong>Recommended Board</strong></td><td>ASUS Z10PE-D8 WS (budget, consumer DDR4) or Supermicro X10DRG-Q (RDIMM)</td></tr>
+  <tr><td><strong>RAM</strong></td><td>128 GB DDR4 (Z10PE-D8 uses consumer UDIMM; X10DRG-Q uses ECC RDIMM)</td></tr>
+  <tr><td><strong>PSU</strong></td><td>1,500W+ ATX (Corsair HX1500i, be quiet! DP Pro 13 1600W, FSP Cannon 2000W)<br>Must be &le;220mm length to fit 4U chassis. Supermicro chassis require redundant PSUs instead.</td></tr>
   <tr><td><strong>Cooling</strong></td><td>3D-printed shrouds + 40mm server fans per GPU</td></tr>
   <tr><td><strong>OS</strong></td><td>Ubuntu 24.04 LTS, NVIDIA driver 550+</td></tr>
   <tr><td><strong>Engine</strong></td><td>vllm-pascal (primary) + llama.cpp CUDA (GGUF/CPU-hybrid)</td></tr>
