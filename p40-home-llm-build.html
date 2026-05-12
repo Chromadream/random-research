@@ -113,7 +113,7 @@
 
 <h1>4× NVIDIA Tesla P40 — Home LLM Inference System</h1>
 <p>
-  <strong>Goal:</strong> Build a sub-AU$2,500 home server with 96 GB combined VRAM for serving
+  <strong>Goal:</strong> Build a sub-AU$3,500 home server with 96 GB combined VRAM for serving
   large language models to 2+ concurrent users on a home network, supporting MoE partial-expert
   loading and streaming of models exceeding total VRAM.
 </p>
@@ -261,7 +261,11 @@
 </div>
 
 <div class="callout success">
-  <strong>Recommended budget pick:</strong> ASUS Z10PE-D8 WS + 2× Xeon E5-2680 v4. AU$300–500 for the board (more common on AU eBay than X10DRG-Q), AU$130–150 for both CPUs, AU$180–280 for 128 GB DDR4 (non-ECC consumer DDR4, cheaper than RDIMMs). <strong>Total platform cost ~AU$610–930.</strong> The Z10PE-D8 WS uses standard ATX mounting and fits in any 4U chassis.
+  <strong>Recommended budget pick:</strong> ASUS Z10PE-D8 WS + 2× Xeon E5-2680 v4. AU$300–500 for the board (more common on AU eBay than X10DRG-Q), AU$130–150 for both CPUs, AU$800 for 128 GB DDR4 UDIMM (8×16GB at ~AU$100/stick). <strong>Total platform cost ~AU$1,230–1,450.</strong> The Z10PE-D8 WS uses standard ATX mounting and fits in any 4U chassis.
+  <br><br>
+  <strong>If you can source a Supermicro X10DRG-Q:</strong> ECC RDIMM 32 GB sticks cost ~the same as
+  16 GB on the used market (AU$100–200/DIMM), so 8×32 GB = 256 GB for AU$800–1,600. This is
+  ideal for KTransformers (eliminates mmap paging) and CPU-offloaded MoE models.
 </div>
 
 <h3>Power Supply</h3>
@@ -344,13 +348,13 @@
     <tr><td>Motherboard</td><td>ASUS Z10PE-D8 WS (budget) or Supermicro X10DRG-Q</td><td>AU$300–550</td></tr>
     <tr><td>CPUs (2×)</td><td>Intel Xeon E5-2680 v4</td><td>AU$100–150</td></tr>
     <tr><td>CPU Coolers (2×)</td><td>Noctua NH-U12DX i4 or Supermicro 4U active</td><td>AU$150–220</td></tr>
-    <tr><td>RAM</td><td>8× 16GB DDR4 (consumer UDIMM for Z10PE-D8; ECC RDIMM for X10DRG-Q)</td><td>AU$180–280</td></tr>
+    <tr><td>RAM</td><td>Z10PE-D8: 8× 16GB DDR4 UDIMM (AU$100/stick)<br>X10DRG-Q: 8× 32GB DDR4 ECC RDIMM (AU$100–200/stick, 16GB &amp; 32GB ~same)</td><td>AU$800<br>AU$800–1,600</td></tr>
     <tr><td>PSU</td><td>Corsair HX1500i / FSP Cannon 2000W / be quiet! Dark Power Pro 1500</td><td>AU$450–700</td></tr>
     <tr><td>Storage</td><td>1TB NVMe SSD (Samsung 990 EVO / Crucial P3 Plus)</td><td>AU$99–150</td></tr>
     <tr><td>Chassis</td><td>SilverStone RM44 4U (ATX PSU compatible) or open-air mining frame</td><td>AU$60–400</td></tr>
     <tr><td>GPU Cooling</td><td>3D-printed shrouds + 40mm fans (×8)</td><td>AU$100–180</td></tr>
     <tr><td>EPS Adapters</td><td>PCIe 6+2 to EPS 8-pin (×4)</td><td>AU$50–60</td></tr>
-    <tr><td><strong>TOTAL (incl. GST)</strong></td><td></td><td><strong>AU$2,609–4,090</strong></td></tr>
+    <tr><td><strong>TOTAL (incl. GST)</strong></td><td></td><td><strong>AU$3,210–5,610</strong></td></tr>
   </tbody>
 </table>
 </div>
@@ -655,7 +659,7 @@ vllm serve /models/Mixtral-8x22B-Instruct-v0.1 \
 <pre><code><span class="cm"># Example: DeepSeek-V3 GGUF quantized (IQ3_XXS or Q3_K_M)</span>
 <span class="cm"># Total GGUF size: ~250 GB at Q3_K_M for 671B params</span>
 <span class="cm"># Shared layers (~30B params) + top experts cached on GPU</span>
-<span class="cm"># Remaining experts paged from system RAM (128 GB DDR4 recommended)</span>
+<span class="cm"># Remaining experts paged from system RAM (256 GB DDR4 recommended)</span>
 
 llama-server \
   -m DeepSeek-V3-Q3_K_M.gguf \
@@ -670,23 +674,35 @@ llama-server \
   <strong>How it works:</strong> <code>-ngl 999</code> tries to push all layers to GPU. When VRAM is full, llama.cpp
   automatically falls back to CPU for remaining layers. Since MoE experts are in later layers,
   they spill to CPU. The GPU handles attention and shared FFN; CPU handles expert routing.
-  With 128 GB system RAM you can load the entire 671B model.
+  With 256 GB system RAM you can load the entire 671B model with no disk paging.
 </div>
 
 <h3>Strategy B: KTransformers (Specialized MoE Offloading)</h3>
 <p>
   <a href="https://github.com/kvcache-ai/ktransformers">KTransformers</a> is purpose-built for
-  running giant MoE models with limited GPU VRAM. It uses CUDA graphs with CPU offload
-  and supports DeepSeek-V2/V3 natively.
+  running giant MoE models with limited GPU VRAM. It uses CPU-GPU heterogeneous computing
+  with optimized CPU kernels (AMX/AVX512/AVX2) and supports DeepSeek-V2/V3 natively.
 </p>
+<div class="callout">
+  <strong>Two ktransformers paths exist:</strong><br>
+  <strong>Legacy path</strong> (shown below) — Uses GGUF-quantized models + YAML optimize rules via
+  <code>ktransformers.local_chat</code>. This is the <strong>P40-compatible path</strong> still
+  available in the <code>archive/</code> directory. Works with 128+ GB RAM (256 GB recommended to
+  eliminate mmap paging).<br>
+  <strong>New path</strong> (kt-kernel + SGLang) — Uses raw safetensors, requires SM 8.9+ GPU
+  (Ada Lovelace or newer). Does <em>not</em> work on Pascal P40s. Used for V4-Flash and other
+  current-gen models.
+</div>
 
-<pre><code><span class="cm"># Install KTransformers</span>
+<pre><code><span class="cm"># Install KTransformers (uses legacy archive/ path for P40)</span>
 git clone https://github.com/kvcache-ai/ktransformers
 <span class="kw">cd</span> ktransformers
 pip install -e .
 
-<span class="cm"># Run DeepSeek-V3 with expert offloading</span>
+<span class="cm"># Run DeepSeek-V3 with expert offloading (GGUF quantized)</span>
 <span class="cm"># Shared layers on GPU, expert FFNs on CPU</span>
+<span class="cm"># With 256 GB RAM: entire GGUF fits in memory, no mmap paging</span>
+<span class="cm"># With 128 GB RAM: works but experts paged from disk (slower)</span>
 python -m ktransformers.local_chat \
   --model_path /path/to/DeepSeek-V3 \
   --gguf_path /path/to/DeepSeek-V3-Q4_K_M.gguf \
@@ -832,7 +848,7 @@ response = client.chat.completions.create(
 <h3>Strategy 1: CPU+GPU Hybrid (llama.cpp built-in)</h3>
 <p>
   This is the simplest approach. llama.cpp automatically spills layers to CPU RAM when
-  GPU VRAM is exhausted. With 128 GB system RAM, you can run massive models.
+  GPU VRAM is exhausted. With 256 GB system RAM, you can run massive models entirely in memory.
 </p>
 
 <pre><code><span class="cm"># Run a 400B+ model: load what fits on GPUs, rest on CPU</span>
@@ -876,11 +892,14 @@ llama-server -m model.gguf --rpc <span class="va">$SERVER_IP</span>:<span class=
   KTransformers can dynamically page individual MoE expert weights from SSD/NVMe into GPU VRAM
   as the router activates them. This is the most advanced approach and yields the best
   interactive performance for giant MoE models on limited VRAM.
+  With <strong>256 GB RAM</strong>, the entire GGUF model fits in memory, eliminating NVMe paging
+  latency. At 128 GB, experts stream from NVMe — still functional but higher latency.
 </p>
 
-<pre><code><span class="cm"># KTransformers with NVMe expert offloading</span>
+<pre><code><span class="cm"># KTransformers with NVMe expert offloading (legacy path, P40-compatible)</span>
 <span class="cm"># Requires a fast NVMe SSD (PCIe 4.0 recommended, P40s support 3.0)</span>
 <span class="cm"># Expert weights are mmap'd from NVMe and cached in GPU as needed</span>
+<span class="cm"># With 256 GB RAM: remove --model_path and use just GGUF, everything stays in memory</span>
 
 python -m ktransformers.local_chat \
   --model_path /mnt/nvme/DeepSeek-V3 \
@@ -1148,7 +1167,7 @@ sudo tailscale up
   <tr><td><strong>Compute</strong></td><td>Pascal SM 6.1, 47 INT8 TOPS per GPU</td></tr>
   <tr><td><strong>Recommended CPU</strong></td><td>Dual Xeon E5-2680 v4 (budget) or EPYC 7302P (modern)</td></tr>
   <tr><td><strong>Recommended Board</strong></td><td>ASUS Z10PE-D8 WS (budget, consumer DDR4) or Supermicro X10DRG-Q (RDIMM)</td></tr>
-  <tr><td><strong>RAM</strong></td><td>128 GB DDR4 (Z10PE-D8 uses consumer UDIMM; X10DRG-Q uses ECC RDIMM)</td></tr>
+  <tr><td><strong>RAM</strong></td><td>128 GB DDR4 UDIMM (Z10PE-D8, ~AU$100/stick) or 256 GB DDR4 ECC RDIMM (X10DRG-Q, 32GB ~same price as 16GB)</td></tr>
   <tr><td><strong>PSU</strong></td><td>1,500W+ ATX (Corsair HX1500i, be quiet! DP Pro 13 1600W, FSP Cannon 2000W)<br>Must be &le;220mm length to fit 4U chassis. Supermicro chassis require redundant PSUs instead.</td></tr>
   <tr><td><strong>Cooling</strong></td><td>3D-printed shrouds + 40mm server fans per GPU</td></tr>
   <tr><td><strong>OS</strong></td><td>Ubuntu 24.04 LTS, NVIDIA driver 550+</td></tr>
@@ -1158,7 +1177,7 @@ sudo tailscale up
   <tr><td><strong>Multi-User</strong></td><td>vLLM continuous batching (<code>--max-num-seqs</code>) or llama.cpp <code>-np 4</code></td></tr>
   <tr><td><strong>MoE Offloading</strong></td><td>llama.cpp hybrid CPU+GPU or KTransformers</td></tr>
   <tr><td><strong>Best Model Fit</strong></td><td>Llama 3.1 70B Q4_K_M (42 GB), Mixtral 8×22B Q3_K_M (80 GB), Qwen3.6 27B Q4_K_M (17 GB)</td></tr>
-  <tr><td><strong>Largest Possible</strong></td><td>DeepSeek-V3 IQ3_XXS + CPU offload (~3 t/s), Qwen3.6 27B BF16 (54 GB, 3 P40s)</td></tr>
+  <tr><td><strong>Largest Possible</strong></td><td>DeepSeek-V4-Flash IQ1_M-XL (96 GB VRAM, 128K ctx), DeepSeek-V3 IQ3_XXS + CPU offload (~3 t/s), Qwen3.6 27B BF16 (54 GB, 3 P40s)</td></tr>
 </table>
 </div>
 
