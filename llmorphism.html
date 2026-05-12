@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLMorphism — Paper Explained</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #f8f9fa; color: #1a1a2e; line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 800px; margin: 0 auto; }
+  header {
+    text-align: center; margin-bottom: 3rem;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px; color: #e8e8e8;
+  }
+  header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+  header .subtitle { font-size: 1rem; margin-top: 0.5rem; opacity: 0.8; }
+  header .meta { margin-top: 1rem; font-size: 0.85rem; opacity: 0.65; }
+  header .badge {
+    display: inline-block; margin-top: 1rem; padding: 0.3rem 1rem;
+    background: rgba(255,255,255,0.12); border-radius: 20px;
+    font-size: 0.8rem; color: #a0c4ff;
+  }
+  .section {
+    background: #fff; border-radius: 12px; padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .section h2 {
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;
+    color: #1a1a2e; letter-spacing: -0.01em;
+  }
+  .section h2 .accent { color: #4a6fa5; }
+  .section p { margin-bottom: 0.85rem; color: #2d2d44; }
+  .section p:last-child { margin-bottom: 0; }
+  .highlight-box {
+    background: #f0f4ff; border-left: 4px solid #4a6fa5;
+    padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+    font-style: italic; color: #1a2744;
+  }
+  .mechanisms { display: flex; gap: 1rem; margin: 1rem 0; }
+  .mechanism-card {
+    flex: 1; background: #f8faff; border: 1px solid #e2e8f0;
+    border-radius: 10px; padding: 1.25rem;
+  }
+  .mechanism-card h3 { font-size: 0.95rem; color: #4a6fa5; margin-bottom: 0.5rem; }
+  .mechanism-card p { font-size: 0.9rem; }
+  .pathways { list-style: none; }
+  .pathways li {
+    padding: 0.75rem 0; border-bottom: 1px solid #eef1f5; font-size: 0.95rem;
+  }
+  .pathways li:last-child { border-bottom: none; }
+  .pathways li strong { color: #1a1a2e; }
+  .grid-diff { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+  .diff-item {
+    flex: 1; min-width: 160px; background: #f8faff;
+    border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem;
+  }
+  .diff-item h3 { font-size: 0.85rem; color: #4a6fa5; margin-bottom: 0.35rem; }
+  .diff-item p { font-size: 0.85rem; }
+  .pull-quote {
+    font-size: 1.25rem; font-weight: 600; text-align: center;
+    padding: 1.5rem; color: #1a2744; line-height: 1.5;
+    border-top: 2px solid #e2e8f0; border-bottom: 2px solid #e2e8f0;
+    margin: 1.5rem 0;
+  }
+  footer {
+    text-align: center; padding: 2rem 0; font-size: 0.85rem;
+    color: #6b7280;
+  }
+  .tag { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-right: 0.3rem; }
+  .tag-red { background: #fee2e2; color: #991b1b; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+  .tag-green { background: #d1fae5; color: #065f46; }
+  .tag-amber { background: #fef3c7; color: #92400e; }
+  @media (max-width: 600px) {
+    .mechanisms { flex-direction: column; }
+    header h1 { font-size: 1.6rem; }
+    .section { padding: 1.25rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>LLMorphism</h1>
+  <div class="subtitle">When humans come to see themselves as language models</div>
+  <div class="meta">Valerio Capraro &middot; University of Milano-Bicocca &middot; arXiv:2605.05419 &middot; May 2026</div>
+  <span class="badge">Computers & Society (cs.CY)</span>
+</header>
+
+<section class="section">
+  <h2>What is <span class="accent">LLMorphism</span>?</h2>
+  <p>
+    <strong>LLMorphism</strong> is the <em>biased belief</em> that human cognition works like a large language model.
+    It is a specific form of <strong>mechanomorphism</strong> — the attribution of machine characteristics to humans —
+    narrowed to the particular case of LLMs.
+  </p>
+  <div class="highlight-box">
+    "The issue is not only whether we are attributing too much mind to machines, but also whether we are beginning to attribute too little mind to humans."
+  </div>
+  <p>
+    Conversational LLMs make this bias psychologically available through a <strong>reverse inference</strong>:
+    we already anthropomorphize LLMs (they speak like humans → they must have minds). LLMorphism flips this —
+    LLMs speak like humans → perhaps humans think like LLMs.
+  </p>
+</section>
+
+<section class="section">
+  <h2>Two <span class="accent">Mechanisms</span> of Spread</h2>
+  <div class="mechanisms">
+    <div class="mechanism-card">
+      <h3>Analogical Transfer</h3>
+      <p>Observable similarity between human and LLM language triggers structural alignment. What starts as comparing linguistic output becomes a broader reinterpretation of cognition as LLM-like generation, prediction, and pattern completion.</p>
+    </div>
+    <div class="mechanism-card">
+      <h3>Metaphorical Availability</h3>
+      <p>Technical vocabulary migrates into ordinary self-understanding. Terms like <em>"prediction," "prompting," "hallucination," "training data,"</em> and <em>"next-token prediction"</em> become culturally salient descriptors for human thought, creativity, and memory.</p>
+    </div>
+  </div>
+  <p style="font-size:0.9rem; color:#6b7280; text-align:center; margin-top:0.75rem;">
+    These mechanisms are mutually reinforcing.
+  </p>
+</section>
+
+<section class="section">
+  <h2>What It Is <span class="accent">Not</span></h2>
+  <div class="grid-diff">
+    <div class="diff-item">
+      <h3>Anthropomorphism</h3>
+      <p>Treating machines as human-like (LLM as person). LLMorphism is the <em>reverse</em>: treating humans as machine-like.</p>
+    </div>
+    <div class="diff-item">
+      <h3>Computationalism</h3>
+      <p>The thesis that cognition is symbol-manipulation. LLMorphism is about fluency and language generation, not rule-based computation.</p>
+    </div>
+    <div class="diff-item">
+      <h3>Dehumanization</h3>
+      <p>Denial of humanness with hostility/moral exclusion. LLMorphism need not involve contempt and can be directed at oneself.</p>
+    </div>
+    <div class="diff-item">
+      <h3>Predictive Processing</h3>
+      <p>Bayesian theories of prediction-error minimization. These are often deeply embodied — LLMorphism is not.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Five <span class="accent">Societal Impact</span> Pathways</h2>
+  <div class="highlight-box" style="margin-top:0;">
+    These are hypotheses, not established facts — the paper introduces a new construct.
+  </div>
+  <ul class="pathways">
+    <li>
+      <span class="tag tag-red">Work</span>
+      <strong>Replaceability.</strong> If humans are seen as LLM-like output generators, automation appears not just efficient but <em>conceptually justified</em>. Workers become statistically replaceable text-producing units.
+    </li>
+    <li>
+      <span class="tag tag-blue">Education</span>
+      <strong>Fluency Confusion.</strong> If LLMs approximate expert outputs, institutions may mistake expertise for sophisticated text production. Learning becomes equated with producing fluent answers, even though linguistic form ≠ grounded understanding.
+    </li>
+    <li>
+      <span class="tag tag-amber">Responsibility</span>
+      <strong>Agency Thinning.</strong> If human action is redescribed as "generated output from prior inputs," questions about reasons, commitments, and accountability are displaced by a flatter vocabulary of input/output/generation. Erodes responsibility practices.
+    </li>
+    <li>
+      <span class="tag tag-green">Healthcare</span>
+      <strong>Disembodiment.</strong> Verbal output may be overweighted relative to embodied and affective cues. Patients become "producers of clinically relevant text" rather than embodied persons. Risk is acute in mental health, where nonverbal signs are critical.
+    </li>
+    <li>
+      <span class="tag tag-blue">Epistemic</span>
+      <strong>Fluency as Knowledge.</strong> If human reasoning is "just pattern completion," justification and evidence lose normative force. Language model vocabulary blurs the distinction between saying and knowing — fluency substitutes for epistemic evaluation.
+    </li>
+  </ul>
+</section>
+
+<section class="section">
+  <h2><span class="accent">Why</span> the Inference Is Biased</h2>
+  <p>
+    Similarity in <strong>linguistic output</strong> does <em>not</em> entail similarity in <strong>cognitive architecture</strong>.
+  </p>
+  <p>
+    Human language is a tool for communication developed by <strong>embodied organisms</strong> with needs, emotions, memories, social obligations, and vulnerability to consequences. LLM output is generated by systems trained to model statistical regularities in text — there is no perception, action, affect, intention, or accountability behind it.
+  </p>
+  <p>
+    LLMs have strong <strong>formal linguistic competence</strong> (grammatical, coherent text) but limited <strong>functional linguistic competence</strong> (using language in the world, which requires reasoning, world knowledge, situation modeling, social cognition).
+  </p>
+</section>
+
+<section class="section">
+  <h2><span class="accent">Boundary</span> Conditions & Resistance</h2>
+  <p>
+    Several forces resist LLMorphism:
+  </p>
+  <div class="grid-diff">
+    <div class="diff-item">
+      <h3>Salient Disanalogies</h3>
+      <p>When people attend to differences between humans and LLMs (embodiment, affect, accountability), analogical transfer weakens.</p>
+    </div>
+    <div class="diff-item">
+      <h3>Alternative Metaphors</h3>
+      <p>Essentialist, religious, or humanistic worldviews provide competing frameworks that reject the LLM metaphor outright.</p>
+    </div>
+    <div class="diff-item">
+      <h3>Professional Experience</h3>
+      <p>Caregiving roles (nursing, therapy, early childhood education) confront practitioners with aspects of human life that resist LLM-style description.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Future <span class="accent">Research</span> Directions</h2>
+  <p>
+    The paper proposes four potential dimensions of LLMorphism for future measurement:
+  </p>
+  <ul class="pathways">
+    <li><strong>Language generation:</strong> belief that thought/speech is next-token prediction</li>
+    <li><strong>Learning & creativity:</strong> belief that humans learn via statistical regularities and creativity is recombination</li>
+    <li><strong>Self-understanding:</strong> belief that introspection and explanation are post-hoc narratives</li>
+    <li><strong>Truth-seeking:</strong> belief that reasoning aims at plausibility, not truth</li>
+  </ul>
+  <p style="margin-top:1rem;">
+    Open questions: Does greater LLM exposure increase or decrease LLMorphism? Are there gender, education, or occupation effects? Can experimental manipulation of LLM exposure shift how people describe human cognition?
+  </p>
+</section>
+
+<div class="pull-quote">
+  "The public debate may be missing half of the problem: the issue is not only whether we are attributing too much mind to machines, but also whether we are beginning to attribute too little mind to humans."
+</div>
+
+<footer>
+  Paper by Valerio Capraro &middot; <a href="https://arxiv.org/abs/2605.05419" target="_blank">arXiv:2605.05419</a>
+</footer>
+
+</div>
+</body>
+</html>

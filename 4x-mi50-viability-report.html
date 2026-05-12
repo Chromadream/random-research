@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4x AMD Radeon Instinct MI50 for Home LLMs — Viability Report</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242838;
+    --border: #2e3348;
+    --text: #e2e4eb;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent2: #00b894;
+    --red: #e17055;
+    --amber: #fdcb6e;
+    --green: #00b894;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 2rem; font-weight: 700; letter-spacing:-0.02em; margin-bottom: 0.25rem; }
+  h1 span { color: var(--red); }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 2rem; border-bottom:1px solid var(--border); padding-bottom:1rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; color: var(--accent2); display:flex; align-items:center; gap:0.5rem; }
+  h2::before { content: '#'; opacity: 0.4; font-weight: 400; }
+  h3 { font-size: 1.05rem; margin: 1.25rem 0 0.5rem; color: var(--text); }
+  p { margin-bottom: 0.75rem; color: var(--text-dim); }
+  .verdict-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--amber);
+  }
+  .verdict-box.green { border-left-color: var(--green); }
+  .verdict-box.red { border-left-color: var(--red); }
+  .verdict-box h3 { margin-top: 0; color: var(--text); }
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .spec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .spec-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing:0.05em; color: var(--text-dim); }
+  .spec-card .value { font-size: 1.1rem; font-weight: 600; margin-top: 0.15rem; }
+  .spec-card .value.warn { color: var(--red); }
+  .spec-card .value.ok { color: var(--green); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  th, td {
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th { background: var(--surface); color: var(--text); font-weight: 600; }
+  td { color: var(--text-dim); }
+  tr:hover td { background: var(--surface); }
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag.green { background: rgba(0,184,148,0.15); color: var(--green); }
+  .tag.amber { background: rgba(253,203,110,0.15); color: var(--amber); }
+  .tag.red { background: rgba(225,112,85,0.15); color: var(--red); }
+  .tag.accent { background: rgba(108,92,231,0.2); color: var(--accent); }
+  ul, ol { margin: 0.5rem 0 0.75rem 1.25rem; color: var(--text-dim); }
+  li { margin-bottom: 0.3rem; }
+  strong { color: var(--text); }
+  .metric-bar { display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0; }
+  .metric-bar .bar { flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .metric-bar .fill { height: 100%; border-radius: 4px; }
+  .metric-bar .label { font-size: 0.85rem; min-width: 120px; }
+  .metric-bar .pct { font-size: 0.85rem; min-width: 40px; text-align: right; font-weight: 600; }
+  .deal-box {
+    background: linear-gradient(135deg, #1a2d1a, #1a1d27);
+    border: 1px solid #2e4a38;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  .deal-box .price { font-size: 2rem; font-weight: 700; color: var(--green); }
+  .deal-box .sub { color: var(--text-dim); font-size: 0.9rem; }
+  .key-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  @media (max-width: 640px) {
+    h1 { font-size: 1.5rem; }
+    .specs-grid { grid-template-columns: 1fr; }
+    .key-diagram { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>4x AMD Radeon Instinct MI50 <span>for Home LLMs</span></h1>
+<div class="subtitle">Comprehensive viability assessment (AU$300–400/ea from China) — May 2026</div>
+
+<!-- PRICE HIGHLIGHT -->
+<div class="deal-box">
+<div class="price">AU$1,200–1,600</div>
+<div class="sub">~US$800–1,080 for 4 cards — 128 GB total HBM2 (32 GB variant)</div>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box red">
+<h3>&#10060; Strong Not Recommended for LLMs</h3>
+<p>Despite the <strong>extremely tempting price</strong> (AU$300-400/card) and large total memory (128 GB with the 32 GB variant), the MI50 is <strong>fundamentally unsuited for modern LLM workloads</strong> due to two critical, unfixable issues: <strong>(1) No matrix/math units</strong> — it's a GCN 5.1 (Vega 20) architecture from 2018, predating CDNA entirely; and <strong>(2) Officially unsupported in ROCm 7.x</strong> — marked as ❌ in AMD's compatibility matrix, with no TensileLibrary files shipped for gfx906 since ROCm 6.4. This combination means you get the power draw of 4 datacenter GPUs with performance <em>worse than a single RTX 3060</em> for LLM inference.</p>
+</div>
+
+<h2>Hardware Specifications</h2>
+<div class="specs-grid">
+  <div class="spec-card"><div class="label">Architecture</div><div class="value warn">GCN 5.1 (Vega 20)</div></div>
+  <div class="spec-card"><div class="label">Matrix / Tensor Units</div><div class="value warn">NONE</div></div>
+  <div class="spec-card"><div class="label">Memory Options</div><div class="value">16 GB or 32 GB HBM2</div></div>
+  <div class="spec-card"><div class="label">Total (4x 32 GB)</div><div class="value ok">128 GB</div></div>
+  <div class="spec-card"><div class="label">Memory Bandwidth</div><div class="value">1.0 TB/s (HBM2)</div></div>
+  <div class="spec-card"><div class="label">Compute Units</div><div class="value warn">60 CUs</div></div>
+  <div class="spec-card"><div class="label">Stream Processors</div><div class="value">3,840</div></div>
+  <div class="spec-card"><div class="label">FP16 (boost)</div><div class="value">26.5 TFLOPS</div></div>
+  <div class="spec-card"><div class="label">FP32 (boost)</div><div class="value">13.3 TFLOPS</div></div>
+  <div class="spec-card"><div class="label">TDP per GPU</div><div class="value warn">300 W</div></div>
+  <div class="spec-card"><div class="label">Total TDP (4x)</div><div class="value warn">1,200 W</div></div>
+  <div class="spec-card"><div class="label">Has Display Output</div><div class="value ok">Yes (last Instinct with)</div></div>
+  <div class="spec-card"><div class="label">Form Factor</div><div class="value">Dual-slot, passive, PCIe 4.0</div></div>
+  <div class="spec-card"><div class="label">Launch Date</div><div class="value warn">Nov 2018</div></div>
+</div>
+
+<!-- KEY DIAGRAM -->
+<h2>The Fundamental Problem: No Matrix Units</h2>
+<p>This is the single most important thing to understand about the MI50 for LLMs:</p>
+<div class="key-diagram">
+MI100 (CDNA 1, 2020):    has Matrix Cores —&gt; fast GEMM —&gt; usable LLM inference
+                              ^^^^^^^^^^
+MI50 (GCN 5.1, 2018):    NO Matrix Cores —&gt; shader GEMM —&gt; 5-10x SLOWER
+
+LLM inference is ~95% matrix-multiply (GEMM). Without dedicated matrix units:
+
+  Llama-3-8B @ Q4 on 4x MI50:  ~2-4 t/s  (worse than a laptop)
+  Llama-3-8B @ Q4 on 1x MI100: ~70 t/s
+  Llama-3-8B @ Q4 on 1x RTX 3060: ~50 t/s
+
+You are paying for 1200W of datacenter hardware to get &lt;1/10th the performance
+of a $200 consumer GPU. The VRAM is there — but the compute isn't.
+</div>
+
+<h2>ROCm Support Crisis</h2>
+<p>The MI50's software situation is dire:</p>
+<table>
+<tr><th>Aspect</th><th>Status</th><th>Detail</th></tr>
+<tr><td>ROCm 7.x Official Support</td><td><span class="tag red">NOT SUPPORTED</span></td><td>MI50 marked as ❌ in ROCm compatibility matrix. Current ROCm does not ship prebuilt binaries for gfx906.</td></tr>
+<tr><td>ROCm 6.x Support</td><td><span class="tag red">BROKEN</span></td><td>ROCm 6.4.0+ does not ship TensileLibrary files for gfx906 — rocBLAS GEMM kernels are missing. Open issue #4625.</td></tr>
+<tr><td>ROCm 5.x Support</td><td><span class="tag amber">Last Working</span></td><td>ROCm 5.7.x was the last version with functional gfx906 support. Many workarounds needed.</td></tr>
+<tr><td>Feature Request for Support</td><td><span class="tag red">OPEN SINCE AUG 2025</span></td><td>Issue #5215: "Add support for Instinct MI50/MI60 (gfx906)" — still open with no resolution.</td></tr>
+<tr><td>PyTorch + ROCm</td><td><span class="tag red">Broken</span></td><td>Users report segfaults, "invalid device function" errors, and HIP runtime failures.</td></tr>
+<tr><td>llama.cpp HIP</td><td><span class="tag red">Unusable</span></td><td>Requires `HSA_OVERRIDE_GFX_VERSION=9.0.6` hack. rocBLAS backend broken due to missing TensileLibrary.</td></tr>
+<tr><td>HSA Override Workaround</td><td><span class="tag amber">Partial</span></td><td>Forcing gfx906 to masquerade as gfx900 works for basic ops but lacks optimized kernels.</td></tr>
+</table>
+
+<h2>Model Capacity vs Reality</h2>
+<p>The MI50 <strong>can technically fit</strong> large models in its 128 GB total memory, but the performance makes it impractical:</p>
+<table>
+<tr><th>Model</th><th>Quant</th><th>Fits?</th><th>Estimated t/s (4x MI50)</th><th>For comparison: 1x RTX 4090</th></tr>
+<tr><td>Llama-3-8B</td><td>Q4_K_M</td><td><span class="tag green">Yes</span></td><td><strong>2-4 t/s</strong></td><td>~120 t/s</td></tr>
+<tr><td>Qwen 2.5-32B</td><td>Q4_K_M</td><td><span class="tag green">Yes</span></td><td><strong>~0.5-1 t/s</strong></td><td>~35 t/s</td></tr>
+<tr><td>Llama-3-70B</td><td>Q4_K_M</td><td><span class="tag green">Yes (barely)</span></td><td><strong>&lt;0.5 t/s</strong></td><td>Doesn't fit</td></tr>
+<tr><td>Command R+ (104B)</td><td>Q3_K_M</td><td><span class="tag green">Yes</span></td><td><strong>&lt;0.2 t/s</strong></td><td>Doesn't fit</td></tr>
+</table>
+<p>Anything below ~5 t/s is frustrating for interactive use. Below 1 t/s is unusable. The 70B model would take <strong>minutes per token</strong> — a single sentence could take an hour.</p>
+
+<h2>Why It's So Slow (Technical Deep-Dive)</h2>
+<p>LLM inference performance is dominated by <strong>matrix-vector (GEMV) and matrix-matrix (GEMM) operations</strong>. The MI50 has:</p>
+<ul>
+  <li><strong>No matrix acceleration hardware</strong> — Every multiply must go through the general-purpose shaders (SIMDs). This is like doing matrix math on a CPU.</li>
+  <li><strong>60 CUs</strong> — vs 120 on MI100, vs 144 on RTX 4090. Half the compute units.</li>
+  <li><strong>1.0 TB/s memory bandwidth</strong> — vs 1.2 TB/s on MI100, vs 1.0 TB/s on RTX 4090. Bandwidth is the primary bottleneck for inference, and the MI50 doesn't even win here.</li>
+  <li><strong>GCN architecture</strong> — Vega 20 was designed in 2017-2018 for HPC (FP64-heavy), not AI. The wavefront size is 64 (vs 32 on RDNA/NVIDIA), which is less efficient for LLM workloads.</li>
+  <li><strong>No FP16 native throughput advantage</strong> — Unlike CDNA cards, the MI50 doesn't have dedicated FP16 matrix pipes. FP16 operations go through the same shaders as FP32 but at half-rate.</li>
+</ul>
+
+<p><strong>The net effect:</strong> For LLM inference, 4x MI50 (1200W total) performs roughly <strong>equivalent to a single RTX 2060 (160W)</strong>. The VRAM lets you load the model, but you can't do anything useful with it.</p>
+
+<h2>Deployment Considerations</h2>
+
+<h3>Hardware Requirements</h3>
+<ul>
+  <li><strong>Motherboard:</strong> Server board with 4+ PCIe 4.0 x16 slots at dual-slot spacing. Same as MI100.</li>
+  <li><strong>Chassis:</strong> Must support passive cooling with high static-pressure airflow. 4U server or open-air mining frame.</li>
+  <li><strong>PSU:</strong> Minimum 1600W titanium. 4x 300W + system = ~1500W under load.</li>
+  <li><strong>CPU:</strong> Any modern CPU with PCIe atomics support.</li>
+  <li><strong>One upside:</strong> MI50 has display outputs. You can use one card as a primary GPU if needed.</li>
+</ul>
+
+<h3>Power &amp; Heat</h3>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Idle power (system + 4 GPUs)</td><td>~400-500 W</td></tr>
+<tr><td>Load power (system + 4 GPUs)</td><td>~1,400-1,600 W</td></tr>
+<tr><td>Heat output (load)</td><td>~5,100-5,500 BTU/hr</td></tr>
+<tr><td>Monthly cost at AU$0.30/kWh (24h load)</td><td>~AU$310-380/month</td></tr>
+<tr><td>Monthly cost at AU$0.25/kWh (8h/day)</td><td>~AU$90-110/month</td></tr>
+</table>
+
+<h2>Cost Comparison</h2>
+<table>
+<tr><th>Config</th><th>Total VRAM</th><th>Cost</th><th>LLM t/s (70B Q4)</th><th>t/s per dollar</th></tr>
+<tr>
+  <td>4x MI50 (32 GB)</td>
+  <td>128 GB</td>
+  <td><strong>AU$1,200-1,600</strong></td>
+  <td><span class="tag red">&lt;0.5 t/s</span></td>
+  <td>0.0003</td>
+</tr>
+<tr>
+  <td>4x MI100</td>
+  <td>128 GB</td>
+  <td>~AU$5,500-9,500</td>
+  <td><span class="tag amber">15-20 t/s</span></td>
+  <td>0.003</td>
+</tr>
+<tr>
+  <td>1x RTX 3090 used</td>
+  <td>24 GB</td>
+  <td>~AU$1,500-2,000</td>
+  <td>Doesn't fit</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>4x RTX 3090</td>
+  <td>96 GB</td>
+  <td>~AU$6,000-8,000</td>
+  <td><span class="tag green">20-30 t/s</span></td>
+  <td>0.004</td>
+</tr>
+<tr>
+  <td>1x RTX 4090</td>
+  <td>24 GB</td>
+  <td>~AU$3,000-4,000</td>
+  <td>Doesn't fit</td>
+  <td>N/A</td>
+</tr>
+<tr>
+  <td>Apple M2 Ultra (192 GB)</td>
+  <td>192 GB UMA</td>
+  <td>~AU$9,000-12,000</td>
+  <td><span class="tag amber">3-5 t/s</span></td>
+  <td>0.0004</td>
+</tr>
+</table>
+
+<h2>Overall Assessment by Category</h2>
+<div class="metric-bar"><span class="label">Value per Dollar (VRAM)</span><div class="bar"><div class="fill" style="width:95%;background:var(--red)"></div></div><span class="pct">95%</span></div>
+<div class="metric-bar"><span class="label">Inference Performance</span><div class="bar"><div class="fill red" style="width:5%"></div></div><span class="pct">5%</span></div>
+<div class="metric-bar"><span class="label">Training Performance</span><div class="bar"><div class="fill red" style="width:2%"></div></div><span class="pct">2%</span></div>
+<div class="metric-bar"><span class="label">ROCm Software Maturity</span><div class="bar"><div class="fill red" style="width:10%"></div></div><span class="pct">10%</span></div>
+<div class="metric-bar"><span class="label">Ease of Setup</span><div class="bar"><div class="fill red" style="width:15%"></div></div><span class="pct">15%</span></div>
+<div class="metric-bar"><span class="label">Noise / Heat / Practicality</span><div class="bar"><div class="fill red" style="width:20%"></div></div><span class="pct">20%</span></div>
+<div class="metric-bar"><span class="label">Community &amp; Ecosystem</span><div class="bar"><div class="fill red" style="width:10%"></div></div><span class="pct">10%</span></div>
+
+<h2>What CAN You Actually Do With 4x MI50?</h2>
+<p>Not all is lost. The MI50 has genuine strengths — just not for LLMs:</p>
+<ul>
+  <li><strong>FP64 HPC workloads:</strong> 6.6 TFLOPS FP64 per card (1/2 rate, excellent for AMD). 4x MI50 = ~26 TFLOPS FP64. Great for scientific computing, molecular dynamics, climate simulation.</li>
+  <li><strong>Rendering / 3D:</strong> Unlike all later Instinct cards, MI50 has full display and rendering hardware. Can function as a GPU for Blender, game development, etc.</li>
+  <li><strong>Traditional ML (pre-transformer):</strong> Random forests, SVM, some CNN inference (torchvision models) will work adequately.</li>
+  <li><strong>Blockchain / mining:</strong> Historically decent at Ethash (though irrelevant post-merge).</li>
+  <li><strong>Media encoding/decoding:</strong> Built-in VCN for video transcoding.</li>
+  <li><strong>Experimenting with ROCm:</strong> If you enjoy kernel debugging and contributing to open-source GPU compute.</li>
+</ul>
+
+<h2>What About the MI60?</h2>
+<p>The MI60 is architecturally identical to the MI50 but with:</p>
+<ul>
+  <li><strong>64 CUs</strong> vs MI50's 60 (fully enabled Vega 20 die)</li>
+  <li>32 GB HBM2 standard (no 16 GB variant)</li>
+  <li>Slightly higher clocks (+75 MHz base, +75 MHz boost)</li>
+  <li><strong>Same no-matrix-units problem</strong></li>
+  <li><strong>Same ROCm unsupported status</strong></li>
+  <li>If you can get MI60s for a similar price, they're marginally better — but the fundamental LLM limitations remain identical.</li>
+</ul>
+
+<h2>Recommendations</h2>
+
+<div class="verdict-box green">
+<h3>&#10003; Buy 4x MI50 If...</h3>
+<ul>
+  <li>You need <strong>massive FP64 compute</strong> for <strong>scientific HPC workloads</strong> on a budget</li>
+  <li>You need a <strong>display-capable compute GPU</strong> for a workstation</li>
+  <li>You want to <strong>contribute to open-source GPU driver/ROCm development</strong></li>
+  <li>You have a specific non-LLM workload that benefits from 128 GB HBM2 + high FP64</li>
+  <li>You're building a <strong>homelab server</strong> for general GPU compute experimentation</li>
+</ul>
+</div>
+
+<div class="verdict-box red">
+<h3>&#10007; DO NOT Buy 4x MI50 If...</h3>
+<ul>
+  <li><strong>You want to run LLMs.</strong> Full stop. The price is a trap — the hardware is simply the wrong architecture.</li>
+  <li>You want a <strong>plug-and-play experience</strong> — ROCm support is officially dropped</li>
+  <li>You need <strong>any modern AI feature</strong> (Flash Attention, FP8, GPTQ/AWQ quantization, etc.)</li>
+  <li>You value your time — expect <strong>weeks of debugging</strong> to get anything working</li>
+  <li>You want to <strong>fine-tune</strong> models — even QLoRA will be unusably slow</li>
+</ul>
+</div>
+
+<h2>Better Uses for Your Money</h2>
+<table>
+<tr><th>Option</th><th>Cost (AU$)</th><th>LLM Capability</th></tr>
+<tr><td>AU$1,200-1,600 on 4x MI50</td><td>AU$1,200-1,600</td><td><span class="tag red">Essentially unusable</span></td></tr>
+<tr><td>AU$1,200-1,600 on cloud compute</td><td>Same budget</td><td>~300+ hours of A100-80G rental on runpod/lambda</td></tr>
+<tr><td>Save for 1x used RTX 3090</td><td>AU$1,500-2,000</td><td>Great for 7B-13B models, fits 34B at Q3</td></tr>
+<tr><td>AU$1,200 on Apple Mac Mini M4 Pro (24 GB)</td><td>~AU$2,400</td><td>Usable 7B-13B inference, silent, 20W</td></tr>
+<tr><td>AU$1,200 + save for 2nd RTX 3090</td><td>~AU$3,000-4,000</td><td>48 GB total, excellent for 70B @ Q3</td></tr>
+<tr><td>AU$1,200 as downpayment on 4x MI100</td><td>~AU$5,500-9,500</td><td>128 GB + usable performance</td></tr>
+</table>
+
+<div class="verdict-box" style="border-left-color: var(--accent);">
+<h3>Bottom Line</h3>
+<p>The 4x MI50 at AU$300–400/ea is a <strong>textbook case of "too good to be true."</strong> The headline spec (128 GB HBM2 for ~AU$1,400) seems incredible, but the architecture was never designed for LLMs. It lacks the matrix compute units that every modern AI workload depends on, and AMD has officially abandoned it in ROCm. For LLMs specifically, a <strong>single used RTX 3090 will outperform all 4 MI50s combined</strong> while using 1/5th the power and fitting in a normal PC case. The MI50 makes sense only for FP64 HPC or as a ROCm experimentation platform — <strong>not for running language models.</strong></p>
+</div>
+
+<h2>Resources</h2>
+<ul>
+  <li><strong>ROCm GPU Support Matrix:</strong> <a href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html" style="color:var(--accent)">system-requirements.html</a> (MI50 shown as ❌)</li>
+  <li><strong>Feature Request for MI50/MI60 Support:</strong> <a href="https://github.com/ROCm/ROCm/issues/5215" style="color:var(--accent)">ROCm Issue #5215</a></li>
+  <li><strong>Missing TensileLibrary for gfx906:</strong> <a href="https://github.com/ROCm/ROCm/issues/4625" style="color:var(--accent)">ROCm Issue #4625</a></li>
+  <li><strong>MI50 ROCm bug reports:</strong> <a href="https://github.com/ROCm/ROCm/issues?q=is%3Aissue+MI50" style="color:var(--accent)">github.com/ROCm/ROCm/issues?q=MI50</a></li>
+  <li><strong>llama.cpp HIP issues (MI50/60 related):</strong> <a href="https://github.com/ggerganov/llama.cpp/issues?q=is%3Aissue+mi50" style="color:var(--accent)">llama.cpp issues</a></li>
+  <li><strong>AMD Instinct Wikipedia:</strong> <a href="https://en.wikipedia.org/wiki/AMD_Instinct#MI50,_MI60" style="color:var(--accent)">MI50/MI60 section</a></li>
+  <li><strong>Previous report — 4x MI100:</strong> <a href="4x-mi100-viability-report.html" style="color:var(--accent)">4x-mi100-viability-report.html</a></li>
+</ul>
+
+</div>
+</body>
+</html>

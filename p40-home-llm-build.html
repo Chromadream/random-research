@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4× NVIDIA P40 Home LLM Inference Build Guide</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d2991d;
+    --red: #f85149;
+    --purple: #a371f7;
+    --code-bg: #0d1117;
+    --inline-code: #d2a8ff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  h1, h2, h3, h4 { color: var(--text); line-height: 1.25; }
+  h1 { font-size: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin: 2rem 0 1rem; }
+  h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; color: var(--accent); }
+  h4 { font-size: 1rem; margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text); margin: 0.5rem 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  strong { color: var(--text); }
+  ul, ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+  li { margin: 0.25rem 0; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; border: 1px solid var(--border); }
+  th { background: var(--surface); font-weight: 600; }
+  tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+  /* Code blocks */
+  pre { position: relative; margin: 1rem 0; border-radius: 6px; overflow: hidden; background: var(--code-bg); border: 1px solid var(--border); }
+  pre code { display: block; padding: 1rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace; }
+  code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace; font-size: 0.9em; }
+  :not(pre) > code { color: var(--inline-code); background: rgba(210,168,255,0.1); padding: 0.1em 0.35em; border-radius: 3px; }
+
+  /* Syntax highlighting */
+  .kw { color: #ff7b72; }
+  .st { color: #a5d6ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .fn { color: #d2a8ff; }
+  .nu { color: #79c0ff; }
+  .op { color: #ff7b72; }
+  .va { color: #79c0ff; }
+  .ty { color: #d2a8ff; }
+  .co { color: #8b949e; }
+  .re { color: #ff7b72; }
+  .im { color: #ff7b72; }
+
+  /* Cards / callouts */
+  .callout {
+    border-left: 4px solid var(--accent);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: rgba(88,166,255,0.08);
+    border-radius: 0 6px 6px 0;
+  }
+  .callout.warn { border-color: var(--orange); background: rgba(210,153,29,0.08); }
+  .callout.success { border-color: var(--green); background: rgba(63,185,80,0.08); }
+  .callout.danger { border-color: var(--red); background: rgba(248,81,73,0.08); }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 0.3em;
+  }
+  .badge.green { background: rgba(63,185,80,0.2); color: var(--green); }
+  .badge.orange { background: rgba(210,153,29,0.2); color: var(--orange); }
+  .badge.red { background: rgba(248,81,73,0.2); color: var(--red); }
+  .badge.purple { background: rgba(163,113,247,0.2); color: var(--purple); }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+  .toc summary { font-weight: 600; cursor: pointer; color: var(--accent); }
+  .toc ul { margin-top: 0.5rem; }
+  .toc li { list-style-type: none; }
+
+  /* GPU grid */
+  .gpu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .gpu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .gpu-card h4 { margin-top: 0; }
+
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<h1>4× NVIDIA Tesla P40 — Home LLM Inference System</h1>
+<p>
+  <strong>Goal:</strong> Build a sub-$1,500 home server with 96 GB combined VRAM for serving
+  large language models to 2+ concurrent users on a home network, supporting MoE partial-expert
+  loading and streaming of models exceeding total VRAM.
+</p>
+
+<details class="toc" open>
+  <summary>Table of Contents</summary>
+  <ul>
+    <li><a href="#gpu-deep-dive">1. NVIDIA Tesla P40 Deep Dive</a></li>
+    <li><a href="#platform-selection">2. Platform &amp; Motherboard Selection</a></li>
+    <li><a href="#cooling">3. Cooling the Passive P40s</a></li>
+    <li><a href="#step-by-step">4. Step-by-Step Build Guide</a></li>
+    <li><a href="#pascal-pkgs-ci">5. pascal-pkgs-ci — vLLM &amp; Triton for Pascal</a></li>
+    <li><a href="#software-stack">6. Software Stack Decision Matrix</a></li>
+    <li><a href="#quantization">7. Quantization &amp; Model Fitting Strategy</a></li>
+    <li><a href="#moe">8. MoE Partial Expert Offloading</a></li>
+    <li><a href="#multi-user">9. Multi-User Concurrent Serving</a></li>
+    <li><a href="#streaming">10. Streaming Models Larger Than VRAM</a></li>
+    <li><a href="#putting-it-together">11. Full Deployment Recipes</a></li>
+    <li><a href="#performance">12. Expected Performance</a></li>
+    <li><a href="#monitoring">13. Monitoring &amp; Maintenance</a></li>
+  </ul>
+</details>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 1 ============= -->
+<h2 id="gpu-deep-dive">1. NVIDIA Tesla P40 Deep Dive</h2>
+
+<div class="gpu-grid">
+  <div class="gpu-card">
+    <h4>Specifications</h4>
+    <table>
+      <tr><td><strong>Architecture</strong></td><td>Pascal GP102</td></tr>
+      <tr><td><strong>Compute Capability</strong></td><td>6.1</td></tr>
+      <tr><td><strong>VRAM</strong></td><td>24 GB GDDR5</td></tr>
+      <tr><td><strong>Memory Bandwidth</strong></td><td>~347 GB/s</td></tr>
+      <tr><td><strong>CUDA Cores</strong></td><td>3,840</td></tr>
+      <tr><td><strong>TDP</strong></td><td>250 W (passive)</td></tr>
+      <tr><td><strong>INT8 TOPS</strong></td><td>47 TOPS</td></tr>
+      <tr><td><strong>FP32</strong></td><td>~12 TFLOPS</td></tr>
+      <tr><td><strong>FP16</strong></td><td>~188 GFLOPS (no tensor cores)</td></tr>
+      <tr><td><strong>NVLink</strong></td><td>None</td></tr>
+      <tr><td><strong>PCIe</strong></td><td>3.0 ×16</td></tr>
+      <tr><td><strong>Power Connector</strong></td><td>8-pin EPS 12V</td></tr>
+      <tr><td><strong>Used Price</strong></td><td>~$150–200/ea</td></tr>
+    </table>
+  </div>
+  <div class="gpu-card">
+    <h4>Critical Limitations</h4>
+    <ul>
+      <li><span class="badge red">NO TENSOR CORES</span> — Pascal predates Volta. FP16 is <em>not</em> accelerated.</li>
+      <li><span class="badge orange">CC 6.1</span> — Official vLLM &amp; many modern frameworks require CC ≥ 7.0. <strong>But</strong> <code>pascal-pkgs-ci</code> backports vLLM + Triton to Pascal (see Section 5).</li>
+      <li><span class="badge orange">PASSIVE</span> — No fan; <strong>requires</strong> custom cooling in a non-server chassis.</li>
+      <li><span class="badge orange">GDDR5</span> — Slower than HBM2 in V100/P100.</li>
+      <li><span class="badge green">96 GB VRAM</span> — Combined 4× is excellent for quantized models.</li>
+      <li><span class="badge green">INT8</span> — 47 TOPS is very usable for quantized inference.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout success">
+  <strong>Framework compatibility:</strong> While official vLLM requires CC ≥ 7.0, the community project <a href="https://github.com/sasha0552/pascal-pkgs-ci"><strong>pascal-pkgs-ci</strong></a> backports vLLM (up to v0.10.0+), Triton (up to v3.4.0), and aphrodite-engine to Pascal SM 6.1. This gives you access to PagedAttention, continuous batching, prefix caching, FP8 KV cache, tensor/pipeline/expert parallelism, and the full OpenAI-compatible API — all on P40s. With this, your software options expand dramatically beyond llama.cpp alone.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 2 ============= -->
+<h2 id="platform-selection">2. Platform &amp; Motherboard Selection</h2>
+
+<h3>The Core Constraint: PCIe Lanes</h3>
+<p>
+  Each P40 wants PCIe 3.0 ×16 (electrically). For four cards you need <strong>64 PCIe lanes minimum</strong>
+  plus lanes for NVMe storage and chipset I/O. This rules out all consumer desktop platforms
+  (LGA 1700, AM5, etc.) which top out at 20–28 CPU lanes.
+</p>
+
+<h3>Recommended Platforms</h3>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>PCIe Lanes</th>
+      <th>Typical CPU</th>
+      <th>Motherboard Example</th>
+      <th>Approx. Cost (Used)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Dual Xeon E5 v3/v4</strong><br><span class="badge green">BEST VALUE</span></td>
+      <td>80 (40+40)</td>
+      <td>2× E5-2680 v4 (14c/28t, 2.4 GHz)</td>
+      <td>Supermicro X10DRi / X10DRG-Q</td>
+      <td>$250–400</td>
+      <td>DDR4 ECC RDIMM. Plentiful on eBay. 7 PCIe ×16 slots.</td>
+    </tr>
+    <tr>
+      <td><strong>Single EPYC 7002</strong><br><span class="badge purple">MODERN</span></td>
+      <td>128</td>
+      <td>EPYC 7302P (16c/32t, 3.0 GHz)</td>
+      <td>Supermicro H11SSL-i</td>
+      <td>$500–700</td>
+      <td>DDR4 ECC RDIMM. Better single-thread. PCIe 4.0 (P40 is 3.0).</td>
+    </tr>
+    <tr>
+      <td><strong>Dual Xeon Scalable v1</strong></td>
+      <td>96 (48+48)</td>
+      <td>2× Xeon Gold 6130</td>
+      <td>Supermicro X11DPi-NT</td>
+      <td>$500–800</td>
+      <td>DDR4 ECC. PCIe 3.0. Modern platform.</td>
+    </tr>
+    <tr>
+      <td><strong>Threadripper 1st/2nd Gen</strong></td>
+      <td>60–64</td>
+      <td>TR 1920X / 2950X</td>
+      <td>ASRock X399 Taichi</td>
+      <td>$400–600</td>
+      <td>Consumer DDR4. Four ×16 slots. High single-thread perf.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout success">
+  <strong>Recommended budget pick:</strong> Dual Xeon E5-2680 v4 on a Supermicro X10DRi. $80 CPUs, $150 motherboard, $60 for 64 GB DDR4 ECC. Leaves budget for cooling and power supply.
+</div>
+
+<h3>Power Supply</h3>
+<p>
+  4× P40 at 250W = 1,000W for GPUs alone. Add 200W for CPU + motherboard + fans.
+  <strong>Minimum 1,500W PSU</strong> recommended. Look for:
+</p>
+<ul>
+  <li><strong>EVGA SuperNOVA 1600 T2</strong> — 1600W, fully modular, plenty of PCIe 8-pin.</li>
+  <li><strong>Corsair AX1600i</strong> — Titanium efficiency, digital monitoring.</li>
+  <li><strong>Supermicro PWS-1K62A-1R</strong> — If using a Supermicro chassis with redundant PSU.</li>
+</ul>
+
+<div class="callout warn">
+  <strong>EPS 12V adapter needed:</strong> P40s use an 8-pin <em>EPS</em> connector (CPU-power type), not PCIe 8-pin. Buy <strong>dual PCIe 6+2 to EPS 8-pin</strong> adapter cables. Do NOT force a PCIe 8-pin into the EPS socket — the pinout is different.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 3 ============= -->
+<h2 id="cooling">3. Cooling the Passive P40s</h2>
+
+<p>
+  The Tesla P40 has <strong>no active fan</strong>. In a data center, chassis fans handle cooling. In a
+  home build you must add forced airflow.
+</p>
+
+<h3>Option A: 3D-Printed Shroud + High-RPM Fan (Recommended)</h3>
+<pre><code><span class="cm"># STL files available on Printables/Thingiverse — search "Tesla P40 fan shroud"</span>
+<span class="cm"># Fan: 2× 40mm server fans (Delta EFB0412VHD or similar, 15,000+ RPM)</span>
+<span class="cm"># Connect via motherboard fan header with PWM control</span>
+<span class="cm"># Total cost per GPU: ~$15 for shroud + $10 for fans</span></code></pre>
+
+<h3>Option B: Mining Rig Open-Air Frame</h3>
+<p>
+  Mount GPUs on an open-air mining frame with a high-CFM box fan or a rack of 120mm fans
+  blowing across all four cards. Effective but loud.
+</p>
+
+<h3>Option C: 4U Server Chassis</h3>
+<p>
+  A Rosewill RSV-L4500U or Supermicro 846 chassis with internal 80mm fan wall.
+  These chassis are designed for passive GPUs with high-static-pressure mid-wall fans.
+  Approx. $150–250 used.
+</p>
+
+<div class="callout danger">
+  <strong>Never run a P40 without active cooling.</strong> It will thermal-throttle at ~85°C and may shut down. Hardware damage is possible.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 4 ============= -->
+<h2 id="step-by-step">4. Step-by-Step Build Guide</h2>
+
+<h3>4.1 Hardware Shopping List</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component</th><th>Recommendation</th><th>Est. Cost</th></tr></thead>
+  <tbody>
+    <tr><td>GPUs (4×)</td><td>NVIDIA Tesla P40 24GB</td><td>$600–800</td></tr>
+    <tr><td>Motherboard</td><td>Supermicro X10DRi (dual LGA 2011-3)</td><td>$120–180</td></tr>
+    <tr><td>CPUs (2×)</td><td>Intel Xeon E5-2680 v4</td><td>$60–80</td></tr>
+    <tr><td>CPU Coolers (2×)</td><td>Noctua NH-U12DX i4 or Supermicro 4U active</td><td>$80–100</td></tr>
+    <tr><td>RAM</td><td>8× 16GB DDR4 ECC RDIMM 2400 (128 GB total)</td><td>$100–140</td></tr>
+    <tr><td>PSU</td><td>EVGA SuperNOVA 1600 T2 or equivalent 1500W+</td><td>$200–300</td></tr>
+    <tr><td>Storage</td><td>1TB NVMe SSD (Samsung 970 EVO or similar)</td><td>$60–80</td></tr>
+    <tr><td>Chassis</td><td>Rosewill RSV-L4500U 4U or open-air frame</td><td>$100–200</td></tr>
+    <tr><td>GPU Cooling</td><td>3D-printed shrouds + 40mm fans (×8)</td><td>$60–100</td></tr>
+    <tr><td>EPS Adapters</td><td>PCIe 6+2 to EPS 8-pin (×4)</td><td>$30</td></tr>
+    <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$1,410–1,960</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.2 OS Installation</h3>
+<pre><code><span class="cm"># Install Ubuntu Server 24.04 LTS (headless)</span>
+<span class="cm"># After base install:</span>
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential cmake git nvidia-driver-550
+
+<span class="cm"># Verify GPUs:</span>
+nvidia-smi
+<span class="cm"># Should show 4× Tesla P40, each 24 GB</span>
+
+<span class="cm"># Persistenced mode (prevent driver unloading between operations):</span>
+sudo nvidia-persistenced --user nvidia-persistenced
+sudo systemctl enable nvidia-persistenced
+
+<span class="cm"># Set persistence mode on all GPUs:</span>
+nvidia-smi -pm 1</code></pre>
+
+<h3>4.3 BIOS Settings Checklist</h3>
+<ul>
+  <li>Enable <strong>Above 4G Decoding</strong> (critical for multi-GPU)</li>
+  <li>Set PCIe speed to <strong>Gen3</strong> (not Auto — some boards negotiate poorly)</li>
+  <li>Disable CSM / enable UEFI boot</li>
+  <li>Disable IOMMU / VT-d if experiencing stability issues</li>
+  <li>Ensure all 4 GPU slots are active (some boards disable slots when M.2 is populated)</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 5 (NEW) ============= -->
+<h2 id="pascal-pkgs-ci">5. pascal-pkgs-ci — vLLM &amp; Triton Backported to Pascal</h2>
+
+<p>
+  <a href="https://github.com/sasha0552/pascal-pkgs-ci"><strong>sasha0552/pascal-pkgs-ci</strong></a>
+  (195 ★, 32 forks) is a community CI pipeline that rebuilds vLLM and Triton with Pascal SM 6.1
+  compatibility. It patches the CUDA architecture checks to accept <code>sm_61</code> (and sm_60 for P100),
+  providing prebuilt wheels and Docker images.
+</p>
+
+<h3>What's Available</h3>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Package</th><th>Versions</th><th>Install As</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>vLLM</strong></td>
+      <td>0.5.5 → 0.10.0 + nightly (daily builds from main)</td>
+      <td><code>vllm-pascal</code></td>
+    </tr>
+    <tr>
+      <td><strong>Triton</strong></td>
+      <td>2.2.0 → 3.4.0</td>
+      <td><code>triton-pascal</code></td>
+    </tr>
+    <tr>
+      <td><strong>Aphrodite Engine</strong></td>
+      <td>Supported via extra-index</td>
+      <td><code>aphrodite-engine</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <strong>Caveat (v0.7.0+):</strong> Pascal builds are <strong>Pascal-only</strong> — they strip non-Pascal GPU architectures to reduce binary size. For a heterogeneous cluster, use the official vLLM for non-Pascal GPUs and <code>vllm-pascal</code> for Pascal GPUs, connecting them via tensor or pipeline parallelism.
+</div>
+
+<h3>Docker Deployment (Recommended)</h3>
+<pre><code><span class="cm"># Pull the Pascal-compatible vLLM image</span>
+docker pull ghcr.io/sasha0552/vllm:v0.10.0
+
+<span class="cm"># Run with 4 GPUs (tensor parallel across 4 P40s)</span>
+docker run --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Mixtral-8x22B-Instruct-v0.1 \
+  --tensor-parallel-size 4 \
+  --dtype float16 \
+  --max-model-len 16384 \
+  --gpu-memory-utilization 0.90
+
+<span class="cm"># Test with curl:</span>
+<span class="kw">curl</span> http://localhost:8000/v1/chat/completions \
+  -H <span class="st">"Content-Type: application/json"</span> \
+  -d <span class="st">'{"model":"mixtral","messages":[{"role":"user","content":"Hello"}]}'</span></code></pre>
+
+<h3>Manual pip Installation</h3>
+
+<pre><code><span class="cm"># 1. Add the Pascal package index</span>
+<span class="kw">export</span> <span class="va">PIP_EXTRA_INDEX_URL</span>=<span class="st">"https://sasha0552.github.io/pascal-pkgs-ci/"</span>
+
+<span class="cm"># 2. Create and activate a virtual environment</span>
+python -m venv vllm-pascal-env
+<span class="kw">source</span> vllm-pascal-env/bin/activate
+
+<span class="cm"># 3. Install vLLM for Pascal</span>
+pip install vllm-pascal==0.10.0   <span class="cm"># omit version for nightly</span>
+
+<span class="cm"># 4. Install transient-package (handles triton→triton-pascal swap)</span>
+pipx install transient-package
+
+<span class="cm"># 5. Swap in the Pascal-compatible Triton</span>
+transient-package install \
+  --interpreter vllm-pascal-env/bin/python \
+  --source triton \
+  --target triton-pascal
+
+<span class="cm"># 6. Patch PyTorch's scheduler to accept SM 6.x</span>
+sed -e <span class="st">"s/.major &lt; 7/.major &lt; 6/g"</span> \
+    -e <span class="st">"s/.major &gt;= 7/.major &gt;= 6/g"</span> \
+    -i vllm-pascal-env/lib/python3.*/site-packages/torch/_inductor/scheduler.py \
+       vllm-pascal-env/lib/python3.*/site-packages/torch/utils/_triton.py
+
+<span class="cm"># 7. Launch!</span>
+vllm serve /models/Mixtral-8x22B-Instruct-v0.1 \
+  --tensor-parallel-size 4 \
+  --dtype float16 \
+  --max-model-len 16384</code></pre>
+
+<h3>What This Unlocks for P40s</h3>
+
+<div class="gpu-grid">
+  <div class="gpu-card">
+    <h4>vLLM Features on P40</h4>
+    <ul>
+      <li><span class="badge green">PagedAttention</span> — efficient KV cache management</li>
+      <li><span class="badge green">Continuous Batching</span> — interleave requests from multiple users</li>
+      <li><span class="badge green">Prefix Caching</span> — reuse KV cache for repeated prompts</li>
+      <li><span class="badge green">Tensor Parallelism</span> — split layers across 4 GPUs</li>
+      <li><span class="badge green">Pipeline Parallelism</span> — distribute across GPUs with slow interconnects</li>
+      <li><span class="badge green">Expert Parallelism</span> — MoE expert distribution across GPUs</li>
+      <li><span class="badge green">OpenAI-compatible API</span> — drop-in replacement</li>
+      <li><span class="badge orange">FP8 KV Cache</span> — depends on model support</li>
+    </ul>
+  </div>
+  <div class="gpu-card">
+    <h4>GPUs with Pascal</h4>
+    <ul>
+      <li><strong>Tesla P40</strong> — 24 GB (the focus of this guide)</li>
+      <li><strong>Tesla P100</strong> — 16 GB HBM2 (faster, less VRAM)</li>
+      <li><strong>Quadro GP100</strong> — 16 GB HBM2</li>
+      <li><strong>Titan Xp</strong> — 12 GB</li>
+      <li><strong>GTX 1080 Ti</strong> — 11 GB</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <strong>Pascal Triton performance note:</strong> Triton kernels on Pascal (SM 6.1) lack the hardware
+  features of Volta+ — specifically, no tensor cores, no FP16 matrix multiply acceleration,
+  and limited shared memory. Triton kernels <em>work</em> but won't match Volta+ speed.
+  For pure INT8 quantized inference, llama.cpp may still be faster. For FP16 models,
+  vllm-pascal + PagedAttention is the best option.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 6 ============= -->
+<h2 id="software-stack">6. Software Stack Decision Matrix</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Engine</th>
+      <th>P40 Compatible?</th>
+      <th>Multi-GPU</th>
+      <th>Multi-User</th>
+      <th>MoE Support</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>llama.cpp</strong></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge orange">Partial</span></td>
+      <td>Primary engine — GGUF quantized models, layer splitting across GPUs</td>
+    </tr>
+    <tr>
+      <td><strong>vLLM (official)</strong></td>
+      <td><span class="badge red">NO (CC ≥7.0)</span></td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Requires Volta+; use vllm-pascal instead</td>
+    </tr>
+    <tr>
+      <td><strong>vLLM via pascal-pkgs-ci</strong></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td>PagedAttention, continuous batching, prefix caching, tensor/pipeline/expert parallelism</td>
+    </tr>
+    <tr>
+      <td><strong>ExLlamaV2</strong></td>
+      <td><span class="badge red">NO</span></td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Archived; Pascal dropped in V2</td>
+    </tr>
+    <tr>
+      <td><strong>Ollama</strong></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge orange">Partial</span></td>
+      <td>Easy-mode wrapper around llama.cpp</td>
+    </tr>
+    <tr>
+      <td><strong>Aphrodite Engine</strong></td>
+      <td><span class="badge green">YES (via pascal-pkgs-ci)</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td>vLLM fork, same Pascal support via extra-index</td>
+    </tr>
+    <tr>
+      <td><strong>text-generation-webui</strong></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge green">YES</span></td>
+      <td><span class="badge orange">Single-user UI</span></td>
+      <td><span class="badge orange">Partial</span></td>
+      <td>Nice UI but not for multi-user serving</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout success">
+  <strong>Two great options, different strengths:</strong><br><br>
+  <strong>vllm-pascal</strong> (via pascal-pkgs-ci) — Best for production multi-user serving. PagedAttention + continuous batching gives the highest throughput. Use for FP16/BF16 models, MoE models with expert parallelism, and when you need the OpenAI-compatible API with streaming.<br><br>
+  <strong>llama.cpp</strong> — Best for quantized GGUF models. Broader model support, speculative decoding, CPU+GPU hybrid for oversized models. Use for Q4_K_M/Q5_K_M GGUF models, when VRAM is tight, or when you need CPU fallback for giant MoE models.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 7 ============= -->
+<h2 id="quantization">7. Quantization &amp; Model Fitting Strategy</h2>
+
+<p>
+  The key insight: <strong>96 GB of VRAM at Q4_K_M quantization fits models up to ~150B parameters</strong>.
+  At Q2_K — with quality tradeoffs — you can reach ~200B+.
+</p>
+
+<h3>GGUF Quantization Reference (llama.cpp)</h3>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Quant</th><th>Bits/Weight</th><th>Quality</th><th>~VRAM per 1B params</th><th>Max model @ 96 GB</th><th>Example Models</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q8_0</td><td>8.0</td><td>Near-lossless</td><td>~1.0 GB</td><td>~90B</td><td>Llama 3.1 70B, Qwen 2.5 72B</td></tr>
+    <tr><td>Q6_K</td><td>6.6</td><td>Excellent</td><td>~0.83 GB</td><td>~110B</td><td>Command-R 104B, Qwen 2.5 72B</td></tr>
+    <tr><td>Q5_K_M</td><td>5.5</td><td>Very Good</td><td>~0.70 GB</td><td>~130B</td><td>Llama 3.1 70B + long context</td></tr>
+    <tr><td>Q4_K_M</td><td>4.9</td><td>Good — <strong>sweet spot</strong></td><td>~0.62 GB</td><td>~145B</td><td>Mixtral 8×22B, DeepSeek-V2 Lite</td></tr>
+    <tr><td>Q3_K_M</td><td>3.9</td><td>Acceptable</td><td>~0.50 GB</td><td>~180B</td><td>DeepSeek-V3 (with MoE offload)</td></tr>
+    <tr><td>Q2_K</td><td>2.8</td><td>Noticeable loss</td><td>~0.37 GB</td><td>~240B+</td><td>DeepSeek-V3 (full, extreme)</td></tr>
+    <tr><td>IQ3_XXS</td><td>3.1</td><td>Better than Q3</td><td>~0.40 GB</td><td>~220B</td><td>DeepSeek-V3 (balanced)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>What Fits on 96 GB (4× P40):</h3>
+<ul>
+  <li><strong>Comfortably:</strong> Llama 3.1 70B (Q4_K_M), Qwen 2.5 72B (Q4_K_M), Mixtral 8×7B (Q6_K), Command-R 35B (Q8_0)</li>
+  <li><strong>Tightly:</strong> Mixtral 8×22B (Q3_K_M), WizardLM-2 8×22B (Q3_K_M), DeepSeek-V2 Lite 16B MoE (Q8_0)</li>
+  <li><strong>With MoE offloading (Section 7):</strong> DeepSeek-V3 (671B total, 37B active) at Q4_K_M, Qwen3 MoE</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 8 ============= -->
+<h2 id="moe">8. MoE Partial Expert Offloading</h2>
+
+<p>
+  Mixture-of-Experts models have <strong>many</strong> total parameters but only a <strong>subset</strong> is active
+  per token. This is the key to fitting massive models on limited VRAM. The full model
+  can live across GPU VRAM + CPU RAM (or SSD), and only the active experts are loaded.
+</p>
+
+<h3>Strategy A: llama.cpp with --no-kv-offload + Layer Splitting</h3>
+<p>
+  llama.cpp does <em>not</em> have native "expert-aware" offloading yet. However, you can:
+</p>
+<ol>
+  <li>Put <strong>shared layers</strong> (attention, embeddings) on GPU via <code>--n-gpu-layers</code></li>
+  <li>Let <strong>expert FFN layers</strong> spill to CPU RAM when VRAM runs out</li>
+  <li>The MoE router only activates ~5–10% of experts, so CPU overhead is manageable</li>
+</ol>
+
+<pre><code><span class="cm"># Example: DeepSeek-V3 GGUF quantized (IQ3_XXS or Q3_K_M)</span>
+<span class="cm"># Total GGUF size: ~250 GB at Q3_K_M for 671B params</span>
+<span class="cm"># Shared layers (~30B params) + top experts cached on GPU</span>
+<span class="cm"># Remaining experts paged from system RAM (128 GB DDR4 recommended)</span>
+
+llama-server \
+  -m DeepSeek-V3-Q3_K_M.gguf \
+  -ngl 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  -c 8192 \
+  -fa \
+  --no-kv-offload</code></pre>
+
+<div class="callout">
+  <strong>How it works:</strong> <code>-ngl 999</code> tries to push all layers to GPU. When VRAM is full, llama.cpp
+  automatically falls back to CPU for remaining layers. Since MoE experts are in later layers,
+  they spill to CPU. The GPU handles attention and shared FFN; CPU handles expert routing.
+  With 128 GB system RAM you can load the entire 671B model.
+</div>
+
+<h3>Strategy B: KTransformers (Specialized MoE Offloading)</h3>
+<p>
+  <a href="https://github.com/kvcache-ai/ktransformers">KTransformers</a> is purpose-built for
+  running giant MoE models with limited GPU VRAM. It uses CUDA graphs with CPU offload
+  and supports DeepSeek-V2/V3 natively.
+</p>
+
+<pre><code><span class="cm"># Install KTransformers</span>
+git clone https://github.com/kvcache-ai/ktransformers
+<span class="kw">cd</span> ktransformers
+pip install -e .
+
+<span class="cm"># Run DeepSeek-V3 with expert offloading</span>
+<span class="cm"># Shared layers on GPU, expert FFNs on CPU</span>
+python -m ktransformers.local_chat \
+  --model_path /path/to/DeepSeek-V3 \
+  --gguf_path /path/to/DeepSeek-V3-Q4_K_M.gguf \
+  --optimize_rule_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat.yaml</code></pre>
+
+<h3>Strategy C: llama-swap for Dynamic Model Swapping</h3>
+<p>
+  <a href="https://github.com/mostlygeek/llama-swap">llama-swap</a> is a transparent proxy that
+  automatically loads/unloads models in llama-server. You can run a smaller dense model
+  (e.g. Llama 3.1 8B) for quick responses and swap to a large MoE model on demand.
+</p>
+
+<pre><code><span class="cm"># config.yaml for llama-swap</span>
+<span class="va">models</span>:
+  <span class="va">small</span>:
+    <span class="va">cmd</span>: <span class="st">llama-server -m llama-3.1-8b-Q4_K_M.gguf -ngl 99 -c 4096 --port 8081</span>
+    <span class="va">proxy</span>: <span class="st">http://localhost:8081</span>
+  <span class="va">big</span>:
+    <span class="va">cmd</span>: <span class="st">llama-server -m DeepSeek-V3-Q3_K_M.gguf -ngl 999 -c 8192 --port 8082</span>
+    <span class="va">proxy</span>: <span class="st">http://localhost:8082</span>
+    <span class="va">unload</span>:
+      <span class="va">after_idle</span>: <span class="nu">300</span>  <span class="cm"># Unload after 5 min idle</span></code></pre>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 9 ============= -->
+<h2 id="multi-user">9. Multi-User Concurrent Serving</h2>
+
+<p>
+  llama.cpp's <code>llama-server</code> supports concurrent requests via parallel slots and
+  continuous batching. Here's how to configure for 2+ simultaneous users:
+</p>
+
+<h3>8.1 llama-server Multi-User Configuration</h3>
+
+<pre><code><span class="cm"># Start server with 4 parallel slots and generous context</span>
+llama-server \
+  -m Mixtral-8x22B-Q4_K_M.gguf \
+  -ngl 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  -c 32768 \
+  -np 4 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock \
+  --no-mmap</code></pre>
+
+<h4>Key Flags Explained:</h4>
+<div class="table-wrap">
+<table>
+  <tr><th>Flag</th><th>Meaning</th></tr>
+  <tr><td><code>-c 32768</code></td><td>Total KV cache context size. Split across <code>-np</code> slots → ~8K per user.</td></tr>
+  <tr><td><code>-np 4</code></td><td>Parallel request slots. Serve up to 4 concurrent users/requests.</td></tr>
+  <tr><td><code>-b 512</code></td><td>Physical batch size for prompt processing (prefill).</td></tr>
+  <tr><td><code>-ub 512</code></td><td>Physical batch size for token generation (decode).</td></tr>
+  <tr><td><code>--mlock</code></td><td>Lock model in RAM to prevent swapping.</td></tr>
+  <tr><td><code>--no-mmap</code></td><td>Load entire model into RAM first (prevents disk I/O stalls).</td></tr>
+</table>
+</div>
+
+<h3>8.2 Performance Under Concurrent Load</h3>
+<p>
+  With 2 users, each gets their own KV cache slot and the server interleaves token generation.
+  With 4 P40s on pipeline-parallel (<code>--split-mode layer</code>), tokens from different users
+  flow through the pipeline simultaneously — this is where pipeline parallelism shines.
+</p>
+
+<pre><code><span class="cm"># Test concurrent load with 2 simultaneous curl requests:</span>
+<span class="kw">curl</span> -X POST http://server:8080/v1/chat/completions \
+  -H <span class="st">"Content-Type: application/json"</span> \
+  -d <span class="st">'{"model":"mixtral","messages":[{"role":"user","content":"Tell me a long story"}]}'</span> \
+  &amp;
+<span class="kw">curl</span> -X POST http://server:8080/v1/chat/completions \
+  -H <span class="st">"Content-Type: application/json"</span> \
+  -d <span class="st">'{"model":"mixtral","messages":[{"role":"user","content":"Write a poem"}]}'</span> \
+  &amp;
+<span class="kw">wait</span></code></pre>
+
+<h3>8.3 Reverse Proxy / Load Balancer (Optional)</h3>
+<p>
+  For a more polished home-network setup, put <strong>nginx</strong> or <strong>Caddy</strong> in front of
+  llama-server with rate limiting and access control:
+</p>
+
+<pre><code><span class="cm"># /etc/nginx/sites-available/llm-proxy</span>
+<span class="va">server</span> {
+    <span class="va">listen</span> <span class="nu">443</span> <span class="va">ssl</span>;
+    <span class="va">server_name</span> <span class="st">llm.home.arpa</span>;
+
+    <span class="va">ssl_certificate</span>     <span class="st">/etc/ssl/llm.crt</span>;
+    <span class="va">ssl_certificate_key</span> <span class="st">/etc/ssl/llm.key</span>;
+
+    <span class="va">location</span> <span class="st">/v1/</span> {
+        <span class="va">proxy_pass</span> <span class="st">http://127.0.0.1:8080</span>;
+        <span class="va">proxy_http_version</span> <span class="st">1.1</span>;
+        <span class="va">proxy_set_header</span> <span class="st">Connection ""</span>;
+        <span class="va">proxy_buffering</span> <span class="st">off</span>;
+        <span class="va">proxy_read_timeout</span> <span class="st">300s</span>;
+
+        <span class="cm"># Rate limit: 20 requests per minute per IP</span>
+        <span class="va">limit_req</span> <span class="st">zone=llm burst=5 nodelay</span>;
+    }
+}
+
+<span class="va">limit_req_zone</span> <span class="st">$binary_remote_addr zone=llm:10m rate=20r/m</span>;</code></pre>
+
+<h3>8.4 Client Integration</h3>
+<p>
+  llama-server exposes an <strong>OpenAI-compatible API</strong>. Any OpenAI client works:
+</p>
+
+<pre><code><span class="cm"># Python example — point any OpenAI client to your server</span>
+<span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+
+client = OpenAI(
+    base_url=<span class="st">"http://llm.home.arpa:8080/v1"</span>,
+    api_key=<span class="st">"not-needed"</span>
+)
+
+response = client.chat.completions.create(
+    model=<span class="st">"mixtral"</span>,
+    messages=[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"Explain quantum computing"</span>}],
+    stream=<span class="va">True</span>
+)
+<span class="kw">for</span> chunk <span class="kw">in</span> response:
+    <span class="kw">if</span> chunk.choices[<span class="nu">0</span>].delta.content:
+        <span class="kw">print</span>(chunk.choices[<span class="nu">0</span>].delta.content, end=<span class="st">""</span>)</code></pre>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 10 ============= -->
+<h2 id="streaming">10. Streaming Models Larger Than Total VRAM</h2>
+
+<p>
+  Even with 96 GB VRAM, some models (DeepSeek-V3, Llama 3.1 405B, GPT-OSS) far exceed available memory.
+  Here are the strategies, from simplest to most advanced:
+</p>
+
+<h3>Strategy 1: CPU+GPU Hybrid (llama.cpp built-in)</h3>
+<p>
+  This is the simplest approach. llama.cpp automatically spills layers to CPU RAM when
+  GPU VRAM is exhausted. With 128 GB system RAM, you can run massive models.
+</p>
+
+<pre><code><span class="cm"># Run a 400B+ model: load what fits on GPUs, rest on CPU</span>
+llama-server \
+  -m Llama-3.1-405B-Q3_K_M.gguf \
+  -ngl 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  -c 4096 \
+  -np 2 \
+  -fa</code></pre>
+
+<div class="callout warn">
+  <strong>Expect ~1–3 tokens/sec</strong> when most layers run on CPU. This is usable for background
+  batch processing but frustrating for interactive chat. For interactive use, prefer MoE
+  models with partial expert loading (Section 7).
+</div>
+
+<h3>Strategy 2: RPC Backend (Multi-Machine Split)</h3>
+<p>
+  llama.cpp supports an <strong>RPC backend</strong> that lets you split a model across multiple
+  machines on the same network. You could add a second machine with more GPUs (or just
+  CPU RAM) to offload additional layers.
+</p>
+
+<pre><code><span class="cm"># On the "server" machine (with GPUs):</span>
+llama-server -m model.gguf --rpc <span class="va">$SERVER_IP</span>:<span class="nu">50052</span>
+
+<span class="cm"># On the "worker" machine (with extra RAM/GPUs):</span>
+<span class="kw">cd</span> llama.cpp && ./build/bin/llama-rpc-server -H <span class="va">$SERVER_IP</span> -p <span class="nu">50052</span></code></pre>
+
+<h3>Strategy 3: Row-Level Tensor Splitting (Deprecated)</h3>
+<p>
+  The older <code>--split-mode row</code> in llama.cpp splits individual tensor rows across GPUs
+  but has been superseded by <code>--split-mode tensor</code> (experimental). For P40s without
+  NVLink, <code>layer</code> mode is recommended.
+</p>
+
+<h3>Strategy 4: Expert-Aware Streaming (KTransformers)</h3>
+<p>
+  KTransformers can dynamically page individual MoE expert weights from SSD/NVMe into GPU VRAM
+  as the router activates them. This is the most advanced approach and yields the best
+  interactive performance for giant MoE models on limited VRAM.
+</p>
+
+<pre><code><span class="cm"># KTransformers with NVMe expert offloading</span>
+<span class="cm"># Requires a fast NVMe SSD (PCIe 4.0 recommended, P40s support 3.0)</span>
+<span class="cm"># Expert weights are mmap'd from NVMe and cached in GPU as needed</span>
+
+python -m ktransformers.local_chat \
+  --model_path /mnt/nvme/DeepSeek-V3 \
+  --optimize_rule_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat.yaml \
+  --cpu_infer <span class="nu">32</span> \
+  --cache_lens <span class="nu">8192</span> \
+  --max_new_tokens <span class="nu">2048</span></code></pre>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 11 ============= -->
+<h2 id="putting-it-together">11. Full Deployment Recipes</h2>
+
+<h3>Recipe A: "Daily Driver" — Llama 3.1 70B (Q4_K_M) for 2 Users</h3>
+<pre><code><span class="cm"># Start the server with a systemd service</span>
+<span class="cm"># /etc/systemd/system/llama-server.service</span>
+<span class="va">[Unit]</span>
+<span class="va">Description</span>=<span class="st">llama.cpp Inference Server</span>
+<span class="va">After</span>=<span class="st">network.target</span>
+
+<span class="va">[Service]</span>
+<span class="va">Type</span>=<span class="st">simple</span>
+<span class="va">User</span>=<span class="st">llama</span>
+<span class="va">WorkingDirectory</span>=<span class="st">/opt/llama.cpp</span>
+<span class="va">ExecStart</span>=<span class="st">/opt/llama.cpp/build/bin/llama-server \
+  -m /models/Llama-3.1-70B-Instruct-Q4_K_M.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 22,22,24,24 \
+  -c 32768 \
+  -np 4 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock</span>
+<span class="va">Restart</span>=<span class="st">on-failure</span>
+<span class="va">RestartSec</span>=<span class="st">5</span>
+
+<span class="va">[Install]</span>
+<span class="va">WantedBy</span>=<span class="st">multi-user.target</span>
+
+<span class="cm"># Enable and start:</span>
+sudo systemctl enable --now llama-server</code></pre>
+
+<h3>Recipe B: "Big MoE" — DeepSeek-V3 (IQ3_XXS) for Batch/Research</h3>
+<pre><code><span class="cm"># Full DeepSeek-V3 at IQ3_XXS (~200 GB GGUF)</span>
+<span class="cm"># Shared layers + attention on GPU, expert FFNs on CPU</span>
+
+llama-server \
+  -m /models/DeepSeek-V3-IQ3_XXS.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  -c 8192 \
+  -np 2 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  --mlock \
+  --no-mmap</code></pre>
+
+<h3>Recipe C: "Small &amp; Fast" — Gemma 3 27B (Q5_K_M) for Interactive Chat</h3>
+<pre><code><span class="cm"># A smaller model that fits entirely in 2 P40s (48 GB)</span>
+<span class="cm"># Use remaining 2 GPUs for speculative decoding draft model</span>
+
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -md /models/gemma-3-1b-it-Q8_0.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,0,0 \
+  -c 32768 \
+  -np 8 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 1024 \
+  -ub 1024</code></pre>
+
+<div class="callout success">
+  <strong>Speculative decoding trick:</strong> The <code>-md</code> flag loads a small draft model (Gemma 1B)
+  that predicts tokens, the main model verifies. This can <strong>2–3× token generation speed</strong>
+  for negligible VRAM cost (~2 GB for the draft model).
+</div>
+
+<h3>Building llama.cpp with CUDA for P40</h3>
+<pre><code><span class="cm"># Build llama.cpp with CUDA support for Pascal GPUs</span>
+git clone https://github.com/ggml-org/llama.cpp
+<span class="kw">cd</span> llama.cpp
+mkdir build && <span class="kw">cd</span> build
+
+<span class="cm"># P40s are SM 6.1 — use CUDA_ARCHITECTURES=61</span>
+cmake .. \
+  -DGGML_CUDA=ON \
+  -DCMAKE_CUDA_ARCHITECTURES=<span class="st">"61"</span> \
+  -DGGML_CUDA_FORCE_MMQ=ON \
+  -DGGML_CUDA_NCCL=OFF \
+  -DGGML_CUDA_PEER_MAX_BATCH_SIZE=<span class="nu">128</span> \
+  -DGGML_OPENMP=ON
+
+cmake --build . --config Release -j<span class="kw">$(</span>nproc<span class="kw">)</span>
+
+<span class="cm"># Verify CUDA backend is active:</span>
+./bin/llama-cli --list-devices
+<span class="cm"># Should list all 4 Tesla P40 GPUs with ~24 GB each</span>
+
+<span class="cm"># Install to system (optional):</span>
+sudo cmake --install .</code></pre>
+
+<h3>Recipe D: "Production Serving" — vllm-pascal + Mixtral 8×22B for 4 Users</h3>
+<pre><code><span class="cm"># Docker-based deployment with vllm-pascal</span>
+<span class="cm"># Mixtral 8×22B is an MoE with ~39B active params out of 141B total</span>
+<span class="cm"># At FP16: ~280 GB total. Use --enforce-eager or quantize.</span>
+
+<span class="cm"># Option 1: AWQ quantized Mixtral 8×22B (~40 GB, fits all 4 GPUs)</span>
+docker run -d --name vllm-server \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Mixtral-8x22B-Instruct-v0.1-AWQ \
+  --tensor-parallel-size 4 \
+  --max-model-len 16384 \
+  --gpu-memory-utilization 0.85 \
+  --max-num-seqs 8
+
+<span class="cm"># Option 2: Pipeline-parallel for larger models (slower GPU interconnect)</span>
+docker run -d --name vllm-server \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Mixtral-8x22B-Instruct-v0.1 \
+  --pipeline-parallel-size 4 \
+  --tensor-parallel-size 1 \
+  --dtype float16 \
+  --max-model-len 8192
+
+<span class="cm"># Option 3: Systemd service for bare-metal vllm-pascal</span>
+<span class="cm"># /etc/systemd/system/vllm-server.service</span>
+<span class="va">[Unit]</span>
+<span class="va">Description</span>=<span class="st">vLLM Pascal Inference Server</span>
+<span class="va">After</span>=<span class="st">network.target docker.service</span>
+
+<span class="va">[Service]</span>
+<span class="va">Type</span>=<span class="st">simple</span>
+<span class="va">ExecStartPre</span>=<span class="st">-/usr/bin/docker stop vllm-server</span>
+<span class="va">ExecStartPre</span>=<span class="st">-/usr/bin/docker rm vllm-server</span>
+<span class="va">ExecStart</span>=<span class="st">/usr/bin/docker run --rm --name vllm-server \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models:ro \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Mixtral-8x22B-Instruct-v0.1-AWQ \
+  --tensor-parallel-size 4 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.85 \
+  --max-num-seqs 8</span>
+<span class="va">ExecStop</span>=<span class="st">/usr/bin/docker stop vllm-server</span>
+<span class="va">Restart</span>=<span class="st">on-failure</span>
+<span class="va">RestartSec</span>=<span class="st">10</span>
+
+<span class="va">[Install]</span>
+<span class="va">WantedBy</span>=<span class="st">multi-user.target</span></code></pre>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 12 ============= -->
+<h2 id="performance">12. Expected Performance</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Quant</th>
+      <th>VRAM Used</th>
+      <th>Single User</th>
+      <th>2 Concurrent</th>
+      <th>4 Concurrent</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Llama 3.1 8B</td>
+      <td>Q4_K_M</td>
+      <td>~6 GB</td>
+      <td>~45 t/s</td>
+      <td>~40 t/s</td>
+      <td>~35 t/s</td>
+      <td>Fits on one P40</td>
+    </tr>
+    <tr>
+      <td>Qwen 2.5 32B</td>
+      <td>Q4_K_M</td>
+      <td>~20 GB</td>
+      <td>~25 t/s</td>
+      <td>~22 t/s</td>
+      <td>~18 t/s</td>
+      <td>Fits on one P40</td>
+    </tr>
+    <tr>
+      <td>Llama 3.1 70B</td>
+      <td>Q4_K_M</td>
+      <td>~42 GB</td>
+      <td>~14 t/s</td>
+      <td>~12 t/s</td>
+      <td>~9 t/s</td>
+      <td>Spans 2–3 P40s</td>
+    </tr>
+    <tr>
+      <td>Mixtral 8×7B</td>
+      <td>Q4_K_M</td>
+      <td>~28 GB</td>
+      <td>~18 t/s</td>
+      <td>~15 t/s</td>
+      <td>~12 t/s</td>
+      <td>MoE, fast routing</td>
+    </tr>
+    <tr>
+      <td>Mixtral 8×22B</td>
+      <td>Q3_K_M</td>
+      <td>~80 GB</td>
+      <td>~7 t/s</td>
+      <td>~6 t/s</td>
+      <td>~4 t/s</td>
+      <td>Spans all 4 P40s</td>
+    </tr>
+    <tr>
+      <td>DeepSeek-V3</td>
+      <td>IQ3_XXS</td>
+      <td>GPU ~70GB + CPU</td>
+      <td>~3 t/s</td>
+      <td>~2 t/s</td>
+      <td>~1.5 t/s</td>
+      <td>CPU offloaded experts</td>
+    </tr>
+    <tr>
+      <td>Gemma 3 27B</td>
+      <td>Q5_K_M</td>
+      <td>~18 GB</td>
+      <td>~28 t/s</td>
+      <td>~25 t/s</td>
+      <td>~20 t/s</td>
+      <td>+ draft model speedup</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout">
+  <strong>Speed estimates are approximate.</strong> Actual throughput depends on prompt length,
+  generation length, PCIe bandwidth, CPU speed, and model architecture. MoE models with
+  fewer active experts per token will be relatively faster because less weight data moves
+  through the GPUs.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= SECTION 13 ============= -->
+<h2 id="monitoring">13. Monitoring &amp; Maintenance</h2>
+
+<h3>GPU Monitoring</h3>
+<pre><code><span class="cm"># Watch GPU utilization and temperatures:</span>
+watch -n <span class="nu">1</span> nvidia-smi
+
+<span class="cm"># Prometheus + Grafana for long-term monitoring:</span>
+<span class="cm"># Install nvidia_gpu_exporter (Rust, lightweight):</span>
+cargo install nvidia_gpu_exporter
+nvidia_gpu_exporter --web.listen-address=<span class="st">":9835"</span>
+
+<span class="cm"># Or use the Python DCGM exporter:</span>
+pip install nvidia-dcgm-exporter
+dcgm-exporter</code></pre>
+
+<h3>Thermal Management Script</h3>
+<pre><code><span class="cm">#!/bin/bash</span>
+<span class="cm"># /usr/local/bin/gpu-fan-check.sh</span>
+<span class="cm"># Monitor GPU temps and alert if too high</span>
+<span class="va">THRESHOLD</span>=<span class="nu">75</span>
+<span class="kw">while</span> <span class="va">true</span>; <span class="kw">do</span>
+  <span class="va">TEMPS</span>=<span class="kw">$(</span>nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader<span class="kw">)</span>
+  <span class="kw">for</span> <span class="va">temp</span> <span class="kw">in</span> <span class="va">$TEMPS</span>; <span class="kw">do</span>
+    <span class="kw">if</span> [ <span class="st">"</span><span class="va">$temp</span><span class="st">"</span> -gt <span class="st">"</span><span class="va">$THRESHOLD</span><span class="st">"</span> ]; <span class="kw">then</span>
+      <span class="kw">echo</span> <span class="st">"[WARN] GPU temp </span><span class="va">$temp</span><span class="st">°C exceeds </span><span class="va">$THRESHOLD</span><span class="st">°C at </span><span class="kw">$(</span>date<span class="kw">)</span><span class="st">"</span> >> <span class="st">/var/log/gpu-temp.log</span>
+    <span class="kw">fi</span>
+  <span class="kw">done</span>
+  <span class="kw">sleep</span> <span class="nu">10</span>
+<span class="kw">done</span></code></pre>
+
+<h3>Model Management Script</h3>
+<pre><code><span class="cm">#!/bin/bash</span>
+<span class="cm"># /usr/local/bin/switch-model.sh</span>
+<span class="cm"># Usage: switch-model.sh llama|mixtral|deepseek</span>
+<span class="va">MODEL</span>=<span class="va">$1</span>
+sudo systemctl stop llama-server
+
+<span class="kw">case</span> <span class="va">$MODEL</span> <span class="kw">in</span>
+  llama)
+    <span class="va">MODEL_PATH</span>=<span class="st">"/models/Llama-3.1-70B-Instruct-Q4_K_M.gguf"</span>
+    <span class="va">CTX</span>=<span class="st">"32768"</span>
+    <span class="va">NP</span>=<span class="st">"4"</span>
+    ;;
+  mixtral)
+    <span class="va">MODEL_PATH</span>=<span class="st">"/models/Mixtral-8x22B-Instruct-Q3_K_M.gguf"</span>
+    <span class="va">CTX</span>=<span class="st">"16384"</span>
+    <span class="va">NP</span>=<span class="st">"2"</span>
+    ;;
+  deepseek)
+    <span class="va">MODEL_PATH</span>=<span class="st">"/models/DeepSeek-V3-IQ3_XXS.gguf"</span>
+    <span class="va">CTX</span>=<span class="st">"8192"</span>
+    <span class="va">NP</span>=<span class="st">"2"</span>
+    ;;
+<span class="kw">esac</span>
+
+<span class="cm"># Update systemd override and restart</span>
+sudo mkdir -p /etc/systemd/system/llama-server.service.d
+<span class="kw">cat</span> <span class="st"><< EOF</span> | sudo tee /etc/systemd/system/llama-server.service.d/override.conf
+<span class="va">[Service]</span>
+<span class="va">ExecStart</span>=
+<span class="va">ExecStart</span>=<span class="st">/opt/llama.cpp/build/bin/llama-server \
+  -m </span><span class="va">$MODEL_PATH</span><span class="st"> \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 22,22,24,24 \
+  -c </span><span class="va">$CTX</span><span class="st"> \
+  -np </span><span class="va">$NP</span><span class="st"> \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 -ub 512 \
+  --mlock</span>
+<span class="st">EOF</span>
+
+sudo systemctl daemon-reload
+sudo systemctl start llama-server
+<span class="kw">echo</span> <span class="st">"Switched to </span><span class="va">$MODEL</span><span class="st"> model"</span></code></pre>
+
+<h3>Network Access from Other Devices</h3>
+<pre><code><span class="cm"># Option 1: Direct access (home LAN only)</span>
+<span class="cm"># Access at http://SERVER_IP:8080 from any device on your LAN</span>
+
+<span class="cm"># Option 2: Tailscale / WireGuard for secure remote access</span>
+<span class="cm"># Install Tailscale on the server and your client devices</span>
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+<span class="cm"># Access at http://SERVER_TAILSCALE_IP:8080</span>
+
+<span class="cm"># Option 3: Cloudflare Tunnel (no port forwarding needed)</span>
+<span class="cm"># Install cloudflared and create a tunnel to localhost:8080</span></code></pre>
+
+<hr class="section-divider">
+
+<h2>Quick Reference Card</h2>
+
+<div class="table-wrap">
+<table>
+  <tr><td><strong>GPUs</strong></td><td>4× NVIDIA Tesla P40 (24 GB each, 96 GB total VRAM)</td></tr>
+  <tr><td><strong>Compute</strong></td><td>Pascal SM 6.1, 47 INT8 TOPS per GPU</td></tr>
+  <tr><td><strong>Recommended CPU</strong></td><td>Dual Xeon E5-2680 v4 (budget) or EPYC 7302P (modern)</td></tr>
+  <tr><td><strong>Recommended Board</strong></td><td>Supermicro X10DRi (budget) or H11SSL-i (modern)</td></tr>
+  <tr><td><strong>RAM</strong></td><td>128 GB DDR4 ECC (minimum 64 GB for MoE offloading)</td></tr>
+  <tr><td><strong>PSU</strong></td><td>1,500W+ (EVGA 1600 T2 or equivalent)</td></tr>
+  <tr><td><strong>Cooling</strong></td><td>3D-printed shrouds + 40mm server fans per GPU</td></tr>
+  <tr><td><strong>OS</strong></td><td>Ubuntu 24.04 LTS, NVIDIA driver 550+</td></tr>
+  <tr><td><strong>Engine</strong></td><td>vllm-pascal (primary) + llama.cpp CUDA (GGUF/CPU-hybrid)</td></tr>
+  <tr><td><strong>Serving</strong></td><td>vllm-pascal (OpenAI API) or llama-server (OpenAI API + Web UI)</td></tr>
+  <tr><td><strong>Quantization</strong></td><td>GGUF Q4_K_M for dense models, IQ3_XXS for MoE</td></tr>
+  <tr><td><strong>Multi-User</strong></td><td>vLLM continuous batching (<code>--max-num-seqs</code>) or llama.cpp <code>-np 4</code></td></tr>
+  <tr><td><strong>MoE Offloading</strong></td><td>llama.cpp hybrid CPU+GPU or KTransformers</td></tr>
+  <tr><td><strong>Best Model Fit</strong></td><td>Llama 3.1 70B Q4_K_M (42 GB), Mixtral 8×22B Q3_K_M (80 GB)</td></tr>
+  <tr><td><strong>Largest Possible</strong></td><td>DeepSeek-V3 IQ3_XXS + CPU offload (~3 t/s)</td></tr>
+</table>
+</div>
+
+<div class="footer">
+  <p>Researched and compiled May 2026. Verify current build flags against the
+  <a href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md">llama.cpp build docs</a> and
+  <a href="https://github.com/sasha0552/pascal-pkgs-ci">pascal-pkgs-ci</a> for latest Pascal-compatible vLLM versions.
+  GPU prices fluctuate; check eBay sold listings for current P40 pricing.</p>
+</div>
+
+</body>
+</html>

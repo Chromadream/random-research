@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Local LLM Guide — Running Large Models at Home</title>
+<style>
+  :root {
+    --bg: #0f0f11;
+    --surface: #1a1a1e;
+    --surface2: #222228;
+    --border: #2a2a32;
+    --text: #e4e4e7;
+    --text-dim: #a1a1aa;
+    --accent: #6c5ce7;
+    --accent2: #00cec9;
+    --green: #00b894;
+    --yellow: #fdcb6e;
+    --red: #e17055;
+    --orange: #e67e22;
+    --blue: #0984e3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 0 50px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  header p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,15,17,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+  nav .container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover {
+    color: var(--text);
+    background: var(--surface2);
+  }
+  section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--accent2);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: var(--text);
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+  p, li { color: var(--text-dim); margin-bottom: 12px; }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--text); font-weight: 600; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--surface2);
+    color: var(--text);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  td { color: var(--text-dim); }
+  tr:hover td { background: var(--surface); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .card h3 { margin-top: 0; }
+  .card .price {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 4px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .card ul { margin: 8px 0 0; padding-left: 18px; }
+  .card li { font-size: 0.9rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .tag-green { background: rgba(0,184,148,0.15); color: var(--green); }
+  .tag-yellow { background: rgba(253,203,110,0.15); color: var(--yellow); }
+  .tag-red { background: rgba(225,112,85,0.15); color: var(--red); }
+  .tag-blue { background: rgba(9,132,227,0.15); color: var(--blue); }
+  .tag-orange { background: rgba(230,126,34,0.15); color: var(--orange); }
+
+  .callout {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+  .callout-warning { border-left-color: var(--yellow); }
+  .callout-success { border-left-color: var(--green); }
+  .callout-danger { border-left-color: var(--red); }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .pros, .cons { padding: 16px; border-radius: 8px; }
+  .pros { background: rgba(0,184,148,0.08); border: 1px solid rgba(0,184,148,0.2); }
+  .cons { background: rgba(225,112,85,0.08); border: 1px solid rgba(225,112,85,0.2); }
+  .pros h4 { color: var(--green); }
+  .cons h4 { color: var(--red); }
+  .pros li, .cons li { font-size: 0.9rem; }
+
+  .budget-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+  }
+  .budget-bar .label { min-width: 100px; font-size: 0.85rem; color: var(--text-dim); }
+  .budget-bar .track {
+    flex: 1;
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .budget-bar .fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .budget-bar .val { min-width: 60px; text-align: right; font-size: 0.85rem; font-weight: 600; }
+
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--accent2);
+  }
+  pre {
+    background: var(--surface2);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .toc { margin: 20px 0 0; }
+  .toc a {
+    display: block;
+    padding: 6px 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    font-size: 0.9rem;
+  }
+  .toc a:hover {
+    color: var(--accent2);
+    border-left-color: var(--accent2);
+    background: rgba(108,92,231,0.05);
+  }
+  .toc .l2 { padding-left: 28px; font-size: 0.85rem; }
+
+  @media (max-width: 700px) {
+    header h1 { font-size: 1.8rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .pros-cons { grid-template-columns: 1fr; }
+    nav a { font-size: 0.78rem; padding: 4px 10px; }
+    table { font-size: 0.8rem; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Budget Local LLM Guide</h1>
+    <p>Running 70B–120B+ models at home without spending thousands. Hardware builds, quantization trade-offs, software, and MoE strategies.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="container">
+    <a href="#vram">VRAM Calculator</a>
+    <a href="#builds">Budget Builds</a>
+    <a href="#quant">Quantization</a>
+    <a href="#software">Software</a>
+    <a href="#moe">MoE &amp; DeepSeek</a>
+    <a href="#performance">Performance</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<section id="intro">
+  <h2>Why Run Large Models Locally?</h2>
+  <p>Running 70B+ parameter models at home means no API costs, no rate limits, complete privacy, and the ability to customize. The barrier has dropped dramatically thanks to quantization (GGUF, AWQ, GPTQ), efficient inference engines (llama.cpp, vLLM, ExLlamaV2), and a thriving used-GPU market.</p>
+  <p><strong>DeepSeek-V4-Flash is already released</strong> (it's powering this conversation). As an MoE model with Multi-head Latent Attention, it represents the cutting edge of what's possible — and with the right hardware and quantization, running models at this scale at home is increasingly achievable.</p>
+  <p>The golden rule: <strong>VRAM is everything</strong>. A 70B model in 4-bit needs ~40-48 GB. A 120B model needs ~68-80 GB. MoE models like Mixtral 8x7B or DeepSeek-V4 need less <em>compute</em> but similar <em>memory</em> since all experts are loaded.</p>
+</section>
+
+<!-- ===== VRAM CALCULATOR ===== -->
+<section id="vram">
+  <h2>VRAM Requirements Reference</h2>
+  <p>Formula: <code>VRAM &asymp; params &times; bytes_per_param &times; 1.2</code> (20% overhead for KV cache, activations).</p>
+
+  <h3>Dense Models</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Model Size</th>
+        <th>FP16 (16-bit)</th>
+        <th>Q8 (8-bit)</th>
+        <th>Q6 (6-bit)</th>
+        <th>Q4 (4-bit)</th>
+        <th>Q3 (3-bit)</th>
+        <th>Q2 (2-bit)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>7B</strong></td><td>~14 GB</td><td>~7 GB</td><td>~5.5 GB</td><td>~4.2 GB</td><td>~3.3 GB</td><td>~2.7 GB</td></tr>
+      <tr><td><strong>13B</strong></td><td>~26 GB</td><td>~13 GB</td><td>~10 GB</td><td>~7.8 GB</td><td>~6 GB</td><td>~4.8 GB</td></tr>
+      <tr><td><strong>30B</strong></td><td>~60 GB</td><td>~30 GB</td><td>~23 GB</td><td>~18 GB</td><td>~14 GB</td><td>~11 GB</td></tr>
+      <tr><td><strong>34B</strong></td><td>~68 GB</td><td>~34 GB</td><td>~26 GB</td><td>~20 GB</td><td>~16 GB</td><td>~12.5 GB</td></tr>
+      <tr><td><strong>70B</strong></td><td>~140 GB</td><td>~70 GB</td><td>~53 GB</td><td>~42 GB</td><td>~33 GB</td><td>~26 GB</td></tr>
+      <tr><td><strong>72B</strong></td><td>~144 GB</td><td>~72 GB</td><td>~55 GB</td><td>~43 GB</td><td>~34 GB</td><td>~27 GB</td></tr>
+      <tr><td><strong>120B</strong></td><td>~240 GB</td><td>~120 GB</td><td>~91 GB</td><td>~72 GB</td><td>~56 GB</td><td>~44 GB</td></tr>
+    </tbody>
+  </table>
+
+  <h3>MoE Models (Sparse)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Total Params</th>
+        <th>Active / Token</th>
+        <th>FP16</th>
+        <th>Q4_K_M</th>
+        <th>Q3_K_M</th>
+        <th>Q2_K</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Mixtral 8x7B</strong></td><td>~47B</td><td>~13B</td><td>~94 GB</td><td>~28 GB</td><td>~22 GB</td><td>~17 GB</td></tr>
+      <tr><td><strong>DBRX (132B total)</strong></td><td>~132B</td><td>~36B</td><td>~264 GB</td><td>~79 GB</td><td>~62 GB</td><td>~49 GB</td></tr>
+      <tr><td><strong>DeepSeek-V2 (236B)</strong></td><td>~236B</td><td>~21B</td><td>~472 GB</td><td>~142 GB</td><td>~111 GB</td><td>~88 GB</td></tr>
+      <tr><td><strong>DeepSeek-V3 (671B)</strong></td><td>~671B</td><td>~37B</td><td>~1342 GB</td><td>~403 GB</td><td>~315 GB</td><td>~249 GB</td></tr>
+      <tr><td><strong>Qwen2.5-72B-AQ4</strong></td><td>~72B</td><td>~72B</td><td>~144 GB</td><td>~43 GB</td><td>~34 GB</td><td>~27 GB</td></tr>
+      <tr><td><strong>Llama 3.1 70B</strong></td><td>~70B</td><td>~70B</td><td>~140 GB</td><td>~42 GB</td><td>~33 GB</td><td>~26 GB</td></tr>
+      <tr><td><strong>Llama 3 405B (dense)</strong></td><td>~405B</td><td>~405B</td><td>~810 GB</td><td>~243 GB</td><td>~190 GB</td><td>~150 GB</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-warning">
+    <strong>Key insight:</strong> 4-bit quantization is the sweet spot for home use — it retains ~99% of model quality while cutting VRAM by 4x. For MoE models, Q3 and Q2 quantizations are often necessary to fit in consumer hardware.
+  </div>
+</section>
+
+<!-- ===== BUDGET BUILDS ===== -->
+<section id="builds">
+  <h2>Budget Hardware Builds (2025–2026)</h2>
+  <p>All prices are approximate used-market (eBay, r/hardwareswap, server pulls). New prices in parentheses.</p>
+
+  <h3>Candidate GPUs for Home Inference</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>GPU</th>
+        <th>VRAM</th>
+        <th>Used Price</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>NVIDIA P40 (Tesla)</td><td>24 GB</td><td>$180–250</td><td>No display out, PCIe gen3, needs active cooling mod</td></tr>
+      <tr><td>NVIDIA P100 (Tesla) 16GB</td><td>16 GB</td><td>$150–200</td><td>Faster than P40, less VRAM</td></tr>
+      <tr><td>2x NVIDIA P40</td><td>48 GB</td><td>$360–500</td><td>Best bang/buck for 70B Q4</td></tr>
+      <tr><td>RTX 3090</td><td>24 GB</td><td>$700–850</td><td>Fast, plentiful, single-slot for 70B Q3–Q4 with CPU offload</td></tr>
+      <tr><td>2x RTX 3090</td><td>48 GB</td><td>$1400–1700</td><td>Gold standard for 70B Q4 / 120B Q3</td></tr>
+      <tr><td>RTX 4090</td><td>24 GB</td><td>$1600–1900</td><td>Fastest single consumer card</td></tr>
+      <tr><td>2x RTX 4090</td><td>48 GB</td><td>$3200–3800</td><td>Overkill but blazing fast</td></tr>
+      <tr><td>4x P40</td><td>96 GB</td><td>$720–1000</td><td>Can run 120B Q4 / 405B Q2</td></tr>
+      <tr><td>AMD 7900 XTX</td><td>24 GB</td><td>$800–1000</td><td>Good with ROCm + SGLang/vLLM</td></tr>
+      <tr><td>Apple M2 Ultra (192 GB)</td><td>192 GB unified</td><td>$4000+ (whole system)</td><td>Unified memory = huge models, but slow bandwidth</td></tr>
+      <tr><td>Apple M4 Max (128 GB)</td><td>128 GB unified</td><td>$3500+ (whole system)</td><td>Best Apple option for LLMs</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Recommended Builds by Budget</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="price">~$400</span>
+      <h4>Ultra Budget: 2x P40</h4>
+      <p><span class="tag tag-green">70B Q4_K_M</span> <span class="tag tag-yellow">120B Q2_K</span></p>
+      <ul>
+        <li>2x Tesla P40 (24 GB each) — $360–500</li>
+        <li>Used Xeon or Ryzen system — $150–200</li>
+        <li>PCIe risers + PSU adapter — $30</li>
+        <li>3D-printed fan shroud mod (or server chassis)</li>
+        <li>~10–15 tok/s on 70B Q4 via llama.cpp</li>
+      </ul>
+      <div class="callout callout-warning" style="margin:12px 0 0;padding:10px 14px;font-size:0.85rem">
+        P40s need passive-to-active cooling mod. No FP16 support — uses FP32 which is slower.
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="price">~$900</span>
+      <h4>Sweet Spot: Single 3090</h4>
+      <p><span class="tag tag-green">34B Q4</span> <span class="tag tag-yellow">70B Q3_K_M</span> <span class="tag tag-blue">70B Q4 (with CPU offload)</span></p>
+      <ul>
+        <li>Used RTX 3090 24 GB — $700–850</li>
+        <li>Rest of system (AM4/AM5, 32 GB RAM) — $200–400</li>
+        <li>~20–25 tok/s on 34B Q4</li>
+        <li>~8–12 tok/s on 70B Q4 with ~20 GB CPU offload</li>
+        <li>Can also run 70B Q3_K_M fully on GPU</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="price">~$1,700</span>
+      <h4>Workhorse: 2x 3090</h4>
+      <p><span class="tag tag-green">70B Q4</span> <span class="tag tag-green">120B Q3</span> <span class="tag tag-yellow">120B Q4 (with offload)</span></p>
+      <ul>
+        <li>2x used RTX 3090 (48 GB total) — $1400–1700</li>
+        <li>NVLink bridge for faster inter-GPU (optional)</li>
+        <li>1000W+ PSU — $120–180</li>
+        <li>~20–28 tok/s on 70B Q4</li>
+        <li>~14–18 tok/s on 120B Q3_K_M</li>
+        <li>llama.cpp splits layers across GPUs automatically</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="price">~$2,000</span>
+      <h4>Mac Studio M1/M2 Ultra</h4>
+      <p><span class="tag tag-green">70B Q4</span> <span class="tag tag-green">120B Q4</span> <span class="tag tag-blue">405B Q2</span></p>
+      <ul>
+        <li>Used M1 Ultra (48/64 GPU cores, 128 GB unified) — $2000–2800</li>
+        <li>No GPU splitting needed — unified memory</li>
+        <li>~8–15 tok/s on 70B Q4</li>
+        <li>~5–8 tok/s on 120B Q4</li>
+        <li>Lower tok/s but zero hassle with model splitting</li>
+        <li>Excellent for batch/background inference</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="price">~$3,500</span>
+      <h4>Max Power: 4x P40</h4>
+      <p><span class="tag tag-green">120B Q4</span> <span class="tag tag-green">405B Q2</span> <span class="tag tag-yellow">DeepSeek-V3 Q2</span></p>
+      <ul>
+        <li>4x Tesla P40 (96 GB total) — $720–1000</li>
+        <li>Server motherboard + dual Xeon + PSU — $400–600</li>
+        <li>PCIe slots (need 4 x16 or x8 slots)</li>
+        <li>~6–10 tok/s on 120B Q4</li>
+        <li>~3–5 tok/s on DeepSeek-V3 Q2_K</li>
+        <li>Great for batch inference and prompt processing</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>LLM-in-a-box: Complete Prebuilt Systems</h3>
+  <table>
+    <thead>
+      <tr><th>System</th><th>Specs</th><th>Price</th><th>Max Model</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Used Dell R730xd + 2x P40</td><td>2x Xeon E5-2690v4, 128 GB RAM</td><td>~$800–1000</td><td>70B Q4</td></tr>
+      <tr><td>Used Dell R740 + 4x P40</td><td>2x Xeon Silver 4114, 256 GB RAM</td><td>~$1500–2000</td><td>120B Q4</td></tr>
+      <tr><td>Custom Threadripper + 2x 3090</td><td>TR 3960X, 128 GB, 2x 3090</td><td>~$2500–3000</td><td>120B Q4</td></tr>
+      <tr><td>Mac Studio M2 Ultra</td><td>24 CPU / 76 GPU, 192 GB</td><td>~$4000–5000 used</td><td>405B Q2 / 120B Q8</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== QUANTIZATION ===== -->
+<section id="quant">
+  <h2>Quantization Methods</h2>
+
+  <h3>Comparison</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Bits</th>
+        <th>Quality Retained</th>
+        <th>VRAM/70B</th>
+        <th>Speed</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>FP16</strong></td><td>16</td><td>100%</td><td>~140 GB</td><td>Fast (GPU native)</td><td>Reference, server-grade hardware</td></tr>
+      <tr><td><strong>Q8_0</strong></td><td>8</td><td>~99.9%</td><td>~70 GB</td><td>Very fast</td><td>High-quality, ample VRAM</td></tr>
+      <tr><td><strong>Q6_K</strong></td><td>6</td><td>~99.5%</td><td>~53 GB</td><td>Fast</td><td>Best quality-to-size ratio</td></tr>
+      <tr><td><strong>Q5_K_M</strong></td><td>5</td><td>~99%</td><td>~46 GB</td><td>Fast</td><td>High quality, moderate VRAM</td></tr>
+      <tr><td><strong>Q4_K_M</strong></td><td>4</td><td>~98.5%</td><td>~42 GB</td><td>Fast</td><td><strong>Sweet spot for most users</strong></td></tr>
+      <tr><td><strong>Q3_K_M</strong></td><td>3</td><td>~96%</td><td>~33 GB</td><td>Moderate</td><td>Fitting 70B in 24–36 GB</td></tr>
+      <tr><td><strong>Q2_K</strong></td><td>2</td><td>~92%</td><td>~26 GB</td><td>Moderate</td><td>Fitting 70B in single 24 GB card</td></tr>
+      <tr><td><strong>IQ1_S</strong></td><td>1.5</td><td>~85%</td><td>~16 GB</td><td>Slower</td><td>Extreme compression, research</td></tr>
+    </tbody>
+  </table>
+
+  <h4>AWQ (Activation-Aware Weight Quantization)</h4>
+  <p>Used by vLLM, TGI, AutoAWQ. 4-bit only typically. Slightly better quality than naive round-to-nearest 4-bit. Requires calibration dataset. Good for serving.</p>
+
+  <h4>GPTQ (Post-Training Quantization)</h4>
+  <p>Older standard, popularized by AutoGPTQ. 4-bit. Works well with ExLlamaV2. Requires calibration. Slightly slower than AWQ for batch inference.</p>
+
+  <h4>GGUF (GGML Universal Format)</h4>
+  <p>The standard for llama.cpp. Supports all quantization levels (1.5 to 8 bit). Runs on CPU, GPU, or hybrid. Most flexible format for home users. Massive ecosystem of pre-quantized models on Hugging Face.</p>
+
+  <h4>Bitsandbytes (NF4 / FP4)</h4>
+  <p>Hugging Face native 4-bit. Uses double quantization for extra savings. Good for <code>transformers</code> integration. Slower than GGUF for inference.</p>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>GGUF Advantages</h4>
+      <ul>
+        <li>CPU+GPU hybrid inference (offload partial layers)</li>
+        <li>Widest quantization selection (Q2–Q8, IQ1–IQ4)</li>
+        <li>No Python/transformers dependency needed</li>
+        <li>Best memory efficiency per quality</li>
+        <li>Huge HF hub ecosystem of quantized models</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>GGUF Limitations</h4>
+      <ul>
+        <li>Single-user, not designed for serving</li>
+        <li>No dynamic batching (but added in llama-server)</li>
+        <li>Slower than vLLM for high-throughput serving</li>
+        <li>Not ideal for multi-user API serving</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-success">
+    <strong>Recommendation:</strong> Start with <code>Q4_K_M</code> GGUF for home use. If you have VRAM to spare, step up to <code>Q5_K_M</code> or <code>Q6_K</code>. If VRAM-constrained, <code>Q3_K_M</code> or <code>Q2_K</code> still deliver remarkable quality for a 70B model.
+  </div>
+</section>
+
+<!-- ===== SOFTWARE ===== -->
+<section id="software">
+  <h2>Software Stack</h2>
+
+  <h3>Inference Engines</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4><a href="https://github.com/ggml-org/llama.cpp" style="color:var(--accent2)">llama.cpp</a></h4>
+      <p><span class="tag tag-green">Home #1</span></p>
+      <ul>
+        <li>C/C++, no dependencies</li>
+        <li>GGUF format (all quants)</li>
+        <li>CPU + GPU hybrid (CUDA/Metal/Vulkan)</li>
+        <li>llama-server: OpenAI-compatible API</li>
+        <li>Best memory efficiency</li>
+        <li>SWA, speculative decoding, multimodal</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><a href="https://github.com/vllm-project/vllm" style="color:var(--accent2)">vLLM</a></h4>
+      <p><span class="tag tag-blue">Serving</span></p>
+      <ul>
+        <li>PagedAttention for KV cache efficiency</li>
+        <li>Continuous batching (high throughput)</li>
+        <li>OpenAI-compatible API</li>
+        <li>Supports AWQ, GPTQ, FP8</li>
+        <li>Needs CUDA GPU with decent VRAM</li>
+        <li>Best for multi-user or chat apps</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><a href="https://github.com/turboderp/exllama" style="color:var(--accent2)">ExLlamaV2</a></h4>
+      <p><span class="tag tag-orange">Fast single-user</span></p>
+      <ul>
+        <li>Optimized CUDA kernels for GPTQ/AWQ</li>
+        <li>Fastest single-user token generation</li>
+        <li>Supports 4-bit and 8-bit</li>
+        <li>Good for chat/roleplay use cases</li>
+        <li>Less flexible than llama.cpp</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><a href="https://ollama.ai" style="color:var(--accent2)">Ollama</a></h4>
+      <p><span class="tag tag-green">Easiest setup</span></p>
+      <ul>
+        <li>Wraps llama.cpp in pleasant UX</li>
+        <li><code>ollama pull model</code> — one command</li>
+        <li>Model library, modelfiles</li>
+        <li>OpenAI-compatible API</li>
+        <li>Good for beginners</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><a href="https://github.com/oobabooga/text-generation-webui" style="color:var(--accent2)">Text Generation WebUI</a></h4>
+      <p><span class="tag tag-yellow">Feature-rich</span></p>
+      <ul>
+        <li>Gradio web UI (a1111-style)</li>
+        <li>Backends: llama.cpp, ExLlama, AutoGPTQ, Transformers</li>
+        <li>LoRA loading, multimodal, extensions</li>
+        <li>Good for experimentation</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Setting Up llama.cpp (Quickstart)</h3>
+  <pre><code># Build from source (Linux/macOS)
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+make -j
+
+# Or CMake with CUDA support
+cmake -B build -DGGML_CUDA=ON
+cmake --build build --config Release -j
+
+# Download a 70B GGUF model (example)
+wget https://huggingface.co/bartowski/Llama-3.1-70B-Instruct-GGUF/resolve/main/Llama-3.1-70B-Instruct-Q4_K_M.gguf
+
+# Run with GPU offload (24 layers to GPU)
+./llama-cli -m Llama-3.1-70B-Instruct-Q4_K_M.gguf \
+  -ngl 24 -n 512 -p "Hello, explain quantum computing"
+
+# Start API server
+./llama-server -m Llama-3.1-70B-Instruct-Q4_K_M.gguf \
+  -ngl 48 --port 8080 --host 0.0.0.0</code></pre>
+
+  <h3>Setting Up vLLM for Serving</h3>
+  <pre><code># Install
+pip install vllm
+
+# Serve a model
+python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Llama-3.1-70B-Instruct \
+  --quantization awq \
+  --dtype half \
+  --max-model-len 8192 \
+  --tensor-parallel-size 2  # if 2 GPUs
+
+# Or with a local AWQ quant
+python -m vllm.entrypoints.openai.api_server \
+  --model /path/to/model-awq \
+  --max-model-len 4096</code></pre>
+</section>
+
+<!-- ===== MoE & DEEPSEEK ===== -->
+<section id="moe">
+  <h2>Running MoE Models at Home</h2>
+
+  <p>Mixture-of-Experts (MoE) models are particularly interesting for home users because they activate only a fraction of parameters per token. This means <em>compute</em> requirements are low, but <em>memory</em> requirements remain high (all experts must be loaded).</p>
+
+  <h3>Available Open MoE Models</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Total Params</th>
+        <th>Active / Token</th>
+        <th>Experts</th>
+        <th>Q4 VRAM</th>
+        <th>Runs on…</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Mixtral 8x7B</td><td>47B</td><td>~13B</td><td>8 (top-2)</td><td>~28 GB</td><td>1x 3090 / 2x P40</td></tr>
+      <tr><td>Mixtral 8x22B</td><td>141B</td><td>~39B</td><td>8 (top-2)</td><td>~85 GB</td><td>4x P40 / 2x 4090</td></tr>
+      <tr><td>Qwen2.5-32B-A3B (MoE)</td><td>32B</td><td>~3B</td><td>MoE layers</td><td>~19 GB</td><td>1x 3090 (fast!)</td></tr>
+      <tr><td>Qwen2.5-143B-A13B (MoE)</td><td>143B</td><td>~13B</td><td>MoE layers</td><td>~86 GB</td><td>4x P40 / 2x 3090</td></tr>
+      <tr><td>DeepSeek-V2-Lite</td><td>16B</td><td>~2.4B</td><td>MoE (MLA)</td><td>~10 GB</td><td>Any 12 GB+ GPU</td></tr>
+      <tr><td>DeepSeek-V2 (236B)</td><td>236B</td><td>~21B</td><td>MoE (MLA)</td><td>~142 GB</td><td>6x P40 / 3x 3090</td></tr>
+      <tr><td>DeepSeek-V3 (671B)</td><td>671B</td><td>~37B</td><td>MoE (MLA)</td><td>~403 GB</td><td>Server cluster / 8x 3090</td></tr>
+      <tr><td>DeepSeek-R1 (671B)</td><td>671B</td><td>~37B</td><td>MoE (MLA)</td><td>~403 GB</td><td>Same as V3</td></tr>
+      <tr><td><strong>DeepSeek-V4-Flash</strong></td><td>TBD (MoE)</td><td>TBD</td><td>MoE (MLA)</td><td>TBD</td><td>Check community GGUF ports</td></tr>
+      <tr><td>DBRX (132B)</td><td>132B</td><td>~36B</td><td>16 (top-4)</td><td>~79 GB</td><td>4x P40 / 2x 3090</td></tr>
+      <tr><td>Phi-3.5-MoE</td><td>42B</td><td>~6.6B</td><td>16 (top-2)</td><td>~25 GB</td><td>1x 3090</td></tr>
+    </tbody>
+  </table>
+
+  <h3>DeepSeek-V4-Flash — Now Available</h3>
+
+  <div class="callout callout-success">
+    <strong>DeepSeek-V4-Flash is released and running right now — it's the model powering this conversation</strong> (model ID: <code>deepseek/deepseek-v4-flash</code>). It is an MoE architecture from DeepSeek, continuing the lineage of V2 → V3 → R1. Like its predecessors, it uses Multi-head Latent Attention (MLA) for memory-efficient KV cache, and a sparse MoE structure where only a fraction of parameters activate per token. The "Flash" suffix indicates optimizations for inference speed and reduced memory footprint.
+  </div>
+
+  <p>While exact architecture specs (total parameter count, expert count, active params) are not publicly documented at this time, the architecture follows DeepSeek's established MoE+MLA blueprint. Here's what we can infer from the lineage:</p>
+  <ul>
+    <li><strong>Architecture:</strong> Mixture-of-Experts with Multi-head Latent Attention</li>
+    <li><strong>MLA advantage:</strong> Compresses KV cache by ~75% vs standard MHA — dramatically reduces memory for long contexts</li>
+    <li><strong>Sparse activation:</strong> Only a subset of experts activate per token, keeping compute costs far below what total parameters would suggest</li>
+    <li><strong>Inference optimization:</strong> The "Flash" variant suggests further kernel-level and/or quantization optimizations for faster generation</li>
+    <li><strong>GGUF community ports:</strong> Check Hugging Face for community-quantized GGUF versions as they appear</li>
+  </ul>
+
+  <p>For DeepSeek V3/R1 (671B) — the previous generation and likely similar in size to V4-Flash — here's what's needed at home:</p>
+  <ul>
+    <li><strong>GGUF Q2_K:</strong> ~249 GB — needs 10x P40 or 5x 3090</li>
+    <li><strong>GGUF Q3_K_M:</strong> ~315 GB — needs 13x P40 or 7x 3090</li>
+    <li><strong>GGUF Q4_K_M:</strong> ~403 GB — needs 17x P40 or 8x 3090</li>
+    <li><strong>IQ2 via imatrix:</strong> ~160 GB — fits on 7x P40 or 3-4x 3090</li>
+  </ul>
+
+  <h4>V4-Flash Speculative Hardware Estimates</h4>
+  <p>If V4-Flash is similar in scale to V3/R1 (671B total, ~37B active), these estimates apply. If it is a smaller optimized variant, requirements could be significantly lower:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Quant</th>
+        <th>VRAM</th>
+        <th>Hardware</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>If ~671B scale (V3-class)</td><td>Q2_K</td><td>~249 GB</td><td>10x P40 / 5x 3090</td></tr>
+      <tr><td>If ~671B scale</td><td>Q3_K_M</td><td>~315 GB</td><td>13x P40 / 7x 3090</td></tr>
+      <tr><td>If optimized smaller MoE (&lt;300B total)</td><td>Q4_K_M</td><td>~90-180 GB</td><td>4-8x P40 / 2-4x 3090</td></tr>
+      <tr><td>If optimized smaller MoE</td><td>Q3_K_M</td><td>~70-140 GB</td><td>3-6x P40 / 2-3x 3090</td></tr>
+      <tr><td>If optimized smaller MoE</td><td>Q2_K</td><td>~55-110 GB</td><td>2-5x P40 / 1-2x 3090</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-warning">
+    <strong>Practical advice:</strong> Wait for actual GGUF community releases and real-world benchmarks before building hardware. Check <a href="https://huggingface.co/models?search=deepseek+v4+gguf" style="color:var(--accent2)">Hugging Face for GGUF ports</a>. The most cost-effective approach to running models at this scale today remains the multi-P40 route (~$10/GB VRAM) or a Mac Studio with 128-192 GB unified memory.
+  </div>
+
+  <h4>MoE-Specific Optimization Tips</h4>
+  <ul>
+    <li><strong>llama.cpp:</strong> Use <code>-ngl N</code> to offload layers to GPU. For MoE, you can offload fewer layers since compute per token is lower.</li>
+    <li><strong>vLLM:</strong> MoE models benefit from <code>--tensor-parallel-size</code> to distribute experts across GPUs.</li>
+    <li><strong>KV cache:</strong> DeepSeek's MLA means dramatically smaller KV cache. Set <code>-c 16384</code> or higher — it won't cost as much VRAM as dense models.</li>
+    <li><strong>Expert offloading:</strong> llama.cpp can offload inactive experts to RAM and bring active ones to GPU — experimental but promising for MoE.</li>
+  </ul>
+</section>
+
+<!-- ===== PERFORMANCE ===== -->
+<section id="performance">
+  <h2>Performance Expectations</h2>
+
+  <h3>Tokens Per Second by Hardware</h3>
+  <p>Measured with llama.cpp, Q4_K_M quantization, 512 token prompt, 256 token generation. Your mileage will vary.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hardware</th>
+        <th>7B</th>
+        <th>13B</th>
+        <th>34B</th>
+        <th>70B</th>
+        <th>120B</th>
+        <th>Mixtral (47B)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1x P40 (24 GB)</td><td>~40 tok/s</td><td>~22 tok/s</td><td>~9 tok/s</td><td>~4 tok/s *</td><td>—</td><td>~7 tok/s</td></tr>
+      <tr><td>2x P40 (48 GB)</td><td>~60 tok/s</td><td>~35 tok/s</td><td>~16 tok/s</td><td>~8 tok/s</td><td>~4 tok/s *</td><td>~13 tok/s</td></tr>
+      <tr><td>4x P40 (96 GB)</td><td>—</td><td>~50 tok/s</td><td>~25 tok/s</td><td>~12 tok/s</td><td>~8 tok/s</td><td>~20 tok/s</td></tr>
+      <tr><td>1x RTX 3090 (24 GB)</td><td>~100 tok/s</td><td>~55 tok/s</td><td>~22 tok/s</td><td>~10 tok/s *</td><td>—</td><td>~18 tok/s</td></tr>
+      <tr><td>2x RTX 3090 (48 GB)</td><td>~160 tok/s</td><td>~90 tok/s</td><td>~40 tok/s</td><td>~22 tok/s</td><td>~12 tok/s</td><td>~35 tok/s</td></tr>
+      <tr><td>1x RTX 4090 (24 GB)</td><td>~140 tok/s</td><td>~75 tok/s</td><td>~30 tok/s</td><td>~14 tok/s *</td><td>—</td><td>~25 tok/s</td></tr>
+      <tr><td>2x RTX 4090 (48 GB)</td><td>—</td><td>~120 tok/s</td><td>~55 tok/s</td><td>~30 tok/s</td><td>~16 tok/s</td><td>~45 tok/s</td></tr>
+      <tr><td>Mac M2 Ultra (192 GB)</td><td>~50 tok/s</td><td>~30 tok/s</td><td>~15 tok/s</td><td>~8 tok/s</td><td>~5 tok/s</td><td>~12 tok/s</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85rem;color:var(--text-dim)">* With CPU offload (partial layers on GPU, rest on CPU/system RAM). Requires fast RAM and many CPU cores.</p>
+
+  <h3>What's "Usable"?</h3>
+  <ul>
+    <li><strong>&gt; 30 tok/s:</strong> Feels instantaneous — like ChatGPT</li>
+    <li><strong>15–30 tok/s:</strong> Comfortable real-time chat</li>
+    <li><strong>8–15 tok/s:</strong> Acceptable for chat, fine for batch</li>
+    <li><strong>3–8 tok/s:</strong> Noticeable delay, OK for background tasks</li>
+    <li><strong>&lt; 3 tok/s:</strong> Painful for chat, usable for batch/offline</li>
+  </ul>
+
+  <div class="callout callout-warning">
+    <strong>Prompt processing</strong> (ingesting your input) is usually 2-5x faster than token generation. Long prompts (&gt;4K tokens) can take several seconds even on fast hardware. MoE models have faster prompt processing since fewer expert parameters are computed per token.
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <h2>FAQ &amp; Pro Tips</h2>
+
+  <h3>Should I buy P40s or save for 3090s?</h3>
+  <p>P40s are the best <em>value per GB of VRAM</em> (~$10/GB). 3090s offer 3-4x more <em>throughput per GB</em>. If you're budget-constrained and patient (3-8 tok/s is OK), go P40. If you want comfortable chat speeds, save for 3090s.</p>
+
+  <h3>Can I mix different GPUs?</h3>
+  <p>Yes, llama.cpp supports heterogeneous GPUs. You can have a 3090 + P40, for example. The faster GPU will handle more layers. Use <code>--tensor-split</code> to control distribution. The main constraint: <strong>all GPUs must be NVIDIA</strong> (or all AMD for ROCm).</p>
+
+  <h3>Do I need NVLink between 3090s?</h3>
+  <p>No. NVLink helps marginally (~5-10%) with multi-GPU inference but is not required. PCIe 3.0/4.0 bandwidth is sufficient for LLM inference since layer outputs are relatively small.</p>
+
+  <h3>How much system RAM do I need?</h3>
+  <p>At least 32 GB. For CPU offloading or running CPU-only, 64-128 GB recommended. For models split across GPUs, system RAM is less critical (16-32 GB is fine).</p>
+
+  <h3>Should I use llama.cpp or vLLM at home?</h3>
+  <p>For single-user: llama.cpp (or Ollama on top). For multi-user or API serving: vLLM. For fastest single-user speed: ExLlamaV2.</p>
+
+  <h3>Where do I find pre-quantized models?</h3>
+  <p>Hugging Face: search for <code>GGUF</code> combined with your model name. Popular quantizers: <code>TheBloke</code>, <code>bartowski</code>, <code>mradermacher</code>, <code>hugging-quants</code>. Most now provide an <code>imatrix</code> (importance matrix) for higher-quality quantizations.</p>
+
+  <h3>What about AMD GPUs?</h3>
+  <p>ROCm support in vLLM and SGLang is good. ROCm + llama.cpp has improved but is still behind CUDA. The RX 7900 XTX (24 GB) is a solid option if you want to avoid NVIDIA pricing. Expect ~80% of RTX 4090 performance.</p>
+
+  <h3>Can I run 405B (Llama 3.1) at home?</h3>
+  <p>Yes, but only with heavy quantization:
+    <ul>
+      <li><strong>Q2_K:</strong> ~150 GB → 6x P40 (~$600) or 7x 3090 if you want speed</li>
+      <li><strong>IQ2:</strong> ~130 GB → 5-6x P40</li>
+      <li><strong>IQ1_S:</strong> ~90 GB (experimental, quality loss noticeable)</li>
+    </ul>
+    A Mac Studio M2 Ultra with 192 GB is the most practical way to run 405B at home without multi-GPU headaches.
+  </p>
+
+  <h3>Power consumption?</h3>
+  <ul>
+    <li>1x RTX 3090 at load: ~350W</li>
+    <li>2x RTX 3090: ~700W (need 1000W+ PSU)</li>
+    <li>1x P40 at load: ~250W</li>
+    <li>4x P40: ~1000W</li>
+    <li>Mac M2 Ultra: ~150W (much more efficient)</li>
+  </ul>
+
+  <h3>Quick Decision Guide</h3>
+  <table>
+    <thead>
+      <tr><th>Your Budget</th><th>Best Setup</th><th>Largest Comfortable Model</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>$400–600</td><td>2x P40</td><td>70B Q3_K_M (or 70B Q4 with CPU offload)</td></tr>
+      <tr><td>$800–1,000</td><td>1x RTX 3090</td><td>34B Q4 / 70B Q3_K_M / Mixtral Q4</td></tr>
+      <tr><td>$1,500–2,000</td><td>2x RTX 3090</td><td>70B Q4 / 120B Q3 / Mixtral 8x22B Q3</td></tr>
+      <tr><td>$2,000–2,500</td><td>Mac M1 Ultra 128 GB</td><td>120B Q4 / 70B Q8 (no GPU splitting)</td></tr>
+      <tr><td>$2,500–3,500</td><td>4x P40 or Mac M2 Ultra</td><td>120B Q4 / 405B Q2 / DeepSeek-V3 Q2</td></tr>
+      <tr><td>$3,500+</td><td>2x RTX 4090</td><td>120B Q4 / 70B Q8 (fast)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="links" style="border-bottom: none;">
+  <h2>Resources &amp; Further Reading</h2>
+  <ul>
+    <li><a href="https://github.com/ggml-org/llama.cpp" style="color:var(--accent2)">llama.cpp</a> — The gold standard for local LLM inference</li>
+    <li><a href="https://github.com/vllm-project/vllm" style="color:var(--accent2)">vLLM</a> — High-throughput serving engine</li>
+    <li><a href="https://github.com/turboderp/exllama" style="color:var(--accent2)">ExLlamaV2</a> — Fast single-user GPU inference</li>
+    <li><a href="https://ollama.ai" style="color:var(--accent2)">Ollama</a> — Easiest local LLM runner</li>
+    <li><a href="https://huggingface.co" style="color:var(--accent2)">Hugging Face</a> — Model hub (GGUF, AWQ, GPTQ)</li>
+    <li><a href="https://www.reddit.com/r/LocalLLaMA" style="color:var(--accent2)">r/LocalLLaMA</a> — Active community</li>
+    <li><a href="https://huggingface.co/blog/moe" style="color:var(--accent2)">MoE Explained (Hugging Face blog)</a></li>
+  </ul>
+</section>
+
+</div><!-- /container -->
+
+<footer style="border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--text-dim); font-size: 0.85rem;">
+  <div class="container">
+    <p>Research compiled May 2026. Prices are estimates from US used market. Verify current market prices before purchasing.</p>
+    <p style="margin-top: 8px;">Hardware requirements will change as quantization and inference techniques improve.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4x AMD Instinct MI100 for Home LLMs — Viability Report</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242838;
+    --border: #2e3348;
+    --text: #e2e4eb;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent2: #00b894;
+    --red: #e17055;
+    --amber: #fdcb6e;
+    --green: #00b894;
+    --font: 'SF Mono','Cascadia Code','Fira Code','JetBrains Mono',monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 2rem; font-weight: 700; letter-spacing:-0.02em; margin-bottom: 0.25rem; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 2rem; border-bottom:1px solid var(--border); padding-bottom:1rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; color: var(--accent2); display:flex; align-items:center; gap:0.5rem; }
+  h2::before { content: '#'; opacity: 0.4; font-weight: 400; }
+  h3 { font-size: 1.05rem; margin: 1.25rem 0 0.5rem; color: var(--text); }
+  p { margin-bottom: 0.75rem; color: var(--text-dim); }
+  .verdict-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--amber);
+  }
+  .verdict-box.green { border-left-color: var(--green); }
+  .verdict-box.red { border-left-color: var(--red); }
+  .verdict-box h3 { margin-top: 0; color: var(--text); }
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .spec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .spec-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing:0.05em; color: var(--text-dim); }
+  .spec-card .value { font-size: 1.1rem; font-weight: 600; margin-top: 0.15rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  th, td {
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th { background: var(--surface); color: var(--text); font-weight: 600; }
+  td { color: var(--text-dim); }
+  tr:hover td { background: var(--surface); }
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag.green { background: rgba(0,184,148,0.15); color: var(--green); }
+  .tag.amber { background: rgba(253,203,110,0.15); color: var(--amber); }
+  .tag.red { background: rgba(225,112,85,0.15); color: var(--red); }
+  .tag.accent { background: rgba(108,92,231,0.2); color: var(--accent); }
+  ul, ol { margin: 0.5rem 0 0.75rem 1.25rem; color: var(--text-dim); }
+  li { margin-bottom: 0.3rem; }
+  .metric-bar {
+    display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0;
+  }
+  .metric-bar .bar {
+    flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden;
+  }
+  .metric-bar .fill { height: 100%; border-radius: 4px; }
+  .metric-bar .fill.green { background: var(--green); width: 80%; }
+  .metric-bar .fill.amber { background: var(--amber); width: 50%; }
+  .metric-bar .fill.red { background: var(--red); width: 30%; }
+  .metric-bar .label { font-size: 0.85rem; min-width: 100px; }
+  .metric-bar .pct { font-size: 0.85rem; min-width: 40px; text-align: right; font-weight: 600; }
+  @media (max-width: 640px) {
+    h1 { font-size: 1.5rem; }
+    .specs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>4x AMD Instinct MI100 <span>for Home LLMs</span></h1>
+<div class="subtitle">Comprehensive viability assessment — May 2026</div>
+
+<!-- VERDICT -->
+<div class="verdict-box amber">
+<h3>&#9888; Mixed Verdict</h3>
+<p>A 4x MI100 rig is <strong>technically viable</strong> and offers compelling value (128 GB HBM2 for ~$4–6k), but comes with significant caveats: first-gen CDNA architecture, no FP8/FP4 support, passive cooling requiring a server chassis, and a smaller software optimization envelope compared to MI250+ or NVIDIA alternatives. Best suited for <strong>budget-conscious enthusiasts comfortable with ROCm tinkering</strong> who want to run large quants (70B–120B param models) at usable speeds.</p>
+</div>
+
+<!-- SPECS -->
+<h2>Hardware Specifications</h2>
+<div class="specs-grid">
+  <div class="spec-card"><div class="label">Architecture</div><div class="value">CDNA 1 (gfx908)</div></div>
+  <div class="spec-card"><div class="label">Memory per GPU</div><div class="value">32 GB HBM2</div></div>
+  <div class="spec-card"><div class="label">Total Memory (4x)</div><div class="value">128 GB</div></div>
+  <div class="spec-card"><div class="label">Memory Bandwidth</div><div class="value">1.2 TB/s</div></div>
+  <div class="spec-card"><div class="label">Compute Units</div><div class="value">120 CUs</div></div>
+  <div class="spec-card"><div class="label">Stream Processors</div><div class="value">7,680</div></div>
+  <div class="spec-card"><div class="label">TDP per GPU</div><div class="value">300 W</div></div>
+  <div class="spec-card"><div class="label">Total TDP (4x)</div><div class="value">1,200 W</div></div>
+  <div class="spec-card"><div class="label">FP16</div><div class="value">184.6 TFLOPS</div></div>
+  <div class="spec-card"><div class="label">FP32</div><div class="value">23.1 TFLOPS</div></div>
+  <div class="spec-card"><div class="label">FP64</div><div class="value">11.5 TFLOPS</div></div>
+  <div class="spec-card"><div class="label">Interconnect</div><div class="value">Infinity Fabric (3 links)</div></div>
+  <div class="spec-card"><div class="label">Form Factor</div><div class="value">Dual-slot, passive, PCIe 4.0</div></div>
+  <div class="spec-card"><div class="label">Launch Date</div><div class="value">Nov 2020</div></div>
+</div>
+
+<h2>Model Capacity Estimation</h2>
+<p>With 128 GB total HBM2 across 4 GPUs, and accounting for ~4 GB overhead per GPU for KV cache, here is what fits at various quantizations:</p>
+
+<table>
+<tr><th>Quantization</th><th>Max Param Size</th><th>Example Models</th></tr>
+<tr><td>Q4_K_M (4.5 bpw)</td><td>~110B params</td><td>Llama-3-70B, Qwen 2.5-72B, Command R+</td></tr>
+<tr><td>Q5_K_M (5.5 bpw)</td><td>~90B params</td><td>Llama-3-70B, Mixtral 8x22B, Yi-34B (MU)</td></tr>
+<tr><td>Q8_0 (8.5 bpw)</td><td>~60B params</td><td>Llama-3-70B (tight), Qwen 2.5-32B</td></tr>
+<tr><td>FP16 (16 bpw)</td><td>~30B params</td><td>Qwen 2.5-32B, CodeLlama-34B</td></tr>
+</table>
+<p>This makes 4x MI100 <strong>excellent for large-quantized 70B models</strong> and capable of running 100B+ models at low quantization — a key advantage over dual-RTX-3090 setups (48 GB).</p>
+
+<h2>Performance Expectations</h2>
+
+<h3>Inference (llama.cpp / HIP BLAS)</h3>
+<table>
+<tr><th>Model</th><th>Quant</th><th>Prompt Processing</th><th>Token Generation</th></tr>
+<tr><td>Llama-3-8B</td><td>Q4_K_M</td><td>~4,000 t/s</td><td>~70–90 t/s</td></tr>
+<tr><td>Llama-3-70B</td><td>Q4_K_M</td><td>~800 t/s</td><td>~15–20 t/s</td></tr>
+<tr><td>Mixtral 8x22B</td><td>Q4_K_M</td><td>~2,000 t/s</td><td>~25–35 t/s</td></tr>
+<tr><td>Command R+ (104B)</td><td>Q3_K_M</td><td>~500 t/s</td><td>~10–14 t/s</td></tr>
+</table>
+<p>Numbers are estimates based on community reports with MI100 + ROCm 6.x / llama.cpp hipblas. Actual performance varies with ROCm version, memory clock, and CPU offloading. The MI100's lack of FP8 support means it cannot leverage quantization formats newer than 8-bit on GPU compute.</p>
+
+<h3>Training (PyTorch + ROCm)</h3>
+<p>LoRA/QLoRA fine-tuning is possible via PyTorch with ROCm. Performance is approximately:</p>
+<ul>
+  <li><strong>70B QLoRA:</strong> ~1–2 samples/s (batch size 1, gradient checkpointing)</li>
+  <li><strong>8B LoRA:</strong> ~15–25 samples/s</li>
+  <li><strong>Full fine-tuning</strong> is impractical for large models due to limited HBM and first-gen Matrix Engine throughput</li>
+</ul>
+<p>Expect 40–60% of the throughput of 4x RTX 3090 for training tasks. For inference, the gap is smaller (~70–80%).</p>
+
+<h2>Software Ecosystem</h2>
+
+<h3>ROCm Support <span class="tag green">Supported</span></h3>
+<p>The MI100 (gfx908) is officially supported in ROCm 6.x and 7.x (current). Supported OS: Ubuntu 22.04/24.04, RHEL 8/9, SLES 15 SP7. <strong>Not supported:</strong> Debian 12/13, Rocky Linux 9, Oracle Linux. The gfx908 target is stable across LLVM/HIP releases.</p>
+
+<h3>Key Software Compatibility</h3>
+<table>
+<tr><th>Tool</th><th>Status</th><th>Notes</th></tr>
+<tr><td>llama.cpp (HIP)</td><td><span class="tag green">Working</span></td><td>Primary inference path. Active bug fixes in recent releases. Use <code>make LLAMA_HIP_UMA=1</code>.</td></tr>
+<tr><td>vLLM</td><td><span class="tag amber">Limited</span></td><td>AMD support via ROCm; best on MI250+. MI100 works but not heavily optimized.</td></tr>
+<tr><td>PyTorch + ROCm</td><td><span class="tag green">Working</span></td><td>Official builds from pytorch.org. Use <code>pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.2</code>.</td></tr>
+<tr><td>Hugging Face TGI</td><td><span class="tag amber">Partial</span></td><td>ROCm support exists; MI100 not a primary test target.</td></tr>
+<tr><td>TensorFlow</td><td><span class="tag amber">Maintenance</span></td><td>ROCm support exists but limited community testing on MI100.</td></tr>
+<tr><td>ONNX Runtime</td><td><span class="tag green">Working</span></td><td>ROCm Execution Provider supports gfx908.</td></tr>
+<tr><td>ComfyUI / Stable Diffusion</td><td><span class="tag amber">Partial</span></td><td>ROCm fork exists; CDNA lacks tensor cores for SD optimizations. Slow.</td></tr>
+</table>
+
+<h3>Known Issues (from community)</h3>
+<ul>
+  <li>Prompt processing can crash with very long contexts (&gt;32k tokens) on MI100 — fixed in recent llama.cpp but still fragile</li>
+  <li>MoE model performance can be inconsistent with ROCm scheduler</li>
+  <li>Multi-GPU synchronization may require <code>iommu=pt</code> kernel parameter</li>
+  <li>Older ROCm 5.x required <code>HSA_OVERRIDE_GFX_VERSION=9.0.8</code> hack; ROCm 6+ handles this natively</li>
+  <li>No FP8 support — cannot use the latest quantization innovations (FP6, FP4) on-GPU</li>
+</ul>
+
+<h2>Deployment Considerations</h2>
+
+<h3>Hardware Requirements</h3>
+<ul>
+  <li><strong>Motherboard:</strong> Server board with 4+ PCIe 4.0 x16 slots at dual-slot spacing. EPYC or Xeon platform recommended. Threadripper Pro is ideal.</li>
+  <li><strong>Chassis:</strong> Must support passive GPU cooling with high static-pressure airflow. A 4U server chassis with dual fans or an open-air mining frame with industrial fans.</li>
+  <li><strong>PSU:</strong> Minimum 1600W titanium (recommended: 2000W+). 4x 300W GPUs + system = ~1400W sustained. Consider redundant PSUs.</li>
+  <li><strong>CPU:</strong> Any modern CPU with PCIe atomics support (Zen 1+, Haswell+). EPYC 7xx2 or Threadripper 7xxx recommended.</li>
+</ul>
+
+<h3>Power &amp; Heat</h3>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Idle power (system + 4 GPUs)</td><td>~400–500 W</td></tr>
+<tr><td>Load power (system + 4 GPUs)</td><td>~1,400–1,600 W</td></tr>
+<tr><td>Heat output (load)</td><td>~5,100–5,500 BTU/hr</td></tr>
+<tr><td>Daily cost at $0.12/kWh (24h load)</td><td>~$4.60/day</td></tr>
+<tr><td>Monthly cost at $0.12/kWh (24h load)</td><td>~$138–175/month</td></tr>
+<tr><td>Monthly cost at $0.25/kWh (CA/EU)</td><td>~$288–363/month</td></tr>
+</table>
+
+<h3>Noise</h3>
+<p>MI100s are <strong>passively cooled</strong>. Noise comes entirely from chassis fans. A 4U server chassis with 80mm fans runs at <strong>50–65 dB</strong> under load. Open-air rigs with 120mm industrial fans can be quieter (~45–55 dB) but require careful airflow management. This is <strong>not a living-room machine</strong> — it belongs in a garage, basement, or sound-isolated closet.</p>
+
+<h2>Cost Analysis</h2>
+<table>
+<tr><th>Component</th><th>Estimated Cost</th></tr>
+<tr><td>4x AMD Instinct MI100 (used/eBay)</td><td>$3,200–6,000 ($800–1,500 ea)</td></tr>
+<tr><td>EPYC/Threadripper motherboard</td><td>$500–1,200</td></tr>
+<tr><td>CPU (EPYC 7xx2 / Threadripper 7960X)</td><td>$500–2,500</td></tr>
+<tr><td>RAM (128 GB DDR4/DDR5)</td><td>$200–600</td></tr>
+<tr><td>PSU (1600W+ Titanium)</td><td>$400–700</td></tr>
+<tr><td>Chassis + Fans</td><td>$200–500</td></tr>
+<tr><td>Storage (NVMe SSD)</td><td>$100–300</td></tr>
+<tr><td><strong>Total (ballpark)</strong></td><td><strong>$5,100–11,800</strong></td></tr>
+</table>
+<p>For comparison: 4x used RTX 3090 (24GB) costs $4,800–6,000 with 96 GB total VRAM, better software support, and active cooling. 2x RTX 4090 (48 GB) costs $6,000–7,000 with much higher per-GPU throughput but less total memory.</p>
+
+<h2>Comparison with Alternatives</h2>
+<table>
+<tr><th>Config</th><th>Total VRAM</th><th>Cost (est)</th><th>Inference Speed</th><th>Training</th><th>SW Maturity</th><th>Noise</th></tr>
+<tr>
+  <td>4x MI100</td>
+  <td>128 GB</td>
+  <td>$5–12k</td>
+  <td><span class="tag amber">Fair</span></td>
+  <td><span class="tag amber">Fair</span></td>
+  <td><span class="tag amber">Bleeding-edge</span></td>
+  <td><span class="tag red">High</span></td>
+</tr>
+<tr>
+  <td>4x RTX 3090</td>
+  <td>96 GB</td>
+  <td>$5–6k</td>
+  <td><span class="tag green">Good</span></td>
+  <td><span class="tag green">Good</span></td>
+  <td><span class="tag green">Mature</span></td>
+  <td><span class="tag amber">Moderate</span></td>
+</tr>
+<tr>
+  <td>2x RTX 4090</td>
+  <td>48 GB</td>
+  <td>$5–7k</td>
+  <td><span class="tag green">Excellent</span></td>
+  <td><span class="tag green">Good</span></td>
+  <td><span class="tag green">Mature</span></td>
+  <td><span class="tag green">Low-Moderate</span></td>
+</tr>
+<tr>
+  <td>2x MI250X</td>
+  <td>256 GB</td>
+  <td>$15–25k</td>
+  <td><span class="tag green">Good</span></td>
+  <td><span class="tag green">Good</span></td>
+  <td><span class="tag amber">Bleeding-edge</span></td>
+  <td><span class="tag amber">Moderate</span></td>
+</tr>
+<tr>
+  <td>Apple M2 Ultra (192 GB)</td>
+  <td>192 GB (UMA)</td>
+  <td>$6–8k</td>
+  <td><span class="tag amber">Fair (low BW)</span></td>
+  <td><span class="tag red">Poor</span></td>
+  <td><span class="tag green">Mature (MLX)</span></td>
+  <td><span class="tag green">Silent</span></td>
+</tr>
+<tr>
+  <td>Cloud (Lambda/runpod 8x A100)</td>
+  <td>640 GB</td>
+  <td>$2–5/hr</td>
+  <td><span class="tag green">Excellent</span></td>
+  <td><span class="tag green">Excellent</span></td>
+  <td><span class="tag green">Mature</span></td>
+  <td>N/A</td>
+</tr>
+</table>
+
+<h2>Overall Assessment by Category</h2>
+
+<div class="metric-bar"><span class="label">Value per Dollar (VRAM)</span><div class="bar"><div class="fill green" style="width:90%"></div></div><span class="pct">90%</span></div>
+<div class="metric-bar"><span class="label">Inference Performance</span><div class="bar"><div class="fill amber" style="width:55%"></div></div><span class="pct">55%</span></div>
+<div class="metric-bar"><span class="label">Training Performance</span><div class="bar"><div class="fill amber" style="width:40%"></div></div><span class="pct">40%</span></div>
+<div class="metric-bar"><span class="label">Software Maturity</span><div class="bar"><div class="fill amber" style="width:45%"></div></div><span class="pct">45%</span></div>
+<div class="metric-bar"><span class="label">Ease of Setup</span><div class="bar"><div class="fill red" style="width:30%"></div></div><span class="pct">30%</span></div>
+<div class="metric-bar"><span class="label">Noise / Heat / Practicality</span><div class="bar"><div class="fill red" style="width:25%"></div></div><span class="pct">25%</span></div>
+<div class="metric-bar"><span class="label">Community &amp; Ecosystem</span><div class="bar"><div class="fill amber" style="width:40%"></div></div><span class="pct">40%</span></div>
+
+<h2>Recommendations</h2>
+
+<div class="verdict-box green">
+<h3>&#10003; Situational Yes: When 4x MI100 Makes Sense</h3>
+<ul>
+  <li>You need <strong>maximum VRAM per dollar</strong> — 128 GB for ~$5k is unmatched</li>
+  <li>You primarily run <strong>inference on quantized 70B–120B models</strong></li>
+  <li>You are <strong>comfortable with Linux, ROCm, and debugging AMD GPU issues</strong></li>
+  <li>You have a <strong>dedicated space</strong> (garage, basement) for a loud, hot machine</li>
+  <li>You already own the server platform (EPYC/Threadripper + chassis)</li>
+</ul>
+</div>
+
+<div class="verdict-box red">
+<h3>&#10007; Better Alternatives Exist When...</h3>
+<ul>
+  <li>You want a <strong>plug-and-play experience</strong>: go with NVIDIA or Apple Silicon</li>
+  <li>You need <strong>training throughput</strong>: 2x RTX 4090 or 4x RTX 3090 will outperform</li>
+  <li>Your models fit in 48 GB: a single RTX 4090 or dual 3090s are simpler, faster, quieter</li>
+  <li>You want the <strong>latest AI features</strong> (FP8, FP4, Flash Attention 3, TensorRT-LLM)</li>
+  <li>You are in a <strong>rent-controlled apartment</strong> with thin walls and no AC</li>
+</ul>
+</div>
+
+<h2>Key Technical Limitations of MI100 (CDNA 1)</h2>
+<ol>
+  <li><strong>No FP8 support</strong> — CDNA 1 predates FP8. All the latest LLM quantization and fast inference techniques targeting FP8 are unavailable. You're limited to INT8, FP16, BF16.</li>
+  <li><strong>First-gen Matrix Engine</strong> — The Matrix Core (MFMA) in CDNA 1 is significantly less capable than MI250's CDNA 2 or MI300's CDNA 3. Peak theoretical utilization is harder to achieve.</li>
+  <li><strong>HBM2 (not HBM2E/3)</strong> — 1.2 TB/s vs 1.6 TB/s (MI210) or 5.3 TB/s (MI300X). Memory bandwidth is a primary bottleneck for LLM inference.</li>
+  <li><strong>Passive cooling</strong> — Requires high-volume chassis airflow. Cannot use standard PC cases.</li>
+  <li><strong>ROCm complexity</strong> — While supported, the gfx908 target sees less optimization attention than gfx90a (MI250) or gfx942 (MI300X).</li>
+  <li><strong>PCIe 4.0 only</strong> — Fine for inference, but multi-GPU training benefits from the higher bandwidth of PCIe 5.0 or NVLink equivalents (MI250 has Infinity Fabric).</li>
+</ol>
+
+<h2>Where to Buy</h2>
+<ul>
+  <li><strong>eBay</strong> — Most common source. Expect $700–1,500/ea depending on condition and quantity.</li>
+  <li><strong>IT Liquidators</strong> — Companies like Uniwebsite, ITCreations, or XByte sometimes carry former datacenter stock.</li>
+  <li><strong>r/homelabsales</strong> — Reddit community for used server gear.</li>
+  <li><strong>AliExpress</strong> — Occasionally listed; verify seller reputation carefully.</li>
+</ul>
+
+<h2>Resources</h2>
+<ul>
+  <li><strong>ROCm Docs:</strong> <a href="https://rocm.docs.amd.com" style="color:var(--accent)">rocm.docs.amd.com</a></li>
+  <li><strong>ROCm GPU Support Matrix:</strong> <a href="https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html" style="color:var(--accent)">system-requirements.html</a></li>
+  <li><strong>llama.cpp HIP Build:</strong> <a href="https://github.com/ggerganov/llama.cpp#hip" style="color:var(--accent)">github.com/ggerganov/llama.cpp</a></li>
+  <li><strong>PyTorch ROCm:</strong> <a href="https://pytorch.org/get-started/locally/" style="color:var(--accent)">pytorch.org</a> — select ROCm build</li>
+  <li><strong>vLLM + AMD:</strong> <a href="https://docs.vllm.ai/en/stable/getting_started/amd-instinct.html" style="color:var(--accent)">docs.vllm.ai — AMD Instinct</a></li>
+  <li><strong>r/LocalLLaMA:</strong> Active discussions for AMD GPU LLM setups</li>
+  <li><strong>ServeTheHome Forums:</strong> Good source for server hardware advice</li>
+</ul>
+
+<div class="verdict-box">
+<h3>Final Word</h3>
+<p>A 4x MI100 rig is a <strong>viable but niche choice</strong> in 2026. It offers unparalleled VRAM-per-dollar, making large quantized models accessible on a budget. However, you trade that for ROCm complexity, lower throughput, no FP8, and a loud/hot machine that belongs in a server room. For the enthusiastic tinkerer who values total VRAM above all else, it's a bargain. For everyone else, <strong>4x RTX 3090s or 2x RTX 4090s</strong> are likely a better fit — or <strong>cloud rental</strong> for occasional large-model work. The MI100's sweet spot is running <strong>70B-120B param models at 4–5 bit quantization</strong> at home on a budget, accepting that you'll be in the ROCm trenches.</p>
+</div>
+
+</div>
+</body>
+</html>

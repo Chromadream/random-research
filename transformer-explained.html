@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attention Is All You Need — Explained Simply</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --accent: #3b82f6;
+    --accent2: #8b5cf6;
+    --accent3: #10b981;
+    --border: #e5e7eb;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+    color: #fff;
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .hero h1 span { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .meta { color: #94a3b8; font-size: 0.9rem; margin-bottom: 8px; }
+  .hero .meta a { color: #60a5fa; text-decoration: none; }
+  .hero .meta a:hover { text-decoration: underline; }
+  .hero .tagline { font-size: 1.1rem; color: #cbd5e1; max-width: 640px; margin: 20px auto 0; line-height: 1.6; }
+
+  /* Sections */
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  h2 .num { background: var(--accent); color: #fff; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 28px 0 12px; }
+  p { margin-bottom: 16px; color: #374151; }
+  .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+
+  /* Info boxes */
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-left: 4px solid var(--accent);
+  }
+  .info-box.warn { border-left-color: #f59e0b; }
+  .info-box.success { border-left-color: var(--accent3); }
+
+  /* Term tooltip */
+  .term {
+    color: var(--accent);
+    border-bottom: 2px dotted var(--accent);
+    cursor: help;
+    position: relative;
+    font-weight: 500;
+  }
+  .term:hover .tip {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .tip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: #1f2937;
+    color: #f3f4f6;
+    font-size: 0.82rem;
+    font-weight: 400;
+    padding: 12px 16px;
+    border-radius: 8px;
+    width: 280px;
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 100;
+    line-height: 1.5;
+  }
+  .tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1f2937;
+  }
+
+  /* Architecture diagram - pure CSS */
+  .arch {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .arch-col {
+    flex: 1;
+    min-width: 240px;
+    max-width: 340px;
+    text-align: center;
+  }
+  .arch-col h4 { margin-bottom: 16px; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .arch-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .arch-box:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.15); }
+  .arch-box .sub {
+    font-weight: 400;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .arch-box.accent { border-color: var(--accent); background: #eff6ff; }
+  .arch-box.accent2 { border-color: var(--accent2); background: #f5f3ff; }
+  .arch-box.accent3 { border-color: var(--accent3); background: #ecfdf5; }
+  .arch-arrow { font-size: 1.5rem; color: var(--muted); margin: 4px 0; }
+
+  /* Comparison table */
+  .table-wrap { overflow-x: auto; margin: 24px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: #f1f5f9; font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  tr:hover td { background: #fafbfc; }
+  .best { font-weight: 600; color: var(--accent3); }
+
+  /* Interactive walkthrough */
+  .walkthrough {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 28px 0;
+  }
+  .walkthrough .steps {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .walkthrough .steps button {
+    flex-shrink: 0;
+    padding: 12px 18px;
+    border: none;
+    background: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .walkthrough .steps button:hover { color: var(--text); background: #f9fafb; }
+  .walkthrough .steps button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .walkthrough .panel { padding: 28px; min-height: 200px; }
+  .walkthrough .panel h4 { font-size: 1.05rem; margin-bottom: 12px; }
+  .walkthrough .panel p:last-child { margin-bottom: 0; }
+  .walkthrough .panel .viz { margin: 16px 0; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .walkthrough .panel .viz .token {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: #e5e7eb;
+    transition: all 0.3s;
+  }
+  .walkthrough .panel .viz .token.q { background: #dbeafe; color: #1d4ed8; }
+  .walkthrough .panel .viz .token.k { background: #fef3c7; color: #b45309; }
+  .walkthrough .panel .viz .token.v { background: #d1fae5; color: #047857; }
+  .walkthrough .panel .viz .token.att { background: #ede9fe; color: #6d28d9; }
+  .walkthrough .nav { display: flex; gap: 12px; justify-content: center; padding: 16px 28px; border-top: 1px solid var(--border); }
+  .walkthrough .nav button {
+    padding: 8px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .walkthrough .nav button:hover { background: #f3f4f6; }
+  .walkthrough .nav button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .walkthrough .nav button.primary:hover { background: #2563eb; }
+
+  /* Attention heatmap */
+  .heatmap { display: grid; gap: 2px; margin: 16px auto; width: fit-content; }
+  .heatmap-row { display: flex; gap: 2px; }
+  .heatmap-cell {
+    width: 36px; height: 36px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 600; color: rgba(255,255,255,0.9);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .heatmap-cell:hover { transform: scale(1.2); }
+  .heatmap-label {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 600; color: var(--text);
+  }
+
+  /* Glossary */
+  .gloss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 20px 0; }
+  .gloss-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .gloss-item strong { color: var(--accent); display: block; margin-bottom: 4px; }
+  .gloss-item span { font-size: 0.85rem; color: #4b5563; }
+
+  /* Footer */
+  footer { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.6rem; }
+    .arch { flex-direction: column; align-items: center; }
+    .arch-col { max-width: 100%; }
+    .tip { width: 200px; left: 0; transform: translateY(4px); }
+    .term:hover .tip { left: 0; transform: translateY(0); }
+  }
+
+  .fade-in { animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .btn-icon { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* Result cards */
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 640px) { .result-grid { grid-template-columns: 1fr; } }
+  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+  .result-card .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .result-card .num.green { color: var(--accent3); }
+  .result-card .label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <p class="meta">
+      <a href="https://arxiv.org/abs/1706.03762">arXiv:1706.03762</a> &middot; Jun 2017 &middot; Vaswani et al.
+    </p>
+    <h1><span>Attention</span> Is All You Need</h1>
+    <p class="tagline">
+      The paper that invented the <strong>Transformer</strong> &mdash; the architecture behind ChatGPT, Gemini, Claude, and every modern AI language model. Explained for non-ML readers.
+    </p>
+  </div>
+</header>
+
+<!-- 1. THE PROBLEM -->
+<section>
+  <div class="container">
+    <h2><span class="num">1</span> The Problem: Teaching Computers to Translate</h2>
+    <p>
+      Imagine you want a computer to translate <span class="term">"The cat sat on the mat"<span class="tip">In ML, this input is called the <strong>source sequence</strong> &mdash; a list of words in the original language.</span></span> from English to French: <em>&ldquo;Le chat s&rsquo;est assis sur le tapis.&rdquo;</em>
+    </p>
+    <p>
+      This is called <span class="term">sequence transduction<span class="tip">Turning one sequence (list) of things into another sequence. Translation is the classic example, but it also applies to summarization, question-answering, and more.</span></span>. The computer needs to read the English sentence, understand it, and produce the French sentence &mdash; one word at a time. And the French sentence might be a different length than the English one.
+    </p>
+    <p>
+      Before 2017, the best tools for this job were <span class="term">Recurrent Neural Networks (RNNs)<span class="tip">A type of neural network that processes words one-by-one in order, keeping a "memory" of what it has seen so far. Like reading a sentence left to right and maintaining a running summary.</span></span>. They worked, but had a fatal flaw&hellip;
+    </p>
+  </div>
+</section>
+
+<!-- 2. THE OLD WAY -->
+<section>
+  <div class="container">
+    <h2><span class="num">2</span> The Old Way: Reading Word by Word (RNNs)</h2>
+    <p>
+      An RNN reads a sentence one word at a time, updating a <span class="term">hidden state<span class="tip">A vector of numbers that represents the network's "memory" of everything it has read so far. It gets updated after each word.</span></span> &mdash; like keeping a summary in your head as you read. But this is <strong>sequential</strong>: you can't process word #5 until you've finished word #4.
+    </p>
+
+    <div class="info-box warn">
+      <strong>Problem 1: No parallelization.</strong> With an RNN, you must wait for each word in order. If your sentence is 100 words long, that's 100 sequential steps. A modern GPU can do thousands of calculations at once &mdash; but RNNs can't use that power.
+    </div>
+
+    <div class="info-box warn">
+      <strong>Problem 2: Forgetting.</strong> When the RNN reaches word #50, it has trouble remembering what it saw back at word #3. The "memory" fades over distance, like a game of telephone.
+    </div>
+
+    <p>
+      People tried to fix these problems with <span class="term">convolutions (CNNs)<span class="tip">Instead of reading one word at a time, a CNN looks at small groups of neighboring words at once (e.g., 3-word windows). This can be parallelized, but it can only "see" a limited range without many stacked layers.</span></span> and various tricks, but nothing fully solved the core tension: <strong>reading in order is slow; reading out of order misses context.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- 3. THE BIG IDEA -->
+<section>
+  <div class="container">
+    <h2><span class="num">3</span> The Big Idea: Attention</h2>
+
+    <p>
+      The paper&rsquo;s title says it all: <span class="highlight">Attention Is All You Need</span>. Their breakthrough was: <strong>what if every word directly looks at every other word, all at once?</strong>
+    </p>
+
+    <p>
+      Imagine you&rsquo;re translating the sentence &ldquo;The animal didn&rsquo;t cross the street because it was too tired.&rdquo; To translate &ldquo;it&rdquo; correctly into French (where animals and streets have different genders), you need to know what &ldquo;it&rdquo; refers to. That requires looking back at <em>&ldquo;the animal&rdquo;</em> &mdash; not the street.
+    </p>
+
+    <p>
+      <span class="term">Attention<span class="tip">A mechanism where each word computes a "relevance score" with every other word. Words that are related get higher scores, and their information is mixed together. This lets the model directly connect "it" to "animal" even if they are far apart.</span></span> is a mechanism that allows the model to weigh the importance of every word relative to every other word. It computes a score: &ldquo;how much should I care about word X when processing word Y?&rdquo;
+    </p>
+
+    <div class="info-box success">
+      <strong>The key insight:</strong> Attention lets information flow <em>directly</em> between any two words, regardless of distance. The word &ldquo;it&rdquo; at position 10 can directly look at &ldquo;animal&rdquo; at position 2 &mdash; no fading, no sequential waiting.
+    </div>
+
+    <p>
+      The authors built an entire <span class="term">architecture<span class="tip">The overall design and structure of a neural network &mdash; what components it has and how they are connected.</span></span> using <em>only</em> attention mechanisms, removing RNNs entirely. They called it <strong>the Transformer</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- 4. HOW IT WORKS -->
+<section>
+  <div class="container">
+    <h2><span class="num">4</span> How the Transformer Works</h2>
+
+    <p>
+      The Transformer has two main parts: an <strong>Encoder</strong> (reads the input) and a <strong>Decoder</strong> (writes the output). Think of an Encoder-Decoder as a translator who first reads the whole sentence, then writes the translation.
+    </p>
+
+    <!-- Architecture diagram -->
+    <div class="arch" style="margin-top:28px;">
+      <div class="arch-col">
+        <h4>Encoder (Reader)</h4>
+        <div class="arch-box accent3">
+          Input Embedding<br><span class="sub">Convert each word to a vector (list of numbers)</span>
+        </div>
+        <div class="arch-box accent3">
+          + Positional Encoding<br><span class="sub">Inject word-position info (since order matters)</span>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent">
+          Self-Attention<br><span class="sub">Every word looks at every word</span>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent2">
+          Feed-Forward<br><span class="sub">Process each word independently</span>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&times; 6 layers</div>
+      </div>
+
+      <div style="display:flex;align-items:center;font-size:2rem;color:var(--muted);padding-top:120px;">&#8594;</div>
+
+      <div class="arch-col">
+        <h4>Decoder (Writer)</h4>
+        <div class="arch-box accent3">
+          Output Embedding<br><span class="sub">Words translated so far</span>
+        </div>
+        <div class="arch-box accent3">
+          + Positional Encoding
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent" style="opacity:0.7;">
+          Masked Self-Attention<br><span class="sub">Each word looks only at earlier words</span>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent">
+          Encoder-Decoder Attention<br><span class="sub">Decoder looks at the encoder&rsquo;s output</span>
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent2">
+          Feed-Forward
+        </div>
+        <div class="arch-arrow">&darr;</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&times; 6 layers</div>
+        <div class="arch-arrow">&darr;</div>
+        <div class="arch-box accent3">
+          Output Probabilities<br><span class="sub">Pick the most likely next word</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>4.1 Step 1: Turn Words into Numbers</h3>
+    <p>
+      Computers don't understand words &mdash; they understand numbers. Each word is first converted into a <span class="term">vector<span class="tip">An ordered list of numbers, like [0.3, -1.2, 0.7, ...]. In the Transformer, each word becomes a vector of 512 numbers that encodes its meaning. Words with similar meanings end up with similar vectors.</span></span> (a list of 512 numbers) via an <span class="term">embedding<span class="tip">A learned mapping from words to vectors. The numbers are learned from data: "king" and "queen" end up with different but related vectors, capturing semantic relationships.</span></span> layer.
+    </p>
+
+    <h3>4.2 Step 2: Add Position Information</h3>
+    <p>
+      Since attention looks at all words simultaneously, the model has no built-in sense of word order. Is "dog bit man" different from "man bit dog"? Absolutely. So the authors add <span class="term">positional encodings<span class="tip">A set of sine and cosine waves at different frequencies, added to each word's vector. Because the waves oscillate, each position gets a unique pattern. The model can learn to recognize positions from these patterns. Since sin(x+k) can be expressed as a function of sin(x), the model can even learn relative positions (word 5 relative to word 2, etc.).</span></span> &mdash; a fixed pattern of sine and cosine waves that tells the model where each word sits in the sentence.
+    </p>
+
+    <h3>4.3 Step 3: Self-Attention (The Core)</h3>
+    <p>
+      This is the heart of the paper. For each word, the model computes three things:
+    </p>
+    <ul style="margin: 12px 0 16px 24px; line-height: 2;">
+      <li><strong>Query (Q):</strong> &ldquo;What am I looking for?&rdquo;</li>
+      <li><strong>Key (K):</strong> &ldquo;What do I offer?&rdquo;</li>
+      <li><strong>Value (V):</strong> &ldquo;What information do I carry?&rdquo;</li>
+    </ul>
+    <p>
+      Think of it like a library search. The <strong>Query</strong> is your search topic. Each book has a <strong>Key</strong> (its title/subject) and a <strong>Value</strong> (its content). You match your Query against every Key to find relevance, then pull the Values of the most relevant books.
+    </p>
+    <p>
+      For the word "it" in "the animal didn't cross the street because it was tired":
+    </p>
+    <div class="info-box">
+      <ol style="margin-left:18px;line-height:2;">
+        <li><strong>"it"</strong> generates a <strong>Query</strong>: "I'm looking for whatever I refer to."</li>
+        <li>Every word generates a <strong>Key</strong>: "animal" keys say "I'm a living thing"; "street" keys say "I'm a place."</li>
+        <li>The Query matches "animal"'s Key more strongly. That match score (between 0 and 1) is the <strong>attention weight</strong>.</li>
+        <li>"it"'s final representation is a blend: mostly "animal"'s Value, a bit of everything else.</li>
+      </ol>
+    </div>
+
+    <h3>4.4 Multi-Head Attention</h3>
+    <p>
+      One attention pattern isn't enough. A single "it" might need to know its referent <em>and</em> the verb it's the subject of <em>and</em> the tense. So the Transformer runs <strong>8 different attention mechanisms in parallel</strong> (8 "heads"). Each head can learn a different relationship type &mdash; syntactic, semantic, positional, etc. Their outputs are combined.
+    </p>
+
+    <!-- Interactive Attention Heatmap -->
+    <div class="walkthrough" id="heatmap-demo">
+      <div style="padding:24px 28px;border-bottom:1px solid var(--border);background:#f9fafb;">
+        <h4 style="margin-bottom:6px;">&#x1F50D; See It In Action</h4>
+        <p style="font-size:0.88rem;margin-bottom:0;">Below is a simulated attention heatmap for the sentence <strong>"The animal didn't cross the street because it was tired"</strong>. Hover over any cell to see which words "it" pays attention to.</p>
+      </div>
+      <div style="padding:24px 28px;display:flex;flex-direction:column;align-items:center;">
+        <div id="attention-viz"></div>
+        <p id="attention-explanation" style="margin-top:16px;font-size:0.88rem;color:var(--muted);text-align:center;">
+          <strong>"it"</strong> pays most attention to <strong>"animal"</strong> (its referent) and <strong>"was"</strong>/<strong>"tired"</strong> (its predicate).
+        </p>
+      </div>
+    </div>
+
+    <h3>4.5 The Rest of the Recipe</h3>
+    <p>
+      After self-attention, each word goes through a <span class="term">Feed-Forward Network<span class="tip">A simple two-step computation: the 512-number vector is expanded to 2048 numbers, a ReLU (a function that sets negative values to zero) is applied, then it's compressed back to 512. This provides additional processing capacity at each position independently.</span></span> &mdash; the same simple transformation applied independently to every word position. Then the whole cycle repeats: self-attention &rarr; feed-forward &rarr; self-attention &rarr; feed-forward &mdash; <strong>6 times</strong>.
+    </p>
+    <p>
+      Each layer has <span class="term">residual connections<span class="tip">A "skip connection" that adds the original input of a layer to its output. This helps gradients flow through the network during training and allows the model to learn more effectively with many layers. The paper uses this + layer normalization after each sub-layer.</span></span> (the input is added back to the output) and <span class="term">layer normalization<span class="tip">A technique that normalizes the values in a vector to have a stable mean and variance. This makes training more stable and faster.</span></span>, which help training stability.
+    </p>
+
+    <h3>4.6 The Decoder: Generating the Translation</h3>
+    <p>
+      The Decoder is similar to the Encoder, but with two key differences:
+    </p>
+    <ol style="margin:12px 0 16px 24px;line-height:2;">
+      <li><strong>Masked self-attention:</strong> When generating the third word of the French translation, the decoder can only look at words 1 and 2 &mdash; not words 4 or 5. It can't cheat by seeing the future. This is done by <span class="term">masking<span class="tip">In the self-attention softmax, all positions after the current one are set to -infinity, so their attention weights become zero. The model is forced to generate left-to-right, one word at a time, which is the definition of an autoregressive model.</span></span> future positions out.</li>
+      <li><strong>Encoder-Decoder attention:</strong> Each decoder position also attends to the <em>entire Encoder output</em>. This is how the translation knows what English words it's translating. The Queries come from the Decoder, but the Keys and Values come from the Encoder.</li>
+    </ol>
+    <p>
+      At the final layer, a <span class="term">softmax<span class="tip">A function that converts a vector of arbitrary numbers into probabilities (numbers between 0 and 1 that sum to 1). The model then picks the most likely word.</span></span> function converts the decoder's output into probabilities over the vocabulary, and the highest-probability word is chosen.
+    </p>
+  </div>
+</section>
+
+<!-- 5. INTERACTIVE WALKTHROUGH -->
+<section>
+  <div class="container">
+    <h2><span class="num">5</span> Step-by-Step Walkthrough</h2>
+    <p>Click through the process of translating "I love you" to French ("Je t'aime").</p>
+
+    <div class="walkthrough" id="walkthrough">
+      <div class="steps" id="wt-steps">
+        <button class="active" data-step="0">1. Input</button>
+        <button data-step="1">2. Embed + Position</button>
+        <button data-step="2">3. Self-Attention</button>
+        <button data-step="3">4. Encode</button>
+        <button data-step="4">5. Decode Start</button>
+        <button data-step="5">6. Generate</button>
+        <button data-step="6">7. Done</button>
+      </div>
+
+      <div class="panel" id="wt-panel">
+        <h4>1. The Sentence</h4>
+        <p>We feed the English sentence into the Transformer:</p>
+        <div class="viz">
+          <span class="token q" style="font-size:1rem;padding:10px 18px;">I</span>
+          <span class="token k" style="font-size:1rem;padding:10px 18px;">love</span>
+          <span class="token v" style="font-size:1rem;padding:10px 18px;">you</span>
+        </div>
+        <p style="margin-top:12px;">Each word gets converted to a 512-number vector. The whole sentence is processed as a batch &mdash; all words in parallel.</p>
+      </div>
+
+      <div class="nav">
+        <button id="wt-prev" disabled>Back</button>
+        <button id="wt-next" class="primary">Next</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. WHY IT WINS -->
+<section>
+  <div class="container">
+    <h2><span class="num">6</span> Why Self-Attention Wins</h2>
+
+    <p>The paper includes a head-to-head comparison of self-attention vs. RNNs vs. CNNs across three metrics. Here it is, simplified:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Self-Attention</th>
+            <th>RNN</th>
+            <th>CNN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Can it parallelize?</strong></td>
+            <td class="best">Yes &mdash; all words at once</td>
+            <td>No &mdash; one word at a time</td>
+            <td class="best">Yes &mdash; all windows at once</td>
+          </tr>
+          <tr>
+            <td><strong>Steps to connect any two words</strong></td>
+            <td class="best">1 step (direct)</td>
+            <td>N steps (faded)</td>
+            <td>log(N) steps (dilated)</td>
+          </tr>
+          <tr>
+            <td><strong>Computational cost for N words</strong></td>
+            <td>N&sup2; (each word to each)</td>
+            <td>N &times; 512&sup2;</td>
+            <td>N &times; k &times; 512&sup2;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The cost column reveals a sweet spot: when the sentence is shorter than 512 words (almost always true for translation), self-attention is actually <em>cheaper</em> than RNNs. And even for longer sequences, the direct-connection benefit is enormous.
+    </p>
+
+    <div class="info-box success">
+      <strong>Bottom line:</strong> Self-attention is faster (parallel), more direct (1 step), and comparably cheap (for typical sentence lengths). This is the triple win that made the Transformer revolutionary.
+    </div>
+  </div>
+</section>
+
+<!-- 7. RESULTS -->
+<section>
+  <div class="container">
+    <h2><span class="num">7</span> Results: What It Achieved</h2>
+
+    <p>
+      The authors tested the Transformer on translating English to German and English to French. Here's what happened:
+    </p>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="num green">28.4</div>
+        <div class="label">BLEU score on English&#8594;German<br>New state of the art (+2.0 over previous best)</div>
+      </div>
+      <div class="result-card">
+        <div class="num green">41.8</div>
+        <div class="label">BLEU score on English&#8594;French<br>New state of the art at 1/4 the training cost</div>
+      </div>
+      <div class="result-card">
+        <div class="num">3.5</div>
+        <div class="label">Days to train on 8 GPUs<br>Previous models took weeks</div>
+      </div>
+      <div class="result-card">
+        <div class="num">12</div>
+        <div class="label">Hours to train a competitive model<br>The base model, on 8 GPUs</div>
+      </div>
+    </div>
+
+    <p style="margin-top:12px;">
+      <span class="term">BLEU<span class="tip">Bilingual Evaluation Understudy. A score from 0 to 100 measuring translation quality by comparing against human translations. 40+ is approaching human-quality translation.</span></span> is a translation quality score. The Transformer beat every previous model, including ensembles (multiple models working together), despite being simpler and using a fraction of the compute.
+    </p>
+
+    <p>
+      The authors also showed the Transformer works on <span class="term">constituency parsing<span class="tip">Analyzing the grammatical structure of a sentence &mdash; identifying noun phrases, verb phrases, etc. This tests whether the model truly understands language structure, not just translation.</span></span> (analyzing sentence grammar), where it matched or beat specialized models without any task-specific tuning &mdash; proving it generalizes.
+    </p>
+  </div>
+</section>
+
+<!-- 8. ABLATION STUDIES -->
+<section>
+  <div class="container">
+    <h2><span class="num">8</span> Ablation Studies: Proving Each Part Matters</h2>
+
+    <p>
+      The authors systematically removed or changed parts of the model to prove each component was necessary:
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Change</th><th>Effect on BLEU</th><th>What it proves</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 head instead of 8</td><td>-0.9 BLEU</td><td>Multi-head attention matters</td></tr>
+          <tr><td>16 heads (too many)</td><td>-0.4 BLEU</td><td>There's a sweet spot</td></tr>
+          <tr><td>Remove dropout</td><td>-1.2 BLEU</td><td>Regularization prevents overfitting</td></tr>
+          <tr><td>Half the model size</td><td>-2.1 BLEU</td><td>Bigger is better (to a point)</td></tr>
+          <tr><td>Learned positions vs sine waves</td><td>-0.1 BLEU</td><td>Sinusoidal encoding is just as good</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <strong>Why ablation studies matter:</strong> They show the authors didn't just throw components together &mdash; they tested each design decision. If removing X hurts performance, X is doing something useful. This is the scientific method applied to neural architecture design.
+    </div>
+  </div>
+</section>
+
+<!-- 9. IMPACT -->
+<section>
+  <div class="container">
+    <h2><span class="num">9</span> Why This Paper Changed Everything</h2>
+    <p>
+      Before 2017, almost all AI language models used RNNs. After this paper, <em>everything</em> shifted to Transformers. Here's why:
+    </p>
+    <ul style="margin:12px 0 16px 24px;line-height:2.2;">
+      <li><strong>Parallel training</strong> on massive datasets became feasible, leading to models that read the entire internet.</li>
+      <li><strong>Long-range dependencies</strong> were no longer a problem, enabling coherent paragraphs and documents.</li>
+      <li><strong>Transfer learning</strong> (pre-train on general data, fine-tune on specific tasks) became the standard approach.</li>
+    </ul>
+    <p>
+      Direct descendants of this paper include <strong>BERT</strong> (Google Search), <strong>GPT</strong> (ChatGPT, GPT-4), <strong>T5</strong>, <strong>LLaMA</strong>, and every model in the modern AI landscape. The "Attention" mechanism it pioneered is the foundation of the current AI revolution.
+    </p>
+
+    <div class="info-box success" style="margin-top:24px;">
+      <strong>The punchline:</strong> The authors replaced a complex, sequential architecture with a simpler, parallel one that just <em>looks at relationships between words</em>. That simple idea &mdash; "Attention Is All You Need" &mdash; became the foundation of modern AI.
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section>
+  <div class="container">
+    <h2><span class="num" style="background:#6b7280;">&bull;</span> Quick Reference Glossary</h2>
+    <div class="gloss-grid">
+      <div class="gloss-item"><strong>Attention</strong><span>A mechanism that computes relevance scores between all pairs of words, allowing direct information flow regardless of distance.</span></div>
+      <div class="gloss-item"><strong>Self-Attention</strong><span>Attention where the source and target are the same sequence &mdash; each word looks at every other word in the same sentence.</span></div>
+      <div class="gloss-item"><strong>Multi-Head</strong><span>Running 8 parallel attention mechanisms, each learning different types of word relationships.</span></div>
+      <div class="gloss-item"><strong>Query / Key / Value</strong><span>The three vectors derived from each word. Query asks "what am I looking for?", Key says "what am I?", Value carries "my information."</span></div>
+      <div class="gloss-item"><strong>Positional Encoding</strong><span>Sine/cosine waves added to word vectors to give the model information about word order.</span></div>
+      <div class="gloss-item"><strong>Embedding</strong><span>A learned mapping from words to 512-number vectors that capture meaning.</span></div>
+      <div class="gloss-item"><strong>Encoder-Decoder</strong><span>Encoder reads the input; Decoder generates the output. The Decoder attends to the Encoder's output.</span></div>
+      <div class="gloss-item"><strong>Autoregressive</strong><span>The model generates one word at a time, using previously generated words as input for the next.</span></div>
+      <div class="gloss-item"><strong>Residual Connection</strong><span>A shortcut that adds a layer's input to its output, helping gradients flow and enabling deeper networks.</span></div>
+      <div class="gloss-item"><strong>Layer Normalization</strong><span>Normalizes values in a vector to stable mean/variance, making training faster and more stable.</span></div>
+      <div class="gloss-item"><strong>Masking</strong><span>Preventing the decoder from attending to future positions by setting attention weights to zero.</span></div>
+      <div class="gloss-item"><strong>Softmax</strong><span>Converts numbers into probabilities that sum to 1 &mdash; used to pick the most likely next word.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Based on <a href="https://arxiv.org/abs/1706.03762">"Attention Is All You Need"</a> by Vaswani et al. (2017).</p>
+    <p style="margin-top:4px;">Created for non-ML readers. Interactive visualizations and explanations.</p>
+  </div>
+</footer>
+
+<script>
+// ===== WALKTHROUGH =====
+const steps = [
+  { title: '1. The Sentence', body: 'We feed the English sentence into the Transformer:', viz: 'I love you', vizClass: 'token q' },
+  { title: '2. Embed + Position', body: 'Each word becomes a 512-number vector. Sine/cosine waves are added to encode word positions:', viz: '[0.12, -0.34, ... 512 numbers]  +  sin(pos/10000^(2i/512))', vizClass: '' },
+  { title: '3. Self-Attention', body: 'Every word compares itself to every other word. "love" looks at "I" (subject) and "you" (object) to understand its relationship:', viz: 'I \u2192 love \u2190 you', vizClass: '' },
+  { title: '4. Encoder Output', body: 'After 6 layers of Self-Attention + Feed-Forward, the Encoder produces a rich representation of the input. Each word now carries context from the whole sentence.', viz: 'I\u2081 love\u2082 you\u2083', vizClass: '' },
+  { title: '5. Decoder Starts', body: 'The Decoder begins with a special <START> token. It uses Masked Self-Attention (only sees <START>) then Encoder-Decoder Attention (looks at all Encoder outputs).', viz: '<START> \u2192 Encoder', vizClass: '' },
+  { title: '6. Word by Word', body: 'The Decoder generates one word at a time. After "Je", it knows the next word will be a verb. After "t\'", it predicts "aime". Each step uses all previously generated words.', viz: 'Je \u2192 t\' \u2192 aime', vizClass: '' },
+  { title: '7. Translation Complete', body: 'The full translation is produced. The model achieved this in parallel during training, but generates one word at a time during inference.', viz: 'Je t\'aime \u2705', vizClass: '' },
+];
+
+let currentStep = 0;
+const panel = document.getElementById('wt-panel');
+const prevBtn = document.getElementById('wt-prev');
+const nextBtn = document.getElementById('wt-next');
+const stepBtns = document.querySelectorAll('#wt-steps button');
+
+function renderStep(i) {
+  const s = steps[i];
+  const vizHtml = s.viz ? `<div class="viz">${s.viz.split(' ').map(t => `<span class="${s.vizClass}" style="font-size:1rem;padding:10px 18px;">${t}</span>`).join('')}</div>` : '';
+  panel.innerHTML = `<div class="fade-in"><h4>${s.title}</h4><p>${s.body}</p>${vizHtml}</div>`;
+  prevBtn.disabled = i === 0;
+  nextBtn.textContent = i === steps.length - 1 ? 'Restart' : 'Next';
+  stepBtns.forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+stepBtns.forEach(b => b.addEventListener('click', () => { currentStep = parseInt(b.dataset.step); renderStep(currentStep); }));
+prevBtn.addEventListener('click', () => { if (currentStep > 0) { currentStep--; renderStep(currentStep); } });
+nextBtn.addEventListener('click', () => {
+  if (currentStep === steps.length - 1) { currentStep = 0; }
+  else { currentStep++; }
+  renderStep(currentStep);
+});
+renderStep(0);
+
+// ===== ATTENTION HEATMAP =====
+(function() {
+  const words = ['The', 'animal', 'didn\'t', 'cross', 'the', 'street', 'because', 'it', 'was', 'tired'];
+  const targetWord = 'it';
+  const targetIdx = 7;
+
+  // Simulated attention weights: "it" pays most attention to "animal" (index 1), "was" (8), "tired" (9)
+  const weights = [0.02, 0.35, 0.02, 0.03, 0.01, 0.02, 0.04, 0.0, 0.25, 0.26];
+
+  const container = document.getElementById('attention-viz');
+  const explanation = document.getElementById('attention-explanation');
+
+  const heatmap = document.createElement('div');
+  heatmap.className = 'heatmap';
+
+  // Header row
+  const headerRow = document.createElement('div');
+  headerRow.className = 'heatmap-row';
+  headerRow.appendChild(Object.assign(document.createElement('div'), { className: 'heatmap-label', textContent: '' }));
+  words.forEach(w => {
+    const label = Object.assign(document.createElement('div'), { className: 'heatmap-label', textContent: w });
+    headerRow.appendChild(label);
+  });
+  heatmap.appendChild(headerRow);
+
+  // Data rows - just show "it"'s row
+  const row = document.createElement('div');
+  row.className = 'heatmap-row';
+  const rowLabel = Object.assign(document.createElement('div'), { className: 'heatmap-label', textContent: words[targetIdx] });
+  row.appendChild(rowLabel);
+
+  words.forEach((w, j) => {
+    const cell = document.createElement('div');
+    cell.className = 'heatmap-cell';
+    const val = weights[j];
+    // Color intensity based on weight
+    const intensity = Math.round(50 + val * 200);
+    cell.style.background = j === targetIdx ? '#374151' : `rgba(139, 92, 246, ${0.1 + val * 0.9})`;
+    // cell.textContent = Math.round(val * 100);
+    cell.title = `${w}: ${Math.round(val * 100)}%`;
+    cell.addEventListener('mouseenter', () => {
+      explanation.innerHTML = `<strong>"it"</strong> pays <strong>${Math.round(val * 100)}%</strong> attention to <strong>"${w}"</strong>.${j === 1 ? ' This is the referent (the animal).' : j >= 8 ? ' This is the predicate (was tired).' : ''}`;
+    });
+    cell.addEventListener('mouseleave', () => {
+      explanation.innerHTML = '<strong>"it"</strong> pays most attention to <strong>"animal"</strong> (its referent) and <strong>"was"</strong>/<strong>"tired"</strong> (its predicate).';
+    });
+    row.appendChild(cell);
+  });
+
+  heatmap.appendChild(row);
+  container.appendChild(heatmap);
+})();
+</script>
+</body>
+</html>
