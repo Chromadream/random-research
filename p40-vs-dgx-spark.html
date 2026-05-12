@@ -156,15 +156,13 @@
     <li><a href="#deep-dive">2. Deep-Dive: Architecture &amp; Compute</a></li>
     <li><a href="#memory">3. Memory Architecture</a></li>
     <li><a href="#llm-perf">4. LLM Inference Performance</a></li>
-    <li><a href="#pros-p40">5. P40 System — Pros</a></li>
-    <li><a href="#cons-p40">6. P40 System — Cons</a></li>
-    <li><a href="#pros-dgx">7. DGX Spark — Pros</a></li>
-    <li><a href="#cons-dgx">8. DGX Spark — Cons</a></li>
-    <li><a href="#model-matrix">9. Model Support Matrix</a></li>
-    <li><a href="#tco">10. Total Cost of Ownership</a></li>
-    <li><a href="#use-cases">11. Use-Case Recommendations</a></li>
-    <li><a href="#your-use-case">11.5. Your Use Case — Weekend Multi-Agent Coding</a></li>
-    <li><a href="#verdict">12. Verdict &amp; Decision Framework</a></li>
+    <li><a href="#pros-p40">5. P40 System — Pros vs Cons</a></li>
+    <li><a href="#pros-dgx">6. DGX Spark — Pros vs Cons</a></li>
+    <li><a href="#model-matrix">7. Model Support Matrix</a></li>
+    <li><a href="#tco">8. Total Cost of Ownership</a></li>
+    <li><a href="#use-cases">9. Use-Case Recommendations</a></li>
+    <li><a href="#your-use-case">9.5. Your Use Case — Weekend Multi-Agent Coding</a></li>
+    <li><a href="#verdict">10. Verdict &amp; Decision Framework</a></li>
   </ul>
 </details>
 
@@ -584,453 +582,196 @@
 <hr class="section-divider">
 
 <!-- ============= SECTION 5 ============= -->
-<h2 id="pros-p40">5. P40 System — Advantages over DGX Spark</h2>
+<h2 id="pros-p40">5. P40 System — Pros vs Cons</h2>
 
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 1. Lower Upfront Cost</h3>
-  <p>
-    At AU$3,210–5,610 (US$2,100–3,700) delivered, the P40 system is <strong>~40–60% cheaper</strong>
-    than a DGX Spark at ~AU$8,000 (~US$5,200) on Australian retail. If you already own a chassis,
-    PSU, or some RAM, the gap widens further. The absolute floor — using a mining frame, cheapest
-    board, minimal RAM — could hit ~US$1,800 (AU$2,800), making the P40 system <strong>~65% cheaper</strong>
-    upfront.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 2. Modular Repairability &amp; Upgrade Path</h3>
-  <ul>
-    <li><strong>Dead GPU?</strong> Swap it for ~AU$280 on eBay. Dead DGX Spark? Replace entire unit (AU$8,000+)</li>
-    <li><strong>Need more VRAM?</strong> Add a 5th GPU (if motherboard supports it) or swap to larger cards (P100 16 GB HBM2, V100 32 GB if budget allows)</li>
-    <li><strong>Need more system RAM?</strong> Add DIMMs — 256 GB is cheap on the used market</li>
-    <li><strong>CPU weak?</strong> Swap Xeons for higher-clocked E5-2600 v4 chips (~US$50/ea)</li>
-    <li><strong>Storage full?</strong> Add NVMe drives, SATA SSDs, or a PCIe bifurcation card</li>
-    <li><strong>Networking slow?</strong> Add a 10/25/40 GbE NIC in a spare PCIe slot</li>
-  </ul>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 3. Abundant CPU-Offload Memory</h3>
-  <p>
-    With 256 GB of DDR4 ECC RDIMM on the Supermicro X10DRG-Q (AU$800–1,600), you can load
-    <strong>DeepSeek-V3 at full 671B parameters with zero NVMe paging</strong>. The GPU holds shared
-    layers + active experts, and the CPU holds idle experts in RAM. DGX Spark has 128 GB total —
-    shared between model, KV cache, OS, and applications. This CPU offload headroom is the P40
-    system's single biggest differentiator for running truly giant MoE models.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 4. x86 Compatibility</h3>
-  <p>
-    Dual Xeon E5-2680 v4 processors give you a standard x86 platform. Every Linux package, every
-    Docker image, every toolchain works natively. No ARM64 compatibility issues. No waiting for
-    ARM builds. Python wheels, CUDA toolkits, llama.cpp — everything just compiles.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 5. Higher Aggregate Memory Bandwidth (for Layer-Split Models)</h3>
-  <p>
-    When a model is layer-split across 4 P40s, each GPU accesses its local memory at 347 GB/s.
-    The total aggregate bandwidth is 1,388 GB/s — 5× higher than DGX Spark's 273 GB/s.
-    <strong>This matters for throughput under concurrent load:</strong> 4 users can each hit a
-    different GPU's memory controller simultaneously. On DGX Spark, all users compete for the
-    same 273 GB/s channel.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 6. Multi-GPU Parallelism for Concurrency</h3>
-  <p>
-    vllm-pascal's tensor/pipeline/expert parallelism combined with llama.cpp's layer splitting
-    lets you serve <strong>4+ concurrent users</strong> with independent KV cache allocations on
-    different GPUs. The pipeline naturally interleaves requests from different users. DGX Spark
-    is a single GPU — it can handle concurrent users via continuous batching, but there's a single
-    compute unit and single memory controller.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 7. Learning Experience</h3>
-  <p>
-    Building, cooling, and configuring a multi-GPU inference server teaches you about GPU
-    architectures, PCIe topology, CUDA compilation, quantization formats, parallelism strategies,
-    Linux system administration, and LLM serving infrastructure. DGX Spark is an appliance —
-    you learn less.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 8. No Vendor Lock-In</h3>
-  <p>
-    Run any OS (Linux, BSD, Windows Server), any inference engine, and any model format.
-    No dependency on NVIDIA DGX OS updates, NGC catalog availability, or AI Enterprise licensing.
-    Full open-source stack from bootloader to application.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge orange">PRO</span> 9. Multi-Role Capability</h3>
-  <p>
-    With 56 CPU threads, 128–256 GB RAM, and abundant PCIe, this system can simultaneously
-    serve LLM inference <em>and</em> run as a NAS, Plex server, Home Assistant host, CI/CD
-    runner, or development VM host. DGX Spark is purpose-built for AI workloads — it can run
-    general compute too, but it's a 20-core ARM system with no expandable storage or PCIe slots.
-  </p>
+<div class="two-col" style="grid-template-columns: 460px 1fr; align-items: start;">
+  <div class="pro-col">
+    <h3 style="margin-top:0;"><span class="badge orange">PROS</span> Advantages over DGX Spark</h3>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">1.</span> Lower Upfront Cost</h3>
+      <p>At AU$3,210–5,610 delivered, the P40 system is <strong>~40–60% cheaper</strong> than a DGX Spark at ~AU$8,000 on Australian retail. If you already own a chassis, PSU, or RAM, the gap widens. Absolute floor ~AU$2,800.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">2.</span> Modular Repairability &amp; Upgrade Path</h3>
+      <ul>
+        <li><strong>Dead GPU?</strong> Swap for ~AU$280. Dead Spark? Replace whole unit (AU$8,000+)</li>
+        <li><strong>Add VRAM?</strong> Add 5th GPU, or swap to V100 32 GB</li>
+        <li><strong>More RAM?</strong> Add DDR4 DIMMs — 256 GB cheap on used market</li>
+        <li><strong>Networking?</strong> Add 10/25/40 GbE NIC in spare PCIe slot</li>
+      </ul>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">3.</span> Abundant CPU-Offload Memory</h3>
+      <p>256 GB DDR4 ECC RDIMM enables <strong>DeepSeek-V3 at 671B with zero NVMe paging</strong>. GPU holds active experts; CPU holds idle ones. DGX Spark capped at 128 GB total.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">4.</span> x86 Compatibility</h3>
+      <p>Dual Xeons = native x86. Every Linux package, Docker image, Python wheel works. No ARM64 compatibility issues.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">5.</span> Higher Per-Card Bandwidth = Faster Small-Model Decode</h3>
+      <p>347 GB/s per card beats Spark's 273 GB/s shared bus. For ≤27B dense models, P40 is <strong>2–3× faster</strong> (Llama 8B: 45 vs 21 t/s; Qwen 27B: 16 vs 10 t/s).</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">6.</span> Native Multi-Agent Concurrency</h3>
+      <p>4 independent GPUs = 4 agents with dedicated VRAM + bandwidth. Zero contention. vllm-pascal + llama.cpp layer splitting for 4+ concurrent users. Spark shares one bus.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">7.</span> Learning Experience</h3>
+      <p>Building, cooling, configuring a multi-GPU server teaches GPU arch, PCIe topology, CUDA compilation, quantization, parallelism, and LLM serving infra.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge orange">8.</span> No Vendor Lock-In</h3>
+      <p>Run any OS, any inference engine, any model format. No dependency on NVIDIA DGX OS or AI Enterprise licensing.</p>
+    </div>
+    <div class="spec-card">
+      <h3><span class="badge orange">9.</span> Multi-Role Capability</h3>
+      <p>56 CPU threads + 128–256 GB RAM + PCIe slots = LLM serving + NAS + Plex + CI/CD + VM host on one box. Spark: 20-core ARM, no PCIe.</p>
+    </div>
+  </div>
+  <div class="con-col">
+    <h3 style="margin-top:0;"><span class="badge red">CONS</span> Disadvantages vs DGX Spark</h3>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">1.</span> Weak FP16 Compute</h3>
+      <p><strong>~752 GFLOPS FP16 vs 125 TFLOPS.</strong> 166× gap. No tensor cores. vLLM compatibility requires pascal-pkgs-ci fork. Prefill (prompt processing) is slow.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">2.</span> No FP8 — Double KV Cache</h3>
+      <p>KV cache stays in FP16. Llama 70B at 128K context needs ~42 GB KV cache vs ~21 GB on Spark. <strong>Halves your effective context length.</strong></p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">3.</span> Software Compatibility Hell</h3>
+      <p>Pascal (SM 6.1) excluded from: vLLM, Triton, TensorRT-LLM, Flash Attention, ExLlamaV2, CUDA 12.x optimizations. Always running community forks.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">4.</span> Segmented Memory</h3>
+      <p>96 GB = four 24 GB silos. A 26 GB model won't fit on any single P40. Must split manually. Spark: flat 128 GB — load a 100 GB model without thinking.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">5.</span> Enormous Power Consumption</h3>
+      <p>1,400–1,600W wall vs 200W. At AU$0.30/kWh: <strong>~AU$3,680–4,200/yr</strong> (24/7) vs ~AU$526/yr. Annual diff ≈ cost of the P40 system.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">6.</span> Noise &amp; Footprint</h3>
+      <p><strong>55–70 dB</strong> at load — vacuum cleaner. Needs garage/basement/server room. 4U chassis. Spark: 35 dB (whisper), 5.9″ cube.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">7.</span> No Fine-Tuning Capability</h3>
+      <p>FP16 GFLOPS too low, no per-GPU VRAM for optimizer states. Limited to ~7B params. Spark fine-tunes <strong>70B models</strong> on one unit.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">8.</span> Aging Hardware Risk</h3>
+      <p>2016 GPUs. 5–8 years of 24/7 data center use. GDDR5 lifespan concerns. Capacitor aging. DIY cooling. All used, as-is from eBay. No warranty.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">9.</span> Build Complexity</h3>
+      <p><strong>20–40 hours</strong> to source, 3D-print shrouds, wire EPS adapters, config BIOS, compile SM 6.1 kernels, troubleshoot inter-GPU comms. Expect 50% eBay DOA rate.</p>
+    </div>
+    <div class="spec-card">
+      <h3><span class="badge red">10.</span> PCIe Bottleneck on Tensor Parallelism</h3>
+      <p>No NVLink. PCIe 3.0 at ~16 GB/s. When tensor parallelism required, throughput drops to <strong>~1–4 t/s</strong>.</p>
+    </div>
+  </div>
 </div>
 
 <hr class="section-divider">
 
 <!-- ============= SECTION 6 ============= -->
-<h2 id="cons-p40">6. P40 System — Disadvantages vs DGX Spark</h2>
+<h2 id="pros-dgx">6. DGX Spark — Pros vs Cons</h2>
 
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 1. Catastrophically Weak FP16 Compute</h3>
-  <p>
-    <strong>~752 GFLOPS FP16 across 4 GPUs vs DGX Spark's ~125 TFLOPS.</strong> That's a 166× gap.
-    Every attention operation, every softmax, every layer norm, every KV cache operation runs in FP16.
-    This is not just a "slower" problem — it fundamentally limits which models and frameworks work.
-    vLLM's PagedAttention and continuous batching rely heavily on FP16 tensor ops. Even with
-    <code>pascal-pkgs-ci</code> providing compatibility, the performance is painful.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 2. No Native FP8 Support</h3>
-  <p>
-    FP8 KV cache is the standard for modern LLM serving. It halves KV cache memory usage with
-    negligible quality loss. P40s cannot do this — KV cache stays in FP16, meaning you need
-    twice the VRAM for the same context length. A 128K context for Llama 3.1 70B needs ~42 GB
-    of FP16 KV cache on P40s vs ~21 GB on DGX Spark. <strong>This alone makes long-context
-    serving substantially worse on P40s.</strong>
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 3. Software Compatibility Hell</h3>
-  <p>
-    Pascal (SM 6.1) is excluded from:
-  </p>
-  <ul>
-    <li>Official vLLM (requires SM ≥ 7.0)</li>
-    <li>Official Triton kernels (requires SM ≥ 7.0)</li>
-    <li>TensorRT-LLM (Volta+)</li>
-    <li>Flash Attention (requires SM ≥ 7.5 for v2, SM ≥ 8.0 for v3)</li>
-    <li>ExLlamaV2 (dropped Pascal support)</li>
-    <li>Most CUDA 12.x-optimized libraries targeting Ampere+</li>
-    <li>NVIDIA NIM microservices</li>
-  </ul>
-  <p>
-    <code>pascal-pkgs-ci</code> is a heroic community effort, but it's maintained by volunteers.
-    When vLLM releases a breaking API change or drops an older CUDA version, the Pascal build
-    may lag by weeks or months. <strong>You're always running a fork.</strong>
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 4. Segmented Memory Architecture</h3>
-  <p>
-    96 GB of VRAM sounds impressive, but it's four 24 GB silos. A 40 GB model must be manually split.
-    A 26 GB model <strong>won't fit on any single P40</strong> despite the system having 96 GB total.
-    You must use tensor parallelism (slow over PCIe 3.0) or layer splitting (limits batch efficiency).
-    DGX Spark's 128 GB is a flat pool — load a 100 GB model and it just works.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 5. Enormous Power Consumption</h3>
-  <p>
-    ~1,400–1,600W wall draw for the P40 system vs ~200W wall draw for DGX Spark. At AU$0.30/kWh:
-  </p>
-  <ul>
-    <li>P40 system: <strong>~AU$3,680–4,200/year</strong> (24/7 operation)</li>
-    <li>DGX Spark: <strong>~AU$526/year</strong> (24/7 operation)</li>
-    <li><strong>Difference: ~AU$3,154–3,674/year — nearly the cost of the P40 system itself.</strong></li>
-  </ul>
-  <p>
-    Even at 8 hours/day usage, the annual electricity differential (~AU$1,051–1,225) means the
-    DGX Spark pays back its price premium in <strong>~3.4–3.9 years</strong> through electricity savings alone.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 6. Noise &amp; Physical Footprint</h3>
-  <p>
-    A 4U server with four actively-cooled P40s (40mm server fans at 15,000 RPM) produces
-    <strong>55–70 dB</strong> at load — comparable to a vacuum cleaner. It cannot live in
-    a living room, bedroom, or shared office. DGX Spark operates at 35 dB — quieter than
-    most desktop PCs. And it's the size of a small book vs a server chassis.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 7. No Fine-Tuning Capability</h3>
-  <p>
-    Fine-tuning requires FP16/BF16 precision for gradient accumulation and optimizer states
-    (Adam uses 2–3× the model size in optimizer memory). P40s lack the FP16 throughput and
-    per-GPU VRAM to fine-tune anything beyond ~7B parameters. DGX Spark can fine-tune
-    <strong>70B parameter models</strong> — Llama 3.1 70B, Qwen 2.5 72B — on a single desktop unit.
-    This is a qualitative difference, not just a speed difference.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 8. Aging Hardware Risk</h3>
-  <p>
-    P40s are from 2016. They've likely been in a data center running 24/7 for 5–8 years.
-    GDDR5 memory has a finite lifespan. Passive cooling in a home build is DIY — thermal
-    issues are common. Capacitor aging, fan bearing failure, and ESD sensitivity increase
-    with age. DGX Spark is new hardware with warranty coverage.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 9. Build Complexity</h3>
-  <p>
-    The P40 system requires: sourcing 4–8 used GPUs (expect 50% eBay failure rate for passively-cooled
-    cards that may have been improperly cooled), 3D printing fan shrouds, wiring EPS adapters,
-    configuring BIOS settings (Above 4G Decoding, PCIe Gen3 negotiation), compiling CUDA kernels
-    for SM 6.1, installing the pascal-pkgs-ci toolchain, and troubleshooting inter-GPU communication.
-    <strong>Budget 20–40 hours for a complete, stable build.</strong> DGX Spark: unbox, plug in,
-    install llama.cpp.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 10. PCIe Bottleneck on Tensor Parallelism</h3>
-  <p>
-    When a model layer must be split across GPUs (tensor parallelism or expert parallelism),
-    data crosses PCIe 3.0 at ~16 GB/s. Modern NVLink-equipped GPUs (V100, A100, H100) have
-    150–900 GB/s interconnects. The P40 <em>has no NVLink at all</em>. For models that
-    require tensor parallelism (any layer >23 GB, or MoE models with experts >23 GB), the
-    PCIe bottleneck will limit throughput to <strong>~1–4 t/s</strong> regardless of INT8 speed.
-  </p>
+<div class="two-col" style="grid-template-columns: 460px 1fr; align-items: start;">
+  <div class="pro-col">
+    <h3 style="margin-top:0;"><span class="badge green">PROS</span> Advantages over P40 System</h3>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">1.</span> Unified Memory + NVFP4 for MoE</h3>
+      <p>128 GB unified pool. NVFP4 acceleration eliminates PCIe MoE bottleneck. GPT-OSS 120B: <strong>~50 t/s</strong> on Spark vs ~3 t/s on P40. For MoE, sparsity math flips in Spark's favor.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">2.</span> No Splitting, No Copies</h3>
+      <p>Flat address space. GPU + CPU share memory at 900 GB/s via NVLink-C2C. KV cache is one contiguous allocation. Prefix caching works naturally. No PCIe topology planning.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">3.</span> Full NVIDIA Software Stack</h3>
+      <p>Native CUDA 12.x, TensorRT-LLM, vLLM, NIM, NeMo, Triton, RAPIDS, NGC containers. No compatibility patches. No community forks required.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">4.</span> Fine-Tune 70B Models</h3>
+      <p><strong>First desktop unit capable of this.</strong> 128 GB unified memory + tensor core FP16 = LoRA/QLoRA/full fine-tune on Llama 70B, Qwen 72B. P40 cannot fine-tune beyond ~7B.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">5.</span> 7× Better Power Efficiency</h3>
+      <p>~200W wall vs 1,400–1,600W. 24/7 annual bill: <strong>~AU$526</strong> vs ~AU$3,680–4,200. For always-on infrastructure, savings are transformative.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">6.</span> Silent, Compact, Living-Space Friendly</h3>
+      <p>35 dB under load, 19 dB idle. 5.9″ cube, 1.2 kg. Desk, bookshelf, beside router. P40 needs a server room.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">7.</span> Future-Proof Architecture</h3>
+      <p>Blackwell: FP4, FP8, Transformer Engine, 5th-gen Tensor Cores, NVLink-C2C. Same tech as $30K+ DC GPUs. SM 6.1 is already legacy.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">8.</span> Stackable to 405B</h3>
+      <p>Two units via ConnectX-7 (200 Gbps) = 256 GB virtual pool. Runs Llama 3.1 405B at FP4. P40 would need 6–8 more GPUs + different motherboard.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge green">9.</span> Warranty &amp; Support</h3>
+      <p>Full manufacturer warranty. NVIDIA Enterprise support. Dell/HP/Lenovo/ASUS OEM variants. Zero eBay roulette.</p>
+    </div>
+    <div class="spec-card">
+      <h3><span class="badge green">10.</span> Zero-Build Complexity</h3>
+      <p>Unbox, plug in, turn on. DGX OS pre-installed. CUDA, PyTorch, Jupyter pre-configured. <strong>~15 minutes</strong> to running Llama 70B.</p>
+    </div>
+  </div>
+  <div class="con-col">
+    <h3 style="margin-top:0;"><span class="badge red">CONS</span> Disadvantages vs P40 System</h3>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">1.</span> Significantly Higher Upfront Price</h3>
+      <p><strong>~AU$8,000 vs AU$3,210–5,610.</strong> ~AU$2,400–4,800 premium. No discount path. Electricity recovers premium in ~14.5 months (24/7) or ~3.6 years (8 hrs/day).</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">2.</span> Non-Expandable Memory</h3>
+      <p>128 GB LPDDR5x soldered. Hard cap. P40 with 256 GB DDR4 runs DeepSeek-V3 (671B) with zero NVMe paging.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">3.</span> Sparse Independent Benchmarks</h3>
+      <p>LMSYS has Llama 8B/70B numbers. Broader model coverage (Qwen, Mixtral, Gemma, DeepSeek at multiple quants/contexts) is still thin.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">4.</span> Single Point of Failure</h3>
+      <p>Any component fails? Replace entire unit. P40: GPU dies → swap in spare. Mobo dies → move everything over.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">5.</span> ARM CPU Limitations</h3>
+      <p>No x86. Some Docker images and Python wheels lack ARM builds. OS locked to DGX OS (Ubuntu ARM). Can't repurpose as general x86 server.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">6.</span> No PCIe Expansion</h3>
+      <p>Zero PCIe slots. Closed appliance. P40 system: 4–7 PCIe slots, M.2, SATA, USB headers.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">7.</span> Slower for Small Dense Models</h3>
+      <p>273 GB/s shared vs P40's 347 GB/s per-card. Llama 8B: 21 vs 45 t/s. Qwen 27B: 10 vs 16 t/s. <strong>P40 wins on throughput for ≤27B dense models.</strong></p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">8.</span> Vendor Lock-In Risk</h3>
+      <p>DGX OS is NVIDIA-controlled. Licensing changes, EOL, AI Enterprise sub requirements are unknown. P40 runs vanilla Ubuntu.</p>
+    </div>
+    <div class="spec-card" style="margin-bottom:0.75rem;">
+      <h3><span class="badge red">9.</span> Limited GGUF/FP4 Support</h3>
+      <p>FP4 not supported in llama.cpp. Dependent on TensorRT-LLM/NIM for FP4 models — may not cover open-source model diversity.</p>
+    </div>
+    <div class="spec-card">
+      <h3><span class="badge red">10.</span> Dual-Unit Cost for 405B</h3>
+      <p>Two units = <strong>~AU$16,000</strong>. P40 runs 405B (slowly) on one system via 256 GB CPU offload. For "biggest model possible, speed doesn't matter" P40 wins on cost.</p>
+    </div>
+  </div>
 </div>
 
 <hr class="section-divider">
 
 <!-- ============= SECTION 7 ============= -->
-<h2 id="pros-dgx">7. DGX Spark — Advantages over P40 System</h2>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 1. Unified Memory + NVFP4 for MoE &amp; Large Models</h3>
-  <p>
-    The 128 GB unified memory pool is the Spark's true killer feature, not raw TFLOPS.
-    For MoE models where only ~30% of weights are active per token (GPT-OSS 120B, Qwen3 235B),
-    NVFP4 quantization combined with unified memory eliminates the PCIe bottleneck that destroys
-    P40 MoE performance. LMSYS benchmarks show the Spark hitting ~50 t/s on GPT-OSS 120B (MXFP4)
-    — the P40 cluster manages ~3 t/s on the same model due to PCIe all-reduce overhead on every
-    MoE layer. For dense models, the Spark's 273 GB/s shared bus is its real bottleneck, not
-    compute — but for MoE, the sparsity math flips in its favor.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 2. Unified Memory: No Splitting, No Copies</h3>
-  <p>
-    128 GB flat address space. Load a 100 GB model without thinking about layer distribution.
-    GPU and CPU share memory at 900 GB/s via NVLink-C2C. The programming model is drastically simpler.
-    For LLMs specifically: the entire KV cache is one contiguous allocation. Prefix caching works
-    naturally. Long context scaling is linear in VRAM, not bottlenecked by PCIe topology planning.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 3. Full NVIDIA Software Stack</h3>
-  <ul>
-    <li><strong>CUDA 12.x</strong> — latest features, no compatibility patches</li>
-    <li><strong>TensorRT-LLM</strong> — NVIDIA's optimized LLM inference engine with inflight batching, FP8 KV cache, quantization-aware optimization, and speculative decoding</li>
-    <li><strong>NVIDIA NIM</strong> — pre-built optimized inference containers for popular models</li>
-    <li><strong>vLLM</strong> — runs natively, no pascal-pkgs-ci needed</li>
-    <li><strong>NeMo</strong> — full fine-tuning framework</li>
-    <li><strong>Triton Inference Server</strong> — production-grade model serving</li>
-    <li><strong>RAPIDS</strong> — GPU-accelerated data science</li>
-    <li><strong>NGC Catalog</strong> — pre-optimized containers</li>
-  </ul>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 4. Fine-Tune 70B Models</h3>
-  <p>
-    DGX Spark is the <strong>first desktop AI system capable of fine-tuning 70B-class models</strong>
-    on a single unit. With 128 GB unified memory and tensor core FP16 throughput, you can run
-    LoRA, QLoRA, or even full fine-tuning on Llama 3.1 70B, Qwen 2.5 72B, or Mixtral 8×7B.
-    This is a qualitative capability that the P40 system entirely lacks.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 5. 7× Better Power Efficiency</h3>
-  <p>
-    ~200W wall draw vs 1,400–1,600W. The DGX Spark can run 24/7 for <strong>~AU$526/year</strong> vs the
-    P40 system's ~AU$3,680–4,200/year. For always-on home AI infrastructure — where you want it running
-    like water from a tap — the power savings are transformative.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 6. Silent, Compact, Living-Space Friendly</h3>
-  <p>
-    35 dB under load (quieter than a whisper), 19 dB idle (inaudible). 5.9" cube, 1.2 kg.
-    This can sit on a desk, in a bookshelf, or next to a router. The P40 system requires a
-    server rack, basement, garage, or dedicated room with acoustic isolation.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 7. Future-Proof Architecture</h3>
-  <p>
-    Blackwell brings FP4, FP8, Transformer Engine, 5th-gen Tensor Cores, and NVLink-C2C.
-    These are the same technologies in NVIDIA's $30,000+ data center GPUs. Software toolchains
-    will be optimized for Blackwell for years. SM 6.1 (Pascal) is already a legacy target
-    that fewer and fewer projects support.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 8. Stackable to 405B</h3>
-  <p>
-    Two DGX Spark units connect via ConnectX-7 at 200 Gbps, creating a virtual 256 GB unified
-    memory pool capable of running <strong>Llama 3.1 405B at FP4</strong>. The P40 system would
-    need 6–8 more GPUs (and an entirely different motherboard) to approach this.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 9. Warranty &amp; Support</h3>
-  <p>
-    Manufacturer warranty, NVIDIA Enterprise support options, OEM partner support (Dell, HP,
-    Lenovo, ASUS all have DGX Spark variants). This matters for any use case where downtime
-    costs money — consulting, freelancing, startup prototyping.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge green">PRO</span> 10. Zero-Build Complexity</h3>
-  <p>
-    Unbox, connect power and Ethernet, turn on. DGX OS is pre-installed. NVIDIA AI Enterprise
-    is included (eval). CUDA, PyTorch, Jupyter are pre-configured. You go from box to running
-    Llama 3.1 70B in <strong>~15 minutes</strong> vs 20–40 hours for the P40 system.
-  </p>
-</div>
-
-<hr class="section-divider">
-
-<!-- ============= SECTION 8 ============= -->
-<h2 id="cons-dgx">8. DGX Spark — Disadvantages vs P40 System</h2>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 1. Significantly Higher Upfront Purchase Price</h3>
-  <p>
-    <strong>~AU$8,000 vs AU$3,210–5,610</strong> for the P40 system — that's a <strong>~AU$2,400–4,800
-    premium</strong>. If you already own some components (chassis, PSU, storage), the P40 system can dip
-    below AU$3,000, widening the gap to ~AU$5,000. DGX Spark has no discount path — AU retailers price
-    at a premium above the US MSRP. <strong>However:</strong> electricity costs recover this premium
-    within ~1–2 years for 24/7 operation (see TCO section below).
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 2. Non-Expandable Memory</h3>
-  <p>
-    128 GB LPDDR5x is soldered. You cannot add more. For CPU-offloaded MoE models like
-    DeepSeek-V3 (which benefits from 256+ GB of system RAM to avoid NVMe paging), the P40
-    system with 256 GB DDR4 RDIMM has a qualitative advantage. DGX Spark's 128 GB is a hard cap.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 3. Limited Independent LLM Benchmarks</h3>
-  <p>
-    The LMSYS DGX Spark review (Oct 2025) provides foundational numbers: ~21 t/s for Llama 8B,
-    ~2.7 t/s for Llama 70B. But broader benchmarking across model families (Qwen, Mixtral, Gemma,
-    DeepSeek) at multiple context lengths and quants is still sparse. The 200B model claim is at
-    FP4 — a precision level with known quality degradation for many models. The P40 system's
-    performance is well-characterized across dozens of models by the llama.cpp community.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 4. Single Point of Failure</h3>
-  <p>
-    If anything fails — GPU, CPU, memory, storage, NIC — the entire unit must be RMA'd or replaced.
-    P40 system: GPU dies, you swap in a spare. Motherboard dies, you buy a new one and move
-    everything over. All components are independently replaceable.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 5. ARM CPU Limitations</h3>
-  <p>
-    The 20-core Grace ARM CPU (not x86) means:
-  </p>
-  <ul>
-    <li>Some Docker images are x86-only — need ARM builds or emulation (slow)</li>
-    <li>Some Python wheels lack ARM builds</li>
-    <li>Proprietary software (games, some databases) may not support ARM</li>
-    <li>OS must be DGX OS (Ubuntu ARM) — limited distro choice</li>
-    <li>Cannot repurpose as a general-purpose x86 server</li>
-  </ul>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 6. No PCIe Expansion</h3>
-  <p>
-    DGX Spark has zero PCIe slots. No adding GPUs, NICs, NVMe expansion cards, FPGA
-    accelerators, or capture cards. It is a closed appliance. The P40 system has
-    4–7 PCIe slots, M.2 slots, SATA ports, and USB headers.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 7. Lower Memory Bandwidth Beats It for Small Dense Models</h3>
-  <p>
-    A single P40 has 347 GB/s memory bandwidth — <strong>27% higher</strong> than DGX Spark's shared
-    273 GB/s. Since LLM decode is memory-bandwidth-bound (not compute-bound), the P40 <strong>actually
-    outperforms</strong> the Spark for any model that fits on a single card. LMSYS confirms the
-    Spark does ~21 t/s for Llama 8B — a single P40 does ~45 t/s. Similarly, Qwen3.5 27B at Q4_K_M
-    (~16.5 GB) runs ~16 t/s on one P40 vs ~10 t/s on the Spark at FP8. The Spark's tensor cores
-    don't help here because the bottleneck is reading weights from memory, not computing on them.
-    The Spark only recovers its lead with NVFP4 (4-bit) quantization, which halves model size and
-    doubles effective bandwidth — but at a quality cost that may not suit all models or use-cases.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 8. Vendor Lock-In Risk</h3>
-  <p>
-    DGX OS is NVIDIA-controlled. If NVIDIA changes licensing terms, discontinues DGX OS updates,
-    or requires AI Enterprise subscription for key features, you're locked in. The P40 system
-    runs vanilla Ubuntu — no corporate dependency.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 9. Limited Model Format Support (Early Days)</h3>
-  <p>
-    The FP4 precision that enables 200B models on DGX Spark is <strong>not widely supported</strong>
-    by current GGUF quantization tools or llama.cpp. As of May 2026, llama.cpp does not support
-    FP4 GGUF format. You'll be dependent on NVIDIA's TensorRT-LLM or NIM containers for FP4 models,
-    which may not cover the open-source model diversity that GGUF supports. The P40 system,
-    running GGUF on llama.cpp, supports virtually every model.
-  </p>
-</div>
-
-<div class="spec-card">
-  <h3><span class="badge red">CON</span> 10. Dual-Unit Cost for 405B Models</h3>
-  <p>
-    Running Llama 3.1 405B on DGX Spark requires <strong>two units</strong> at US$6,000–8,000 total.
-    The P40 system can run 405B (slowly) on a single system via CPU offload with its 256 GB RAM.
-    For the specific use case of "run the biggest model possible, speed doesn't matter much," the
-    P40 system's CPU offload headroom wins on cost.
-  </p>
-</div>
-
-<hr class="section-divider">
-
-<!-- ============= SECTION 9 ============= -->
-<h2 id="model-matrix">9. Model Support Matrix</h2>
+<h2 id="model-matrix">7. Model Support Matrix</h2>
 
 <div class="table-wrap">
 <table>
@@ -1151,8 +892,8 @@
 
 <hr class="section-divider">
 
-<!-- ============= SECTION 10 ============= -->
-<h2 id="tco">10. Total Cost of Ownership (3 Year, 24/7 Operation)</h2>
+<!-- ============= SECTION 8 ============= -->
+<h2 id="tco">8. Total Cost of Ownership (3 Year, 24/7 Operation)</h2>
 
 <p>
   All figures in USD. Electricity at US$0.15/kWh (US average; adjust for your region).
@@ -1225,8 +966,8 @@
 
 <hr class="section-divider">
 
-<!-- ============= SECTION 11 ============= -->
-<h2 id="use-cases">11. Use-Case Recommendations</h2>
+<!-- ============= SECTION 9 ============= -->
+<h2 id="use-cases">9. Use-Case Recommendations</h2>
 
 <div class="spec-card">
   <h3>Buy the P40 System IF:</h3>
@@ -1268,14 +1009,14 @@
     <li>You're hoping for <strong>price drops or used DGX Spark units</strong> in 12–18 months</li>
     <li>You're waiting for <strong>DGX Station (GB300, larger, more powerful)</strong> to compare</li>
     <li>You want to see if <strong>AMD, Intel, or Apple</strong> release competing unified-memory AI desktops</li>
-    <li>You're not sure about <strong>your workload pattern</strong> — see <a href="#your-use-case">Section 11.5</a> for the weekend-warrior analysis</li>
+    <li>You're not sure about <strong>your workload pattern</strong> — see <a href="#your-use-case">Section 9.5</a> for the weekend-warrior analysis</li>
   </ul>
 </div>
 
 <hr class="section-divider">
 
-<!-- ============= SECTION 11.5 ============= -->
-<h2 id="your-use-case">11.5. Your Use Case — Weekend Multi-Agent Coding</h2>
+<!-- ============= SECTION 9.5 ============= -->
+<h2 id="your-use-case">9.5. Your Use Case — Weekend Multi-Agent Coding</h2>
 
 <h3>The Usage Pattern</h3>
 <p>
@@ -1575,8 +1316,8 @@
 
 <hr class="section-divider">
 
-<!-- ============= SECTION 12 ============= -->
-<h2 id="verdict">12. Verdict &amp; Decision Framework</h2>
+<!-- ============= SECTION 10 ============= -->
+<h2 id="verdict">10. Verdict &amp; Decision Framework</h2>
 
 <div class="verdict-banner">
   <h3 style="margin-top:0;">Summary Verdict</h3>
