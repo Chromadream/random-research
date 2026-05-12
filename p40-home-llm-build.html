@@ -113,7 +113,7 @@
 
 <h1>4× NVIDIA Tesla P40 — Home LLM Inference System</h1>
 <p>
-  <strong>Goal:</strong> Build a sub-$1,500 home server with 96 GB combined VRAM for serving
+  <strong>Goal:</strong> Build a sub-AU$2,500 home server with 96 GB combined VRAM for serving
   large language models to 2+ concurrent users on a home network, supporting MoE partial-expert
   loading and streaming of models exceeding total VRAM.
 </p>
@@ -158,7 +158,7 @@
       <tr><td><strong>NVLink</strong></td><td>None</td></tr>
       <tr><td><strong>PCIe</strong></td><td>3.0 ×16</td></tr>
       <tr><td><strong>Power Connector</strong></td><td>8-pin EPS 12V</td></tr>
-      <tr><td><strong>Used Price</strong></td><td>~$150–200/ea</td></tr>
+      <tr><td><strong>Used Price (AU)</strong></td><td>~AU$280–400/ea (eBay AU incl. shipping)</td></tr>
     </table>
   </div>
   <div class="gpu-card">
@@ -209,7 +209,7 @@
       <td>80 (40+40)</td>
       <td>2× E5-2680 v4 (14c/28t, 2.4 GHz)</td>
       <td>Supermicro X10DRi / X10DRG-Q</td>
-      <td>$250–400</td>
+      <td>AU$400–650</td>
       <td>DDR4 ECC RDIMM. Plentiful on eBay. 7 PCIe ×16 slots.</td>
     </tr>
     <tr>
@@ -217,7 +217,7 @@
       <td>128</td>
       <td>EPYC 7302P (16c/32t, 3.0 GHz)</td>
       <td>Supermicro H11SSL-i</td>
-      <td>$500–700</td>
+      <td>AU$800–1,200</td>
       <td>DDR4 ECC RDIMM. Better single-thread. PCIe 4.0 (P40 is 3.0).</td>
     </tr>
     <tr>
@@ -225,7 +225,7 @@
       <td>96 (48+48)</td>
       <td>2× Xeon Gold 6130</td>
       <td>Supermicro X11DPi-NT</td>
-      <td>$500–800</td>
+      <td>AU$800–1,300</td>
       <td>DDR4 ECC. PCIe 3.0. Modern platform.</td>
     </tr>
     <tr>
@@ -233,7 +233,7 @@
       <td>60–64</td>
       <td>TR 1920X / 2950X</td>
       <td>ASRock X399 Taichi</td>
-      <td>$400–600</td>
+      <td>AU$650–1,000</td>
       <td>Consumer DDR4. Four ×16 slots. High single-thread perf.</td>
     </tr>
   </tbody>
@@ -241,7 +241,7 @@
 </div>
 
 <div class="callout success">
-  <strong>Recommended budget pick:</strong> Dual Xeon E5-2680 v4 on a Supermicro X10DRi. $80 CPUs, $150 motherboard, $60 for 64 GB DDR4 ECC. Leaves budget for cooling and power supply.
+  <strong>Recommended budget pick:</strong> Dual Xeon E5-2680 v4 on a Supermicro X10DRi. AU$130–150 for both CPUs, AU$250–350 motherboard, AU$150–200 for 64 GB DDR4 ECC. Leaves budget for cooling and power supply.
 </div>
 
 <h3>Power Supply</h3>
@@ -250,9 +250,10 @@
   <strong>Minimum 1,500W PSU</strong> recommended. Look for:
 </p>
 <ul>
-  <li><strong>EVGA SuperNOVA 1600 T2</strong> — 1600W, fully modular, plenty of PCIe 8-pin.</li>
-  <li><strong>Corsair AX1600i</strong> — Titanium efficiency, digital monitoring.</li>
-  <li><strong>Supermicro PWS-1K62A-1R</strong> — If using a Supermicro chassis with redundant PSU.</li>
+  <li><strong>Corsair HX1500i</strong> — 1500W, Platinum, fully modular, available at Scorptec/PCCG (~AU$529).</li>
+  <li><strong>be quiet! Dark Power Pro 13 1600W</strong> — Titanium efficiency, available at Scorptec (~AU$599).</li>
+  <li><strong>FSP Cannon 2000W</strong> — 2000W, 80+ Gold, available at Mwave (~AU$699).</li>
+  <li><strong>Supermicro PWS-1K62A-1R</strong> — If using a Supermicro chassis with redundant PSU (eBay AU).</li>
 </ul>
 
 <div class="callout warn">
@@ -273,7 +274,7 @@
 <pre><code><span class="cm"># STL files available on Printables/Thingiverse — search "Tesla P40 fan shroud"</span>
 <span class="cm"># Fan: 2× 40mm server fans (Delta EFB0412VHD or similar, 15,000+ RPM)</span>
 <span class="cm"># Connect via motherboard fan header with PWM control</span>
-<span class="cm"># Total cost per GPU: ~$15 for shroud + $10 for fans</span></code></pre>
+<span class="cm"># Total cost per GPU: ~AU$25 for shroud + $15 for fans</span></code></pre>
 
 <h3>Option B: Mining Rig Open-Air Frame</h3>
 <p>
@@ -285,7 +286,7 @@
 <p>
   A Rosewill RSV-L4500U or Supermicro 846 chassis with internal 80mm fan wall.
   These chassis are designed for passive GPUs with high-static-pressure mid-wall fans.
-  Approx. $150–250 used.
+  Approx. AU$250–400 used.
 </p>
 
 <div class="callout danger">
@@ -302,17 +303,17 @@
 <table>
   <thead><tr><th>Component</th><th>Recommendation</th><th>Est. Cost</th></tr></thead>
   <tbody>
-    <tr><td>GPUs (4×)</td><td>NVIDIA Tesla P40 24GB</td><td>$600–800</td></tr>
-    <tr><td>Motherboard</td><td>Supermicro X10DRi (dual LGA 2011-3)</td><td>$120–180</td></tr>
-    <tr><td>CPUs (2×)</td><td>Intel Xeon E5-2680 v4</td><td>$60–80</td></tr>
-    <tr><td>CPU Coolers (2×)</td><td>Noctua NH-U12DX i4 or Supermicro 4U active</td><td>$80–100</td></tr>
-    <tr><td>RAM</td><td>8× 16GB DDR4 ECC RDIMM 2400 (128 GB total)</td><td>$100–140</td></tr>
-    <tr><td>PSU</td><td>EVGA SuperNOVA 1600 T2 or equivalent 1500W+</td><td>$200–300</td></tr>
-    <tr><td>Storage</td><td>1TB NVMe SSD (Samsung 970 EVO or similar)</td><td>$60–80</td></tr>
-    <tr><td>Chassis</td><td>Rosewill RSV-L4500U 4U or open-air frame</td><td>$100–200</td></tr>
-    <tr><td>GPU Cooling</td><td>3D-printed shrouds + 40mm fans (×8)</td><td>$60–100</td></tr>
-    <tr><td>EPS Adapters</td><td>PCIe 6+2 to EPS 8-pin (×4)</td><td>$30</td></tr>
-    <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$1,410–1,960</strong></td></tr>
+    <tr><td>GPUs (4×)</td><td>NVIDIA Tesla P40 24GB</td><td>AU$1,100–1,600</td></tr>
+    <tr><td>Motherboard</td><td>Supermicro X10DRi (dual LGA 2011-3)</td><td>AU$200–350</td></tr>
+    <tr><td>CPUs (2×)</td><td>Intel Xeon E5-2680 v4</td><td>AU$100–150</td></tr>
+    <tr><td>CPU Coolers (2×)</td><td>Noctua NH-U12DX i4 or Supermicro 4U active</td><td>AU$150–220</td></tr>
+    <tr><td>RAM</td><td>8× 16GB DDR4 ECC RDIMM 2400 (128 GB total)</td><td>AU$180–280</td></tr>
+    <tr><td>PSU</td><td>Corsair HX1500i / FSP Cannon 2000W / be quiet! Dark Power Pro 1500</td><td>AU$450–700</td></tr>
+    <tr><td>Storage</td><td>1TB NVMe SSD (Samsung 990 EVO / Crucial P3 Plus)</td><td>AU$99–150</td></tr>
+    <tr><td>Chassis</td><td>4U server chassis or open-air mining frame</td><td>AU$180–400</td></tr>
+    <tr><td>GPU Cooling</td><td>3D-printed shrouds + 40mm fans (×8)</td><td>AU$100–180</td></tr>
+    <tr><td>EPS Adapters</td><td>PCIe 6+2 to EPS 8-pin (×4)</td><td>AU$50–60</td></tr>
+    <tr><td><strong>TOTAL (incl. GST)</strong></td><td></td><td><strong>AU$2,609–4,090</strong></td></tr>
   </tbody>
 </table>
 </div>
@@ -1208,7 +1209,7 @@ sudo tailscale up
   <tr><td><strong>Recommended CPU</strong></td><td>Dual Xeon E5-2680 v4 (budget) or EPYC 7302P (modern)</td></tr>
   <tr><td><strong>Recommended Board</strong></td><td>Supermicro X10DRi (budget) or H11SSL-i (modern)</td></tr>
   <tr><td><strong>RAM</strong></td><td>128 GB DDR4 ECC (minimum 64 GB for MoE offloading)</td></tr>
-  <tr><td><strong>PSU</strong></td><td>1,500W+ (EVGA 1600 T2 or equivalent)</td></tr>
+  <tr><td><strong>PSU</strong></td><td>1,500W+ (Corsair HX1500i, be quiet! Dark Power Pro 1600W, or FSP Cannon 2000W)</td></tr>
   <tr><td><strong>Cooling</strong></td><td>3D-printed shrouds + 40mm server fans per GPU</td></tr>
   <tr><td><strong>OS</strong></td><td>Ubuntu 24.04 LTS, NVIDIA driver 550+</td></tr>
   <tr><td><strong>Engine</strong></td><td>vllm-pascal (primary) + llama.cpp CUDA (GGUF/CPU-hybrid)</td></tr>
@@ -1222,10 +1223,10 @@ sudo tailscale up
 </div>
 
 <div class="footer">
-  <p>Researched and compiled May 2026. Verify current build flags against the
+  <p>Researched and compiled May 2026. All prices in AU$ (incl. GST). PSU/nVME/CPU cooler pricing from Australian retailers (Scorptec, PCCaseGear, Umart, Mwave). Used enterprise gear (GPUs, motherboard, CPUs, RAM) pricing from eBay AU. Verify current build flags against the
   <a href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md">llama.cpp build docs</a> and
   <a href="https://github.com/sasha0552/pascal-pkgs-ci">pascal-pkgs-ci</a> for latest Pascal-compatible vLLM versions.
-  GPU prices fluctuate; check eBay sold listings for current P40 pricing.</p>
+  GPU prices fluctuate; check eBay AU sold listings for current P40 pricing.</p>
 </div>
 
 </body>
