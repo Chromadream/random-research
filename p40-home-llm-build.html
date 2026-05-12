@@ -616,7 +616,7 @@ vllm serve /models/Mixtral-8x22B-Instruct-v0.1 \
     <tr><td>Q8_0</td><td>8.0</td><td>Near-lossless</td><td>~1.0 GB</td><td>~90B</td><td>Llama 3.1 70B, Qwen 2.5 72B</td></tr>
     <tr><td>Q6_K</td><td>6.6</td><td>Excellent</td><td>~0.83 GB</td><td>~110B</td><td>Command-R 104B, Qwen 2.5 72B</td></tr>
     <tr><td>Q5_K_M</td><td>5.5</td><td>Very Good</td><td>~0.70 GB</td><td>~130B</td><td>Llama 3.1 70B + long context</td></tr>
-    <tr><td>Q4_K_M</td><td>4.9</td><td>Good — <strong>sweet spot</strong></td><td>~0.62 GB</td><td>~145B</td><td>Mixtral 8×22B, DeepSeek-V2 Lite</td></tr>
+    <tr><td>Q4_K_M</td><td>4.9</td><td>Good — <strong>sweet spot</strong></td><td>~0.62 GB</td><td>~145B</td><td>Mixtral 8×22B, DeepSeek-V2 Lite, Qwen3.6 27B</td></tr>
     <tr><td>Q3_K_M</td><td>3.9</td><td>Acceptable</td><td>~0.50 GB</td><td>~180B</td><td>DeepSeek-V3 (with MoE offload)</td></tr>
     <tr><td>Q2_K</td><td>2.8</td><td>Noticeable loss</td><td>~0.37 GB</td><td>~240B+</td><td>DeepSeek-V3 (full, extreme)</td></tr>
     <tr><td>IQ3_XXS</td><td>3.1</td><td>Better than Q3</td><td>~0.40 GB</td><td>~220B</td><td>DeepSeek-V3 (balanced)</td></tr>
@@ -626,8 +626,8 @@ vllm serve /models/Mixtral-8x22B-Instruct-v0.1 \
 
 <h3>What Fits on 96 GB (4× P40):</h3>
 <ul>
-  <li><strong>Comfortably:</strong> Llama 3.1 70B (Q4_K_M), Qwen 2.5 72B (Q4_K_M), Mixtral 8×7B (Q6_K), Command-R 35B (Q8_0)</li>
-  <li><strong>Tightly:</strong> Mixtral 8×22B (Q3_K_M), WizardLM-2 8×22B (Q3_K_M), DeepSeek-V2 Lite 16B MoE (Q8_0)</li>
+  <li><strong>Comfortably:</strong> Llama 3.1 70B (Q4_K_M), Qwen 2.5 72B (Q4_K_M), Mixtral 8×7B (Q6_K), Command-R 35B (Q8_0), Qwen3.6 27B (Q4_K_M, ~17 GB on 1 P40)</li>
+  <li><strong>Tightly:</strong> Mixtral 8×22B (Q3_K_M), WizardLM-2 8×22B (Q3_K_M), DeepSeek-V2 Lite 16B MoE (Q8_0), Qwen3.6 27B (BF16, ~54 GB on 3 P40s)</li>
   <li><strong>With MoE offloading (Section 7):</strong> DeepSeek-V3 (671B total, 37B active) at Q4_K_M, Qwen3 MoE</li>
 </ul>
 
@@ -894,164 +894,30 @@ python -m ktransformers.local_chat \
 <!-- ============= SECTION 11 ============= -->
 <h2 id="putting-it-together">11. Full Deployment Recipes</h2>
 
-<h3>Recipe A: "Daily Driver" — Llama 3.1 70B (Q4_K_M) for 2 Users</h3>
-<pre><code><span class="cm"># Start the server with a systemd service</span>
-<span class="cm"># /etc/systemd/system/llama-server.service</span>
-<span class="va">[Unit]</span>
-<span class="va">Description</span>=<span class="st">llama.cpp Inference Server</span>
-<span class="va">After</span>=<span class="st">network.target</span>
+<p>
+  Production-ready systemd units, Docker commands, and multi-GPU configurations
+  for serving models on the 4&times; P40 build. See the dedicated page for all recipes:
+</p>
 
-<span class="va">[Service]</span>
-<span class="va">Type</span>=<span class="st">simple</span>
-<span class="va">User</span>=<span class="st">llama</span>
-<span class="va">WorkingDirectory</span>=<span class="st">/opt/llama.cpp</span>
-<span class="va">ExecStart</span>=<span class="st">/opt/llama.cpp/build/bin/llama-server \
-  -m /models/Llama-3.1-70B-Instruct-Q4_K_M.gguf \
-  -ngl all \
-  --split-mode layer \
-  --tensor-split 22,22,24,24 \
-  -c 32768 \
-  -np 4 \
-  -fa \
-  --host 0.0.0.0 \
-  --port 8080 \
-  -b 512 \
-  -ub 512 \
-  --mlock</span>
-<span class="va">Restart</span>=<span class="st">on-failure</span>
-<span class="va">RestartSec</span>=<span class="st">5</span>
-
-<span class="va">[Install]</span>
-<span class="va">WantedBy</span>=<span class="st">multi-user.target</span>
-
-<span class="cm"># Enable and start:</span>
-sudo systemctl enable --now llama-server</code></pre>
-
-<h3>Recipe B: "Big MoE" — DeepSeek-V3 (IQ3_XXS) for Batch/Research</h3>
-<pre><code><span class="cm"># Full DeepSeek-V3 at IQ3_XXS (~200 GB GGUF)</span>
-<span class="cm"># Shared layers + attention on GPU, expert FFNs on CPU</span>
-
-llama-server \
-  -m /models/DeepSeek-V3-IQ3_XXS.gguf \
-  -ngl all \
-  --split-mode layer \
-  --tensor-split 24,24,24,24 \
-  -c 8192 \
-  -np 2 \
-  -fa \
-  --host 0.0.0.0 \
-  --port 8080 \
-  --mlock \
-  --no-mmap</code></pre>
-
-<h3>Recipe C: "Small &amp; Fast" — Gemma 3 27B (Q5_K_M) for Interactive Chat</h3>
-<pre><code><span class="cm"># A smaller model that fits entirely in 2 P40s (48 GB)</span>
-<span class="cm"># Use remaining 2 GPUs for speculative decoding draft model</span>
-
-llama-server \
-  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
-  -md /models/gemma-3-1b-it-Q8_0.gguf \
-  -ngl all \
-  --split-mode layer \
-  --tensor-split 24,24,0,0 \
-  -c 32768 \
-  -np 8 \
-  -fa \
-  --host 0.0.0.0 \
-  --port 8080 \
-  -b 1024 \
-  -ub 1024</code></pre>
-
-<div class="callout success">
-  <strong>Speculative decoding trick:</strong> The <code>-md</code> flag loads a small draft model (Gemma 1B)
-  that predicts tokens, the main model verifies. This can <strong>2–3× token generation speed</strong>
-  for negligible VRAM cost (~2 GB for the draft model).
+<div class="callout">
+  <strong><a href="./p40-deployment-recipes.html">View all deployment recipes &rarr;</a></strong><br>
+  Includes Recipe A (Llama 3.1 70B, 32K per slot &times; 4 users), Recipe B (DeepSeek-V3 MoE
+  offloading), Recipe C (Gemma 3 27B with speculative decoding), Recipe D (Qwen3.6 27B
+  vLLM production serving), and llama.cpp CUDA build instructions for Pascal GPUs.
 </div>
-
-<h3>Building llama.cpp with CUDA for P40</h3>
-<pre><code><span class="cm"># Build llama.cpp with CUDA support for Pascal GPUs</span>
-git clone https://github.com/ggml-org/llama.cpp
-<span class="kw">cd</span> llama.cpp
-mkdir build && <span class="kw">cd</span> build
-
-<span class="cm"># P40s are SM 6.1 — use CUDA_ARCHITECTURES=61</span>
-cmake .. \
-  -DGGML_CUDA=ON \
-  -DCMAKE_CUDA_ARCHITECTURES=<span class="st">"61"</span> \
-  -DGGML_CUDA_FORCE_MMQ=ON \
-  -DGGML_CUDA_NCCL=OFF \
-  -DGGML_CUDA_PEER_MAX_BATCH_SIZE=<span class="nu">128</span> \
-  -DGGML_OPENMP=ON
-
-cmake --build . --config Release -j<span class="kw">$(</span>nproc<span class="kw">)</span>
-
-<span class="cm"># Verify CUDA backend is active:</span>
-./bin/llama-cli --list-devices
-<span class="cm"># Should list all 4 Tesla P40 GPUs with ~24 GB each</span>
-
-<span class="cm"># Install to system (optional):</span>
-sudo cmake --install .</code></pre>
-
-<h3>Recipe D: "Production Serving" — vllm-pascal + Mixtral 8×22B for 4 Users</h3>
-<pre><code><span class="cm"># Docker-based deployment with vllm-pascal</span>
-<span class="cm"># Mixtral 8×22B is an MoE with ~39B active params out of 141B total</span>
-<span class="cm"># At FP16: ~280 GB total. Use --enforce-eager or quantize.</span>
-
-<span class="cm"># Option 1: AWQ quantized Mixtral 8×22B (~40 GB, fits all 4 GPUs)</span>
-docker run -d --name vllm-server \
-  --gpus all \
-  -p 8000:8000 \
-  -v /models:/models \
-  ghcr.io/sasha0552/vllm:v0.10.0 \
-  --model /models/Mixtral-8x22B-Instruct-v0.1-AWQ \
-  --tensor-parallel-size 4 \
-  --max-model-len 16384 \
-  --gpu-memory-utilization 0.85 \
-  --max-num-seqs 8
-
-<span class="cm"># Option 2: Pipeline-parallel for larger models (slower GPU interconnect)</span>
-docker run -d --name vllm-server \
-  --gpus all \
-  -p 8000:8000 \
-  -v /models:/models \
-  ghcr.io/sasha0552/vllm:v0.10.0 \
-  --model /models/Mixtral-8x22B-Instruct-v0.1 \
-  --pipeline-parallel-size 4 \
-  --tensor-parallel-size 1 \
-  --dtype float16 \
-  --max-model-len 8192
-
-<span class="cm"># Option 3: Systemd service for bare-metal vllm-pascal</span>
-<span class="cm"># /etc/systemd/system/vllm-server.service</span>
-<span class="va">[Unit]</span>
-<span class="va">Description</span>=<span class="st">vLLM Pascal Inference Server</span>
-<span class="va">After</span>=<span class="st">network.target docker.service</span>
-
-<span class="va">[Service]</span>
-<span class="va">Type</span>=<span class="st">simple</span>
-<span class="va">ExecStartPre</span>=<span class="st">-/usr/bin/docker stop vllm-server</span>
-<span class="va">ExecStartPre</span>=<span class="st">-/usr/bin/docker rm vllm-server</span>
-<span class="va">ExecStart</span>=<span class="st">/usr/bin/docker run --rm --name vllm-server \
-  --gpus all \
-  -p 8000:8000 \
-  -v /models:/models:ro \
-  ghcr.io/sasha0552/vllm:v0.10.0 \
-  --model /models/Mixtral-8x22B-Instruct-v0.1-AWQ \
-  --tensor-parallel-size 4 \
-  --max-model-len 32768 \
-  --gpu-memory-utilization 0.85 \
-  --max-num-seqs 8</span>
-<span class="va">ExecStop</span>=<span class="st">/usr/bin/docker stop vllm-server</span>
-<span class="va">Restart</span>=<span class="st">on-failure</span>
-<span class="va">RestartSec</span>=<span class="st">10</span>
-
-<span class="va">[Install]</span>
-<span class="va">WantedBy</span>=<span class="st">multi-user.target</span></code></pre>
 
 <hr class="section-divider">
 
 <!-- ============= SECTION 12 ============= -->
 <h2 id="performance">12. Expected Performance</h2>
+
+<p>
+  All figures assume <strong>full native context at the model's maximum sequence length</strong>.
+  VRAM includes both model weights (GGUF quantized) and FP16 KV cache at the stated context.
+  For smaller models where a single P40 can hold the weights, the Notes column also shows
+  the maximum context achievable on <strong>just one GPU</strong>.
+  GPU count reflects what's needed for the full-context deployment.
+</p>
 
 <div class="table-wrap">
 <table>
@@ -1059,10 +925,12 @@ docker run -d --name vllm-server \
     <tr>
       <th>Model</th>
       <th>Quant</th>
-      <th>VRAM Used</th>
-      <th>Single User</th>
-      <th>2 Concurrent</th>
-      <th>4 Concurrent</th>
+      <th>Max Context</th>
+      <th>P40s</th>
+      <th>VRAM Used<br>(weights + KV)</th>
+      <th>1 User<br>(t/s)</th>
+      <th>2 Users<br>(t/s)</th>
+      <th>4 Users<br>(t/s)</th>
       <th>Notes</th>
     </tr>
   </thead>
@@ -1070,75 +938,110 @@ docker run -d --name vllm-server \
     <tr>
       <td>Llama 3.1 8B</td>
       <td>Q4_K_M</td>
-      <td>~6 GB</td>
-      <td>~45 t/s</td>
-      <td>~40 t/s</td>
-      <td>~35 t/s</td>
-      <td>Fits on one P40</td>
+      <td>128K</td>
+      <td>1</td>
+      <td>~23 GB</td>
+      <td>~40</td>
+      <td>~35</td>
+      <td>~30</td>
+      <td>6 GB weights + 17 GB KV. Full 128K fits on 1 P40</td>
     </tr>
     <tr>
       <td>Qwen 2.5 32B</td>
       <td>Q4_K_M</td>
-      <td>~20 GB</td>
-      <td>~25 t/s</td>
-      <td>~22 t/s</td>
-      <td>~18 t/s</td>
-      <td>Fits on one P40</td>
+      <td>131K</td>
+      <td>3</td>
+      <td>~54 GB</td>
+      <td>~20</td>
+      <td>~17</td>
+      <td>~13</td>
+      <td>20 GB weights + 34 GB KV. 1 P40: only ~6K ctx (KV fills remaining 4 GB)</td>
     </tr>
     <tr>
       <td>Llama 3.1 70B</td>
       <td>Q4_K_M</td>
-      <td>~42 GB</td>
-      <td>~14 t/s</td>
-      <td>~12 t/s</td>
-      <td>~9 t/s</td>
-      <td>Spans 2–3 P40s</td>
+      <td>128K</td>
+      <td>4</td>
+      <td>~84 GB</td>
+      <td>~12</td>
+      <td>~10</td>
+      <td>~7</td>
+      <td>42 GB weights + 42 GB KV. 2 P40s: ~4K ctx (weights alone span 2 GPUs)</td>
     </tr>
     <tr>
       <td>Mixtral 8×7B</td>
       <td>Q4_K_M</td>
-      <td>~28 GB</td>
-      <td>~18 t/s</td>
-      <td>~15 t/s</td>
-      <td>~12 t/s</td>
-      <td>MoE, fast routing</td>
+      <td>32K</td>
+      <td>2</td>
+      <td>~32 GB</td>
+      <td>~18</td>
+      <td>~15</td>
+      <td>~12</td>
+      <td>47B total / 13B active MoE. 28 GB weights + 4 GB KV. 2 P40s for full 32K</td>
     </tr>
     <tr>
       <td>Mixtral 8×22B</td>
       <td>Q3_K_M</td>
-      <td>~80 GB</td>
-      <td>~7 t/s</td>
-      <td>~6 t/s</td>
-      <td>~4 t/s</td>
-      <td>Spans all 4 P40s</td>
+      <td>32K</td>
+      <td>4</td>
+      <td>~87 GB</td>
+      <td>~7</td>
+      <td>~6</td>
+      <td>~4</td>
+      <td>141B total / 39B active. 80 GB weights + 7 GB KV. 64K needs ~95 GB (OOM risk)</td>
     </tr>
     <tr>
       <td>DeepSeek-V3</td>
       <td>IQ3_XXS</td>
-      <td>GPU ~70GB + CPU</td>
-      <td>~3 t/s</td>
-      <td>~2 t/s</td>
-      <td>~1.5 t/s</td>
-      <td>CPU offloaded experts</td>
+      <td>8K</td>
+      <td>CPU offload</td>
+      <td>GPU ~75 GB<br>+ CPU 128 GB</td>
+      <td>~3</td>
+      <td>~2</td>
+      <td>~1.5</td>
+      <td>671B total / 37B active. Shared layers on GPU, experts on CPU. Full 128K infeasible</td>
     </tr>
     <tr>
       <td>Gemma 3 27B</td>
       <td>Q5_K_M</td>
-      <td>~18 GB</td>
-      <td>~28 t/s</td>
-      <td>~25 t/s</td>
-      <td>~20 t/s</td>
-      <td>+ draft model speedup</td>
+      <td>128K</td>
+      <td>2</td>
+      <td>~42 GB</td>
+      <td>~25</td>
+      <td>~21</td>
+      <td>~17</td>
+      <td>18 GB weights + 24 GB KV. 1 P40: ~32K ctx max. 2 P40s for full 128K</td>
+    </tr>
+    <tr>
+      <td>Qwen3.6 27B</td>
+      <td>Q4_K_M</td>
+      <td>262K</td>
+      <td>2</td>
+      <td>~34 GB</td>
+      <td>~28</td>
+      <td>~24</td>
+      <td>~20</td>
+      <td>17 GB weights + 17 GB KV. 1 P40: ~106K ctx (DeltaNet keeps KV growth small)</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 <div class="callout">
-  <strong>Speed estimates are approximate.</strong> Actual throughput depends on prompt length,
-  generation length, PCIe bandwidth, CPU speed, and model architecture. MoE models with
-  fewer active experts per token will be relatively faster because less weight data moves
-  through the GPUs.
+  <strong>Understanding the numbers:</strong> VRAM = GGUF file size + FP16 KV cache at max context.
+  KV cache bytes per token = <code>2 &times; n_layers &times; n_kv_heads &times; head_dim &times; 2 bytes (FP16)</code>.
+  Multi-user throughput (2/4 concurrent) assumes each user gets the full max context — KV cache
+  multiplies linearly with user count. On 4 P40s (96 GB) with 0.95 memory utilization (91 GB usable),
+  the KV cache budget is shared across all concurrent sequences. Practical deployments may
+  reduce context per user to fit more concurrent sessions.
+</div>
+
+<div class="callout warn">
+  <strong>Qwen3.6 27B KV cache advantage:</strong> Only 16 of its 64 layers use standard Gated Attention
+  (KV cache grows with sequence). The other 48 layers are Gated DeltaNet — a linear attention variant
+  whose hidden state is a fixed-size matrix per layer (~1 MB each), independent of context length.
+  This is why 262K context only adds ~17 GB of KV cache (vs. ~65 GB if all 64 layers were standard
+  attention). On a single P40, you get ~106K context — far more than any equivalently-sized dense model.
 </div>
 
 <hr class="section-divider">
@@ -1254,8 +1157,8 @@ sudo tailscale up
   <tr><td><strong>Quantization</strong></td><td>GGUF Q4_K_M for dense models, IQ3_XXS for MoE</td></tr>
   <tr><td><strong>Multi-User</strong></td><td>vLLM continuous batching (<code>--max-num-seqs</code>) or llama.cpp <code>-np 4</code></td></tr>
   <tr><td><strong>MoE Offloading</strong></td><td>llama.cpp hybrid CPU+GPU or KTransformers</td></tr>
-  <tr><td><strong>Best Model Fit</strong></td><td>Llama 3.1 70B Q4_K_M (42 GB), Mixtral 8×22B Q3_K_M (80 GB)</td></tr>
-  <tr><td><strong>Largest Possible</strong></td><td>DeepSeek-V3 IQ3_XXS + CPU offload (~3 t/s)</td></tr>
+  <tr><td><strong>Best Model Fit</strong></td><td>Llama 3.1 70B Q4_K_M (42 GB), Mixtral 8×22B Q3_K_M (80 GB), Qwen3.6 27B Q4_K_M (17 GB)</td></tr>
+  <tr><td><strong>Largest Possible</strong></td><td>DeepSeek-V3 IQ3_XXS + CPU offload (~3 t/s), Qwen3.6 27B BF16 (54 GB, 3 P40s)</td></tr>
 </table>
 </div>
 

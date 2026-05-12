@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deployment Recipes — 4× NVIDIA P40 Home LLM Build</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d2991d;
+    --red: #f85149;
+    --purple: #a371f7;
+    --code-bg: #0d1117;
+    --inline-code: #d2a8ff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  h1, h2, h3, h4 { color: var(--text); line-height: 1.25; }
+  h1 { font-size: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin: 2rem 0 1rem; }
+  h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; color: var(--accent); }
+  h4 { font-size: 1rem; margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text); margin: 0.5rem 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  strong { color: var(--text); }
+  ul, ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+  li { margin: 0.25rem 0; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; border: 1px solid var(--border); }
+  th { background: var(--surface); font-weight: 600; }
+  tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+  /* Code blocks */
+  pre { position: relative; margin: 1rem 0; border-radius: 6px; overflow: hidden; background: var(--code-bg); border: 1px solid var(--border); }
+  pre code { display: block; padding: 1rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace; }
+  code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace; font-size: 0.9em; }
+  :not(pre) > code { color: var(--inline-code); background: rgba(210,168,255,0.1); padding: 0.1em 0.35em; border-radius: 3px; }
+
+  /* Syntax highlighting */
+  .kw { color: #ff7b72; }
+  .st { color: #a5d6ff; }
+  .cm { color: #8b949e; font-style: italic; }
+  .fn { color: #d2a8ff; }
+  .nu { color: #79c0ff; }
+  .op { color: #ff7b72; }
+  .va { color: #79c0ff; }
+  .ty { color: #d2a8ff; }
+  .co { color: #8b949e; }
+  .re { color: #ff7b72; }
+  .im { color: #ff7b72; }
+
+  /* Cards / callouts */
+  .callout {
+    border-left: 4px solid var(--accent);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: rgba(88,166,255,0.08);
+    border-radius: 0 6px 6px 0;
+  }
+  .callout.warn { border-color: var(--orange); background: rgba(210,153,29,0.08); }
+  .callout.success { border-color: var(--green); background: rgba(63,185,80,0.08); }
+  .callout.danger { border-color: var(--red); background: rgba(248,81,73,0.08); }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 0.3em;
+  }
+  .badge.green { background: rgba(63,185,80,0.2); color: var(--green); }
+  .badge.orange { background: rgba(210,153,29,0.2); color: var(--orange); }
+  .badge.red { background: rgba(248,81,73,0.2); color: var(--red); }
+  .badge.purple { background: rgba(163,113,247,0.2); color: var(--purple); }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+  .toc summary { font-weight: 600; cursor: pointer; color: var(--accent); }
+  .toc ul { margin-top: 0.5rem; }
+  .toc li { list-style-type: none; }
+
+  .gpu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .gpu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .gpu-card h4 { margin-top: 0; }
+
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  .back-link:hover { background: rgba(88,166,255,0.1); text-decoration: none; }
+
+  .recipe-nav { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem 1rem; margin: 1rem 0; }
+  .recipe-nav ul { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; list-style: none; padding: 0; margin: 0; }
+  .recipe-nav li { margin: 0; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="./p40-home-llm-build.html">&larr; Back to Build Guide</a>
+
+<h1>Deployment Recipes</h1>
+<p>
+  Production-ready configurations for the 4&times; NVIDIA P40 (96 GB VRAM) inference server.
+  All recipes use <a href="./p40-home-llm-build.html#pascal-pkgs-ci">pascal-pkgs-ci</a> for
+  vLLM or llama.cpp with CUDA. See the
+  <a href="./p40-home-llm-build.html">main build guide</a> for hardware selection, cooling,
+  and software stack details.
+</p>
+
+<nav class="recipe-nav">
+  <ul>
+    <li><a href="#recipe-a">Recipe A: Llama 3.1 70B</a></li>
+    <li><a href="#recipe-b">Recipe B: DeepSeek-V4-Flash</a></li>
+    <li><a href="#recipe-c">Recipe C: Gemma 3 27B</a></li>
+    <li><a href="#build-llama-cpp">Build: llama.cpp CUDA</a></li>
+    <li><a href="#recipe-d">Recipe D: Qwen3.6 27B</a></li>
+  </ul>
+</nav>
+
+<div class="callout warn">
+  <strong>Important: <code>-c</code> and <code>-np</code> are coupled.</strong>
+  In llama-server, <code>-c</code> is the <em>total</em> KV cache, shared evenly across
+  all <code>-np</code> parallel slots. Each slot gets <code>-c / -np</code> tokens of context.
+  Example: <code>-c 131072 -np 4</code> = 32K per slot, not 128K. To give N users X context each:
+  set <code>-c X*N -np N</code>. The recipes below specify per-slot context where ambiguous.
+</div>
+
+<hr class="section-divider">
+
+<!-- ============= RECIPE A ============= -->
+<h2 id="recipe-a">Recipe A: "Daily Driver" — Llama 3.1 70B (Q4_K_M) for 2 Users</h2>
+<div class="callout">
+  <strong>Model max context: 128K.</strong> This recipe serves 4 users &times; 32K each
+  (<code>-c 131072 -np 4</code>) across all 4 P40s — ~42 GB weights + ~42 GB KV cache
+  = ~84 GB total. See the max-context option below for single-user 128K.
+</div>
+<pre><code><span class="cm"># Start the server with a systemd service</span>
+<span class="cm"># /etc/systemd/system/llama-server.service</span>
+<span class="cm"># -c 131072 / -np 4 = 32K per slot (128K total KV cache)</span>
+<span class="va">[Unit]</span>
+<span class="va">Description</span>=<span class="st">llama.cpp Inference Server</span>
+<span class="va">After</span>=<span class="st">network.target</span>
+
+<span class="va">[Service]</span>
+<span class="va">Type</span>=<span class="st">simple</span>
+<span class="va">User</span>=<span class="st">llama</span>
+<span class="va">WorkingDirectory</span>=<span class="st">/opt/llama.cpp</span>
+<span class="va">ExecStart</span>=<span class="st">/opt/llama.cpp/build/bin/llama-server \
+  -m /models/Llama-3.1-70B-Instruct-Q4_K_M.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 22,22,24,24 \
+  -c 131072 \
+  -np 4 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock</span>
+<span class="va">Restart</span>=<span class="st">on-failure</span>
+<span class="va">RestartSec</span>=<span class="st">5</span>
+
+<span class="va">[Install]</span>
+<span class="va">WantedBy</span>=<span class="st">multi-user.target</span>
+
+<span class="cm"># Enable and start:</span>
+sudo systemctl enable --now llama-server</code></pre>
+
+<h3>Recipe A — Max Context (128K, 4 P40s, single user)</h3>
+<pre><code><span class="cm"># Full 128K context across all 4 P40s — single user (-np 1)</span>
+<span class="cm"># -c 131072 / -np 1 = 128K per slot. Multi-user full 128K won't fit 96 GB VRAM.</span>
+<span class="cm"># VRAM: ~42 GB weights + ~42 GB KV cache = ~84 GB total</span>
+<span class="cm"># For 2 users with ~64K each: use -c 131072 -np 2</span>
+
+llama-server \
+  -m /models/Llama-3.1-70B-Instruct-Q4_K_M.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  -c 131072 \
+  -np 1 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock</code></pre>
+
+<!-- ============= RECIPE B ============= -->
+<h2 id="recipe-b">Recipe B: "Next-Gen MoE" — DeepSeek-V4-Flash (IQ1_M-XL) for 1 User</h2>
+<div class="callout success">
+  <strong>Model max context: 1M tokens native.</strong> DeepSeek-V4-Flash (284B total / 13B
+  activated MoE) replaces V3 (671B / 37B). Its Hybrid Attention (CSA + HCA) uses
+  <strong>~10% of V3.2's KV cache</strong> at equivalent context — the IQ1_M-XL GGUF
+  (~63 GiB) fits all 4 P40s with ~28 GB free for KV cache. Single-user 128K context
+  is easily achievable; 256K–384K is viable depending on batch size and thinking budget.
+  DeepSeek recommends <strong>384K</strong> context window minimum for Think Max mode.
+  V4-Flash scores 86.2 MMLU-Pro, 88.1 GPQA Diamond, 91.6 LiveCodeBench in Think Max.
+</div>
+
+<div class="callout warn">
+  <strong>Requires a custom llama.cpp fork.</strong> V4 architecture is not in upstream
+  llama.cpp yet. Use <a href="https://github.com/cchuter/llama.cpp/tree/feat/v4-port-cuda">
+  <code>cchuter/llama.cpp</code> @ <code>feat/v4-port-cuda</code></a>. This fork includes
+  V4-specific CUDA kernels (CSA rope, sinkhorn, FP8 KV quantize, hyper-connection ops).
+  Pascal (SM 6.1) uses <strong>software-emulated FP8</strong> — no native FP8 hardware —
+  so V4 ops run as emulated fallbacks. Functional but slower than Ada/Blackwell.
+  See the build section below for Pascal-specific cmake flags.
+</div>
+
+<h3>Recipe B — Recommended: 128K Context, Single User (IQ1_M-XL)</h3>
+<pre><code><span class="cm"># DeepSeek-V4-Flash IQ1_M-XL GGUF (~63 GiB, fully GPU-resident)</span>
+<span class="cm"># 4 P40s (96 GB VRAM): weights ~63 GiB + KV cache ~4–8 GB at 128K = ~70 GiB total</span>
+<span class="cm"># V4's CSA+HCA hybrid attention compresses KV dramatically — much more context-</span>
+<span class="cm"># efficient than traditional dense or MoE attention.</span>
+<span class="cm"># -c 131072 / -np 1 = 128K per slot. Single user with deep reasoning headroom.</span>
+
+llama-server \
+  -m /models/DeepSeek-V4-Flash-IQ1_M-XL-00001-of-00002.gguf \
+  --n-gpu-layers 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  --ctx-size 131072 \
+  --parallel 1 \
+  --flash-attn on \
+  --no-repack \
+  --jinja \
+  --reasoning think \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock \
+  --temp 1.0 \
+  --top-p 1.0</code></pre>
+
+<h3>Recipe B — Max Context: 256K (IQ1_M-XL, single user)</h3>
+<pre><code><span class="cm"># Pushing 256K context with IQ1_M-XL (~63 GiB weights + ~10–16 GB KV cache)</span>
+<span class="cm"># V4's compressed sparse attention (CSA) keeps KV growth sub-quadratic.</span>
+<span class="cm"># Total VRAM usage ~75–80 GiB — still within 96 GB on 4 P40s.</span>
+
+llama-server \
+  -m /models/DeepSeek-V4-Flash-IQ1_M-XL-00001-of-00002.gguf \
+  --n-gpu-layers 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  --ctx-size 262144 \
+  --parallel 1 \
+  --flash-attn on \
+  --no-repack \
+  --jinja \
+  --reasoning think \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock \
+  --temp 1.0 \
+  --top-p 1.0</code></pre>
+
+<h3>Recipe B — IQ2_XXS-XL Alternative (~73 GiB, higher quality, lower max context)</h3>
+<pre><code><span class="cm"># IQ2_XXS-XL (~73 GiB, 2.21 BPW) — slightly better quality at the cost of VRAM</span>
+<span class="cm"># XL pins keep attention/embedding/output tensors at Q8_0 for faster decode</span>
+<span class="cm"># Leaves ~18 GB for KV cache. At 128K, V4 KV cache ~4–8 GB — fits comfortably.</span>
+
+llama-server \
+  -m /models/DeepSeek-V4-Flash-IQ2_XXS-XL-00001-of-00002.gguf \
+  --n-gpu-layers 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  --ctx-size 131072 \
+  --parallel 1 \
+  --flash-attn on \
+  --no-repack \
+  --jinja \
+  --reasoning think \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock \
+  --temp 1.0 \
+  --top-p 1.0</code></pre>
+
+<h3>Recipe B — systemd Service</h3>
+<pre><code><span class="cm"># /etc/systemd/system/llama-server-v4.service</span>
+<span class="cm"># IQ1_M-XL at 128K context, single-user</span>
+<span class="va">[Unit]</span>
+<span class="va">Description</span>=<span class="st">llama.cpp V4-Flash Inference Server</span>
+<span class="va">After</span>=<span class="st">network.target</span>
+
+<span class="va">[Service]</span>
+<span class="va">Type</span>=<span class="st">simple</span>
+<span class="va">User</span>=<span class="st">llama</span>
+<span class="va">WorkingDirectory</span>=<span class="st">/opt/llama.cpp-v4</span>
+<span class="va">ExecStart</span>=<span class="st">/opt/llama.cpp-v4/build/bin/llama-server \
+  -m /models/DeepSeek-V4-Flash-IQ1_M-XL-00001-of-00002.gguf \
+  --n-gpu-layers 999 \
+  --split-mode layer \
+  --tensor-split 24,24,24,24 \
+  --ctx-size 131072 \
+  --parallel 1 \
+  --flash-attn on \
+  --no-repack \
+  --jinja \
+  --reasoning think \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512 \
+  --mlock \
+  --temp 1.0 \
+  --top-p 1.0</span>
+<span class="va">Restart</span>=<span class="st">on-failure</span>
+<span class="va">RestartSec</span>=<span class="st">5</span>
+
+<span class="va">[Install]</span>
+<span class="va">WantedBy</span>=<span class="st">multi-user.target</span>
+
+<span class="cm"># Enable and start:</span>
+sudo systemctl enable --now llama-server-v4</code></pre>
+
+<h3 id="build-v4-fork">Build: V4-aware llama.cpp Fork for Pascal (SM 6.1)</h3>
+<pre><code><span class="cm"># Clone the V4-aware fork — NOT upstream ggml-org/llama.cpp</span>
+git clone -b feat/v4-port-cuda https://github.com/cchuter/llama.cpp llama.cpp-v4
+<span class="kw">cd</span> llama.cpp-v4
+
+<span class="cm"># Pascal (SM 6.1) uses software-emulated FP8 path. No native FP8 hardware.</span>
+<span class="cm"># GGML_SCHED_MAX_SPLIT_INPUTS=128 required for V4 multi-GPU graph splits</span>
+<span class="cm"># (V4's dense per-layer inputs exceed upstream default of 30 at split boundaries)</span>
+cmake -B build \
+  -DGGML_CUDA=ON \
+  -DCMAKE_CUDA_ARCHITECTURES=<span class="st">"61"</span> \
+  -DCMAKE_CXX_FLAGS=<span class="st">-DGGML_SCHED_MAX_SPLIT_INPUTS=128</span> \
+  -DGGML_OPENMP=ON
+
+cmake --build build --config Release -j<span class="kw">$(</span>nproc<span class="kw">)</span>
+
+<span class="cm"># Verify CUDA backend and GPUs:</span>
+./build/bin/llama-cli --list-devices
+<span class="cm"># Should list all 4 Tesla P40 GPUs with ~24 GB each</span>
+
+<span class="cm"># Download IQ1_M-XL quant (2 shards, ~63 GiB total):</span>
+<span class="cm"># Option A: via huggingface-cli</span>
+pip install huggingface_hub[hf_transfer]
+hf download teamblobfish/DeepSeek-V4-Flash-GGUF \
+  --include <span class="st">"IQ1_M-XL/*"</span> \
+  --local-dir /models/
+
+<span class="cm"># Option B: direct download (replace with actual HF raw URLs)</span>
+<span class="cm"># See https://huggingface.co/teamblobfish/DeepSeek-V4-Flash-GGUF for mirrors</span>
+
+<span class="cm"># Install to system (optional):</span>
+sudo cmake --install build</code></pre>
+
+<div class="callout warn">
+  <strong>Important flags for V4:</strong><br>
+  <code>--no-repack</code> — Required. Without it, the repack codepath doesn't release
+  the source mmap, causing ~2&times; peak RAM at load (~120+ GB — would blow past
+  your 64 GB system RAM).<br>
+  <code>--jinja</code> — Enables DSML chat template baked into the GGUF. Tool calls
+  return as proper <code>tool_calls</code> JSON.<br>
+  <code>--reasoning think</code> — Enables Think High mode for complex problem-solving.
+  Use <code>--reasoning off</code> for fast non-reasoning chat. Think Max requires a
+  special system prompt (see DeepSeek docs).<br>
+  <code>--temp 1.0 --top-p 1.0</code> — DeepSeek's recommended sampling parameters
+  for V4 series.<br>
+  <strong>KV cache is always f16</strong> — V4's K is already FP8-quantized at write
+  time. <code>--cache-type-k q8_0</code> is silently overridden to f16 by the fork.
+</div>
+
+<div class="callout">
+  <strong>Quant comparison for Recipe B:</strong>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Quant</th><th>Size</th><th>BPW</th><th>VRAM Left</th><th>Max Context (est.)</th><th>Quality</th></tr>
+    <tr>
+      <td><strong>IQ1_M-XL</strong></td>
+      <td>~63 GiB</td>
+      <td>1.91</td>
+      <td>~28 GB</td>
+      <td>256K+</td>
+      <td>Good — recommended for long context</td>
+    </tr>
+    <tr>
+      <td><strong>IQ1_S-XL</strong></td>
+      <td>~57 GiB</td>
+      <td>1.73</td>
+      <td>~35 GB</td>
+      <td>384K+</td>
+      <td>Adequate — absolute max context push</td>
+    </tr>
+    <tr>
+      <td><strong>IQ2_XXS-XL</strong></td>
+      <td>~73 GiB</td>
+      <td>2.21</td>
+      <td>~18 GB</td>
+      <td>128K</td>
+      <td>Better — trade context for quality</td>
+    </tr>
+    <tr>
+      <td><strong>IQ2_XS-XL</strong></td>
+      <td>~81 GiB</td>
+      <td>2.45</td>
+      <td>~10 GB</td>
+      <td>64K</td>
+      <td>Best IQ-class — tight on VRAM</td>
+    </tr>
+    <tr>
+      <td><strong>Q2_K-XL</strong></td>
+      <td>~100 GiB</td>
+      <td>3.01</td>
+      <td>N/A</td>
+      <td>Needs CPU offload</td>
+      <td>Highest quality, requires 64 GB RAM offload</td>
+    </tr>
+  </table>
+  </div>
+  All quants from
+  <a href="https://huggingface.co/teamblobfish/DeepSeek-V4-Flash-GGUF">teamblobfish/DeepSeek-V4-Flash-GGUF</a>.
+  <code>-XL</code> variants pin non-expert tensors (attention, embedding, output) at Q8_0
+  for fast decode — only expert FFNs use the named quant body.
+</div>
+
+<!-- ============= RECIPE C ============= -->
+<h2 id="recipe-c">Recipe C: "Small &amp; Fast" — Gemma 3 27B (Q5_K_M) for Interactive Chat</h2>
+<div class="callout">
+  <strong>Model max context: 128K.</strong> This recipe runs at 32K on 2 P40s with speculative
+  decoding. Full 128K needs ~42 GB (18 GB weights + 24 GB KV). 2 P40s (48 GB) works
+  but is tight; 3–4 P40s comfortably keep the draft model for 2–3&times; speedup.
+  Single P40 max: ~32K.
+</div>
+<pre><code><span class="cm"># A smaller model that fits entirely in 2 P40s (48 GB)</span>
+<span class="cm"># Use remaining 2 GPUs for speculative decoding draft model</span>
+<span class="cm"># -c 32768 / -np 8 = 4K per slot (quick interactive chat, low context per user)</span>
+
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -md /models/gemma-3-1b-it-Q8_0.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,0,0 \
+  -c 32768 \
+  -np 8 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 1024 \
+  -ub 1024</code></pre>
+
+<h3>Recipe C — High-Context Options</h3>
+<pre><code><span class="cm"># c / np = per-slot context. To get X tokens per slot: -c X*N -np N</span>
+
+<span class="cm"># Option 1: Single user 128K, no draft, 2 P40s (tight, ~42 GB)</span>
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,0,0 \
+  -c 131072 \
+  -np 1 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512
+
+<span class="cm"># Option 2: Single user 128K, with draft model, 3 P40s (~44 GB)</span>
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -md /models/gemma-3-1b-it-Q8_0.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,16,0 \
+  -c 131072 \
+  -np 1 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512
+
+<span class="cm"># Option 3: 2 users × 64K each, with draft, 3 P40s (~44 GB)</span>
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -md /models/gemma-3-1b-it-Q8_0.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,16,0 \
+  -c 131072 \
+  -np 2 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512
+
+<span class="cm"># Option 4: 4 users × 32K each, with draft, 3 P40s (~48 GB)</span>
+llama-server \
+  -m /models/gemma-3-27b-it-Q5_K_M.gguf \
+  -md /models/gemma-3-1b-it-Q8_0.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,24,0 \
+  -c 131072 \
+  -np 4 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512</code></pre>
+
+<div class="callout success">
+  <strong>Speculative decoding trick:</strong> The <code>-md</code> flag loads a small draft model (Gemma 1B)
+  that predicts tokens, the main model verifies. This can <strong>2–3× token generation speed</strong>
+  for negligible VRAM cost (~2 GB for the draft model).
+</div>
+
+<!-- ============= BUILD LLAMA.CPP ============= -->
+<h2 id="build-llama-cpp">Building llama.cpp with CUDA for P40</h2>
+<pre><code><span class="cm"># Build llama.cpp with CUDA support for Pascal GPUs</span>
+git clone https://github.com/ggml-org/llama.cpp
+<span class="kw">cd</span> llama.cpp
+mkdir build && <span class="kw">cd</span> build
+
+<span class="cm"># P40s are SM 6.1 — use CUDA_ARCHITECTURES=61</span>
+cmake .. \
+  -DGGML_CUDA=ON \
+  -DCMAKE_CUDA_ARCHITECTURES=<span class="st">"61"</span> \
+  -DGGML_CUDA_FORCE_MMQ=ON \
+  -DGGML_CUDA_NCCL=OFF \
+  -DGGML_CUDA_PEER_MAX_BATCH_SIZE=<span class="nu">128</span> \
+  -DGGML_OPENMP=ON
+
+cmake --build . --config Release -j<span class="kw">$(</span>nproc<span class="kw">)</span>
+
+<span class="cm"># Verify CUDA backend is active:</span>
+./bin/llama-cli --list-devices
+<span class="cm"># Should list all 4 Tesla P40 GPUs with ~24 GB each</span>
+
+<span class="cm"># Install to system (optional):</span>
+sudo cmake --install .</code></pre>
+
+<!-- ============= RECIPE D ============= -->
+<h2 id="recipe-d">Recipe D: Qwen3.6 27B — Dense Production Serving for 4+ Users</h2>
+<div class="callout success">
+  <strong>Model max context: 262K native (up to 1M with YaRN).</strong> Option 4 below
+  serves the full 262K across 4 P40s. Options 1–3 use lower contexts for higher
+  concurrency. Gated DeltaNet layers (48 of 64) use O(1) state — KV cache only grows
+  for the 16 standard-attention layers, making long context unusually cheap on VRAM.
+</div>
+<p>
+  Qwen3.6-27B is a 27B <strong>dense</strong> model (not MoE) with a hybrid
+  Gated DeltaNet + Gated Attention architecture. At BF16 it's ~54 GB — fits
+  on 3 P40s (tensor-parallel) or all 4 with room for long-context KV cache.
+  Unlike Mixtral's expert routing overhead, this is a pure dense model:
+  simpler to serve, more deterministic latency, and handles high concurrency
+  well with vLLM's continuous batching.
+</p>
+
+<div class="callout success">
+  <strong>Why Qwen3.6-27B shines on P40s:</strong><br>
+  At Q4_K_M GGUF (~17 GB) it fits on a single P40. At BF16 it needs 3 P40s.
+  The Gated DeltaNet linear attention heads are compute-efficient — fewer
+  quadratic-attention bottlenecks on Pascal's limited FP16 throughput.
+  Multimodal: images and video via vision encoder. Strong coding/agent scores
+  (SWE-bench Verified 77.2%, AIME 2026 94.1%). Text-only mode
+  (<code>--language-model-only</code>) drops the vision encoder to save ~2 GB VRAM.
+</div>
+
+<pre><code><span class="cm"># Option 1: GGUF Q4_K_M via llama.cpp — fits on 1–2 P40s</span>
+llama-server \
+  -m /models/Qwen3.6-27B-Q4_K_M.gguf \
+  -ngl all \
+  --split-mode layer \
+  --tensor-split 24,24,0,0 \
+  -c 65536 \
+  -np 8 \
+  -fa \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -b 512 \
+  -ub 512
+
+<span class="cm"># Option 2: vllm-pascal with AWQ quantized (~13 GB, fits 2 P40s, room for 128K context)</span>
+docker run -d --name vllm-qwen36 \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Qwen3.6-27B-AWQ \
+  --tensor-parallel-size 2 \
+  --max-model-len 131072 \
+  --gpu-memory-utilization 0.85 \
+  --max-num-seqs 8 \
+  --reasoning-parser qwen3 \
+  --language-model-only
+
+<span class="cm"># Option 3: vllm-pascal with MTP speculative decoding for 1.3–1.5× speedup</span>
+docker run -d --name vllm-qwen36 \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Qwen3.6-27B-AWQ \
+  --tensor-parallel-size 2 \
+  --max-model-len 65536 \
+  --gpu-memory-utilization 0.85 \
+  --max-num-seqs 8 \
+  --reasoning-parser qwen3 \
+  --speculative-config '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
+
+<span class="cm"># Option 4: Full native 262K context — AWQ across 4 P40s (recommended for long-context tasks)</span>
+<span class="cm"># Model ~13 GB + KV cache ~17 GB = ~30 GB base. 4 P40s (96 GB) leave ~66 GB for</span>
+<span class="cm"># KV cache, supporting multiple concurrent users at 262K context or using prefix caching.</span>
+<span class="cm"># Qwen3.6's Gated DeltaNet layers (48 of 64) use linear attention — their state</span>
+<span class="cm"># is O(1) per layer, not O(n). Only 16 standard-attention layers grow KV cache</span>
+<span class="cm"># with sequence length, making 262K context feasible on 96 GB total VRAM.</span>
+docker run -d --name vllm-qwen36-fullctx \
+  --gpus all \
+  -p 8000:8000 \
+  -v /models:/models \
+  ghcr.io/sasha0552/vllm:v0.10.0 \
+  --model /models/Qwen3.6-27B-AWQ \
+  --tensor-parallel-size 4 \
+  --max-model-len 262144 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-seqs 4 \
+  --reasoning-parser qwen3 \
+  --enable-prefix-caching \
+  --language-model-only</code></pre>
+
+<div class="callout warn">
+  <strong>Pascal caveat:</strong> The Qwen3.6 Gated DeltaNet uses linear attention
+  heads (48 heads for V, 16 for QK at dim 128). These operate as dense matmuls
+  — no flash-attention speedup on Pascal without tensor cores. Performance will
+  be memory-bandwidth bound (~347 GB/s per P40). For maximum throughput, use
+  AWQ or GGUF quantization to reduce memory pressure. AWQ at ~13 GB on 2 P40s
+  leaves ample VRAM for long KV caches and high concurrency.
+</div>
+
+<div class="footer">
+  <p><a href="./p40-home-llm-build.html">&larr; Back to the full build guide</a></p>
+</div>
+
+</body>
+</html>
