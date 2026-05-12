@@ -1439,25 +1439,36 @@
 </div>
 
 <div class="spec-card" style="margin-top:1rem;">
-  <h3>Upgraded Tier — 70B Orchestrator</h3>
+  <h3>Upgraded Tier — 70B Orchestrator + 27B Workers</h3>
   <p>
     For the hardest problems, dedicate 2 GPUs to a Llama 3.1 70B orchestrator and use the remaining
     2 GPUs for Qwen3.6 27B workers:
   </p>
   <div class="table-wrap">
   <table>
-    <thead><tr><th>GPUs</th><th>Role</th><th>Model</th><th>Quant</th><th>VRAM</th><th>Est. t/s</th></tr></thead>
+    <thead><tr><th>GPUs</th><th>Role</th><th>Model</th><th>Quant</th><th>VRAM</th><th>Free/Card</th><th>Est. t/s</th></tr></thead>
     <tbody>
-      <tr><td>GPU 0+1</td><td>Orchestrator</td><td>Llama 3.1 70B</td><td>Q4_K_M</td><td>~42 GB (split)</td><td class="t-p40">~10 t/s</td></tr>
-      <tr><td>GPU 2</td><td>Worker A</td><td>Qwen3.6 27B</td><td>Q4_K_M</td><td>~17 GB</td><td class="t-p40">~16 t/s</td></tr>
-      <tr><td>GPU 3</td><td>Worker B</td><td>Qwen3.6 27B</td><td>Q4_K_M</td><td>~17 GB</td><td class="t-p40">~16 t/s</td></tr>
+      <tr><td>GPU 0+1</td><td>Orchestrator</td><td>Llama 3.1 70B</td><td>Q4_K_M</td><td>~40 GB (split)</td><td>~4 GB</td><td class="t-p40">~6–8</td></tr>
+      <tr><td>GPU 2</td><td>Worker A</td><td>Qwen3.6 27B</td><td>Q4_K_M</td><td>~17 GB</td><td>~7 GB</td><td class="t-p40">~16</td></tr>
+      <tr><td>GPU 3</td><td>Worker B</td><td>Qwen3.6 27B</td><td>Q4_K_M</td><td>~17 GB</td><td>~7 GB</td><td class="t-p40">~16</td></tr>
     </tbody>
   </table>
   </div>
   <p style="margin-top:0.5rem;">
-    Llama 3.1 70B has stronger general reasoning than Qwen3.6 27B — useful for planning complex
-    multi-file refactors. The tradeoff: fewer concurrent workers (2 instead of 3). For coding-heavy
-    tasks where the workers do the heavy lifting, the 4× Qwen3.6 setup is usually better.
+    <strong>VRAM check:</strong> Llama 3.1 70B at Q4_K_M is ~40 GB — split across 2 P40s, each
+    card holds ~20 GB of layers with ~4 GB remaining for KV cache. At Q4 KV (~80 KB/token), the
+    orchestrator comfortably supports <strong>~40–50K context</strong> split proportionally across
+    both cards (llama.cpp distributes KV cache per GPU based on layer ownership). The workers each
+    get ~7 GB KV headroom — plenty for 32–64K context. This config works, but the 70B layers are
+    running at ~6–8 t/s due to the per-GPU bandwidth ceiling (347 / 20 GB ≈ 17 theoretical → ~40%
+    real-world efficiency at this model depth). The orchestrator will feel noticeably slower than
+    the workers — fine for planning (each orchestration step is a few hundred tokens) but sluggish
+    for generating long outputs.
+  </p>
+  <p style="margin-top:0.5rem;">
+    <strong>Alternative:</strong> Use IQ4_XS (~35 GB) or Q3_K_M (~35 GB) for the 70B to free up
+    ~2.5 GB additional KV headroom per card, giving the orchestrator ~60–80K context instead. The
+    quality tradeoff is small for coding-planning tasks.
   </p>
 </div>
 
@@ -1547,8 +1558,8 @@
   </p>
 
   <p style="margin-top:0.75rem;">
-    <strong>4. The upgrade path is better on P40.</strong> Start with 4× Qwen3.6 27B agents.
-    Upgrade to 2× 70B + 2× 27B when you need stronger reasoning. Experiment with V4 Flash for
+    <strong>4. The upgrade path is better on P40.</strong>     Start with 4× Qwen3.6 27B agents (one per GPU). When you need stronger orchestration, switch one
+    pair of GPUs to a single Llama 3.1 70B (on 2 GPUs) with the remaining 2 GPUs running 27B workers.
     the hardest problems. If you need more VRAM later, swap P40s for used V100 32 GB cards.
     The Spark is a closed appliance — what you buy is what you have.
   </p>
