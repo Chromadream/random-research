@@ -471,7 +471,7 @@
 </ul>
 
 <div class="callout">
-  <strong>Counterintuitive finding — P40 is faster for small models:</strong> For models that fit entirely on a single P40 (&lt;20B parameters at Q4_K_M), the P40's 347 GB/s memory bandwidth beats the DGX Spark's shared 273 GB/s. LMSYS benchmarks confirm the Spark does ~21 t/s for Llama 8B (FP8) while a single P40 does ~45 t/s (Q4_K_M). This holds for Qwen3.5 27B too — ~16 t/s per P40 card vs ~10 t/s on the Spark at FP8. The Spark's tensor core advantage in FP16 compute is largely irrelevant for single-token decode, which is memory-bandwidth-bound. The Spark only recovers its lead when using NVFP4 quantization (which halves model size > doubles effective bandwidth), at the cost of model-quality tradeoffs that may not suit all use-cases.
+  <strong>Counterintuitive finding — P40 is faster for small models:</strong> For models that fit entirely on a single P40 (≤27B dense at Q4_K_M, or up to ~18–19 GB of model weights), the P40's 347 GB/s memory bandwidth beats the DGX Spark's shared 273 GB/s. LMSYS benchmarks confirm the Spark does ~21 t/s for Llama 8B (FP8) while a single P40 does ~45 t/s (Q4_K_M). Qwen3.5 27B is the perfect proof case — ~16.5 GB at Q4_K_M, fits on one card with 7+ GB KV headroom, ~16 t/s per P40 vs ~10 t/s on the Spark at FP8. The Spark only recovers its lead when using NVFP4 quantization (halving model size ≫ doubling effective bandwidth), at a quality cost that may not suit all use-cases.
 </div>
 
 <hr class="section-divider">
@@ -480,7 +480,7 @@
 <h2 id="llm-perf">4. LLM Inference Performance Estimates</h2>
 
 <div class="callout warn">
-  <strong>All figures are estimates</strong> based on published specifications, known llama.cpp/vLLM benchmarks on similar hardware, architectural analysis, and the <a href="https://lmsys.org">LMSYS DGX Spark In-Depth Review</a> (Oct 2025) for DGX Spark baselines. P40 numbers are based on the build guide and community reports with <code>pascal-pkgs-ci</code>. DGX Spark numbers are <strong>memory-bandwidth-bound</strong> — its 273 GB/s shared bus is the primary bottleneck for dense model decode, not raw compute.
+  <strong>All figures are estimates</strong> based on published specifications, known llama.cpp/vLLM benchmarks on similar hardware, architectural analysis, and the <a href="https://www.lmsys.org/blog/2025-10-13-nvidia-dgx-spark/">LMSYS DGX Spark In-Depth Review</a> (Oct 2025) for DGX Spark baselines. P40 numbers are based on the build guide and community reports with <code>pascal-pkgs-ci</code>. DGX Spark numbers are <strong>memory-bandwidth-bound</strong> — its 273 GB/s shared bus is the primary bottleneck for dense model decode, not raw compute.
 </div>
 
 <div class="table-wrap">
