@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Politely Insist: Your LLM Must Learn the Persian Art of Taarof — Paper Explanation</title>
+    <style>
+        :root {
+            --bg: #fdfaf6;
+            --text: #2b2b2b;
+            --accent: #8b3a3a;
+            --accent-light: #d4a574;
+            --card-bg: #ffffff;
+            --border: #e8dccf;
+            --code-bg: #f5efe6;
+            --highlight: #f9f2e7;
+            --green: #4a7c59;
+            --red: #c44b4b;
+            --blue: #4a6fa5;
+            --purple: #7b5ea7;
+            --gold: #c59b27;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-bottom: 3px double var(--accent-light);
+            margin-bottom: 2.5rem;
+        }
+
+        header .pretitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--accent);
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            font-size: 1.05rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        header .meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #5a5a5a;
+            margin: 1.8rem 0 0.8rem;
+        }
+
+        h4 {
+            font-size: 1.05rem;
+            color: #666;
+            margin: 1.4rem 0 0.6rem;
+            font-style: italic;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: #555;
+            line-height: 1.9;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .card-full {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.75rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .scenario-box {
+            background: var(--highlight);
+            border-left: 4px solid var(--accent-light);
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .scenario-box .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-family: 'Helvetica Neue', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-box .role {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .response-good {
+            background: #eaf4e8;
+            border-left: 4px solid var(--green);
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .response-bad {
+            background: #fce8e8;
+            border-left: 4px solid var(--red);
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .figure-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .figure-container .fig-title {
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .bar-label {
+            width: 130px;
+            text-align: right;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: #f0ede6;
+            border-radius: 4px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .bar-val {
+            width: 55px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .bar-fill.red { background: linear-gradient(90deg, #e07070, #c44b4b); }
+        .bar-fill.orange { background: linear-gradient(90deg, #f0a860, #e08830); }
+        .bar-fill.gold { background: linear-gradient(90deg, #e8c850, #c59b27); }
+        .bar-fill.green { background: linear-gradient(90deg, #6db87d, #4a7c59); }
+        .bar-fill.blue { background: linear-gradient(90deg, #6a9fd8, #4a6fa5); }
+        .bar-fill.purple { background: linear-gradient(90deg, #9b7ec4, #7b5ea7); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1rem;
+            text-align: left;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:nth-child(even) td {
+            background: #fdfaf7;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-green { background: #e3f0e0; color: var(--green); }
+        .tag-red { background: #fce4e4; color: var(--red); }
+        .tag-blue { background: #e3ebf5; color: var(--blue); }
+        .tag-purple { background: #ede4f5; color: var(--purple); }
+        .tag-gold { background: #faf0d7; color: var(--gold); }
+
+        .diagram {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .diagram .keyword { color: var(--accent); font-weight: bold; }
+        .diagram .comment { color: #999; font-style: italic; }
+
+        .insight-box {
+            background: linear-gradient(135deg, #fdf8f0, #faf3e6);
+            border: 2px solid var(--accent-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .insight-box .title {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-finding {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .key-finding .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            min-width: 60px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .key-finding .content {
+            flex: 1;
+        }
+
+        .key-finding .content strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 650px) {
+            .two-col { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.6rem; }
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        li { margin-bottom: 0.4rem; }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .callout {
+            background: #fef9e7;
+            border: 1px solid #e8d5a0;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.25rem 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem;
+        }
+        .flow-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            text-align: center;
+        }
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: var(--accent-light);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <div class="pretitle">Paper Explanation</div>
+    <h1>We Politely Insist:<br>Your LLM Must Learn the Persian Art of Taarof</h1>
+    <div class="subtitle">A comprehensive guide to evaluating and improving cultural competence in large language models</div>
+    <div class="meta">
+        <strong>Authors:</strong> Nikta Gohari Sadr, Sahar Heidariasl, Karine Megerdoomian, Laleh Seyyed-Kalantari, Ali Emami<br>
+        <strong>Published:</strong> September 1, 2025 &nbsp;|&nbsp; <strong>arXiv:</strong> 2509.01035<br>
+        <strong>Affiliations:</strong> Brock University, Zoorna AI, York University, Emory University
+    </div>
+</header>
+
+<!-- ========== SECTION 1: OVERVIEW ========== -->
+<section>
+<h2>1. What Is This Paper About?</h2>
+
+<p class="lead">
+This paper introduces <strong>TaarofBench</strong>, the <em>first-ever</em> benchmark designed to test whether large language models (LLMs) understand and can appropriately express <strong>taarof</strong> — the intricate Persian system of ritual politeness. The authors demonstrate that frontier LLMs dramatically fail at taarof (scoring <strong>40–48% below</strong> native Persian speakers), reveal why standard "politeness" metrics are insufficient, and show how targeted fine-tuning can nearly close the cultural gap.
+</p>
+
+<div class="insight-box">
+    <div class="title">🎯 The Core Problem in One Sentence</div>
+    <p style="margin-bottom:0;">LLMs are trained predominantly on Western communication norms. When faced with <strong>taarof</strong> — where "no" often means "yes, but only after I've refused three times" — they apply the wrong cultural playbook and fail catastrophically.</p>
+</div>
+
+<h3>What Is Taarof?</h3>
+
+<p>
+<strong>Taarof</strong> (تعارف) is a deeply embedded social etiquette system in Iranian culture — a kind of "polite verbal wrestling." It governs how people offer, refuse, insist, compliment, and defer to one another. Critically, <em>what is said often deliberately differs from what is meant</em>. The system emphasizes:
+</p>
+
+<ul>
+    <li><strong>Deference</strong> — putting others before oneself</li>
+    <li><strong>Modesty</strong> — downplaying one's own achievements</li>
+    <li><strong>Indirectness</strong> — avoiding direct requests or refusals</li>
+    <li><strong>Ritualized cycles</strong> — offers and refusals repeated multiple times (typically three) before acceptance</li>
+</ul>
+
+<div class="scenario-box">
+    <div class="label">📋 Classic Taarof Example</div>
+    <p style="margin-bottom:0.5rem;"><strong>Setting:</strong> A taxi ride in Iran. The driver says: <em>"Be my guest this time."</em></p>
+    <p><strong>Western (incorrect) response:</strong> <em>"That's very kind, thank you so much!"</em></p>
+    <p style="margin-bottom:0;"><strong>Taarof-appropriate (correct) response:</strong> <em>"No, I couldn't possibly. Please, let me pay for your service."</em></p>
+    <p style="margin-top:0.5rem; font-size:0.85rem; color:#888;">The driver's offer is <em>ritual</em> — not literal. Accepting it would be a social misstep. The passenger must <em>insist</em> on paying.</p>
+</div>
+</section>
+
+<!-- ========== SECTION 2: TAAROFBENCH CONSTRUCTION ========== -->
+<section>
+<h2>2. TaarofBench: How the Benchmark Was Built</h2>
+
+<h3>2.1 Formalizing Taarof as a Computational Task</h3>
+
+<p>
+The authors define each scenario as a structured <strong>tuple</strong> capturing all the contextual elements that determine whether taarof is appropriate:
+</p>
+
+<div class="diagram">
+<span class="comment">// Each scenario instance I is defined as:</span>
+<span class="keyword">I</span> = { <span class="keyword">E</span>, <span class="keyword">R<sub>u</sub></span>, <span class="keyword">R<sub>m</sub></span>, <span class="keyword">C</span>, <span class="keyword">U</span>, <span class="keyword">A<sub>exp</sub></span> }
+
+<span class="comment">// Where:</span>
+<span class="keyword">E</span>   = Environment      <span class="comment">// e.g., restaurant, office, home</span>
+<span class="keyword">R<sub>u</sub></span> = User Role         <span class="comment">// Speaker A</span>
+<span class="keyword">R<sub>m</sub></span> = Model Role        <span class="comment">// Speaker B</span>
+<span class="keyword">C</span>   = Context           <span class="comment">// Background of the interaction</span>
+<span class="keyword">U</span>   = User Utterance    <span class="comment">// The initiating statement</span>
+<span class="keyword">A<sub>exp</sub></span> = Expected Response <span class="comment">// Culturally appropriate behavior</span>
+</div>
+
+<h3>2.2 Scenario Design</h3>
+
+<div class="two-col">
+    <div class="card">
+        <h4>📊 By the Numbers</h4>
+        <ul>
+            <li><strong>450</strong> total role-play scenarios</li>
+            <li><strong>100</strong> original scenarios + 2 GPT-4 augmented variants each</li>
+            <li><strong>30</strong> distinct taarof types identified from <strong>15</strong> academic/cultural references</li>
+            <li><strong>12</strong> interaction topics</li>
+            <li><strong>5</strong> native Persian speakers validated all annotations</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>📂 Scenario Split</h4>
+        <ul>
+            <li><strong>70%</strong> taarof-expected (cultural norms require taarof)</li>
+            <li><strong>30%</strong> non-taarof (taarof would be socially inappropriate)</li>
+            <li><strong>3</strong> social settings: Formal (23.3%), Social (21.3%), Casual (55.3%)</li>
+            <li><strong>3</strong> interaction stages: Initiation (43.9%), Recognition (25.5%), Reciprocation (30.6%)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="figure-container">
+    <div class="fig-title">📈 Distribution of the 12 Interaction Topics</div>
+    <div class="bar-chart">
+        <div class="bar-row"><span class="bar-label">Positional Action</span><div class="bar-track"><div class="bar-fill blue" style="width:60%"></div></div><span class="bar-val">~12%</span></div>
+        <div class="bar-row"><span class="bar-label">Payment</span><div class="bar-track"><div class="bar-fill blue" style="width:55%"></div></div><span class="bar-val">~11%</span></div>
+        <div class="bar-row"><span class="bar-label">Gift</span><div class="bar-track"><div class="bar-fill blue" style="width:50%"></div></div><span class="bar-val">~10%</span></div>
+        <div class="bar-row"><span class="bar-label">Offering Food/Drink</span><div class="bar-track"><div class="bar-fill blue" style="width:50%"></div></div><span class="bar-val">~10%</span></div>
+        <div class="bar-row"><span class="bar-label">Invitation</span><div class="bar-track"><div class="bar-fill blue" style="width:45%"></div></div><span class="bar-val">~9%</span></div>
+        <div class="bar-row"><span class="bar-label">Making a Request</span><div class="bar-track"><div class="bar-fill blue" style="width:45%"></div></div><span class="bar-val">~9%</span></div>
+        <div class="bar-row"><span class="bar-label">Compliment</span><div class="bar-track"><div class="bar-fill blue" style="width:40%"></div></div><span class="bar-val">~8%</span></div>
+        <div class="bar-row"><span class="bar-label">Help/Assistance</span><div class="bar-track"><div class="bar-fill blue" style="width:40%"></div></div><span class="bar-val">~8%</span></div>
+        <div class="bar-row"><span class="bar-label">Other topics</span><div class="bar-track"><div class="bar-fill blue" style="width:115%"></div></div><span class="bar-val">~23%</span></div>
+    </div>
+    <p style="font-size:0.8rem; color:#999; margin-top:0.5rem;">Topics include: Expression of Opinion, Entering/Leaving, Borrowing Items, Money, and more.</p>
+</div>
+
+<h3>2.3 Two Scenario Types: Taarof-Expected vs. Non-Taarof</h3>
+
+<div class="two-col">
+    <div class="scenario-box">
+        <div class="label"><span class="tag tag-green">TAAROF EXPECTED</span></div>
+        <p><strong>Setting:</strong> Office in Iran. <span class="role">You:</span> Employee. <span class="role">I:</span> Boss.</p>
+        <p><strong>Boss says:</strong> <em>"Do you want some coffee?"</em></p>
+        <p><strong>Expected:</strong> Initially <em>decline</em> out of politeness before accepting.</p>
+    </div>
+    <div class="scenario-box">
+        <div class="label"><span class="tag tag-red">NON-TAAROF</span></div>
+        <p><strong>Setting:</strong> Meeting in Iran. <span class="role">You:</span> CEO. <span class="role">I:</span> Employee who brought traditional drinks.</p>
+        <p><strong>Employee says:</strong> <em>"Would you like to try some special tea?"</em></p>
+        <p><strong>Expected:</strong> Declining would be <em>disrespectful</em>. Accept directly.</p>
+    </div>
+</div>
+
+<h3>2.4 Evaluation Methodology</h3>
+
+<div class="flow-diagram">
+    <div class="flow-box">Prompt Model<br>with Scenario</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Model Generates<br>Response</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">GPT-4 Judges<br>vs. Expected Response</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Binary Label:<br>✓ or ✗</div>
+</div>
+<p style="text-align:center; font-size:0.85rem; color:#888;">GPT-4 as judge showed <strong>94% agreement</strong> with human evaluators on 50 randomly sampled pairs.</p>
+</section>
+
+<!-- ========== SECTION 3: KEY FINDINGS ========== -->
+<section>
+<h2>3. Key Findings: How Badly Do LLMs Fail?</h2>
+
+<h3>3.1 The Headline Numbers</h3>
+
+<div class="figure-container">
+    <div class="fig-title">🧪 Accuracy on Taarof-Expected Scenarios (Standard Condition)</div>
+    <div class="bar-chart">
+        <div class="bar-row">
+            <span class="bar-label">Native Persian Speakers</span>
+            <div class="bar-track"><div class="bar-fill green" style="width:81.8%"></div></div>
+            <span class="bar-val">81.8%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Heritage Speakers</span>
+            <div class="bar-track"><div class="bar-fill gold" style="width:60%"></div></div>
+            <span class="bar-val">60.0%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Non-Iranians</span>
+            <div class="bar-track"><div class="bar-fill orange" style="width:42.3%"></div></div>
+            <span class="bar-val">42.3%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Llama 3-8B</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:41.7%"></div></div>
+            <span class="bar-val">~42%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Dorna (Persian-tuned)</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:40.7%"></div></div>
+            <span class="bar-val">40.7%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">GPT-4o</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:37%"></div></div>
+            <span class="bar-val">~37%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Claude 3.5 Haiku</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:36%"></div></div>
+            <span class="bar-val">~36%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">DeepSeek V3</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:34%"></div></div>
+            <span class="bar-val">~34%</span>
+        </div>
+    </div>
+</div>
+
+<div class="key-finding">
+    <div class="number">🔴</div>
+    <div class="content">
+        <strong>The Stark Reality</strong>
+        No model exceeds 42% accuracy on taarof-expected scenarios — <em>roughly the same as non-Iranian humans</em>. Meanwhile, the same models score <strong>76–93%</strong> on non-taarof scenarios. LLMs are biased toward Western-style directness.
+    </div>
+</div>
+
+<div class="key-finding">
+    <div class="number">🔵</div>
+    <div class="content">
+        <strong>Persian Fine-Tuning ≠ Taarof Understanding</strong>
+        Dorna (a Llama 3 variant fine-tuned on Persian data) scores only <strong>40.7%</strong>, barely better than base Llama 3. General language adaptation without explicit cultural training does <em>not</em> capture pragmatic behaviors like taarof.
+    </div>
+</div>
+
+<h3>3.2 Language and Context Effects</h3>
+
+<div class="figure-container">
+    <div class="fig-title">🌐 The Power of Persian-Language Prompts</div>
+    <table>
+        <tr><th>Model</th><th>English Prompt</th><th>Persian Prompt</th><th>Improvement</th></tr>
+        <tr><td>DeepSeek V3</td><td>36.6%</td><td>68.6%</td><td><span class="tag tag-green">+32.0 pts</span></td></tr>
+        <tr><td>GPT-4o</td><td>~37%</td><td>~70%</td><td><span class="tag tag-green">+33.1 pts</span></td></tr>
+        <tr><td>Claude 3.5</td><td>~36%</td><td>~61%</td><td><span class="tag tag-green">+25.2 pts</span></td></tr>
+        <tr><td>Llama 3</td><td>~42%</td><td>~55%</td><td><span class="tag tag-green">+12.8 pts</span></td></tr>
+        <tr><td>Dorna</td><td>40.7%</td><td>51.7%</td><td><span class="tag tag-green">+11.0 pts</span></td></tr>
+    </table>
+    <p style="font-size:0.9rem; color:#666;">Language itself serves as a powerful cultural context cue. Models "activate" different cultural knowledge when prompted in Persian vs. English.</p>
+</div>
+
+<div class="callout">
+    <strong>🔑 Key Insight:</strong> Removing explicit country references ("in Iran") barely affects larger models like GPT-4o and Claude, but causes notable drops in smaller models like Llama 3 (-11.7 pts) and Dorna (-4.5 pts). Larger models appear to overlook geographic context, while smaller ones rely more heavily on explicit cultural framing.
+</div>
+
+<h3>3.3 The Politeness vs. Taarof Gap</h3>
+
+<p>This is one of the paper's most striking findings:</p>
+
+<div class="key-finding">
+    <div class="number">84.5%</div>
+    <div class="content">
+        <strong>Of Llama 3 responses rated "polite" by standard metrics</strong>
+        ...using Intel's Polite-Guard classifier
+    </div>
+</div>
+<div class="key-finding">
+    <div class="number">41.7%</div>
+    <div class="content">
+        <strong>Of those same "polite" responses actually met taarof expectations</strong>
+        ...a staggering <strong>42.8 percentage point gap</strong>
+    </div>
+</div>
+
+<p>Standard politeness metrics <em>cannot</em> detect taarof violations. The most common failures: accepting offers without ritual refusal, responding to compliments with self-praise, and making direct requests without hesitation.</p>
+
+<div class="two-col">
+    <div class="response-bad">
+        <strong>❌ Polite but Culturally Wrong</strong><br><br>
+        <strong>Offer:</strong> "Would you like to try some of my lunch?"<br>
+        <strong>Model:</strong> "Thank you so much for offering, I'd love to try some. What do you have?"<br><br>
+        <em>Problem: Accepted without initial refusal.</em>
+    </div>
+    <div class="response-bad">
+        <strong>❌ Polite but Culturally Wrong</strong><br><br>
+        <strong>Compliment:</strong> "You have an admirable talent in handwriting."<br>
+        <strong>Model:</strong> "Thank you, that means a lot to me. I've been practicing a lot lately."<br><br>
+        <em>Problem: Failed to downplay the compliment.</em>
+    </div>
+</div>
+
+<h3>3.4 Gender Asymmetries</h3>
+
+<div class="figure-container">
+    <div class="fig-title">👥 Accuracy When Responding to Men vs. Women</div>
+    <table>
+        <tr><th>Model</th><th>Responding to Women</th><th>Responding to Men</th><th>Difference</th></tr>
+        <tr><td>GPT-4o</td><td>43.6%</td><td>30.9%</td><td><span class="tag tag-red">+12.7 pts*</span></td></tr>
+        <tr><td>Claude 3.5</td><td>46.4%</td><td>32.7%</td><td><span class="tag tag-red">+13.7 pts*</span></td></tr>
+        <tr><td>Llama 3</td><td>46.4%</td><td>40.0%</td><td>+6.4 pts</td></tr>
+        <tr><td>DeepSeek V3</td><td>40.0%</td><td>32.7%</td><td>+7.3 pts</td></tr>
+        <tr><td>Dorna</td><td>47.3%</td><td>41.8%</td><td>+5.5 pts</td></tr>
+    </table>
+    <p style="font-size:0.8rem; color:#888;">* = statistically significant at p &lt; 0.05</p>
+</div>
+
+<p>More troubling: models frequently <strong>justify responses using gender stereotypes</strong> rather than taarof norms — e.g., "men should pay" or "women shouldn't be left alone" — and <strong>assume male identities</strong> even when no gender is specified for the model's role.</p>
+</section>
+
+<!-- ========== SECTION 4: THE HUMAN STUDY ========== -->
+<section>
+<h2>4. The Human Baseline Study</h2>
+
+<div class="card-full">
+    <h3>👥 33 Participants Across 3 Groups</h3>
+    <table>
+        <tr><th>Group</th><th>N</th><th>Taarof-Expected Accuracy</th><th>Non-Taarof Accuracy</th></tr>
+        <tr><td><strong>Native Persian Speakers</strong></td><td>11</td><td><strong>81.8%</strong></td><td>90.9%</td></tr>
+        <tr><td><strong>Heritage Speakers</strong></td><td>11</td><td><strong>60.0%</strong></td><td>87.3%</td></tr>
+        <tr><td><strong>Non-Iranians</strong></td><td>11</td><td><strong>42.3%</strong></td><td>81.8%</td></tr>
+    </table>
+</div>
+
+<div class="key-finding">
+    <div class="number">💡</div>
+    <div class="content">
+        <strong>The Cultural Distance Gradient</strong>
+        Performance on taarof-expected scenarios declines steeply with cultural distance: <strong>81.8% → 60.0% → 42.3%</strong>. Yet on non-taarof scenarios, all groups perform similarly (81–91%). This proves that <em>knowing when NOT to use taarof is easier than knowing when taarof IS required</em> — the latter demands deep cultural knowledge.
+    </div>
+</div>
+
+<h3>Cross-Cultural Misunderstanding Patterns (Non-Iranians)</h3>
+
+<table>
+    <tr><th>Pattern</th><th>Example</th><th>Why It Fails</th></tr>
+    <tr>
+        <td><strong>Politeness Misalignment</strong></td>
+        <td>Avoiding taarof responses because they "feel rude" from a Western perspective</td>
+        <td>What's respectful in one culture can feel insincere in another</td>
+    </tr>
+    <tr>
+        <td><strong>Misreading Ritual Insistence</strong></td>
+        <td>"I won't take no for an answer" interpreted as <em>aggressive</em> rather than polite</td>
+        <td>Taarof insistence is a sign of hospitality, not boundary violation</td>
+    </tr>
+    <tr>
+        <td><strong>Gender-Based Reasoning</strong></td>
+        <td>"Men should carry heavy items" as justification</td>
+        <td>Using gender stereotypes instead of taarof norms to decide behavior</td>
+    </tr>
+</table>
+
+<div class="callout">
+    <strong>🔍 Notable:</strong> Non-Iranian human performance (<strong>42.3%</strong>) closely mirrors frontier LLM performance on taarof-expected scenarios. Both groups share the same root problem: applying Western communication norms to a fundamentally different cultural framework.
+</div>
+</section>
+
+<!-- ========== SECTION 5: TOPIC-LEVEL BREAKDOWN ========== -->
+<section>
+<h2>5. Where Do LLMs Struggle Most? Topic-by-Topic Analysis</h2>
+
+<div class="figure-container">
+    <div class="fig-title">📊 Model Performance Across Interaction Topics</div>
+    <table>
+        <tr><th>Topic</th><th>Best Performer</th><th>Difficulty</th><th>Why?</th></tr>
+        <tr>
+            <td><strong>Gift</strong></td>
+            <td>All models</td>
+            <td><span class="tag tag-green">Easiest</span></td>
+            <td>Gift-refusal norms exist across Chinese, Japanese, and Arab cultures — likely in training data</td>
+        </tr>
+        <tr>
+            <td><strong>Payment</strong></td>
+            <td>DeepSeek V3 (64.3%)</td>
+            <td><span class="tag tag-gold">Moderate</span></td>
+            <td>Some cross-cultural overlap with "who pays" rituals</td>
+        </tr>
+        <tr>
+            <td><strong>Positional Action</strong></td>
+            <td>Claude 3.5 (60.5%)</td>
+            <td><span class="tag tag-gold">Moderate</span></td>
+            <td>Seating/entering norms are somewhat learnable</td>
+        </tr>
+        <tr>
+            <td><strong>Offering Food/Drink</strong></td>
+            <td>Llama 3</td>
+            <td><span class="tag tag-gold">Moderate</span></td>
+            <td>Initial refusal is somewhat cross-cultural</td>
+        </tr>
+        <tr>
+            <td><strong>Making a Request</strong></td>
+            <td>—</td>
+            <td><span class="tag tag-red">Hardest</span></td>
+            <td>Requires strategic indirectness that conflicts with Western directness conventions</td>
+        </tr>
+        <tr>
+            <td><strong>Compliment</strong></td>
+            <td>—</td>
+            <td><span class="tag tag-red">Hardest</span></td>
+            <td>Requires downplaying + self-lowering; models default to "thank you"</td>
+        </tr>
+    </table>
+</div>
+
+<div class="key-finding">
+    <div class="number">🧩</div>
+    <div class="content">
+        <strong>Models Have Topic-Specific "Personalities"</strong>
+        Even models with similar overall scores show different strengths. DeepSeek V3 excels at payment but struggles with requests. Claude 3.5 handles positional actions well but Dorna struggles with the same topic. Each model has <em>unevenly internalized</em> different aspects of taarof through their training data.
+    </div>
+</div>
+</section>
+
+<!-- ========== SECTION 6: CAN MODELS LEARN TAAROF? ========== -->
+<section>
+<h2>6. Can Models Be Taught Taarof?</h2>
+
+<h3>6.1 In-Context Learning (Few-Shot Prompting)</h3>
+<p>
+With just <strong>12 few-shot examples</strong> (one per interaction topic), Llama 3's accuracy on taarof-expected scenarios rose from <strong>37.2% → 57.6%</strong> — a <strong>+20 point gain</strong> without any parameter updates. This suggests the base model <em>has latent cultural knowledge</em> that can be activated through prompting.
+</p>
+
+<h3>6.2 Supervised Fine-Tuning (SFT) and Direct Preference Optimization (DPO)</h3>
+
+<div class="card-full">
+    <h3>🔧 Adaptation Results (Test Set)</h3>
+    <table>
+        <tr><th>Method</th><th>Subset</th><th>Before</th><th>After</th><th>Gain</th></tr>
+        <tr>
+            <td rowspan="3"><strong>DPO</strong></td>
+            <td>Taarof-expected</td>
+            <td>37.2%</td>
+            <td><strong>79.5%</strong></td>
+            <td><span class="tag tag-green">+42.3 pts</span></td>
+        </tr>
+        <tr><td>Non-taarof</td><td>63.0%</td><td>70.4%</td><td>+7.4 pts</td></tr>
+        <tr><td><strong>Overall</strong></td><td>43.8%</td><td><strong>77.1%</strong></td><td><span class="tag tag-green">+33.3 pts</span></td></tr>
+        <tr>
+            <td rowspan="3"><strong>SFT</strong></td>
+            <td>Taarof-expected</td><td>37.2%</td><td>59.0%</td><td><span class="tag tag-green">+21.8 pts</span></td>
+        </tr>
+        <tr><td>Non-taarof</td><td>63.0%</td><td>77.8%</td><td>+14.8 pts</td></tr>
+        <tr><td><strong>Overall</strong></td><td>43.8%</td><td>63.8%</td><td><span class="tag tag-green">+20.0 pts</span></td></tr>
+    </table>
+</div>
+
+<div class="key-finding">
+    <div class="number">🏆</div>
+    <div class="content">
+        <strong>DPO Nearly Doubles Performance — Approaching Native Speaker Levels</strong>
+        DPO achieved <strong>79.5%</strong> on taarof-expected scenarios, approaching the native speaker ceiling of <strong>81.8%</strong>. The model learned to defer to higher-status individuals, downplay achievements, decline help to avoid imposing, and insist on paying — the core behavioral patterns of taarof.
+    </div>
+</div>
+
+<h3>6.3 What the Models Actually Learned</h3>
+
+<div class="two-col">
+    <div class="card">
+        <h4>Before Fine-Tuning ❌</h4>
+        <p><strong>Scenario:</strong> Professor offers the better chair.<br>
+        <em>"Thank you, professor. *bows slightly*"</em></p>
+        <p style="color: var(--red); font-size:0.9rem;">Direct acceptance — violates hierarchy norms.</p>
+    </div>
+    <div class="card">
+        <h4>After DPO ✅</h4>
+        <p><strong>Scenario:</strong> Professor offers the better chair.<br>
+        <em>"No, no, professor, you're too kind. You should sit first. It's an honor to meet with you in such a fine room."</em></p>
+        <p style="color: var(--green); font-size:0.9rem;">Prioritizes seniority — learned social norm.</p>
+    </div>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <h4>Before Fine-Tuning ❌</h4>
+        <p><strong>Scenario:</strong> Opponent compliments your winning goal.<br>
+        <em>"Thank you, thank you! I'm thrilled to have scored the winning goal."</em></p>
+        <p style="color: var(--red); font-size:0.9rem;">Self-praise — violates modesty norms.</p>
+    </div>
+    <div class="card">
+        <h4>After DPO ✅</h4>
+        <p><strong>Scenario:</strong> Opponent compliments your winning goal.<br>
+        <em>"It was a team effort... Your team fought hard, and I have to give you credit."</em></p>
+        <p style="color: var(--green); font-size:0.9rem;">Downplays compliment — learned social norm.</p>
+    </div>
+</div>
+
+<p>However, models still struggle with very subtle cases — e.g., withholding dietary preferences, refraining from expressing opinions in the presence of elders, and navigating scenarios with conflicting cultural expectations.</p>
+</section>
+
+<!-- ========== SECTION 7: DIAGRAMS ========== -->
+<section>
+<h2>7. Conceptual Diagrams</h2>
+
+<h3>7.1 The Taarof Decision Flow</h3>
+
+<div class="diagram" style="text-align:center;">
+<span style="font-size:1.5rem;">📋 How Taarof Works in Practice</span><br><br>
+
+<strong>Offer Made</strong> (e.g., "Be my guest," "Have some tea," "You first")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+<strong>1st Refusal</strong> — "No, I couldn't possibly"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+<strong>Insistence 1</strong> — "Please, I insist"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+<strong>2nd Refusal</strong> — "Really, it's too much"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+<strong>Insistence 2</strong> — "Don't do taarof!" (تعارف نکن)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+<strong>Reluctant Acceptance</strong> — "Well, if you insist..."<br><br>
+<span style="font-size:0.85rem; color:#888;">This 3-cycle dance is the core ritual — but the number of cycles<br>varies by context, relationship closeness, and social status.</span>
+</div>
+
+<h3>7.2 LLM Cultural Competence Gap: Visual Summary</h3>
+
+<div class="figure-container">
+    <div class="fig-title">🎯 The Performance Landscape</div>
+    <div class="bar-chart">
+        <div class="bar-row">
+            <span class="bar-label" style="font-weight:bold;">Native Speakers</span>
+            <div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div>
+            <span class="bar-val">81.8%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">DPO Fine-Tuned</span>
+            <div class="bar-track"><div class="bar-fill green" style="width:97%"></div></div>
+            <span class="bar-val">79.5%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Persian Prompt (avg)</span>
+            <div class="bar-track"><div class="bar-fill gold" style="width:77%"></div></div>
+            <span class="bar-val">~63%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Heritage Speakers</span>
+            <div class="bar-track"><div class="bar-fill gold" style="width:73%"></div></div>
+            <span class="bar-val">60.0%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">SFT Fine-Tuned</span>
+            <div class="bar-track"><div class="bar-fill gold" style="width:72%"></div></div>
+            <span class="bar-val">59.0%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">Few-Shot Prompted</span>
+            <div class="bar-track"><div class="bar-fill orange" style="width:70%"></div></div>
+            <span class="bar-val">57.6%</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label" style="font-weight:bold;">Non-Iranians / LLMs</span>
+            <div class="bar-track"><div class="bar-fill red" style="width:51%"></div></div>
+            <span class="bar-val">34–42%</span>
+        </div>
+    </div>
+    <p style="font-size:0.85rem; color:#888; margin-top:0.75rem;">This shows the full spectrum: from base LLMs (matching non-Iranian humans) to DPO-fine-tuned models (approaching native speakers).</p>
+</div>
+
+<h3>7.3 The Politeness Trap</h3>
+
+<div class="diagram" style="text-align:center;">
+<span style="font-size:1.2rem;">⚠️ Why "Being Polite" Isn't Enough</span><br><br>
+
+<strong>Western Politeness Framework</strong><br>
+"Be direct. Say thank you. Accept graciously. Be clear."<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↕ <span style="color:var(--red); font-weight:bold;">CONFLICT</span><br>
+<strong>Taarof Framework</strong><br>
+"Be indirect. Refuse first. Downplay yourself. Insist on giving."<br><br>
+
+<span style="color:var(--red); font-weight:bold;">Result:</span> 84.5% of LLM responses are "polite" but only 41.7% are culturally appropriate.<br>
+<span style="color:var(--red);">The two frameworks are fundamentally misaligned.</span>
+</div>
+</section>
+
+<!-- ========== SECTION 8: RELATED WORK ========== -->
+<section>
+<h2>8. How This Fits Into the Broader Landscape</h2>
+
+<div class="card-full">
+    <h3>📚 Context in Cultural AI Research</h3>
+    <table>
+        <tr><th>Prior Work</th><th>Approach</th><th>Limitation Addressed by TaarofBench</th></tr>
+        <tr>
+            <td>NORMDIAL, NormAd-Eti, WorldValuesBench, CulturalTeaming</td>
+            <td>Multiple-choice benchmarks for cultural norms</td>
+            <td>Multiple choice doesn't capture <em>authentic cultural reasoning</em> in open-ended interactions</td>
+        </tr>
+        <tr>
+            <td>Persian Social Norms (PSN), Iranian Social Norms</td>
+            <td>Classification: "Expected / Normal / Taboo"</td>
+            <td>General social expectations, not <em>specific cultural practices</em> like taarof</td>
+        </tr>
+        <tr>
+            <td>PerCul, ELAB</td>
+            <td>Story-based MCQ for Persian customs</td>
+            <td>Structured formats restrict assessment of deeper cultural understanding</td>
+        </tr>
+        <tr>
+            <td>CultureLLM, Cultural Learning</td>
+            <td>Fine-tuning / prompting for cultural adaptation</td>
+            <td>Focus on well-resourced cultures; low-resource traditions underexplored</td>
+        </tr>
+    </table>
+</div>
+
+<p>
+<strong>TaarofBench</strong> is unique because it: (1) uses <strong>open-ended role-play</strong> rather than multiple choice, (2) focuses on a <strong>specific, complex cultural practice</strong> rather than general norms, and (3) provides a <strong>computationally formalized</strong> definition of the cultural practice as a structured tuple.
+</p>
+</section>
+
+<!-- ========== SECTION 9: CONTRIBUTIONS & IMPLICATIONS ========== -->
+<section>
+<h2>9. Contributions and Broader Implications</h2>
+
+<h3>The Paper's Four Core Contributions</h3>
+
+<div class="two-col">
+    <div class="card">
+        <h4>🏗️ 1. First Computational Formalization</h4>
+        <p>Taarof is defined as structured tuples: <strong>{E, R<sub>u</sub>, R<sub>m</sub>, C, U, A<sub>exp</sub>}</strong>, enabling systematic evaluation of cultural pragmatics.</p>
+    </div>
+    <div class="card">
+        <h4>🔬 2. Comprehensive LLM Evaluation</h4>
+        <p>Five frontier LLMs tested across language, context, topic, and gender dimensions — revealing systematic cultural reasoning failures.</p>
+    </div>
+    <div class="card">
+        <h4>👥 3. Human Baselines</h4>
+        <p>Controlled study with 33 participants across 3 cultural backgrounds quantifies the native-to-non-native gap.</p>
+    </div>
+    <div class="card">
+        <h4>🔧 4. Demonstrated Path to Improvement</h4>
+        <p>SFT (+21.8%) and DPO (+42.3%) show that cultural competence can be significantly improved with targeted adaptation.</p>
+    </div>
+</div>
+
+<h3>Why This Matters Beyond Taarof</h3>
+
+<ul>
+    <li><strong>Template for Low-Resource Traditions:</strong> The methodology provides a blueprint for evaluating cultural competence in any under-explored communication tradition.</li>
+    <li><strong>Cross-Cultural AI Applications:</strong> Directly relevant for AI in education, tourism, diplomacy, customer service, and healthcare — anywhere cultural missteps carry real consequences.</li>
+    <li><strong>Preserving Marginalized Practices:</strong> Culturally fluent LLMs could help preserve and teach traditions otherwise marginalized in digital spaces.</li>
+    <li><strong>Broader AI Alignment:</strong> Shows that "alignment" must include <em>cultural</em> alignment — not just truthfulness and safety.</li>
+</ul>
+</section>
+
+<!-- ========== SECTION 10: LIMITATIONS ========== -->
+<section>
+<h2>10. Limitations and Future Work</h2>
+
+<table>
+    <tr><th>Limitation</th><th>Description</th><th>Future Direction</th></tr>
+    <tr>
+        <td><strong>Evolving Cultural Practices</strong></td>
+        <td>Benchmark captures taarof at a specific moment; culture evolves</td>
+        <td>Continual learning approaches to track cultural shifts</td>
+    </tr>
+    <tr>
+        <td><strong>Single-Turn Interactions</strong></td>
+        <td>Taarof is inherently multi-turn; current benchmark uses single exchanges</td>
+        <td>Multi-turn evaluation to test cultural consistency over longer dialogues</td>
+    </tr>
+    <tr>
+        <td><strong>Text-Only</strong></td>
+        <td>Taarof involves non-verbal cues (gestures, bowing, hand-on-chest)</td>
+        <td>Multimodal evaluation incorporating visual/auditory elements</td>
+    </tr>
+    <tr>
+        <td><strong>Single Culture Focus</strong></td>
+        <td>Deep focus on taarof; cross-cultural transfer unexplored</td>
+        <td>Extend to parallel systems: Japanese <em>keigo</em>, Korean <em>nunchi</em>, Turkish <em>israr</em></td>
+    </tr>
+    <tr>
+        <td><strong>Adaptation Ceiling</strong></td>
+        <td>Even DPO models struggle with subtle contextual factors</td>
+        <td>Multi-stage adaptation, culturally-specific pre-training</td>
+    </tr>
+</table>
+</section>
+
+<!-- ========== SECTION 11: ETHICAL CONSIDERATIONS ========== -->
+<section>
+<h2>11. Ethical Considerations</h2>
+
+<div class="two-col">
+    <div class="card">
+        <h4>⚠️ Representation Risks</h4>
+        <p>Oversimplifying taarof could reinforce harmful stereotypes. The authors mitigate this through native speaker validation and academic grounding.</p>
+    </div>
+    <div class="card">
+        <h4>🔒 Privacy & Profiling</h4>
+        <p>Cultural adaptation systems could infer sensitive cultural info about users. Implementations should avoid demographic assumptions.</p>
+    </div>
+    <div class="card">
+        <h4>⚖️ Asymmetric Experiences</h4>
+        <p>Systems adapting differently based on perceived user background create fairness concerns. Users should control adaptation preferences.</p>
+    </div>
+    <div class="card">
+        <h4>🛡️ Dual-Use Concerns</h4>
+        <p>Cultural mimicry techniques could be misused for deceptive manipulation. Safeguards are essential.</p>
+    </div>
+</div>
+</section>
+
+<!-- ========== SECTION 12: KEY QUOTES & SOURCES ========== -->
+<section>
+<h2>12. Key Takeaways</h2>
+
+<div class="insight-box">
+    <div class="title">💬 The Paper's Most Powerful Insights</div>
+    <ol>
+        <li><strong>"All models struggle significantly with taarof-expected scenarios. No model exceeds 42% accuracy when taarof is culturally appropriate."</strong></li>
+        <li><strong>"Non-Iranian participants' performance closely mirrors that of frontier LLMs, both struggling to produce culturally appropriate responses in taarof-expected scenarios."</strong></li>
+        <li><strong>"84.48% of [Llama 3] responses rated as 'polite' but only 41.7% met Persian cultural expectations — a 42.8 percentage point gap."</strong></li>
+        <li><strong>"Persian prompts dramatically improve taarof performance. Language itself serves as a strong cultural context cue."</strong></li>
+        <li><strong>"DPO nearly doubled performance (from 37.2% to 79.5%), approaching native speaker levels (81.8%)."</strong></li>
+        <li><strong>"Models frequently justified their behavior with gender stereotypes... [and] assume male identities even when no gender is specified."</strong></li>
+        <li><strong>"Recognizing when taarof is appropriate requires deeper cultural knowledge than recognizing when it is not."</strong></li>
+    </ol>
+</div>
+
+<h3>Sources & References</h3>
+
+<ul>
+    <li><strong>Paper:</strong> <a href="https://arxiv.org/abs/2509.01035" target="_blank">arXiv:2509.01035 — We Politely Insist: Your LLM Must Learn the Persian Art of Taarof</a></li>
+    <li><strong>Code & Data:</strong> Available on <a href="https://github.com" target="_blank">GitHub</a> and <a href="https://huggingface.co" target="_blank">Hugging Face</a> (links in paper)</li>
+    <li><strong>Blog Post by Co-Author:</strong> <a href="https://www.karinemegerdoomian.org/post/teaching-ai-to-hesitate-cultural-understanding-and-the-persian-art-of-taarof" target="_blank">Teaching AI to Hesitate — Karine Megerdoomian</a></li>
+    <li><strong>Background on Taarof:</strong> <a href="https://en.wikipedia.org/wiki/Taarof" target="_blank">Wikipedia — Taarof</a></li>
+    <li><strong>Key Academic References:</strong> Beeman (1986, 2020), Rafiee (1991), Koutlaki (1997), Izadi (2015, 2016), Pourmohammadi (2018), Sharifian & Izadi (2021), Soleimanifar (2024)</li>
+    <li><strong>Related Benchmarks:</strong> NORMDIAL (Li et al., 2023), NormAd-Eti (Rao et al., 2025), WorldValuesBench (Zhao et al., 2024), CulturalTeaming (Chiu et al., 2024), CultureLLM (Li et al., 2024)</li>
+</ul>
+</section>
+
+<!-- ========== APPENDIX: TAAROFBENCH EXAMPLES ========== -->
+<section>
+<h2>Appendix: More TaarofBench Examples</h2>
+
+<div class="card-full">
+    <table>
+        <tr><th>Setting</th><th>Topic</th><th>Type</th><th>Scenario</th><th>Expected Behavior</th></tr>
+        <tr>
+            <td>Social</td>
+            <td>Invitation</td>
+            <td><span class="tag tag-green">Taarof</span></td>
+            <td>Neighbor comes to borrow eggs. You say: "Come in, don't just stand at the door."</td>
+            <td>Initially <strong>reject</strong> the invitation</td>
+        </tr>
+        <tr>
+            <td>Casual</td>
+            <td>Request</td>
+            <td><span class="tag tag-green">Taarof</span></td>
+            <td>Host at BBQ: "If there's something else you'd like, don't hesitate to tell me."</td>
+            <td><strong>Hesitate</strong> to make direct request as a guest</td>
+        </tr>
+        <tr>
+            <td>Casual</td>
+            <td>Food/Drink</td>
+            <td><span class="tag tag-red">Non-Taarof</span></td>
+            <td>Cooking instructor: "Would you mind tasting my homemade cake?"</td>
+            <td>Refusing = impolite; <strong>accept and help</strong></td>
+        </tr>
+        <tr>
+            <td>Formal</td>
+            <td>Gift</td>
+            <td><span class="tag tag-red">Non-Taarof</span></td>
+            <td>Gala dinner: "Please accept this special souvenir as a token of our appreciation."</td>
+            <td>Refusing = disrespect; <strong>accept graciously</strong></td>
+        </tr>
+    </table>
+</div>
+</section>
+
+<footer>
+    <p>Paper Explanation — Generated from <strong>arXiv:2509.01035</strong> by Gohari Sadr et al. (2025)</p>
+    <p>This is an educational summary. For full details, please read the <a href="https://arxiv.org/abs/2509.01035" target="_blank">original paper</a>.</p>
+</footer>
+
+</div>
+</body>
+</html>
