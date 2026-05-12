@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Home Server for Plex & Beyond — Australian Buyer's Guide 2025</title>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --green: #16a34a;
+            --orange: #ea580c;
+            --red: #dc2626;
+            --table-stripe: #f1f5f9;
+            --highlight: #dbeafe;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: #fff;
+            padding: 3rem 1.5rem 2.5rem;
+            text-align: center;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+        header p { font-size: 1.1rem; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+        header .meta { margin-top: 1rem; font-size: 0.9rem; opacity: 0.7; }
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid var(--accent);
+            color: #0f172a;
+        }
+        h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: #1e3a5f; }
+        h4 { font-size: 1.05rem; margin: 1.2rem 0 0.5rem; color: #334155; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card.recommended {
+            border: 2px solid var(--green);
+            background: #f0fdf4;
+            position: relative;
+        }
+        .card.recommended::before {
+            content: "★ TOP PICK";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--green);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+        thead th {
+            background: #0f172a;
+            color: #fff;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        tbody td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        tbody tr:nth-child(even) { background: var(--table-stripe); }
+        tbody tr:hover { background: var(--highlight); }
+        .price { font-weight: 700; color: var(--accent); white-space: nowrap; }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-orange { background: #fff7ed; color: #9a3412; }
+        .tag-red { background: #fef2f2; color: #991b1b; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.6rem; }
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; color: var(--text-secondary); }
+        li { margin-bottom: 0.35rem; }
+        strong { color: var(--text); }
+        .callout {
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 1rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        .callout.info { background: #eff6ff; border-left-color: var(--accent); }
+        .callout.warning { background: #fef2f2; border-left-color: var(--red); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .power-meter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        .power-bar-wrap { flex: 1; min-width: 200px; }
+        .power-bar-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; }
+        .power-bar-track { background: #e2e8f0; height: 22px; border-radius: 11px; overflow: hidden; }
+        .power-bar-fill { height: 100%; border-radius: 11px; transition: width 0.4s; }
+        .power-bar-fill.low { background: #22c55e; }
+        .power-bar-fill.med { background: #eab308; }
+        .power-bar-fill.high { background: var(--orange); }
+        .power-bar-fill.vhigh { background: var(--red); }
+        .summary-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-align: center;
+        }
+        .summary-label { text-align: center; font-size: 0.85rem; color: var(--text-secondary); }
+        .toc { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+        .toc ol { margin-bottom: 0; }
+        .toc a { font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏠 DIY Home Server for Plex &amp; Beyond</h1>
+    <p>A comprehensive Australian buyer's guide covering hardware options, power consumption, annual running costs, and expansion paths — with all pricing in AUD</p>
+    <p class="meta">Research compiled May 2026 &nbsp;|&nbsp; Prices sourced from Australian retailers</p>
+</header>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+    <strong>📋 Table of Contents</strong>
+    <ol>
+        <li><a href="#quick-recs">Quick Recommendations</a></li>
+        <li><a href="#key-decisions">Key Decisions Before You Build</a></li>
+        <li><a href="#build-tier-1">Build Tier 1 — Mini PC Route (Ultra-Low Power)</a></li>
+        <li><a href="#build-tier-2">Build Tier 2 — DIY Mini-ITX Build (Expandable &amp; Efficient)</a></li>
+        <li><a href="#build-tier-3">Build Tier 3 — Full ATX/mATX Tower (Maximum Expandability)</a></li>
+        <li><a href="#cpu-deep-dive">CPU Deep Dive: Intel Quick Sync &amp; Transcoding</a></li>
+        <li><a href="#power-costs">Power Consumption &amp; Annual Running Costs (AUD)</a></li>
+        <li><a href="#storage">Storage Strategy</a></li>
+        <li><a href="#software">Operating System &amp; Software Stack</a></li>
+        <li><a href="#beyond-plex">Beyond Plex: Services You Can Add</a></li>
+        <li><a href="#what-you-might-miss">What You Might Have Missed</a></li>
+        <li><a href="#sources">Sources &amp; References</a></li>
+    </ol>
+</div>
+
+<!-- QUICK RECOMMENDATIONS -->
+<h2 id="quick-recs">1. Quick Recommendations</h2>
+
+<div class="grid-2">
+    <div class="card recommended">
+        <h3>🥇 Best Value: Intel N100 Mini PC</h3>
+        <p><strong>Upfront cost:</strong> ~$260–$400 AUD (ready to run)</p>
+        <p><strong>Idle power:</strong> 6–10W | <strong>Annual cost:</strong> ~$22–$38 AUD</p>
+        <p>Handles 3–5 simultaneous 4K→1080p transcodes via Quick Sync. Perfect for households with 2–4 users. Tiny, silent, sips power. Add external USB HDDs or a separate NAS for bulk storage.</p>
+        <p><span class="tag tag-green">Best Efficiency</span> <span class="tag tag-blue">Quietest</span></p>
+    </div>
+    <div class="card">
+        <h3>🥈 Best Expandable: i3-12100 DIY Build</h3>
+        <p><strong>Upfront cost:</strong> ~$900–$1,300 AUD (base system, no storage)</p>
+        <p><strong>Idle power:</strong> 20–35W | <strong>Annual cost:</strong> ~$70–$120 AUD</p>
+        <p>Mini-ITX or mATX build with room for 6+ HDDs. Can handle 10–15 simultaneous 4K transcodes. Runs Plex, NAS, Docker containers, VMs — everything in one box.</p>
+        <p><span class="tag tag-green">Most Flexible</span> <span class="tag tag-orange">Moderate Power</span></p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🥉 Old Enterprise Gear — ⚠️ Not Recommended for 24/7</h3>
+    <p>Refurbished Dell PowerEdge or HP ProLiant rack servers (e.g., R720, DL380) can be found for $300–$600 AUD. However, they idle at <strong>120–200W</strong>, costing <strong>$460–$650 AUD/year</strong> in NSW, and up to <strong>$788/year in SA</strong>. The electricity bill alone buys a new efficient server within 12–18 months. Only worth considering if you need ECC RAM, IPMI, and hot-swap bays for part-time use.</p>
+    <p><span class="tag tag-red">High Running Cost</span> <span class="tag tag-red">Loud</span></p>
+</div>
+
+<!-- KEY DECISIONS -->
+<h2 id="key-decisions">2. Key Decisions Before You Build</h2>
+
+<div class="card">
+    <h3>Decision #1: How many simultaneous streams?</h3>
+    <table>
+        <thead><tr><th>Usage Scenario</th><th>Concurrent Streams</th><th>Recommended CPU Tier</th></tr></thead>
+        <tbody>
+            <tr><td>Solo/couple, local streaming only</td><td>1–2</td><td>N100 or even Raspberry Pi 5 (direct play)</td></tr>
+            <tr><td>Family of 4, local + remote</td><td>2–4</td><td>N100 handles easily</td></tr>
+            <tr><td>Shared with extended family, 5–10 users</td><td>5–10</td><td>N305 or i3-12100</td></tr>
+            <tr><td>Plex share with 15+ users</td><td>10–20</td><td>i5-12500 + Intel Arc GPU or i5-12400</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Decision #2: How many hard drives?</h3>
+    <table>
+        <thead><tr><th>Storage Need</th><th>Recommended Approach</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td>0–2 drives, &lt;20TB</td><td>Mini PC + USB external drives</td><td>N100 mini PC + 2× USB HDD enclosure</td></tr>
+            <tr><td>3–6 drives, 20–80TB</td><td>DIY Mini-ITX build</td><td>Fractal Node 304 + 6× HDD</td></tr>
+            <tr><td>7–12+ drives, 80TB+</td><td>DIY ATX/mATX tower</td><td>Fractal Define 7 / Meshify 2 + HBA card</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Decision #3: Transcoding needs?</h3>
+    <p><strong>Direct Play</strong> (no transcoding) uses almost zero CPU. If all your clients support your media format (modern TVs, Apple TV 4K, NVIDIA Shield), you barely need any CPU.</p>
+    <p><strong>Hardware Transcoding</strong> via Intel Quick Sync (integrated GPU) is the game-changer. A 6W N100 can transcode 4K HDR→1080p SDR with <strong>hardware tone mapping</strong> — something that would require a 17,000 PassMark CPU to do in software. <em>Note: Plex hardware transcoding requires a Plex Pass subscription.</em></p>
+</div>
+
+<!-- BUILD TIER 1: MINI PC -->
+<h2 id="build-tier-1">3. Build Tier 1 — Mini PC Route (Ultra-Low Power)</h2>
+
+<div class="card">
+    <h3>Recommended Hardware: Beelink S12 Pro / EQ12 (Intel N100)</h3>
+    <table>
+        <thead><tr><th>Component</th><th>Specification</th><th>Price (AUD)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Mini PC</strong></td><td>Beelink S12 Pro — Intel N100, 16GB DDR4, 500GB SSD</td><td class="price">$259–$330</td></tr>
+            <tr><td><strong>Alternative</strong></td><td>Beelink EQ12 — Intel N100, 16GB DDR5, 500GB SSD, Dual 2.5GbE</td><td class="price">$329–$400</td></tr>
+            <tr><td><strong>Alternative</strong></td><td>GMKtec NucBox G3 Plus — Intel N150, 16GB, 512GB NVMe</td><td class="price">$170–$250</td></tr>
+            <tr><td><strong>Storage</strong></td><td>External USB 3.0 HDD enclosure (2–4 bay) + HDDs of your choice</td><td class="price">Varies</td></tr>
+            <tr><td colspan="2"><strong>Total (base system)</strong></td><td class="price">~$260–$400</td></tr>
+        </tbody>
+    </table>
+    <h4>Power Profile</h4>
+    <table>
+        <thead><tr><th>State</th><th>Power Draw</th></tr></thead>
+        <tbody>
+            <tr><td>Idle (headless Linux, no containers)</td><td>5–6W</td></tr>
+            <tr><td>Light load (5–10 Docker containers)</td><td>7–9W</td></tr>
+            <tr><td>Medium load (15+ containers, occasional transcode)</td><td>10–14W</td></tr>
+            <tr><td>Full CPU load (stress test)</td><td>15–18W</td></tr>
+        </tbody>
+    </table>
+    <div class="callout info">
+        <strong>💡 Pro Tip:</strong> Wipe the included Windows 11 and install <strong>Ubuntu Server 24.04 LTS</strong> or <strong>Debian 12</strong>. You'll free up 2–3 GB of RAM and drop idle power from ~8–10W (Windows) to ~5–6W (Linux headless).
+    </div>
+    <h4>Pros &amp; Cons</h4>
+    <p>✅ Ultra-low power (6–15W) — ~$22–$55/year to run<br>
+    ✅ Tiny, silent, can sit on a shelf next to your router<br>
+    ✅ Handles 3–5× 4K→1080p transcodes via Quick Sync<br>
+    ✅ AV1 decode, HEVC encode/decode, HDR tone mapping<br>
+    ❌ Max 16GB RAM (official Intel spec — some boards unofficially support 32GB)<br>
+    ❌ Limited internal storage — external USB drives needed for media<br>
+    ❌ Single 2.5GbE port (EQ12 has dual)</p>
+</div>
+
+<!-- BUILD TIER 2: DIY MINI-ITX -->
+<h2 id="build-tier-2">4. Build Tier 2 — DIY Mini-ITX Build (Expandable &amp; Efficient)</h2>
+
+<div class="card recommended">
+    <h3>★ Recommended Build: "The Sweet Spot" — Intel i3-12100 + Fractal Node 304</h3>
+    <p>This is the build that balances power efficiency, transcoding muscle, and drive expandability. Based on extensive community build logs from OzBargain, Techno Tim, and danielketel.com.</p>
+    <table>
+        <thead><tr><th>Component</th><th>Recommended Model</th><th>Price (AUD)</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>CPU</strong></td><td>Intel Core i3-12100 (4C/8T, UHD 730, 60W TDP)</td><td class="price">$179–$199</td><td>Centre Com, Scorptec, Skycomp</td></tr>
+            <tr><td><strong>CPU Cooler</strong></td><td>Noctua NH-U12S or stock Intel cooler</td><td class="price">$40–$123</td><td>Stock cooler is adequate for 24/7; Noctua for silence</td></tr>
+            <tr><td><strong>Motherboard</strong></td><td>ASUS ROG Strix B760-I Gaming WiFi (Mini-ITX)</td><td class="price">$280–$350</td><td>2× M.2, 4× SATA, 2.5GbE, DDR5</td></tr>
+            <tr><td><strong>Alternative MB</strong></td><td>ASRock B660M-ITX/ac or Gigabyte B760I</td><td class="price">$200–$300</td><td>Budget Mini-ITX options</td></tr>
+            <tr><td><strong>RAM</strong></td><td>32GB (2×16GB) DDR4-3200 or DDR5-4800</td><td class="price">$110–$180</td><td>DDR5 has on-die ECC; 32GB for ZFS/VMs</td></tr>
+            <tr><td><strong>Boot SSD</strong></td><td>Samsung 970 Evo Plus 250GB NVMe</td><td class="price">$49–$70</td><td>OS + Docker containers</td></tr>
+            <tr><td><strong>Case</strong></td><td>Fractal Design Node 304 (Mini-ITX, 6× 3.5" bays)</td><td class="price">$139–$159</td><td>PLE Computers, Scorptec, Euroits ($131)</td></tr>
+            <tr><td><strong>PSU</strong></td><td>be quiet! Pure Power 12 M 550W (80+ Gold, modular)</td><td class="price">$120–$150</td><td>SFX or ATX; modular essential for small case</td></tr>
+            <tr><td><strong>Case Fans</strong></td><td>Noctua NF-A9 PWM ×2 + NF-P14s redux ×1</td><td class="price">$100–$120</td><td>Optional but recommended for silence</td></tr>
+            <tr><td colspan="2"><strong>Total (base, no storage HDDs)</strong></td><td class="price"><strong>~$1,020–$1,350</strong></td></tr>
+        </tbody>
+    </table>
+    <h4>Power Profile</h4>
+    <table>
+        <thead><tr><th>State</th><th>Power Draw</th></tr></thead>
+        <tbody>
+            <tr><td>Bare system idle (CPU + MB + RAM + SSD)</td><td>~20–25W</td></tr>
+            <tr><td>Idle with 4× HDDs spun down</td><td>~22–28W</td></tr>
+            <tr><td>Idle with 4× HDDs active</td><td>~42–58W</td></tr>
+            <tr><td>Transcoding load (hardware, 4K→1080p)</td><td>~50–75W</td></tr>
+        </tbody>
+    </table>
+    <p>With 6 HDDs active and CPU under load: ~90–110W peak.</p>
+
+    <h4>Pros &amp; Cons</h4>
+    <p>✅ Room for 6× 3.5" HDDs in a compact 19.2L case<br>
+    ✅ i3-12100 with UHD 730 handles 10–15× 4K→1080p transcodes<br>
+    ✅ Full AV1 decode, HEVC encode/decode, HDR tone mapping<br>
+    ✅ Upgradeable — can add PCIe SATA card, 10GbE NIC, or GPU later<br>
+    ✅ Supports up to 128GB RAM, DDR4 or DDR5<br>
+    ✅ Can run TrueNAS, Unraid, Proxmox — full hypervisor capability<br>
+    ❌ Higher upfront cost than mini PC<br>
+    ❌ Mini-ITX limits PCIe expansion (only 1 slot)<br>
+    ❌ Cable management is tight in the Node 304</p>
+</div>
+
+<div class="card">
+    <h3>Alternative Case: Fractal Design Node 804 (mATX)</h3>
+    <p>If you prefer micro-ATX for more PCIe slots and easier building, the <strong>Fractal Design Node 804</strong> (~$160–$230 AUD) supports up to 8× 3.5" drives and mATX motherboards. Pair with an <strong>MSI PRO B660M-A</strong> (~$150–$200 AUD) for more expansion options.</p>
+</div>
+
+<!-- BUILD TIER 3: FULL ATX -->
+<h2 id="build-tier-3">5. Build Tier 3 — Full ATX/mATX Tower (Maximum Expandability)</h2>
+
+<div class="card">
+    <h3>For 8–14+ Drives and/or Heavy VM Loads</h3>
+    <table>
+        <thead><tr><th>Component</th><th>Recommended Model</th><th>Price (AUD)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>CPU</strong></td><td>Intel Core i5-12500 (6C/12T, UHD 770, 65W)</td><td class="price">$250–$350</td></tr>
+            <tr><td><strong>Motherboard</strong></td><td>MSI MAG B660M Mortar WiFi or Gigabyte B660 DS3H</td><td class="price">$180–$250</td></tr>
+            <tr><td><strong>RAM</strong></td><td>64GB (2×32GB) DDR4-3200</td><td class="price">$200–$300</td></tr>
+            <tr><td><strong>Case</strong></td><td>Fractal Design Define 7 / Meshify 2 / Define R5</td><td class="price">$180–$300</td></tr>
+            <tr><td><strong>PSU</strong></td><td>be quiet! Pure Power 12 M 750W (80+ Gold)</td><td class="price">$150–$190</td></tr>
+            <tr><td><strong>HBA Card</strong></td><td>LSI SAS 9211-8i (flashed to IT mode) + SAS→SATA breakout cables</td><td class="price">$70–$100</td></tr>
+            <tr><td colspan="2"><strong>Total (base, no storage)</strong></td><td class="price"><strong>~$1,030–$1,490</strong></td></tr>
+        </tbody>
+    </table>
+    <p><strong>Power:</strong> Idle ~35–50W (no HDDs), ~55–80W (with 8 HDDs spun down), ~90–130W (8 HDDs active).</p>
+</div>
+
+<!-- CPU DEEP DIVE -->
+<h2 id="cpu-deep-dive">6. CPU Deep Dive: Intel Quick Sync &amp; Transcoding</h2>
+
+<div class="card">
+    <h3>Why Intel (Not AMD) for Plex Transcoding</h3>
+    <p>Plex officially supports <strong>Intel Quick Sync Video</strong> and <strong>NVIDIA NVENC</strong> for hardware transcoding. AMD's integrated graphics (VCE/VCN) are <strong>not officially supported</strong> by Plex and have limited/experimental support in Jellyfin. For a Plex-focused build, Intel is the clear choice.</p>
+</div>
+
+<div class="card">
+    <h3>Intel Quick Sync Generations Compared</h3>
+    <table>
+        <thead><tr><th>CPU Generation</th><th>QSV Version</th><th>H.265 Encode</th><th>AV1 Decode</th><th>AV1 Encode</th><th>HDR Tone Mapping</th></tr></thead>
+        <tbody>
+            <tr><td>7th–9th Gen (Kaby Lake–Coffee Lake)</td><td>5–6</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td>10th–11th Gen (Ice Lake–Tiger Lake)</td><td>6–7</td><td>✅</td><td>❌</td><td>❌</td><td>✅ (Linux)</td></tr>
+            <tr><td><strong>12th Gen+ / N100/N305</strong> (Alder Lake)</td><td><strong>7–8</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td></tr>
+        </tbody>
+    </table>
+    <p><strong>12th Gen Intel and newer is the sweet spot.</strong> Full AV1 decode, HEVC encode/decode, and hardware HDR→SDR tone mapping.</p>
+</div>
+
+<div class="card">
+    <h3>Transcoding Performance by CPU (Hardware-Accelerated)</h3>
+    <table>
+        <thead><tr><th>CPU</th><th>TDP</th><th>1080p Transcodes</th><th>4K→1080p Transcodes</th><th>AU Price (approx)</th></tr></thead>
+        <tbody>
+            <tr><td>Intel N100</td><td>6W</td><td>8–12</td><td>3–5</td><td>~$260 (mini PC)</td></tr>
+            <tr><td>Intel N150</td><td>6W</td><td>10–14</td><td>4–6</td><td>~$300 (mini PC)</td></tr>
+            <tr><td>Intel N305</td><td>15W</td><td>15–20</td><td>6–10</td><td>~$400–500 (mini PC)</td></tr>
+            <tr><td><strong>Intel i3-12100</strong> (UHD 730)</td><td><strong>60W</strong></td><td><strong>20+</strong></td><td><strong>10–15</strong></td><td><strong>~$180 (CPU only)</strong></td></tr>
+            <tr><td>Intel i5-12400 (UHD 730)</td><td>65W</td><td>25+</td><td>12–18</td><td>~$250 (CPU only)</td></tr>
+            <tr><td>Intel i5-12500 (UHD 770)</td><td>65W</td><td>30+</td><td>15–20</td><td>~$280 (CPU only)</td></tr>
+        </tbody>
+    </table>
+    <p><em>Note: These numbers are with hardware transcoding enabled (Plex Pass required). Without hardware acceleration, a single 4K transcode needs a ~17,000 PassMark CPU score.</em></p>
+</div>
+
+<div class="card">
+    <h3>Plex Pass Requirement</h3>
+    <p><strong>Hardware transcoding requires a Plex Pass</strong> — $5.99 AUD/month or ~$159 AUD for a lifetime pass (wait for sales). Alternatively, <strong>Jellyfin</strong> offers free hardware transcoding with no paywall and is an excellent open-source alternative.</p>
+</div>
+
+<!-- POWER COSTS -->
+<h2 id="power-costs">7. Power Consumption &amp; Annual Running Costs (AUD)</h2>
+
+<div class="card">
+    <h3>Australian Electricity Rates (2025–2026, Approximate Peak Residential)</h3>
+    <table>
+        <thead><tr><th>State</th><th>Rate (c/kWh)</th><th>Annual Cost per 100W (24/7)</th></tr></thead>
+        <tbody>
+            <tr><td>ACT</td><td>~25c</td><td>~$219</td></tr>
+            <tr><td>TAS</td><td>~26c</td><td>~$228</td></tr>
+            <tr><td>VIC</td><td>~28c</td><td>~$245</td></tr>
+            <tr><td>QLD</td><td>~30c</td><td>~$263</td></tr>
+            <tr><td>WA</td><td>~31c</td><td>~$272</td></tr>
+            <tr><td><strong>NSW</strong></td><td><strong>~32c</strong></td><td><strong>~$280</strong></td></tr>
+            <tr><td><strong>SA</strong></td><td><strong>~38–45c</strong></td><td><strong>~$333–$394</strong></td></tr>
+        </tbody>
+    </table>
+    <p><em>South Australia has the highest rates — efficient hardware pays for itself fastest there.</em></p>
+</div>
+
+<div class="card">
+    <h3>Annual Running Cost Comparison (24/7 Operation)</h3>
+    <table>
+        <thead><tr><th>Build Type</th><th>Avg Power</th><th>NSW (32c)</th><th>VIC (28c)</th><th>SA (42c)</th></tr></thead>
+        <tbody>
+            <tr><td>N100 Mini PC + 1 SSD</td><td>~8W</td><td class="price">$22</td><td class="price">$20</td><td class="price">$30</td></tr>
+            <tr><td>N100 Mini PC + 2 External HDDs</td><td>~18W</td><td class="price">$50</td><td class="price">$44</td><td class="price">$66</td></tr>
+            <tr><td>N305 Mini PC + 4 HDDs</td><td>~30W</td><td class="price">$84</td><td class="price">$74</td><td class="price">$110</td></tr>
+            <tr><td><strong>i3-12100 Tower + 6 HDDs (spun down)</strong></td><td><strong>~40W</strong></td><td class="price"><strong>$112</strong></td><td class="price"><strong>$98</strong></td><td class="price"><strong>$147</strong></td></tr>
+            <tr><td>i3-12100 Tower + 6 HDDs (active)</td><td>~70W</td><td class="price">$196</td><td class="price">$172</td><td class="price">$258</td></tr>
+            <tr><td>i5-12500 Tower + 8 HDDs</td><td>~90W</td><td class="price">$252</td><td class="price">$221</td><td class="price">$331</td></tr>
+            <tr><td>Old Dell R720 Rack Server</td><td>~165W</td><td class="price">$461</td><td class="price">$403</td><td class="price">$605</td></tr>
+            <tr><td>Old Dual Xeon Workstation</td><td>~200W</td><td class="price">$560</td><td class="price">$490</td><td class="price">$735</td></tr>
+        </tbody>
+    </table>
+    <div class="callout warning">
+        <strong>⚠️ The Power Math:</strong> An old Dell R720 costs ~$460/year to run vs. ~$112/year for an i3-12100 build. That's a <strong>$348/year difference</strong> — enough to pay for the i3 build's hardware in under 3 years. In SA, the payback is under 2 years. Old servers are a false economy for 24/7 home use.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Drive Power Consumption</h3>
+    <table>
+        <thead><tr><th>Drive Type</th><th>Active</th><th>Idle / Spun Down</th></tr></thead>
+        <tbody>
+            <tr><td>3.5" HDD (7200 RPM)</td><td>5–9W</td><td>0.5–1.5W</td></tr>
+            <tr><td>2.5" SATA SSD</td><td>1–3W</td><td>~0.5W</td></tr>
+            <tr><td>M.2 NVMe SSD</td><td>2–8W</td><td>0.5–1W</td></tr>
+        </tbody>
+    </table>
+    <p>Spin-down (e.g., Unraid's disk spin-down after 15–30 min idle) saves ~6–8W per drive. With 6 drives spun down overnight for 10 hours, that saves ~$100–150 AUD/year at NSW rates.</p>
+</div>
+
+<!-- STORAGE -->
+<h2 id="storage">8. Storage Strategy</h2>
+
+<div class="card">
+    <h3>Internal vs External vs NAS</h3>
+    <table>
+        <thead><tr><th>Approach</th><th>Best For</th><th>Pros</th><th>Cons</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Internal HDDs</strong></td><td>DIY tower builds</td><td>Fastest, most reliable, one box</td><td>Limited by case bays &amp; SATA ports</td></tr>
+            <tr><td><strong>External USB HDDs</strong></td><td>Mini PC builds</td><td>Cheap, easy, hot-swappable</td><td>Messy, USB bottlenecks, less reliable</td></tr>
+            <tr><td><strong>Dedicated NAS</strong></td><td>Separation of compute &amp; storage</td><td>Purpose-built, can serve multiple devices</td><td>Extra cost, extra power, network dependency</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Recommended HDDs for NAS Use</h3>
+    <ul>
+        <li><strong>Seagate IronWolf / IronWolf Pro</strong> — Designed for 24/7 NAS use, 7200 RPM. ~$29–$31/TB in Australia (e.g., 12TB IronWolf Pro ~$368 from MSY).</li>
+        <li><strong>Western Digital Red Plus</strong> — CMR (not SMR) versions only. Avoid standard WD Red (SMR) for RAID.</li>
+        <li><strong>Seagate Exos</strong> — Enterprise-grade, often good value when on sale. Slightly louder.</li>
+        <li><strong>"Shucking"</strong> — Buying external USB drives and removing the internal HDD can save 30–50%. Common in Australia with WD Elements/Easystore. Caveat: warranty voided, may need 3.3V pin mod.</li>
+    </ul>
+</div>
+
+<!-- SOFTWARE -->
+<h2 id="software">9. Operating System &amp; Software Stack</h2>
+
+<div class="card">
+    <h3>OS Options at a Glance</h3>
+    <table>
+        <thead><tr><th>OS</th><th>Best For</th><th>Pros</th><th>Cons</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Unraid</strong></td><td>Mixed-size drives, Docker focus</td><td>Easy UI, parity without matching drives, huge community</td><td>Paid license (~$89–$179 AUD), USB boot</td></tr>
+            <tr><td><strong>TrueNAS Scale</strong></td><td>ZFS enthusiasts, data integrity</td><td>Free, ZFS, excellent data protection</td><td>All drives should match, needs lots of RAM (1GB/TB rule of thumb)</td></tr>
+            <tr><td><strong>Proxmox VE</strong></td><td>Virtualisation + containers</td><td>Free, full VM + LXC support, ZFS</td><td>Steeper learning curve, overkill for simple NAS</td></tr>
+            <tr><td><strong>Ubuntu Server / Debian</strong></td><td>Minimalist, full control</td><td>Free, lightweight, Docker-first</td><td>CLI management, no web UI by default</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Recommendation:</strong> If you're comfortable with Linux, Ubuntu Server + Docker Compose gives the leanest, most power-efficient setup. If you want a friendly web UI and easy drive management, <strong>Unraid</strong> is the Australian community favourite for Plex/NAS combos.</p>
+</div>
+
+<!-- BEYOND PLEX -->
+<h2 id="beyond-plex">10. Beyond Plex: Services You Can Add</h2>
+
+<div class="card">
+    <p>One of the key reasons to DIY is flexibility. Here's what the community commonly runs alongside Plex on the same server:</p>
+    <div class="grid-3">
+        <div>
+            <h4>🌐 Network &amp; DNS</h4>
+            <ul>
+                <li>Pi-hole / AdGuard Home (ad blocking)</li>
+                <li>Unbound (recursive DNS)</li>
+                <li>WireGuard / Tailscale (VPN)</li>
+                <li>Nginx Proxy Manager</li>
+                <li>OPNsense (firewall)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>📁 Storage &amp; Cloud</h4>
+            <ul>
+                <li>Nextcloud (self-hosted Dropbox)</li>
+                <li>Immich (self-hosted Google Photos)</li>
+                <li>Syncthing (file sync)</li>
+                <li>Vaultwarden (password manager)</li>
+                <li>Samba / NFS shares</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🎬 Media Automation</h4>
+            <ul>
+                <li>Sonarr (TV shows)</li>
+                <li>Radarr (movies)</li>
+                <li>Prowlarr / Jackett (indexers)</li>
+                <li>qBittorrent / Transmission</li>
+                <li>Bazarr (subtitles)</li>
+                <li>Tdarr (media optimisation)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🏠 Home Automation</h4>
+            <ul>
+                <li>Home Assistant</li>
+                <li>Frigate NVR (security cameras)</li>
+                <li>Mosquitto MQTT</li>
+                <li>Zigbee2MQTT</li>
+            </ul>
+        </div>
+        <div>
+            <h4>📊 Monitoring</h4>
+            <ul>
+                <li>Uptime Kuma</li>
+                <li>Grafana + Prometheus</li>
+                <li>Portainer / Dockge</li>
+                <li>Heimdall / Homepage (dashboard)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🤖 Other</h4>
+            <ul>
+                <li>Paperless-ngx (document management)</li>
+                <li>Gitea / Forgejo (git server)</li>
+                <li>Mealie (recipe manager)</li>
+                <li>Game servers (Minecraft, etc.)</li>
+            </ul>
+        </div>
+    </div>
+    <p style="margin-top:1rem;">All of the above can run simultaneously on an i3-12100 with 32GB RAM at 10–20% CPU usage and ~8GB RAM used — that's how efficient modern hardware is with Docker containers.</p>
+</div>
+
+<!-- WHAT YOU MIGHT HAVE MISSED -->
+<h2 id="what-you-might-miss">11. What You Might Have Missed</h2>
+
+<div class="card">
+    <h3>🔌 Power Supply Efficiency at Low Loads</h3>
+    <p>Most ATX PSUs are <strong>designed for gaming PCs</strong> and operate poorly at the very low loads a home server typically draws (10–50W). A 750W PSU at 3% load may only be 50–60% efficient — meaning your system draws 30W at the wall but only 15–18W reaches the components. Solutions:</p>
+    <ul>
+        <li>Use a <strong>PicoPSU</strong> (DC-DC) with an external power brick — ~90% efficient at low loads</li>
+        <li>Choose an <strong>80+ Platinum or Titanium</strong> rated PSU (tested down to 10% load)</li>
+        <li>The <strong>be quiet! Pure Power 12 M</strong> series specifies efficiency down to 2% load</li>
+        <li>Size your PSU appropriately — 450W is plenty for a server without a GPU</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🌡️ HDD Cooling Matters</h3>
+    <p>6 drives packed tightly in a Node 304 can hit 45–50°C under sustained load — shortening drive lifespan. Ensure good airflow: intake fans in front, exhaust in rear. Keep drives below 40°C for longevity. The Node 304's 3 included fans + a rear exhaust fan does this well.</p>
+</div>
+
+<div class="card">
+    <h3>📡 Remote Access &amp; Security</h3>
+    <p>Don't port-forward Plex directly. Use <strong>Tailscale</strong> (free for personal use) or <strong>WireGuard VPN</strong> for secure remote access. If you must expose Plex publicly, use a reverse proxy (Nginx Proxy Manager + Let's Encrypt) and enable 2FA on your Plex account.</p>
+</div>
+
+<div class="card">
+    <h3>🔋 UPS (Uninterruptible Power Supply)</h3>
+    <p>For a server running 24/7, a UPS protects against power surges and gives clean shutdown time. A basic 650VA UPS costs ~$100–$150 AUD. Connect via USB and configure automatic shutdown in Unraid/TrueNAS when battery is low.</p>
+</div>
+
+<div class="card">
+    <h3>🔄 Backup Strategy</h3>
+    <p>RAID/parity is <strong>not backup</strong>. Follow the 3-2-1 rule: 3 copies, 2 different media, 1 offsite. For media that can be re-downloaded, this may be overkill — but for personal documents, photos, and configs, use cloud backup (Backblaze B2, ~$6/TB/month) or an external drive rotated offsite.</p>
+</div>
+
+<!-- COST SUMMARY TABLE -->
+<h2>12. Total Cost of Ownership Summary</h2>
+
+<div class="card">
+    <table>
+        <thead><tr><th>Build Tier</th><th>Upfront Cost</th><th>Annual Power (NSW)</th><th>3-Year TCO (NSW)</th><th>3-Year TCO (SA)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>N100 Mini PC + 2 Ext HDDs</strong></td><td class="price">~$600</td><td class="price">~$50</td><td class="price">~$750</td><td class="price">~$800</td></tr>
+            <tr><td><strong>i3-12100 Node 304 + 4 HDDs</strong></td><td class="price">~$1,700</td><td class="price">~$130</td><td class="price">~$2,090</td><td class="price">~$2,270</td></tr>
+            <tr><td><strong>i5-12500 Tower + 8 HDDs</strong></td><td class="price">~$2,600</td><td class="price">~$200</td><td class="price">~$3,200</td><td class="price">~$3,500</td></tr>
+            <tr><td>Old Dell R720 (for comparison)</td><td class="price">~$900</td><td class="price">~$460</td><td class="price" style="color:var(--red)">~$2,280</td><td class="price" style="color:var(--red)">~$2,800</td></tr>
+        </tbody>
+    </table>
+    <p><em>Includes estimate: case, PSU, storage HDDs at ~$30/TB, Plex Pass lifetime on sale. The N100 + i3-12100 build both beat old enterprise gear on 3-year TCO while being silent, compact, and more capable for transcoding.</em></p>
+</div>
+
+<!-- SOURCES -->
+<h2 id="sources">13. Sources &amp; References</h2>
+
+<div class="card">
+    <ul>
+        <li><a href="https://techno-tim.github.io/posts/plex-build-low-power-server/" target="_blank" rel="noopener">Techno Tim — Building a Low-Power, Fully Loaded Plex Server</a> (Sept 2024) — 16W Mini-ITX build with i3-14100</li>
+        <li><a href="https://www.danielketel.com/easily-build-an-awesome-fast-and-efficient-home-server-in-the-year-2024-part-1/" target="_blank" rel="noopener">Daniel Ketel — Build a Fast and Efficient Home Server in 2024</a> (Apr 2024) — i3-12100 + Node 304, sub-10W idle</li>
+        <li><a href="https://selfhosting.sh/hardware/plex-transcoding-hardware/" target="_blank" rel="noopener">selfhosting.sh — Best Hardware for Plex Transcoding</a> (Mar 2026) — Comprehensive transcoding benchmarks</li>
+        <li><a href="https://selfhosting.sh/hardware/intel-n100-mini-pc/" target="_blank" rel="noopener">selfhosting.sh — Intel N100 Mini PC: The Self-Hoster's Best Friend</a> (Mar 2026) — N100 power data and self-hosting guide</li>
+        <li><a href="https://support.plex.tv/articles/201774043-what-kind-of-cpu-do-i-need-for-my-server/" target="_blank" rel="noopener">Plex Support — CPU Requirements for Plex Media Server</a> — Official transcoding guidelines</li>
+        <li><a href="https://www.plexopedia.com/plex-media-server/general/best-cpu/" target="_blank" rel="noopener">Plexopedia — Best CPU for Plex</a> (Nov 2025) — CPU recommendations by use case</li>
+        <li><a href="https://needtoknowit.com.au/blog/homelab-server-power-consumption-australia/" target="_blank" rel="noopener">Need to Know IT — Homelab Server Power Consumption in Australia</a> (Apr 2026) — AU-specific power cost analysis</li>
+        <li><a href="https://www.intuitivecalc.com/electricity-bill/" target="_blank" rel="noopener">IntuitiveCalc — Electricity Bill Calculator Australia 2025</a> — State-by-state electricity rates</li>
+        <li><a href="https://www.ozbargain.com.au/node/779558" target="_blank" rel="noopener">OzBargain — Building a Plex/Homelab Server</a> (2023) — Australian community build discussion with pricing</li>
+        <li><a href="https://au.pcpartpicker.com/b/7W3Zxr" target="_blank" rel="noopener">PCPartPicker AU — All-in-One Home Server by danionita</a> — i5-12500 + Node 304 build at AU prices</li>
+        <li><a href="https://www.pcbuildadvisor.com/is-n100-good-enough-for-4k-streaming/" target="_blank" rel="noopener">PC Build Advisor — Is N100 Good Enough for 4K Streaming?</a> (Jan 2026) — N100 streaming/transcoding deep dive</li>
+        <li><a href="https://www.miniitxboard.com/blog/mini-itx-board-power-consumption-comparison/" target="_blank" rel="noopener">MiniITXBoard — Mini-ITX Power Consumption Comparison</a> (Aug 2025) — CPU and PSU efficiency data</li>
+        <li><a href="https://support.plex.tv/articles/200375666-plex-media-server-requirements/" target="_blank" rel="noopener">Plex Support — Plex Media Server Requirements</a> — Official minimum/recommended specs</li>
+    </ul>
+    <p style="margin-top:1rem; font-size:0.85rem; color: var(--text-secondary);"><em>Prices are approximate and sourced from Australian retailers (Scorptec, PLE Computers, Centre Com, Skycomp, MSY, Amazon AU, eBay AU) as of early 2026. Prices fluctuate — always check current pricing before purchasing.</em></p>
+</div>
+
+</div>
+</body>
+</html>
