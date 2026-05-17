@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS1 Hidden Gems — RPG, Puzzle & Beyond</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #f78166;
+            --green: #3fb950;
+            --purple: #bc8cff;
+            --gold: #d2991d;
+            --red: #f85149;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 3rem;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            color: var(--text2);
+            font-size: 1.15rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin: 3rem 0 1.5rem;
+        }
+        h3 {
+            font-size: 1.35rem;
+            color: var(--purple);
+            margin: 2rem 0 0.75rem;
+        }
+        h4 {
+            font-size: 1.15rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .game-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .game-card:hover {
+            border-color: var(--accent);
+        }
+        .game-card .title-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .game-card .title-row strong {
+            font-size: 1.25rem;
+            color: #fff;
+        }
+        .game-card .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .badge {
+            font-size: 0.78rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: 20px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .badge-dev { background: #1f3a5f; color: #79c0ff; }
+        .badge-year { background: #2d1f3a; color: #bc8cff; }
+        .badge-genre { background: #1f3520; color: #7ee787; }
+        .badge-score { background: #3a2810; color: #e3b341; }
+
+        .why-play {
+            background: var(--surface2);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text2);
+            border-left: 3px solid var(--green);
+        }
+        .why-play::before {
+            content: "💎 Why It's a Hidden Gem: ";
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+
+        ul { padding-left: 1.5rem; margin: 1rem 0; }
+        li { margin-bottom: 0.5rem; color: var(--text2); }
+        li strong { color: var(--text); }
+
+        .pro-tips {
+            background: var(--surface);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 1.5rem 1.8rem;
+            margin: 2rem 0;
+        }
+        .pro-tips h3 { color: var(--gold); margin-top: 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { color: var(--accent); font-weight: 700; background: var(--surface2); }
+        tr:hover td { background: var(--surface2); }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .toc ol { margin: 0.5rem 0 0; }
+        .toc a { color: var(--accent); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: var(--text2);
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--accent); }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            header h1 { font-size: 2rem; }
+            .game-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎮 PS1 Hidden Gems</h1>
+    <p>A curated guide to the most underrated RPGs, puzzle games, and beyond — for the discerning retro gamer</p>
+</header>
+
+<div class="toc">
+    <strong style="color: var(--accent); font-size: 1.1rem;">📋 Table of Contents</strong>
+    <ol>
+        <li><a href="#rpgs">RPG Hidden Gems (JRPGs, Action RPGs, Tactical RPGs)</a></li>
+        <li><a href="#puzzles">Puzzle Game Hidden Gems</a></li>
+        <li><a href="#other">Other Genre Hidden Gems Worth Your Time</a></li>
+        <li><a href="#tips">Tips for Collecting & Playing</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ol>
+</div>
+
+<!-- ──────────────── RPGs ──────────────── -->
+<h2 id="rpgs">⚔️ RPG Hidden Gems</h2>
+<p>The PS1 was a golden era for RPGs. While <em>Final Fantasy VII</em>, <em>Chrono Trigger</em>, and <em>Xenogears</em> dominated headlines, dozens of incredible RPGs flew under the radar. Here are the ones you need to know.</p>
+
+<!-- Koudelka -->
+<div class="game-card">
+    <div class="title-row"><strong>Koudelka</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Sacnoth (SNK)</span>
+        <span class="badge badge-genre">Horror JRPG</span>
+    </div>
+    <p>A one-of-a-kind blend of <strong>survival horror and turn-based RPG</strong>, set in 1898 Wales. You control Koudelka Iasant, a Romani psychic investigating the haunted Nemeton Monastery. The game features grid-based tactical combat, weapon degradation that adds tension, and three distinct endings based on your choices. The pre-rendered backgrounds and haunting sound design create an atmosphere that's part <em>Resident Evil</em>, part <em>Final Fantasy</em>.</p>
+    <p>This is the <strong>spiritual predecessor to the Shadow Hearts series</strong> on PS2 — if you loved those games, Koudelka is essential.</p>
+    <div class="why-play">A horror-JRPG hybrid years ahead of its time. Deeply atmospheric with multiple endings and a genuinely creepy ghost story. The combat takes getting used to, but the world-building is extraordinary.</div>
+</div>
+
+<!-- Vagrant Story -->
+<div class="game-card">
+    <div class="title-row"><strong>Vagrant Story</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">Square (Yasumi Matsuno)</span>
+        <span class="badge badge-genre">Action RPG / Dungeon Crawler</span>
+        <span class="badge badge-score">Metacritic: 92</span>
+    </div>
+    <p>Directed by Yasumi Matsuno (the mind behind <em>Final Fantasy Tactics</em> and <em>Final Fantasy XII</em>), Vagrant Story is arguably Square's most sophisticated PS1 title. You play as Ashley Riot, a "Riskbreaker" agent sent to investigate a cult leader in the cursed city of Leá Monde. The game features:</p>
+    <ul>
+        <li><strong>Revolutionary combat</strong> — real-time but pausable, where you target specific enemy body parts</li>
+        <li><strong>Deep weapon crafting</strong> — disassemble and forge weapons with affinities against different monster classes (Undead, Beast, Dragon, Phantom, etc.)</li>
+        <li><strong>A complex, Shakespearean story</strong> of politics, religion, and self-deception</li>
+        <li><strong>No shops or NPCs</strong> — pure dungeon-crawling focus with puzzle-box rooms</li>
+    </ul>
+    <div class="why-play">One of the highest-rated PS1 games ever (GameSpot 9.6/10), yet commercially overlooked. The weapon customization system is still unmatched in depth. Set in Ivalice — the same world as FFXII and FF Tactics.</div>
+</div>
+
+<!-- Legend of Legaia -->
+<div class="game-card">
+    <div class="title-row"><strong>Legend of Legaia</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Prokion / Sony</span>
+        <span class="badge badge-genre">Turn-Based JRPG</span>
+    </div>
+    <p>A cult classic JRPG with a <strong>unique "Tactical Arts" combat system</strong> where you input directional combos (high, low, left, right) to execute martial-arts-style attacks. Follow Vahn and his companions across a world consumed by a mysterious "Mist" that turns creatures into monsters. The game features a remarkable soundtrack and a story rooted in classical heroism.</p>
+    <div class="why-play">Released the same week as <em>EverQuest</em> and <em>Pokémon Snap</em>, it was tragically buried. The combat system is genuinely innovative and satisfying. A true "RPG fan's RPG" that has only grown in reputation.</div>
+</div>
+
+<!-- Alundra -->
+<div class="game-card">
+    <div class="title-row"><strong>Alundra</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">Matrix Software</span>
+        <span class="badge badge-genre">Action RPG / Zelda-like</span>
+    </div>
+    <p>Often described as <strong>"what if Zelda but darker and harder."</strong> You play as Alundra, a boy who can enter people's dreams. The game stayed in beautiful 2D when everyone else went 3D — and it paid off. The sprite work is some of the finest on the system, and the dungeons are <em>brutally</em> challenging puzzle boxes. The story explores surprisingly mature themes of religion and existentialism.</p>
+    <div class="why-play">One of the best 2D action-adventure games on PS1. Challenging puzzles and tight combat. A hidden gem from Working Designs' localization catalog.</div>
+</div>
+
+<!-- Thousand Arms -->
+<div class="game-card">
+    <div class="title-row"><strong>Thousand Arms</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Red Company / Atlus</span>
+        <span class="badge badge-genre">JRPG + Dating Sim</span>
+    </div>
+    <p>A bizarre and wonderful hybrid — a turn-based JRPG where <strong>going on dates powers up your weapons</strong>. The protagonist Meis is a woman-obsessed blacksmith who literally needs the power of love to imbue his blades. The dating-sim elements are played for laughs, the anime sprite work is gorgeous, and the combat animations get flashier the more successful your dates are. Published by Atlus — you can see the seeds of what would become the <em>Persona</em> Social Link system.</p>
+    <div class="why-play">Absolutely unique even today. The dating mechanics directly tie into combat progression. Laid groundwork for Persona's Social Links. Great humor and a fantastic soundtrack.</div>
+</div>
+
+<!-- Brave Fencer Musashi -->
+<div class="game-card">
+    <div class="title-row"><strong>Brave Fencer Musashi</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Square</span>
+        <span class="badge badge-genre">Action RPG</span>
+    </div>
+    <p>Square flexing their non-Final Fantasy muscles. A colorful action RPG where you play as a pint-sized hero summoned to save the Allucaneet Kingdom. Features <strong>real-time combat, voice acting (rare for the era), a day-night cycle,</strong> and the ability to "assimilate" enemy abilities. The humor is wonderfully offbeat — character names include "Flatski" and "Gingerelle."</p>
+    <div class="why-play">A charming Zelda-like from Square at their most experimental. Voice acting, day-night cycles, and ability-stealing were all forward-thinking. Pure 90s Square charm.</div>
+</div>
+
+<!-- Jade Cocoon -->
+<div class="game-card">
+    <div class="title-row"><strong>Jade Cocoon: Story of the Tamamayu</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Genki</span>
+        <span class="badge badge-genre">Monster-Taming RPG</span>
+    </div>
+    <p>Think <strong>"adult Pokémon"</strong> with stunning Studio Ghibli-adjacent visuals. Art direction by Katsuya Kondo of <em>Kiki's Delivery Service</em> fame. You capture and purify "Minions," then <strong>breed and fuse them</strong> to create new creatures. The monster fusion system is surprisingly deep, and the game's darker storytelling sets it apart from its cutesier competitors.</p>
+    <div class="why-play">Gorgeous Ghibli-esque visuals. Deep monster breeding/fusion mechanics. A darker, more mature take on the monster-collecting formula that was overlooked during the Pokémon craze.</div>
+</div>
+
+<!-- Vandal Hearts -->
+<div class="game-card">
+    <div class="title-row"><strong>Vandal Hearts</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">Konami</span>
+        <span class="badge badge-genre">Tactical RPG</span>
+    </div>
+    <p>One of the first tactical RPGs to truly shine on PS1. <strong>Grid-based combat with spectacular (and bloody) attack animations</strong> that still impress today. The story follows Ash Lambert and his squad uncovering a conspiracy. The game features strong verticality in its maps and a class-upgrade system. Short but sweet — about 20 hours — and the combat is satisfyingly chunky.</p>
+    <div class="why-play">Konami's answer to <em>Final Fantasy Tactics</em>. Brutally satisfying combat animations. A tight, focused TRPG that doesn't overstay its welcome. Great entry point into the genre.</div>
+</div>
+
+<!-- Azure Dreams -->
+<div class="game-card">
+    <div class="title-row"><strong>Azure Dreams</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Konami</span>
+        <span class="badge badge-genre">Roguelike RPG / Monster Taming</span>
+    </div>
+    <p>A <strong>roguelike before roguelikes were cool.</strong> You explore a massive, randomly generated tower, taming familiars to fight alongside you. When you leave, you go back to floor 1 — but you keep your monsters. Between runs, you can upgrade the town, pursue romantic interests, and breed your familiars. The risk-reward loop is addictive.</p>
+    <div class="why-play">Incredibly ahead of its time with roguelike + monster-taming + town-building mechanics. Addictive gameplay loop. The tower resets but your familiars and town upgrades persist.</div>
+</div>
+
+<!-- Kartia: The Word of Fate -->
+<div class="game-card">
+    <div class="title-row"><strong>Kartia: The Word of Fate</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Atlus</span>
+        <span class="badge badge-genre">Tactical RPG</span>
+    </div>
+    <p>An early Atlus tactical RPG with <strong>two distinct campaigns</strong> — play as either Aht (leading a rebellion) or Rie (defending the established order). Both perspectives tell different sides of the same brewing conflict. The branching story encourages multiple playthroughs, and the art by Yoshitaka Amano (of Final Fantasy fame) is stunning.</p>
+    <div class="why-play">Dual-campaign structure with branching paths. Amano character art. Deep tactical gameplay from Atlus before they became a household name.</div>
+</div>
+
+<!-- Saiyuki: Journey West -->
+<div class="game-card">
+    <div class="title-row"><strong>Saiyuki: Journey West</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Koei</span>
+        <span class="badge badge-genre">Tactical RPG</span>
+    </div>
+    <p>An adaptation of the classic <em>Journey to the West</em> story, told through a <strong>tightly crafted strategy JRPG</strong>. Gorgeous late-era PS1 2D visuals, explosive spell effects, and character transformations. From the makers of <em>Dynasty Warriors</em>, but far more focused on tactical depth.</p>
+    <div class="why-play">Beautifully presented tactical RPG. A fresh take on a classic tale. Overlooked compared to <em>Final Fantasy Tactics</em> and <em>Tactics Ogre</em>, but equally deserving of attention.</div>
+</div>
+
+<!-- Wild Arms 2 -->
+<div class="game-card">
+    <div class="title-row"><strong>Wild Arms 2</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">Media.Vision</span>
+        <span class="badge badge-genre">Turn-Based JRPG</span>
+    </div>
+    <p>A <strong>Wild West-meets-fantasy-meets-sci-fi</strong> mashup that shouldn't work but absolutely does. Set in the world of Filgaia, a team called ARMS battles the terrorist group Odessa. The sequel features an entirely new cast, a wonderful score, and one of the most unique settings in JRPG history. Released just as the PS2 was about to launch, it got lost in the transition.</p>
+    <div class="why-play">The Wild West + sci-fi + fantasy aesthetic is unmatched. Fantastic soundtrack. A worthy sequel that tragically arrived at the very end of the PS1's lifecycle.</div>
+</div>
+
+<!-- Threads of Fate -->
+<div class="game-card">
+    <div class="title-row"><strong>Threads of Fate</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">Square</span>
+        <span class="badge badge-genre">Action RPG</span>
+    </div>
+    <p>One of the few <strong>fully 3D RPGs</strong> on PS1 (most used pre-rendered backgrounds). You choose between two protagonists — the cheerful Mint or the brooding Rue — each with their own story and playstyle. The gameplay blends platforming, action combat, and a surprisingly emotional story about grief and letting go. Released just three months before the PS2, it was swept away by next-gen hype.</p>
+    <div class="why-play">Two distinct playable characters with different stories. Fully 3D world (rare for PS1 RPGs). Square's most platforming-heavy RPG. Endearing art style and tight gameplay.</div>
+</div>
+
+<!-- Brigandine -->
+<div class="game-card">
+    <div class="title-row"><strong>Brigandine: Legend of Forsena</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Hearty Robin / Atlus</span>
+        <span class="badge badge-genre">Grand Strategy RPG</span>
+    </div>
+    <p>A <strong>grand strategy RPG</strong> with six playable factions, monster evolution, and massive army battles. Think <em>Fire Emblem</em> meets <em>Risk</em>. Each campaign offers a different perspective on a continent-spanning war. Monsters can evolve into stronger forms, and the 3D battle animations are impressive for the era. Has a devoted cult following.</p>
+    <div class="why-play">Six different campaigns. Monster evolution system. Grand-scale warfare rare for the PS1. Recently received a modern sequel, proving its legacy.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ──────────────── PUZZLE GAMES ──────────────── -->
+<h2 id="puzzles">🧩 Puzzle Game Hidden Gems</h2>
+<p>Beyond <em>Tetris</em> and <em>Bust-a-Move</em>, the PS1 hosted some of the most inventive and overlooked puzzle games ever made.</p>
+
+<!-- I.Q.: Intelligent Qube / Kurushi -->
+<div class="game-card">
+    <div class="title-row"><strong>I.Q.: Intelligent Qube</strong> <span style="color:var(--text2)">(aka Kurushi in Europe)</span></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">G-Artists / Sony</span>
+        <span class="badge badge-genre">Action Puzzle</span>
+    </div>
+    <p>The <strong>best-selling puzzle game on PS1</strong> and still one of the most unique. Waves of cubes roll toward you on a floating platform. You must capture them by marking and activating squares beneath them before they crush you or roll off the edge. Green cubes trigger 3×3 area clears. <em>Never</em> capture the black cubes — they remove rows from the stage. The booming announcer voice ("PERFECT!"), creepy soundtrack, and relentless tension make it feel almost like a horror game.</p>
+    <p>Designed by a Tokyo University of the Arts professor. Won an Excellence Award at the 1997 Japan Media Arts Festival. Included on the PlayStation Classic mini console.</p>
+    <div class="why-play">Absolutely one-of-a-kind. Deceptively simple rules, brutally challenging execution. The oppressive atmosphere makes it feel like a puzzle-horror hybrid. Available on PS Plus Premium today.</div>
+</div>
+
+<!-- Devil Dice -->
+<div class="game-card">
+    <div class="title-row"><strong>Devil Dice</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Shift / Sony</span>
+        <span class="badge badge-genre">Puzzle</span>
+    </div>
+    <p>You control a little devil who runs on top of giant dice, rolling them around to match adjacent dice with the same number facing up. The trick: <strong>opposite sides of a die always add up to seven</strong>, so you must think several moves ahead. Later stages introduce dice made of different materials that roll differently. Sold over a million copies and features excellent multiplayer.</p>
+    <div class="why-play">Critically acclaimed and a million-seller, yet rarely discussed today. Genuinely educational — you'll learn dice geometry fast. Fantastic multiplayer mode.</div>
+</div>
+
+<!-- No One Can Stop Mr. Domino -->
+<div class="game-card">
+    <div class="title-row"><strong>No One Can Stop Mr. Domino</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Artdink</span>
+        <span class="badge badge-genre">Rhythm Puzzle</span>
+    </div>
+    <p>One of the weirdest and most delightful games on the entire system. You play as a domino-man running through looping scenes (a casino, a kitchen, etc.), <strong>strategically placing dominoes so they trigger chain reactions</strong> that hit buttons and activate events in the environment. Each level reveals increasingly absurd outcomes — from knocking over noodles to blowing up a kitchen. There's nothing else quite like it.</p>
+    <div class="why-play">Pure, uncut Japanese weirdness. Deceptively strategic — each level is a puzzle box. The chain-reaction domino mechanic is incredibly satisfying. A truly one-of-a-kind experience.</div>
+</div>
+
+<!-- Kula World -->
+<div class="game-card">
+    <div class="title-row"><strong>Kula World</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">Game Design Sweden AB</span>
+        <span class="badge badge-genre">3D Puzzle Platformer</span>
+    </div>
+    <p>You control a beach ball navigating floating 3D platforms, collecting coins, fruit, and keys to unlock the exit. The ball can attach to any surface, so "gravity" is relative. Starts simple, but the later levels are <strong>genuinely brain-bending</strong> with bouncing platforms, teleporters, and multi-layered puzzles. The progenitor of countless mobile puzzle games that followed.</p>
+    <div class="why-play">Ahead-of-its-time 3D puzzle design. The rotating-world mechanic inspired dozens of later games. Easy to pick up, increasingly mind-bending. Great Sunday afternoon game.</div>
+</div>
+
+<!-- Rupupu Cube: Lup Salad -->
+<div class="game-card">
+    <div class="title-row"><strong>Rupupu Cube: Lup Salad</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1996 (JP), 2012 (PSN Import)</span>
+        <span class="badge badge-dev">Funpac / Datam Polystar</span>
+        <span class="badge badge-genre">Puzzle Platformer</span>
+    </div>
+    <p>A <strong>Japan-exclusive hidden treasure</strong> — part puzzle platformer, part match-three. You control Salad, a rambunctious blonde girl, through 100 stages across 10 themed worlds. The puzzles are <strong>push-only</strong>: you can only interact with blocks on your left or right. Push the wrong block and a stack can crush you. The cutesy aesthetic hides some of the most challenging puzzle design on the system.</p>
+    <div class="why-play">100 stages of escalating difficulty. Deceptively adorable — the puzzles are brutal. Never released physically outside Japan. A must-play for hardcore puzzle fans.</div>
+</div>
+
+<!-- Money Idol Exchanger -->
+<div class="game-card">
+    <div class="title-row"><strong>Money Idol Exchanger</strong> <span style="color:var(--text2)">(aka Money Puzzle Exchanger)</span></div>
+    <div class="meta">
+        <span class="badge badge-year">1997 (Arcade) / PS1</span>
+        <span class="badge badge-dev">Face</span>
+        <span class="badge badge-genre">Arcade Puzzle</span>
+    </div>
+    <p>A <strong>Magical Drop-style arcade puzzler</strong> where you combine coins of increasing value — match five ¥1 coins to make a ¥5, match two ¥5 coins to make a ¥10, and so on. Fast-paced and incredibly addictive. Never released in North America on PS1, but later made available as a Neo Geo ACA title.</p>
+    <div class="why-play">Frantic arcade puzzle action. The coin-denomination mechanic is genius. A cult favorite among competitive puzzle game fans.</div>
+</div>
+
+<!-- One Piece Mansion -->
+<div class="game-card">
+    <div class="title-row"><strong>One Piece Mansion</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2001</span>
+        <span class="badge badge-dev">Capcom</span>
+        <span class="badge badge-genre">Stress Management Puzzle</span>
+    </div>
+    <p>A <strong>stress-management puzzle game</strong> from Capcom (no relation to the anime). You build apartment complexes and must manage tenants' stress levels — balancing noisy neighbors, criminal break-ins, fires, and personality clashes. Finding the perfect balance to keep everyone happy is surprisingly challenging and addictive.</p>
+    <div class="why-play">A truly unique concept. Requires both strategic building and people management. A Capcom oddity that only the PS1 era could produce.</div>
+</div>
+
+<!-- Cleopatra's Fortune -->
+<div class="game-card">
+    <div class="title-row"><strong>Cleopatra's Fortune</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">Taito</span>
+        <span class="badge badge-genre">Arcade Puzzle</span>
+    </div>
+    <p>Entomb jewels and sarcophaguses in falling blocks to make them collapse and score big. A clever <strong>balance between trapping treasures and clearing lines</strong>. The Egyptian theme and catchy music make it stand out from other falling-block puzzlers.</p>
+    <div class="why-play">Unique entombing mechanic. Classic Taito arcade polish. A hidden gem among falling-block puzzle games.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ──────────────── OTHER GENRES ──────────────── -->
+<h2 id="other">🎲 Other Genre Hidden Gems Worth Your Time</h2>
+<p>Since you're open to all genres, here are some extraordinary hidden gems that span action, platformers, shooters, and more.</p>
+
+<!-- Silent Bomber -->
+<div class="game-card">
+    <div class="title-row"><strong>Silent Bomber</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">CyberConnect</span>
+        <span class="badge badge-genre">Top-Down Action</span>
+    </div>
+    <p>You don't shoot. You <strong>plant, attach, and detonate bombs</strong> in a fast-paced top-down action frenzy. Play as Jutah Fate, laying explosive chain reactions to wipe out waves of enemies. The action is fast, stylish, and unlike any other PS1 game. Anime-style cutscenes and a surprisingly dark story round out the package.</p>
+    <div class="why-play">Completely unique combat system — only bombs. Fast-paced and stylish. A cult classic that action game fans swear by.</div>
+</div>
+
+<!-- TOMBA! -->
+<div class="game-card">
+    <div class="title-row"><strong>TOMBA!</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">Whoopee Camp (Tokuro Fujiwara)</span>
+        <span class="badge badge-genre">2.5D Action Platformer / Metroidvania</span>
+    </div>
+    <p>From the creator of <em>Ghosts 'n Goblins</em> comes a quirky, non-linear platformer with <strong>light Metroidvania elements</strong>. You play as Tomba, a pink-haired feral child on a quest to defeat the Seven Evil Pigs. The 2.5D perspective lets you jump between foreground and background planes. The game is filled with bizarre quests, farting plants, and a surprising amount of depth.</p>
+    <div class="why-play">Created by Capcom legend Tokuro Fujiwara. Non-linear exploration with RPG progression. Pure Japanese quirkiness. Recently re-released by Limited Run Games.</div>
+</div>
+
+<!-- Einhänder -->
+<div class="game-card">
+    <div class="title-row"><strong>Einhänder</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1997</span>
+        <span class="badge badge-dev">Square</span>
+        <span class="badge badge-genre">Shoot 'em Up (Shmup)</span>
+    </div>
+    <p>Square's <strong>one and only shmup</strong> — and it's a masterpiece. A side-scrolling shooter with incredible 3D visuals, a thumping techno soundtrack, and a unique weapon system: your ship's "Einhänder" (German for "one-handed") manipulator arm can steal enemy weapons and use them against their owners. The boss designs are spectacular. Review aggregate score of 89%.</p>
+    <div class="why-play">Square at their most experimental. Incredible presentation and boss design. The weapon-stealing mechanic is brilliant. One of the best shmups on the console — period.</div>
+</div>
+
+<!-- Vib-Ribbon -->
+<div class="game-card">
+    <div class="title-row"><strong>Vib-Ribbon</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">NanaOn-Sha</span>
+        <span class="badge badge-genre">Rhythm / Music</span>
+    </div>
+    <p>A <strong>vector-graphics rhythm game</strong> where a wireframe rabbit named Vibri runs along a line, jumping and ducking to the beat. The magic: <strong>you can put ANY music CD into the PlayStation and the game generates a custom level from it.</strong> Your entire music collection becomes playable levels. Minimalist, experimental, and utterly brilliant.</p>
+    <div class="why-play">Generates levels from your own CDs. One of the most innovative rhythm games ever. Pure creative genius. A testament to the PS1 era's willingness to get weird.</div>
+</div>
+
+<!-- Incredible Crisis -->
+<div class="game-card">
+    <div class="title-row"><strong>Incredible Crisis</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Polygon Magic</span>
+        <span class="badge badge-genre">Mini-Game Collection / Comedy</span>
+    </div>
+    <p>A Japanese family tries to get home for grandma's birthday and <strong>everything goes spectacularly wrong</strong> — this is the premise for a series of increasingly absurd mini-games set to a ska soundtrack. From escaping collapsing buildings to dodging a giant man on a unicycle, the game is pure, unfiltered chaos. Think <em>WarioWare</em> before <em>WarioWare</em> existed.</p>
+    <div class="why-play">Hilarious, bizarre, and endlessly surprising. A party game that predates <em>WarioWare</em>. The live-action FMV cutscenes are comedy gold.</div>
+</div>
+
+<!-- Omega Boost -->
+<div class="game-card">
+    <div class="title-row"><strong>Omega Boost</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Polyphony Digital (Gran Turismo team)</span>
+        <span class="badge badge-genre">3D Rail Shooter</span>
+    </div>
+    <p>From the makers of <em>Gran Turismo</em> comes a <strong>time-traveling mech rail shooter</strong> with 360° combat. You pilot a mech through space and alien landscapes, dodging, boosting, and unleashing missile barrages. The pre-rendered backgrounds and sense of scale are jaw-dropping for PS1. Features live-action FMV cutscenes with real actors.</p>
+    <div class="why-play">By the <em>Gran Turismo</em> team. Stunning visuals. High-octane mech action. A total hidden gem from a legendary developer.</div>
+</div>
+
+<!-- Fear Effect -->
+<div class="game-card">
+    <div class="title-row"><strong>Fear Effect</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">Kronos Digital / Eidos</span>
+        <span class="badge badge-genre">Survival Horror / Adventure</span>
+    </div>
+    <p>A <strong>cel-shaded survival horror</strong> with Chinese mythology influences and instant-death trial-and-error puzzles reminiscent of classic Sierra adventures. The game's visual style is striking — using cel-shading in a horror context was bold and unique. Features multiple protagonists and a gritty, mature story. Getting a modern re-release via Limited Run Games.</p>
+    <div class="why-play">Stunning cel-shaded horror aesthetic. Blends survival horror with point-and-click adventure puzzling. A cult classic getting a well-deserved second chance.</div>
+</div>
+
+<!-- Future Cop: L.A.P.D. -->
+<div class="game-card">
+    <div class="title-row"><strong>Future Cop: L.A.P.D.</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1998</span>
+        <span class="badge badge-dev">EA Redwood Shores (later Visceral Games)</span>
+        <span class="badge badge-genre">Shooter / MOBA Precursor</span>
+    </div>
+    <p>From the studio that would later create <em>Dead Space</em>. You pilot a transforming mech (walking tank or hovercraft) through futuristic Los Angeles. The single-player is great, but the real gem is <strong>Precinct Assault</strong> — a competitive mode where you and an opponent build tanks and troops to attack each other's bases. This mode is widely considered <strong>the precursor to the modern MOBA genre</strong>, predating <em>Dota</em> by years.</p>
+    <div class="why-play">A proto-MOBA years ahead of its time. Satisfying mech combat. From the future creators of <em>Dead Space</em>. The Precinct Assault mode alone is worth tracking this down.</div>
+</div>
+
+<!-- Parasite Eve II -->
+<div class="game-card">
+    <div class="title-row"><strong>Parasite Eve II</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">1999</span>
+        <span class="badge badge-dev">Square</span>
+        <span class="badge badge-genre">Action RPG / Survival Horror</span>
+    </div>
+    <p>The first <em>Parasite Eve</em> gets plenty of love — the sequel, less so. PE2 dropped many of the original's turn-based RPG mechanics in favor of <strong>more traditional <em>Resident Evil</em>-style survival horror gameplay</strong>. The shift alienated some fans, but it's a fantastic survival horror game in its own right, with Square's high production values and a compelling sci-fi body-horror story.</p>
+    <div class="why-play">Square's take on survival horror with AAA production values. Great story and atmosphere. Underappreciated because it changed the formula — but the formula it changed to is excellent.</div>
+</div>
+
+<!-- Team Buddies -->
+<div class="game-card">
+    <div class="title-row"><strong>Team Buddies</strong></div>
+    <div class="meta">
+        <span class="badge badge-year">2000</span>
+        <span class="badge badge-dev">Osiris Studios</span>
+        <span class="badge badge-genre">Action RTS</span>
+    </div>
+    <p>Potty-mouthed beans that look suspiciously like <em>Fall Guys</em> battle it out in a <strong>hybrid action-RTS.</strong> You collect blocks, bring them to your base, and assemble them into weapons, vehicles, and new teammates — all while sabotaging your opponents' supply lines. The voice lines are hilarious, and the blend of strategy and action is completely unique.</p>
+    <div class="why-play">Nothing else like it on PS1. Hilarious, chaotic, and surprisingly strategic. Great multiplayer. A cult classic that's become quite expensive.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ──────────────── QUICK REFERENCE TABLE ──────────────── -->
+<h2>📊 Quick Reference: All Hidden Gems at a Glance</h2>
+<table>
+    <thead>
+        <tr><th>Game</th><th>Year</th><th>Genre</th><th>Why Play?</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Koudelka</td><td>1999</td><td>Horror JRPG</td><td>Precursor to Shadow Hearts; horror-RPG hybrid</td></tr>
+        <tr><td>Vagrant Story</td><td>2000</td><td>Action RPG</td><td>Deepest weapon crafting on PS1; set in Ivalice</td></tr>
+        <tr><td>Legend of Legaia</td><td>1998</td><td>Turn-Based JRPG</td><td>Unique martial-arts combo combat system</td></tr>
+        <tr><td>Alundra</td><td>1997</td><td>Action RPG</td><td>Zelda-like with challenging puzzles; dark story</td></tr>
+        <tr><td>Thousand Arms</td><td>1999</td><td>JRPG + Dating Sim</td><td>Dating powers up weapons; Persona precursor</td></tr>
+        <tr><td>Brave Fencer Musashi</td><td>1998</td><td>Action RPG</td><td>Voice acting, day-night cycle, ability stealing</td></tr>
+        <tr><td>Jade Cocoon</td><td>1998</td><td>Monster-Taming</td><td>Ghibli-esque art; monster breeding/fusion</td></tr>
+        <tr><td>Vandal Hearts</td><td>1997</td><td>Tactical RPG</td><td>Satisfying grid combat with bloody animations</td></tr>
+        <tr><td>Azure Dreams</td><td>1998</td><td>Roguelike RPG</td><td>Roguelike before roguelikes; town-building too</td></tr>
+        <tr><td>I.Q.: Intelligent Qube</td><td>1997</td><td>Action Puzzle</td><td>Absolutely unique cube-capturing puzzle horror</td></tr>
+        <tr><td>Devil Dice</td><td>1998</td><td>Puzzle</td><td>Dice-rolling puzzle; million-seller cult classic</td></tr>
+        <tr><td>No One Can Stop Mr. Domino</td><td>1998</td><td>Rhythm Puzzle</td><td>Domino chain reactions; pure weirdness</td></tr>
+        <tr><td>Kula World</td><td>1998</td><td>3D Puzzle Platformer</td><td>Rotating-world ball puzzles; inspired mobile games</td></tr>
+        <tr><td>Lup Salad</td><td>1996</td><td>Puzzle Platformer</td><td>100 brain-bending stages; Japan-exclusive gem</td></tr>
+        <tr><td>Silent Bomber</td><td>2000</td><td>Top-Down Action</td><td>All bombs, no guns; fast-paced cult classic</td></tr>
+        <tr><td>TOMBA!</td><td>1997</td><td>Metroidvania</td><td>Non-linear platformer from Ghosts 'n Goblins creator</td></tr>
+        <tr><td>Einhänder</td><td>1997</td><td>Shmup</td><td>Square's only shmup; steal enemy weapons</td></tr>
+        <tr><td>Vib-Ribbon</td><td>1999</td><td>Rhythm</td><td>Generates levels from your own music CDs</td></tr>
+        <tr><td>Omega Boost</td><td>1999</td><td>Rail Shooter</td><td>Mech action from the Gran Turismo team</td></tr>
+        <tr><td>Fear Effect</td><td>2000</td><td>Survival Horror</td><td>Cel-shaded horror; Chinese mythology themes</td></tr>
+        <tr><td>Future Cop: L.A.P.D.</td><td>1998</td><td>Shooter / Proto-MOBA</td><td>Precursor to MOBAs; from Dead Space creators</td></tr>
+        <tr><td>Kartia: The Word of Fate</td><td>1998</td><td>Tactical RPG</td><td>Dual campaigns; Amano art; Atlus classic</td></tr>
+        <tr><td>Saiyuki: Journey West</td><td>1999</td><td>Tactical RPG</td><td>Journey to the West adaptation from Koei</td></tr>
+        <tr><td>Wild Arms 2</td><td>2000</td><td>Turn-Based JRPG</td><td>Wild West + fantasy + sci-fi fusion</td></tr>
+        <tr><td>Threads of Fate</td><td>2000</td><td>Action RPG</td><td>Two protagonists; fully 3D world</td></tr>
+        <tr><td>Brigandine</td><td>1998</td><td>Grand Strategy RPG</td><td>Six factions; monster evolution; continent war</td></tr>
+        <tr><td>Parasite Eve II</td><td>1999</td><td>Action RPG / Horror</td><td>Square survival horror with AAA production</td></tr>
+        <tr><td>Incredible Crisis</td><td>1999</td><td>Mini-Games / Comedy</td><td>Absurd Japanese humor; WarioWare precursor</td></tr>
+        <tr><td>Money Idol Exchanger</td><td>1997</td><td>Arcade Puzzle</td><td>Coin-denomination matching; fast-paced</td></tr>
+        <tr><td>Cleopatra's Fortune</td><td>1997</td><td>Arcade Puzzle</td><td>Entomb treasures; Taito arcade polish</td></tr>
+        <tr><td>One Piece Mansion</td><td>2001</td><td>Stress Mgmt Puzzle</td><td>Apartment management; Capcom oddity</td></tr>
+        <tr><td>Team Buddies</td><td>2000</td><td>Action RTS</td><td>Build weapons/vehicles; hilarious multiplayer</td></tr>
+    </tbody>
+</table>
+
+<!-- ──────────────── PRO TIPS ──────────────── -->
+<div class="pro-tips" id="tips">
+    <h3>🛒 Tips for Collecting & Playing PS1 Hidden Gems</h3>
+    <ul>
+        <li><strong>PS Plus Premium:</strong> Several of these games (Intelligent Qube, Ape Escape, Wild Arms 2) are available on Sony's highest PlayStation Plus tier. Check the catalog before hunting physical copies.</li>
+        <li><strong>PSN Classics:</strong> Games like Vagrant Story, Legend of Dragoon, and Alundra have been released as PSOne Classics on the PS3/PSP/Vita store.</li>
+        <li><strong>Limited Run & Modern Re-releases:</strong> TOMBA! and Fear Effect are getting (or have received) modern re-releases. Keep an eye on publishers like Limited Run Games.</li>
+        <li><strong>Japanese Imports:</strong> Games like Lup Salad, Money Idol Exchanger, and Saiyuki: Journey West require either Japanese language knowledge, fan translation patches, or simple-enough gameplay that language isn't a barrier.</li>
+        <li><strong>Emulation:</strong> Many of these titles run beautifully on DuckStation or RetroArch with enhancements like PGXP texture correction and upscaling. This is often the best way to experience them today.</li>
+        <li><strong>Physical Prices:</strong> Be warned — titles like Koudelka, Team Buddies, Einhänder, and Brigandine have become <em>very</em> expensive on the secondary market. Research prices before committing.</li>
+        <li><strong>Demo Discs:</strong> Some of these gems (Intelligent Qube, Tomba!) were first discovered by players through the legendary PS1 demo discs bundled with magazines like <em>Official PlayStation Magazine</em>.</li>
+    </ul>
+</div>
+
+<!-- ──────────────── SOURCES ──────────────── -->
+<footer id="sources">
+    <p><strong>Sources & Further Reading</strong></p>
+    <p style="margin-top: 0.5rem;">
+        <a href="https://www.cbr.com/most-underrated-ps1-jrpg-all-time-koudelka/" target="_blank" rel="noopener">CBR — Koudelka: The Most Underrated PS1 JRPG</a> ·
+        <a href="https://gamerant.com/most-underrated-ps1-rpgs-playstation/" target="_blank" rel="noopener">Game Rant — 12 Most Underrated PS1 RPGs</a> ·
+        <a href="https://kotaku.com/vagrant-story-is-a-brutally-original-jrpg-1820531434" target="_blank" rel="noopener">Kotaku — Vagrant Story Is a Brutally Original JRPG</a> ·
+        <a href="https://www.rpgfan.com/review/vagrant-story-2/" target="_blank" rel="noopener">RPGFan — Vagrant Story Review</a> ·
+        <a href="https://www.dualshockers.com/little-known-ps1-jrpgs-from-famous-developers/" target="_blank" rel="noopener">DualShockers — 10 Lesser-Known PS1 JRPGs</a> ·
+        <a href="https://www.cheatcc.com/articles/20-underrated-ps1-games-hidden-gems-of-the-5th-console-generation/" target="_blank" rel="noopener">CheatCC — 20 Underrated PS1 Games</a> ·
+        <a href="https://www.cbr.com/original-playstation-best-overlooked-rpgs/" target="_blank" rel="noopener">CBR — Most Underrated PS1 RPGs</a> ·
+        <a href="https://videochums.com/top10/obscure-playstation-puzzle-games" target="_blank" rel="noopener">Video Chums — Top 10 Obscure PS1 Puzzle Games</a> ·
+        <a href="https://pushsquare.com/reviews/ps1/intelligent-qube" target="_blank" rel="noopener">Push Square — Intelligent Qube Review</a> ·
+        <a href="https://gamerant.com/best-playstation-ps1-puzzle-games-ranked/" target="_blank" rel="noopener">Game Rant — Best PS1 Puzzle Games</a> ·
+        <a href="https://hypercombogamer.com/40-best-ps1-hidden-gems/" target="_blank" rel="noopener">HyperComboGamer — 40 Best PS1 Hidden Gems</a> ·
+        <a href="https://thegameslayer.com/lists/best-underappreciated-ps1-games/" target="_blank" rel="noopener">The Game Slayer — 7 Best Underrated PS1 Gems</a> ·
+        <a href="https://gamerant.com/ps1-most-underrated-playstation-games/" target="_blank" rel="noopener">Game Rant — Most Underrated PS1 Games</a> ·
+        <a href="https://ghettogamer.net/2021/12/16/underrated-playstation-rpgs/" target="_blank" rel="noopener">The Ghetto Gamer — 10 Most Underrated PS1 RPGs</a> ·
+        <a href="https://www.mobygames.com/game/5183/intelligent-qube/" target="_blank" rel="noopener">MobyGames — Intelligent Qube</a> ·
+        <a href="https://www.mobygames.com/game/3728/vagrant-story/reviews/playstation/" target="_blank" rel="noopener">MobyGames — Vagrant Story Reviews (93% avg)</a>
+    </p>
+    <p style="margin-top: 1.5rem;">Research compiled on <time datetime="2025">2025</time>. All information sourced from the web — no training data used for pricing/availability. 🕹️</p>
+</footer>
+
+</body>
+</html>
