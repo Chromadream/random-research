@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon: Back to Nature — Year 2 & 3 Walkthrough</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text: #e0d8c8;
+            --heading: #f0c060;
+            --accent: #7a9e3a;
+            --accent2: #e8973a;
+            --border: #2a2a4a;
+            --table-stripe: #1e2a3a;
+            --highlight: #1e3320;
+            --info-bg: #1a2535;
+            --warning-bg: #2e2618;
+            --danger-bg: #2e1818;
+            --gold: #f0c060;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 1.5rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #4a6b28, #2d4a18);
+            color: #fff;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        nav {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        nav h2 { color: var(--heading); margin-bottom: 0.8rem; }
+        nav ul { list-style: none; columns: 2; column-gap: 1rem; }
+        nav li { margin-bottom: 0.3rem; }
+        nav a { color: var(--accent2); text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--heading);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        h3 {
+            color: var(--accent2);
+            margin: 1.3rem 0 0.6rem 0;
+            font-size: 1.2rem;
+        }
+        h4 { color: #f0c060; margin: 1rem 0 0.5rem 0; }
+        p { margin-bottom: 0.8rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.3rem 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.7rem;
+            text-align: left;
+        }
+        th {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--table-stripe); }
+        .highlight-box {
+            background: var(--highlight);
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid #4a90c4;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--accent2);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .danger-box {
+            background: var(--danger-bg);
+            border-left: 4px solid #c0392b;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.3rem; }
+        .best-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .goal-badge {
+            display: inline-block;
+            background: var(--accent2);
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .year-divider {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2rem;
+            color: var(--heading);
+            letter-spacing: 0.3rem;
+        }
+        .year-divider span {
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border: 2px solid var(--heading);
+            border-radius: 8px;
+        }
+        .checklist li { list-style-type: none; }
+        .checklist li::before { content: "☐ "; color: var(--accent2); }
+        .complete li::before { content: "☑ "; color: var(--accent); }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        pre {
+            background: #111;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        @media (max-width: 700px) {
+            body { padding: 0.5rem; }
+            section { padding: 1rem; }
+            nav ul { columns: 1; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🌾 Harvest Moon: Back to Nature</h1>
+    <p>Walkthrough: Year 2 &amp; Year 3</p>
+    <p style="font-size:0.9rem;margin-top:0.3rem;">Marriage, Mastery, and the Final Evaluation — PS1</p>
+</header>
+
+<nav>
+    <h2>📑 Table of Contents</h2>
+    <ul>
+        <li><a href="#prerequisites">0. Prerequisites — End of Year 1</a></li>
+        <li><a href="#year2-spring">1. Year 2 Spring — Building the Hothouse</a></li>
+        <li><a href="#year2-summer">2. Year 2 Summer — Marriage Season</a></li>
+        <li><a href="#year2-fall">3. Year 2 Fall — Settling Down</a></li>
+        <li><a href="#year2-winter">4. Year 2 Winter — The Baby is Coming</a></li>
+        <li><a href="#year3-spring">5. Year 3 Spring — Baby Arrives</a></li>
+        <li><a href="#year3-summer">6. Year 3 Summer — Completionist Push</a></li>
+        <li><a href="#year3-fall">7. Year 3 Fall — Final Harvest</a></li>
+        <li><a href="#year3-winter">8. Year 3 Winter — The Evaluation</a></li>
+        <li><a href="#beyond">9. Beyond Year 3 — Endless Farming</a></li>
+        <li><a href="#marriage-detail">10. Year 2 Marriage Deep Dive</a></li>
+        <li><a href="#baby">11. Baby &amp; Child Guide</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 0: PREREQUISITES -->
+<section id="prerequisites">
+    <h2>0. Prerequisites — End of Year 1 Target</h2>
+
+    <div class="warning-box">
+        <strong>⚠️ Before starting Year 2, you should aim to have:</strong>
+    </div>
+
+    <ul class="checklist">
+        <li>Kitchen built (1st House Extension)</li>
+        <li>Chicken Coop upgraded (10 chicken capacity)</li>
+        <li>Barn upgraded (20 animal capacity)</li>
+        <li>8–10 chickens laying daily</li>
+        <li>3–5 cows producing milk</li>
+        <li>1–2 sheep producing wool</li>
+        <li>All tools at Silver level or higher (Watering Can at Gold recommended)</li>
+        <li>Large Rucksack purchased</li>
+        <li>Bachelorette at Green-Yellow heart or higher</li>
+        <li>30+ fish in your pond (to get the Fishing Pole from Greg)</li>
+        <li>At least 10 recipes discovered</li>
+        <li>Cliff invited to the grape harvest (so he stays in town!)</li>
+        <li>Horse matured and well cared for</li>
+        <li>Dog trained with Dog Ball</li>
+        <li>3 Adamantite saved from Winter Mine for Maker Machines</li>
+        <li>Some Orichalcum saved for jewelry gifts</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>💰 Recommended Bank Balance entering Year 2:</strong> 20,000G – 50,000G. If you followed the Year 1 crop strategy (Cucumbers → Pineapples → Sweet Potatoes), you should be in great shape.
+    </div>
+</section>
+
+<div class="year-divider"><span>🌱 YEAR 2</span></div>
+
+<!-- SECTION 1: YEAR 2 SPRING -->
+<section id="year2-spring">
+    <h2>1. Year 2 Spring — Building the Hothouse</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Spring Goals:</strong> Build the Hothouse (30,000G + 580 Lumber) · Purchase Cheese Maker (20,000G + Adamantite) · Raise bachelorette to Red heart · Catch at least 1 Legendary Fish · Buy 3+ more cows · Plant grass across half your field · Give gifts to all villagers
+    </div>
+
+    <h3>🌱 Season Overview</h3>
+    <p>Year 2 Spring is markedly easier than Year 1. You already have your infrastructure, your animals are producing, and your tools are upgraded. The season's main focus is the <strong>Hothouse</strong> — the most expensive building in the game — and pushing your chosen bachelorette to <strong>Red heart</strong>.</p>
+
+    <h3>Day-by-Day Event Guide</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>New Year's Festival</td>
+            <td>Festival day. No farm work. Attend at Rose Square (6 PM) or the Inn. <strong>Karen's Dance Event:</strong> Between 12–3 PM, Karen may visit and ask to practice dancing. Agree! At the Goddess Festival (Day 8), talk to Karen and she will dance with you — big affection boost.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2–7</strong></td>
+            <td>Planting &amp; Hothouse Prep</td>
+            <td>Buy Cucumbers (bulk) from Supermarket and Cabbages from Won at the Inn. Plant grass on half the field for your growing herd. Begin chopping lumber daily for the Hothouse. Give daily gifts to your bachelorette. Use Orichalcum from Winter to craft Jewelry at Saibara's — give the wrapped jewelry to your girl for massive affection (+800 with wrapping!).</td>
+        </tr>
+        <tr>
+            <td><strong>Day 8</strong></td>
+            <td>Goddess Festival</td>
+            <td>Ask your girl on Day 7. By Year 2 your chosen bachelorette should have a high enough heart to accept. Karen special: if you triggered her dance event, she dances with you here.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 9–13</strong></td>
+            <td>Cheese Maker &amp; Cows</td>
+            <td>Buy the <strong>Cheese Maker</strong> from Saibara (20,000G + Adamantite). Start converting milk to cheese — Cheese (S) sells for 300G vs. Milk (S) at 100G! Buy 2–3 more cows to bring your total toward 8–10. Continue lumber gathering.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 14</strong></td>
+            <td>Spring Thanksgiving</td>
+            <td>Now that you have a Kitchen, <strong>bake Cookies</strong> (Flour, Butter, Egg + Rolling Pin, Oven, Sugar). Give cookies to all five girls for affection boosts. Give a wrapped, favorite item to your chosen bachelorette.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 15–17</strong></td>
+            <td>Mayor's Request</td>
+            <td>Mayor Thomas may again ask for vegetables by Day 21. Deliver them after 4 PM to his house.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 18</strong></td>
+            <td>Horse Race <span class="best-badge">YOUR HORSE!</span></td>
+            <td>Your horse is now mature! You can <strong>race your own horse</strong> this year. Win medals and spend <strong>1,001 medals on a Power Berry</strong>. Also bet on races for extra cash or medals. Brush and ride your horse regularly leading up to this.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 19–21</strong></td>
+            <td>Hothouse Push</td>
+            <td>You should be approaching 30,000G and 580 lumber by now. If not, mine heavily and sell ores. Upgrade your Watering Can to Mystrile if you haven't already.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 22</strong></td>
+            <td>Cooking Festival</td>
+            <td>You now have a Kitchen — <strong>you can actually compete!</strong> Enter <strong>Relaxation Tea</strong> (Relax Tea Leaves + Pot) with variations (add Milk, Blue Grass, or Green Grass). This is one of the strongest contest entries.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 23–30</strong></td>
+            <td>Hothouse Construction</td>
+            <td><strong>Build the Hothouse!</strong> (30,000G + 580 lumber, takes 3 days). Once built, immediately fill it with <strong>Sweet Potatoes</strong> — year-round access to the most profitable crop. Continue giving gifts. Your bachelorette should be at <strong>Orange-Red heart</strong> by month's end. Purchase the Yarn Maker if you have a 2nd Adamantite.</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>🏠 Hothouse Tips:</strong> The Hothouse in BTN is smaller than in HM64 — it fits roughly four 3×3 crop squares. Plant Sweet Potatoes for maximum profit. The Hothouse <em>can be destroyed by typhoons and blizzards</em> — hire Harvest Sprites before storms! With a Gold or Mystrile Watering Can, you can water all Hothouse crops in seconds.
+    </div>
+
+    <h3>End-of-Spring Checklist</h3>
+    <ul class="checklist">
+        <li>Hothouse built and filled with Sweet Potatoes</li>
+        <li>Cheese Maker purchased</li>
+        <li>Bachelorette at Red heart ❤️</li>
+        <li>At least 8 cows total</li>
+        <li>1 Legendary Fish caught (see Legendary Fish table below)</li>
+        <li>Chicken Coop full (10 chickens)</li>
+        <li>Watering Can upgraded to Mystrile (or Gold minimum)</li>
+    </ul>
+</section>
+
+<!-- SECTION 2: YEAR 2 SUMMER -->
+<section id="year2-summer">
+    <h2>2. Year 2 Summer — Marriage Season</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Summer Goals:</strong> <strong>GET MARRIED!</strong> · Reach 10 cows · Catch another Legendary Fish · Begin buying sheep · Win the Cow Festival · Fill Hothouse with Sweet Potatoes · Make friends with all villagers
+    </div>
+
+    <h3>☀️ Season Overview</h3>
+    <p>This is the season of love! By now your chosen bachelorette should be at Red heart, you should have the 2nd House Extension (bedroom + double bed), and the Blue Feather should be available at the Supermarket (1,000G). The Summer Fireworks (Day 24) is the most romantic time to propose — or you can propose on any day once conditions are met.</p>
+
+    <h3>Marriage Checklist</h3>
+    <table>
+        <tr><th>Requirement</th><th>How to Fulfill</th></tr>
+        <tr><td>❤️ Red Heart</td><td>Give wrapped favorite gifts daily. Talk at festivals. Birthday gift (5× bonus!). Use Jewelry (Orichalcum) for massive affection.</td></tr>
+        <tr><td>🏠 2nd House Extension</td><td>10,000G + 750 lumber. Must build after Barn Upgrade. Provides separate bedroom with double bed.</td></tr>
+        <tr><td>💙 Blue Feather</td><td>Buy at Supermarket for 1,000G. Only appears when a girl is at Orange heart or higher.</td></tr>
+        <tr><td>💍 Proposal</td><td>Give the Blue Feather to your Red-heart girl. Wedding occurs ~7 days later at the Church.</td></tr>
+    </table>
+
+    <h3>Day-by-Day Event Guide</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>Swimming Festival</td>
+            <td>Compete again — alternate X (swim) and Triangle (breathe) rapidly. Win for another Power Berry if you didn't get it Year 1. Great for impressing your girl.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2–6</strong></td>
+            <td>Pre-Marriage Prep</td>
+            <td>Buy Pineapple seeds from Won. Buy more cows (aim for 10). If you have 10 cows, start buying sheep (4,000G each). Plant grass to support your growing herd. Give daily gifts to your wife-to-be.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 3</strong></td>
+            <td>Popuri's Birthday</td>
+            <td>If wooing Popuri, give her a wrapped Toy Flower, Honey, or Ice Cream for a massive affection boost. Birthday gifts with wrapping = 5× affection!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 7</strong></td>
+            <td>Chicken Sumo Festival</td>
+            <td>Enter your happiest hen. By Year 2, you should have multiple high-heart chickens. Winning yields <strong>Golden Eggs</strong> (sell for 150G vs. 50G). Press X when the opponent jumps to counter.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 8–11</strong></td>
+            <td>Final Marriage Prep</td>
+            <td>Ensure the 2nd House Extension is complete. Buy the Blue Feather. Your girl should be at Red heart. Consider wrapping the Blue Feather for extra romance points (though not required).</td>
+        </tr>
+        <tr>
+            <td><strong>Day 12</strong></td>
+            <td>Tomato Festival</td>
+            <td>Join a team. Ann's and Popuri's teams are traditionally strongest. X to throw, Triangle to duck. Winning boosts friendship with all teammates.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 13–19</strong></td>
+            <td>Proposal Window</td>
+            <td><strong>Propose to your bachelorette!</strong> Give the Blue Feather. The wedding will be scheduled ~7 days later at the Church. Continue farming — Pineapples should be growing. The Hothouse Sweet Potatoes keep producing year-round.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 17</strong></td>
+            <td>Ann's Birthday</td>
+            <td>If wooing Ann, give wrapped Spa-Boiled Egg, Cheesecake, or Apple Pie. If at Purple heart or higher, she may invite you to her party.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 20</strong></td>
+            <td>Cow Festival <span class="best-badge">WIN!</span></td>
+            <td>Enter your cow with the most hearts (10 hearts needed for best chance). Winning yields <strong>Golden Milk</strong> (300G vs. 200G for Large Milk). You should be competitive by Year 2.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 22</strong></td>
+            <td>Kai's Birthday</td>
+            <td>Give Kai Oil to befriend him. Also Ann's alternate birthday if yours is on the 17th.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 23–24</strong></td>
+            <td>Fireworks Display</td>
+            <td>On the 23rd, ask your girl (or wife!) to watch fireworks. Go to the beach at 6 PM on the 24th. If you married earlier in the season, this is a romantic date with your wife. Ask Kai to watch if befriending him.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 25–30</strong></td>
+            <td>Newlywed Life</td>
+            <td>If married, your wife now lives with you! Give her a gift every day to maintain her heart level. She may begin cooking for you occasionally. Continue expanding sheep flock. Harvest Pineapples for big profit.</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💍 Marriage Timing Tip:</strong> The ideal time to propose is early-mid Summer (Days 8–14). This ensures the wedding happens before Fall. If you marry too late in the year, the baby timeline shifts into Year 3. Marrying in Summer Year 2 is the sweet spot — baby arrives around Fall Year 2 or Spring Year 3.
+    </div>
+
+    <div class="info-box">
+        <strong>📋 Post-Marriage Routine:</strong> After marriage, talk to your wife every morning. Give her a liked/loved gift daily (even after marriage, gifts maintain her heart level). Your wife's heart level contributes to your farm completion score (+1% per heart). She may occasionally cook breakfast for you, restoring stamina.
+    </div>
+</section>
+
+<!-- SECTION 3: YEAR 2 FALL -->
+<section id="year2-fall">
+    <h2>3. Year 2 Fall — Settling Down</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Fall Goals:</strong> Win the Sheep Festival · Catch more Legendary Fish · Upgrade all tools to Mystrile · Maximize Sweet Potato profits (field + Hothouse) · Build friendship with all villagers · If not yet married, get married early in the season
+    </div>
+
+    <h3>🍂 Season Overview</h3>
+    <p>Fall Year 2 is the wealth-building season. Sweet Potatoes in your field AND Hothouse means massive daily income. You should be swimming in gold by mid-season. If you haven't married yet, do it early in Fall. Your wife should begin showing signs of pregnancy toward Winter.</p>
+
+    <h3>Day-by-Day Event Guide</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>Kai Departs</td>
+            <td>Kai leaves for the year. If you befriended him, he'll return next Summer.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2</strong></td>
+            <td>Gotz's Birthday</td>
+            <td>Give Gotz Oil or Yarn. Keeping him happy ensures smooth expansions. Also: Pastor Carter asks about participating in tomorrow's Music Festival.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 3</strong></td>
+            <td>Music Festival</td>
+            <td>Go to the Church at 6 PM to listen or perform. Be on time!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 4–8</strong></td>
+            <td>Fall Planting</td>
+            <td>Plant Sweet Potatoes in the field (as many as possible). Also plant Eggplants, Carrots, and Green Peppers for variety. Buy Green Pepper from Won — harvests every 2 days! Hothouse should already be full of Sweet Potatoes.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 5</strong></td>
+            <td>Doug's Grief</td>
+            <td>Doug is at Mother's Hill grieving for his wife. A poignant character moment.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 9</strong></td>
+            <td>Harvest Festival</td>
+            <td>Bring a Green Pepper or other good ingredient for the community stew. Talk to everyone after to boost friendship.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 10–12</strong></td>
+            <td>Wealth Building</td>
+            <td>Sweet Potatoes start producing. Harvest every 3 days. With a full field + Hothouse, you can earn 15,000G+ per harvest cycle. Upgrade remaining tools to Mystrile at Saibara.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 13</strong></td>
+            <td>Moon-Viewing</td>
+            <td>Go to Mother's Hill peak at 6 PM. Your wife (or the girl who likes you most) will be waiting. A romantic event.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 14–20</strong></td>
+            <td>Grape Harvest Job</td>
+            <td>Duke asks for help harvesting grapes. Say yes. You can bring someone again — this time the job serves as good friendship building. Run past Cliff to get the grapes at the end of the middle row before he blocks it (max 16 grapes).</td>
+        </tr>
+        <tr>
+            <td><strong>Day 15</strong></td>
+            <td>Karen's Birthday</td>
+            <td>Give Karen wrapped Wine, Sashimi, or Truffle if befriending her.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 16</strong></td>
+            <td>Rick's Chickens</td>
+            <td>If you have 5+ chickens and the upgraded coop, Rick may ask you to care for 5 more. Free eggs!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 21</strong></td>
+            <td>Sheep Festival <span class="best-badge">WIN!</span></td>
+            <td>Enter an <strong>unshorn</strong> sheep with the most hearts. Winning yields <strong>Golden Wool</strong> (600G). By Year 2 your sheep should have 7–10 hearts if purchased in Year 1.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 22–30</strong></td>
+            <td>End of Harvest</td>
+            <td>Harvest the last of your outdoor crops. Stockpile fodder for Winter. Bring animals inside. Prepare for the cold months. Your wife may start saying "I'm hungry, but I don't feel like doing anything" — <strong>this is the pregnancy sign!</strong></td>
+        </tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🐑 Sheep Strategy:</strong> Sheep warm up to you faster than cows. Enter an unshorn sheep in the Sheep Festival — shorn sheep cannot compete. Wool regrows in 5 days after clipping. Yarn (via Yarn Maker) is the single most profitable animal product: Yarn (G) sells for <strong>1,000G</strong>!
+    </div>
+</section>
+
+<!-- SECTION 4: YEAR 2 WINTER -->
+<section id="year2-winter">
+    <h2>4. Year 2 Winter — The Baby is Coming</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Winter Goals:</strong> Win the Dog Race · Catch remaining Legendary Fish · Collect remaining Power Berries · Deep-mine Winter Mine for Adamantite &amp; Orichalcum · Upgrade all tools to Mystrile · Keep wife happy during pregnancy · Befriend all villagers · Discover more recipes
+    </div>
+
+    <h3>❄️ Season Overview</h3>
+    <p>Winter Year 2 is about completion and preparation. No outdoor crops means you focus on mining, fishing, tool upgrades, socializing, and cooking. If your wife became pregnant in Fall, the baby will arrive in Spring-Summer of Year 3.</p>
+
+    <h3>Day-by-Day Event Guide</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1–9</strong></td>
+            <td>Winter Mining Blitz</td>
+            <td>Mine the Winter Mine for Adamantite and Orichalcum. Bring the Basket (holds 30 ores) and food for stamina. Deep floors yield rarer ores. Mine the Waterfall Mine too — time doesn't pass inside either mine. Chop lumber daily. Practice cooking new recipes.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 6</strong></td>
+            <td>Gray's Birthday</td>
+            <td>Give Gray Ore. He's useful for tool-related events.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 10</strong></td>
+            <td>Dog Race <span class="best-badge">WIN!</span></td>
+            <td>Race your dog by running ahead of it. If you trained with the Dog Ball (purchased from Won), your dog should perform well. Don't run too far ahead or your dog stops. Winning shows how well you've bonded.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 13</strong></td>
+            <td>Ellen's Birthday</td>
+            <td>Give Ellen Spa-Boiled Eggs. Also: date variable — visit Ellen's house to learn about the white flower. Go to Mother's Hill on a snowy night to see it. Tell Ellen and Basil for friendship boosts.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 14</strong></td>
+            <td>Winter Thanksgiving</td>
+            <td>Girls who like you bring chocolate — <strong>stay at your farm all day!</strong> Since you're married, your wife gives you chocolate. Extra chocolates from other girls can be saved for recipes.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 15–19</strong></td>
+            <td>Tool Upgrades</td>
+            <td>Upgrade any remaining tools to Mystrile. Snowy days are perfect for this — hire Harvest Sprites for the 3 days. Upgrade priority: Watering Can → Hoe → Axe → Hammer → Sickle.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 19</strong></td>
+            <td>Won's Birthday</td>
+            <td>Give Won Fish. He sells rare seeds at the Inn.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 20</strong></td>
+            <td>Mary's Birthday</td>
+            <td>Give Mary Poisonous Mushrooms, Bamboo Shoots, or Truffles. She loves what others hate!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 23</strong></td>
+            <td>Star Night Prep</td>
+            <td>Ask your wife on the 23rd for the Star Night Festival dinner.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 24</strong></td>
+            <td>Star Night Festival</td>
+            <td>Go to your wife's (former) family's house at 6 PM for a special dinner. This is one of the most heartwarming events for a married couple.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 25–29</strong></td>
+            <td>Recipe Discovery</td>
+            <td>Use your kitchen to discover new recipes. Watch TV Shopping on Saturdays for new utensils. Experiment with ingredient combinations. Aim for 50+ recipes by year's end.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 30</strong></td>
+            <td>New Year's Eve</td>
+            <td>Go to Mother's Hill peak at midnight to watch the sunrise with the villagers. Reflect on all you've accomplished.</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>👶 Pregnancy Timeline:</strong> After marriage, continue giving your wife gifts daily. She'll eventually say she's "hungry but doesn't feel like doing anything" — she's pregnant! Pregnancy lasts approximately <strong>2 seasons</strong>. If she got pregnant in late Fall, expect the baby around late Spring/early Summer Year 3. The baby takes 2 more seasons to start crawling.
+    </div>
+
+    <h3>Legendary Fish — Year 2 Catch Targets</h3>
+    <table>
+        <tr><th>#</th><th>Fish</th><th>Season</th><th>Location</th><th>Conditions</th></tr>
+        <tr><td>1</td><td><strong>Squid</strong></td><td>Summer</td><td>Ocean</td><td>Throw a small fish as bait (lasts 1 day)</td></tr>
+        <tr><td>2</td><td><strong>Catfish</strong></td><td>Winter</td><td>Lake in Winter Mine</td><td>Fish in the underground lake</td></tr>
+        <tr><td>3</td><td><strong>Angler</strong></td><td>Winter</td><td>Ocean</td><td>Between 10 PM and 8 AM</td></tr>
+        <tr><td>4</td><td><strong>Char</strong></td><td>Spring/Fall</td><td>Waterfall/River</td><td>Must know Sashimi, Grilled Fish, and Sushi recipes</td></tr>
+        <tr><td>5</td><td><strong>Sea Bream</strong></td><td>Spring/Fall/Winter</td><td>Ocean</td><td>Must have shipped 200+ fish total</td></tr>
+        <tr><td>6</td><td><strong>Carp</strong></td><td>Any</td><td>Mother's Hill Lake</td><td>Must have caught ALL previous 5 legendary fish first</td></tr>
+    </table>
+</section>
+
+<div class="year-divider"><span>🍂 YEAR 3</span></div>
+
+<!-- SECTION 5: YEAR 3 SPRING -->
+<section id="year3-spring">
+    <h2>5. Year 3 Spring — The Baby &amp; Final Push</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Spring Goals:</strong> Baby born (if not already) · Raise baby's heart level · Unlock secret crops (Strawberries in Spring) · Win Cooking Festival · Max out all animal heart levels · Reach 80+ recipes · All tools at Mystrile
+    </div>
+
+    <h3>🌱 Season Overview</h3>
+    <p>This is the beginning of your final evaluation year. Mayor Thomas will judge your farm at the end of Winter. Everything you do this year contributes to your final score. If your baby wasn't born in late Winter, expect the birth in early-mid Spring.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+
+    <h4>👶 Baby Arrival</h4>
+    <p>Your wife will be visibly pregnant and eventually give birth. The baby arrives with a naming scene. You'll name your child (max 8 letters). After birth:</p>
+    <ul>
+        <li><strong>Give gifts to your baby daily</strong> — anything your wife likes, your baby will like</li>
+        <li>Baby heart level contributes <strong>+1% per heart</strong> to farm completion score</li>
+        <li>Baby takes ~2 seasons to start crawling, ~4 seasons to walk</li>
+        <li>You can pick up and hold your baby (press X)</li>
+    </ul>
+
+    <h4>🌱 Spring Year 3 Strategy</h4>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>New Year's Festival</td>
+            <td>Now a family man — attend with your wife. Karen's dance event may occur again if you befriended her.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2–7</strong></td>
+            <td>Secret Crop Unlock</td>
+            <td><strong>Strawberries</strong> are unlocked by shipping 100 each of Turnips, Potatoes, Cucumbers, AND Cabbages. By Year 3, you should have easily met this. Strawberry seeds appear at the Supermarket (150G). Plant them — they regrow every 2 days after initial 9-day growth.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 8</strong></td>
+            <td>Goddess Festival</td>
+            <td>Attend with your wife. A bittersweet moment — you once came here alone.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 14</strong></td>
+            <td>Spring Thanksgiving</td>
+            <td>Give your wife cookies. Give chocolate cookies to all girls for friendship maintenance.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 18</strong></td>
+            <td>Horse Race</td>
+            <td>Your horse should be a veteran racer by now. Win medals, buy another Power Berry if available (1,001 medals).</td>
+        </tr>
+        <tr>
+            <td><strong>Day 22</strong></td>
+            <td>Cooking Festival</td>
+            <td><strong>WIN IT!</strong> Enter Relaxation Tea with multiple variations. By Year 3, with all utensils and many ingredients, you should dominate.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 23–30</strong></td>
+            <td>Friendship Blitz</td>
+            <td>Give gifts to all villagers. Focus on those you haven't maxed. Check the "What They Like" reference. Wrap birthday gifts for 5× affection!</td>
+        </tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🌱 Secret Spring Crops:</strong> <strong>Strawberries</strong> (150G seeds, 30G sell, regrows every 2 days) — ship 100 each of Turnips/Potatoes/Cucumbers/Cabbages. <strong>Moon Drop Flowers</strong> (500G seeds) — buy from Won. <strong>Toy Flowers</strong> (400G seeds) — buy from Won. Neither flower sells for money but they make great gifts.
+    </div>
+</section>
+
+<!-- SECTION 6: YEAR 3 SUMMER -->
+<section id="year3-summer">
+    <h2>6. Year 3 Summer — Completionist Push</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Summer Goals:</strong> Baby crawling/walking · Win Chicken Sumo Festival · Win Cow Festival · Unlock Pumpkins · Catch Squid (Legendary Fish) · Max friendship with all villagers · Discover remaining recipes
+    </div>
+
+    <h3>☀️ Season Overview</h3>
+    <p>The baby should now be crawling around. By end of Summer, the baby may begin walking. This is your last summer before the evaluation — make it count!</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>Swimming Festival</td>
+            <td>Compete for fun and friendship boosts. You likely already have the Power Berry from Year 1.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2–6</strong></td>
+            <td>Secret Crop: Pumpkins</td>
+            <td><strong>Pumpkins</strong> unlock by shipping 100 each of Tomatoes, Corn, Onions, AND Pineapples. By Year 3 this should be done. Pumpkin seeds (500G from Won) sell for 250G each — 1,500G profit per bag. Also plant Pink Cat Flowers for the bee hive.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 7</strong></td>
+            <td>Chicken Sumo Festival</td>
+            <td>Enter your best hen. Aim for a repeat win or defend your title.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 12</strong></td>
+            <td>Tomato Festival</td>
+            <td>Join a team. Winning boosts friendship across the board.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 20</strong></td>
+            <td>Cow Festival</td>
+            <td>Enter your 10-heart cow. A champion cow produces Golden Milk (300G each).</td>
+        </tr>
+        <tr>
+            <td><strong>Day 24</strong></td>
+            <td>Fireworks Display</td>
+            <td>Watch with your wife at the beach at 6 PM. One of the last romantic events before the evaluation.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 25–30</strong></td>
+            <td>Friendship &amp; Recipe Rush</td>
+            <td>Push to max friendship with stubborn villagers (Doctor, Won, etc.). Discover new recipes by experimenting in the kitchen.</td>
+        </tr>
+    </table>
+
+    <div class="info-box">
+        <strong>☀️ Secret Summer Crops:</strong> <strong>Pumpkins</strong> (500G seeds, 250G sell) — ship 100 each of Tomatoes/Corn/Onions/Pineapples. <strong>Pink Cat Flowers</strong> (300G seeds) — buy from Won. Plant flowers somewhere on your farm to attract bees — a hive will form in your apple tree, producing honey year-round!
+    </div>
+</section>
+
+<!-- SECTION 7: YEAR 3 FALL -->
+<section id="year3-fall">
+    <h2>7. Year 3 Fall — The Final Harvest</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Fall Goals:</strong> Win Sheep Festival · Unlock Spinach · Catch Char + Sea Bream (Legendary Fish) · Max out all livestock hearts · All 100+ recipes discovered · All 10 Power Berries collected · Baby walking and talking
+    </div>
+
+    <h3>🍂 Season Overview</h3>
+    <p>This is the last growing season before the evaluation. Your farm should be a well-oiled machine. Sweet Potatoes in the field and Hothouse generate immense wealth. The baby should now be walking. Focus on tying up every loose end.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1</strong></td>
+            <td>Kai Departs</td>
+            <td>Last time you'll see Kai leave before the evaluation. Hope you befriended him!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 2–8</strong></td>
+            <td>Secret Crop: Spinach</td>
+            <td><strong>Spinach</strong> unlocks by shipping 100 each of Sweet Potatoes, Carrots, Eggplants, AND Green Peppers. Spinach seeds (200G) sell for 80G each. Fast 6-day growth. Plant for recipe completion.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 3</strong></td>
+            <td>Music Festival</td>
+            <td>Attend at the Church at 6 PM.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 9</strong></td>
+            <td>Harvest Festival</td>
+            <td>Bring your best ingredient for the stew. Talk to everyone.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 13</strong></td>
+            <td>Moon-Viewing</td>
+            <td>Go to Mother's Hill peak at 6 PM with your wife. Your last Moon-Viewing before the evaluation.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 21</strong></td>
+            <td>Sheep Festival</td>
+            <td>Enter your best unshorn sheep. Aim for Golden Wool if not already obtained.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 22–29</strong></td>
+            <td>Final Preparations</td>
+            <td>Harvest remaining crops. Stockpile fodder. Bring animals inside. Check your completion score — is there anything missing? Ship any items you haven't shipped before. Cook any undiscovered recipes.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 30</strong></td>
+            <td>Last Day of Fall</td>
+            <td>Bring all animals inside. Winter is coming — your last winter before the judgment.</td>
+        </tr>
+    </table>
+
+    <div class="danger-box">
+        <strong>⚠️ Last Chance Alert:</strong> If you haven't caught all Legendary Fish, collected all Power Berries, or maxed all friendships, Fall Year 3 is your last realistic opportunity. Winter offers limited social opportunities. Prioritize what remains.
+    </div>
+</section>
+
+<!-- SECTION 8: YEAR 3 WINTER -->
+<section id="year3-winter">
+    <h2>8. Year 3 Winter — The Evaluation</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Winter Goals:</strong> Win Dog Race · Catch Carp (final Legendary Fish) · Complete all Power Berries · All recipes discovered · Max friendship with ALL villagers · Prepare for Mayor's evaluation at end of season
+    </div>
+
+    <h3>❄️ Season Overview</h3>
+    <p>This is it — the final season before Mayor Thomas judges your farm. Every day counts. Focus on whatever completion metrics are still lacking. The evaluation happens on <strong>Winter 30</strong>.</p>
+
+    <h3>Final Month Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr>
+            <td><strong>Day 1–9</strong></td>
+            <td>Final Mining &amp; Fishing</td>
+            <td>Mine for any ores you still need. Catch the <strong>Angler</strong> (ocean, 10 PM–8 AM) and <strong>Catfish</strong> (Winter Mine lake). These are winter-exclusive Legendary Fish!</td>
+        </tr>
+        <tr>
+            <td><strong>Day 10</strong></td>
+            <td>Dog Race</td>
+            <td>Win this for completion. Your dog should be highly trained by now.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 14</strong></td>
+            <td>Winter Thanksgiving</td>
+            <td>Stay home. Your wife gives you chocolate. Other girls may visit too.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 24</strong></td>
+            <td>Star Night Festival</td>
+            <td>Final romantic festival. Dinner with your wife's family.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 25–29</strong></td>
+            <td>Last-Minute Sprint</td>
+            <td>Check every completion metric. Give final gifts to stubborn villagers. Ship any un-shipped items. Cook any last recipes. Talk to every single villager.</td>
+        </tr>
+        <tr>
+            <td><strong>Day 30</strong></td>
+            <td><strong>New Year's Eve + Evaluation</strong></td>
+            <td>Go to Mother's Hill peak at midnight. Mayor Thomas will evaluate your progress. If you've done well — high farm completion, good relationships, thriving farm — <strong>you'll be welcomed as a permanent resident!</strong> The game continues past Year 3 indefinitely.</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>🏆 What the Mayor Evaluates:</strong> Farm building completion percentage · Number and heart levels of animals · Wife's heart level · Child's heart level · Dog and Horse heart levels · Relationships with villagers · Total items shipped · Festival victories · Overall farm prosperity. There is no "fail" state that ends your game — even a poor evaluation lets you continue, but a good evaluation is deeply satisfying.
+    </div>
+
+    <h3>Farm Completion Score Breakdown</h3>
+    <table>
+        <tr><th>Factor</th><th>Contribution</th></tr>
+        <tr><td>Each animal owned (excluding dog, horse, fish)</td><td>+1%</td></tr>
+        <tr><td>Each heart on your dog</td><td>+1%</td></tr>
+        <tr><td>Each heart on your horse</td><td>+1%</td></tr>
+        <tr><td>Each heart on your wife</td><td>+1%</td></tr>
+        <tr><td>Each heart on your child</td><td>+1%</td></tr>
+        <tr><td>Each building expansion</td><td>Adds percentage</td></tr>
+        <tr><td>Shipping large quantities of crops</td><td>Bonus</td></tr>
+        <tr><td>Winning festivals</td><td>Bonus</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>📊 Maximum Theoretical Score:</strong> 10 chickens + 20 cows/sheep (30 animals) = 30% · Dog (10 hearts) = 10% · Horse (10 hearts) = 10% · Wife (10 hearts) = 10% · Child (10 hearts) = 10% · 5 building expansions = ~25% · Plus shipping and festival bonuses. A "perfect" farm can exceed 100% completion.
+    </div>
+</section>
+
+<!-- SECTION 9: BEYOND YEAR 3 -->
+<section id="beyond">
+    <h2>9. Beyond Year 3 — Endless Farming</h2>
+
+    <div class="highlight-box">
+        <strong>♾️ The Game Never Ends:</strong> After the Year 3 evaluation, the game continues indefinitely. You can keep farming, raising animals, and living your life in Mineral Village forever. There are even special events in Years 4 and 5!
+    </div>
+
+    <h3>Year 4 Special Event</h3>
+    <p>On a <strong>sunny winter day after 5 PM</strong>, go to the Church. A mysterious flashing light can be seen. This is one of the game's later-game secrets — a special event that rewards long-term players.</p>
+
+    <h3>Year 5 Special Event</h3>
+    <p>Between <strong>Fall 6–9 of Year 5</strong>, a buffet is ruined and you must solve the case! This is a mystery event that tests your knowledge of the villagers. The answer is a long-held community secret — experiment and investigate!</p>
+
+    <h3>Rival Marriages (Year 4+)</h3>
+    <p>If you didn't marry a particular bachelorette, her rival will eventually marry her around Year 4:</p>
+    <table>
+        <tr><th>Bachelorette</th><th>Rival</th><th>Notes</th></tr>
+        <tr><td>Popuri</td><td>Kai</td><td>Kai only appears in Summer</td></tr>
+        <tr><td>Ann</td><td>Cliff</td><td>Cliff must have stayed in town (grape harvest job!)</td></tr>
+        <tr><td>Elli</td><td>The Doctor</td><td>They work together at the Clinic</td></tr>
+        <tr><td>Karen</td><td>Rick</td><td>Rick works at the Poultry Farm</td></tr>
+        <tr><td>Mary</td><td>Gray</td><td>Gray works at the Blacksmith</td></tr>
+    </table>
+
+    <h3>Post-Year 3 Goals</h3>
+    <ul>
+        <li>Experience all rival marriages</li>
+        <li>See your child grow through all stages</li>
+        <li>Discover every last recipe (100+ total)</li>
+        <li>Catch all Legendary Fish (if not done)</li>
+        <li>Collect all 10 Power Berries (if not done)</li>
+        <li>Trigger the Year 4 and Year 5 special events</li>
+        <li>Achieve 100%+ farm completion</li>
+        <li>Marry a different bachelorette in a new save file to see all heart events</li>
+    </ul>
+</section>
+
+<!-- SECTION 10: MARRIAGE DEEP DIVE -->
+<section id="marriage-detail">
+    <h2>10. Year 2 Marriage — Deep Dive</h2>
+
+    <h3>Heart Level Progression in Year 2</h3>
+    <p>If you entered Year 2 with your bachelorette at Green-Yellow heart, reaching Red heart by early Summer is very achievable:</p>
+    <table>
+        <tr><th>Strategy</th><th>Affection Per Day</th></tr>
+        <tr><td>Talk to her daily</td><td>+200 points</td></tr>
+        <tr><td>Give a liked gift (1st gift of day)</td><td>+500 points</td></tr>
+        <tr><td>Give a loved gift (1st gift of day, wrapped)</td><td>+800–1,000 points</td></tr>
+        <tr><td>Talk at a festival</td><td>+1,000–2,000 points</td></tr>
+        <tr><td>Birthday gift (wrapped, loved item)</td><td>+4,000–5,000 points (5× multiplier!)</td></tr>
+        <tr><td>Jewelry (Orichalcum crafted)</td><td>Massive boost — loved by ALL bachelorettes!</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💎 Pro Tip:</strong> Craft Jewelry at Saibara's (1,000G + 1 Orichalcum). Wrap it at the Supermarket (100G). Give the wrapped Jewelry to your bachelorette. This is the single most powerful affection boost in the game — all five girls LOVE Jewelry. Save your Winter Mine Orichalcum for this!
+    </div>
+
+    <h3>Year 2 Heart Events by Girl</h3>
+    <p>Each bachelorette has heart events at specific heart colors. These must be triggered (by being at the right place at the right time) before you can progress to the next heart level:</p>
+    <table>
+        <tr><th>Girl</th><th>Purple Heart</th><th>Blue Heart</th><th>Green Heart</th><th>Yellow/Orange</th></tr>
+        <tr><td><strong>Popuri</strong></td><td>Hot Spring (morning)</td><td>Poultry Farm</td><td>Church</td><td>Mother's Hill</td></tr>
+        <tr><td><strong>Ann</strong></td><td>Inn (morning)</td><td>Hot Spring</td><td>Inn kitchen</td><td>Inn 2nd floor</td></tr>
+        <tr><td><strong>Elli</strong></td><td>Clinic</td><td>Ellen's House</td><td>Clinic (after hours)</td><td>Beach</td></tr>
+        <tr><td><strong>Karen</strong></td><td>Supermarket</td><td>Beach (evening)</td><td>Inn</td><td>Karen's House</td></tr>
+        <tr><td><strong>Mary</strong></td><td>Library</td><td>Mother's Hill</td><td>Mary's House</td><td>Library (closed day)</td></tr>
+    </table>
+
+    <div class="warning-box">
+        <strong>⚠️ Important:</strong> You MUST trigger all heart events in order before a girl can reach Red heart! If you've been gifting heavily but she's "stuck" at a heart color, you likely missed a heart event. Check the right location at the right time.
+    </div>
+</section>
+
+<!-- SECTION 11: BABY GUIDE -->
+<section id="baby">
+    <h2>11. Baby &amp; Child Guide</h2>
+
+    <h3>Pregnancy Timeline</h3>
+    <table>
+        <tr><th>Stage</th><th>Approximate Duration</th><th>What Happens</th></tr>
+        <tr><td>Marriage</td><td>Day 0</td><td>Wedding at the Church</td></tr>
+        <tr><td>Early Marriage</td><td>~1 season</td><td>Wife adjusts to farm life. Give gifts daily.</td></tr>
+        <tr><td>Pregnancy Sign</td><td>~1–2 seasons after marriage</td><td>Wife says "I'm hungry but I don't feel like doing anything." She'll also mention feeling sick in the mornings.</td></tr>
+        <tr><td>Pregnancy</td><td>~2 seasons</td><td>Wife stays home more. Her sprite changes. Continue giving gifts.</td></tr>
+        <tr><td>Birth</td><td>After ~2 seasons of pregnancy</td><td>Naming scene. You choose your child's name (max 8 letters).</td></tr>
+        <tr><td>Newborn</td><td>~2 seasons</td><td>Baby stays in bed. Give gifts daily (anything your wife likes).</td></tr>
+        <tr><td>Crawling</td><td>~2 seasons after birth</td><td>Baby moves around the house on all fours.</td></tr>
+        <tr><td>Walking</td><td>~4 seasons after birth</td><td>Baby walks around the house independently.</td></tr>
+    </table>
+
+    <h3>Baby Care Tips</h3>
+    <ul>
+        <li><strong>Give gifts daily:</strong> Your child likes everything your wife likes. Spa-Boiled Eggs, flowers, and Jewelry are universally good.</li>
+        <li><strong>Pick up your baby</strong> by pressing X — this increases affection.</li>
+        <li><strong>Child's heart level</strong> contributes +1% per heart to farm completion.</li>
+        <li><strong>There is only ONE child</strong> in the game (no second baby).</li>
+        <li><strong>Your child's appearance</strong> resembles your wife.</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>👶 Optimal Baby Timeline:</strong> Marry in Summer Year 2 → Pregnancy sign in Fall Year 2 → Baby born in Spring Year 3 → Baby crawling by Fall Year 3 → Baby walking by Winter Year 3/Spring Year 4. This gives you maximum time to raise the baby's heart level before the evaluation.
+    </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+    <h2>Sources</h2>
+    <p>This Year 2 &amp; 3 Walkthrough was compiled from the following community resources:</p>
+    <ul>
+        <li><strong>SStrato2123's Guide and Walkthrough</strong> — GameFAQs (v2.3, 2001). Seasonal walkthrough for Years 1–5, crop profitability, marriage schedules, and secrets. The primary source for the Year 2–3 seasonal breakdown.</li>
+        <li><strong>DeadlySin's Full Harvest Moon FAQ</strong> — GameFAQs (v5.0, 2002). Comprehensive game mechanics, items, characters, and all game systems.</li>
+        <li><strong>Sky Render's "The Hitchhiker's Guide to HM:BTN"</strong> — skyrender.net (2004–2007). Definitive manual replacement with detailed crop guides, animal mechanics, and the "merciless plan" walkthrough strategy.</li>
+        <li><strong>Xnad's Master Walkthrough (YouTube)</strong> — Year 2 Fall video walkthrough with real gameplay footage, legendary fish catching, baby birth timing, and rain/animal heart mechanics.</li>
+        <li><strong>Irvan Gen's 100% Walkthrough &amp; Marriage System Guide</strong> — irvangen.com (2024). Modern reference with affection point values, house upgrade requirements, and child growth timeline.</li>
+        <li><strong>AlmarsGuides</strong> — almarsguides.com. Crop lists, character guides, and individual bachelorette gift preferences with affection point values.</li>
+        <li><strong>Harvest Moon: Back to Nature community</strong> — 20+ years of player experience, tips, and shared knowledge from forums and guides across the web.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>🌾 Harvest Moon: Back to Nature — Year 2 &amp; 3 Walkthrough</p>
+    <p>Compiled from over 20 years of community knowledge. Farm wisely, love deeply, and may your Sweet Potatoes always sell for 120G. 🍂</p>
+    <p style="margin-top:0.5rem;"><em>This file is a companion to the Comprehensive Strategy Guide (Year 1). For crop guides, tool upgrades, mining, power berries, recipes, and villager social strategy, refer to the main guide.</em></p>
+</footer>
+
+</div>
+</body>
+</html>
