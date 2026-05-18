@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon: Friends of Mineral Town (GBA) — Year 2 &amp; 3 Walkthrough</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --heading: #f0c060;
+            --accent: #7a9e3a;
+            --accent2: #e8973a;
+            --accent3: #e94560;
+            --border: #30363d;
+            --table-stripe: #1a2332;
+            --highlight: #1a3020;
+            --info-bg: #162535;
+            --warning-bg: #2e2618;
+            --danger-bg: #2e1818;
+            --gold: #f0c060;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 1.5rem;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #4a6b28, #2d4a18);
+            color: #fff;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        nav {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        nav h2 { color: var(--heading); margin-bottom: 0.8rem; }
+        nav ul { list-style: none; columns: 2; column-gap: 1rem; }
+        nav li { margin-bottom: 0.3rem; }
+        nav a { color: var(--accent2); text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--heading);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        h3 { color: var(--accent2); margin: 1.3rem 0 0.6rem 0; font-size: 1.2rem; }
+        h4 { color: #f0c060; margin: 1rem 0 0.5rem 0; }
+        p { margin-bottom: 0.8rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.3rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.7rem;
+            text-align: left;
+        }
+        th {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--table-stripe); }
+        .highlight-box {
+            background: var(--highlight);
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid #4a90c4;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--accent2);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .danger-box {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--accent3);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.3rem; }
+        .best-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .new-badge {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .year-divider {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2rem;
+            color: var(--heading);
+            letter-spacing: 0.3rem;
+        }
+        .year-divider span {
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border: 2px solid var(--heading);
+            border-radius: 8px;
+        }
+        .checklist li { list-style-type: none; }
+        .checklist li::before { content: "☐ "; color: var(--accent2); }
+        pre {
+            background: #0d1117;
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-family: monospace;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        @media (max-width: 700px) {
+            body { padding: 0.5rem; }
+            section { padding: 1rem; }
+            nav ul { columns: 1; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🌾 Harvest Moon: Friends of Mineral Town</h1>
+    <p>Walkthrough: Year 2 &amp; Year 3 — GBA</p>
+    <p style="font-size:0.9rem;margin-top:0.3rem;">Marriage, Expansion, Completion, and Beyond</p>
+</header>
+
+<nav>
+    <h2>📑 Table of Contents</h2>
+    <ul>
+        <li><a href="#prerequisites">0. Prerequisites — End of Year 1</a></li>
+        <li><a href="#year2-spring">1. Year 2 Spring — Expanding the Farm</a></li>
+        <li><a href="#year2-summer">2. Year 2 Summer — Marriage Season</a></li>
+        <li><a href="#year2-fall">3. Year 2 Fall — Settling Down</a></li>
+        <li><a href="#year2-winter">4. Year 2 Winter — Baby &amp; Deep Mining</a></li>
+        <li><a href="#year3-spring">5. Year 3 Spring — Cursed Tools &amp; Completion</a></li>
+        <li><a href="#year3-summer">6. Year 3 Summer — Final Animal Championships</a></li>
+        <li><a href="#year3-fall">7. Year 3 Fall — Recipe &amp; Friendship Maxing</a></li>
+        <li><a href="#year3-winter">8. Year 3 Winter — Teleport Stone &amp; Endgame</a></li>
+        <li><a href="#beyond">9. Beyond Year 3 — Endless Farming</a></li>
+        <li><a href="#cursed-tools">10. Cursed &amp; Blessed Tools — Deep Dive</a></li>
+        <li><a href="#baby">11. Baby &amp; Child Guide</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 0: PREREQUISITES -->
+<section id="prerequisites">
+    <h2>0. Prerequisites — End of Year 1 Target</h2>
+
+    <div class="warning-box">
+        <strong>⚠️ Before starting Year 2, you should aim to have:</strong>
+    </div>
+
+    <ul class="checklist">
+        <li>1st House Extension built (3,000G + 200 Lumber)</li>
+        <li>Kitchen purchased via TV Shopping (4,010G) plus Refrigerator + Cabinet</li>
+        <li>Several cooking utensils (Oven, Knife, Frying Pan, Pot minimum)</li>
+        <li>Chicken Coop upgraded (5,000G + 420 Lumber — 8 chicken capacity)</li>
+        <li>Barn upgraded (6,800G + 500 Lumber — 16 livestock capacity)</li>
+        <li>6-8 chickens laying daily</li>
+        <li>3-5 cows producing milk</li>
+        <li>1-2 sheep producing wool</li>
+        <li>All tools at Silver level or higher (Watering Can at Gold recommended)</li>
+        <li>Large Rucksack purchased (5,000G)</li>
+        <li>Basket purchased (5,000G)</li>
+        <li>Bachelorette at Green-Yellow heart or higher</li>
+        <li>Cliff invited to the grape harvest job (so he stays in town!)</li>
+        <li>Horse matured and well cared for</li>
+        <li>Dog matured; Dog Ball purchased; Frisbee training begun</li>
+        <li>At least 3 Adamantite saved from Winter Lake Mine for Maker Machines</li>
+        <li>Some Orichalc saved for jewelry gifts</li>
+        <li>At least 20 recipes discovered</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>💰 Recommended Bank Balance entering Year 2:</strong> 30,000G – 50,000G. If you followed the Year 1 crop strategy (Turnips → Pineapples → Sweet Potatoes) plus Horse Race Broach exploits, you should be in great shape. <strong>There is NO Hothouse in FoMT</strong> — don't save up lumber for one!
+    </div>
+</section>
+
+<div class="year-divider"><span>🌱 YEAR 2</span></div>
+
+<!-- SECTION 1: YEAR 2 SPRING -->
+<section id="year2-spring">
+    <h2>1. Year 2 Spring — Expanding the Farm</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Spring Goals:</strong> 2nd House Extension (10,000G + 700 Lumber) + Big Bed · Purchase Maker Machines (Mayo, Cheese, Yarn) · Raise bachelorette to Red heart · Catch King Fish · Buy 3+ more cows/sheep · Upgrade tools to Mystrile
+    </div>
+
+    <h3>🌱 Season Overview</h3>
+    <p>Year 2 Spring is when you transition from survival to thriving. With infrastructure in place and upgraded tools, you can manage far more crops. The season's focus is on getting the <strong>2nd House Extension + Big Bed</strong> for marriage, upgrading tools to <strong>Mystrile</strong>, and pushing your chosen bachelorette to <strong>Red heart</strong>.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>New Year's Festival</td><td>Festival day; no farm work. Attend at Rose Square (6 PM). Receive rice cakes — great gifts!</td></tr>
+        <tr><td><strong>Day 2–7</strong></td><td>Spring Planting &amp; Expansions</td><td>Buy Cucumbers (bulk) from Supermarket; Cabbages from Won. Plant grass for growing herd. Begin serious lumber chopping for the 2nd House Extension. Craft Jewelry at Saibara (1,000G + Orichalc) — wrap and give to your bachelorette for massive affection!</td></tr>
+        <tr><td><strong>Day 3</strong></td><td>Kai Arrives</td><td>Kai returns for the summer. If pursuing Popuri, this is your rival! He sells food at the Seaside Lodge.</td></tr>
+        <tr><td><strong>Day 4</strong></td><td>Bold's Birthday</td><td>Give Bold (purple sprite) Flour or Purple Grass.</td></tr>
+        <tr><td><strong>Day 8</strong></td><td>Goddess' Birthday</td><td>Give the Harvest Goddess a Pineapple or Strawberry if you can reach her.</td></tr>
+        <tr><td><strong>Day 9–13</strong></td><td>Maker Machines &amp; Cows</td><td>Buy the <strong>Cheese Maker</strong> from Saibara (20,000G + Adamantite). Convert Milk to Cheese for massive profit. Buy more cows — target 8-10.</td></tr>
+        <tr><td><strong>Day 14</strong></td><td>Spring Thanksgiving</td><td>Bake <strong>Cookies</strong> (Flour + Butter + Egg / Rolling Pin + Oven + Sugar). Give to ALL five girls for affection boosts. All girls love cookies on this day — even Karen!</td></tr>
+        <tr><td><strong>Day 18</strong></td><td>Spring Horse Race <span class="best-badge">YOUR HORSE!</span></td><td>Your horse is mature! <strong>Race your own horse</strong> and win for a Power Berry. Bet on yourself for massive medals. Buy <strong>Broaches</strong> (18 medals → 2,000G profit each) + Power Berry (900 medals) + Jewel of Truth (1,000 medals).</td></tr>
+        <tr><td><strong>Day 19–21</strong></td><td>Expansion Push</td><td>Build the <strong>2nd House Extension</strong> (10,000G + 700 Lumber). Also buy the Mayo Maker and Yarn Maker from Saibara if you have Adamantite.</td></tr>
+        <tr><td><strong>Day 22</strong></td><td>Cooking Festival</td><td>Year 2 theme: <strong>Sweets</strong>. Enter Chocolate Cake or Cheese Cake. With multiple ingredients added, you should win easily.</td></tr>
+        <tr><td><strong>Day 23–30</strong></td><td>Final Marriage Prep</td><td>Order the <strong>Big Bed</strong> from TV Shopping (10,010G — appears after 2nd House Extension + buying all prior items). Purchase remaining kitchen utensils. Give daily wrapped gifts. Your bachelorette should be Orange-Red by month's end.</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💎 Jewelry Strategy:</strong> Craft Jewelry (Bracelet, Necklace, Earrings, or Broach) at Saibara for 1,000G + 1 Orichalc. Wrap it (100G at Supermarket). Give to ANY bachelorette — all five LOVE Accessories (500 AP). This is the most universally powerful gift in the game. Save your Winter Mine Orichalc specifically for this!
+    </div>
+
+    <h3>End-of-Spring Checklist</h3>
+    <ul class="checklist">
+        <li>2nd House Extension complete; Big Bed ordered</li>
+        <li>All three Maker Machines purchased (Mayo, Cheese, Yarn)</li>
+        <li>Bachelorette at Red heart ❤️</li>
+        <li>8-10 cows; 2-4 sheep</li>
+        <li>Won Horse Race (Power Berry obtained)</li>
+        <li>All tools at Gold-Mystrile level</li>
+        <li>All four heart events witnessed</li>
+        <li>Most TV Shopping items purchased</li>
+    </ul>
+</section>
+
+<!-- SECTION 2: YEAR 2 SUMMER -->
+<section id="year2-summer">
+    <h2>2. Year 2 Summer — Marriage Season</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Summer Goals:</strong> <strong>GET MARRIED!</strong> · Win Chicken Sumo Festival · Win Cow Festival · Catch Squid (King Fish) · Max out chicken flock (8) · Fill barn with cows + sheep · Begin deep mining in Spring Mine
+    </div>
+
+    <h3>☀️ Season Overview</h3>
+    <p><strong>This is the season of love!</strong> By now you should have Red heart, the Big Bed, the 2nd House Extension, and all four heart events viewed. The Blue Feather should be at the Supermarket (1,000G). Summer Fireworks (Day 24) is the most romantic proposal backdrop — or propose anytime once conditions are met.</p>
+
+    <h3>Marriage Checklist</h3>
+    <table>
+        <tr><th>Requirement</th><th>How to Fulfill</th></tr>
+        <tr><td>❤️ Red Heart (60,000-65,535 AP)</td><td>Give wrapped favorite gifts daily. Talk at festivals. Birthday gift (5×!). Use Jewelry.</td></tr>
+        <tr><td>🏠 2nd House Extension</td><td>10,000G + 700 Lumber from Gotz. Provides separate bedroom.</td></tr>
+        <tr><td>🛏️ Big Bed</td><td>10,010G from TV Shopping. Only appears after 2nd House Extension + all prior items bought.</td></tr>
+        <tr><td>💙 Blue Feather</td><td>1,000G at Supermarket. Appears when any girl is Orange heart+. Don't buy from Won (30,000G rip-off)!</td></tr>
+        <tr><td>💕 All Four Heart Events</td><td>Black, Purple, Blue (need Large Rucksack + empty item slot), Yellow — in order.</td></tr>
+        <tr><td>💍 Proposal</td><td>Equip Blue Feather and present to Red-heart girl. Wedding ~7 days later at Church.</td></tr>
+    </table>
+
+    <h3>Day-by-Day Event Guide</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>Beach Day (Frisbee)</td><td>Compete with adult dog + Frisbee. Win for Power Berry! Requires training at the beach in Spring. <strong>Supermarket is closed!</strong> Buy Summer seeds on Spring 30.</td></tr>
+        <tr><td><strong>Day 2–6</strong></td><td>Planting &amp; Pre-Marriage</td><td>Buy Pineapple seeds from Won. Buy Corn from Supermarket. Plant grass. Buy more cows (target 10+) and sheep (target 4+).</td></tr>
+        <tr><td><strong>Day 3</strong></td><td>Popuri's Birthday</td><td>Give wrapped Omelet, Scrambled Eggs, or Diamond. Massive affection if wooing her.</td></tr>
+        <tr><td><strong>Day 7</strong></td><td>Chicken Sumo Festival <span class="best-badge">WIN!</span></td><td>Enter happiest hen. Press A when facing opponent; stop when your chicken backs up. Win for Golden Eggs!</td></tr>
+        <tr><td><strong>Day 8–11</strong></td><td>Final Marriage Prep</td><td>Confirm Big Bed installed. Buy Blue Feather. Ensure Red heart. Consider wrapping the feather.</td></tr>
+        <tr><td><strong>Day 13–19</strong></td><td><strong>PROPOSAL WINDOW</strong></td><td><strong>Propose to your bachelorette!</strong> Give the Blue Feather. Wedding scheduled ~7 days later. Day 24 is most romantic timing.</td></tr>
+        <tr><td><strong>Day 17</strong></td><td>Ann's Birthday</td><td>Give wrapped Cake, Truffle Rice, or Spa-Boiled Egg. Big affection if wooing her.</td></tr>
+        <tr><td><strong>Day 20</strong></td><td>Cow Festival <span class="best-badge">WIN!</span></td><td>Enter cow with most hearts. By Year 2, your cows should have 8-10 hearts. Win for Golden Milk!</td></tr>
+        <tr><td><strong>Day 24</strong></td><td>Fireworks Display</td><td>Watch with your wife (or favorite girl) at Mineral Beach at 6 PM. Romantic highlight of the year!</td></tr>
+        <tr><td><strong>Day 25–30</strong></td><td>Newlywed Life</td><td>Your wife now lives with you! Give her a gift daily to maintain heart level. She may cook occasionally.</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💍 Marriage Timing Tip:</strong> The ideal time to propose is early-mid Summer (Days 8–14). This ensures the wedding happens before Fall. Marrying in Summer Year 2 is the sweet spot — Baby arrives around Fall Year 2 or Spring Year 3.
+    </div>
+
+    <div class="info-box">
+        <strong>📋 Post-Marriage Routine:</strong> Talk to your wife every morning. Give her a liked/loved gift daily (even after marriage). Your wife's heart contributes to your farm completion. She may occasionally cook breakfast for you, restoring stamina. If you married Elli or Mary, they continue working part-time.
+    </div>
+</section>
+
+<!-- SECTION 3: YEAR 2 FALL -->
+<section id="year2-fall">
+    <h2>3. Year 2 Fall — Settling Down</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Fall Goals:</strong> Win Sheep Festival · Catch remaining King Fish · Upgrade all tools to Mystrile · Maximize Sweet Potato profits · Full barn (16 animals) · Deep-mine Spring Mine (floor 100+ for Power Berry, Goddess Jewels) · Discover 50+ recipes
+    </div>
+
+    <h3>🍂 Season Overview</h3>
+    <p>Fall Year 2 is the wealth-building season. Sweet Potatoes in a massive field mean enormous daily income. You should be swimming in gold by mid-season. If you haven't married yet, do it early in Fall. Your wife should begin showing signs of pregnancy toward Winter.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>Kai Departs</td><td>Kai leaves for the year. He'll return next Summer.</td></tr>
+        <tr><td><strong>Day 2</strong></td><td>Gotz's Birthday</td><td>Give Gotz Honey or Eggs. Keeping him happy ensures smooth expansions.</td></tr>
+        <tr><td><strong>Day 3</strong></td><td>Music Festival</td><td>Go to the Church at 6 PM. Play ocarina with the girls.</td></tr>
+        <tr><td><strong>Day 5</strong></td><td>Ann's Mother's Memorial</td><td>Doug grieves at Mother's Hill. The Inn is closed; Ann stays inside.</td></tr>
+        <tr><td><strong>Day 9</strong></td><td>Harvest Festival</td><td>Bring an ingredient for the community stew. Talk to everyone to boost friendship.</td></tr>
+        <tr><td><strong>Day 13</strong></td><td>Full Moon Festival</td><td>Go to Mother's Hill peak at 6 PM. Your wife (or highest-heart girl) waits for you.</td></tr>
+        <tr><td><strong>Day 14–20</strong></td><td>Grape Harvest Job</td><td>Duke asks for help. Participate for friendship boosts. <strong>If you missed inviting Cliff Year 1, he's already gone.</strong></td></tr>
+        <tr><td><strong>Day 15</strong></td><td>Karen's Birthday</td><td>Give wrapped Pizza, French Fries, or Wine. Massive affection if befriending her.</td></tr>
+        <tr><td><strong>Day 18</strong></td><td>Fall Horse Race</td><td>Race again! More medals, more Broaches, more profit. Buy remaining prizes.</td></tr>
+        <tr><td><strong>Day 21</strong></td><td>Sheep Festival <span class="best-badge">WIN!</span></td><td>Enter an <strong>unshorn</strong> sheep with most hearts. Win for Golden Wool.</td></tr>
+        <tr><td><strong>Day 22–29</strong></td><td>End of Harvest</td><td>Harvest last outdoor crops. Stockpile fodder for Winter. Bring animals inside.</td></tr>
+        <tr><td><strong>Day 30</strong></td><td>Pumpkin Festival</td><td>May (6 AM), Stu (8 AM), Popuri (10 AM) visit for candy. Have Chocolate!</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🐑 Sheep Strategy:</strong> Enter an <strong>unshorn</strong> sheep — shorn sheep cannot compete. Wool regrows in 7 days. Yarn (via Yarn Maker) is the most profitable animal product: Yarn (X) sells for <strong>4,000G</strong>!
+    </div>
+</section>
+
+<!-- SECTION 4: YEAR 2 WINTER -->
+<section id="year2-winter">
+    <h2>4. Year 2 Winter — Baby &amp; Deep Mining</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 2 Winter Goals:</strong> Baby born (or pregnancy confirmed) · Win Frisbee Contest training · Deep-mine Spring Mine (floors 100+) for Power Berry + Goddess Jewels · Deep-mine Lake Mine for Kappa Jewels + Cursed Tools · Collect all Power Berries · 100+ recipes discovered · Max tools to Mystrile
+    </div>
+
+    <h3>❄️ Season Overview</h3>
+    <p>No outdoor crops means you focus on mining, fishing, socializing, cooking, and preparation. The <strong>Lake Mine</strong> and <strong>Spring Mine</strong> become your primary activities. If your wife got pregnant in Fall, the baby will arrive around Spring-Summer Year 3.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1–9</strong></td><td>Lake Mine Blitz</td><td>Mine for rare gems (Diamonds, Pink Diamonds, Alexandrite). Collect Adamantite and Orichalc. <strong>Find Cursed Tools</strong> (all regular tools must be Mystrile first). Dig for Kappa Jewels.</td></tr>
+        <tr><td><strong>Day 2</strong></td><td>Thomas' Request</td><td>Mayor asks for an item. Deliver by 7 PM for Golden Lumber. <strong>Don't use as fence!</strong></td></tr>
+        <tr><td><strong>Day 6</strong></td><td>Gray's Birthday</td><td>Give Gray Baked Corn. Useful for tool-related events.</td></tr>
+        <tr><td><strong>Day 10</strong></td><td>Frisbee Training</td><td>Train your dog at the beach for next year's Beach Day. Winning gives a Power Berry!</td></tr>
+        <tr><td><strong>Day 14</strong></td><td>Winter Thanksgiving</td><td>Stay at your farm all day! Girls bring chocolate/cake depending on heart level.</td></tr>
+        <tr><td><strong>Day 15–19</strong></td><td>Tool Upgrades &amp; Deep Mining</td><td>Upgrade remaining tools to Mystrile. Deep-mine Spring Mine for Goddess Jewels (floors 60, 102, 123, etc.).</td></tr>
+        <tr><td><strong>Day 20</strong></td><td>Mary's Birthday</td><td>Give wrapped Relaxation Tea, Vegetable Juice, or Poisonous Mushroom.</td></tr>
+        <tr><td><strong>Day 23–24</strong></td><td>Star Night Festival</td><td>Ask your wife on the 23rd. Dinner at noon on the 24th at your house. Heartwarming!</td></tr>
+        <tr><td><strong>Day 25</strong></td><td>Stocking Festival</td><td>Sleep after 9 PM with a stocking for a gift (Mystrile, gems, or chocolate).</td></tr>
+        <tr><td><strong>Day 30</strong></td><td>New Year's Eve</td><td>Noodles at Rose Square (6 PM) OR sunrise at Mother's Hill (midnight).</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>👶 Pregnancy Timeline:</strong> After marriage, continue giving gifts daily. Your wife says "I feel sick in the morning" → visit Clinic → Doctor confirms pregnancy. Pregnancy lasts ~60 days (2 seasons). Baby takes 60 more days to crawl, then 60 more to walk.
+    </div>
+
+    <h3>King Fish — Year 2 Catch Targets <span class="new-badge">FoMT EXCLUSIVE</span></h3>
+    <table>
+        <tr><th>#</th><th>King Fish</th><th>Season</th><th>Location</th><th>Rod Level</th></tr>
+        <tr><td>1</td><td><strong>Squid</strong></td><td>Spring/Summer/Fall</td><td>Sea</td><td>6+ (Cursed/Blessed/Mythic)</td></tr>
+        <tr><td>2</td><td><strong>Catfish</strong></td><td>Winter</td><td>Hot Springs</td><td>6+</td></tr>
+        <tr><td>3</td><td><strong>Coelacanth</strong></td><td>Winter</td><td>Lake Mine Floor 9 pond</td><td>6+</td></tr>
+        <tr><td>4</td><td><strong>Carp</strong></td><td>Spring/Summer/Fall</td><td>Mother's Hill Lake</td><td>6+</td></tr>
+        <tr><td>5</td><td><strong>Japanese Huchen</strong></td><td>Spring/Summer/Fall</td><td>Downstream</td><td>6+</td></tr>
+        <tr><td>6</td><td><strong>Monkfish</strong></td><td>Spring/Winter</td><td>Sea</td><td>6+</td></tr>
+    </table>
+    <p>Catching all 6 King Fish is required to marry the Harvest Goddess!</p>
+</section>
+
+<div class="year-divider"><span>🍂 YEAR 3</span></div>
+
+<!-- SECTION 5: YEAR 3 SPRING -->
+<section id="year3-spring">
+    <h2>5. Year 3 Spring — Cursed Tools &amp; Completion</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Spring Goals:</strong> Bless all Cursed Tools · Mine Mythic Stones · Deep-mine Spring Mine floor 255 for Teleport Stone · Baby crawling · Collect remaining Goddess/Kappa Jewels · 108 recipes · Max animal hearts
+    </div>
+
+    <h3>🌱 Season Overview</h3>
+    <p>Year 3 is about completion. You now have the infrastructure and wealth to tackle the game's deepest content. Focus on <strong>blessing cursed tools</strong>, reaching <strong>floor 255 of the Spring Mine</strong> for the <strong>Teleport Stone</strong>, and maxing out all completion metrics.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>New Year's Festival</td><td>Now a family man — attend with your wife. Reflect on your journey.</td></tr>
+        <tr><td><strong>Day 2–7</strong></td><td>Spring Planting + Uncurse Tools</td><td>Plant Cucumbers + Cabbages. Use <strong>Confessional</strong> to uncurse Hoe and Watering Can (10 blessings each, 1,000G each). Use the <strong>Inn water trick</strong> for Axe/Fishing Rod (use 255 times — order free water to restore stamina).</td></tr>
+        <tr><td><strong>Day 8–13</strong></td><td>Spring Mine Floor 255 Run</td><td>Deep-mine to floor 255. Bring food, Black Grass, and save often. The <strong>Teleport Stone</strong> appears in rocks on floor 255 (<strong>Year 3+ only!</strong>) Must have empty tool slot! Also grab the Fried Potato recipe from the soil.</td></tr>
+        <tr><td><strong>Day 14</strong></td><td>Spring Thanksgiving</td><td>Give your wife cookies. Give chocolate cookies to all girls for friendship.</td></tr>
+        <tr><td><strong>Day 18</strong></td><td>Spring Horse Race</td><td>Veteran racer by now. Win medals; buy remaining prizes.</td></tr>
+        <tr><td><strong>Day 22</strong></td><td>Cooking Festival</td><td>Year 3 theme: <strong>Bread</strong>. Enter a loaded Sandwich for easy victory.</td></tr>
+        <tr><td><strong>Day 23–30</strong></td><td>Mythic Tools</td><td>With all tools Blessed, Mythic Stones appear in the Spring Mine (floor 60+). Bring to Saibara with 50,000G each for the ultimate tool tier!</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>🔮 Teleport Stone:</strong> Found on Spring Mine Floor 255 (rocks), Year 3+. Must have empty tool slot! Warps to any outdoor location instantly. This is a game-changer — no more walking across the map. Required for 100% completion.
+    </div>
+</section>
+
+<!-- SECTION 6: YEAR 3 SUMMER -->
+<section id="year3-summer">
+    <h2>6. Year 3 Summer — Final Animal Championships</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Summer Goals:</strong> Win Beach Day (Power Berry if not yet) · Win Chicken + Cow Festivals · Catch remaining King Fish · Baby walking · Mythic tools completed · All Goddess Jewels collected
+    </div>
+
+    <h3>☀️ Season Overview</h3>
+    <p>The baby should now be crawling (or walking by end of Summer). Your animals should be at max hearts, guaranteeing festival wins. This is also the season to finish any remaining King Fish catches.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>Beach Day</td><td>Win the Frisbee Contest for the Power Berry if you haven't already. Your dog should be highly trained by now.</td></tr>
+        <tr><td><strong>Day 7</strong></td><td>Chicken Sumo</td><td>Enter your champion chicken. Defend your title.</td></tr>
+        <tr><td><strong>Day 20</strong></td><td>Cow Festival</td><td>All cows at 8-10 hearts. Guaranteed win. Defend your Golden Milk title.</td></tr>
+        <tr><td><strong>Day 24</strong></td><td>Fireworks</td><td>Watch with your wife and child (well, your wife — baby stays home).</td></tr>
+        <tr><td><strong>Day 25–30</strong></td><td>Recipe Completion</td><td>Discover any remaining recipes. Target: 108 recipes (full list).</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 7: YEAR 3 FALL -->
+<section id="year3-fall">
+    <h2>7. Year 3 Fall — Recipe &amp; Friendship Maxing</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Fall Goals:</strong> Discover all 108 recipes · Max friendship with all villagers · Win Sheep Festival · Collect remaining Jewels of Truth · Catch remaining King Fish · Baby walking and interacting
+    </div>
+
+    <h3>🍂 Season Overview</h3>
+    <p>Focus on tying up loose ends. Ship every shippable item. Cook every recipe. Max out all friendships. The baby should now be walking around the house.</p>
+
+    <h3>Key Events &amp; Strategy</h3>
+    <table>
+        <tr><th>Day</th><th>Event / Focus</th><th>Strategy</th></tr>
+        <tr><td><strong>Day 1</strong></td><td>Kai Departs</td><td>Kai leaves. Hope you befriended him for the rival wedding!</td></tr>
+        <tr><td><strong>Day 3</strong></td><td>Music Festival</td><td>Attend at the Church at 6 PM.</td></tr>
+        <tr><td><strong>Day 9</strong></td><td>Harvest Festival</td><td>Contribute to the stew. Talk to everyone.</td></tr>
+        <tr><td><strong>Day 13</strong></td><td>Full Moon Festival</td><td>Watch the moon with your wife at Mother's Hill peak.</td></tr>
+        <tr><td><strong>Day 18</strong></td><td>Fall Horse Race</td><td>One more Horse Race for medals and prizes.</td></tr>
+        <tr><td><strong>Day 21</strong></td><td>Sheep Festival</td><td>Enter your best unshorn sheep. Golden Wool champion!</td></tr>
+        <tr><td><strong>Day 30</strong></td><td>Pumpkin Festival</td><td>Last Pumpkin Festival before the evaluation (in BTN, at least — FoMT has no evaluation!).</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 8: YEAR 3 WINTER -->
+<section id="year3-winter">
+    <h2>8. Year 3 Winter — Teleport Stone &amp; Endgame</h2>
+
+    <div class="warning-box">
+        <strong>🎯 Year 3 Winter Goals:</strong> Finish all King Fish · Complete all Power Berries · All 108 recipes · All collectibles (Goddess/Kappa/Truth Jewels) · Max friendship with all villagers · Prepare for Year 4+ endgame
+    </div>
+
+    <h3>❄️ Season Overview</h3>
+    <p><strong>In FoMT, the game NEVER ends!</strong> Unlike BTN's evaluation on Winter 30, you can keep playing forever. This season is about wrapping up anything outstanding and preparing for the long-term endgame goals (Town Cottage, Harvest Goddess marriage, Year 4 rival weddings).</p>
+
+    <h3>Endgame Goals</h3>
+    <table>
+        <tr><th>Goal</th><th>How to Achieve</th></tr>
+        <tr><td><strong>Town Cottage</strong></td><td>Save 100,000,000G + 999 Lumber. The ultimate wealth display. Go to Gotz to build it.</td></tr>
+        <tr><td><strong>Marry Harvest Goddess</strong></td><td>Complete fishing list, shipping list, all 9 Goddess Jewels, all mine items, Big Bed, Year 5+, Carter confessional.</td></tr>
+        <tr><td><strong>Mountain Cottage</strong></td><td>50th wedding anniversary gift from your wife. Contains a Goddess Jewel.</td></tr>
+        <tr><td><strong>Seaside Cottage</strong></td><td>Connect with Harvest Moon: A Wonderful Life (GCN) via link cable. Earn all 42 Link Stars.</td></tr>
+        <tr><td><strong>All Mythic Tools</strong></td><td>Bless all Cursed Tools → mine Mythic Stones → pay 50,000G each at Saibara.</td></tr>
+        <tr><td><strong>Gem of Truth</strong></td><td>Collect all 9 Jewels of Truth. Shows exact stamina/fatigue values.</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>♾️ FoMT Never Ends:</strong> Unlike Back to Nature, there is NO Mayor evaluation and NO game over. The year counter stops at 200 but you can play forever. This is what makes FoMT the definitive version for completionists. Take your time and enjoy every season!
+    </div>
+</section>
+
+<!-- SECTION 9: BEYOND YEAR 3 -->
+<section id="beyond">
+    <h2>9. Beyond Year 3 — Endless Farming</h2>
+
+    <div class="highlight-box">
+        <strong>♾️ The Game Never Ends:</strong> After Year 3, the game continues indefinitely. You can keep farming, raising animals, and living your life in Mineral Village forever. There are even special Year 4 and Year 5 events!
+    </div>
+
+    <h3>Year 4: Rival Weddings</h3>
+    <p>If you haven't married a particular bachelorette, her rival will propose in Year 4. Each rival couple has an Orange heart event in Year 4, followed by a wedding 7 days later:</p>
+    <table>
+        <tr><th>Bachelorette</th><th>Rival</th><th>Year 4 Orange Event Location</th></tr>
+        <tr><td>Popuri</td><td>Kai</td><td>Poultry Farm, Tue/Thu/Sat 9 AM–7 PM</td></tr>
+        <tr><td>Ann</td><td>Cliff</td><td>Aja Winery cellar, weekdays 10 AM–1 PM</td></tr>
+        <tr><td>Elli</td><td>Doctor</td><td>Mineral Beach, Wednesday 7–10 PM</td></tr>
+        <tr><td>Karen</td><td>Rick</td><td>Poultry Farm, Tue/Thu/Sat 1–4 PM (requires Popuri married Kai first!)</td></tr>
+        <tr><td>Mary</td><td>Gray</td><td>Library, Thursday/Saturday 1–4 PM</td></tr>
+    </table>
+
+    <h3>Year 5: Harvest Goddess Marriage Available</h3>
+    <p>In Year 5, you can finally ask Carter for permission to marry the Harvest Goddess (assuming you've met all other requirements). This is the ultimate achievement in FoMT!</p>
+
+    <h3>50th Wedding Anniversary</h3>
+    <p>On your 50th wedding anniversary, your wife gifts you the <strong>Mountain Cottage</strong> — a vacation home on Mother's Hill. Inside, you can find a Goddess Jewel.</p>
+
+    <h3>Post-Year 3 Ultimate Goals</h3>
+    <ul>
+        <li>Experience all rival weddings</li>
+        <li>Marry the Harvest Goddess (Year 5+)</li>
+        <li>Build the Town Cottage (100,000,000G)</li>
+        <li>Obtain all Mythic Tools</li>
+        <li>Collect all Goddess/Kappa/Truth Jewels and Gems</li>
+        <li>Catch all 6 King Fish</li>
+        <li>Ship every shippable item</li>
+        <li>Discover all 108 recipes</li>
+        <li>Max friendship with every villager</li>
+        <li>Get the Teleport Stone</li>
+        <li>Earn all 42 Link Stars (with AWL) for Seaside Cottage</li>
+    </ul>
+</section>
+
+<!-- SECTION 10: CURSED TOOLS -->
+<section id="cursed-tools">
+    <h2>10. Cursed &amp; Blessed Tools — Deep Dive</h2>
+
+    <h3>Finding Cursed Tools</h3>
+    <p>All 6 regular tools must be at <strong>Mystrile level</strong> first. Then, in the <strong>Lake Mine (Winter)</strong>, dig in the <strong>soil</strong> (not rocks) on specific floors. You need an <strong>empty tool slot</strong>. Once equipped, a cursed tool <strong>CANNOT be removed</strong> without Carter's help at Confessional (1,000G).</p>
+
+    <table>
+        <tr><th>Tool</th><th>Floor</th><th>How to Bless</th><th>Cursed/Blessed Effect</th></tr>
+        <tr><td>Fishing Rod</td><td>29</td><td>Use 255 times</td><td>Catch King Fish, Pirate Treasure (10,000G), Fish Fossils (5,000G)</td></tr>
+        <tr><td>Hoe</td><td>39</td><td>Carter bless 10× (1,000G each)</td><td>Till 12×3 area</td></tr>
+        <tr><td>Axe</td><td>49</td><td>Use 255 times</td><td>Chop ALL stumps/branches on current screen</td></tr>
+        <tr><td>Hammer</td><td>59</td><td>Equip 10 days straight</td><td>Smash boulders and large boulders in 1 hit</td></tr>
+        <tr><td>Watering Can</td><td>69</td><td>Carter bless 10× (1,000G each)</td><td>Water 6×13 area</td></tr>
+        <tr><td>Sickle</td><td>79</td><td>Equip 10 days straight</td><td>Cut 9×9 grass area</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💡 Uncursing Tips:</strong> For Fishing Rod and Axe (use 255 times), go to the Inn and order free water repeatedly to restore stamina. For Hammer and Sickle (equip 10 days straight), do this in Winter when no crops need tending — hire Sprites for animals. For Hoe and Watering Can (Carter bless 10 times), go to Confessional every Monday/Wednesday/rainy day (1-4 PM), 1,000G per blessing.
+    </div>
+
+    <h3>Mythic Tools</h3>
+    <p>After blessing ALL 6 tools, <strong>Mythic Stones</strong> appear in the Spring Mine (floor 60+ and Goddess Jewel floors). Bring one Mythic Stone + 50,000G to Saibara per tool:</p>
+    <table>
+        <tr><th>Mythic Tool</th><th>Effect</th></tr>
+        <tr><td>Mythic Hoe</td><td>Till 18×5 area</td></tr>
+        <tr><td>Mythic Axe</td><td>Same as Blessed, 50% less stamina</td></tr>
+        <tr><td>Mythic Hammer</td><td>Smash ALL stones on current screen</td></tr>
+        <tr><td>Mythic Watering Can</td><td>Water 12×21 area</td></tr>
+        <tr><td>Mythic Sickle</td><td>Cut 15×15 grass area</td></tr>
+        <tr><td>Mythic Fishing Rod</td><td>Better chance of catching treasures</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 11: BABY GUIDE -->
+<section id="baby">
+    <h2>11. Baby &amp; Child Guide</h2>
+
+    <h3>Pregnancy Timeline</h3>
+    <table>
+        <tr><th>Stage</th><th>Duration</th><th>What Happens</th></tr>
+        <tr><td>Marriage</td><td>Day 0</td><td>Wedding at the Church. Wife moves into your farmhouse.</td></tr>
+        <tr><td>Early Marriage</td><td>~1 season</td><td>Wife adjusts to farm life. Give gifts daily to maintain affection.</td></tr>
+        <tr><td>Pregnancy Sign</td><td>~1-2 seasons after marriage</td><td>Wife says "I feel sick…" Visit the Clinic. Doctor confirms pregnancy.</td></tr>
+        <tr><td>Pregnancy</td><td>~2 seasons (60 days)</td><td>Wife stays home more. Continue giving gifts. Her sprite changes to show pregnancy.</td></tr>
+        <tr><td>Birth</td><td>After ~2 seasons</td><td>Naming scene. Choose name (max 8 letters). <strong>Always a boy</strong> in boy version.</td></tr>
+        <tr><td>Newborn</td><td>~60 days</td><td>Baby stays in bed. Cannot interact. Wife holds him in the mornings.</td></tr>
+        <tr><td>Falls Out of Bed</td><td>After ~60 days</td><td>Baby falls, you take him to Clinic. Doctor says he's fine — just a bruise. Now he can crawl!</td></tr>
+        <tr><td>Toddler (Crawling)</td><td>~60 more days</td><td>Baby crawls around the house. Can give gifts now!</td></tr>
+        <tr><td>Toddler (Walking)</td><td>~60 more days</td><td>Baby walks around independently. Can talk and receive gifts. Never grows beyond this stage.</td></tr>
+    </table>
+
+    <h3>Baby Gift Guide</h3>
+    <table>
+        <tr><th>Loves</th><th>Likes</th><th>Hates</th></tr>
+        <tr>
+            <td>Hot Milk, Strawberry Milk, Honey, Wild Grapes, Ice Cream, Cheesecake, Noodles, Cake</td>
+            <td>Pineapple, Fruit Juice, Apple, Chocolate Cake, Yarn, Flowers, Milk, Carrot, Omelet, Vegetable Juice, Mixed Juice, Tomato Juice, Orange Cup</td>
+            <td>Fish Bones, Cookies, Pizza, Corn, Curry, Green Peppers, Eggplant, Potato, Fish, Sashimi, Red Grass, Mushroom Rice, Cheese Fondue, Cabbage, Onions, Truffle Rice, Butter, Cheese, Pickles</td>
+        </tr>
+    </table>
+
+    <div class="info-box">
+        <strong>👶 Optimal Baby Timeline:</strong> Marry Summer Year 2 → Pregnancy Fall Year 2 → Baby born Spring Year 3 → Crawling Fall Year 3 → Walking Winter Year 3. This gives maximum time to enjoy all stages and raise the baby's affection.
+    </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+    <h2>Sources</h2>
+    <p>This Year 2 &amp; 3 Walkthrough was compiled from the following community resources:</p>
+    <ul>
+        <li><strong>samurai_goroh &amp; thekingofthisgame's Guide and Walkthrough</strong> — GameFAQs (v7.5, 2005). Massive comprehensive reference — the primary source for Year 2-3 strategies, tool data, and mining information.</li>
+        <li><strong>chito10's Money Maker/Crop Guide</strong> — GameFAQs (vFinal, 2004). Seasonal crop profit data, animal product values, and money-making strategies.</li>
+        <li><strong>Gameboyguru's "Year One" Spring Guide</strong> — GameFAQs (v1.3, 2004). Day-by-day checklist format adapted for Year 2-3 walkthrough structure.</li>
+        <li><strong>taiga's Festival Guide</strong> — GameFAQs (v1.8, 2004). Festival calendar, horse race strategies, and cooking contest categories for Years 2-5.</li>
+        <li><strong>GamerZenith's FoMT Guides</strong> — gamerzenith.com. Power Berries, cursed tools, mining, and collectibles data.</li>
+        <li><strong>RPGClassics FoMT Shrine</strong> — tartarus.rpgclassics.com. Festival calendar, baby guide, and power berry locations.</li>
+        <li><strong>Fogu / Ushi No Tane FoMT Section</strong> — fogu.com. Cursed tools, mythic tools, and endgame cottage information.</li>
+        <li><strong>Harvest Moon Wiki</strong> — harvestmoon.fandom.com. Animal lifespans, product values, and mine floor reference data.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>🌾 Harvest Moon: Friends of Mineral Town (GBA) — Year 2 &amp; 3 Walkthrough</p>
+    <p>Compiled from over 20 years of community knowledge. Farm wisely, love deeply, and may your Sweet Potatoes always sell for 120G. 🍂</p>
+    <p style="margin-top:0.5rem;"><em>This file is a companion to the Comprehensive Strategy Guide. For crop guides, tool upgrades, mining, power berries, recipes, and villager social strategy, refer to the main guide.</em></p>
+</footer>
+
+</div>
+</body>
+</html>

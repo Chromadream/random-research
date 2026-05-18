@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon: Friends of Mineral Town (GBA) — Comprehensive Bachelorette &amp; Marriage Guide</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --card-bg-alt: #1c2533;
+            --text: #c9d1d9;
+            --heading: #f0c27a;
+            --accent: #e94560;
+            --accent2: #f08a5d;
+            --accent3: #7a9e3a;
+            --border: #30363d;
+            --table-stripe: #1a2332;
+            --highlight: #1a3020;
+            --info-bg: #162535;
+            --warning-bg: #2e2618;
+            --danger-bg: #2e1818;
+            --gold: #ffd700;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 1.5rem;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(135deg, #2d1b3d, #1a1a3e);
+            border: 1px solid #3a2a5a;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2.2rem; color: #f0c27a; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.85; color: #d0b0d0; }
+        nav {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        nav h2 { color: var(--heading); margin-bottom: 0.8rem; }
+        nav ul { list-style: none; columns: 2; column-gap: 1rem; }
+        nav li { margin-bottom: 0.3rem; }
+        nav a { color: var(--accent2); text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--heading);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        h3 { color: var(--accent2); margin: 1.4rem 0 0.6rem 0; font-size: 1.25rem; }
+        h4 { color: #c9a0dc; margin: 1rem 0 0.5rem 0; font-size: 1.05rem; }
+        p { margin-bottom: 0.8rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.3rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.55rem 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: var(--card-bg-alt);
+            color: var(--heading);
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--table-stripe); }
+        .highlight-box {
+            background: var(--highlight);
+            border-left: 4px solid #4caf50;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid #42a5f5;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid #ffd700;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .danger-box {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--accent);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.35rem; }
+        .best-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .rival-badge {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .new-badge {
+            display: inline-block;
+            background: #42a5f5;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .difficulty-easy { color: #4caf50; font-weight: bold; }
+        .difficulty-medium { color: #ffd700; font-weight: bold; }
+        .difficulty-hard { color: #e94560; font-weight: bold; }
+        .difficulty-impossible { color: #ff4444; font-weight: bold; }
+        .heart-color-box {
+            display: inline-block;
+            width: 16px; height: 16px; border-radius: 50%;
+            margin-right: 6px; vertical-align: middle;
+        }
+        .girl-card {
+            background: var(--card-bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .girl-card h3 { margin-top: 0; font-size: 1.3rem; }
+        .girl-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        .girl-icon { font-size: 2.5rem; }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .stat-item {
+            background: var(--bg);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .stat-label {
+            font-weight: 600;
+            color: var(--accent2);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .pro-con-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .pro-box {
+            background: #1a3a2a;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+        .con-box {
+            background: #2a1a1a;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+        .pro-box h4 { color: #4caf50; margin-top: 0; }
+        .con-box h4 { color: #e94560; margin-top: 0; }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.35rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg);
+        }
+        .timeline-label { font-weight: 700; color: var(--heading); font-size: 0.85rem; }
+        .quick-tip {
+            background: #1a1a3e;
+            border: 1px solid #3a3a6a;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
+        }
+        .quick-tip strong { color: var(--heading); }
+        code {
+            background: #2a2a4a;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.88rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        @media (max-width: 700px) {
+            body { padding: 0.5rem; }
+            section { padding: 1rem; }
+            nav ul { columns: 1; }
+            header h1 { font-size: 1.5rem; }
+            .pro-con-grid { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>💕 Harvest Moon: Friends of Mineral Town</h1>
+    <p>The Complete Bachelorette &amp; Marriage Guide — GBA</p>
+    <p style="font-size: 0.9rem; margin-top: 0.3rem; opacity: 0.8;">Everything about heart events, gift strategies, schedules, rival marriages, the "alt birthday" system, and marrying the Harvest Goddess</p>
+</header>
+
+<nav>
+    <h2>📑 Table of Contents</h2>
+    <ul>
+        <li><a href="#how-it-works">1. How the Marriage System Works (FoMT vs BTN)</a></li>
+        <li><a href="#heart-system">2. Heart Levels &amp; Affection Points</a></li>
+        <li><a href="#alt-birthday">3. The "Alt Birthday" — Fully Explained</a></li>
+        <li><a href="#gift-mechanics">4. Gift Mechanics, Wrapping &amp; Birthdays</a></li>
+        <li><a href="#marriage-requirements">5. Marriage Requirements Step-by-Step</a></li>
+        <li><a href="#ann">6. Ann — Full Guide</a></li>
+        <li><a href="#elli">7. Elli — Full Guide</a></li>
+        <li><a href="#karen">8. Karen — Full Guide</a></li>
+        <li><a href="#mary">9. Mary — Full Guide</a></li>
+        <li><a href="#popuri">10. Popuri — Full Guide</a></li>
+        <li><a href="#goddess">11. 🆕 Harvest Goddess Marriage</a></li>
+        <li><a href="#rivals">12. Rival Marriages — The Full Story</a></li>
+        <li><a href="#festivals">13. Romantic Festivals &amp; Dating Events</a></li>
+        <li><a href="#pregnancy">14. Pregnancy &amp; Children</a></li>
+        <li><a href="#comparison">15. Bachelorette Comparison Table</a></li>
+        <li><a href="#faq">16. Frequently Asked Questions</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 1: HOW IT WORKS -->
+<section id="how-it-works">
+    <h2>1. How the Marriage System Works (FoMT vs BTN)</h2>
+
+    <p>Marriage in Harvest Moon: Friends of Mineral Town is a central part of the experience. Unlike Back to Nature, <strong>you are not evaluated after 3 years</strong> — you can marry at your own pace!</p>
+
+    <div class="highlight-box">
+        <strong>💡 Key FoMT Differences from BTN:</strong><br>
+        • <strong>No time limit</strong> — you can marry in Year 1, Year 5, or never. There's no game-over evaluation.<br>
+        • <strong>New heart events</strong> — completely rewritten from BTN! Locations, times, and dialogues are different.<br>
+        • <strong>Harvest Goddess is marriageable</strong> — an entirely new challenge requiring near-100% completion.<br>
+        • <strong>Gift preferences differ</strong> — each girl's loves/likes/hates were adjusted from BTN.<br>
+        • <strong>The childhood girl is never revealed</strong> — it's left ambiguous in FoMT.<br>
+        • <strong>Rival marriages take 4 years</strong> — much slower than BTN, giving you plenty of time.
+    </div>
+
+    <p>There are <strong>five bachelorettes</strong> plus the <strong>Harvest Goddess</strong> in Mineral Village, each with:</p>
+    <ul>
+        <li>A distinct personality, daily schedule, and family</li>
+        <li>Unique gift preferences (Special → Loved → Liked → Neutral → Disliked → Hated)</li>
+        <li>Four mandatory <strong>heart events</strong> (Black, Purple, Blue, Yellow)</li>
+        <li>A <strong>rival bachelor</strong> who will marry her if you wait too long (Year 4+)</li>
+        <li>A primary <strong>birthday</strong> and an <strong>alternate birthday</strong></li>
+    </ul>
+
+    <div class="info-box">
+        <strong>📊 Extra Relationship Points:</strong> Each girl has a way to earn a one-time +200 affection point bonus. For Ann: buy anything from the Inn. For Elli: get examined by the Doctor. For Karen: buy items from the Supermarket. For Mary: go upstairs in the Library. For Popuri: own 8 chickens.
+    </div>
+</section>
+
+<!-- SECTION 2: HEART SYSTEM -->
+<section id="heart-system">
+    <h2>2. Heart Levels &amp; Affection Points (AP)</h2>
+
+    <p>Each bachelorette tracks your relationship using a hidden <strong>Affection Points</strong> (AP) counter ranging from 0 to 65,535. The heart color you see when talking to her represents the range she's in.</p>
+
+    <h3>Heart Color Ranges</h3>
+    <table>
+        <tr><th>Heart Color</th><th>Meaning</th><th>AP Range</th><th>What Unlocks</th></tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#666;"></span> 🖤 Black</td>
+            <td>Complete Stranger</td>
+            <td>0 – 9,999</td>
+            <td>Black Heart Event available</td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#9c27b0;"></span> 💜 Purple</td>
+            <td>Acquaintance / Friend</td>
+            <td>10,000 – 19,999</td>
+            <td>Purple Heart Event available; Winter Thanksgiving: chocolate</td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#42a5f5;"></span> 💙 Blue</td>
+            <td>Close Friend</td>
+            <td>20,000 – 29,999</td>
+            <td>Blue Heart Event available; memento gift received</td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#4caf50;"></span> 💚 Green</td>
+            <td>She Starts Noticing You</td>
+            <td>30,000 – 39,999</td>
+            <td>Can invite to Fireworks/Full Moon/Star Night festivals</td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#ffd700;"></span> 💛 Yellow</td>
+            <td>Flirting / Interested</td>
+            <td>40,000 – 49,999</td>
+            <td>Yellow Heart Event available; Winter Thanksgiving: cake</td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#f08a5d;"></span> 🧡 Orange</td>
+            <td>"Dating"</td>
+            <td>50,000 – 59,999</td>
+            <td><strong>Blue Feather appears in Supermarket!</strong></td>
+        </tr>
+        <tr>
+            <td><span class="heart-color-box" style="background:#e94560;"></span> ❤️ Red</td>
+            <td>In Love — Ready to Propose</td>
+            <td>60,000 – 65,535</td>
+            <td><strong>Can propose with Blue Feather</strong></td>
+        </tr>
+    </table>
+
+    <h3>Ways to Raise Affection</h3>
+    <ol>
+        <li><strong>Giving gifts</strong> — the primary method. Each day, the first gift gives the most AP; subsequent gifts give less (~1/3 normal).</li>
+        <li><strong>Talking to her daily</strong> — gives a small AP boost each day.</li>
+        <li><strong>Choosing correct dialogue options</strong> during heart events — can boost AP by +3,000 or more.</li>
+        <li><strong>Attending romantic festivals</strong> with her — significant AP boosts for Fireworks Display, Full Moon, and Star Night.</li>
+        <li><strong>Extra relationship points</strong> — each girl has a unique action that gives +200 points (once).</li>
+    </ol>
+</section>
+
+<!-- SECTION 3: ALT BIRTHDAY -->
+<section id="alt-birthday">
+    <h2>3. The "Alt Birthday" — Fully Explained 🔍</h2>
+
+    <h3>What "Alt Birthday" Means</h3>
+    <p>Every bachelorette has <strong>two possible birthday dates</strong>:</p>
+    <ul>
+        <li><strong>Primary Birthday:</strong> Her default birthday, used in most playthroughs.</li>
+        <li><strong>Alternate (Alt) Birthday:</strong> A backup date used <strong>only when the player's birthday falls on the same day</strong> as the bachelorette's primary birthday.</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>🔑 The Rule:</strong> When you start the game and set YOUR birthday, if it happens to land on the same day as a bachelorette's primary birthday, the game shifts <em>her</em> birthday to her alternate date — ensuring you don't share a birthday and miss out on the massive birthday gift bonus.
+    </div>
+
+    <h3>Complete Birthday Table</h3>
+    <table>
+        <tr><th>Bachelorette</th><th>Primary Birthday</th><th>Alt Birthday</th><th>Season</th></tr>
+        <tr><td>🏥 Elli</td><td>Spring 16</td><td>Spring 20</td><td>🌸 Spring</td></tr>
+        <tr><td>🌸 Popuri</td><td>Summer 3</td><td>Summer 10</td><td>☀️ Summer</td></tr>
+        <tr><td>💪 Ann</td><td>Summer 17</td><td>Summer 22</td><td>☀️ Summer</td></tr>
+        <tr><td>🍷 Karen</td><td>Fall 15</td><td>Fall 23</td><td>🍂 Fall</td></tr>
+        <tr><td>📚 Mary</td><td>Winter 20</td><td>Winter 25</td><td>❄️ Winter</td></tr>
+    </table>
+
+    <div class="warning-box">
+        <strong>💡 Pro Tip:</strong> When setting your birthday, choose a date that <strong>doesn't conflict</strong> with the girl you want to pursue. This keeps her primary birthday active — which is usually more convenient seasonally. Or, deliberately set your birthday to match a girl you don't plan to pursue.
+    </div>
+
+    <h3>Why Birthdays Matter</h3>
+    <p>Birthday gifts are <strong>the single most powerful affection boost in the game</strong>: a <strong>Loved</strong> gift on a birthday gives <strong>+2,500 AP</strong> (vs. +500 on a normal day) — <strong>5× the normal amount</strong>! With wrapping paper, the bonus is even higher. Missing a birthday means waiting an entire in-game year for the next opportunity.</p>
+</section>
+
+<!-- SECTION 4: GIFT MECHANICS -->
+<section id="gift-mechanics">
+    <h2>4. Gift Mechanics, Wrapping &amp; Birthdays</h2>
+
+    <h3>Affection Points Per Gift</h3>
+    <table>
+        <tr><th>Gift Type</th><th>Normal Day (1st gift)</th><th>Normal Day (2nd+ gift)</th><th>Birthday (1st gift)</th></tr>
+        <tr><td>🌟 Special Favorite</td><td>+800 AP</td><td>~+267 AP</td><td><strong>~+4,000 AP</strong></td></tr>
+        <tr><td>🎀 Loved (Favorite)</td><td>+500 AP</td><td>~+167 AP</td><td><strong>+2,500 AP</strong></td></tr>
+        <tr><td>😊 Liked</td><td>+300 AP</td><td>~+100 AP</td><td>+1,500 AP</td></tr>
+        <tr><td>😐 Neutral</td><td>+100 AP</td><td>0 AP</td><td>+500 AP</td></tr>
+        <tr><td>😒 Disliked</td><td>-500 AP</td><td>-500 AP</td><td>-2,500 AP</td></tr>
+        <tr><td>😠 Hated</td><td>-800 AP</td><td>-800 AP</td><td>-4,000 AP</td></tr>
+    </table>
+
+    <div class="warning-box">
+        <strong>⚠️ Warning:</strong> Giving a Hated gift on a birthday costs <strong>4,000 AP</strong> — that can undo weeks of gift-giving! Always double-check what you're handing over on birthdays. Multiple gifts per day to the same girl DO work in FoMT, but subsequent gifts give only ~1/3 the normal affection.
+    </div>
+
+    <h3>Gift Wrapping</h3>
+    <p><strong>Wrapping Paper</strong> can be purchased at the Supermarket for <strong>100G</strong>. Wrapped gifts provide an extra <strong>25%</strong> affection boost:</p>
+    <ul>
+        <li>Loved gift: 500 → 625 AP (normal day)</li>
+        <li>Loved gift on birthday: 2,500 → 3,125 AP</li>
+        <li><strong>Always wrap birthday gifts!</strong> The small cost of 100G is nothing compared to the affection gain.</li>
+    </ul>
+</section>
+
+<!-- SECTION 5: MARRIAGE REQUIREMENTS -->
+<section id="marriage-requirements">
+    <h2>5. Marriage Requirements — Step-by-Step</h2>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-label">Step 1: Choose Your Bachelorette &amp; Start Gifting</div>
+            <p>Talk to her daily. Give Loved/Liked gifts. Trigger the Black Heart Event (available from 0 AP). Continue until Purple heart.</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 2: Trigger All Four Heart Events</div>
+            <p>Black → Purple → Blue → Yellow. Each unlocks at a specific heart color. You MUST view these in order. Blue event requires Large Rucksack + empty item slot. Yellow requires Yellow heart+.</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 3: Build Farm Infrastructure</div>
+            <p>Upgrade house twice (3,000G+200 Lumber, then 10,000G+700 Lumber). Buy the <strong>Big Bed</strong> from TV Shopping (10,010G). Purchase all kitchen utensils.</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 4: Buy the Blue Feather</div>
+            <p>Once any bachelorette reaches Orange Heart, the <strong>Blue Feather</strong> appears at the Supermarket for <strong>1,000G</strong>. Won also sells it for 30,000G — don't buy from him!</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 5: Reach Red Heart (60,000+ AP)</div>
+            <p>Continue gifting until her heart turns Red. Only at Red Heart will she accept the Blue Feather.</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 6: Propose!</div>
+            <p>Equip the Blue Feather (like a tool with B) and present it to her. Make sure you've seen ALL four heart events and have the Big Bed!</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-label">Step 7: The Wedding</div>
+            <p>Exactly <strong>7 days later</strong>, the wedding takes place at the Church. A heart icon marks the date. If a festival conflicts, the wedding is delayed. After the ceremony, she moves into your farmhouse!</p>
+        </div>
+    </div>
+
+    <div class="danger-box">
+        <strong>⚠️ Common Proposal Rejections:</strong> If she refuses: (1) Her heart may not truly be Red (some screens make Orange look like Red). Keep gifting. (2) You haven't seen all four heart events. (3) You don't have the Big Bed yet. (4) You haven't done the second house extension.
+    </div>
+</section>
+
+<!-- SECTION 6: ANN -->
+<section id="ann">
+    <h2>6. 💪 Ann — The Tomboy Chef <span class="difficulty-easy">(Difficulty: Easy)</span></h2>
+
+    <div class="girl-card">
+        <div class="girl-header">
+            <div class="girl-icon">💪</div>
+            <div>
+                <h3 style="margin:0; color:#f0a070;">Ann</h3>
+                <p style="margin:0; opacity:0.8;">The energetic, animal-loving tomboy who works at the Inn</p>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-label">Birthday</span><br>Summer 17 (Alt: Summer 22)</div>
+            <div class="stat-item"><span class="stat-label">Rival</span><br>Cliff</div>
+            <div class="stat-item"><span class="stat-label">Family</span><br>Doug (father); mother deceased</div>
+            <div class="stat-item"><span class="stat-label">Extra Points</span><br>Buy food/drink from the Inn</div>
+        </div>
+
+        <h4>Why Ann Is Easy</h4>
+        <p>Ann is tied with Popuri for easiest. She's at the Inn almost all day — the simplest schedule of any girl. Her absolute favorite gifts include <strong>Spa-Boiled Eggs</strong> (free — toss eggs in the hot spring!). She visits the hot spring every morning (7:30–10 AM), making it trivially easy to find and gift her.</p>
+
+        <h4>🗓️ Schedule</h4>
+        <table>
+            <tr><th>Time</th><th>Location</th></tr>
+            <tr><td>7:30 AM – 10:00 AM</td><td>Hot Spring area</td></tr>
+            <tr><td>10:30 AM – 12:00 AM</td><td>Inn (upstairs or downstairs)</td></tr>
+        </table>
+        <p>Rain/Snow: inside the Inn all day. <strong>She's virtually always at the Inn.</strong></p>
+
+        <h4>🎁 Gift Guide</h4>
+        <div class="pro-con-grid">
+            <div class="pro-box">
+                <h4>✅ Best Gifts</h4>
+                <ul>
+                    <li><strong>Special (800 AP):</strong> Cake, Cheese Fondue, Pancakes, Truffle Rice</li>
+                    <li><strong>Loved (500 AP):</strong> Spa-Boiled Egg, Apple Pie, Cheesecake, Chocolate Cake, Omelet, Stew, Curry Rice, Strawberry Smoothie, Rice recipes, Diamonds, Perfume</li>
+                    <li><strong>Liked (300 AP):</strong> Cooked Eggs, Sandwich, Sweets, Rice Cakes, Accessories (all), Cheese, Milk, Mayonnaise</li>
+                </ul>
+            </div>
+            <div class="con-box">
+                <h4>❌ Never Give</h4>
+                <ul>
+                    <li><strong>Hated:</strong> All ores (she hates them!), Branches, Lumber, Fodder, Chicken Feed, Weeds, Stones, Poisonous Mushroom, Red Grass, Yellow Grass</li>
+                    <li><strong>Disliked:</strong> All grasses except Red/Yellow, Medicine, Failed Dishes</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>💕 Heart Events</h4>
+        <table>
+            <tr><th>Event</th><th>Heart</th><th>Location</th><th>Time</th><th>Correct Answer</th></tr>
+            <tr><td>🖤 Lunch Invitation</td><td>Black</td><td>Inn (1st floor)</td><td>Any day but Mon/Sat, 10:30 AM–1 PM</td><td><strong>"I'd like to stay"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💜 Ann's Singing</td><td>Purple</td><td>Inn (2nd floor)</td><td>Tue/Thu/Fri/Sat, 10 AM–1 PM</td><td><strong>"I love cleaning"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💙 Stomach Pains</td><td>Blue</td><td>Inn (1st floor)</td><td>Mon/Fri, 12 PM–7 PM</td><td><strong>"Take her to the clinic"</strong> (+3,000 AP). <strong>Need empty item slot!</strong> Receive Ann's Music Box.</td></tr>
+            <tr><td>💛 Doug's Question</td><td>Yellow</td><td>Inn (1st floor)</td><td>Wed/Thu/Sat/Sun, 10 AM–7 PM</td><td><strong>"I like her"</strong> (+3,000 AP)</td></tr>
+        </table>
+
+        <div class="quick-tip"><strong>💡 Fastest Strategy:</strong> Every morning, toss an egg in the hot spring to make a Spa-Boiled Egg, then hand it to Ann who's standing right there (7:30–10 AM). On her birthday, give a <strong>wrapped</strong> Cake or Truffle Rice for massive affection!</div>
+    </div>
+</section>
+
+<!-- SECTION 7: ELLI -->
+<section id="elli">
+    <h2>7. 🏥 Elli — The Caring Nurse <span class="difficulty-easy">(Difficulty: Easy)</span></h2>
+
+    <div class="girl-card">
+        <div class="girl-header">
+            <div class="girl-icon">🏥</div>
+            <div>
+                <h3 style="margin:0; color:#a0d0f0;">Elli</h3>
+                <p style="margin:0; opacity:0.8;">The gentle, hardworking nurse at the Mineral Clinic</p>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-label">Birthday</span><br>Spring 16 (Alt: Spring 20)</div>
+            <div class="stat-item"><span class="stat-label">Rival</span><br>The Doctor</div>
+            <div class="stat-item"><span class="stat-label">Family</span><br>Ellen (grandmother), Stu (brother)</div>
+            <div class="stat-item"><span class="stat-label">Extra Points</span><br>Get examined by Doctor</div>
+        </div>
+
+        <h4>Why Elli Is Easy</h4>
+        <p>Elli loves <strong>flowers</strong> (Pink Cat, Toy Flower, Blue Magic Grass) which are free on Mother's Hill or from Won's seeds. She also loves Red Magic Grass (200G sellable!) and Hot Milk (simple kitchen recipe). She's at the Clinic almost every day (closed Wednesdays), making her very predictable.</p>
+
+        <h4>🗓️ Schedule</h4>
+        <table>
+            <tr><th>Time</th><th>Location</th></tr>
+            <tr><td>All day (except Wed)</td><td>Inside the Clinic</td></tr>
+            <tr><td>Wednesday (day off)</td><td>Ellen's House (9:30 AM–1 PM) → Supermarket (1:20–4 PM) → Ellen's House (4–7 PM)</td></tr>
+        </table>
+
+        <h4>🎁 Gift Guide</h4>
+        <div class="pro-con-grid">
+            <div class="pro-box">
+                <h4>✅ Best Gifts</h4>
+                <ul>
+                    <li><strong>Special (800 AP):</strong> Hot Milk, Moon Dumplings, Red Magic Grass</li>
+                    <li><strong>Loved (500 AP):</strong> Pink Cat Flower, Toy Flower, Blue Magic Grass, Milk (all), Strawberry, Strawberry Smoothie, Diamonds, Perfume, Accessories</li>
+                    <li><strong>Liked (300 AP):</strong> Flowers, Elli Leaves, Noodles, Cake, Cheese Cake, Chocolate Cake, Cookies, Muffin Mix</li>
+                </ul>
+            </div>
+            <div class="con-box">
+                <h4>❌ Never Give</h4>
+                <ul>
+                    <li><strong>Hated:</strong> Fodder, Chicken Feed, Boots, Branches, Stones, Weeds, Empty Can, Fish Bones, Lumber, Pirate Treasure, Fossil, Poisonous Mushroom</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>💕 Heart Events</h4>
+        <table>
+            <tr><th>Event</th><th>Heart</th><th>Location</th><th>Time</th><th>Correct Answer</th></tr>
+            <tr><td>🖤 Elli's Exam</td><td>Black</td><td>Mineral Clinic</td><td>Any day but Mon/Wed, 9 AM–7 PM</td><td><strong>"Not really"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💜 Nurse Question</td><td>Purple</td><td>Mineral Clinic</td><td>Thu/Sat/Sun, 9 AM–7 PM</td><td><strong>"You'll make a great nurse"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💙 Stu's Request</td><td>Blue</td><td>Ellen's House</td><td>Wednesday, 9:30 AM–1 PM</td><td><strong>"Sure, I'll do it"</strong> (+3,000 AP). <strong>Need empty item slot!</strong> Receive Elli's Pressed Flower.</td></tr>
+            <tr><td>💛 Beach Walk</td><td>Yellow</td><td>Mineral Beach (dock)</td><td>Wednesday, 9 AM–6 PM</td><td><strong>"You're doing great"</strong> (+3,000 AP)</td></tr>
+        </table>
+    </div>
+</section>
+
+<!-- SECTION 8: KAREN -->
+<section id="karen">
+    <h2>8. 🍷 Karen — The Sophisticated Free Spirit <span class="difficulty-hard">(Difficulty: Hard)</span></h2>
+
+    <div class="girl-card">
+        <div class="girl-header">
+            <div class="girl-icon">🍷</div>
+            <div>
+                <h3 style="margin:0; color:#e0c0a0;">Karen</h3>
+                <p style="margin:0; opacity:0.8;">The mature, confident woman with expensive taste</p>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-label">Birthday</span><br>Fall 15 (Alt: Fall 23)</div>
+            <div class="stat-item"><span class="stat-label">Rival</span><br>Rick</div>
+            <div class="stat-item"><span class="stat-label">Family</span><br>Jeff (father), Sasha (mother)</div>
+            <div class="stat-item"><span class="stat-label">Extra Points</span><br>Buy items from Supermarket</div>
+        </div>
+
+        <h4>Why Karen Is the Hardest</h4>
+        <p>Karen has the <strong>most complex schedule</strong> — she moves between the Supermarket, beach, Inn, hot spring, and Gotz's house depending on day and weather. Her absolute favorite gift is <strong>Pizza</strong> (requires kitchen: Cheese + Flour + Ketchup) or <strong>French Fries</strong>. She <strong>HATES all sweets</strong> (Cookies, Cake, Ice Cream, Chocolate Cake — all -500 AP!). Additionally, her rival Rick is present year-round.</p>
+
+        <h4>🗓️ Schedule</h4>
+        <table>
+            <tr><th>Time</th><th>Location (Mon–Sat, Sunny)</th></tr>
+            <tr><td>8:00 AM – 10:00 AM</td><td>Outside Supermarket (bench)</td></tr>
+            <tr><td>10:00 AM – 1:00 PM</td><td>Supermarket (back room)</td></tr>
+            <tr><td>1:00 PM – 4:00 PM</td><td>Supermarket (front/store area)</td></tr>
+            <tr><td>7:30 PM – 10:00 PM</td><td>Mineral Beach (or Inn on Tue/Sun evenings)</td></tr>
+        </table>
+
+        <h4>🎁 Gift Guide</h4>
+        <div class="pro-con-grid">
+            <div class="pro-box">
+                <h4>✅ Best Gifts</h4>
+                <ul>
+                    <li><strong>Special (800 AP):</strong> French Fries, Pizza, Popcorn</li>
+                    <li><strong>Loved (500 AP):</strong> Wine, Cheese (all), Sashimi, Tempura, Truffle, Diamonds, Perfume, Bamboo Shoots</li>
+                    <li><strong>Liked (300 AP):</strong> Cucumber, Corn, Eggplant, Green Pepper, Potato, Pumpkin, Spinach, Pickles, Salad, Spa-Boiled Egg</li>
+                </ul>
+            </div>
+            <div class="con-box">
+                <h4>❌ Never Give (She HATES Sweets!)</h4>
+                <ul>
+                    <li><strong>Hated:</strong> All ores, Fodder, Chicken Feed, Boots, Branches, Stones, Weeds, Wools, Yarns</li>
+                    <li><strong>Disliked (-500 AP):</strong> Cake, Ice Cream, Cheesecake, Chocolate, Chocolate Cake, Chocolate Cookies, Cookies, Apple Pie, all Jams, Honey, Pancakes, Pudding</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>💕 Heart Events</h4>
+        <table>
+            <tr><th>Event</th><th>Heart</th><th>Location</th><th>Time</th><th>Correct Answer</th></tr>
+            <tr><td>🖤 Duke's Credit</td><td>Black</td><td>Supermarket</td><td>Wed/Fri, 10 AM–1 PM</td><td><strong>"I could use some help"</strong> (+3,000 AP). Need empty tool slot! Receive Grass Seeds.</td></tr>
+            <tr><td>💜 Seed Choice</td><td>Purple</td><td>Supermarket</td><td>Mon/Thu/Sat, 10 AM–1 PM</td><td><strong>"Moon Drop seeds"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💙 Shopping Help</td><td>Blue</td><td>Supermarket</td><td>Wed/Fri, 10 AM–1 PM</td><td><strong>"I'd be glad to"</strong> (+3,000 AP). <strong>Need empty item slot!</strong> Receive Karen's Wine.</td></tr>
+            <tr><td>💛 Lunch Invitation</td><td>Yellow</td><td>Supermarket</td><td>Mon/Thu/Sat, 10 AM–1 PM</td><td><strong>"Sure"</strong> (+3,000 AP)</td></tr>
+        </table>
+
+        <div class="quick-tip"><strong>💡 Fastest Strategy:</strong> In Fall, collect <strong>Truffles</strong> from behind the Church (befriend Carter) — free and she loves them! If you have a kitchen, make <strong>Popcorn</strong> (Corn + Frying Pan) or <strong>French Fries</strong> (Potato + Oil + Knife + Frying Pan). Give wrapped Wine (300G from Winery) on her birthday.</div>
+    </div>
+</section>
+
+<!-- SECTION 9: MARY -->
+<section id="mary">
+    <h2>9. 📚 Mary — The Shy Librarian <span class="difficulty-medium">(Difficulty: Medium)</span></h2>
+
+    <div class="girl-card">
+        <div class="girl-header">
+            <div class="girl-icon">📚</div>
+            <div>
+                <h3 style="margin:0; color:#c0c0e0;">Mary</h3>
+                <p style="margin:0; opacity:0.8;">The quiet, book-loving botanist's daughter</p>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-label">Birthday</span><br>Winter 20 (Alt: Winter 25)</div>
+            <div class="stat-item"><span class="stat-label">Rival</span><br>Gray</div>
+            <div class="stat-item"><span class="stat-label">Family</span><br>Basil (father), Anna (mother)</div>
+            <div class="stat-item"><span class="stat-label">Extra Points</span><br>Go upstairs in Library</div>
+        </div>
+
+        <h4>Why Mary Is Medium Difficulty</h4>
+        <p>Mary has unique taste — she <strong>loves things most others hate</strong>: Poisonous Mushrooms, colored grasses (Blue, Red, Black, White), Bodigizer, Turbojolt, and Bamboo Shoots. Her schedule is simple (Library, 10 AM–4 PM, closed Mondays), but her birthday is in <strong>Winter (20th/25th)</strong>, making the Year-1 birthday rush harder. Many of her favorite gifts are free (foraged grasses), making her very affordable.</p>
+
+        <h4>🗓️ Schedule</h4>
+        <table>
+            <tr><th>Time</th><th>Location (Tue–Sun)</th></tr>
+            <tr><td>8:00 AM – 10:00 AM</td><td>At Home</td></tr>
+            <tr><td>10:00 AM – 4:00 PM</td><td>Library</td></tr>
+            <tr><td>4:00 PM – 12:00 AM</td><td>At Home</td></tr>
+        </table>
+        <p>Monday: Morning on Mother's Hill (with family), afternoon at Supermarket (1:20–4 PM).</p>
+
+        <h4>🎁 Gift Guide</h4>
+        <div class="pro-con-grid">
+            <div class="pro-box">
+                <h4>✅ Best Gifts</h4>
+                <ul>
+                    <li><strong>Special (800 AP):</strong> Relaxation Tea, Vegetable Juice, Vegetable Latte</li>
+                    <li><strong>Loved (500 AP):</strong> Bamboo Shoots, Blue Grass, Red Grass, Black Grass, White Grass, Poisonous Mushroom, Truffle, Wild Grapes, Chocolate, Grape Juice, Diamonds, Perfume, Bodigizer, Turbojolt</li>
+                    <li><strong>Liked (300 AP):</strong> Mushrooms, Chocolate, Apples, Pineapple, Pumpkin, Spinach, Cheese, Mayonnaise</li>
+                </ul>
+            </div>
+            <div class="con-box">
+                <h4>❌ Never Give</h4>
+                <ul>
+                    <li><strong>Hated:</strong> Ball, Boots, Branches, Stones, Weeds, Empty Can, Fish Bones, Golden Lumber, Pirate Treasure</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>💕 Heart Events</h4>
+        <table>
+            <tr><th>Event</th><th>Heart</th><th>Location</th><th>Time</th><th>Correct Answer</th></tr>
+            <tr><td>🖤 Writer's Block</td><td>Black</td><td>Library</td><td>Any day but Mon, 10 AM–4 PM</td><td><strong>"Can I help?"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💜 Lost Book</td><td>Purple</td><td>Library</td><td>Thu/Sat/Sun, 11:30 AM–4 PM</td><td><strong>"I'd be glad to"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💙 Book at the Summit</td><td>Blue</td><td>Mother's Hill Peak</td><td>Monday, 12 PM–5 PM (Sunny)</td><td><strong>"Sometimes"</strong> (+3,000 AP). <strong>Need empty item slot!</strong> Receive Mary's Great Book.</td></tr>
+            <tr><td>💛 Story Idea</td><td>Yellow</td><td>Mary's House</td><td>Monday, 11:30 AM–1 PM</td><td><strong>"How about a farm story?"</strong> (+3,000 AP)</td></tr>
+        </table>
+    </div>
+</section>
+
+<!-- SECTION 10: POPURI -->
+<section id="popuri">
+    <h2>10. 🌸 Popuri — The Bubbly Dreamer <span class="difficulty-easy">(Difficulty: Easiest)</span></h2>
+
+    <div class="girl-card">
+        <div class="girl-header">
+            <div class="girl-icon">🌸</div>
+            <div>
+                <h3 style="margin:0; color:#f0a0c0;">Popuri</h3>
+                <p style="margin:0; opacity:0.8;">The pink-haired, childish dreamer from the Poultry Farm</p>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-label">Birthday</span><br>Summer 3 (Alt: Summer 10)</div>
+            <div class="stat-item"><span class="stat-label">Rival</span><br>Kai <span class="rival-badge">Summer-only threat</span></div>
+            <div class="stat-item"><span class="stat-label">Family</span><br>Lillia (mother), Rick (brother)</div>
+            <div class="stat-item"><span class="stat-label">Extra Points</span><br>Own 8 Chickens</div>
+        </div>
+
+        <h4>Why Popuri Is the Easiest</h4>
+        <p>Popuri is widely considered the easiest bachelorette. Her rival Kai is only in town during <strong>Summer</strong>, giving you three full seasons of uncontested access. She loves <strong>eggs</strong> (Omelet, Scrambled Eggs, Omelet Rice) — things you produce on your farm. She also likes Toy Flowers and Pink Cat Flowers. Her schedule is very predictable: Hot Spring mornings, Poultry Farm the rest of the day.</p>
+
+        <h4>🗓️ Schedule</h4>
+        <table>
+            <tr><th>Time</th><th>Location (Mon–Sat)</th></tr>
+            <tr><td>7:30 AM – 10:00 AM</td><td>Hot Springs</td></tr>
+            <tr><td>11:00 AM – 7:00 PM</td><td>Poultry Farm</td></tr>
+        </table>
+        <p>Sunday: Church (10 AM–1 PM), Rose Square (1:20–4 PM), then Poultry Farm.</p>
+
+        <h4>🎁 Gift Guide</h4>
+        <div class="pro-con-grid">
+            <div class="pro-box">
+                <h4>✅ Best Gifts</h4>
+                <ul>
+                    <li><strong>Special (800 AP):</strong> Omelet, Omelet Rice, Scrambled Eggs</li>
+                    <li><strong>Loved (500 AP):</strong> Boiled Egg, Apples, Apple Jam/Pie/Soufflé, Cake, Chocolate, Cookies, Ice Cream, Strawberry, Diamonds, Perfume, Accessories</li>
+                    <li><strong>Liked (300 AP):</strong> All eggs, Pink Cat Flower, Toy Flower, Honey, Pineapple, Bread, Hot Milk, Mayonnaise, Milk</li>
+                </ul>
+            </div>
+            <div class="con-box">
+                <h4>❌ Never Give</h4>
+                <ul>
+                    <li><strong>Hated:</strong> All grasses (Blue, Green, Red, etc.), Bodigizer, Turbojolt, Fodder, Chicken Feed, Boots, Branches, Stones, Weeds, Wine, Wild Grape Wine</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>💕 Heart Events</h4>
+        <table>
+            <tr><th>Event</th><th>Heart</th><th>Location</th><th>Time</th><th>Correct Answer</th></tr>
+            <tr><td>🖤 Saibara's Shop</td><td>Black</td><td>Outside Blacksmith</td><td>Wednesday, 11 AM–6 PM (Sunny)</td><td><strong>"Yes, I do"</strong> (+3,000 AP)</td></tr>
+            <tr><td>💜 Farm Visit</td><td>Purple</td><td>Your Farm (exit house)</td><td>Any day but Sat/Sun, 6 AM–12 PM</td><td><strong>"Sure"</strong> (+3,000 AP). Auto-triggered when leaving home!</td></tr>
+            <tr><td>💙 Church Play</td><td>Blue</td><td>Church</td><td>Sunday, 10 AM–1 PM</td><td><strong>"Sure, I'll play"</strong> (+3,000 AP). <strong>Need empty item slot!</strong> Receive Popuri's Mud Ball.</td></tr>
+            <tr><td>💛 Family Argument</td><td>Yellow</td><td>Poultry Farm</td><td>Any day but Tue/Sun, 11 AM–1 PM</td><td><strong>"I agree with Popuri"</strong> or <strong>"Poor Lillia"</strong> (+3,000 AP)</td></tr>
+        </table>
+
+        <div class="quick-tip"><strong>💡 Fastest Strategy:</strong> Make <strong>Scrambled Eggs</strong> (Egg + Oil + Frying Pan) daily and give to Popuri at the Hot Spring (7:30–10 AM). On her birthday (Summer 3/10), give a <strong>wrapped</strong> Omelet or Omelet Rice for massive affection!</div>
+    </div>
+</section>
+
+<!-- SECTION 11: HARVEST GODDESS -->
+<section id="goddess">
+    <h2>11. 🌟 Marrying the Harvest Goddess <span class="new-badge">FoMT EXCLUSIVE</span> <span class="difficulty-impossible">(Difficulty: Near Impossible)</span></h2>
+
+    <div class="danger-box">
+        <strong>⚠️ The Ultimate Challenge:</strong> Marrying the Harvest Goddess requires near-100% completion of the entire game. Most players will never achieve this. Only attempt if you're truly dedicated!
+    </div>
+
+    <h3>Requirements</h3>
+    <ol>
+        <li><strong>Catch all species of fish</strong> — every fish in the game, including all 6 King Fish</li>
+        <li><strong>Ship at least 1 of every shippable item</strong> — complete the entire shipping list</li>
+        <li><strong>Collect all 9 Goddess Jewels</strong> from the Spring Mine → forms the Goddess Gem</li>
+        <li><strong>Collect all 9 Kappa Jewels</strong> from the Lake Mine → forms the Kappa Gem</li>
+        <li><strong>Collect all 9 Jewels of Truth</strong> → forms the Gem of Truth</li>
+        <li><strong>Dig up every type of item</strong> from both the Spring Mine and Lake Mine (including Mythic Stones!)</li>
+        <li><strong>Own the Big Bed</strong> and have the 2nd house extension</li>
+        <li><strong>Be in Year 5 or later</strong></li>
+        <li><strong>Ask Carter for permission</strong> during Confessional: "I want to marry the HG"</li>
+    </ol>
+
+    <div class="info-box">
+        <strong>💡 Goddess Notes:</strong> The Harvest Goddess does NOT move into your house after marriage. She stays in her pond. She CAN get pregnant like the other girls. Her birthday is Spring 8 (Alt: Spring 9). She loves Pineapple and Strawberry (500 AP). She likes all crops at 300 AP. She HATES cooked items, mine items, garbage, and Pirate Treasure.
+    </div>
+</section>
+
+<!-- SECTION 12: RIVALS -->
+<section id="rivals">
+    <h2>12. ⚔️ Rival Marriages — The Full Story</h2>
+
+    <p>Each bachelorette has a rival bachelor. In FoMT, rival marriages take <strong>4 full years</strong> to complete — much slower than BTN. This gives you ample time to woo your chosen girl.</p>
+
+    <h3>Rival Overview</h3>
+    <table>
+        <tr><th>Bachelorette</th><th>Rival</th><th>Rival's Location</th><th>Years to Marry</th><th>Notes</th></tr>
+        <tr><td>🌸 Popuri</td><td><strong>Kai</strong></td><td>Seaside Lodge (Summer only)</td><td>4 years</td><td>Kai only in town during Summer. Orange rival event in Year 4 at Poultry Farm.</td></tr>
+        <tr><td>💪 Ann</td><td><strong>Cliff</strong></td><td>Inn / Church / Winery</td><td>4 years</td><td>Cliff must stay in town (invite to grape harvest Year 1!). Orange event at Winery.</td></tr>
+        <tr><td>🏥 Elli</td><td><strong>The Doctor</strong></td><td>Clinic</td><td>4 years</td><td>Daily proximity accelerates their relationship. Orange event at the beach.</td></tr>
+        <tr><td>🍷 Karen</td><td><strong>Rick</strong></td><td>Poultry Farm</td><td>4 years</td><td>Year-round threat. Orange event at Poultry Farm (requires Popuri married to Kai first!).</td></tr>
+        <tr><td>📚 Mary</td><td><strong>Gray</strong></td><td>Blacksmith / Inn</td><td>4 years</td><td>Orange event at Library Year 4. If you befriend Gray, it speeds up his romance with Mary!</td></tr>
+    </table>
+
+    <div class="danger-box">
+        <strong>⚠️ Critical: Keep Cliff in Town!</strong> In <strong>Fall of Year 1</strong>, Duke asks you to help harvest grapes. You MUST talk to Cliff at the Inn and <strong>tell him about the job</strong>. If you don't, Cliff permanently leaves Mineral Town at the end of Winter Year 1 — removing Ann's rival from the game entirely.
+    </div>
+
+    <h3>Rival Heart Events Summary</h3>
+    <table>
+        <tr><th>Rival Pair</th><th>Black (Year 1)</th><th>Blue (Year 1-2)</th><th>Green (Year 2-3)</th><th>Orange (Year 4)</th></tr>
+        <tr><td>Popuri &amp; Kai</td><td>Beach, Sun 1-4 PM</td><td>Beach, Tue/Thu/Sat 9-7</td><td>Beach dock, Sun 1-4 PM</td><td>Poultry Farm, Tue/Thu/Sat 9-7</td></tr>
+        <tr><td>Ann &amp; Cliff</td><td>Inn 2F, Fri 7-9 PM</td><td>Church, 11-4 PM (not Fall)</td><td>Inn, Sat 10-1 PM</td><td>Winery cellar, weekdays 10-1</td></tr>
+        <tr><td>Elli &amp; Doctor</td><td>Clinic, not Tue/Wed 9-7</td><td>Ellen's House, Mon 9-7</td><td>Clinic, not Tue/Wed 9-7</td><td>Beach, Wed 7-10 PM</td></tr>
+        <tr><td>Karen &amp; Rick</td><td>Hot Spring, Wed-Sat 11-6</td><td>Gotz's House, Mon/Sun 11-6</td><td>Hot Spring, Wed/Fri 11-6</td><td>Poultry Farm, Tue/Thu/Sat 1-4</td></tr>
+        <tr><td>Mary &amp; Gray</td><td>Blacksmith, not Mon 10-1</td><td>Library, not Mon 2-4 PM</td><td>Mother's Hill, Tue/Fri/Sat 7-10</td><td>Library, Thu/Sat 1-4 PM</td></tr>
+    </table>
+
+    <h3>Watching Rival Weddings</h3>
+    <p>Seven days after witnessing the final (Orange) rival event, the couple gets married. If you're good friends with the rival bachelor, you'll be <strong>invited to the wedding</strong>. To see all rival weddings, befriend each bachelor and avoid raising the corresponding bachelorette's heart too high — if your heart with her is higher than the event's requirement, the rival event won't trigger.</p>
+</section>
+
+<!-- SECTION 13: FESTIVALS -->
+<section id="festivals">
+    <h2>13. 💝 Romantic Festivals &amp; Dating Events</h2>
+
+    <p>Festivals are some of the most powerful ways to boost affection. Participating with the right girl can give substantial AP bonuses.</p>
+
+    <h3>🌸 Spring</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Romantic?</th><th>Strategy</th></tr>
+        <tr><td>Spring 14</td><td><strong>Spring Thanksgiving</strong></td><td>✅ Yes</td><td>Give <strong>Cookies</strong> or <strong>Chocolate Cookies</strong> to all girls. Wrapped cookies give the best affection boost. All girls love cookies on this day — even Karen!</td></tr>
+    </table>
+
+    <h3>☀️ Summer</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Romantic?</th><th>Strategy</th></tr>
+        <tr><td>Summer 24</td><td><strong>Fireworks Display</strong></td><td>✅ Very!</td><td>Go to Mineral Beach at 6 PM. If a girl is Green heart+, you can ask to watch together. If married, you automatically watch with your wife. Big affection boost.</td></tr>
+    </table>
+
+    <h3>🍂 Fall</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Romantic?</th><th>Strategy</th></tr>
+        <tr><td>Fall 13</td><td><strong>Full Moon Festival</strong></td><td>✅ Very!</td><td>Go to Mother's Hill peak at 6 PM. The girl who likes you the MOST (Green+) will be waiting automatically. If the wrong girl shows up, you know who you've been accidentally wooing!</td></tr>
+    </table>
+
+    <h3>❄️ Winter</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Romantic?</th><th>Strategy</th></tr>
+        <tr><td>Winter 14</td><td><strong>Winter Thanksgiving</strong></td><td>✅ Yes</td><td>Girls come to YOUR farm: Popuri (6 AM), Ann (8 AM), Elli (10 AM), Karen (12 PM), Mary (2 PM). Purple/Blue heart = Chocolate. Green+ heart = Chocolate Cake. Stay home all day!</td></tr>
+        <tr><td>Winter 24</td><td><strong>Star Night Festival</strong></td><td>✅ Very!</td><td>On Winter 23, talk to a girl (Green+). On the 24th at 6 PM, go to her house for dinner. Raises affection with her AND her family! If married, have lunch at noon at your house instead.</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>⭐ Festival Priority:</strong> Star Night (Winter 24), Fireworks (Summer 24), and Full Moon (Fall 13) are the three most important romantic events. For Full Moon, the girl with the highest affection automatically shows up — use it as a "who likes me most" check. Bring Moon Dumplings to share for extra effect!
+    </div>
+</section>
+
+<!-- SECTION 14: PREGNANCY -->
+<section id="pregnancy">
+    <h2>14. 🤰 Pregnancy &amp; Children</h2>
+
+    <h3>Pregnancy Timeline</h3>
+    <table>
+        <tr><th>Stage</th><th>Duration</th><th>What Happens</th></tr>
+        <tr><td>Marriage</td><td>Day 0</td><td>Wedding at the Church</td></tr>
+        <tr><td>Early Marriage</td><td>~1 season</td><td>Continue giving gifts. Wife stays home; may cook occasionally.</td></tr>
+        <tr><td>Pregnancy Sign</td><td>~1-2 seasons after marriage</td><td>Wife says she feels sick in the morning. Visit the Clinic — Doctor confirms pregnancy.</td></tr>
+        <tr><td>Pregnancy</td><td>~2 seasons (60 days)</td><td>Wife stays home. Continue giving gifts daily.</td></tr>
+        <tr><td>Birth</td><td>After ~2 seasons</td><td>Naming scene. Your child is <strong>always a boy</strong> in the boy version.</td></tr>
+        <tr><td>Newborn</td><td>~60 days</td><td>Baby stays in bed. Can't interact yet.</td></tr>
+        <tr><td>Toddler (Crawling)</td><td>~60 days after newborn</td><td>Baby crawls around. Can give gifts (loves Cake, Hot Milk, Honey, Ice Cream).</td></tr>
+    </table>
+
+    <h3>Baby Care Tips</h3>
+    <ul>
+        <li>Give gifts daily — your child likes everything your wife likes</li>
+        <li>Pick up your baby to increase affection</li>
+        <li><strong>Baby loves:</strong> Hot Milk, Strawberry Milk, Honey, Ice Cream, Cheesecake, Cake</li>
+        <li>Your child will never grow beyond the toddler stage</li>
+        <li>On your 50th wedding anniversary, your wife gives you the Mountain Cottage</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>👶 Optimal Baby Timeline:</strong> Marry in Summer Year 2 → Pregnancy sign in Fall Year 2 → Baby born in Spring Year 3 → Baby crawling by Fall Year 3 → Toddler by Winter Year 3. This gives maximum time to raise the baby before you exhaust story content.
+    </div>
+</section>
+
+<!-- SECTION 15: COMPARISON -->
+<section id="comparison">
+    <h2>15. 📊 Bachelorette Comparison — At a Glance</h2>
+
+    <table>
+        <tr><th>Trait</th><th>💪 Ann</th><th>🏥 Elli</th><th>🍷 Karen</th><th>📚 Mary</th><th>🌸 Popuri</th><th>🌟 Goddess</th></tr>
+        <tr>
+            <td><strong>Difficulty</strong></td>
+            <td class="difficulty-easy">Easy</td>
+            <td class="difficulty-easy">Easy</td>
+            <td class="difficulty-hard">Hard</td>
+            <td class="difficulty-medium">Medium</td>
+            <td class="difficulty-easy">Easiest</td>
+            <td class="difficulty-impossible">Max</td>
+        </tr>
+        <tr><td><strong>Birthday</strong></td><td>Summer 17/22</td><td>Spring 16/20</td><td>Fall 15/23</td><td>Winter 20/25</td><td>Summer 3/10</td><td>Spring 8/9</td></tr>
+        <tr><td><strong>Best Free Gift</strong></td><td>Spa-Boiled Egg</td><td>Pink Cat/Toy Flower</td><td>Truffle (Fall)</td><td>Bamboo Shoots, Grasses</td><td>Scrambled Eggs</td><td>Crops (any)</td></tr>
+        <tr><td><strong>Best Paid Gift</strong></td><td>Cake, Truffle Rice</td><td>Hot Milk, Diamond</td><td>Wine (300G), Pizza</td><td>Chocolate, Bodigizer</td><td>Omelet, Diamond</td><td>Pineapple, Strawberry</td></tr>
+        <tr><td><strong>Schedule Ease</strong></td><td>Easiest (Inn all day)</td><td>Easy (Clinic all day)</td><td>Hard (complex)</td><td>Easy (Library 10-4)</td><td>Easy (Hot Spring AM)</td><td>Always at pond</td></tr>
+        <tr><td><strong>Rival Threat</strong></td><td>Medium (Cliff)</td><td>Medium (Doctor)</td><td>High (Rick, yr-round)</td><td>Medium (Gray)</td><td>Low (Kai, summer only)</td><td>None</td></tr>
+        <tr><td><strong>Extra Points</strong></td><td>Buy from Inn</td><td>Get examined</td><td>Buy from Supermarket</td><td>Go upstairs Library</td><td>Own 8 chickens</td><td>N/A</td></tr>
+        <tr><td><strong>Personality</strong></td><td>Tomboy, cheerful</td><td>Kind, maternal</td><td>Mature, confident</td><td>Shy, intellectual</td><td>Childish, dreamer</td><td>Divine, aloof</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🏆 Recommendations:</strong><br>
+        <strong>For beginners:</strong> Popuri or Ann — easy schedules, cheap gifts, low-threat rivals.<br>
+        <strong>For a challenge:</strong> Karen — complex schedule, expensive tastes, hates sweets.<br>
+        <strong>For 100% completionists:</strong> Harvest Goddess — requires nearly everything in the game.
+    </div>
+</section>
+
+<!-- SECTION 16: FAQ -->
+<section id="faq">
+    <h2>16. ❓ Frequently Asked Questions</h2>
+
+    <div class="quick-tip">
+        <strong>Q: I gave the Blue Feather but she didn't accept. What's wrong?</strong><br>
+        <strong>A:</strong> Three possibilities: (1) Heart isn't truly red — on some screens Orange looks like Red. Keep gifting. (2) Haven't seen all four heart events (Black, Purple, Blue, Yellow). (3) Don't have the Big Bed yet.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: Can I marry multiple girls?</strong><br>
+        <strong>A:</strong> No. One wife per save file. After marriage, other girls' hearts become inaccessible. For multiple marriages, use multiple save files or playthroughs.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: What if I don't marry anyone?</strong><br>
+        <strong>A:</strong> Unlike BTN, <strong>nothing bad happens</strong>! FoMT has no time limit and no evaluation. You can play forever as a bachelor. Eventually, the bachelorettes will marry their rivals around Year 4.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: Do I need to see rival heart events?</strong><br>
+        <strong>A:</strong> No. Rival events are optional. However, if you want to see rival weddings, you must avoid raising your chosen bachelorette's heart too high, or the rival events won't trigger (the game prioritizes your relationship).
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: How long does it take to reach Red Heart?</strong><br>
+        <strong>A:</strong> With daily Loved gifts (500 AP each), reaching Red (60,000 from 0) takes about <strong>120 days</strong> — roughly one in-game year. With birthday bonuses (+2,500), correct heart event answers (+3,000 each), and festival participation, you can reach Red by <strong>mid-to-late Year 2</strong> even with casual play.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: Does my wife help on the farm after marriage?</strong><br>
+        <strong>A:</strong> No. Your wife stays at home in FoMT. She may occasionally cook breakfast for you (restoring stamina), but she doesn't help with farm work. If you marry Elli or Mary, they continue working part-time at the Clinic/Library.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: Can I get married in Year 1?</strong><br>
+        <strong>A:</strong> Technically yes, but it's very difficult. You need the 2nd house extension, Big Bed, all four heart events, and Red heart — all achievable by late Winter Year 1 with intense optimization. Most players marry in Year 2.
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: How do I trigger Blue Heart Events?</strong><br>
+        <strong>A:</strong> You MUST own the Large Rucksack (8 item slots) AND have at least one empty item slot. The Blue Heart Event gives you a memento item that you keep permanently (Ann's Music Box, Elli's Pressed Flower, Karen's Wine, Mary's Great Book, Popuri's Mud Ball).
+    </div>
+
+    <div class="quick-tip">
+        <strong>Q: What if my birthday conflicts with a girl's birthday?</strong><br>
+        <strong>A:</strong> Her birthday shifts to the alternate date (see section 3). Check the calendar on your house wall — on her birthday, her name will appear. If you're unsure, mark both dates and check each day.
+    </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+    <h2>📚 Sources</h2>
+    <p>This guide was compiled from the following community resources:</p>
+    <ul>
+        <li><strong>samurai_goroh &amp; thekingofthisgame's Guide and Walkthrough</strong> — GameFAQs (v7.5, 2005). Complete heart event data, gift preferences (500+ items per girl), schedules, and affection values.</li>
+        <li><strong>AstrayGundam's Heart Events FAQ</strong> — GameFAQs (v0.98E, 2005). Detailed heart event and rival event walkthroughs with precise times, days, and correct answers.</li>
+        <li><strong>Arashinonatsu's Ultimate Love &amp; Friendship Guide</strong> — GameFAQs. Complete gift preference tables for all girls and villagers with affection point values.</li>
+        <li><strong>GamerZenith's FoMT Marriage Guide</strong> — gamerzenith.com. Step-by-step marriage requirements, heart level thresholds, and baby timeline.</li>
+        <li><strong>Harvest Moon Wiki — Bachelorette Pages</strong> — harvestmoon.fandom.com. Character schedules, heart events, and rival event details.</li>
+        <li><strong>CheatCodes.com HM: FoMT Guide</strong> — Girl likes/dislikes, heart event times, and marriage requirements.</li>
+        <li><strong>RPGClassics FoMT Shrine</strong> — tartarus.rpgclassics.com. Festival calendar, bachelorette info, and alternate birthday data.</li>
+        <li><strong>Fogu / Ushi No Tane FoMT Section</strong> — fogu.com. Heart events, schedules, and baby/child guide.</li>
+        <li><strong>BTN vs FoMT Comparison</strong> — crystalmaiden77.wordpress.com. Detailed differences in marriage mechanics between the two games.</li>
+        <li><strong>taiga's Festival Guide</strong> — GameFAQs (v1.8, 2004). Romantic festival strategies and affection bonuses.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>💕 Harvest Moon: Friends of Mineral Town (GBA) — Comprehensive Bachelorette &amp; Marriage Guide</p>
+    <p>Compiled to provide complete romance strategies for all five bachelorettes plus the Harvest Goddess.</p>
+    <p style="margin-top:0.5rem;">Farm wisely, love deeply, and may your Blue Feather always be accepted. 🌸</p>
+</footer>
+
+</div>
+</body>
+</html>

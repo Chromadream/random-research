@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon: Friends of Mineral Town (GBA) — Comprehensive Strategy Guide</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --card-bg-alt: #1c2533;
+            --text: #c9d1d9;
+            --heading: #f0c27a;
+            --accent: #7a9e3a;
+            --accent2: #e8973a;
+            --accent3: #e94560;
+            --border: #30363d;
+            --table-stripe: #1a2332;
+            --highlight: #1a3020;
+            --info-bg: #162535;
+            --warning-bg: #2e2618;
+            --danger-bg: #2e1818;
+            --gold: #f0c060;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 1.5rem;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(135deg, #2d4a18, #1a2e10);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        header h1 { font-size: 2.2rem; color: #f0c27a; margin-bottom: 0.3rem; }
+        header p { font-size: 1.1rem; opacity: 0.85; color: #c0d0c0; }
+        nav {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        nav h2 { color: var(--heading); margin-bottom: 0.8rem; }
+        nav ul { list-style: none; columns: 2; column-gap: 1rem; }
+        nav li { margin-bottom: 0.3rem; }
+        nav a { color: var(--accent2); text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--heading);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        h3 { color: var(--accent2); margin: 1.3rem 0 0.6rem 0; font-size: 1.2rem; }
+        h4 { color: #c9a0dc; margin: 1rem 0 0.5rem 0; }
+        p { margin-bottom: 0.8rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.3rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.7rem;
+            text-align: left;
+        }
+        th {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--table-stripe); }
+        .highlight-box {
+            background: var(--highlight);
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .info-box {
+            background: var(--info-bg);
+            border-left: 4px solid #4a90c4;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--accent2);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .danger-box {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--accent3);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.3rem; }
+        .best-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .new-badge {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        pre {
+            background: #0d1117;
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        .vs-table td:first-child { font-weight: 600; white-space: nowrap; }
+        @media (max-width: 700px) {
+            body { padding: 0.5rem; }
+            section { padding: 1rem; }
+            nav ul { columns: 1; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🌾 Harvest Moon: Friends of Mineral Town</h1>
+    <p>The Ultimate Comprehensive Strategy Guide — Game Boy Advance</p>
+    <p style="font-size:0.9rem;margin-top:0.3rem;">All the key strategies you need for success in this beloved GBA farming classic</p>
+</header>
+
+<nav>
+    <h2>📑 Table of Contents</h2>
+    <ul>
+        <li><a href="#overview">1. Game Overview &amp; BTN Differences</a></li>
+        <li><a href="#money">2. Money-Making: The Ultimate Crop Profit Guide</a></li>
+        <li><a href="#year1">3. Year 1 Walkthrough — The Critical First Year</a></li>
+        <li><a href="#animals">4. Livestock &amp; Animals Strategy</a></li>
+        <li><a href="#tools">5. Tools &amp; Upgrades (incl. Cursed/Blessed/Mythic)</a></li>
+        <li><a href="#expansions">6. Farm Expansions — Build Order</a></li>
+        <li><a href="#tv-shopping">7. TV Shopping &amp; House Furnishings</a></li>
+        <li><a href="#marriage">8. Marriage &amp; Bachelorettes</a></li>
+        <li><a href="#festivals">9. Festivals &amp; Events Calendar</a></li>
+        <li><a href="#mining">10. Mining Guide (Spring Mine &amp; Lake Mine)</a></li>
+        <li><a href="#powerberries">11. Power Berries — All 10 + Blue Berry</a></li>
+        <li><a href="#fishing">12. Fishing Guide &amp; King Fish</a></li>
+        <li><a href="#secrets">13. Secrets, Collectibles &amp; Advanced Tips</a></li>
+        <li><a href="#sprites">14. Harvest Sprites — Complete System</a></li>
+        <li><a href="#social">15. Villager Social Strategy</a></li>
+        <li><a href="#recipes">16. Key Recipes</a></li>
+        <li><a href="#multirun">17. Multi-Run Mastery Plan</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 1: OVERVIEW -->
+<section id="overview">
+    <h2>1. Game Overview &amp; Key Differences from Back to Nature</h2>
+
+    <p><strong>Harvest Moon: Friends of Mineral Town</strong> (GBA, 2003) is a remake of the PlayStation classic <em>Harvest Moon: Back to Nature</em>. While it carries over the beloved characters, setting, and core gameplay of Mineral Village, it introduces <strong>significant improvements and new features</strong> that make it arguably the definitive version of the game.</p>
+
+    <div class="highlight-box">
+        <strong>♾️ No Time Limit:</strong> Unlike BTN's 3-year evaluation, FoMT <strong>never ends</strong>. You can play indefinitely — the year counter even stops at 200. There is no "game over" evaluation, so you can farm at your own pace forever.
+    </div>
+
+    <h3>Major Changes from Back to Nature (PS1)</h3>
+    <table>
+        <tr><th>Feature</th><th>Back to Nature (PS1)</th><th>Friends of Mineral Town (GBA)</th></tr>
+        <tr>
+            <td>Time Limit</td>
+            <td>3-year evaluation; game can end</td>
+            <td><strong>No time limit</strong> — play indefinitely <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Hothouse</td>
+            <td>Buildable (30,000G + 580 Lumber)</td>
+            <td><strong>Removed</strong> — replaced by vacation cottages</td>
+        </tr>
+        <tr>
+            <td>Tools</td>
+            <td>Up to Mystrile (5 levels)</td>
+            <td>Copper → Silver → Gold → Mystrile → <strong>Cursed → Blessed → Mythic</strong> (8 levels) <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Mines</td>
+            <td>10-floor Waterfall Mine + Winter Mine</td>
+            <td><strong>255-floor</strong> Spring Mine + Lake Mine (Winter) <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Fishing</td>
+            <td>2 rods (Rod &amp; Pole)</td>
+            <td><strong>Upgradeable Fishing Rod</strong> (Copper → Mythic) with full fish list <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Marriage</td>
+            <td>5 bachelorettes</td>
+            <td>5 bachelorettes + <strong>Harvest Goddess</strong> <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Festivals</td>
+            <td>Goddess Festival, Tomato Festival, Swimming Festival</td>
+            <td><strong>Frisbee Contest (Beach Day)</strong> replaces Swimming; no Goddess/Tomato festivals <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Animal Lifespan</td>
+            <td>Animals live forever</td>
+            <td><strong>Animals age and die</strong> — Chickens ~3 yrs, Cows/Sheep ~5 yrs <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Collectibles</td>
+            <td>None beyond Power Berries</td>
+            <td><strong>Goddess Jewels, Kappa Jewels, Jewels of Truth, Teleport Stone</strong> <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Saving</td>
+            <td>Only by sleeping</td>
+            <td><strong>Save anywhere from the diary menu</strong> <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>TV Shopping</td>
+            <td>Only after 1st house upgrade</td>
+            <td><strong>Available from Day 1</strong> — buy kitchen, utensils, furniture <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Blue Feather</td>
+            <td>Supermarket (1,000G)</td>
+            <td>Supermarket (1,000G); Won also offers at rip-off price <span class="new-badge">NEW</span></td>
+        </tr>
+        <tr>
+            <td>Childhood Girl</td>
+            <td>Revealed at end</td>
+            <td><strong>Never revealed</strong> — left ambiguous</td>
+        </tr>
+    </table>
+
+    <h3>Core Gameplay Loop</h3>
+    <p>Each day (6:00 AM – 5:50 AM), you manage: water crops → tend animals → harvest crops → forage/mine/fish → socialize → sleep. Time pauses inside buildings and mines but flows freely outside. The year has four 30-day seasons with season-specific crops, foraging items, and festivals. Unlike BTN, you can <strong>save at any time</strong> from the diary menu.</p>
+</section>
+
+<!-- SECTION 2: MONEY -->
+<section id="money">
+    <h2>2. Money-Making: The Ultimate Crop Profit Guide</h2>
+    <p>Choosing the right crops per season is the single most important strategy for building wealth. Below are the best crops per season, ranked by total season profit per bag (assuming 9-plant full square with upgraded Watering Can or Sprite help).</p>
+
+    <h3>🌱 Spring Crops</h3>
+    <table>
+        <tr><th>Crop</th><th>Seed Cost</th><th>Sell Price</th><th>Days to Grow</th><th>Regrow?</th><th>Season Profit (9-plot)</th><th>Notes</th></tr>
+        <tr>
+            <td><strong>Cabbages</strong> <span class="best-badge">BEST</span></td>
+            <td>500G</td><td>250G ea.</td><td>14 days</td><td>No</td>
+            <td><strong>~3,500G</strong></td>
+            <td>Buy from Won at Zack's house. Best non-renewable spring crop. 2 harvests per season.</td>
+        </tr>
+        <tr>
+            <td>Cucumbers</td>
+            <td>200G</td><td>60G ea.</td><td>9 days</td><td>Every 5 days</td>
+            <td><strong>~2,500G</strong></td>
+            <td>Best renewable spring crop. Plant Day 1 for max harvests.</td>
+        </tr>
+        <tr><td>Turnips</td><td>120G</td><td>60G ea.</td><td>4 days</td><td>No</td><td>~2,940G</td><td>Fastest crop; excellent for early money. Plant every 4 days.</td></tr>
+        <tr><td>Strawberries*</td><td>150G</td><td>30G ea.</td><td>8 days</td><td>Every 2 days</td><td>~2,820G</td><td>*Secret crop: ship 100 Turnips, Potatoes, Cucumbers.</td></tr>
+        <tr><td>Potatoes</td><td>150G</td><td>80G ea.</td><td>7 days</td><td>No</td><td>~2,280G</td><td>Solid starter crop. Needed to unlock Strawberries.</td></tr>
+        <tr><td>Grass</td><td>500G</td><td>N/A</td><td>11 days</td><td>Every 8 days</td><td>N/A</td><td>For livestock feed. Plant in pasture area.</td></tr>
+    </table>
+
+    <h3>☀️ Summer Crops</h3>
+    <table>
+        <tr><th>Crop</th><th>Seed Cost</th><th>Sell Price</th><th>Days to Grow</th><th>Regrow?</th><th>Season Profit (9-plot)</th><th>Notes</th></tr>
+        <tr>
+            <td><strong>Pineapples</strong> <span class="best-badge">BEST</span></td>
+            <td>1,000G</td><td>500G ea.</td><td>20 days</td><td>Every 5 days</td>
+            <td><strong>~8,000G</strong></td>
+            <td>Buy from Won. Most profitable summer crop! Plant by Day 5 latest.</td>
+        </tr>
+        <tr>
+            <td>Corn</td>
+            <td>300G</td><td>100G ea.</td><td>14 days</td><td>Every 3 days</td>
+            <td><strong>~5,400G</strong></td>
+            <td>Excellent renewable. 1 Corn = 30 Chicken Feed at the mill!</td>
+        </tr>
+        <tr><td>Tomatoes</td><td>200G</td><td>60G ea.</td><td>9 days</td><td>Every 3 days</td><td>~4,120G</td><td>Reliable, good profit margin. Quick regrow.</td></tr>
+        <tr><td>Pumpkins*</td><td>500G</td><td>250G ea.</td><td>14 days</td><td>No</td><td>~3,500G</td><td>*Secret: ship 100 Tomatoes, Corn, Onions.</td></tr>
+        <tr><td>Onions</td><td>150G</td><td>80G ea.</td><td>7 days</td><td>No</td><td>~2,280G</td><td>Fast non-renewable for early summer.</td></tr>
+    </table>
+
+    <h3>🍂 Fall Crops</h3>
+    <table>
+        <tr><th>Crop</th><th>Seed Cost</th><th>Sell Price</th><th>Days to Grow</th><th>Regrow?</th><th>Season Profit (9-plot)</th><th>Notes</th></tr>
+        <tr>
+            <td><strong>Sweet Potatoes</strong> <span class="best-badge">BEST</span></td>
+            <td>300G</td><td>120G ea.</td><td>5 days</td><td>Every 2 days</td>
+            <td><strong>~13,920G</strong></td>
+            <td>THE cash crop of the game! Fast growth, fast regrow, great price. Plant Day 1!</td>
+        </tr>
+        <tr><td>Eggplants</td><td>120G</td><td>80G ea.</td><td>9 days</td><td>Every 3 days</td><td>~5,640G</td><td>Cheap seeds, good returns.</td></tr>
+        <tr><td>Green Peppers</td><td>150G</td><td>40G ea.</td><td>7 days</td><td>Every 2 days</td><td>~4,170G</td><td>Buy from Won. Cheapest selling price but very frequent harvests.</td></tr>
+        <tr><td>Carrots</td><td>300G</td><td>120G ea.</td><td>7 days</td><td>No</td><td>~3,120G</td><td>Solid non-renewable.</td></tr>
+        <tr><td>Spinach*</td><td>200G</td><td>80G ea.</td><td>5 days</td><td>No</td><td>~2,600G</td><td>*Secret: ship 100 Eggplants, Carrots, Sweet Potatoes.</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>💰 Optimal Seasonal Strategy:</strong><br>
+        <strong>Spring:</strong> Turnips (early quick cash) → Cabbages + Cucumbers<br>
+        <strong>Summer:</strong> Pineapples (from Won, as many as you can afford) + Corn<br>
+        <strong>Fall:</strong> Sweet Potatoes (as many as physically possible!) + Eggplants<br>
+        <strong>Winter:</strong> No outdoor crops; rely on animals, mining, and fishing. <strong>There is NO Hothouse in FoMT!</strong>
+    </div>
+
+    <h3>Crop Planting Patterns</h3>
+    <p>Each seed bag plants a 3×3 square. The center crop cannot be watered until you have a Silver Watering Can. Recommended patterns early game:</p>
+    <pre>Fat U (8 crops):     Normal Pattern (7):
+X X X                 X _ X
+X _                   X _ X
+X X X                 X X X</pre>
+    <p>Once you upgrade to Silver Watering Can or hire Harvest Sprites to water, switch to full 3×3 squares (9 crops per bag) for maximum profit.</p>
+
+    <div class="info-box">
+        <strong>📊 Important Crop Growth Differences from BTN:</strong> FoMT crop growth rates differ! Turnips grow in <strong>4 days</strong> (not 5), Cucumbers in <strong>9 days</strong> (not 10), Sweet Potatoes in <strong>5 days</strong> (not 6), Pineapples in <strong>20 days</strong> (not 21). The profit calculations above use FoMT-specific data.
+    </div>
+</section>
+
+<!-- SECTION 3: YEAR 1 -->
+<section id="year1">
+    <h2>3. Year 1 Walkthrough — The Critical First Year</h2>
+
+    <div class="warning-box">
+        <strong>Your Year 1 Goal:</strong> Get the 1st House Extension + Kitchen, upgrade Chicken Coop and Barn at least once, accumulate 4-8 chickens + 2-3 cows + 1-2 sheep, have your bachelorette at Green-Yellow heart, all tools at Silver+, and build up savings for Year 2 expansions.
+    </div>
+
+    <h3>🌱 Spring (Year 1)</h3>
+    <ul>
+        <li><strong>Day 1:</strong> Festival day. No farm work possible. The game starts on Spring 2.</li>
+        <li><strong>Day 2:</strong> Clear your field (axe + hammer). Forage Blue Grass (near hot spring), Bamboo Shoots (near Mother's Hill lake), and flowers. Ship everything. Play the <strong>Harvest Goddess TV game</strong> (Left channel) on Days 2–5 — win 10-14 times in a row for Relaxation Tea Leaves (1,000G each!). Buy Turnip seeds with your starting 500G.</li>
+        <li><strong>Day 3:</strong> Visit the Poultry Farm — buy 1 Chicken (1,500G) + 100 Chicken Feed. Visit Zack at Mineral Beach (11 AM–5 PM, empty tool slot) to get your <strong>free Fishing Rod</strong>.</li>
+        <li><strong>Day 4 (Wednesday):</strong> Visit Barley at Yodel Ranch to receive your <strong>free pony</strong> (Wednesdays only!). While you're there, go to the Church between 1–4 PM for <strong>Confessional</strong> — confess to "Overworking the HS" or "I was cruel to my animals."</li>
+        <li><strong>Day 5–7:</strong> Harvest Turnips, reinvest in Cucumbers and Potatoes. Buy the <strong>Medium Rucksack</strong> (3,000G at Supermarket). Continue clearing field and chopping lumber.</li>
+        <li><strong>Day 8–13:</strong> Buy Cabbage seeds from Won (at Zack's house on the beach). Keep gifting your chosen bachelorette daily. Plant grass for future livestock.</li>
+        <li><strong>Day 14:</strong> Spring Thanksgiving — give Cookies to girls if you have a Kitchen (unlikely Year 1) or simply talk to them.</li>
+        <li><strong>Day 18:</strong> Horse Race — your pony can't race yet. Bet on horses, buy a <strong>Power Berry</strong> (900 medals) and fill your basket with <strong>Broaches</strong> (18 medals each, sell for 2,000G!). This is the famous "78K day" money exploit!</li>
+        <li><strong>Day 22:</strong> Cooking Festival — Year 1 theme is <strong>Juices</strong>. If you have no kitchen, you can only watch.</li>
+        <li><strong>By end of Spring:</strong> Upgrade Chicken Coop (5,000G + 420 Lumber). Buy 2-3 more chickens. Start upgrading Watering Can and Axe to Copper/Silver.</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>📺 Harvest Goddess Game:</strong> On the first 5 days of Spring, press Left on the TV to play. Guess if numbers are higher or lower. Win 10-14 in a row for Relaxation Tea Leaves (sell 1,000G). You can play 5 times per day — potential 25,000G in the first 4 days!
+    </div>
+
+    <h3>☀️ Summer (Year 1)</h3>
+    <ul>
+        <li><strong>Day 1:</strong> Beach Day (Frisbee Contest). Your puppy can't compete yet — adult dogs only. Watch and enjoy. <strong>The Supermarket is closed</strong> — buy Summer seeds on Spring 30!</li>
+        <li><strong>Day 2:</strong> Buy Pineapple seeds from Won (1,000G each). Buy Corn seeds from Supermarket. Plant grass.</li>
+        <li><strong>Buy a Cow</strong> from Yodel Ranch (5,000G in FoMT — cheaper than BTN's 6,000G!) + Milker (2,000G) + Brush (800G).</li>
+        <li><strong>Day 7:</strong> Chicken Sumo Festival — enter your happiest hen. Press A when facing opponent, stop when your chicken is backing up. Win for Golden Eggs!</li>
+        <li><strong>Day 20:</strong> Cow Festival — enter your best cow (unlikely to win Year 1).</li>
+        <li><strong>Day 24:</strong> Fireworks Display — watch with favorite girl at the beach (6 PM).</li>
+        <li><strong>End of Summer:</strong> Upgrade your House — 1st Extension (3,000G + 200 Lumber). Then order the <strong>Kitchen</strong> from TV Shopping (4,010G). This is critical!</li>
+    </ul>
+
+    <h3>🍂 Fall (Year 1)</h3>
+    <ul>
+        <li><strong>Buy Sweet Potatoes</strong> — plant as many as possible. They're ridiculously profitable.</li>
+        <li><strong>Day 3:</strong> Music Festival at the Church (6 PM).</li>
+        <li><strong>Day 9:</strong> Harvest Festival — bring an ingredient for the community stew.</li>
+        <li><strong>Day 13:</strong> Full Moon Festival — go to Mother's Hill peak at 6 PM. The girl who likes you most will be waiting.</li>
+        <li><strong>Day 14–20:</strong> <strong>Cliff's Grape Harvest Job!</strong> Duke asks for help. <strong>You MUST invite Cliff</strong> (talk to him at the Inn) or he'll permanently leave at the end of Year 1!</li>
+        <li><strong>Day 21:</strong> Sheep Festival. Buy a Sheep (4,000G) + Clippers (1,800G). Enter unshorn sheep.</li>
+        <li>Upgrade Barn (6,800G + 500 Lumber) if possible. Harvest Sweet Potatoes relentlessly.</li>
+        <li><strong>Day 30:</strong> Pumpkin Festival — May (6 AM), Stu (8 AM), Popuri (10 AM) visit for candy. Have Chocolate ready!</li>
+    </ul>
+
+    <h3>❄️ Winter (Year 1)</h3>
+    <ul>
+        <li><strong>No outdoor crops grow.</strong> Focus on: mining, fishing, lumber chopping, tool upgrading, friendship building, cooking.</li>
+        <li><strong>Day 2:</strong> Mayor Thomas' Request — he asks for a random item. Give it by 7 PM for Golden Lumber (cosmetic only — <strong>do NOT use as fence</strong> or villagers get angry!).</li>
+        <li><strong>Day 10:</strong> Dog Race — train your dog with the Dog Ball (buy from Won). Your dog may still be too young Year 1.</li>
+        <li><strong>Day 14:</strong> Winter Thanksgiving — girls who like you bring chocolate/cake. Stay home all day!</li>
+        <li><strong>Day 24:</strong> Star Night Festival — ask a girl on the 23rd to have dinner with her family.</li>
+        <li><strong>Day 25:</strong> Stocking Festival — need a stocking from Ellen (befriend her + give yarn before Winter 10). Go to sleep 9 PM–12 AM for a gift.</li>
+        <li><strong>Day 30:</strong> New Year's Eve — noodles at Rose Square (6 PM) OR sunrise at Mother's Hill (midnight).</li>
+        <li><strong>Mining:</strong> The <strong>Lake Mine</strong> (Winter Mine) is accessible! Mine for rare gems (Diamonds, Pink Diamonds, Alexandrite) and, critically, <strong>Adamantite</strong> and <strong>Orichalc</strong> for Maker Machines and jewelry. Also find <strong>Cursed Tools</strong> on floors 29, 39, 49, 59, 69, 79 (must have all tools at Mystrile first).</li>
+        <li><strong>Both mines have 255 floors</strong> — far more than BTN's 10-floor mines!</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>End of Year 1 Target:</strong> Kitchen + Fridge + utensils purchased, 6-8 chickens, 3+ cows, 1-2 sheep, all tools at Silver-Gold, bachelorette at Green-Yellow heart, 3 Adamantite saved, at least 20 recipes discovered. Bank: 30,000G+.
+    </div>
+</section>
+
+<!-- SECTION 4: ANIMALS -->
+<section id="animals">
+    <h2>4. Livestock &amp; Animals Strategy</h2>
+
+    <div class="danger-box">
+        <strong>⚠️ Animals Have Lifespans in FoMT:</strong> Unlike BTN, your animals <strong>age and die</strong>! Chickens live ~3 years, Cows and Sheep live ~5 years. When an animal dies, a funeral sequence plays at the Church. Plan for replacement animals.
+    </div>
+
+    <h3>🐔 Chickens</h3>
+    <table>
+        <tr><th>Item</th><th>Cost</th><th>Details</th></tr>
+        <tr><td>Chicken</td><td>1,500G</td><td>Buy from Poultry Farm (open 12–4 PM, closed Sundays)</td></tr>
+        <tr><td>Chicken Feed</td><td>10G/bushel</td><td>Or: put 1 Corn in the windmill = 30 Chicken Feed!</td></tr>
+        <tr><td>Egg (S/M/L)</td><td>50G/60G/80G</td><td>Quality depends on chicken heart level (0-3 / 4-7 / 8-10 hearts)</td></tr>
+        <tr><td>Golden Egg</td><td>150G</td><td>From hens that won Chicken Sumo (8+ hearts)</td></tr>
+        <tr><td>P-Type Egg</td><td>180G</td><td>From champion hen that spent 600+ hours outside</td></tr>
+        <tr><td>X Egg</td><td>350G</td><td>Rare egg from P-type laying hen</td></tr>
+        <tr><td>Mayonnaise Maker</td><td>20,000G + Adamantite</td><td>Mayo (S): 100G, (M): 150G, (L): 200G, (G): 300G, (P): 450G, (X): 800G</td></tr>
+    </table>
+    <p><strong>Strategy:</strong> Hatch eggs in the incubator (3 days to hatch, 7 days to mature). <strong>Pick up chickens daily</strong> to increase affection. A full coop of 8 chickens laying daily = 400G+/day minimum. Convert to Mayo for profit. You can also leave chickens outside in a fenced area (they eat worms, saving feed).</p>
+
+    <h3>🐄 Cows</h3>
+    <table>
+        <tr><th>Item</th><th>Cost</th><th>Details</th></tr>
+        <tr><td>Cow</td><td><strong>5,000G</strong></td><td>Cheaper than BTN (was 6,000G)! Buy from Yodel Ranch.</td></tr>
+        <tr><td>Fodder</td><td>20G/bushel</td><td>Or grow grass and cut with sickle. ~3 bushels per cow per day.</td></tr>
+        <tr><td>Milk (S/M/L/G/P/X)</td><td>100G/150G/200G/300G/500G/800G</td><td>Higher hearts + championship = better milk</td></tr>
+        <tr><td>Cow Potion</td><td>3,000G</td><td>Impregnates cow; pregnant for 20 days. Calf starts with 1+ heart.</td></tr>
+        <tr><td>Cheese Maker</td><td>20,000G + Adamantite</td><td>Cheese (S): 300G, (M): 400G, (L): 500G, (G): 600G, (P): 750G, (X): 1,500G</td></tr>
+    </table>
+    <p><strong>Strategy:</strong> Talk, brush, and feed cows daily. Let them graze outside on sunny days. Win the Cow Festival (Summer 20) with an 8-10 heart cow for Golden Milk. Cheese (X) sells for <strong>1,500G</strong> — incredible profit!</p>
+
+    <h3>🐑 Sheep</h3>
+    <table>
+        <tr><th>Item</th><th>Cost</th><th>Details</th></tr>
+        <tr><td>Sheep</td><td>4,000G</td><td>Buy from Yodel Ranch. Adult on purchase — can shear immediately.</td></tr>
+        <tr><td>Wool (S/M/L/G/P/X)</td><td>100G/400G/500G/600G/1,000G/2,000G</td><td>Wool regrows every 7 days after shearing</td></tr>
+        <tr><td>Yarn Maker</td><td>20,000G + Adamantite</td><td>Yarn (S): 300G, (M): 700G, (L): 800G, (G): 1,000G, (P): 1,500G, (X): <strong>4,000G</strong></td></tr>
+        <tr><td>Sheep Potion</td><td>3,000G</td><td>Sheep must have full wool to become pregnant</td></tr>
+    </table>
+    <p><strong>Strategy:</strong> Sheep warm up to you faster than cows. Enter an <strong>unshorn</strong> sheep in the Sheep Festival (Fall 21). Yarn (X) at 4,000G is the single most profitable animal product!</p>
+
+    <h3>🐴 Horse &amp; 🐕 Dog</h3>
+    <ul>
+        <li><strong>Horse:</strong> Receive your free pony from Barley on a Wednesday in Spring Year 1. Brush and talk daily. Matures in Year 2 for the Horse Race (Spring 18, Fall 18). Winning the Horse Race gives a Power Berry!</li>
+        <li><strong>Dog:</strong> Train with Dog Ball (100G from Won). Win the Frisbee Contest (Beach Day, Summer 1) for a Power Berry. The Frisbee costs 5,000G from Won — you need an adult dog first.</li>
+    </ul>
+
+    <h3>Animal Product Quality Reference</h3>
+    <table>
+        <tr><th>Hearts</th><th>Chicken Egg</th><th>Cow Milk</th><th>Sheep Wool</th></tr>
+        <tr><td>0 – 3</td><td>Regular (50G)</td><td>Small (100G)</td><td>Small (100G)</td></tr>
+        <tr><td>4 – 7</td><td>Good (60G)</td><td>Medium (150G)</td><td>Medium (400G)</td></tr>
+        <tr><td>8 – 10</td><td>High (80G)</td><td>Large (200G)</td><td>Large (500G)</td></tr>
+        <tr><td>8-10 + Champion</td><td>Golden (150G)</td><td>Golden (300G)</td><td>Golden (600G)</td></tr>
+        <tr><td>Champion + 600hrs outside</td><td>P-Type (180G)</td><td>P-Milk (500G)</td><td>P-Wool (1,000G)</td></tr>
+        <tr><td>P-Type (rare chance)</td><td>X Egg (350G)</td><td>X Milk (800G)</td><td>X Wool (2,000G)</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 5: TOOLS -->
+<section id="tools">
+    <h2>5. Tools &amp; Upgrades (Including Cursed/Blessed/Mythic)</h2>
+
+    <div class="highlight-box">
+        <strong>🔧 FoMT Has 8 Tool Levels:</strong> Normal → Copper → Silver → Gold → Mystrile → <strong>Cursed → Blessed → Mythic</strong>. This is far more than BTN's 5 levels. Cursed tools are found only in the Lake Mine during Winter, and all regular tools must be at Mystrile level first.
+    </div>
+
+    <h3>Standard Upgradeable Tools</h3>
+    <table>
+        <tr><th>Level</th><th>Cost</th><th>Ore Needed</th><th>Experience</th><th>Watering Can</th><th>Hoe</th><th>Sickle</th><th>Axe</th><th>Hammer</th></tr>
+        <tr><td>Normal</td><td>—</td><td>—</td><td>—</td><td>1 sq.</td><td>1 sq.</td><td>1 sq.</td><td>Branches</td><td>Small stones</td></tr>
+        <tr><td>Copper</td><td>1,000G</td><td>Copper</td><td>6,000</td><td>1×3</td><td>2 sq.</td><td>1×3</td><td>6 hits/stump</td><td>3 hits/large stone</td></tr>
+        <tr><td>Silver</td><td>2,000G</td><td>Silver</td><td>18,000</td><td>2×3</td><td>3 sq.</td><td>2×3</td><td>3 hits/stump</td><td>2 hits/large stone</td></tr>
+        <tr><td>Gold</td><td>3,000G</td><td>Gold</td><td>36,000</td><td>3×3</td><td>4 sq.</td><td>3×3</td><td>2 hits/stump</td><td>1 hit/large stone</td></tr>
+        <tr><td>Mystrile</td><td>5,000G</td><td>Mystrile</td><td>65,535</td><td>3×5</td><td>6 sq.</td><td>5×5</td><td>1 hit/stump</td><td>2 hits/boulder</td></tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>🔧 Upgrade Priority:</strong> Watering Can (first!) → Axe → Hammer → Hoe → Sickle → Fishing Rod (last). Upgrade the Watering Can to at least Gold ASAP. Time upgrades for rainy days or hire Harvest Sprites to cover your absence. Saibara keeps your tool for 3 days.
+    </div>
+
+    <h3>Cursed, Blessed &amp; Mythic Tools <span class="new-badge">FoMT EXCLUSIVE</span></h3>
+    <div class="warning-box">
+        <strong>Requirements:</strong> ALL 6 tools must be at Mystrile level before Cursed Tools appear. They are found ONLY in the Lake Mine (Winter) on specific floors by digging in the soil (not in rocks). You must have an empty tool slot. Once equipped, cursed tools CANNOT be removed without Carter's help at Confessional (1,000G).
+    </div>
+
+    <table>
+        <tr><th>Cursed Tool</th><th>Lake Mine Floor</th><th>How to Bless</th><th>Cursed/Blessed Effect</th><th>Mythic Effect</th></tr>
+        <tr><td>Fishing Rod</td><td>Floor 29</td><td>Use 255 times</td><td>Catch King Fish, Pirate Treasure, Fossils</td><td>Better chance of rare catches</td></tr>
+        <tr><td>Hoe</td><td>Floor 39</td><td>Carter bless 10× (1,000G each)</td><td>Till 12×3 area</td><td>Till 18×5 area</td></tr>
+        <tr><td>Axe</td><td>Floor 49</td><td>Use 255 times</td><td>Chop ALL stumps/branches on screen</td><td>Same but 50% less stamina</td></tr>
+        <tr><td>Hammer</td><td>Floor 59</td><td>Equip 10 days straight</td><td>Smash all boulders in 1 hit</td><td>Smash ALL stones on screen</td></tr>
+        <tr><td>Watering Can</td><td>Floor 69</td><td>Carter bless 10× (1,000G each)</td><td>Water 6×13 area</td><td>Water 12×21 area</td></tr>
+        <tr><td>Sickle</td><td>Floor 79</td><td>Equip 10 days straight</td><td>Cut 9×9 grass area</td><td>Cut 15×15 area</td></tr>
+    </table>
+
+    <p>After blessing all 6 tools, <strong>Mythic Stones</strong> appear in the Spring Mine (Floor 60+). Bring one to Saibara with <strong>50,000G</strong> per tool for Mythic upgrades. Mythic Stones sell for 20,000G each!</p>
+
+    <h3>Other Important Tools &amp; Items</h3>
+    <table>
+        <tr><th>Tool</th><th>Cost</th><th>Location</th></tr>
+        <tr><td>Fishing Rod</td><td>Free</td><td>Zack at Mineral Beach (11 AM–5 PM, empty tool slot)</td></tr>
+        <tr><td>Brush</td><td>800G</td><td>Saibara's Blacksmith</td></tr>
+        <tr><td>Milker</td><td>2,000G</td><td>Saibara's Blacksmith</td></tr>
+        <tr><td>Clippers</td><td>1,800G</td><td>Saibara's Blacksmith</td></tr>
+        <tr><td>Bell</td><td>500G</td><td>Yodel Ranch (calls cows/sheep to you)</td></tr>
+        <tr><td>Animal Medicine</td><td>1,000G</td><td>Yodel Ranch (cures sick livestock)</td></tr>
+        <tr><td>Frisbee</td><td>5,000G</td><td>Won at Zack's House (adult dog required)</td></tr>
+        <tr><td>Dog Ball</td><td>100G</td><td>Won (train your dog)</td></tr>
+        <tr><td>Basket</td><td>5,000G</td><td>Supermarket (holds 30 items; essential for mining and Horse Races!)</td></tr>
+        <tr><td>Medium Rucksack</td><td>3,000G</td><td>Supermarket (5 tool slots + 5 item slots)</td></tr>
+        <tr><td>Large Rucksack</td><td>5,000G</td><td>Supermarket (appears week after Medium; 8 tools + 8 items)</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 6: EXPANSIONS -->
+<section id="expansions">
+    <h2>6. Farm Expansions — Build Order</h2>
+
+    <div class="warning-box">
+        <strong>FoMT Build Order:</strong> Unlike BTN, you do NOT need to build the Chicken Coop upgrade before the first House Extension. The build order is more flexible!
+    </div>
+
+    <table>
+        <tr><th>Expansion</th><th>Cost</th><th>Lumber</th><th>Days</th><th>What You Get</th></tr>
+        <tr><td><strong>1st House Extension</strong></td><td><strong>3,000G</strong></td><td>200</td><td>3</td><td>Bigger house; unlocks more TV Shopping items (Kitchen, Fridge, etc.)</td></tr>
+        <tr><td><strong>Chicken Coop Upgrade</strong></td><td>5,000G</td><td>420</td><td>3</td><td>Capacity: 4 → 8 chickens, 2nd incubator</td></tr>
+        <tr><td><strong>Barn Upgrade</strong></td><td>6,800G</td><td>500</td><td>3</td><td>Capacity: 8 → 16 livestock (cows+sheep), +2 pregnancy stalls</td></tr>
+        <tr><td><strong>2nd House Extension</strong></td><td>10,000G</td><td>700</td><td>3</td><td>Separate bedroom — <strong>required to buy Big Bed and get married!</strong></td></tr>
+        <tr><td>Remodel Window</td><td>25,000G</td><td>300</td><td>3</td><td>Cosmetic window change</td></tr>
+        <tr><td>Remodel Doghouse</td><td>20,000G</td><td>500</td><td>3</td><td>Cosmetic doghouse change</td></tr>
+        <tr><td>Remodel Mailbox</td><td>10,000G</td><td>200</td><td>3</td><td>Cosmetic mailbox change</td></tr>
+        <tr><td>Bathtub</td><td>30,000G</td><td>580</td><td>3</td><td>Bathtub in your house (restores stamina)</td></tr>
+        <tr><td><strong>Town Cottage</strong></td><td>100,000,000G</td><td>999</td><td>3</td><td>Ultimate endgame goal — a vacation house in town!</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🚫 No Hothouse in FoMT:</strong> Unlike BTN, there is NO Hothouse/Greenhouse in Friends of Mineral Town. You cannot grow crops in Winter. Instead, FoMT offers three vacation cottages: Mountain Cottage (50th wedding anniversary gift from wife), Seaside Cottage (GBA-GCN link with A Wonderful Life), and Town Cottage (100,000,000G).
+    </div>
+
+    <h3>Lumber Gathering Tips</h3>
+    <ul>
+        <li>Chop branches on your farm daily (1 lumber each)</li>
+        <li>Chop tree stumps on your farm and in the forest (6 lumber each with Copper+ Axe)</li>
+        <li>Buy lumber from Gotz (50G each — expensive but available)</li>
+        <li>Upgrade your Axe to Mystrile ASAP for 1-hit stump chopping</li>
+        <li>Stumps in the forest south of your farm respawn periodically</li>
+    </ul>
+</section>
+
+<!-- SECTION 7: TV SHOPPING -->
+<section id="tv-shopping">
+    <h2>7. TV Shopping &amp; House Furnishings</h2>
+
+    <div class="highlight-box">
+        <strong>📺 Available from Day 1:</strong> Unlike BTN, FoMT's TV Shopping Network is available immediately! Watch the Left channel on <strong>Saturdays</strong>. After seeing the item, go to the <strong>Inn</strong> and use the phone (10G call fee) to order. Zack delivers it in 3 days.
+    </div>
+
+    <table>
+        <tr><th>#</th><th>Item</th><th>Price</th><th>Purpose</th></tr>
+        <tr><td>1</td><td>Mirror</td><td>1,010G</td><td>Decorative; tells you random info</td></tr>
+        <tr><td>2</td><td>Clock</td><td>2,010G</td><td>Shows the time in your house</td></tr>
+        <tr><td>3</td><td>Refrigerator</td><td>2,510G</td><td>Store crops, food, and cooking ingredients</td></tr>
+        <tr><td>4</td><td>Cabinet (Shelves)</td><td>2,510G</td><td>Store non-food items (ores, wool, gifts, etc.)</td></tr>
+        <tr><td>5</td><td><strong>Kitchen</strong></td><td>4,010G</td><td><strong>CRITICAL!</strong> Enables cooking recipes. Buy ASAP.</td></tr>
+        <tr><td>6</td><td>Carpet</td><td>5,010G</td><td>Decorative floor covering</td></tr>
+        <tr><td>7</td><td><strong>Big Bed</strong></td><td>10,010G</td><td><strong>Required for marriage!</strong> Only appears after 2nd House Extension.</td></tr>
+        <tr><td>8</td><td>Oven</td><td>2,510G</td><td>Cooking utensil — needed for many recipes</td></tr>
+        <tr><td>9</td><td>Knife</td><td>1,510G</td><td>Cooking utensil</td></tr>
+        <tr><td>10</td><td>Frying Pan</td><td>1,510G</td><td>Cooking utensil</td></tr>
+        <tr><td>11</td><td>Pot</td><td>1,010G</td><td>Cooking utensil</td></tr>
+        <tr><td>12</td><td>Mixer</td><td>1,210G</td><td>Cooking utensil</td></tr>
+        <tr><td>13</td><td>Seasoning Set</td><td>2,510G</td><td>Cooking utensil — provides Sugar, Salt, Vinegar, Soy Sauce, Miso</td></tr>
+        <tr><td>14</td><td>Rolling Pin</td><td>760G</td><td>Cooking utensil</td></tr>
+        <tr><td>15</td><td>Whisk</td><td>510G</td><td>Cooking utensil</td></tr>
+        <tr><td>16</td><td><strong>Power Berry</strong></td><td>10,010G</td><td>Only after buying all other items! +10 Stamina.</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🍳 Kitchen Utensil Order:</strong> You need the Kitchen first, then the refrigerator and cabinet for storage. After that, buy utensils in the order they appear — the Oven, Knife, Frying Pan, and Pot are most important for early recipes. The Seasoning Set is essential for many advanced dishes. Items you skip will cycle back eventually.
+    </div>
+</section>
+
+<!-- SECTION 8: MARRIAGE -->
+<section id="marriage">
+    <h2>8. Marriage &amp; Bachelorettes</h2>
+
+    <h3>Heart Level System</h3>
+    <table>
+        <tr><th>Heart Color</th><th>Meaning</th><th>Approx. Affection Points</th></tr>
+        <tr><td>🖤 Black</td><td>Just met</td><td>0 – 9,999</td></tr>
+        <tr><td>💜 Purple</td><td>Friends</td><td>10,000 – 19,999</td></tr>
+        <tr><td>💙 Blue</td><td>Good friends</td><td>20,000 – 29,999</td></tr>
+        <tr><td>💚 Green</td><td>Interested</td><td>30,000 – 39,999</td></tr>
+        <tr><td>💛 Yellow</td><td>Flirting</td><td>40,000 – 49,999</td></tr>
+        <tr><td>🧡 Orange</td><td>Dating</td><td>50,000 – 59,999</td></tr>
+        <tr><td>❤️ Red</td><td>In Love</td><td>60,000 – 65,535</td></tr>
+    </table>
+
+    <h3>Marriage Requirements</h3>
+    <ol>
+        <li><strong>Red Heart</strong> on your chosen bachelorette</li>
+        <li><strong>2nd House Extension</strong> AND <strong>Big Bed</strong> purchased (TV Shopping)</li>
+        <li><strong>Blue Feather</strong> — buy from Supermarket for 1,000G (appears when any girl is at Orange heart+)</li>
+        <li><strong>View all four Heart Events</strong> (Black, Purple, Blue, Yellow) for your chosen girl</li>
+        <li><strong>Kitchen and all utensils</strong> — having the full cooking set makes marriage easier</li>
+        <li>Propose by giving her the Blue Feather. Wedding occurs ~7 days later at the Church.</li>
+    </ol>
+
+    <h3>The Five Bachelorettes</h3>
+
+    <h4>🌸 Popuri (Easiest)</h4>
+    <table>
+        <tr><td><strong>Birthday:</strong></td><td>Summer 3 (Alt: Summer 10)</td></tr>
+        <tr><td><strong>Rival:</strong></td><td>Kai</td></tr>
+        <tr><td><strong>Loves (Best Gifts):</strong></td><td>Omelet Rice, Omelet, Scrambled Eggs</td></tr>
+        <tr><td><strong>Likes:</strong></td><td>All eggs, Chocolate, Cakes, Sandwiches, Accessories, Ice Cream, Diamonds, Strawberry, Honey</td></tr>
+        <tr><td><strong>Extra Points:</strong></td><td>Own 8 Chickens (+200 points, once)</td></tr>
+        <tr><td><strong>Schedule:</strong></td><td>Hot Spring (7:30–10 AM), Poultry Farm (11 AM–7 PM). Sundays: Church, then Rose Square.</td></tr>
+    </table>
+
+    <h4>💪 Ann</h4>
+    <table>
+        <tr><td><strong>Birthday:</strong></td><td>Summer 17 (Alt: Summer 22)</td></tr>
+        <tr><td><strong>Rival:</strong></td><td>Cliff</td></tr>
+        <tr><td><strong>Loves (Best Gifts):</strong></td><td>Truffle Rice, Cake, Cheese Fondue, Pancakes</td></tr>
+        <tr><td><strong>Likes:</strong></td><td>Spa-Boiled Egg, Stew, Curry Rice, Strawberry Milk, Sandwich, Sweets, Rice Cakes, Diamonds, Perfume</td></tr>
+        <tr><td><strong>Extra Points:</strong></td><td>Buy food/drink from the Inn (+200 points, once)</td></tr>
+        <tr><td><strong>Schedule:</strong></td><td>Hot Spring (7:30–10 AM), Inn (10:30 AM–10 PM). Easiest to find.</td></tr>
+    </table>
+
+    <h4>🏥 Elli</h4>
+    <table>
+        <tr><td><strong>Birthday:</strong></td><td>Spring 16 (Alt: Spring 20)</td></tr>
+        <tr><td><strong>Rival:</strong></td><td>The Doctor</td></tr>
+        <tr><td><strong>Loves (Best Gifts):</strong></td><td>Moon Dumplings, Red Magic Grass, Hot Milk</td></tr>
+        <tr><td><strong>Likes:</strong></td><td>Milk, Strawberries, Elli Leaves, Accessories, Pink Cat Flower, Toy Flower, Blue Magic Grass, Diamonds, Noodles</td></tr>
+        <tr><td><strong>Extra Points:</strong></td><td>Get examined by the Doctor (+200 points, once)</td></tr>
+        <tr><td><strong>Schedule:</strong></td><td>Clinic (9 AM–7 PM, closed Wednesdays). Wednesdays: Ellen's House &amp; Supermarket.</td></tr>
+    </table>
+
+    <h4>🍷 Karen (Hardest)</h4>
+    <table>
+        <tr><td><strong>Birthday:</strong></td><td>Fall 15 (Alt: Fall 23)</td></tr>
+        <tr><td><strong>Rival:</strong></td><td>Rick</td></tr>
+        <tr><td><strong>Loves (Best Gifts):</strong></td><td>Pizza, French Fries, Popcorn</td></tr>
+        <tr><td><strong>Likes:</strong></td><td>Cheese, Wine, Truffles, Tempura, Sashimi, Bamboo Shoots, Diamonds, Perfume</td></tr>
+        <tr><td><strong>Extra Points:</strong></td><td>Buy items from Supermarket (+200 points, repeatable)</td></tr>
+        <tr><td><strong>Schedule:</strong></td><td>Outside Supermarket (8–10 AM), Supermarket (10 AM–1 PM), Beach evenings. Complex schedule.</td></tr>
+    </table>
+
+    <h4>📚 Mary</h4>
+    <table>
+        <tr><td><strong>Birthday:</strong></td><td>Winter 20 (Alt: Winter 25)</td></tr>
+        <tr><td><strong>Rival:</strong></td><td>Gray</td></tr>
+        <tr><td><strong>Loves (Best Gifts):</strong></td><td>Veggie Juice, Veggie Latte, Relaxation Tea</td></tr>
+        <tr><td><strong>Likes:</strong></td><td>Wild Grapes, Mushrooms, Chocolate, Blue/Red/Black/White Grass, Grape Juice, Diamonds, Perfume, Bodigizer, Turbojolt</td></tr>
+        <tr><td><strong>Extra Points:</strong></td><td>Go upstairs in the Library (+200 points, once)</td></tr>
+        <tr><td><strong>Schedule:</strong></td><td>Home (8–10 AM), Library (10 AM–4 PM, closed Mondays).</td></tr>
+    </table>
+
+    <h4>🌟 Harvest Goddess (Ultimate Challenge) <span class="new-badge">FoMT EXCLUSIVE</span></h4>
+    <p>Requirements to marry the Harvest Goddess:</p>
+    <ul>
+        <li>Catch every fish species, including all 6 King Fish</li>
+        <li>Ship at least 1 of every shippable item</li>
+        <li>Collect all 9 Goddess Jewels and form the Goddess Gem</li>
+        <li>Own the Big Bed</li>
+        <li>Dig up every type of item from both the Spring Mine and Lake Mine</li>
+        <li>Be in Year 5 or later</li>
+        <li>Ask Carter for permission to "Marry the HG" during Confessional</li>
+    </ul>
+    <p><strong>Note:</strong> The Goddess does NOT move into your house after marriage. She stays in her pond. She can still get pregnant, however.</p>
+
+    <div class="info-box">
+        <strong>💡 Gift-Wrapping:</strong> Buy Wrapping Paper at the Supermarket (100G). Wrapped birthday gifts multiply the affection boost by 5× (from +500 to +2,500 for a Loved gift)! Always wrap birthday presents.
+    </div>
+</section>
+
+<!-- SECTION 9: FESTIVALS -->
+<section id="festivals">
+    <h2>9. Festivals &amp; Events Calendar</h2>
+
+    <h3>🌸 Spring</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Time</th><th>Location</th><th>Strategy</th></tr>
+        <tr><td>1</td><td>New Year's Festival</td><td>6 PM</td><td>Rose Square</td><td>Eat rice cakes; receive rice cakes for gifts. (Not accessible Year 1).</td></tr>
+        <tr><td>14</td><td>Spring Thanksgiving</td><td>All day</td><td>—</td><td>Give Cookies or Chocolate Cookies to all girls for affection boosts.</td></tr>
+        <tr><td>18</td><td>Spring Horse Race</td><td>10 AM</td><td>Rose Square</td><td>Bet medals; buy Power Berry (900 medals) + Broaches for profit (18 medals, sell 2,000G!). Your horse races from Year 2.</td></tr>
+        <tr><td>22</td><td>Cooking Festival</td><td>10 AM</td><td>Rose Square</td><td>Year 1 = Juices, Year 2 = Sweets, Year 3 = Bread, Year 4 = Noodles, Year 5 = Rice. After Year 5: random.</td></tr>
+    </table>
+
+    <h3>☀️ Summer</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Time</th><th>Location</th><th>Strategy</th></tr>
+        <tr><td>1</td><td>Beach Day (Frisbee)</td><td>10 AM</td><td>Mineral Beach</td><td>Compete with adult dog + Frisbee. Win for Power Berry! <strong>Replaces BTN's Swimming Festival.</strong></td></tr>
+        <tr><td>7</td><td>Chicken Sumo Festival</td><td>10 AM</td><td>Rose Square</td><td>Enter happiest hen. Press A when facing opponent to scare them off the ring.</td></tr>
+        <tr><td>20</td><td>Cow Festival</td><td>10 AM</td><td>Rose Square</td><td>Enter cow with most hearts. 8+ hearts needed to win for Golden Milk.</td></tr>
+        <tr><td>24</td><td>Fireworks Display</td><td>6 PM</td><td>Mineral Beach</td><td>Watch with favorite girl (Green heart+) or wife.</td></tr>
+    </table>
+
+    <h3>🍂 Fall</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Time</th><th>Location</th><th>Strategy</th></tr>
+        <tr><td>3</td><td>Music Festival</td><td>6 PM</td><td>Church</td><td>Carter asks on Day 2. Play ocarina with the girls.</td></tr>
+        <tr><td>5</td><td>Ann's Mother's Memorial</td><td>All day</td><td>Mother's Hill</td><td>Doug grieves at the summit. Inn closed; Ann stays inside.</td></tr>
+        <tr><td>9</td><td>Harvest Festival</td><td>10 AM</td><td>Rose Square</td><td>Bring an ingredient for the community stew. Poison Mushroom = hilarious result!</td></tr>
+        <tr><td>13</td><td>Full Moon Festival</td><td>6 PM</td><td>Mother's Hill Peak</td><td>The girl who likes you most (Green heart+) will be waiting.</td></tr>
+        <tr><td>18</td><td>Fall Horse Race</td><td>10 AM</td><td>Rose Square</td><td>Same as Spring — race your horse, bet, buy prizes.</td></tr>
+        <tr><td>21</td><td>Sheep Festival</td><td>10 AM</td><td>Rose Square</td><td>Enter unshorn sheep with most hearts. 8+ hearts needed for Golden Wool.</td></tr>
+        <tr><td>30</td><td>Pumpkin Festival</td><td>6 AM/8 AM/10 AM</td><td>Your House</td><td>May, Stu, and Popuri visit for candy. Have Chocolate!</td></tr>
+    </table>
+
+    <h3>❄️ Winter</h3>
+    <table>
+        <tr><th>Day</th><th>Festival</th><th>Time</th><th>Location</th><th>Strategy</th></tr>
+        <tr><td>2</td><td>Thomas' Request</td><td>6 AM</td><td>Your House</td><td>Mayor asks for an item. Deliver by 7 PM for Golden Lumber. <strong>Don't use Golden Lumber as fence!</strong></td></tr>
+        <tr><td>14</td><td>Winter Thanksgiving</td><td>Various</td><td>Your Farm</td><td>Girls bring gifts: Popuri (6 AM), Ann (8 AM), Elli (10 AM), Karen (12 PM), Mary (2 PM). Stay home all day!</td></tr>
+        <tr><td>23</td><td>Star Night Invitation</td><td>All day</td><td>—</td><td>Talk to a girl (Green heart+) to be invited to dinner on the 24th.</td></tr>
+        <tr><td>24</td><td>Star Night Festival</td><td>6 PM / Noon</td><td>Girl's House</td><td>Dinner with her family. If married, have lunch at noon at your house.</td></tr>
+        <tr><td>25</td><td>Stocking Festival</td><td>9 PM–12 AM</td><td>Your House</td><td>Need stocking from Ellen (befriend + give yarn). Sleep after 9 PM for a gift.</td></tr>
+        <tr><td>30</td><td>New Year's Eve (Noodles)</td><td>6 PM</td><td>Rose Square</td><td>Eat buckwheat noodles. OR go to Mother's Hill at midnight for sunrise. <strong>Can only attend ONE.</strong></td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>🏇 Horse Race Money Trick:</strong> Bring your empty Basket to the Horse Races. Bet on the lowest-payout horse (most likely to win). Exchange medals for <strong>Broaches</strong> (18 medals each, sell for 2,000G). Fill your basket (30) + rucksack (9) = up to <strong>78,000G</strong> in one day!
+    </div>
+</section>
+
+<!-- SECTION 10: MINING -->
+<section id="mining">
+    <h2>10. Mining Guide (Spring Mine &amp; Lake Mine)</h2>
+
+    <div class="highlight-box">
+        <strong>⛏️ 255 Floors Each:</strong> Both the Spring Mine (accessible year-round, behind the hot spring) and the Lake Mine (Winter only, center of frozen lake) have <strong>255 floors</strong>. Time does NOT pass inside mines — mine as long as your stamina allows!
+    </div>
+
+    <h3>Spring Mine (Year-Round)</h3>
+    <table>
+        <tr><th>Item</th><th>Location</th><th>Sell Price</th></tr>
+        <tr><td>Junk Ore</td><td>All floors (rocks)</td><td>1G</td></tr>
+        <tr><td>Black Grass</td><td>All floors (dig soil)</td><td>10G (also recovers stamina!)</td></tr>
+        <tr><td>Bag of Money</td><td>All floors (dig soil)</td><td>10G (instant)</td></tr>
+        <tr><td>Copper Ore</td><td>All floors (rocks)</td><td>15G</td></tr>
+        <tr><td>Silver Ore</td><td>All floors (rocks)</td><td>20G</td></tr>
+        <tr><td>Gold Ore</td><td>Floor 3+ (rocks)</td><td>25G</td></tr>
+        <tr><td>Mystrile Ore</td><td>Floor 5+ (rocks)</td><td>40G</td></tr>
+        <tr><td>Orichalc Ore</td><td>Floor 10+ (rocks)</td><td>50G</td></tr>
+        <tr><td>Adamantite Ore</td><td>Floor 10+ (rocks)</td><td>50G</td></tr>
+        <tr><td><strong>Power Berry</strong></td><td>Floor 100 (dig soil)</td><td>N/A</td></tr>
+        <tr><td>Goddess Jewels (×9)</td><td>Floors 60, 102, 123, 152, 155, 171, 190, 202, 222 (rocks)</td><td>Form Goddess Gem (stamina recovery)</td></tr>
+        <tr><td>Mythic Stones</td><td>Floor 60+ (rocks) — only after all tools Blessed</td><td>20,000G!</td></tr>
+        <tr><td><strong>Teleport Stone</strong></td><td>Floor 255 (rocks) — Year 3+ only, empty tool slot!</td><td>N/A (warp anywhere!)</td></tr>
+        <tr><td>Fried Potato Recipe</td><td>Floor 255 (dig soil)</td><td>N/A</td></tr>
+    </table>
+
+    <h3>Lake Mine (Winter Only)</h3>
+    <p>Accessible when the lake freezes. Contains all Spring Mine items PLUS:</p>
+    <table>
+        <tr><th>Item</th><th>Location</th><th>Sell Price</th></tr>
+        <tr><td>Amethyst, Agate, Ruby, Topaz, Peridot, Fluorite</td><td>All floors except 50,100,150,200</td><td>60–78G each</td></tr>
+        <tr><td>Emerald</td><td>Floors ending in 5</td><td>80G</td></tr>
+        <tr><td>Moon Stone</td><td>Floors ending in 8</td><td>55G</td></tr>
+        <tr><td>Sand Rose</td><td>Floors ending in 9</td><td>60G</td></tr>
+        <tr><td>Diamond</td><td>Floors ending in 0</td><td>100G</td></tr>
+        <tr><td>Pink Diamond</td><td>Floors 30,70,90,110,130,170,190,255</td><td>10,000G!</td></tr>
+        <tr><td>Alexandrite</td><td>Floors 50,100,150,200,251+</td><td>10,000G!</td></tr>
+        <tr><td><strong>Cursed Tools</strong></td><td>Floors 29(Rod),39(Hoe),49(Axe),59(Hammer),69(W.Can),79(Sickle)</td><td>Must have all Mystrile tools!</td></tr>
+        <tr><td><strong>Power Berry</strong></td><td>Floor 19 (dig soil)</td><td>N/A</td></tr>
+        <tr><td>Kappa Jewels (×9)</td><td>Floors 0,40,60,80,120,140,160,180,255</td><td>Form Kappa Gem (fatigue recovery)</td></tr>
+    </table>
+
+    <div class="danger-box">
+        <strong>⚠️ Critical Mining Tips:</strong> Save <strong>3 Adamantite</strong> for Maker Machines (Mayo, Cheese, Yarn). The Lake Mine is only accessible in Winter — unless you have the Teleport Stone! Bring Black Grass or food for stamina recovery. Empty your rucksack before mining — bring the Basket for 30 extra slots.
+    </div>
+</section>
+
+<!-- SECTION 11: POWER BERRIES -->
+<section id="powerberries">
+    <h2>11. Power Berries — All 10 Locations + Blue Berry</h2>
+    <p>Each Power Berry permanently increases maximum stamina by 10 points. Start at 150 stamina; collect all 10 for 250 maximum.</p>
+
+    <table>
+        <tr><th>#</th><th>Location</th><th>How to Get</th></tr>
+        <tr><td>1</td><td>Your Farm Field</td><td>Dig randomly with your Hoe in any tilled area. Location varies per save file.</td></tr>
+        <tr><td>2</td><td>Harvest Goddess</td><td>Throw an offering (crops/flowers) into the waterfall pond for 10 days. Goddess gives it to you on the 10th day.</td></tr>
+        <tr><td>3</td><td>Horse Race (Exchange)</td><td>Trade <strong>900 medals</strong> at the Horse Race prize booth (Spring 18 or Fall 18).</td></tr>
+        <tr><td>4</td><td>Win the Horse Race</td><td>Race your adult horse and win. Horse must be mature (Year 2+).</td></tr>
+        <tr><td>5</td><td>Win the Frisbee Contest</td><td>Win Beach Day (Summer 1) with an adult dog + Frisbee (buy from Won, 5,000G).</td></tr>
+        <tr><td>6</td><td>Ocean Fishing</td><td>Fish at Mineral Beach dock in <strong>Winter</strong> with a <strong>Mystrile Fishing Rod</strong> (level 5) or better.</td></tr>
+        <tr><td>7</td><td>Spring Mine Floor 100</td><td>Dig in the soil on the 100th floor of the Spring Mine. Save before digging!</td></tr>
+        <tr><td>8</td><td>Behind the Lake Mine</td><td>During Winter, walk behind the Lake Mine entrance and press A. Available Year 1!</td></tr>
+        <tr><td>9</td><td>Lake Mine Floor 19</td><td>Dig in the soil on the 19th floor of the Lake Mine (Winter only).</td></tr>
+        <tr><td>10</td><td>TV Shopping Network</td><td>Buy for <strong>10,000G</strong> after purchasing ALL other TV Shopping items.</td></tr>
+    </table>
+
+    <h3>🔵 Blue Power Berry (Special)</h3>
+    <p>Throw a <strong>Cucumber</strong> into the lake on Mother's Hill (where Kappa lives) for <strong>10 consecutive days</strong>. Kappa appears and gives you the Blue Berry. This special berry <strong>halves fatigue gained while working in rain or snow</strong> — incredibly valuable!</p>
+
+    <div class="info-box">
+        <strong>📍 Key Difference from BTN:</strong> FoMT has the Frisbee Contest Power Berry (instead of Swimming Festival), the TV Shopping Power Berry (instead of the "plant 90+ flowers" one), and no "chop the tree at Mother's Hill" berry. The mine berries are on different floors (100 instead of random, 19 instead of random).
+    </div>
+</section>
+
+<!-- SECTION 12: FISHING -->
+<section id="fishing">
+    <h2>12. Fishing Guide &amp; King Fish</h2>
+
+    <h3>Getting Your Fishing Rod</h3>
+    <p>Visit <strong>Zack's house</strong> at Mineral Beach between 11 AM–5 PM with an empty tool slot in your rucksack. He gives you the basic Fishing Rod for free. Unlike BTN (which had two separate rods), you upgrade this single rod through all levels.</p>
+
+    <h3>Fishing Rod Upgrades</h3>
+    <table>
+        <tr><th>Level</th><th>Upgrade</th><th>What You Can Catch</th></tr>
+        <tr><td>Level 1</td><td>Basic</td><td>Small fish only</td></tr>
+        <tr><td>Level 2</td><td>Copper</td><td>Small and medium fish</td></tr>
+        <tr><td>Level 3</td><td>Silver</td><td>Small and medium fish</td></tr>
+        <tr><td>Level 4</td><td>Gold</td><td>Medium and large fish</td></tr>
+        <tr><td>Level 5</td><td>Mystrile</td><td>Large fish + Power Berry (Winter, dock)</td></tr>
+        <tr><td>Level 6</td><td>Cursed/Blessed</td><td>King Fish, Pirate Treasure (Summer, 10,000G), Fish Fossils (Fall, 5,000G)</td></tr>
+        <tr><td>Level 7</td><td>Mythic</td><td>Same as Blessed, better chance of rare catches</td></tr>
+    </table>
+
+    <h3>Fishing Locations</h3>
+    <ul>
+        <li><strong>Sea (Mineral Beach):</strong> Most diverse — ocean fish, Pirate Treasure, Fossils</li>
+        <li><strong>Lake (Mother's Hill):</strong> Freshwater fish; Kappa lives here</li>
+        <li><strong>River/Upstream:</strong> Mountain Trout, Salmon, Rainbow Trout</li>
+        <li><strong>Downstream (farm river):</strong> Bitterling, Roach, Sandfish</li>
+        <li><strong>Harvest Goddess Pond:</strong> Carp, Golden Carp, Silver Carp</li>
+    </ul>
+
+    <h3>👑 The Six King Fish <span class="new-badge">FoMT EXCLUSIVE</span></h3>
+    <table>
+        <tr><th>King Fish</th><th>Season</th><th>Location</th><th>Rod Needed</th></tr>
+        <tr><td><strong>Squid</strong></td><td>Spring, Summer, Fall</td><td>Sea</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+        <tr><td><strong>Catfish</strong></td><td>Winter</td><td>Hot Springs</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+        <tr><td><strong>Coelacanth</strong></td><td>Winter</td><td>Lake Mine (floor 9 pond)</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+        <tr><td><strong>Carp</strong></td><td>Spring, Summer, Fall</td><td>Mother's Hill Lake</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+        <tr><td><strong>Japanese Huchen</strong></td><td>Spring, Summer, Fall</td><td>Downstream</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+        <tr><td><strong>Monkfish</strong></td><td>Spring, Winter</td><td>Sea</td><td>Cursed/Blessed/Mythic (Level 6-7)</td></tr>
+    </table>
+    <p>Catching all 6 King Fish is required to marry the Harvest Goddess.</p>
+</section>
+
+<!-- SECTION 13: SECRETS -->
+<section id="secrets">
+    <h2>13. Secrets, Collectibles &amp; Advanced Tips</h2>
+
+    <h3>💎 Collectibles <span class="new-badge">FoMT EXCLUSIVE</span></h3>
+    <ul>
+        <li><strong>Goddess Jewels (×9):</strong> Found on specific floors in the Spring Mine. Collect all 9 to form the <strong>Goddess Gem</strong> (recovers stamina when used as a tool). Required to marry the Harvest Goddess.</li>
+        <li><strong>Kappa Jewels (×9):</strong> Found on specific floors in the Lake Mine. Collect all 9 to form the <strong>Kappa Gem</strong> (recovers fatigue when used as a tool).</li>
+        <li><strong>Jewels of Truth (×9):</strong> Hidden throughout Mineral Town. Collect all 9 to form the <strong>Gem of Truth</strong> (displays exact stamina/fatigue values when used). Requires Cabinet to store them. Locations include: doghouse roof, stable trough, 1,000 Horse Race medals, 50,000G from Won, lamp post by Church, Library 2nd floor, TV game in Town Cottage, calendar in Mountain Cottage, Thomas' fridge.</li>
+        <li><strong>Teleport Stone:</strong> Found on Floor 255 of the Spring Mine (Year 3+). Must have an empty tool slot. Warps to any outdoor location!</li>
+    </ul>
+
+    <h3>🐝 Honey &amp; Bees</h3>
+    <p>Get honey daily from the beehive in the apple tree on your farm (behind the chicken coop). Honey available <strong>year-round</strong> — no rare bee event needed like in BTN!</p>
+
+    <h3>🍳 Spa-Boiled Eggs</h3>
+    <p>Throw regular eggs into the hot spring. They become Spa-Boiled Eggs, selling for 80G (vs. 50G for regular eggs). Great early-game profit boost, and Ann's favorite gift!</p>
+
+    <h3>📺 4:44 Glitch</h3>
+    <p>Watching TV at exactly 4:44 (AM or PM) causes the game to freeze. This is a glitch from the Japanese version (where 4 is an unlucky number). <strong>Save before and avoid!</strong></p>
+
+    <h3>🌪️ Weather Manipulation</h3>
+    <p>Save before going to bed. Check the next day's weather. If it's a storm/blizzard, reload. The forecast may change! Use this to avoid typhoons destroying your crops.</p>
+
+    <h3>🏇 Horse Race Exploit</h3>
+    <p>Bring your empty <strong>Basket</strong> to the Horse Races. Bet on the horse with the LOWEST multiplier (highest chance to win). Exchange all medals for <strong>Broaches</strong> (18 medals → sell for 2,000G). A basket of 30 Broaches = 60,000G! Do this every Spring 18 and Fall 18.</p>
+
+    <h3>💒 Confessional Tips</h3>
+    <p>Visit the Church on Monday, Wednesday, or rainy days (1–4 PM). Confessions that matter:</p>
+    <ul>
+        <li><strong>"I was cruel to my animals"</strong> — raises all animal affection</li>
+        <li><strong>"Townspeople don't like me"</strong> — raises all villager friendship</li>
+        <li><strong>"I'm overworking the HS"</strong> — raises Harvest Sprite affection</li>
+        <li><strong>"I want to marry the HG"</strong> — unlocks Harvest Goddess marriage (must meet all other requirements)</li>
+    </ul>
+
+    <h3>🎯 Golden Lumber Warning</h3>
+    <p>Golden Lumber (from Thomas' Winter Request) NEVER rots but <strong>using it as a fence makes ALL villagers hate you</strong> (-500 affection with everyone each day it's placed!). Keep it in your cabinet or use it only inside your house.</p>
+
+    <h3>🏡 Vacation Cottages</h3>
+    <ul>
+        <li><strong>Mountain Cottage:</strong> Gift from your wife on your 50th wedding anniversary</li>
+        <li><strong>Seaside Cottage:</strong> Connect FoMT with Harvest Moon: A Wonderful Life (GCN) via GBA-GCN link cable and earn all 42 Link Stars</li>
+        <li><strong>Town Cottage:</strong> Build for 100,000,000G + 999 Lumber — the ultimate endgame goal</li>
+    </ul>
+</section>
+
+<!-- SECTION 14: SPRITES -->
+<section id="sprites">
+    <h2>14. Harvest Sprites — Complete System</h2>
+
+    <p>The 7 Harvest Sprites live behind the Church. Befriending and hiring them is essential for managing a large farm. <strong>In FoMT, you can play mini-games with them to increase their skills!</strong></p>
+
+    <h3>The Seven Sprites</h3>
+    <table>
+        <tr><th>Name</th><th>Color</th><th>Birthday</th><th>Favorite Gift</th></tr>
+        <tr><td>Staid</td><td>Blue</td><td>Spring 15</td><td>Flour, Apple, Honey, Bread</td></tr>
+        <tr><td>Bold</td><td>Purple</td><td>Spring 4</td><td>Flour, Apple, Honey, Bread, Purple Grass</td></tr>
+        <tr><td>Chef</td><td>Red</td><td>Fall 14</td><td>Flour, Apple, Honey, Bread</td></tr>
+        <tr><td>Nappy</td><td>Orange</td><td>Winter 22</td><td>Flour, Apple, Honey, Bread</td></tr>
+        <tr><td>Hoggy</td><td>Yellow</td><td>Fall 10</td><td>Flour, Apple, Honey, Bread</td></tr>
+        <tr><td>Aqua</td><td>Indigo</td><td>Spring 16</td><td>Flour, Apple, Honey, Bread</td></tr>
+        <tr><td>Timid</td><td>Green</td><td>Summer 16</td><td>Flour, Apple, Honey, Bread</td></tr>
+    </table>
+
+    <h3>Hiring Sprites</h3>
+    <p>A Sprite must have <strong>3 hearts</strong> before you can hire them. Give <strong>Flour</strong> (50G from Supermarket) — it's their universal loved gift. Once at 3 hearts, talk to them and select "I want your help" to assign them to:</p>
+    <ul>
+        <li><strong>Watering:</strong> Waters crops (most useful early game)</li>
+        <li><strong>Harvesting:</strong> Picks crops and teleports them to shipping bin (very fast!)</li>
+        <li><strong>Animal Care:</strong> Feeds and brushes animals (least useful — does a mediocre job)</li>
+    </ul>
+
+    <h3>Sprite Mini-Games <span class="new-badge">FoMT EXCLUSIVE</span></h3>
+    <p>Playing mini-games with sprites increases their skill level, making them work faster:</p>
+    <ul>
+        <li><strong>Watering Game:</strong> Memory game — remember which squares got watered. Hardest mini-game.</li>
+        <li><strong>Harvesting Game:</strong> Tap A rhythmically to harvest turnips. Don't tap too fast!</li>
+        <li><strong>Animal Husbandry Game:</strong> Mostly useless — sprites do a poor job caring for animals anyway.</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>💡 Sprite Strategy:</strong> Befriend sprites with Flour year-round. Hire 3-4 for watering and 3-4 for harvesting during busy seasons. Rotate them to keep them working daily. During Winter, give them gifts to boost friendship for next year. The Tea Party invitation (Spring, random) gives Relaxation Tea Leaves!
+    </div>
+</section>
+
+<!-- SECTION 15: SOCIAL -->
+<section id="social">
+    <h2>15. Villager Social Strategy</h2>
+
+    <h3>Key Villagers &amp; Their Loved Gifts</h3>
+    <table>
+        <tr><th>Villager</th><th>Loves</th><th>Why Befriend Them</th></tr>
+        <tr><td>Harvest Sprites (×7)</td><td>Flour</td><td>Farm labor — watering, harvesting, animal care</td></tr>
+        <tr><td>Saibara</td><td>Turnips, Adamantite</td><td>Tool upgrades (critical)</td></tr>
+        <tr><td>Gotz</td><td>Honey, Eggs, Apples</td><td>Farm expansions (critical). Keep him happy — if you ignore him, he refuses work!</td></tr>
+        <tr><td>Barley</td><td>Scrambled Eggs, Rice</td><td>Gives free horse; sells cows/sheep/fodder</td></tr>
+        <tr><td>Lillia</td><td>Milk, Tomato</td><td>Sells chickens and chicken feed</td></tr>
+        <tr><td>Carter</td><td>Eggs, Curry Powder, Fish</td><td>Confessional (animal affection, tool un-cursing, HG marriage)</td></tr>
+        <tr><td>Ellen</td><td>Milk, Spa-Boiled Eggs</td><td>Knits stocking for Stocking Festival; give yarn in Winter</td></tr>
+        <tr><td>Doug</td><td>Small Fish, Honey</td><td>Runs the Inn; friendship may get you inside early</td></tr>
+        <tr><td>Duke</td><td>Eggplant, Wine</td><td>Runs Winery; offers grape harvest job in Fall</td></tr>
+        <tr><td>Cliff</td><td>Scrambled Eggs</td><td><strong>Must invite to grape harvest or he leaves permanently!</strong></td></tr>
+        <tr><td>Rick</td><td>Honey</td><td>Karen's rival; Popuri's protective brother</td></tr>
+        <tr><td>Kai</td><td>Summer Crops</td><td>Summer-only; Popuri's rival</td></tr>
+        <tr><td>Won</td><td>Orichalc, Golden Eggs</td><td>Sells rare seeds (Pineapples, Cabbages, etc.) and items at Zack's house</td></tr>
+        <tr><td>Zack</td><td>Tomato, Cucumber</td><td>Gives Fishing Rod; delivers TV Shopping purchases</td></tr>
+        <tr><td>Gray</td><td>Baked Corn</td><td>Mary's rival; Saibara's apprentice</td></tr>
+        <tr><td>Doctor</td><td>Milk</td><td>Elli's rival; runs Clinic</td></tr>
+    </table>
+
+    <div class="danger-box">
+        <strong>⚠️ Cliff Leaves Forever:</strong> If you don't tell Cliff about Duke's grape harvest job in Fall of Year 1 (around Fall 14-20), Cliff will permanently leave Mineral Town at the end of Winter Year 1. <strong>Talk to Cliff at the Inn during that window and tell him about the job!</strong>
+    </div>
+</section>
+
+<!-- SECTION 16: RECIPES -->
+<section id="recipes">
+    <h2>16. Key Recipes for Success</h2>
+
+    <h3>Festival-Winning Recipes</h3>
+    <table>
+        <tr><th>Category</th><th>Recipe</th><th>Ingredients</th><th>Utensils</th></tr>
+        <tr><td>Juice (Year 1)</td><td><strong>Relaxation Tea</strong></td><td>Relax Tea Leaves</td><td>Pot + Sugar</td></tr>
+        <tr><td>Sweets (Year 2)</td><td><strong>Chocolate Cake</strong></td><td>Butter, Chocolate, Egg, Flour, Apple, Honey, Wine</td><td>Whisk, Oven, Knife, Sugar</td></tr>
+        <tr><td>Sweets (Year 2)</td><td><strong>Cheese Cake</strong></td><td>Cheese, Egg, Milk, Wine, Honey</td><td>Pot, Whisk, Oven, Sugar</td></tr>
+        <tr><td>Bread (Year 3)</td><td><strong>Sandwich</strong></td><td>Bread, Tomato, Cabbage, Cucumber, Butter, Mayo, Boiled Egg</td><td>Knife</td></tr>
+        <tr><td>Noodles (Year 4)</td><td><strong>Fried Noodles</strong></td><td>Noodles, Oil, Egg, Cabbage, Medium Fish</td><td>Frying Pan, Salt, Soy Sauce</td></tr>
+        <tr><td>Rice (Year 5)</td><td><strong>Curry Rice</strong></td><td>Curry Powder, Rice Ball</td><td>Pot (+ extras for better score)</td></tr>
+    </table>
+
+    <p><strong>Tip:</strong> Adding more ingredients to a recipe increases your chance of winning. The Gourmet gives feedback based on quality — "shooting stars" = guaranteed win!</p>
+
+    <h3>Essential Daily Recipes</h3>
+    <table>
+        <tr><th>Recipe</th><th>Ingredients</th><th>Utensils</th></tr>
+        <tr><td>Spa-Boiled Egg</td><td>Egg (toss in hot spring)</td><td>None</td></tr>
+        <tr><td>Boiled Egg</td><td>Egg</td><td>Pot</td></tr>
+        <tr><td>Omelet</td><td>Egg, Milk, Oil</td><td>Frying Pan</td></tr>
+        <tr><td>Scrambled Eggs</td><td>Egg, Oil</td><td>Frying Pan</td></tr>
+        <tr><td>Hot Milk</td><td>Milk</td><td>Pot, Sugar</td></tr>
+        <tr><td>Butter</td><td>Milk</td><td>Mixer</td></tr>
+        <tr><td>Cookies</td><td>Flour, Butter, Egg</td><td>Rolling Pin, Oven, Sugar</td></tr>
+        <tr><td>Chocolate Cookies</td><td>Flour, Butter, Egg, Chocolate</td><td>Rolling Pin, Oven, Sugar</td></tr>
+        <tr><td>Pizza</td><td>Cheese, Flour, Ketchup</td><td>Rolling Pin, Oven</td></tr>
+        <tr><td>Sushi</td><td>Rice Ball, Sashimi</td><td>Vinegar</td></tr>
+        <tr><td>Sashimi</td><td>Medium/Large Fish</td><td>Knife</td></tr>
+        <tr><td>Popcorn</td><td>Corn</td><td>Frying Pan</td></tr>
+        <tr><td>French Fries</td><td>Potato, Oil</td><td>Knife, Frying Pan</td></tr>
+    </table>
+</section>
+
+<!-- SECTION 17: MULTIRUN -->
+<section id="multirun">
+    <h2>17. Multi-Run Mastery Plan</h2>
+
+    <p>Since FoMT has no time limit, you can theoretically do everything in one file. However, seeing all marriage candidates, rival marriages, and fully experiencing the game benefits from multiple playthroughs:</p>
+
+    <h3>Run 1: The Learning Run</h3>
+    <ul>
+        <li>Focus on <strong>money accumulation</strong>: Turnips → Pineapples → Sweet Potatoes</li>
+        <li>Build all farm expansions</li>
+        <li>Marry your favorite bachelorette by Year 2</li>
+        <li>Collect all 10 Power Berries</li>
+        <li>Save 3 Adamantite for Maker Machines</li>
+        <li>Win Chicken, Cow, and Sheep festivals</li>
+        <li>Keep Cliff in town (grape harvest job!)</li>
+        <li>Collect the Teleport Stone (Year 3+)</li>
+    </ul>
+
+    <h3>Run 2: The Completionist Run</h3>
+    <ul>
+        <li>Marry a different bachelorette (or the Harvest Goddess!)</li>
+        <li>Catch all 6 King Fish</li>
+        <li>Collect all Goddess Jewels, Kappa Jewels, and Jewels of Truth</li>
+        <li>Get all Cursed → Blessed → Mythic tools</li>
+        <li>Win every festival at least once</li>
+        <li>Discover all 108 recipes</li>
+        <li>Ship every shippable item</li>
+        <li>Build the Town Cottage (100,000,000G!)</li>
+    </ul>
+
+    <h3>Run 3–5: Romance All Bachelorettes</h3>
+    <ul>
+        <li>Each run, marry a different girl to see all heart events, wedding scenes, and rival marriages</li>
+        <li>Experience baby/child scenarios with each wife</li>
+        <li>Witness different rival weddings by befriending the rival bachelors</li>
+    </ul>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+    <h2>Sources</h2>
+    <p>This guide was compiled from the following community resources:</p>
+    <ul>
+        <li><strong>chito10's Money Maker/Crop Guide</strong> — GameFAQs (vFinal, 2004). Detailed crop profit calculations, animal product values, and seasonal money-making strategies specific to FoMT.</li>
+        <li><strong>samurai_goroh &amp; thekingofthisgame's Guide and Walkthrough</strong> — GameFAQs (v7.5, 2005). Massive comprehensive reference covering tools, items, fishing, mining, codes, and all game mechanics.</li>
+        <li><strong>taiga's Festival Guide</strong> — GameFAQs (v1.8, 2004). Complete festival calendar with strategies, cooking contest categories, and horse race prize analysis.</li>
+        <li><strong>AstrayGundam's Heart Events FAQ</strong> — GameFAQs (v0.98E, 2005). Girl and rival heart event locations, times, and gift preferences.</li>
+        <li><strong>Gameboyguru's "Year One" Spring Guide</strong> — GameFAQs (v1.3, 2004). Day-by-day walkthrough with checklist format for maximizing the first Spring.</li>
+        <li><strong>CheatCodes.com HM: FoMT Walkthrough</strong> — Comprehensive recipes, heart events, mining, and tool upgrade data.</li>
+        <li><strong>GamerZenith's FoMT Guides</strong> — gamerzenith.com. Individual bachelorette, crop, and collectible guides with modern formatting.</li>
+        <li><strong>RPGClassics FoMT Shrine</strong> — tartarus.rpgclassics.com. Festival calendar, power berry locations, and game systems reference.</li>
+        <li><strong>Fogu / Ushi No Tane FoMT Section</strong> — fogu.com. Heart events, villager guides, and linking info with AWL.</li>
+        <li><strong>Harvest Moon Wiki</strong> — harvestmoon.fandom.com. Comprehensive crop, character, and festival data.</li>
+        <li><strong>BTN vs FoMT Comparison</strong> — crystalmaiden77.wordpress.com. Detailed side-by-side differences document.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>🌾 Harvest Moon: Friends of Mineral Town (GBA) — Comprehensive Strategy Guide</p>
+    <p>Compiled from over 20 years of community knowledge across GameFAQs, Fogu, RPGClassics, GamerZenith, and the Harvest Moon Wiki.</p>
+    <p>Farm wisely, love deeply, and may your Sweet Potatoes always sell for 120G. 🍂</p>
+</footer>
+
+</div>
+</body>
+</html>

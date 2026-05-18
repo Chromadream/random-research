@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon: Back to Nature (PS1) vs. Friends of Mineral Town (GBA) — Comprehensive Comparison</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --surface2: #2a2a2a;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent: #7ec850;
+            --accent2: #4da6ff;
+            --accent3: #ffb347;
+            --red: #e57373;
+            --border: #333;
+            --table-stripe: #252525;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        header .meta {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            color: var(--accent);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: var(--accent2);
+            margin: 1.8rem 0 0.8rem;
+        }
+        h4 {
+            font-size: 1.05rem;
+            color: var(--accent3);
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        p { margin-bottom: 1rem; color: var(--text); }
+        ul, ol { margin: 0.8rem 0 1.2rem 1.8rem; }
+        li { margin-bottom: 0.4rem; }
+
+        .infobox {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 650px) {
+            .infobox { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .card h4 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+        .card.ps1 h4 { color: #8b8bf5; }
+        .card.gba h4 { color: #f58b8b; }
+
+        .score-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-size: 1.8rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 6px;
+            margin: 0.3rem 0;
+        }
+        .score-badge.secondary {
+            background: var(--accent2);
+            font-size: 1.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0 1.8rem;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface2);
+            color: var(--accent);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) { background: var(--table-stripe); }
+        tr:hover { background: var(--surface2); }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+        }
+        .tag.removed { background: #c62828; color: #fff; }
+        .tag.added { background: #2e7d32; color: #fff; }
+        .tag.changed { background: #e65100; color: #fff; }
+        .tag.unique { background: #6a1b9a; color: #fff; }
+
+        .poll-bar {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            gap: 0.6rem;
+        }
+        .poll-bar .label { width: 80px; font-weight: 600; font-size: 0.9rem; }
+        .poll-bar .bar-track {
+            flex: 1;
+            height: 24px;
+            background: var(--surface2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .poll-bar .bar-fill {
+            height: 100%;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .fill-fomt { background: linear-gradient(90deg, #e57373, #ef5350); }
+        .fill-btn { background: linear-gradient(90deg, #64b5f6, #42a5f5); }
+
+        .highlight-box {
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.3rem;
+            margin: 1.3rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight-box.red { border-left-color: var(--red); }
+        .highlight-box.blue { border-left-color: var(--accent2); }
+
+        .verdict {
+            background: linear-gradient(135deg, #1b3a1b, #1a2e1a);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+        .verdict h2 {
+            border-bottom: none;
+            font-size: 2rem;
+            margin: 0 0 0.8rem;
+        }
+        .verdict .winner {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        footer h4 { color: var(--accent); margin-bottom: 0.5rem; }
+        footer a { color: var(--accent2); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .pro-con-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 650px) {
+            .pro-con-grid { grid-template-columns: 1fr; }
+        }
+        .pro, .con {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 1.2rem;
+        }
+        .pro { border-top: 3px solid #4caf50; }
+        .con { border-top: 3px solid #f44336; }
+        .pro h4 { color: #4caf50; margin-top: 0; }
+        .con h4 { color: #f44336; margin-top: 0; }
+
+        .num-stat {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🌾 Harvest Moon: Back to Nature (PS1) vs. Friends of Mineral Town (GBA)</h1>
+    <p class="subtitle">A Comprehensive Comparison of Two Beloved Farming Classics</p>
+    <p class="meta">Research compiled from community forums, reviews, and game documentation • May 2025</p>
+</header>
+
+<!-- ============ OVERVIEW ============ -->
+<h2>1. Overview &amp; Relationship</h2>
+<p><strong>Harvest Moon: Friends of Mineral Town</strong> (FoMT) for the Game Boy Advance is a <em>direct remake</em> of <strong>Harvest Moon: Back to Nature</strong> (BtN) for the PlayStation. BtN was the first Harvest Moon game released on a non-Nintendo console, and it reused the character cast from <em>Harvest Moon 64</em> with reimagined personalities, relationships, and storylines. FoMT took that foundation and refined it substantially for the portable format.</p>
+
+<div class="infobox">
+    <div class="card ps1">
+        <h4>🎮 Back to Nature (PS1)</h4>
+        <p><strong>Release:</strong> Dec 1999 (JP) • Nov 2000 (NA) • Jan 2001 (EU)</p>
+        <p><strong>Developer:</strong> Victor Interactive Software</p>
+        <p><strong>Platform:</strong> PlayStation (later PSP as <em>Boy &amp; Girl</em>)</p>
+        <p><strong>Perspective:</strong> 3D isometric (diagonal movement)</p>
+        <p><strong>Female version:</strong> <em>Harvest Moon for Girl</em> (JP only, Dec 2000)</p>
+    </div>
+    <div class="card gba">
+        <h4>🎮 Friends of Mineral Town (GBA)</h4>
+        <p><strong>Release:</strong> Apr 2003 (JP) • Nov 2003 (NA) • Mar 2004 (EU)</p>
+        <p><strong>Developer:</strong> Marvelous Interactive</p>
+        <p><strong>Platform:</strong> Game Boy Advance (later Wii U VC)</p>
+        <p><strong>Perspective:</strong> 2D top-down (8-directional movement)</p>
+        <p><strong>Female version:</strong> <em>More Friends of Mineral Town</em> (Dec 2003 JP, Jul 2005 NA)</p>
+    </div>
+</div>
+
+<!-- ============ CRITICAL RECEPTION ============ -->
+<h2>2. Critical &amp; User Reception</h2>
+
+<div class="infobox">
+    <div class="card ps1">
+        <h4>📊 Back to Nature</h4>
+        <p><strong>Metascore:</strong> <span class="score-badge">82</span> (6 critic reviews)</p>
+        <p><strong>User Score:</strong> <span class="score-badge secondary">8.8</span> (87 ratings)</p>
+        <p><strong>Notable reviews:</strong></p>
+        <ul>
+            <li>GameSpot: <strong>83</strong> — "Surprisingly one of the most satisfying role-playing experiences to be found on the PlayStation."</li>
+            <li>IGN: <strong>75</strong> — "Gets high points for being unique…"</li>
+            <li>Games Radar: <strong>100</strong> — "Ignore Harvest Moon and you'll be ignoring one of the cutest and most original RPGs."</li>
+            <li>Famitsu: <strong>31/40</strong></li>
+        </ul>
+    </div>
+    <div class="card gba">
+        <h4>📊 Friends of Mineral Town</h4>
+        <p><strong>Metascore:</strong> <span class="score-badge">81</span> (25 critic reviews)</p>
+        <p><strong>User Score:</strong> <span class="score-badge secondary">7.7</span> (72 ratings)</p>
+        <p><strong>Notable reviews:</strong></p>
+        <ul>
+            <li>IGN: <strong>89</strong> — "A deceptively engrossing game… brilliant in its simplicity."</li>
+            <li>Nintendojo: <strong>95</strong> — "A much more polished, balanced… definitive gameplay experience."</li>
+            <li>GameSpot: <strong>85</strong> — "You could play through it for a good 30 hours… and still not uncover everything."</li>
+            <li>Nintendo Power: <strong>90</strong> — "It's incredible that a game about farming could be so enthralling."</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============ COMMUNITY POLLS ============ -->
+<h2>3. What the Community Thinks</h2>
+
+<h3>Community Polls</h3>
+<div class="card" style="margin-bottom: 1.5rem;">
+    <h4 style="text-align:left; border:none; margin-bottom:1rem;">GameFAQs Poll (2021) — "Which do you prefer?" — 69 votes</h4>
+    <div class="poll-bar">
+        <span class="label">FoMT</span>
+        <div class="bar-track"><div class="bar-fill fill-fomt" style="width:69.57%;">69.6% (48)</div></div>
+    </div>
+    <div class="poll-bar">
+        <span class="label">BtN</span>
+        <div class="bar-track"><div class="bar-fill fill-btn" style="width:30.43%;">30.4% (21)</div></div>
+    </div>
+</div>
+
+<div class="card" style="margin-bottom: 1.5rem;">
+    <h4 style="text-align:left; border:none; margin-bottom:1rem;">Ushi No Tane Forum Poll (2006) — "Which is your favourite?" — 19 votes</h4>
+    <div class="poll-bar">
+        <span class="label">FoMT</span>
+        <div class="bar-track"><div class="bar-fill fill-fomt" style="width:74%;">74% (14)</div></div>
+    </div>
+    <div class="poll-bar">
+        <span class="label">BtN</span>
+        <div class="bar-track"><div class="bar-fill fill-btn" style="width:26%;">26% (5)</div></div>
+    </div>
+</div>
+
+<h3>Community Sentiment Summary</h3>
+
+<div class="highlight-box">
+    <p><strong>The consensus is clear: FoMT is widely considered the better, more polished game</strong> — but BtN holds immense nostalgic value and has unique content that fans still miss. As one NeoGAF user put it: <em>"Harvest Moon 64 is the best experience, Back to Nature (Friends of Mineral Town) is the best game."</em> Another summarized: <em>"FoMT improved on it in nearly every single way aside from graphics."</em></p>
+</div>
+
+<div class="pro-con-grid">
+    <div class="pro">
+        <h4>🟢 Why Fans Prefer FoMT</h4>
+        <ul>
+            <li>Save anywhere via pause menu — no running back to bed</li>
+            <li>Streamlined controls &amp; menus (1–2 button actions)</li>
+            <li>No 3-year deadline — play indefinitely</li>
+            <li>Portability — "it's portable" is the single most-cited reason</li>
+            <li>No PS1 load times</li>
+            <li>Deeper mining with cursed/mythic tools &amp; rare jewels</li>
+            <li>Can marry the Harvest Goddess</li>
+            <li>More events, heart events, and collectibles</li>
+            <li>Better rucksack/item management</li>
+            <li>2D top-down movement is easier for farming precision</li>
+            <li>GBA-to-GameCube connectivity (with A Wonderful Life)</li>
+            <li>Lower prices for items &amp; livestock</li>
+        </ul>
+    </div>
+    <div class="con">
+        <h4>🔴 What Fans Miss From BtN</h4>
+        <ul>
+            <li>The <strong>Greenhouse</strong> (hothouse) — most-missed feature</li>
+            <li><strong>Fish pond</strong> with fish breeding mechanics</li>
+            <li><strong>Tomato Festival</strong> — a fun, chaotic tomato-throwing event</li>
+            <li><strong>Swimming Festival</strong> — interactive button-mashing race</li>
+            <li>Music Festival where you can actually <em>hear</em> Karen sing</li>
+            <li>3D isometric graphics (nostalgic charm)</li>
+            <li>Furniture included with house upgrades (no buying individually)</li>
+            <li>Simpler, less overwhelming recipe list</li>
+            <li>Interactive winery job (6-day gameplay event)</li>
+            <li>Dog race in winter</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============ CONTENT ADDED/REMOVED ============ -->
+<h2>4. Content Added in FoMT (Not in BtN)</h2>
+
+<table>
+    <thead>
+        <tr><th>Category</th><th>Addition</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><span class="tag added">QoL</span></td><td>Save Anywhere</td><td>Save via pause menu; no need to go to bed to save</td></tr>
+        <tr><td><span class="tag added">QoL</span></td><td>Streamlined Menus</td><td>Most actions in 1–2 button presses; better rucksack navigation</td></tr>
+        <tr><td><span class="tag added">QoL</span></td><td>8-Directional Movement</td><td>Full 2D top-down movement vs. BtN's restrictive isometric diagonal-only controls</td></tr>
+        <tr><td><span class="tag added">Gameplay</span></td><td>No 3-Year Deadline</td><td>Play indefinitely; BtN evaluated farm at Year 3 (requirements were minimal in practice)</td></tr>
+        <tr><td><span class="tag added">Gameplay</span></td><td>Harvest Sprite Mini-Games</td><td>Fun, hands-on mini-games to train sprites instead of just gifting</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Deeper Mines (255 floors)</td><td>BtN mines had only 10 floors; FoMT has vast multi-tier mines</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Cursed Tools</td><td>Special tools found deep in mines with unique effects</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Mythic Tools &amp; Stones</td><td>Highest-tier tools and rare collectible stones</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Pink Diamonds, Kappa Gems, Goddess Gems</td><td>Rare collectible jewels with unique purposes</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Jewels of Truth (9 pieces)</td><td>Collectible set turned in to the mayor</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Black Grass</td><td>Found in mines; restores stamina so you can mine longer</td></tr>
+        <tr><td><span class="tag added">Mining</span></td><td>Elli Leaves</td><td>Consumable for surviving deep mine exhaustion</td></tr>
+        <tr><td><span class="tag added">Items</span></td><td>Teleporter Stone</td><td>Instant teleportation around the map (late-game reward)</td></tr>
+        <tr><td><span class="tag added">Items</span></td><td>Golden Lumber</td><td>Special building material</td></tr>
+        <tr><td><span class="tag added">Items</span></td><td>Record Player</td><td>Play background music from previous Harvest Moon games</td></tr>
+        <tr><td><span class="tag added">Items</span></td><td>Stocking (Christmas)</td><td>Receive gifts from villagers during Winter Thanksgiving</td></tr>
+        <tr><td><span class="tag added">Social</span></td><td>Marry the Harvest Goddess</td><td>Secret marriage candidate with elaborate requirements</td></tr>
+        <tr><td><span class="tag added">Social</span></td><td>More Heart Events</td><td>Additional romance events per bachelorette</td></tr>
+        <tr><td><span class="tag added">Social</span></td><td>Multiple Houses</td><td>Can own additional homes; connectivity bonus with AWL on GameCube</td></tr>
+        <tr><td><span class="tag added">Recipes</span></td><td>Expanded Recipe List</td><td>More cooking recipes including medicines, Sun recipes, Relaxation Tea</td></tr>
+        <tr><td><span class="tag added">Economy</span></td><td>Lower Prices</td><td>Items and livestock cost less, making early-game progression faster</td></tr>
+        <tr><td><span class="tag added">Farming</span></td><td>Change Tool Aim</td><td>Can adjust tool direction for precise farming</td></tr>
+        <tr><td><span class="tag added">Farming</span></td><td>Honey from Farm Tree</td><td>Honey available from your farm's tree; BtN requires Pinkcat Flowers to unlock it</td></tr>
+        <tr><td><span class="tag added">Fishing</span></td><td>Better Fishing Mechanics</td><td>Press-to-reel instead of BtN's awkward hold-button system</td></tr>
+        <tr><td><span class="tag added">Library</span></td><td>Books Available to Read</td><td>In-game books with tips &amp; lore; BtN locked these to the girl version only</td></tr>
+        <tr><td><span class="tag added">TV</span></td><td>Goddess TV Mini-Game</td><td>Answer trivia to earn herbs/money</td></tr>
+    </tbody>
+</table>
+
+<!-- ============ CONTENT IN BTN NOT IN FOMT ============ -->
+<h2>5. Content in BtN That Was Removed or Changed in FoMT</h2>
+
+<table>
+    <thead>
+        <tr><th>Category</th><th>Feature</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><span class="tag removed">Farming</span></td><td>Greenhouse (Hothouse)</td><td>Grow crops in any season; costs 30,000G + 580 lumber; can be destroyed by typhoons. <strong>Most-missed feature.</strong></td></tr>
+        <tr><td><span class="tag removed">Farming</span></td><td>Fish Pond / Fish Breeding</td><td>Stock fish in your farm pond; feed them to breed &amp; grow bigger fish</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>Tomato Festival</td><td>Team-based tomato-throwing event; chaotic fun; fans loved throwing tomatoes at disliked characters</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>Swimming Festival</td><td>Button-mashing swimming race with breathing mechanics; rewarded a Power Berry</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>Music Festival</td><td>You can actually <em>hear</em> Karen singing (rare voiced content for the era)</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>Dog Race (Winter)</td><td>Race your dog; success depends on playing fetch daily throughout the year</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>New Year's Dancing</td><td>Annual dancing celebration with unique animations</td></tr>
+        <tr><td><span class="tag removed">Festivals</span></td><td>Goddess Festival (Spring)</td><td>Your wife expects you to attend annually</td></tr>
+        <tr><td><span class="tag removed">Characters</span></td><td>Exclusive Villagers</td><td>Louis (Gotz's friend, boosts honey prices), Kano, and a few other NPCs cut from FoMT</td></tr>
+        <tr><td><span class="tag removed">House</span></td><td>Furniture Included</td><td>Fridge, kitchen, shelf, carpet all come with first house upgrade; big bed with second upgrade</td></tr>
+        <tr><td><span class="tag removed">House</span></td><td>No Mirror Needed</td><td>Mirror comes with house upgrade; FoMT requires buying it separately (wastes money &amp; delays marriage)</td></tr>
+        <tr><td><span class="tag removed">House</span></td><td>Nicer Interior</td><td>Larger flower pots and a generally nicer-looking upgraded house interior</td></tr>
+        <tr><td><span class="tag removed">Marriage</span></td><td>Faster Marriage Possible</td><td>Can marry in Year 1 (no kitchen utensil requirement); proposal is instant with no cutscene</td></tr>
+        <tr><td><span class="tag removed">Marriage</span></td><td>Simpler Gift System</td><td>Base affection from gifts doesn't plummet to zero after the first gift of the day</td></tr>
+        <tr><td><span class="tag removed">Jobs</span></td><td>Interactive Winery Job</td><td>6-day immersive grape-picking event; FoMT simplified this significantly</td></tr>
+        <tr><td><span class="tag removed">Animals</span></td><td>Wild Animals</td><td>Can pick up wild animals in the forest and carry them (purely cosmetic)</td></tr>
+        <tr><td><span class="tag removed">Animals</span></td><td>Animal Trading</td><td>Trade/duplicate animals between save files via the PS1 memory card</td></tr>
+        <tr><td><span class="tag removed">Tools</span></td><td>Blacksmith Open Thursday</td><td>Can retrieve upgraded tools on Thursday; FoMT locks the shop that day</td></tr>
+        <tr><td><span class="tag removed">Makers</span></td><td>Sequential Unlock</td><td>Makers unlock one at a time (controversial; some prefer FoMT's all-at-once approach)</td></tr>
+        <tr><td><span class="tag removed">Misc</span></td><td>Beach Buildings (Decor)</td><td>Beach buildings are just decoration in BtN (rushed development); FoMT made Kai's shop functional</td></tr>
+        <tr><td><span class="tag removed">Misc</span></td><td>Fewer Recipes</td><td>Shorter recipe list; no medicines, Elli Leaves, Sun recipes, or Relaxation Tea to cook</td></tr>
+        <tr><td><span class="tag removed">Misc</span></td><td>Power Berry Display</td><td>Power Berries shown on menu screen as visual collectibles (intuitive tracking)</td></tr>
+    </tbody>
+</table>
+
+<!-- ============ GAMEPLAY DIFFERENCES ============ -->
+<h2>6. Key Gameplay &amp; Mechanical Differences</h2>
+
+<table>
+    <thead>
+        <tr><th>Aspect</th><th>Back to Nature (PS1)</th><th>Friends of Mineral Town (GBA)</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Perspective</strong></td><td>3D isometric (diagonal movement)</td><td>2D top-down (8-directional movement)</td></tr>
+        <tr><td><strong>Save System</strong></td><td>Only by going to bed; must confirm save (tedious)</td><td>Save anywhere via pause menu</td></tr>
+        <tr><td><strong>Load Times</strong></td><td>PS1 disc load times between areas</td><td>Near-instant cartridge loading</td></tr>
+        <tr><td><strong>Day Length</strong></td><td>Longer days (slower pacing)</td><td>Shorter days (roughly half the real-time length)</td></tr>
+        <tr><td><strong>Text Speed</strong></td><td>Slow; holding A barely speeds it up</td><td>Fast text; can zip through dialogue</td></tr>
+        <tr><td><strong>Stamina</strong></td><td>Lower starting stamina; Power Berries give larger boosts</td><td>Higher starting stamina; Power Berries give +5 each</td></tr>
+        <tr><td><strong>Fatigue Indicator</strong></td><td>Face doesn't turn blue; exhaustion is hard to gauge</td><td>Clear visual fatigue indicators (blue face)</td></tr>
+        <tr><td><strong>Mines</strong></td><td>10 floors per mine; no cursed/mythic items</td><td>255 floors; cursed tools, mythic stones, rare gems</td></tr>
+        <tr><td><strong>Fishing</strong></td><td>Must hold button continuously; slow cast; lots of trash</td><td>Press to react &amp; reel; better catch rate; less trash</td></tr>
+        <tr><td><strong>Fishing Rod Upgrade</strong></td><td>Put 50 fish in your pond to impress Greg</td><td>Simpler upgrade path</td></tr>
+        <tr><td><strong>Shopping</strong></td><td>Buy ingredients one at a time (flour especially tedious)</td><td>Buy multiple items at once; can send directly to fridge</td></tr>
+        <tr><td><strong>TV Shopping</strong></td><td>Unavailable until house upgrade</td><td>Available earlier</td></tr>
+        <tr><td><strong>Harvest Sprites</strong></td><td>No mini-games; hiring is simpler but less engaging</td><td>Mini-games to train sprites; more interactive</td></tr>
+        <tr><td><strong>Won's Shop</strong></td><td>In the inn; open 1–4 PM only</td><td>At the beach; open from 11 AM</td></tr>
+        <tr><td><strong>Rucksack</strong></td><td>Must manually place items; 1-button rucksack access</td><td>Quick button combos; better item management</td></tr>
+        <tr><td><strong>Garbage</strong></td><td>Cannot throw away items from menu; garbage clutters bag</td><td>Can discard unwanted items</td></tr>
+        <tr><td><strong>Shipping Flowers</strong></td><td>Flowers get destroyed when shipped</td><td>Flowers can be shipped normally</td></tr>
+        <tr><td><strong>Chickens</strong></td><td>Need 1 heart to lay eggs (takes 2 days after buying)</td><td>Lay eggs immediately</td></tr>
+        <tr><td><strong>Game Ending</strong></td><td>Evaluated at Year 3; can end Year 4 if unmarried (requirements very easy in practice)</td><td>No deadline; play forever</td></tr>
+        <tr><td><strong>PAL Bug</strong></td><td>European version had game-breaking bug that ended game after marriage</td><td>No such bug</td></tr>
+    </tbody>
+</table>
+
+<!-- ============ VERDICT ============ -->
+<h2>7. Final Verdict</h2>
+
+<div class="verdict">
+    <h2>🏆 The Winner: Friends of Mineral Town</h2>
+    <p class="winner">FoMT wins in community polls by roughly 70% to 30%</p>
+    <p style="margin-top: 1rem; color: #ccc;">It refines nearly every aspect of Back to Nature: better controls, portable convenience, save-anywhere, deeper content, more collectibles, richer mining, and no arbitrary deadline. It is widely regarded as the definitive version of the Mineral Town experience and is frequently cited as the best game in the entire Harvest Moon series.</p>
+</div>
+
+<div class="highlight-box blue">
+    <p><strong>However</strong>, Back to Nature is <em>not</em> obsolete. It offers a distinct experience with its 3D isometric charm, unique festivals (Tomato Fight, Swimming Race, Music Festival), the greenhouse, fish breeding, and a more streamlined path to marriage. Many fans recommend <em>playing both</em> — BtN for the unique content and nostalgic atmosphere, and FoMT for the definitive, polished gameplay experience. As one long-time fan put it: <em>"Harvest Moon 64 is the best experience, Back to Nature / Friends of Mineral Town is the best game."</em></p>
+</div>
+
+<h3>Who Should Play Which?</h3>
+
+<table>
+    <thead><tr><th>Play <strong>Back to Nature</strong> if…</th><th>Play <strong>Friends of Mineral Town</strong> if…</th></tr></thead>
+    <tbody>
+        <tr>
+            <td>You want the unique festivals (Tomato Fight, Swimming, Music)</td>
+            <td>You want the most polished, feature-complete version</td>
+        </tr>
+        <tr>
+            <td>You're nostalgic for PS1-era 3D graphics</td>
+            <td>You value portability and pick-up-and-play convenience</td>
+        </tr>
+        <tr>
+            <td>You want the greenhouse and fish breeding</td>
+            <td>You want deeper mining with cursed/mythic tools</td>
+        </tr>
+        <tr>
+            <td>You prefer simpler, less overwhelming completion goals</td>
+            <td>You want unlimited playtime with no deadline</td>
+        </tr>
+        <tr>
+            <td>You enjoy the 3D isometric aesthetic</td>
+            <td>You want modern QoL features (save anywhere, better menus)</td>
+        </tr>
+        <tr>
+            <td>You've already played FoMT and want to see where it came from</td>
+            <td>You're new to the series and want the best entry point</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ============ LEGACY ============ -->
+<h2>8. Legacy &amp; Further Remakes</h2>
+
+<p>The Mineral Town legacy didn't end with the GBA. Both games have been re-released and re-remade:</p>
+
+<ul>
+    <li><strong>Harvest Moon: Boy &amp; Girl</strong> (PSP, 2005 JP / 2007 NA) — Combined port of BtN + Harvest Moon for Girl on one UMD</li>
+    <li><strong>Harvest Moon: Back to Nature</strong> — Released on PS3 and PSP via PlayStation Network (2008)</li>
+    <li><strong>Story of Seasons: Friends of Mineral Town</strong> (Switch, 2019 JP / 2020 WW; PC, PS4, Xbox One, 2020–2021) — Full 3D remake that adds same-sex marriage, new characters (Brandon &amp; Jennifer), new animals, updated designs, and modern QoL features. This remake is itself based on the GBA FoMT, cementing the GBA version as the "definitive" blueprint.</li>
+</ul>
+
+<!-- ============ SOURCES ============ -->
+<footer>
+    <h4>Sources</h4>
+    <ul>
+        <li><a href="https://www.metacritic.com/game/playstation/harvest-moon-back-to-nature" target="_blank" rel="noopener">Metacritic — Harvest Moon: Back to Nature</a></li>
+        <li><a href="https://www.metacritic.com/game/harvest-moon-friends-of-mineral-town/" target="_blank" rel="noopener">Metacritic — Harvest Moon: Friends of Mineral Town</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Harvest_Moon:_Back_to_Nature" target="_blank" rel="noopener">Wikipedia — Harvest Moon: Back to Nature</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Harvest_Moon:_Friends_of_Mineral_Town" target="_blank" rel="noopener">Wikipedia — Harvest Moon: Friends of Mineral Town</a></li>
+        <li><a href="https://fogu.com/hmforum/viewtopic.php?t=9626" target="_blank" rel="noopener">Ushi No Tane Forum — "Is PSX's Back to Nature the same as FoMT?" (2004)</a></li>
+        <li><a href="https://fogu.com/hmforum/viewtopic.php?t=39918" target="_blank" rel="noopener">Ushi No Tane Forum — "Back to nature Vs Friends of Mineral Town" Poll (2006)</a></li>
+        <li><a href="https://gamefaqs.gamespot.com/boards/268704-story-of-seasons-friends-of-mineral-town/78860686" target="_blank" rel="noopener">GameFAQs — "Friends of Mineral Town vs. Back to Nature" Poll (2021)</a></li>
+        <li><a href="https://crystalmaiden77.wordpress.com/2025/01/24/harvest-moon-back-to-nature-vs-fomt/" target="_blank" rel="noopener">CrystalMaiden77 — "Harvest Moon Back to Nature vs FoMT" (2025)</a></li>
+        <li><a href="https://www.neogaf.com/threads/what-is-the-best-harvest-moon.1346845/" target="_blank" rel="noopener">NeoGAF — "What is the best Harvest Moon?" (2017)</a></li>
+        <li><a href="https://gamerant.com/story-seasons-friends-mineral-towns-biggest-differences-original/" target="_blank" rel="noopener">Game Rant — "Story of Seasons: Friends of Mineral Town's Biggest Differences From The Original" (2020)</a></li>
+    </ul>
+    <p style="margin-top: 1rem;">Research compiled May 2025. Game covers and screenshots are property of their respective owners (Marvelous, Natsume, Victor Interactive).</p>
+</footer>
+
+</body>
+</html>
