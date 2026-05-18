@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Handed & Pick-Up-and-Play Games: Arcade, GB, GBC, PICO-8, SNES</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --surface: #16213e;
+            --surface2: #0f3460;
+            --accent: #e94560;
+            --accent2: #ff6b6b;
+            --gold: #f0c040;
+            --text: #e0e0e0;
+            --text2: #b0b0b0;
+            --green: #4ecca3;
+            --blue: #4da6ff;
+            --purple: #bb86fc;
+            --orange: #ff8c42;
+            --teal: #26d9c7;
+            --pink: #ff6b9d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent), var(--teal), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .subtitle {
+            color: var(--text2);
+            font-size: 1.1rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h2 {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.2rem 0;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--surface2);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        h2 .icon {
+            font-size: 1.6rem;
+        }
+        h3 {
+            font-size: 1.35rem;
+            margin: 2rem 0 0.8rem 0;
+            color: var(--accent2);
+        }
+        .platform-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+        .platform-section.gb { border-left-color: var(--green); }
+        .platform-section.pico8 { border-left-color: var(--purple); }
+        .platform-section.snes { border-left-color: var(--blue); }
+        .platform-section.arcade { border-left-color: var(--teal); }
+        .game-card {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .game-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        .game-card .title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.4rem;
+        }
+        .game-card .game-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .game-card .badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.55rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge.onehand { background: var(--accent); color: #fff; }
+        .badge.pickup { background: var(--green); color: #000; }
+        .badge.rpg { background: var(--blue); color: #fff; }
+        .badge.puzzle { background: var(--purple); color: #fff; }
+        .badge.turnbased { background: var(--orange); color: #000; }
+        .badge.arcade { background: var(--teal); color: #000; }
+        .badge.action { background: var(--pink); color: #fff; }
+        .badge.shooter { background: #e85d04; color: #fff; }
+        .game-card .desc {
+            color: var(--text2);
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+        .game-card .why {
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--green);
+            font-style: italic;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #0f3460, #1a1a2e);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .highlight-box h4 {
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+            font-size: 1.1rem;
+        }
+        .highlight-box p, .highlight-box li {
+            color: var(--text2);
+            font-size: 0.95rem;
+        }
+        .highlight-box ul {
+            padding-left: 1.2rem;
+        }
+        .tip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .tip-card {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 1.2rem;
+            border-top: 3px solid var(--gold);
+        }
+        .tip-card h4 {
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+        .tip-card p {
+            color: var(--text2);
+            font-size: 0.9rem;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text2);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--surface2);
+            margin-top: 2rem;
+        }
+        .footer a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+        .footer a:hover { text-decoration: underline; }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-table th {
+            background: var(--surface2);
+            padding: 0.7rem 1rem;
+            text-align: left;
+            color: var(--gold);
+        }
+        .comparison-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--surface2);
+        }
+        .comparison-table tr:hover td {
+            background: rgba(233, 69, 96, 0.08);
+        }
+        .earthbound-cta {
+            background: linear-gradient(135deg, #2d1b69, #1a1a2e);
+            border: 2px solid var(--purple);
+            border-radius: 14px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .earthbound-cta h3 {
+            font-size: 1.6rem;
+            color: var(--purple);
+            margin-bottom: 0.5rem;
+        }
+        .earthbound-cta .key-combo {
+            display: inline-block;
+            background: var(--surface2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 0 0.15rem;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+        /* Arcade Tips Special Callout */
+        .arcade-tip-callout {
+            background: linear-gradient(135deg, #0a3d3d, #1a1a2e);
+            border: 2px solid var(--teal);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .arcade-tip-callout h3 {
+            color: var(--teal);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+        .arcade-tip-callout p {
+            color: var(--text2);
+        }
+        hr {
+            border: none;
+            border-top: 1px solid var(--surface2);
+            margin: 2rem 0;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .hero { padding: 2rem 1rem; }
+            .hero h1 { font-size: 1.7rem; }
+            .platform-section { padding: 1rem; }
+            .game-card { padding: 0.9rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>🎮 One-Handed &amp; Pick-Up-and-Play Gems</h1>
+    <p class="subtitle">A curated guide to Classic Arcade, Game Boy, Game Boy Color, PICO-8, and SNES games that shine on smaller handhelds — perfect for quick sessions, one-handed play, or relaxed retro adventures.</p>
+</div>
+
+<div class="container">
+
+<!-- ============ INTRO / METHODOLOGY ============ -->
+<h2><span class="icon">📋</span> What Makes a Game "One-Handed Friendly"?</h2>
+<div class="tip-grid">
+    <div class="tip-card">
+        <h4>🧠 Turn-Based Combat</h4>
+        <p>No reflexes required. Menus can be navigated at your own pace — perfect for one-handed play on small handhelds like the Miyoo Mini, RG35XX, or Anbernic devices.</p>
+    </div>
+    <div class="tip-card">
+        <h4>⏱️ Short Session Friendly</h4>
+        <p>Games you can pause anywhere, play for 5 minutes or 2 hours. Puzzle games, simple platformers, and RPGs with save-anywhere features.</p>
+    </div>
+    <div class="tip-card">
+        <h4>🕹️ Minimal Button Requirements</h4>
+        <p>Games playable with D-pad + one or two buttons. Some even have clever control schemes (L=A confirm) for true single-hand use. Many classic arcade games use only a joystick and a single button — or even just the joystick alone.</p>
+    </div>
+    <div class="tip-card">
+        <h4>📱 Small Screen Friendly</h4>
+        <p>Clear sprites, readable text, and UIs that work on compact screens. No microscopic text or busy HUDs.</p>
+    </div>
+</div>
+
+<!-- ============ CLASSIC ARCADE ============ -->
+<h2><span class="icon">🕹️</span> Classic Arcade (Golden Age: 1978–1986)</h2>
+<div class="platform-section arcade">
+
+    <p style="color: var(--text2); margin-bottom: 1rem;">The golden age of arcade gaming produced some of the most elegantly simple games ever made. With hardware limited to a joystick and one or two buttons, arcade designers perfected "easy to learn, impossible to master." These games are available through MAME/FBNeo on virtually every retro handheld, or via curated collections like Namco Museum, Atari 50, and Arcade Archives. Many can be played with <strong>just a joystick, no buttons at all</strong>.</p>
+
+    <div class="arcade-tip-callout">
+        <h3>💡 Why Arcade Games Excel at One-Handed Play</h3>
+        <p>Arcade cabinets had to be playable by anyone who dropped in a quarter — no manuals, no tutorials. This forced designers to create games with <strong>instantly understandable controls</strong>. Many used a single joystick with zero or one button. Even better, most arcade games are designed around <strong>short, intense sessions</strong> that last 2–15 minutes — the definition of pick-up-and-play.</p>
+    </div>
+
+    <h3>🎯 Joystick-Only Games (Zero Buttons Required)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pac-Man (1980)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">The most iconic arcade game of all time. Navigate mazes, eat dots, avoid four uniquely-behaving ghosts. The genius is in the ghost AI — each ghost (Blinky, Pinky, Inky, Clyde) has a distinct personality. No buttons needed during gameplay — <strong>4-way joystick only</strong>. The ultimate one-handed arcade experience.</div>
+        <div class="why">💡 Joystick only — zero buttons during play. Sessions last 2–10 minutes. Understanding ghost behavior transforms the game from random panic into strategic navigation. Ms. Pac-Man adds moving fruit and randomized ghost patterns for even better gameplay.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Frogger (1981)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Konami's masterpiece of simplicity. Guide frogs across a busy highway and treacherous river to their homes. No action buttons — <strong>4-way joystick only</strong>. Deceptively simple on level 1, brutally challenging by level 3. Immortalized in a Seinfeld episode for good reason.</div>
+        <div class="why">💡 Joystick only. Pure timing and pattern recognition. Levels last ~60 seconds. Perfect for ultra-short sessions. One of the most ported games ever — available everywhere.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Q*Bert (1982)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge puzzle">Puzzle-Action</span>
+        </div>
+        <div class="desc">Hop on a pyramid of cubes to change their colors while avoiding enemies. Uses a <strong>diagonal 4-way joystick</strong> — no buttons needed during gameplay. Unique, disorienting, and incredibly satisfying. Q*Bert Qubes (the sequel) adds diamond formations and tic-tac-toe line mechanics.</div>
+        <div class="why">💡 Joystick only. Completely unique control feel. The diagonal movement takes a minute to adjust to but feels natural quickly. Pure arcade charm with no equal.</div>
+    </div>
+
+    <h3>🔫 2-Way Joystick + 1 Button (The Simplest Combo)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Galaga (1981)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge shooter">Shooter</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">The definitive single-screen shooter. <strong>Left/right movement + one fire button.</strong> Enemies dive-bomb in formation with escalating speed. The iconic tractor beam mechanic lets you double your firepower if you rescue a captured ship. Perfectly balanced — every death feels fair.</div>
+        <div class="why">💡 2-way + 1 button. Waves last 1–2 minutes. The difficulty curve is a masterclass in game design. Widely considered the best shooter of the golden age.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Space Invaders (1978)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge shooter">Shooter</span>
+        </div>
+        <div class="desc">The game that launched the arcade industry. <strong>Left/right + one fire button.</strong> Rows of aliens descend while you shoot from below. The iconic marching sound speeds up as enemies get closer. Pure, distilled gameplay. No "winning" — just playing for higher scores.</div>
+        <div class="why">💡 2-way + 1 button. The original pick-up-and-play shooter. The accelerating tempo creates natural tension. Historically essential and still fun today.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Galaxian (1979)</span>
+            <span class="badge shooter">Shooter</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">The bridge between Space Invaders and Galaga. <strong>Left/right + 1 button.</strong> Enemies break formation to dive-bomb you in swooping patterns. More colorful and dynamic than Space Invaders, simpler than Galaga.</div>
+        <div class="why">💡 2-way + 1 button. A fascinating middle-ground in shooter evolution. Great for appreciating how the genre developed.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Joust (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Action</span>
+        </div>
+        <div class="desc">Williams' surreal classic. Ride an ostrich (or stork), collide with enemy knights at a higher altitude to defeat them. <strong>2-way left/right + 1 flap button.</strong> The physics-based combat is unlike anything else. Simultaneous two-player co-op/competitive play is legendary.</div>
+        <div class="why">💡 2-way + 1 button. Bizarre, brilliant, and mechanically unique. The flapping physics create a skill ceiling that rewards practice endlessly.</div>
+    </div>
+
+    <h3>👆 4-Way Joystick + 1 Button</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Dig Dug (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Action-Puzzle</span>
+        </div>
+        <div class="desc">Namco's underground digging classic. Tunnel through dirt, inflate enemies until they pop, or crush them with rocks. <strong>4-way joystick + 1 pump button.</strong> More strategic depth than it appears — enemy AI is aggressive and resource management (air, rock positioning) adds tension.</div>
+        <div class="why">💡 4-way + 1 button. Two ways to defeat enemies. Rocks can chain-kill. Deeply satisfying sound design when enemies pop.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Mr. Do! (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Action-Puzzle</span>
+        </div>
+        <div class="desc">Universal's faster, more chaotic alternative to Dig Dug. <strong>4-way + 1 button.</strong> Multiple ways to clear a level: collect all cherries, kill all monsters, spell "EXTRA," or grab the diamond for a free credit. The bouncing power ball adds unpredictable chaos.</div>
+        <div class="why">💡 4-way + 1 button. More varied than Dig Dug. The power ball's bouncing physics create wild moments. Mr. Do's Castle and Do! Run Run are excellent sequels.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Donkey Kong (1981)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Platformer</span>
+        </div>
+        <div class="desc">The game that introduced Mario (as Jumpman) and established the platformer genre. <strong>4-way + 1 jump button.</strong> Four distinct stages with brilliant level design. Dodge barrels, navigate elevators, and remove rivets. Still speedrun-competitive 40+ years later.</div>
+        <div class="why">💡 4-way + 1 button. The prototype for all platformers. DK '94 on Game Boy expands this into a 101-level masterpiece.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">BurgerTime (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Action-Puzzle</span>
+        </div>
+        <div class="desc">Walk across giant burger ingredients to drop them onto plates below while avoiding food enemies. <strong>4-way + 1 pepper button.</strong> Genius risk/reward: dropping enemies on falling ingredients scores huge points. Delightfully absurd premise.</div>
+        <div class="why">💡 4-way + 1 button. Unique concept with strategic depth. Limited pepper supply adds tension. Mappy (also Namco) uses a similar control scheme with different gameplay.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pengo (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Action-Puzzle</span>
+        </div>
+        <div class="desc">Sega's ice-block puzzle-action game. Push ice blocks to crush Sno-Bees or align three diamond blocks for massive bonus points. <strong>4-way + 1 button.</strong> The ability to push blocks against walls to stun nearby enemies adds strategic depth.</div>
+        <div class="why">💡 4-way + 1 button. Underrated gem. The block-pushing mechanics are unique. Aligning diamond blocks is deeply satisfying.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Bomb Jack (1984)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Platformer</span>
+        </div>
+        <div class="desc">Tecmo's cult classic. Fly around collecting bombs in a specific order while avoiding enemies. <strong>4-way + 1 button (jump/float).</strong> The free-form floating movement gives it a distinct feel from other platformers. Collecting lit bombs in sequence multiplies your score.</div>
+        <div class="why">💡 4-way + 1 button. Smooth, floaty controls. The bomb-order strategy adds a puzzle layer. Great on Game Boy too.</div>
+    </div>
+
+    <h3>🎱 Trackball, Spinner &amp; Paddle Games (Ideal for One Hand)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Centipede / Millipede (1980/1982)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge shooter">Shooter</span>
+        </div>
+        <div class="desc">Atari's trackball masterpiece. Shoot a centipede as it winds down the screen through a field of mushrooms. <strong>Trackball + 1 fire button</strong> — designed for one-handed play on the original cabinet. Spiders, fleas, and scorpions add variety. Millipede ramps up the chaos.</div>
+        <div class="why">💡 Trackball + 1 button. Natural one-hand operation. On D-pad handhelds, 4-way + 1 button works well. Fast, frantic, and endlessly replayable.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Arkanoid (1986)</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+            <span class="badge puzzle">Block Breaker</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Taito's definitive Breakout-style game. <strong>Paddle/spinner + 1 button</strong> (fire or release). 33 stages of brick-breaking with power-ups (lasers, multi-ball, catch, slow). A massive improvement over Breakout with enemy ships, warp gates, and a final boss. On D-pad handhelds, left/right movement works great.</div>
+        <div class="why">💡 Paddle + 1 button. D-pad emulation works well. Power-ups keep the formula fresh. Available via Arcade Archives on modern platforms.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Tempest (1981)</span>
+            <span class="badge shooter">Shooter</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Atari's vector-graphics tunnel shooter. <strong>Spinner + 2 buttons (fire + superzapper).</strong> Move along the rim of a 3D tunnel, firing outward at enemies climbing toward you. Gorgeous vector glow, intense pace. A one-of-a-kind geometric shooter.</div>
+        <div class="why">💡 Spinner + 2 buttons. On D-pad, left/right + fire works. The visual design is timeless. Still feels futuristic decades later.</div>
+    </div>
+
+    <h3>🧩 Puzzle &amp; Late-Golden-Age Arcade</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Bubble Bobble (1986)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Action-Puzzle</span>
+        </div>
+        <div class="desc">Taito's beloved co-op platformer. Trap enemies in bubbles, then pop them for fruit. <strong>2-way (left/right) + 2 buttons (jump + bubble).</strong> 100 levels of pure charm with an amazing soundtrack. The two-player mode is legendary — completing the game together unlocks the true ending.</div>
+        <div class="why">💡 2-way + 2 buttons. Simple controls, deep level design. Each level is its own self-contained puzzle. Endlessly charming pixel art and music.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Puzzle Bobble / Bust-A-Move (1994)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Taito's match-three bubble shooter. <strong>2-way aim + 1 fire button.</strong> Fire colored bubbles to match three or more. Easy to learn, nearly impossible to master at later stages. Physics and aiming precision make it deeply skill-based.</div>
+        <div class="why">💡 2-way + 1 button. Perfect for D-pad. The aiming line helper is a great accessibility feature. Sessions last 2–5 minutes per attempt.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Zoo Keeper (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge action">Action</span>
+        </div>
+        <div class="desc">Taito's hidden gem. Build a wall around escaped zoo animals by running in a rectangle around the cage. <strong>4-way + 1 jump button.</strong> Multiple level types (wall-building, platform-climbing, bonus rounds). Never got a contemporary home port — a true arcade exclusive worth discovering.</div>
+        <div class="why">💡 4-way + 1 button. Unique "run in a rectangle" mechanic. The platform-jumping bonus levels are wonderfully weird. A cult classic that deserves more love.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pooyan (1982)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge shooter">Shooter</span>
+        </div>
+        <div class="desc">Konami's oddball shooter. A mama pig shoots arrows at balloon-carrying wolves from an elevator basket. <strong>2-way (up/down) + 1 fire button.</strong> Alternates between upward-shooting and dropping meat to fend off wolves. Charming and completely unique.</div>
+        <div class="why">💡 2-way + 1 button. The vertical-only movement is inherently one-hand-friendly. The piglets in danger add emotional stakes. Adorable and weird.</div>
+    </div>
+
+</div>
+
+<!-- ============ GAME BOY & GAME BOY COLOR ============ -->
+<h2><span class="icon">🟢</span> Game Boy &amp; Game Boy Color</h2>
+<div class="platform-section gb">
+
+    <h3>🧩 Puzzle &amp; Pick-Up-and-Play</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Tetris</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">The quintessential pick-up-and-play game. The Game Boy version is arguably still the best pure Tetris experience — bundled with the system at launch and ranking #1 on MobyGames for the platform.</div>
+        <div class="why">💡 D-pad + A/B only. Instant session lengths. The ultimate "bus stop" game. Tetris DX (GBC) adds wall kicks, lock delay, and saves high scores.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Donkey Kong '94</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle-Platformer</span>
+        </div>
+        <div class="desc">Widely considered one of the best Game Boy games ever made. Starts as the arcade game, then transforms into a 101-level puzzle-platformer with acrobatic moves. Mario can handstand, backflip, and more.</div>
+        <div class="why">💡 Simple controls, short individual levels, brilliant design. A precursor to the Mario vs. Donkey Kong series.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Mario's Picross / Mario's Picross 2</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Nonogram puzzles with Mario theming. Addictive, thoughtful, and perfect for short bursts. Picross 2 (Japan-only) doubles the puzzle count with 480 puzzles.</div>
+        <div class="why">💡 D-pad + one button. Deeply satisfying logic puzzles. Save anytime. Hours of content.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Dr. Mario</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Match-3 puzzle game with falling vitamin capsules to eliminate colored viruses. Simple, addictive, and has a distinct strategy from Tetris.</div>
+        <div class="why">💡 D-pad + 2 buttons. Quick rounds. Classic Nintendo polish on the puzzle genre.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Kirby's Pinball Land</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Pinball</span>
+        </div>
+        <div class="desc">One of the best pinball games on the system. Multi-screen tables with Kirby-themed bumpers, bosses, and bonus stages.</div>
+        <div class="why">💡 Two buttons (flippers). Great physics, adorable Kirby charm. Revenge of the Gator is another excellent GB pinball option.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pokémon Pinball (GBC)</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Pinball</span>
+        </div>
+        <div class="desc">Pokémon-themed pinball with a "Gotta Catch 'Em All" mechanic where you capture Pokémon on the table. Built-in rumble feature.</div>
+        <div class="why">💡 Sessions last as long as you can keep the ball alive. Satisfying collection loop.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Qix</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Arcade Puzzle</span>
+        </div>
+        <div class="desc">Claim territory by drawing lines while avoiding enemies. Ingenious risk/reward gameplay — bigger shapes mean higher scores but greater danger.</div>
+        <div class="why">💡 Simple premise, deeply strategic. D-pad + one button. Very addicting.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Boxxle / Sokoban</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Push boxes to target zones with the fewest moves. Pure logic puzzle with no time pressure. Each step counts toward your score.</div>
+        <div class="why">💡 D-pad only. Methodical, brain-teasing. Can put down and resume any time.</div>
+    </div>
+
+    <h3>🗡️ RPGs &amp; Adventure</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pokémon Red / Blue / Yellow</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">The games that defined handheld RPGs. Turn-based battles, save anywhere, and on GBC/GBA the L=A confirm option makes true one-handed play possible. 151 Pokémon to catch, endless team building.</div>
+        <div class="why">💡 Pure turn-based. Slow pace. Hundreds of hours of content. The GBC L=A feature is a game-changer for one-handed play.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pokémon Gold / Silver / Crystal (GBC)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">The peak of Game Boy Color RPGs. Two regions (Johto + Kanto), 251 Pokémon, day/night cycle, breeding, held items — plus L=A confirm for one-handed play.</div>
+        <div class="why">💡 The most content-rich GBC RPGs. Turn-based, play-at-your-pace. L=A makes it fully one-hand compatible.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">The Legend of Zelda: Link's Awakening (DX)</span>
+            <span class="badge rpg">Action-Adventure</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">One of the greatest handheld games ever made — and many fans' favorite Zelda. Koholint Island is packed with charm, clever dungeons, and Mario cameos. DX adds a color dungeon.</div>
+        <div class="why">💡 Top-down, grid-based. Puzzles between action. Save anywhere on GBC. Compact but deep adventure.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Dragon Warrior Monsters / Dragon Warrior I &amp; II (GBC)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Dragon Warrior Monsters is a monster-collecting RPG with breeding mechanics and massive depth. DWI&amp;II packs two foundational JRPGs into one cartridge with quality-of-life improvements.</div>
+        <div class="why">💡 Turn-based, menu-driven. DWM's breeding system gives near-infinite replayability. Classic JRPG comfort food.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">The Final Fantasy Legend series (SaGa)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Three Game Boy entries that are actually the first SaGa games. Unique race-based character systems (humans, mutants, robots, monsters), open-ended exploration, and unconventional progression.</div>
+        <div class="why">💡 Turn-based combat. FFL2 is considered the best entry point. Available on Switch via Collection of SaGa.</div>
+    </div>
+
+    <h3>🏃 Quick Platformers &amp; Action</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Kirby's Dream Land</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge onehand">Short &amp; Sweet</span>
+        </div>
+        <div class="desc">Kirby's debut — deliberately designed by Sakurai to be "kind to beginners." Short (~30 min to beat), charming, with the iconic float ability that makes it forgiving and relaxed.</div>
+        <div class="why">💡 Two buttons + D-pad. Beat it in one sitting. Perfect entry point to platformers. Pure joy.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Super Mario Land 2: 6 Golden Coins</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Mario's best Game Boy outing. Non-linear world map, Wario's debut as the villain, and tight platforming. Auto-saves frequently.</div>
+        <div class="why">💡 Compact levels, generous checkpoints. Bite-sized Mario that still feels substantial.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Balloon Kid</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Spiritual successor to Balloon Fight with side-scrolling stages. Float through levels using two balloons, popping and re-inflating as you go.</div>
+        <div class="why">💡 Simple, unique mechanics. Short levels. Relaxed pacing with moments of tension.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Gargoyle's Quest</span>
+            <span class="badge rpg">Action-RPG</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Firebrand (the red demon from Ghosts 'n Goblins) in his own adventure. Mix of top-down exploration and side-scrolling platforming with RPG elements. Often cited as one of the best GB games.</div>
+        <div class="why">💡 Moderate difficulty. Save/password system. Unique character with hover and wall-cling abilities.</div>
+    </div>
+</div>
+
+<!-- ============ PICO-8 ============ -->
+<h2><span class="icon">🟣</span> PICO-8</h2>
+<div class="platform-section pico8">
+
+    <p style="color: var(--text2); margin-bottom: 1rem;">PICO-8 is a "fantasy console" that runs on virtually any retro handheld (Miyoo Mini, RG35XX, RGB30, etc. via Fake-08 or native PICO-8). All games are inherently small-screen-optimized at 128×128 pixels. The entire library is free or donation-ware on the Lexaloffle BBS.</p>
+
+    <h3>🧠 Turn-Based &amp; Tactical (Ideal for One-Handed Play)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">PICOhaven / PICOhaven 2</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">A brilliant solo tactical card-based dungeon crawler inspired by the Gloomhaven board game. 16 scenarios, 8 levels of upgrades, card-based combat with initiative system. Reviewed as "feels zippy" and "captures the feel of the larger game."</div>
+        <div class="why">💡 Fully turn-based, card-driven. Play at your own pace. Deep strategy in a tiny package. Touch-screen friendly on mobile. Sequel adds more content.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Tiny Tactics</span>
+            <span class="badge puzzle">Puzzle</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">81 levels of turn-based tactics puzzles described as "Hitman Go demake" and "what if Sokoban had guns?" Each level is a bite-sized tactical challenge with a turn counter and trophy system.</div>
+        <div class="why">💡 Turn-based, no time pressure. D-pad + one button. ~2 hours of content. Speed up animations in options.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pico Checkmate</span>
+            <span class="badge puzzle">Strategy</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Simple, clean chess implementation for PICO-8. Play against the AI at your own pace. Cute sprite work, no time limits.</div>
+        <div class="why">💡 Pure turn-based. D-pad + confirm. Classic strategy on the smallest screen.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">High Stakes</span>
+            <span class="badge puzzle">Card Game</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">A digital vampire-themed card game. Strategic deck play with no real-time pressure. Compact and elegant.</div>
+        <div class="why">💡 Card-based, menu-driven. Perfect for methodical play sessions.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">PicoFantasy</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">Procedurally generated turn-based JRPG with Final Fantasy-style combat. Four classes (Warrior, Mage, Thief, Priest), infinite world, and a final boss at 10,000 gold. Lufia-inspired visuals.</div>
+        <div class="why">💡 Fully turn-based combat. D-pad + two buttons. Roguelike replayability in an RPG wrapper.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Micro RTS</span>
+            <span class="badge puzzle">Strategy</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Build towers, harvest wood, upgrade, and attack enemy bases in a procedurally generated world. Real-time but pausable with the menu. Simple resource management.</div>
+        <div class="why">💡 Light RTS that fits in your pocket. AI opponent scales with difficulty. Good for focused 10-20 min sessions.</div>
+    </div>
+
+    <h3>🧩 Pick-Up-and-Play Puzzle</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pico Pop</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Puyo Puyo-style falling block puzzle. Stack colored jellies, match to clear, and don't let the jar overflow. Gets faster over time.</div>
+        <div class="why">💡 D-pad + 2 buttons. Classic formula, well executed. Quick sessions.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Picolumia</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">A unique twist on falling-block puzzles — blocks fall <em>diagonally</em>. A demake of Mixolumia. Clear 450 blocks across 15 levels. Addictive and fresh.</div>
+        <div class="why">💡 Diagonal mechanics change everything. Simple controls, tricky mastery. Great for Tetris fans wanting something new.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Cosmic Collapse</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+            <span class="badge puzzle">Puzzle</span>
+        </div>
+        <div class="desc">Suika (watermelon) game-style planet merging. Combine celestial bodies to create larger ones. Use rockets to clear space. Described as "too addictive for my own good."</div>
+        <div class="why">💡 One-button drops. Satisfying merge mechanics. Perfect for 2-10 minute sessions.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Picochi</span>
+            <span class="badge puzzle">Puzzle</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Control a white mochi character that moves one tile at a time (like classic Dragon Quest). Jump two tiles to overcome obstacles and reach the portal.</div>
+        <div class="why">💡 D-pad + one button. Grid-based movement is inherently one-hand-friendly. Charming and clever.</div>
+    </div>
+
+    <h3>🎯 Worth Mentioning</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Buns: Bunny Survivor</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Vampire Survivors-style auto-attack survival game. Run around, collect XP, level up weapons. Surprisingly deep for PICO-8.</div>
+        <div class="why">💡 Only need D-pad (auto-attacks). Runs last 5-30 minutes. Highly addictive.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Golf Sunday / PICO-BALL</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Golf Sunday: casual round of golf. PICO-BALL: mashup of tennis, volleyball, and squash with a solo campaign and co-op modes starring Jelpi.</div>
+        <div class="why">💡 Relaxed sports games. Golf Sunday is pure chill. PICO-BALL has surprisingly deep single-player.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Celeste Classic / Celeste 2: Lani's Trek</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">The original PICO-8 Celeste that started it all — and its sequel. Precision platformers where you climb a mountain. Short, challenging but fair with instant respawns.</div>
+        <div class="why">💡 Two buttons + D-pad. Die-and-retry loop is incredibly fast. Each screen is its own mini-challenge.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">PICOHOT / POOM</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">PICOHOT: Superhot demake — time moves when you move. POOM: Doom reinvented for PICO-8. Both are brilliant demakes of FPS classics.</div>
+        <div class="why">💡 PICOHOT's time-stops-when-you-stop mechanic makes it uniquely methodical. POOM is a technical marvel.</div>
+    </div>
+</div>
+
+<!-- ============ SNES ============ -->
+<h2><span class="icon">🔵</span> Super Nintendo (SNES)</h2>
+<div class="platform-section snes">
+
+    <p style="color: var(--text2); margin-bottom: 1rem;">The SNES is the golden age of RPGs. Many of its best games are turn-based and can be played methodically — some even with <em>true one-handed controls</em>. For smaller handhelds, savestates are your best friend.</p>
+
+    <!-- EarthBound special callout -->
+    <div class="earthbound-cta">
+        <h3>🌟 EarthBound — The Ultimate One-Handed RPG</h3>
+        <p style="color: var(--text2); margin: 0.8rem 0;">EarthBound (Mother 2) is famously designed to be played entirely with one hand. The L button acts as the primary confirm/interact button, and Select doubles as Cancel. This means you can play the entire game — menus, battles, exploration — using only the <strong>left side</strong> of the controller.</p>
+        <div style="margin: 1rem 0;">
+            <span class="key-combo">D-pad</span> Move &amp; navigate menus
+            <span class="key-combo">L</span> = A (confirm, talk, check)
+            <span class="key-combo">Select</span> = B (cancel, open status menu)
+            <span class="key-combo">Select → L</span> = Open full menu
+        </div>
+        <p style="color: var(--green); font-size: 0.9rem;">💡 "It's almost as if the creators wanted you to have the least amount of interaction with the controller as possible." — Starmen.net community</p>
+        <p style="color: var(--text2); font-size: 0.85rem; margin-top: 0.5rem;">Beyond controls: a quirky modern-setting RPG with turn-based combat, rolling HP meters (heal before it hits zero!), visible enemies on the map, and auto-win against weaker foes. The L-button confirm is also noted in official IGN guides.</p>
+    </div>
+
+    <h3>🗡️ Turn-Based RPGs (Naturally One-Hand Friendly)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Chrono Trigger</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Widely considered the greatest RPG of all time. Time-traveling adventure with no random encounters (enemies visible on map), ATB combat, double/triple techs, and a tight ~20-25 hour campaign. Multiple endings.</div>
+        <div class="why">💡 Turn-based with wait mode. No random encounters. Relatively short for an RPG. The pacing is impeccable — no filler.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Final Fantasy VI (FFIII US)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">14 playable characters, an ensemble cast with individual story arcs, and one of gaming's greatest villains (Kefka). The World of Ruin second half is legendary. ATB combat with wait mode.</div>
+        <div class="why">💡 Turn-based, extensive menus. Deep character customization via Espers. Epic 35-40+ hour journey.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Super Mario RPG: Legend of the Seven Stars</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Nintendo × Square collaboration. Mario's first RPG with timed-hit mechanics that make combat engaging. Humorous, colorful, and a perfect entry point for RPG newcomers. ~20 hours.</div>
+        <div class="why">💡 Turn-based with interactive timing. Lighthearted tone. Geno and Mallow are beloved characters. Recently remade on Switch.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Dragon Quest V: Hand of the Heavenly Bride</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">A multi-generational story spanning ~30 years of the protagonist's life. Monster recruiting, marriage choice, and one of the most emotional DQ stories. The DS remake is the definitive version.</div>
+        <div class="why">💡 Pure turn-based, menu-driven. The story makes it special. Fan translation available for SNES version.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Lufia II: Rise of the Sinistrals</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Excellent dungeons with Zelda-like puzzles, turn-based combat with an IP (special attack) gauge system, capsule monster raising, and the Ancient Cave — a 99-floor roguelike side mode.</div>
+        <div class="why">💡 Turn-based. Fantastic dungeon design. The Ancient Cave alone is worth it for pick-up-and-play roguelike sessions.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Final Fantasy IV (FFII US)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">The game that introduced the ATB system and deep character-driven storytelling to Final Fantasy. Cecil's journey from Dark Knight to Paladin. Fixed party members with defined roles.</div>
+        <div class="why">💡 Turn-based, ATB with wait mode. Straightforward character progression. A classic entry point to JRPGs.</div>
+    </div>
+
+    <h3>♟️ Strategy / Tactical RPGs</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Fire Emblem: Genealogy of the Holy War</span>
+            <span class="badge rpg">Strategy RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">Massive grid-based tactical RPG with a two-generation story and the unique Love system where paired characters produce children with combined stats. Large maps, deep strategy.</div>
+        <div class="why">💡 Fully grid/menu-driven. No real-time elements. Can take as long as you want per turn. Fan translation available.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Tactics Ogre: Let Us Cling Together</span>
+            <span class="badge rpg">Strategy RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">The progenitor of Final Fantasy Tactics. Branching story with multiple endings, deep class system, and isometric tactical combat. Political intrigue over simple good-vs-evil.</div>
+        <div class="why">💡 Grid-based, fully menu-driven. No reflexes needed. Deep class customization. Fan translation available for SNES.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Front Mission</span>
+            <span class="badge rpg">Strategy RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+            <span class="badge onehand">One-Hand Friendly</span>
+        </div>
+        <div class="desc">Mecha tactical RPG with a gritty near-future war story. Customize each wanzer's four parts (body, legs, arms), each with separate HP. Grid-based combat, all menu-driven.</div>
+        <div class="why">💡 Pure strategy. No real-time elements. Satisfying mech customization. Fan translation available.</div>
+    </div>
+
+    <h3>⚔️ Action RPGs (Manageable Pace)</h3>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Soul Blazer / Illusion of Gaia / Terranigma</span>
+            <span class="badge rpg">Action RPG Trilogy</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Quintet's "Gaia Trilogy" — three action RPGs with real-time combat but relatively simple controls. Soul Blazer: free captured souls to rebuild towns. Illusion of Gaia: transform into different forms. Terranigma: resurrect the world across time. All are single-player, top-down affairs.</div>
+        <div class="why">💡 Simple combat (one attack button essentially). Dungeons broken into rooms. Terranigma especially is considered a masterpiece (Europe &amp; Japan only).</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Secret of Mana</span>
+            <span class="badge rpg">Action RPG</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Real-time combat with the innovative Ring Command menu that pauses the action. Three-player support, eight weapon types, and elemental spirits to unlock magic. Vibrant pixel art and an iconic Hiroki Kikuta soundtrack.</div>
+        <div class="why">💡 Ring menu pauses combat for spell/item use. Colorful, charming world. Can be played co-op with two friends.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Live A Live</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Seven distinct chapters across different time periods (caveman, ninja, cowboy, sci-fi, etc.), each by a different manga artist. Turn-based tactical combat on grids. Short chapters make it great for sessions. HD-2D remake now available.</div>
+        <div class="why">💡 Turn-based grid combat. Each chapter is a self-contained 2-4 hour story. Perfect for episodic play.</div>
+    </div>
+</div>
+
+<!-- ============ COMPARISON TABLE ============ -->
+<h2><span class="icon">📊</span> Quick Comparison: The One-Hand MVPs</h2>
+<table class="comparison-table">
+    <thead>
+        <tr>
+            <th>Game</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>One-Hand Viability</th>
+            <th>Session Length</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Pac-Man</strong></td>
+            <td>Arcade</td>
+            <td>Maze</td>
+            <td>⭐⭐⭐⭐⭐ Joystick only</td>
+            <td>2–10 min per credit</td>
+        </tr>
+        <tr>
+            <td><strong>Frogger</strong></td>
+            <td>Arcade</td>
+            <td>Action</td>
+            <td>⭐⭐⭐⭐⭐ Joystick only</td>
+            <td>1–5 min per attempt</td>
+        </tr>
+        <tr>
+            <td><strong>Galaga</strong></td>
+            <td>Arcade</td>
+            <td>Shooter</td>
+            <td>⭐⭐⭐⭐⭐ 2-way + 1 button</td>
+            <td>3–15 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>Centipede</strong></td>
+            <td>Arcade</td>
+            <td>Shooter</td>
+            <td>⭐⭐⭐⭐⭐ Trackball + 1 btn</td>
+            <td>3–12 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>EarthBound</strong></td>
+            <td>SNES</td>
+            <td>Turn-Based RPG</td>
+            <td>⭐⭐⭐⭐⭐ Full left-hand only</td>
+            <td>30–40 hrs total; save anywhere via savestates</td>
+        </tr>
+        <tr>
+            <td><strong>Pokémon (Gen 1-2)</strong></td>
+            <td>GB/GBC</td>
+            <td>Turn-Based RPG</td>
+            <td>⭐⭐⭐⭐⭐ L=A on GBC</td>
+            <td>25–60 hrs; save anywhere</td>
+        </tr>
+        <tr>
+            <td><strong>PICOhaven</strong></td>
+            <td>PICO-8</td>
+            <td>Tactical Card RPG</td>
+            <td>⭐⭐⭐⭐⭐ Fully turn-based</td>
+            <td>30–60 min per scenario</td>
+        </tr>
+        <tr>
+            <td><strong>Tiny Tactics</strong></td>
+            <td>PICO-8</td>
+            <td>Turn-Based Puzzle</td>
+            <td>⭐⭐⭐⭐⭐ D-pad + 1 button</td>
+            <td>2–5 min per level</td>
+        </tr>
+        <tr>
+            <td><strong>Tetris</strong></td>
+            <td>GB</td>
+            <td>Puzzle</td>
+            <td>⭐⭐⭐⭐ D-pad + 2 buttons</td>
+            <td>2–30 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>Dig Dug</strong></td>
+            <td>Arcade</td>
+            <td>Action-Puzzle</td>
+            <td>⭐⭐⭐⭐ 4-way + 1 button</td>
+            <td>3–10 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>Chrono Trigger</strong></td>
+            <td>SNES</td>
+            <td>Turn-Based RPG</td>
+            <td>⭐⭐⭐⭐ ATB wait mode</td>
+            <td>20–25 hrs; save anywhere</td>
+        </tr>
+        <tr>
+            <td><strong>Q*Bert</strong></td>
+            <td>Arcade</td>
+            <td>Puzzle-Action</td>
+            <td>⭐⭐⭐⭐⭐ Joystick only</td>
+            <td>2–8 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>Fire Emblem: Genealogy</strong></td>
+            <td>SNES</td>
+            <td>Strategy RPG</td>
+            <td>⭐⭐⭐⭐⭐ Menu-driven</td>
+            <td>40+ hrs; save mid-map</td>
+        </tr>
+        <tr>
+            <td><strong>Mario's Picross</strong></td>
+            <td>GB</td>
+            <td>Puzzle</td>
+            <td>⭐⭐⭐⭐ D-pad + 1 button</td>
+            <td>5–20 min per puzzle</td>
+        </tr>
+        <tr>
+            <td><strong>Bubble Bobble</strong></td>
+            <td>Arcade</td>
+            <td>Action-Puzzle</td>
+            <td>⭐⭐⭐⭐ 2-way + 2 buttons</td>
+            <td>2–5 min per level</td>
+        </tr>
+        <tr>
+            <td><strong>Mr. Do!</strong></td>
+            <td>Arcade</td>
+            <td>Action-Puzzle</td>
+            <td>⭐⭐⭐⭐ 4-way + 1 button</td>
+            <td>3–10 min per run</td>
+        </tr>
+        <tr>
+            <td><strong>Dragon Quest V</strong></td>
+            <td>SNES</td>
+            <td>Turn-Based RPG</td>
+            <td>⭐⭐⭐⭐⭐ Menu-driven</td>
+            <td>30–40 hrs; save at churches</td>
+        </tr>
+        <tr>
+            <td><strong>Arkanoid</strong></td>
+            <td>Arcade</td>
+            <td>Block Breaker</td>
+            <td>⭐⭐⭐⭐ Paddle + 1 button</td>
+            <td>2–5 min per stage</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ============ TIPS & TRICKS ============ -->
+<h2><span class="icon">💡</span> Tips for One-Handed &amp; Small Handheld Gaming</h2>
+<div class="tip-grid">
+    <div class="tip-card">
+        <h4>🔄 Use Savestates</h4>
+        <p>On emulation handhelds, savestates are transformative for RPGs and arcade games alike. Save mid-dungeon, mid-battle — perfect for short, unpredictable sessions.</p>
+    </div>
+    <div class="tip-card">
+        <h4>🎮 Remap Controls</h4>
+        <p>Many emulators and the Wii U Virtual Console let you remap buttons. Move confirm/cancel to shoulder buttons or convenient positions for one-handed play.</p>
+    </div>
+    <div class="tip-card">
+        <h4>⏸️ Look for Wait Modes</h4>
+        <p>FFVI, Chrono Trigger, and many SNES RPGs have "Wait" ATB modes where time stops in sub-menus — perfect for one-handed play.</p>
+    </div>
+    <div class="tip-card">
+        <h4>📱 Use Splore on PICO-8</h4>
+        <p>If your handheld supports native PICO-8, use Splore to browse and instantly play thousands of free games — no downloading or transferring needed.</p>
+    </div>
+    <div class="tip-card">
+        <h4>🧩 Puzzle Games Are Your Friend</h4>
+        <p>Picross, Tetris, Puyo Puyo, Puzzle Bobble, and falling-block games are inherently designed for short sessions and minimal inputs — the definition of pick-up-and-play.</p>
+    </div>
+    <div class="tip-card">
+        <h4>📐 Grid-Based = One-Hand Friendly</h4>
+        <p>Tactical RPGs (Fire Emblem, Tactics Ogre, Front Mission) and grid-based puzzle games (Boxxle, Picochi) require no real-time dexterity at all.</p>
+    </div>
+    <div class="tip-card">
+        <h4>🕹️ Try MAME Collections</h4>
+        <p>Curated compilations like Namco Museum, Atari 50, and Arcade Archives bring classic arcade games to modern handhelds with save states, rewind, and online leaderboards.</p>
+    </div>
+    <div class="tip-card">
+        <h4>👆 One-Joystick Arcade Games Are King</h4>
+        <p>Pac-Man, Frogger, and Q*Bert require <strong>zero buttons</strong> during gameplay. These are the most accessible games ever made — pure one-hand gaming on any device.</p>
+    </div>
+</div>
+
+<!-- ============ HONORABLE MENTIONS ============ -->
+<h2><span class="icon">🏅</span> Honorable Mentions &amp; Hidden Gems</h2>
+<div class="platform-section" style="border-left-color: var(--orange);">
+
+    <h3 style="color: var(--teal);">More Arcade Gems</h3>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Mappy (1983)</span>
+            <span class="badge arcade">Arcade</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Namco's platformer where you play a police mouse bouncing on trampolines to collect stolen goods while avoiding cats. <strong>2-way (left/right) + 1 button to open/close doors.</strong> The trampoline physics are unique and the music is iconic.</div>
+        <div class="why">💡 2-way + 1 button. Doors add strategic depth. Delightful presentation. Often overlooked but genuinely great.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Jungle Hunt / Jungle King (1982)</span>
+            <span class="badge arcade">Arcade</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Taito's multi-stage adventure: swing on vines, swim past crocodiles, dodge rolling boulders, and rescue the maiden. <strong>4-way + 1 button.</strong> Four distinct gameplay types in one game.</div>
+        <div class="why">💡 4-way + 1 button. Variety keeps it fresh. The vine-swinging stage alone is classic arcade joy.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Amidar (1981)</span>
+            <span class="badge arcade">Arcade</span>
+            <span class="badge puzzle">Puzzle-Action</span>
+        </div>
+        <div class="desc">Konami/Stern's grid-painting game. Move along a grid, painting rectangles while avoiding enemies. <strong>4-way + 1 button.</strong> Similar to painting territory — like a competitive version of Qix without the line-drawing risk.</div>
+        <div class="why">💡 4-way + 1 button. Hypnotic and methodical. Perfect for relaxed puzzle-action sessions.</div>
+    </div>
+
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Pepper II (1982)</span>
+            <span class="badge arcade">Arcade</span>
+            <span class="badge puzzle">Puzzle-Action</span>
+        </div>
+        <div class="desc">Coleco/Exidy's maze game where you zip up maze segments to fill them in while avoiding enemies. <strong>4-way + 1 button.</strong> The zipper mechanic is uniquely satisfying. Deserves far more recognition than it gets.</div>
+        <div class="why">💡 4-way + 1 button. The zip-fill mechanic is one-of-a-kind. Deeply underrated. A true hidden gem.</div>
+    </div>
+
+    <h3 style="color: var(--blue);">More SNES &amp; Console</h3>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Breath of Fire II (SNES)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Capcom's JRPG with a unique township-building side mechanic, fishing, and shaman fusion system. Turn-based combat with character-specific field abilities.</div>
+    </div>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Secret of Evermore (SNES)</span>
+            <span class="badge rpg">Action RPG</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Square's American-made action RPG. A boy and his shapeshifting dog travel through time periods. Alchemy-based magic system using ingredient combinations. Ring menu like Secret of Mana.</div>
+    </div>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Ogre Battle: March of the Black Queen (SNES)</span>
+            <span class="badge rpg">Strategy RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Real-time tactical army management with automatic battles. Liberate towns, manage squads, use tarot cards. The combat resolves on its own — you focus on strategy.</div>
+    </div>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Final Fantasy V (SNES)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">The ultimate job system RPG. 22+ classes with mix-and-match abilities. Story is lighter than FFVI but the customization is unmatched. Fan translation or Pixel Remaster available.</div>
+    </div>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Link's Awakening DX (GBC)</span>
+            <span class="badge rpg">Action-Adventure</span>
+            <span class="badge pickup">Pick-Up &amp; Play</span>
+        </div>
+        <div class="desc">Already mentioned but worth reiterating: the color dungeon, the photo shop side quests, and GBC enhancements make DX the definitive version of one of gaming's best portable adventures.</div>
+    </div>
+    <div class="game-card">
+        <div class="title-row">
+            <span class="game-name">Romancing SaGa (SNES)</span>
+            <span class="badge rpg">RPG</span>
+            <span class="badge turnbased">Turn-Based</span>
+        </div>
+        <div class="desc">Choose from 8 protagonists, free-form scenario system, glimmer-based skill learning. For those who want something unconventional. The Minstrel Song remake is the more accessible version.</div>
+    </div>
+</div>
+
+<!-- ============ SOURCES ============ -->
+<h2><span class="icon">📚</span> Sources &amp; Further Reading</h2>
+<div class="highlight-box">
+    <ul>
+        <li><strong>Arcade History / KLOV</strong> — Arcade cabinet control panel specifications, release dates, and technical details for all classic arcade games</li>
+        <li><strong>MobyGames</strong> — Tetris (GB) ranked #1 Game Boy game; EarthBound rankings and reviews; community game rankings</li>
+        <li><strong>RetroGamingEmporium</strong> — "Classic Arcade Games That Defined a Generation" — analysis of golden age game design principles</li>
+        <li><strong>ukVac Arcade Collecting Forum</strong> — "List of 2-Way / 4-Way Arcade Games w/ Single Button" — comprehensive MAME control catalog</li>
+        <li><strong>Ask MetaFilter</strong> — Community-curated "Great One-Button Games" thread with extensive arcade recommendations</li>
+        <li><strong>OneSwitch.org.uk</strong> — Accessibility-focused MAME games selection for one-button play</li>
+        <li><strong>ArcadeControls.com Forum</strong> — Button-only and minimal-control arcade game discussions from hardware builders</li>
+        <li><strong>MyGamer</strong> — "Video Games to Play When You Only Have One Hand" — includes arcade and console picks</li>
+        <li><strong>Nintendo Life</strong> — Best Game Boy RPGs, Best SNES RPGs, individual game reviews (Kirby's Dream Land, Donkey Kong '94, EarthBound, etc.)</li>
+        <li><strong>GameFAQs</strong> — "The Top 10 RPGs for the SNES" user list; community discussions on pint-sized GB games</li>
+        <li><strong>ResetEra / NeoGAF / Pyra-Handheld Forums</strong> — Community recommendations for pick-up-and-play Game Boy games</li>
+        <li><strong>Starmen.net</strong> — EarthBound community confirming one-handed play via L button / Select as B</li>
+        <li><strong>ProTipOfTheDay / IGN EarthBound Guide</strong> — Documented one-handed control scheme for EarthBound</li>
+        <li><strong>Retro Handhelds</strong> — "8 Pico-8 Games Worth Playing" article</li>
+        <li><strong>Lexaloffle BBS</strong> — PICOhaven, Tiny Tactics, Pico Pop, Pico Checkmate, Micro RTS, Cosmic Collapse, and other PICO-8 game pages</li>
+        <li><strong>RPG Informer / Beanstalk / Time Extension</strong> — Best SNES RPGs ranked lists</li>
+        <li><strong>HonestGamers</strong> — EarthBound review noting "you can even play it with one hand"</li>
+        <li><strong>Inglebard Gaming (YouTube)</strong> — "My Top 5 Golden Age Arcade Games" — detailed coverage of Frogger, Q*Bert Qubes, Mr. Do!, Robotron, Zoo Keeper</li>
+        <li><strong>Arcade Archives (HAMSTER)</strong> — Official arcade re-release series with modern accessibility features (Arkanoid, etc.)</li>
+        <li><strong>Real Women of Gaming</strong> — Disabled gamer perspective on one-handed accessible games</li>
+    </ul>
+</div>
+
+</div>
+
+<div class="footer">
+    <p>Compiled from community recommendations, review sites, hardware forums, and hands-on research. Game availability may vary — many arcade games are available through MAME/FBNeo, while SNES Japan-only titles often have excellent fan translations. Classic arcade games can be played on virtually every retro handheld via curated collections or emulation.</p>
+    <p style="margin-top: 0.5rem;">Enjoy your handheld gaming! 🎮🕹️</p>
+</div>
+
+</body>
+</html>
