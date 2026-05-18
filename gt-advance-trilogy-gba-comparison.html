@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GT Advance Trilogy — What Changed Between All Three GBA Games</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin: 2rem 0 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.15rem;
+            color: #f0f6fc;
+            margin: 1.5rem 0 0.6rem;
+        }
+        .subtitle {
+            color: var(--text2);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        p { margin-bottom: 0.9rem; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .game-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .game-card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-1 { background: #1a3a5c; color: #58a6ff; }
+        .badge-2 { background: #2d1a0e; color: #d2991d; }
+        .badge-3 { background: #2a1538; color: #a371f7; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.65rem 0.8rem;
+            text-align: left;
+        }
+        th {
+            background: var(--surface2);
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+        td { background: var(--surface); }
+        td:first-child { font-weight: 600; color: #f0f6fc; white-space: nowrap; }
+        .highlight { color: var(--green); font-weight: 700; }
+        .negative { color: var(--red); font-weight: 700; }
+        .neutral { color: var(--orange); }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.3rem; }
+        .score-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0 1rem;
+        }
+        .score {
+            background: var(--surface2);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            text-align: center;
+            min-width: 80px;
+        }
+        .score-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .score-label {
+            font-size: 0.7rem;
+            color: var(--text2);
+            text-transform: uppercase;
+        }
+        .timeline {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        .timeline-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        .timeline-item .year {
+            font-size: 0.8rem;
+            color: var(--text2);
+        }
+        .timeline-item .name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .callout {
+            border-left: 3px solid var(--accent);
+            padding: 0.8rem 1.2rem;
+            background: var(--surface);
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+        .callout-warn {
+            border-left-color: var(--orange);
+        }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--text2);
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.5rem 0;
+        }
+        .tag {
+            font-size: 0.72rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            table { font-size: 0.78rem; }
+            th, td { padding: 0.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>🏎️ GT Advance Trilogy — What Changed Between All Three GBA Games</h1>
+<p class="subtitle">A comprehensive comparison of every GT Advance title on the Game Boy Advance: <em>Championship Racing</em> (2001), <em>Rally Racing</em> (2002), and <em>Pro Concept Racing</em> (2003).</p>
+
+<!-- TIMELINE -->
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="year">📅 June 2001</div>
+        <div class="name">GT Advance<br>Championship Racing</div>
+        <div class="tag-list"><span class="tag">Launch Title</span></div>
+    </div>
+    <div class="timeline-item">
+        <div class="year">📅 June 2002</div>
+        <div class="name">GT Advance 2<br>Rally Racing</div>
+        <div class="tag-list"><span class="tag">Rally Spin-off</span></div>
+    </div>
+    <div class="timeline-item">
+        <div class="year">📅 February 2003</div>
+        <div class="name">GT Advance 3<br>Pro Concept Racing</div>
+        <div class="tag-list"><span class="tag">True Sequel</span></div>
+    </div>
+</div>
+
+<!-- ==================== OVERVIEW ==================== -->
+<h2>📋 At a Glance — Feature Comparison Table</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Feature</th>
+            <th>GT Advance 1</th>
+            <th>GT Advance 2</th>
+            <th>GT Advance 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Japanese Name</td>
+            <td>Advance GTA</td>
+            <td>Advance Rally</td>
+            <td>Advance GT 2</td>
+        </tr>
+        <tr>
+            <td>Release (JP)</td>
+            <td>March 21, 2001</td>
+            <td>December 7, 2001</td>
+            <td>April 26, 2002</td>
+        </tr>
+        <tr>
+            <td>Release (NA)</td>
+            <td>June 11, 2001</td>
+            <td>June 18, 2002</td>
+            <td>February 4, 2003</td>
+        </tr>
+        <tr>
+            <td>Racing Style</td>
+            <td>Street / Circuit</td>
+            <td><strong>Rally / Off-road</strong></td>
+            <td>Street / Circuit</td>
+        </tr>
+        <tr>
+            <td>Car Count</td>
+            <td>48 cars (8 manufacturers)</td>
+            <td><strong>15 cars</strong></td>
+            <td><strong>97 cars</strong> (10+ manufacturers)</td>
+        </tr>
+        <tr>
+            <td>Track Count</td>
+            <td>32 tracks</td>
+            <td><strong>42 tracks</strong> (14 stages × 3 legs)</td>
+            <td>40 tracks (some sources say 46)</td>
+        </tr>
+        <tr>
+            <td>Terrain</td>
+            <td>Paved &amp; dirt</td>
+            <td><strong>Tarmac, gravel, mud, snow</strong></td>
+            <td>Paved city streets</td>
+        </tr>
+        <tr>
+            <td>Performance Upgrades</td>
+            <td class="highlight">✅ Yes (9 categories)</td>
+            <td class="negative">❌ Removed (fine-tuning only)</td>
+            <td class="highlight">✅ Yes (8 categories)</td>
+        </tr>
+        <tr>
+            <td>Save System</td>
+            <td class="negative">🔴 Password (infamous!)</td>
+            <td class="highlight">🟢 Battery Save</td>
+            <td class="highlight">🟢 Battery Save</td>
+        </tr>
+        <tr>
+            <td>Unique Modes</td>
+            <td>Kart Racing, Formula Racing (unlockable)</td>
+            <td><strong>Co-Driver / Navigator mode</strong>, License Tests</td>
+            <td><strong>Drift Combo mode</strong>, License Tests, Kart mode</td>
+        </tr>
+        <tr>
+            <td>Elevation / Jumps</td>
+            <td class="negative">❌ Flat tracks</td>
+            <td class="highlight">✅ Hills, bumps, air time</td>
+            <td class="negative">❌ Flat tracks</td>
+        </tr>
+        <tr>
+            <td>Physics</td>
+            <td>Realistic, tight</td>
+            <td>Rally-style loose surfaces</td>
+            <td><strong>Slippery (drift-focused)</strong>, lenient collisions</td>
+        </tr>
+        <tr>
+            <td>Weather / Time of Day</td>
+            <td>Some day/night</td>
+            <td>Weather conditions affect tire choice</td>
+            <td><strong>Nighttime &amp; rainy-day races</strong></td>
+        </tr>
+        <tr>
+            <td>Multiplayer</td>
+            <td>2-player (link cable, 2 carts)</td>
+            <td>2-player (link cable, 2 carts)</td>
+            <td>2-player (link cable, 2 carts)</td>
+        </tr>
+        <tr>
+            <td>Metacritic</td>
+            <td class="highlight">82</td>
+            <td>77</td>
+            <td>74</td>
+        </tr>
+        <tr>
+            <td>Famitsu Score</td>
+            <td>26 / 40</td>
+            <td>28 / 40</td>
+            <td><strong>29 / 40</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ==================== GAME 1 ==================== -->
+<h2>🏁 GT Advance Championship Racing <span class="badge badge-1">Game 1</span></h2>
+<div class="game-card">
+    <h3>📦 Overview</h3>
+    <p>The game that started it all. <strong>GT Advance Championship Racing</strong> (known in Japan as <em>Advance GTA</em>) was a <strong>launch title</strong> for the Game Boy Advance in North America. It was developed by MTO and published by THQ after a reported <strong>bidding war</strong> for the Western publishing rights — the Japanese version had been received so positively that multiple US publishers competed for it.</p>
+
+    <h3>🎮 Key Features</h3>
+    <ul>
+        <li><strong>48 licensed Japanese cars</strong> from 8 manufacturers (Honda, Toyota, Nissan, Mazda, Mitsubishi, Subaru, Suzuki, Daihatsu)</li>
+        <li><strong>32 tracks</strong> across 5 categories: circuit, highway, city, winding, and dirt</li>
+        <li><strong>9 upgradeable car categories:</strong> engine, suspension, body weight, muffler, CPU, limited-slip differential, air filter, seats, and chassis — some upgrades <em>visually change the car</em> (e.g., adding an aero kit to a Skyline GT-R gives it a taller wing)</li>
+        <li><strong>4 championship difficulty levels</strong> (Beginner through Expert), each with 8 tracks</li>
+        <li><strong>Unlockable modes:</strong> Kart Racing (Extra 1) and Formula Racing (Extra 2)</li>
+        <li>Manual or automatic transmission (L/R to shift)</li>
+        <li>Powersliding essential for cornering</li>
+    </ul>
+
+    <h3>⚠️ The Infamous Password Save System</h3>
+    <div class="callout callout-warn">
+        <p><strong>The single most notorious thing about GT Advance 1.</strong> The Japanese version (<em>Advance GTA</em>) had a battery-backed save — but THQ <strong>removed the battery RAM</strong> from the North American and European releases and replaced it with a <strong>16-character password system</strong> using upper/lowercase letters, numbers, and symbols. Critics universally panned this cost-cutting move. GameSpot went so far as to <em>recommend importing the Japanese version</em> instead (since the menus were in English and there was no region lock).</p>
+    </div>
+
+    <h3>📊 Reception</h3>
+    <div class="score-box">
+        <div class="score"><div class="score-val">82</div><div class="score-label">Metacritic</div></div>
+        <div class="score"><div class="score-val">26/40</div><div class="score-label">Famitsu</div></div>
+        <div class="score"><div class="score-val">8.5/10</div><div class="score-label">IGN</div></div>
+        <div class="score"><div class="score-val">7.3/10</div><div class="score-label">GameSpot</div></div>
+    </div>
+    <p>Praised for its graphics, smooth framerate, and enjoyable powerslide mechanics. The password system dragged scores down significantly — IGN's Craig Harris wrote: <em>"Look, THQ, this password system is extremely inconvenient."</em></p>
+</div>
+
+<!-- ==================== GAME 2 ==================== -->
+<h2>🏔️ GT Advance 2: Rally Racing <span class="badge badge-2">Game 2</span></h2>
+<div class="game-card">
+    <h3>📦 Overview</h3>
+    <p><strong>GT Advance 2: Rally Racing</strong> (known in Japan as <em>Advance Rally</em>) took a <strong>hard pivot</strong> from street racing to the world of <strong>rally racing</strong>. It's arguably the most <em>different</em> of the three games — not just an iteration but a full genre shift. Released about a year after the first game, it addressed the original's biggest complaint head-on.</p>
+
+    <h3>🆕 What Changed from GT Advance 1</h3>
+    <ul>
+        <li><strong>🔴 The biggest fix: BATTERY SAVE.</strong> THQ restored the battery-backed save after the backlash from the first game. No more writing down 16-character passwords.</li>
+        <li><strong>Completely different racing discipline:</strong> Rally racing replaces circuit/street racing. Cars race on tarmac, gravel, mud, and snow.</li>
+        <li><strong>Fewer cars, more focused:</strong> 15 licensed rally cars (Subaru Impreza, Mitsubishi Lancer Evo, Toyota Celica, etc.) instead of 48 street cars.</li>
+        <li><strong>More tracks:</strong> 42 tracks across 14 real-world rally stages (Sweden, Finland, France, Cyprus, Australia, etc.) — each event has 3 "legs."</li>
+        <li><strong>Performance upgrades REMOVED:</strong> You can no longer buy/install aftermarket parts. Instead, you fine-tune existing parameters: suspension stiffness, steering speed, gear ratio, and brake balance.</li>
+        <li><strong>Tire selection:</strong> Must choose tires before each leg — slicks for tarmac, all-terrain for mixed surfaces. A real rally strategy element.</li>
+        <li><strong>Elevation &amp; jumps:</strong> The scaling engine was enhanced for rally terrain — tracks now have <strong>bumps, dips, and elevation changes</strong>. You can catch air!</li>
+        <li><strong>Co-Driver / Navigator mode:</strong> A totally unique mode where <em>you don't drive</em> — you call out turn directions to an AI driver using button/D-pad combos. Get it wrong and you crash.</li>
+        <li><strong>License tests:</strong> 15 tests to familiarize you with rally driving mechanics.</li>
+        <li><strong>Race structure:</strong> "Catch-up" format — opponents are staggered ahead, and you race to overtake them, unlike real rally (which is time-based).</li>
+        <li><strong>Graphics improved:</strong> More peripheral objects (trees, shrubbery), varied weather conditions.</li>
+    </ul>
+
+    <h3>⚠️ What Critics Didn't Like</h3>
+    <ul>
+        <li>Removal of the upgrade system made the game feel <strong>more shallow</strong> than the first</li>
+        <li>Game was considered <strong>too short</strong> — could be beaten in a single day</li>
+        <li>Unlocking new cars felt less rewarding since a top-tier car (Subaru Impreza) was available from the start</li>
+        <li>Sound quality took a step back — less distinct engine sounds between cars, occasional audio cutouts</li>
+    </ul>
+
+    <h3>📊 Reception</h3>
+    <div class="score-box">
+        <div class="score"><div class="score-val">77</div><div class="score-label">Metacritic</div></div>
+        <div class="score"><div class="score-val">28/40</div><div class="score-label">Famitsu</div></div>
+        <div class="score"><div class="score-val">8.4/10</div><div class="score-label">IGN</div></div>
+        <div class="score"><div class="score-val">8.1/10</div><div class="score-label">GameSpot</div></div>
+    </div>
+    <p>Slightly lower scores than the first game. Critics praised the battery save, unique co-driver mode, and rally authenticity, but felt it was a step back in depth and longevity. GameSpot: <em>"The most glaring problem of the original has been addressed."</em></p>
+</div>
+
+<!-- ==================== GAME 3 ==================== -->
+<h2>⚡ GT Advance 3: Pro Concept Racing <span class="badge badge-3">Game 3</span></h2>
+<div class="game-card">
+    <h3>📦 Overview</h3>
+    <p><strong>GT Advance 3: Pro Concept Racing</strong> (known in Japan as <em>Advance GT 2</em>) is widely considered the <strong>true sequel</strong> to the original. It returns to paved-street racing but <strong>hybridizes the best of both predecessors</strong>: the city environments and upgrade systems of GT1 with the slippery, drift-friendly physics of GT2. It's the most content-rich game in the trilogy.</p>
+
+    <h3>🆕 What Changed from GT Advance 1 &amp; 2</h3>
+    <ul>
+        <li><strong>Massive car roster:</strong> <strong>97 cars</strong> — more than double GT1's count. Manufacturers include Honda, Mazda, Mitsubishi, Nissan, Subaru, Toyota, and more.</li>
+        <li><strong>Upgrades return:</strong> 8 categories (engine, muffler, suspension, limited-slip differential, air filter, seats, CPU, weight reduction). Earned through 1st and 2nd place finishes.</li>
+        <li><strong>Hybrid physics engine:</strong> Paved streets like GT1, but <strong>slipperier handling</strong> borrowed from GT2's rally DNA. Drifting and fishtailing are now <em>integral</em> to winning, not optional.</li>
+        <li><strong>Lenient collisions:</strong> Invisible walls are gone. Hitting off-road grass/dirt only slows you slightly. Hitting other cars is less punishing. Much more forgiving than GT1.</li>
+        <li><strong>Drift Combo mode:</strong> Brand-new mode where you chain power-slides to earn points and unlock cars. A direct result of the driftier physics.</li>
+        <li><strong>License tests return &amp; expand:</strong> 5 championship classes, each requiring <strong>3 license test situations</strong> before you can race. More structured progression.</li>
+        <li><strong>Longer, more complex tracks:</strong> U-turns, S-curves, combination hairpins. Nighttime and rain races. 40 tracks total.</li>
+        <li><strong>Camera improvements:</strong> Camera pulled back slightly for a less claustrophobic view. Road surfaces have added texture.</li>
+        <li><strong>Unlockable kart mode:</strong> Completing all five championship classes unlocks kart racing.</li>
+        <li><strong>Battery save retained</strong> (lesson learned from GT1).</li>
+    </ul>
+
+    <h3>⚠️ Lingering Issues</h3>
+    <ul>
+        <li>Tracks still <strong>flat</strong> — no hills or elevation like GT2</li>
+        <li>Soundtrack still used the GBA's lesser audio channels (described as "NES-quality")</li>
+        <li>Repetitive track design after extended play</li>
+        <li>By 2003, competitors like <em>Colin McRae Rally 2.0</em> had better graphics engines</li>
+    </ul>
+
+    <h3>📊 Reception</h3>
+    <div class="score-box">
+        <div class="score"><div class="score-val">74</div><div class="score-label">Metacritic</div></div>
+        <div class="score"><div class="score-val">29/40</div><div class="score-label">Famitsu</div></div>
+        <div class="score"><div class="score-val">7.8/10</div><div class="score-label">IGN</div></div>
+        <div class="score"><div class="score-val">8.1/10</div><div class="score-label">GameSpot</div></div>
+    </div>
+    <p>The lowest Metacritic of the three (though Famitsu's highest). GameSpot called it <em>"a spicier version of the original GT Advance."</em> IGN noted it was the best in the series for control and handling but that the graphics engine was aging. Gaming Target gave it 8.7/10 — the highest individual score among the trilogy.</p>
+</div>
+
+<!-- ==================== DEEP DIVE ==================== -->
+<h2>🔬 Deep Dive: The Three Biggest Changes Across the Trilogy</h2>
+
+<h3>1. 💾 The Save System Saga</h3>
+<p>This is the <strong>defining story</strong> of the trilogy. THQ's decision to rip out battery-backed saves from GT Advance 1 became <em>the</em> cautionary tale of early GBA publishing. Critics across the board — IGN, GameSpot, Eurogamer, Nintendo Power — all hammered the password system. GameSpot's review literally told readers to <strong>import the Japanese version instead</strong>. THQ listened: both GT Advance 2 and 3 restored battery saves. It's a rare case of a publisher fixing a universally-hated decision across sequels.</p>
+
+<h3>2. 🏎️ Racing Philosophy: Simulation → Arcade Drift</h3>
+<p>The trilogy drifted (pun intended) further from realism with each entry:</p>
+<ul>
+    <li><strong>GT1:</strong> Gran Turismo-lite. Realistic handling, upgrade trees, tight cornering. Powersliding was a technique to master — but you could race clean.</li>
+    <li><strong>GT2:</strong> Rally authenticity. Tire selection, surface variety, co-driver calls. Real-world rally stages. But the upgrade loop vanished.</li>
+    <li><strong>GT3:</strong> Ridge Racer meets Gran Turismo. Slippery physics <em>require</em> drifting. The Drift Combo mode makes it explicit. Collisions are forgiving. It's the most arcade-like of the three.</li>
+</ul>
+
+<h3>3. 📈 Content Progression: Peak at GT3</h3>
+<p>GT Advance 3 is the <strong>most feature-complete</strong> game by a wide margin: 97 cars (vs. 48 and 15), 40+ tracks, upgrades, license tests, drift combo, kart mode, battery save, better camera, weather effects. It's the culmination of everything MTO learned across the first two games — though ironically, the aging engine and increased competition meant it scored lower than the first game.</p>
+
+<!-- ==================== NAMING CONFUSION ==================== -->
+<h2>🏷️ Naming Confusion: Japan vs. West</h2>
+<p>One oddity worth noting: the Japanese naming doesn't line up with the Western naming at all:</p>
+<table>
+    <thead><tr><th>Western Title</th><th>Japanese Title</th><th>Meaning</th></tr></thead>
+    <tbody>
+        <tr><td>GT Advance Championship Racing</td><td>Advance GTA</td><td>"GTA" = Gran Turismo Advance?</td></tr>
+        <tr><td>GT Advance 2: Rally Racing</td><td>Advance Rally</td><td>Straightforward — rally game</td></tr>
+        <tr><td>GT Advance 3: Pro Concept Racing</td><td>Advance GT 2</td><td>Suggests it's the <em>true</em> sequel to Advance GTA</td></tr>
+    </tbody>
+</table>
+<p>Japan considered <em>Advance Rally</em> a spin-off (not numbered) and <em>Advance GT 2</em> the real sequel. THQ numbered all three sequentially in the West, which makes sense commercially but obscures the relationship.</p>
+
+<!-- ==================== BONUS ==================== -->
+<h2>📦 Bonus: The 4-in-1 Combo Cart</h2>
+<div class="callout">
+    <p>In 2007, a compilation cartridge was released: <strong>"4 Games on One Game Pak: GT Advance / GT Advance 2 / GT Advance 3 / MotoGP."</strong> This rare GBA cart bundled the entire trilogy plus THQ's MotoGP GBA game. A collector's curiosity and probably the most efficient way to own the whole series on original hardware.</p>
+</div>
+
+<!-- ==================== VERDICT ==================== -->
+<h2>🏆 Which One Should You Play?</h2>
+<table>
+    <thead>
+        <tr><th>If you want…</th><th>Play</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>The most authentic Gran Turismo-style experience</td><td><strong>GT Advance 1</strong> (but import the Japanese version for battery save, or use an emulator with save states)</td></tr>
+        <tr><td>A unique rally racing handheld experience</td><td><strong>GT Advance 2</strong> — the co-driver mode alone is worth trying</td></tr>
+        <tr><td>The most content, cars, and modes</td><td><strong>GT Advance 3</strong> — 97 cars, drift combos, license tests, the works</td></tr>
+        <tr><td>The highest-rated by critics</td><td><strong>GT Advance 1</strong> (82 Metacritic)</td></tr>
+        <tr><td>The most polished and modern-feeling</td><td><strong>GT Advance 3</strong> — battery save, better camera, more forgiving physics</td></tr>
+    </tbody>
+</table>
+
+<!-- ==================== SOURCES ==================== -->
+<h2>📚 Sources</h2>
+<ul>
+    <li><a href="https://en.wikipedia.org/wiki/GT_Advance" target="_blank" rel="noopener">Wikipedia — GT Advance Championship Racing</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/GT_Advance_2:_Rally_Racing" target="_blank" rel="noopener">Wikipedia — GT Advance 2: Rally Racing</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/GT_Advance_3:_Pro_Concept_Racing" target="_blank" rel="noopener">Wikipedia — GT Advance 3: Pro Concept Racing</a></li>
+    <li><a href="https://www.gamespot.com/reviews/gt-advance-championship-racing-review/1900-2770808/" target="_blank" rel="noopener">GameSpot — GT Advance 1 Review (Amer Ajami, 2001)</a></li>
+    <li><a href="https://www.gamespot.com/reviews/gt-advance-2-rally-racing/1900-2875211/" target="_blank" rel="noopener">GameSpot — GT Advance 2 Review (Amer Ajami, 2002)</a></li>
+    <li><a href="https://www.gamespot.com/reviews/gt-advance-3-pro-concept-racing-review/1900-6024935/" target="_blank" rel="noopener">GameSpot — GT Advance 3 Review (Frank Provo, 2003)</a></li>
+    <li><a href="https://www.metacritic.com/game/gt-advance-championship-racing/" target="_blank" rel="noopener">Metacritic — GT Advance Championship Racing</a></li>
+    <li><a href="https://www.metacritic.com/game/gt-advance-2-rally-racing/" target="_blank" rel="noopener">Metacritic — GT Advance 2: Rally Racing</a></li>
+    <li><a href="https://www.metacritic.com/game/gt-advance-3-pro-concept-racing/" target="_blank" rel="noopener">Metacritic — GT Advance 3: Pro Concept Racing</a></li>
+    <li><a href="https://www.mobygames.com/game/9053/gt-advance-2-rally-racing/" target="_blank" rel="noopener">MobyGames — GT Advance 2: Rally Racing</a></li>
+    <li><a href="http://www.nintendoworldreport.com/review/3796/gt-advance-championship-racing-game-boy-advance" target="_blank" rel="noopener">Nintendo World Report — GT Advance 1 Review</a></li>
+    <li><a href="https://www.gamingtarget.com/article.php?artid=2241" target="_blank" rel="noopener">Gaming Target — GT Advance 1 Review</a></li>
+    <li><a href="https://www.gamingtarget.com/article.php?artid=2244" target="_blank" rel="noopener">Gaming Target — GT Advance 3 Review</a></li>
+    <li><a href="https://gamezone.com/reviews/gt_advance_3_pro_concept_racing_gba_review/" target="_blank" rel="noopener">GameZone — GT Advance 3 Review</a></li>
+    <li><a href="https://www.freezenet.ca/review-gt-advance-2-rally-racing-game-boy-advance/" target="_blank" rel="noopener">Freezenet — GT Advance 2 Review</a></li>
+    <li><a href="https://www.nintendoreporters.com/en/releases/nintendo-game-boy-advance/4-games-on-one-game-pak-gt-advance-gt-advance-2-gt-advance-3-motogp/" target="_blank" rel="noopener">NintendoReporters — 4-in-1 Combo Cart Info</a></li>
+</ul>
+
+<footer>
+    <p>📝 Research compiled from contemporary reviews (2001–2003), Wikipedia entries, Metacritic archives, and fan retrospectives. All scores reflect original release-period reviews.</p>
+    <p>Built with ❤️ for GBA racing fans. &copy; 2025</p>
+</footer>
+
+</body>
+</html>
