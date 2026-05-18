@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RG Rotate EDC Media & Gaming Guide — Apps, Launchers & Emulators</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-alt: #161b22;
+            --bg-card: #1c2333;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d2991d;
+            --accent-purple: #a371f7;
+            --accent-red: #f85149;
+            --accent-pink: #db61a2;
+            --radius: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 0;
+        }
+        .container { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+        header {
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        header p { color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin: 0 auto; }
+        .spec-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .spec-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .spec-pill strong { color: var(--text); }
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        h2 .emoji { font-size: 1.3rem; }
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.8rem 0 0.7rem;
+            color: var(--accent);
+        }
+        h4 {
+            font-size: 1.05rem;
+            margin: 1.3rem 0 0.5rem;
+            color: var(--text);
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.3rem 1.5rem;
+            margin: 1rem 0;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: var(--accent); }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .badge-free { background: #1a3a1a; color: var(--accent-green); }
+        .badge-paid { background: #3a2a0a; color: var(--accent-orange); }
+        .badge-oss { background: #1a2a3a; color: var(--accent); }
+        .badge-recommended { background: #2a1a3a; color: var(--accent-purple); }
+        .badge-warning { background: #3a1a1a; color: var(--accent-red); }
+        .badge-new { background: #1a3a2a; color: #56d364; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        ul, ol { margin-left: 1.5rem; margin-top: 0.5rem; }
+        li { margin-bottom: 0.4rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            padding: 0.65rem 0.9rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--bg-alt);
+            font-weight: 600;
+            color: var(--accent);
+            position: sticky;
+            top: 0;
+        }
+        tr:hover { background: rgba(88, 166, 255, 0.04); }
+        .tip-box {
+            background: linear-gradient(135deg, #1a2a1a, #1a2a2a);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1rem 1.3rem;
+            margin: 1.2rem 0;
+        }
+        .tip-box strong { color: var(--accent-green); }
+        .warn-box {
+            background: linear-gradient(135deg, #2a1a1a, #2a1a2a);
+            border-left: 4px solid var(--accent-orange);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1rem 1.3rem;
+            margin: 1.2rem 0;
+        }
+        .warn-box strong { color: var(--accent-orange); }
+        .vs-table td:first-child { font-weight: 600; white-space: nowrap; }
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin: 0.3rem 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent));
+        }
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .flow .card { flex: 1 1 280px; margin: 0; }
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        @media (max-width: 640px) {
+            header h1 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎮 RG Rotate — EDC Media &amp; Gaming Master Guide</h1>
+    <p>Turn your ANBERNIC RG Rotate into the ultimate everyday-carry device for music, podcasts, classic anime, and retro gaming.</p>
+    <div class="spec-bar">
+        <span class="spec-pill"><strong>CPU:</strong> Unisoc Tiger T618</span>
+        <span class="spec-pill"><strong>RAM:</strong> 3 GB</span>
+        <span class="spec-pill"><strong>Storage:</strong> 32 GB + microSD (up to 2 TB)</span>
+        <span class="spec-pill"><strong>Display:</strong> 3.5″ 720×720 IPS</span>
+        <span class="spec-pill"><strong>OS:</strong> Android 12</span>
+        <span class="spec-pill"><strong>Battery:</strong> 2,000 mAh (~5 hrs)</span>
+        <span class="spec-pill"><strong>Audio:</strong> USB-C only (no 3.5 mm)</span>
+        <span class="spec-pill"><strong>Wi-Fi:</strong> 5 · BT 5.0</span>
+    </div>
+</header>
+
+<div class="container">
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<h2><span class="emoji">📋</span> Table of Contents</h2>
+<ol>
+    <li><a href="#music">Music Players</a></li>
+    <li><a href="#podcasts">Podcast Apps</a></li>
+    <li><a href="#anime">Anime Streaming (Older / Retro Anime)</a></li>
+    <li><a href="#launchers">Launcher Showdown &amp; Recommendation</a></li>
+    <li><a href="#gb-gbc">Game Boy / Game Boy Color Emulators</a></li>
+    <li><a href="#pico8">PICO-8 on Android</a></li>
+    <li><a href="#snes">SNES Emulators</a></li>
+    <li><a href="#accessories">Must-Have Accessories</a></li>
+    <li><a href="#final-checklist">Final EDC Checklist</a></li>
+</ol>
+
+<div class="warn-box">
+    <strong>⚠️ Key RG Rotate Hardware Notes:</strong> This device has <strong>no analog sticks</strong> (D-pad only), <strong>no 3.5mm headphone jack</strong> (USB-C audio or Bluetooth only), a <strong>mono rear-facing speaker</strong>, and only <strong>32 GB internal storage</strong> — a microSD card is practically mandatory. The 1:1 square 720×720 screen is <em>perfect</em> for Game Boy/Game Boy Color and PICO-8, but other systems will display with letterboxing.
+</div>
+
+<!-- ===== MUSIC ===== -->
+<h2 id="music"><span class="emoji">🎵</span> Music Players</h2>
+<p>The RG Rotate was literally marketed by ANBERNIC as doubling as an MP3 player when the screen is closed. Android gives you far better options than the stock player. Here are the best:</p>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 Musicolet</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-recommended">Top Pick</span>
+    </div>
+    <p><strong>The single best offline music player for a retro handheld.</strong> Tiny app size (~6 MB), zero internet permission (truly offline), no ads, multiple queues (unique feature — have separate queues for different moods), folder browsing, sleep timer, tag editor, stunning widgets, and lock-screen controls. It's lightweight enough to run beautifully on the RG Rotate's 3 GB RAM.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.krosbits.musicolet" target="_blank">Google Play →</a> | <a href="https://krosbits.in/musicolet" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 Retro Music Player</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+    </div>
+    <p>Beautiful Material You design with 10+ now-playing themes, gapless playback, lyrics support, Chromecast, Android Auto, and 30+ languages. A gorgeous choice if you want visual flair on that square screen. Actively maintained with 5,000+ GitHub stars.</p>
+    <p><a href="https://github.com/RetroMusicPlayer/RetroMusicPlayer" target="_blank">GitHub →</a> | <a href="https://retromusic.app/" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥉 Oto Music</h3>
+        <span class="badge badge-free">Free</span>
+    </div>
+    <p>Clean, minimalist design that looks great on small screens. Smooth animations, Chromecast support, and a polished now-playing experience. Very lightweight.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.piyush.music" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 mMusic Mini Audio Player</h3>
+        <span class="badge badge-free">Free</span>
+    </div>
+    <p>Ultra-tiny (&lt;1 MB!), no-nonsense folder-based player. Swipe between now-playing, file browser, and playlist. If you want the absolute smallest footprint possible on limited storage, this is it.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=mindmine.music.mini" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 Spotube</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+    </div>
+    <p>Open-source Spotify client that uses the Spotify API for discovery but streams audio from YouTube/Piped — no ads, no premium needed. Great for streaming discovery when on Wi-Fi, then switch to Musicolet for offline listening.</p>
+    <p><a href="https://github.com/KRTirtho/spotube" target="_blank">GitHub →</a></p>
+</div>
+
+<div class="tip-box">
+    <strong>💡 Pro Tip:</strong> The RG Rotate lacks a 3.5mm jack. For <strong>wired headphones</strong> you'll need a USB-C DAC/adapter. The <strong>Apple USB-C to 3.5mm adapter</strong> ($9) is surprisingly excellent and well-regarded in audiophile circles for its price. The <strong>CX31993 USB-C DAC</strong> and <strong>FiiO JadeAudio JA11</strong> are also great alternatives. Or just use Bluetooth earbuds/headphones.
+</div>
+
+<!-- ===== PODCASTS ===== -->
+<h2 id="podcasts"><span class="emoji">🎙️</span> Podcast Apps</h2>
+<p>For podcast listening on the go with offline downloads — essential for an EDC device.</p>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 AntennaPod</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+        <span class="badge badge-recommended">Top Pick</span>
+    </div>
+    <p><strong>The definitive podcast app for a privacy-focused EDC device.</strong> Free, open source, no account required, no ads, no tracking. Auto-download for offline listening, variable playback speed, sleep timer, chapter support, and OPML import/export. Uses the Apple Podcasts database for discovery. Available on F-Droid as well. <em>This is the app you install first.</em></p>
+    <p><a href="https://play.google.com/store/apps/details?id=de.danoeh.antennapod" target="_blank">Google Play →</a> | <a href="https://f-droid.org/packages/de.danoeh.antennapod/" target="_blank">F-Droid →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 Pocket Casts</h3>
+        <span class="badge badge-free">Free (with IAP)</span>
+    </div>
+    <p>The Verge and Android Central both call this the best podcast app. Beautiful Material Design, cross-device sync, silence trimming, volume boost, Chromecast support, and excellent discovery tools. The free tier is generous. If you want a more polished UI than AntennaPod, go with Pocket Casts.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 Podcast Addict</h3>
+        <span class="badge badge-free">Free (with ads)</span>
+    </div>
+    <p>Feature-packed veteran with support for podcasts, audiobooks, live radio, YouTube channels, and RSS feeds. Highly customizable with extensive automation options for downloads.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict" target="_blank">Google Play →</a></p>
+</div>
+
+<!-- ===== ANIME ===== -->
+<h2 id="anime"><span class="emoji">📺</span> Older / Retro Anime</h2>
+<p>For watching classic anime on the RG Rotate's 3.5″ screen — the T618 chip can handle video playback easily.</p>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 RetroCrush</h3>
+        <span class="badge badge-free">Free (with ads)</span>
+        <span class="badge badge-recommended">Top Pick</span>
+    </div>
+    <p><strong>A dedicated channel for the Golden Age of anime.</strong> Stream classic anime legally — including exclusive first-time English releases. Curated selection of retro and not-so-retro classics. Has an official Android app. The easiest, most legit way to get older anime on the RG Rotate.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.dmr.retrocrush" target="_blank">Google Play →</a> | <a href="https://www.retrocrush.tv/" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 Anikku</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+    </div>
+    <p>Full-featured open-source anime watcher forked from Aniyomi. Supports extensions for multiple sources, offline downloads, tracker sync (MyAnimeList, AniList, Kitsu), Android TV support, customizable themes, and bulk management. Side-load the APK from GitHub. <em>Use responsibly with legal sources.</em></p>
+    <p><a href="https://github.com/komikku-app/anikku" target="_blank">GitHub →</a> | <a href="https://anikku.com/" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 Crunchyroll</h3>
+        <span class="badge badge-free">Free (with ads)</span>
+    </div>
+    <p>The mainstream option. Has a decent back catalog of older anime and a polished Android app. Free tier has ads and limited catalog access; premium removes them.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.crunchyroll.crunchyroid" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="tip-box">
+    <strong>💡 Offline Viewing Strategy:</strong> With only 32 GB internal storage, you'll want a large microSD card (256 GB or 512 GB recommended). Download anime episodes while on Wi-Fi for offline viewing. Most apps let you choose the SD card as download storage in their settings. A 256 GB card can hold roughly 80–100 hours of 720p anime episodes.
+</div>
+
+<!-- ===== LAUNCHERS ===== -->
+<h2 id="launchers"><span class="emoji">🏠</span> Launcher Showdown</h2>
+<p>Choosing the right launcher transforms the RG Rotate from an Android device into a dedicated retro handheld. Here's how they compare:</p>
+
+<table class="vs-table">
+    <thead>
+        <tr><th>Feature</th><th>Cannoli</th><th>Daijishō</th><th>ES-DE</th><th>Beacon</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Price</td><td>🆓 Free</td><td>🆓 Free</td><td>💲 $5.50 (Patreon)</td><td>💲 $2.99</td></tr>
+        <tr><td>Open Source</td><td>✅ GPLv3</td><td>✅ Yes</td><td>⚠️ Partially</td><td>❌ No</td></tr>
+        <tr><td>Built-in Cores</td><td>✅ 17 cores</td><td>❌ No</td><td>❌ No</td><td>❌ No</td></tr>
+        <tr><td>Art Scraping</td><td>❌ (by design)</td><td>✅ Yes</td><td>✅ Excellent</td><td>⚠️ Mixed</td></tr>
+        <tr><td>Setup Complexity</td><td>🟢 Minimal</td><td>🟡 Moderate</td><td>🔴 Complex</td><td>🟡 Moderate</td></tr>
+        <tr><td>Theme Support</td><td>❌ (opinionated)</td><td>✅ Yes</td><td>✅ Extensive</td><td>⚠️ Limited</td></tr>
+        <tr><td>D-Pad Navigation</td><td>✅ Excellent</td><td>✅ Good</td><td>✅ Excellent</td><td>✅ Good</td></tr>
+        <tr><td>RetroAchievements</td><td>✅</td><td>❌</td><td>✅ (via emulator)</td><td>❌</td></tr>
+        <tr><td>Android Apps</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>RG Rotate Fit</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+    </tbody>
+</table>
+
+<h3>🏆 Winner for RG Rotate: <span style="color:var(--accent-purple);">Cannoli</span></h3>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 Cannoli</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+        <span class="badge badge-recommended">Best for RG Rotate</span>
+    </div>
+    <p><strong>The closest thing to MinUI on Android.</strong> Cannoli is an opinionated, no-fuss retro gaming setup that ships with 17 built-in libretro cores — including <strong>Gambatte (GB/GBC), Snes9x (SNES), mGBA (GBA), Nestopia (NES), Genesis Plus GX, PCSX ReARMed (PS1)</strong> and more. It can also launch RetroArch or standalone emulators. The design philosophy is "play some damn games" — minimal configuration, no art scraper, no menu music, no video previews. Just a clean game list that gets out of your way.</p>
+    <p><strong>Why it's perfect for the RG Rotate:</strong> The square screen, D-pad-only controls, and the Cannoli philosophy are a match made in heaven. It handles GB, GBC, SNES, and PICO-8 (via RetroArch) beautifully. The built-in Gambatte core means zero setup for Game Boy games.</p>
+    <p><a href="https://github.com/CannoliHQ/cannoli" target="_blank">GitHub →</a> | <a href="https://cannoli.dev/" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 Daijishō</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+    </div>
+    <p>The most popular retro launcher on Android for good reason. 500K+ downloads, 30+ emulator support, automatic metadata scraping, and a vibrant theme community. Slightly more complex setup than Cannoli but much more customizable. Excellent if you want cover art and a polished library view.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play →</a> | <a href="https://daijisho.com/" target="_blank">Website →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 ES-DE (EmulationStation Desktop Edition)</h3>
+        <span class="badge badge-paid">$5.50 via Patreon</span>
+    </div>
+    <p>The gold standard for desktop emulation frontends, now on Android. Supports 150+ systems, gorgeous themes, built-in scraper, custom collections. However, it's overkill for the RG Rotate's D-pad-only, T618-limited use case, and the $5.50 cost may not be justified unless you plan to sync with a desktop ES-DE setup.</p>
+    <p><a href="https://es-de.org/" target="_blank">Website →</a> | <a href="https://www.patreon.com/es_de" target="_blank">Patreon →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 Beacon Game Launcher</h3>
+        <span class="badge badge-paid">$2.99</span>
+    </div>
+    <p>Simple, clean retro launcher with automatic cover art scraping. 10K+ downloads. A solid budget choice if you want something between Daijishō and Cannoli in complexity. Some users report scraping inaccuracies compared to ES-DE.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.radikal.gamelauncher" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="tip-box">
+    <strong>💡 Should you build your own launcher?</strong> Probably not — unless you're a developer doing it for fun. The existing options (especially Cannoli and Daijishō) are mature, well-tested, and actively maintained. Building a custom launcher for Android is a significant undertaking involving Activity management, intent handling, storage access framework integration, and controller mapping. The time is better spent playing games. If you <em>do</em> want to tinker, Daijishō is open source and themable — you can customize its appearance without reinventing the wheel.
+</div>
+
+<!-- ===== GB/GBC ===== -->
+<h2 id="gb-gbc"><span class="emoji">🕹️</span> Game Boy &amp; Game Boy Color Emulators</h2>
+<p>The RG Rotate's 1:1 square screen (720×720) is <strong>made for Game Boy and Game Boy Color games</strong>. These systems' native aspect ratios (10:9) fill the screen beautifully with minimal letterboxing. The T618 is massive overkill for GB/GBC — you'll get perfect 60 fps with zero issues.</p>
+
+<h3>Emulator Comparison</h3>
+<table class="vs-table">
+    <thead>
+        <tr><th>Emulator</th><th>Price</th><th>Accuracy</th><th>Features</th><th>Best For</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Gambatte</strong> (RetroArch core)</td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>Save states, cheats, color correction, shaders</td>
+            <td>Purists who want accuracy</td>
+        </tr>
+        <tr>
+            <td><strong>SameBoy</strong> (RetroArch core)</td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>Extremely accurate, link cable emulation</td>
+            <td>Accuracy above all else</td>
+        </tr>
+        <tr>
+            <td><strong>Pizza Boy GBC</strong></td>
+            <td>Free / Pro</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>Beautiful UI, quick save/load, skin support</td>
+            <td>Best standalone experience</td>
+        </tr>
+        <tr>
+            <td><strong>My OldBoy!</strong></td>
+            <td>Free / $3.99</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>Link cable emulation, tilt sensor, rumble, fast-forward</td>
+            <td>Pokémon trading</td>
+        </tr>
+        <tr>
+            <td><strong>GBC.emu</strong></td>
+            <td>$2.99</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>Minimal UI, low latency, HID controller support</td>
+            <td>No-nonsense paid option</td>
+        </tr>
+        <tr>
+            <td><strong>GBCC</strong></td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>Game Boy Camera &amp; Printer support, shaders, rumble</td>
+            <td>Hardware feature enthusiasts</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 Gambatte (via RetroArch or Cannoli)</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-recommended">Recommended</span>
+    </div>
+    <p>The gold standard for GB/GBC emulation. Ships built-in with Cannoli so you don't even need to install anything extra if you use Cannoli as your launcher. In RetroArch, just download the Gambatte core from the Online Updater. Perfect accuracy, shader support for that authentic LCD look, and RetroAchievements integration.</p>
+    <p>For the RG Rotate specifically, pair Gambatte with an LCD grid shader to simulate the original GBC screen — it looks phenomenal on the 720×720 IPS display.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 Pizza Boy GBC</h3>
+        <span class="badge badge-free">Free (Basic) / Paid (Pro)</span>
+    </div>
+    <p>The best standalone GB/GBC emulator on Android with a gorgeous, modern UI. Skin support, quick save/load, and excellent performance. The Pro version removes ads and adds more features. If you prefer standalone emulators over RetroArch/Cannoli, this is the one.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=it.dbtecno.pizzaboygbc" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥉 My OldBoy!</h3>
+        <span class="badge badge-free">Free (Lite) / $3.99 (Full)</span>
+    </div>
+    <p>The standout feature is <strong>link cable emulation</strong> — you can trade Pokémon between two instances on the same device, or even across devices over Bluetooth or Wi-Fi. Also supports tilt sensor and rumble emulation. The free Lite version is very capable.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.fastemulator.gbcfree" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="tip-box">
+    <strong>💡 GB/GBC on the Square Screen:</strong> Game Boy and Game Boy Color games run at a 160×144 resolution (10:9 aspect ratio). On the RG Rotate's 720×720 display, integer scaling with a 5× factor gives you 720×720 — nearly full screen with just a tiny amount of letterboxing. With a good LCD shader (like <code>lcd3x</code> or <code>zfast-lcd</code>), GB/GBC games look absolutely stunning. This is arguably the <strong>best use case for the RG Rotate's unique screen</strong>.
+</div>
+
+<!-- ===== PICO-8 ===== -->
+<h2 id="pico8"><span class="emoji">🧪</span> PICO-8</h2>
+<p>PICO-8's native 128×128 resolution and 1:1 aspect ratio make the RG Rotate's 720×720 screen a <strong>perfect match</strong>. This is one of the most exciting use cases for this device. There are now <strong>four</strong> solid ways to run PICO-8 on Android — each with different trade-offs in cost, compatibility, and convenience.</p>
+
+<h3>PICO-8 Options at a Glance</h3>
+<table class="vs-table">
+    <thead>
+        <tr><th>Feature</th><th>PICO-8 Android Wrapper</th><th>PicPic</th><th>Fake-08 (RetroArch)</th><th>Infinity - P8 Player</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Price</td>
+            <td>🆓 (needs PICO-8 $15)</td>
+            <td>🆓 Free (+ $7.99 IAP)</td>
+            <td>🆓 Free</td>
+            <td>🆓 Free (with ads)</td>
+        </tr>
+        <tr>
+            <td>Installation</td>
+            <td>🟡 Side-load APK + zip</td>
+            <td>🟢 Google Play</td>
+            <td>🟡 Manual RetroArch core</td>
+            <td>🟢 Google Play</td>
+        </tr>
+        <tr>
+            <td>Engine</td>
+            <td>🟢 Official PICO-8 binary</td>
+            <td>🟡 Custom reimplementation</td>
+            <td>🟡 Open-source reimpl.</td>
+            <td>🟡 Based on Fake-08</td>
+        </tr>
+        <tr>
+            <td>Splore / BBS</td>
+            <td>✅ Full support</td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Game Compatibility</td>
+            <td>⭐⭐⭐⭐⭐ 100%</td>
+            <td>⭐⭐⭐⭐ Good</td>
+            <td>⭐⭐⭐⭐ Good</td>
+            <td>⭐⭐⭐ Fair</td>
+        </tr>
+        <tr>
+            <td>Multi-cart Games</td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>✅ (all carts needed)</td>
+            <td>⚠️ Limited</td>
+        </tr>
+        <tr>
+            <td>Controller Support</td>
+            <td>✅ Full</td>
+            <td>✅ Full</td>
+            <td>✅ (via RetroArch)</td>
+            <td>⚠️ Basic</td>
+        </tr>
+        <tr>
+            <td>Frontend Integration</td>
+            <td>✅ ES-DE, Beacon, Daijishō</td>
+            <td>⚠️ Standalone only</td>
+            <td>✅ (via RetroArch)</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Shaders / Bezels</td>
+            <td>✅ Built-in</td>
+            <td>⚠️ Optional filter only</td>
+            <td>✅ Full RetroArch shaders</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Haptic Feedback</td>
+            <td>❌</td>
+            <td>✅ Yes</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Touch Controls</td>
+            <td>⚠️ Virtual Kb only</td>
+            <td>✅ Full D-pad + analog</td>
+            <td>⚠️ RetroArch overlay</td>
+            <td>✅ Yes</td>
+        </tr>
+        <tr>
+            <td>Library / Organizer</td>
+            <td>✅ Favorites, Splore</td>
+            <td>✅ Grid library, search</td>
+            <td>⚠️ RetroArch playlist</td>
+            <td>⚠️ Basic list</td>
+        </tr>
+        <tr>
+            <td>RG Rotate Fit</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐</td>
+            <td>⭐⭐⭐</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 PICO-8 Android Wrapper</h3>
+        <span class="badge badge-free">Free APK</span>
+        <span class="badge badge-recommended">Best Experience</span>
+    </div>
+    <p><strong>The definitive way.</strong> A native Android wrapper by Macs75 that runs the official PICO-8 Raspberry Pi binary natively on Android. Requires you to purchase PICO-8 from Lexaloffle ($15). Supports full Splore (browse and download carts directly from the BBS), controller support, deep linking from Lexaloffle BBS, custom shaders, bezels, and frontend integration with ES-DE, Beacon, and Daijishō.</p>
+    <p><strong>Key features:</strong> 60 fps native performance using the real PICO-8 engine, landscape mode, external controller support, virtual keyboard, favorite management, play stats, 2-player support, home screen shortcuts for favorite carts, Syncthing cross-device sync, import from BBS with copy-to-folder, and trackpad mode. Tested on RG Cube and similar handhelds.</p>
+    <p><strong>Latest version:</strong> 1.6.2 (March 2026) — 22 releases, very actively maintained.</p>
+    <p><a href="https://github.com/Macs75/pico8-android" target="_blank">GitHub →</a> | <a href="https://www.lexaloffle.com/pico-8.php" target="_blank">Buy PICO-8 ($15) →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 PicPic — Emulator for Pico-8</h3>
+        <span class="badge badge-free">Free (with IAP)</span>
+        <span class="badge badge-new">New Contender</span>
+    </div>
+    <p><strong>The easiest zero-setup path — install from Google Play and play within minutes.</strong> Developed by Valentin Dreyfus (SA-MOO-RAI), PicPic is a dedicated PICO-8 emulation app available on both iOS App Store and Google Play. It's the first PICO-8 emulator to land on the iOS App Store (Feb 2026), with Android support following shortly after. PicPic runs games natively using its own reimplementation engine — no web views, no streaming, no internet required.</p>
+    <p><strong>What makes PicPic compelling for the RG Rotate:</strong></p>
+    <ul>
+        <li><strong>Dead-simple installation:</strong> Just install from Google Play. No side-loading APKs, no purchasing PICO-8, no configuring RetroArch cores. Perfect for a pick-up-and-play EDC device.</li>
+        <li><strong>Beautiful grid library:</strong> Organize carts in a visual grid with search, favorites, and folder import — feels like a native game launcher.</li>
+        <li><strong>Physical controller support:</strong> Plays perfectly with the RG Rotate's built-in D-pad and buttons. Controller also navigates the app menus (added in v2.0).</li>
+        <li><strong>Customizable touch layout:</strong> Reposition and resize the on-screen D-pad/buttons (or use the 360° analog joystick). Though on the RG Rotate, you'll use physical controls.</li>
+        <li><strong>Haptic feedback:</strong> Tactile response on button presses — a nice touch other options lack.</li>
+        <li><strong>Personalization:</strong> Custom app icons, console color themes (including OLED Black), and retro filter toggle.</li>
+        <li><strong>No ads:</strong> Clean, uninterrupted experience in the free tier.</li>
+        <li><strong>Save-to-cart:</strong> Game progress is saved directly to cart files.</li>
+    </ul>
+    <p><strong>Limitations to know:</strong></p>
+    <ul>
+        <li><strong>No Splore/BBS integration:</strong> Unlike the official wrapper, you can't browse and download carts from within the app. You must manually import cart files (.p8 or .p8.png) from storage, Chrome, or other apps.</li>
+        <li><strong>Compatibility not 100%:</strong> User reviews report some carts crash to a "FAKE-8" console screen, suggesting the emulation engine may share lineage with Fake-08. Most popular carts work fine, but edge cases exist.</li>
+        <li><strong>No frontend integration:</strong> PicPic is a standalone app — you can't launch carts directly from Cannoli, Daijishō, or ES-DE through it. You switch to the PicPic app to browse and play.</li>
+        <li><strong>Closed source:</strong> Not open source. The code is proprietary.</li>
+        <li><strong>Premium tier:</strong> The $7.99 "Unlock Everything" IAP is for personalization features (themes, icons) only — core gameplay functionality is all free.</li>
+    </ul>
+    <p><strong>Latest version:</strong> 2.0.2 (May 2026) — actively updated with improved game compatibility, controller menu navigation, direct web import, and more personalization options.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.sa_moo_rai.picpic" target="_blank">Google Play →</a> | <a href="https://apps.apple.com/us/app/pico-8-emulator-picpic/id6759208792" target="_blank">App Store (iOS) →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥉 Fake-08 (RetroArch Core)</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-oss">Open Source</span>
+    </div>
+    <p>An open-source reimplementation of the PICO-8 engine as a RetroArch core. Doesn't require purchasing PICO-8. Good compatibility with most carts, but lacks Splore support and some advanced features. Must be manually installed — download the 64-bit <code>libfake08-arm64.so</code> from GitHub and rename it to <code>fake08_libretro_android.so</code> before installing in RetroArch. Integrates with Cannoli and Daijishō through RetroArch.</p>
+    <p><strong>Known issues:</strong> Sound emulation is not perfect (noise instrument notably inaccurate), PICO-8 v0.2.2 features (sprite fill patterns, custom fonts) not fully implemented, some games using <code>flip()</code> have intermittent exit problems.</p>
+    <p><a href="https://github.com/jtothebell/fake-08" target="_blank">GitHub →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🔹 Infinity - P8 Player</h3>
+        <span class="badge badge-free">Free (with ads)</span>
+    </div>
+    <p>Android port of Fake-08 on the Play Store. Easy to install but based on Fake-08's limitations — no multi-cart games and limited compatibility. Good for trying out PICO-8 without any setup, but not as full-featured as the wrapper or PicPic options.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=me.dt2dev.infinity" target="_blank">Google Play →</a></p>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--accent-purple);">
+    <h3 style="margin:0; color:var(--accent-purple);">🤔 Which PICO-8 Option Should You Choose for the RG Rotate?</h3>
+    <table>
+        <thead><tr><th>Your Priority</th><th>Best Choice</th><th>Why</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>Best overall experience</strong></td>
+                <td>🥇 PICO-8 Android Wrapper</td>
+                <td>Official engine, 100% compatibility, Splore for discovering new games, frontend integration. The $15 PICO-8 license is worth it.</td>
+            </tr>
+            <tr>
+                <td><strong>Easiest setup (no cost)</strong></td>
+                <td>🥈 PicPic</td>
+                <td>Install from Google Play, import a folder of carts, start playing. No APK side-loading, no PICO-8 purchase, no RetroArch configuration.</td>
+            </tr>
+            <tr>
+                <td><strong>Frontend integration + free</strong></td>
+                <td>🥉 Fake-08 (RetroArch)</td>
+                <td>Integrates with Cannoli and Daijishō. Free and open source. Worth the extra setup effort if you want everything in one launcher.</td>
+            </tr>
+            <tr>
+                <td><strong>Absolute minimal effort</strong></td>
+                <td>🔹 Infinity</td>
+                <td>Simplest Play Store option. Good for a quick taste test, but you'll likely outgrow it quickly.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="tip-box">
+    <strong>💡 PICO-8 + Square Screen = Magic:</strong> PICO-8's 128×128 resolution integer-scales perfectly to 640×640 (5×) or 768×768 (6× — slightly cropped) on the RG Rotate's 720×720 display. At 5× scaling (640×640), you get a sharp, pixel-perfect image with small black borders that look intentional. Pair with a CRT shader for the ultimate retro fantasy console experience. <strong>Pro tip:</strong> If you go with PicPic, the "OLED Black" theme + retro filter gives a gorgeous look on the RG Rotate's IPS screen. This is genuinely one of the <strong>coolest things you can do with the RG Rotate</strong>.
+</div>
+
+<div class="warn-box">
+    <strong>⚠️ PicPic Compatibility Caveat:</strong> Some App Store reviews mention games crashing to a "FAKE-8" console screen (seen on both iOS and Android). This suggests PicPic may use a custom emulation engine related to or inspired by Fake-08/Zepto8. Most popular carts (Celeste, Poom, Pico Arcade, etc.) work well, but if you encounter a cart that doesn't run, try the official wrapper or Fake-08 RetroArch core. The developer is actively updating — the May 2026 update specifically mentions "improved game compatibility."
+</div>
+
+<!-- ===== SNES ===== -->
+<h2 id="snes"><span class="emoji">🎯</span> SNES Emulators</h2>
+<p>The SNES has a native 8:7 or 4:3 aspect ratio, so games will display with letterboxing/borders on the RG Rotate's square screen. However, the T618 chip runs SNES flawlessly, and the D-pad is perfect for SNES games (which never used analog sticks).</p>
+
+<table class="vs-table">
+    <thead>
+        <tr><th>Emulator</th><th>Price</th><th>Accuracy</th><th>Performance</th><th>Features</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Snes9x - Current</strong> (RetroArch)</td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>Great balance, shaders, achievements, cheats</td>
+        </tr>
+        <tr>
+            <td><strong>Snes9x EX+</strong></td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>Dedicated app, 10M+ downloads, save states</td>
+        </tr>
+        <tr>
+            <td><strong>BSNES</strong> (RetroArch)</td>
+            <td>Free</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐</td>
+            <td>Cycle-accurate, CPU-intensive, ultimate accuracy</td>
+        </tr>
+        <tr>
+            <td><strong>John NESS</strong></td>
+            <td>Free / $4.49</td>
+            <td>⭐⭐⭐</td>
+            <td>⭐⭐⭐⭐</td>
+            <td>NES + SNES, Dropbox sync, simple UI</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥇 Snes9x - Current (RetroArch) or Snes9x EX+</h3>
+        <span class="badge badge-free">Free</span>
+        <span class="badge badge-recommended">Recommended</span>
+    </div>
+    <p><strong>Snes9x is the best all-around SNES emulator on Android.</strong> The RetroArch core (Snes9x - Current) gives you access to shaders, RetroAchievements, run-ahead latency reduction, and the full RetroArch ecosystem. If you're using <strong>Cannoli</strong>, Snes9x is already built in — zero setup required.</p>
+    <p><strong>Snes9x EX+</strong> is the standalone version by Robert Broglia. Free, open source, 10M+ downloads on Google Play. Supports .smc, .sfc, .fig, and .zip formats, save states (10 slots), Bluetooth controllers, and Super Scope emulation via touchscreen. Great if you prefer standalone emulators.</p>
+    <p><a href="https://play.google.com/store/apps/details?id=com.explusalpha.Snes9xPlus" target="_blank">Google Play (EX+) →</a></p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 style="margin:0;">🥈 BSNES (RetroArch core) — for accuracy purists</h3>
+        <span class="badge badge-free">Free</span>
+    </div>
+    <p>If you demand cycle-accurate emulation and the T618 has enough headroom (it does for most SNES games), BSNES is the connoisseur's choice. It's more CPU-intensive than Snes9x but offers the most faithful reproduction of original SNES hardware behavior. Ideal for games with tricky timing or edge cases.</p>
+</div>
+
+<div class="tip-box">
+    <strong>💡 SNES on the Square Screen:</strong> SNES games render at 256×224 (8:7 PAR, displayed as 4:3). On the RG Rotate's 720×720 display, expect significant letterboxing at top and bottom. At 3× integer scale (768×672), the image is slightly cropped vertically but nearly fills the width. Most people will prefer 2× (512×448) with borders. Use the <code>crt-easymode</code> or <code>zfast-crt</code> shader for authentic CRT nostalgia. <strong>All SNES games play perfectly with the D-pad</strong> — no analog stick needed.
+</div>
+
+<!-- ===== ACCESSORIES ===== -->
+<h2 id="accessories"><span class="emoji">🔌</span> Must-Have Accessories</h2>
+
+<div class="flow">
+    <div class="card">
+        <h4>🧩 microSD Card</h4>
+        <p><strong>Non-negotiable.</strong> 32 GB internal storage is not enough. Get a <strong>256 GB or 512 GB</strong> A2-rated card (SanDisk Ultra, Samsung EVO Select, or TeamGroup Elite). The RG Rotate supports up to 2 TB cards. Store ROMs, music, podcasts, anime downloads, and PICO-8 carts here.</p>
+    </div>
+    <div class="card">
+        <h4>🎧 USB-C DAC / Headphone Adapter</h4>
+        <p>No 3.5mm jack. The <strong>Apple USB-C to 3.5mm adapter</strong> ($9) is the budget audiophile favorite. For better quality: <strong>CX31993 DAC</strong> or <strong>FiiO JA11</strong>. Or just use Bluetooth earbuds.</p>
+    </div>
+    <div class="card">
+        <h4>🛡️ Protective Case</h4>
+        <p>ANBERNIC sells an official RG Rotate case. Alternatively, the <strong>Supmay Hard Carrying Case</strong> or <strong>Peicees Small Crossbody Bag</strong> work well for pocket protection.</p>
+    </div>
+</div>
+
+<!-- ===== FINAL CHECKLIST ===== -->
+<h2 id="final-checklist"><span class="emoji">✅</span> Final EDC Checklist</h2>
+
+<div class="card" style="border-left: 4px solid var(--accent-green);">
+    <h3 style="margin-top:0;">What to Install (in order)</h3>
+    <ol>
+        <li><strong>microSD card</strong> — 256 GB+ recommended. Format as exFAT.</li>
+        <li><strong>Cannoli Launcher</strong> — install APK from GitHub, set as default home app.</li>
+        <li><strong>Musicolet</strong> — load up your MP3/FLAC collection on the SD card.</li>
+        <li><strong>AntennaPod</strong> — subscribe to podcasts, set auto-download over Wi-Fi.</li>
+        <li><strong>RetroCrush</strong> — for legal retro anime streaming.</li>
+        <li><strong>PicPic</strong> — install from Google Play for zero-setup PICO-8 gaming. (Or <strong>PICO-8 Android Wrapper</strong> if you own a PICO-8 license for the full Splore experience.)</li>
+        <li><strong>RetroArch</strong> (optional) — for Fake-08 core if you want PICO-8 integrated into Cannoli without the $15 license, and for BSNES/SameBoy if you want maximum accuracy.</li>
+        <li><strong>ROMs</strong> — place in <code>Cannoli/Roms/GB/</code>, <code>Cannoli/Roms/GBC/</code>, <code>Cannoli/Roms/SNES/</code>.</li>
+        <li><strong>PICO-8 carts</strong> — place <code>.p8.png</code> files in a folder on your SD card. Import into PicPic or load via the wrapper/RetroArch.</li>
+    </ol>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--accent-purple);">
+    <h3 style="margin-top:0;">Recommended Cannoli Core Assignments</h3>
+    <table>
+        <thead><tr><th>System</th><th>Cannoli Built-in Core</th><th>Alternative</th></tr></thead>
+        <tbody>
+            <tr><td>Game Boy</td><td><code>gambatte</code> ✅</td><td>SameBoy (RetroArch)</td></tr>
+            <tr><td>Game Boy Color</td><td><code>gambatte</code> ✅</td><td>SameBoy (RetroArch)</td></tr>
+            <tr><td>SNES / Super Famicom</td><td><code>snes9x</code> ✅</td><td>BSNES (RetroArch)</td></tr>
+            <tr><td>PICO-8</td><td>N/A (use standalone: Wrapper or PicPic)</td><td>Fake-08 (RetroArch)</td></tr>
+            <tr><td>Game Boy Advance</td><td><code>mgba</code> ✅</td><td>—</td></tr>
+            <tr><td>NES / Famicom</td><td><code>nestopia</code> ✅</td><td>—</td></tr>
+            <tr><td>Sega Genesis / MD</td><td><code>genesis_plus_gx</code> ✅</td><td>—</td></tr>
+        </tbody>
+    </table>
+    <p style="margin-top:0.8rem;"><em>✅ = Bundled with Cannoli. No separate installation needed.</em></p>
+    <p style="margin-top:0.5rem;"><em>For PICO-8 specifically: 🥇 <strong>Wrapper</strong> (own PICO-8) > 🥈 <strong>PicPic</strong> (quick & easy) > 🥉 <strong>Fake-08</strong> (free + integrated).</em></p>
+</div>
+
+<div class="warn-box">
+    <strong>⚠️ Things You Should Know:</strong>
+    <ul style="margin-top:0.5rem;">
+        <li>The RG Rotate has a <strong>mono rear-firing speaker</strong>. Audio quality is serviceable but not great. Use Bluetooth headphones or a USB-C DAC for serious listening.</li>
+        <li>Battery life is an estimated <strong>5 hours</strong> — carry a USB-C power bank for long days.</li>
+        <li>The hinge mechanism is novel but durability is unproven long-term. Treat it gently.</li>
+        <li>No analog sticks means no comfortable N64, Dreamcast, or PSP gaming. Stick to D-pad-centric systems.</li>
+        <li>The T618 can handle <em>some</em> GameCube and PS2, but without analog sticks and with only 3 GB RAM, don't expect much from those systems.</li>
+    </ul>
+</div>
+
+</div>
+
+<footer>
+    <p>RG Rotate EDC Guide — Compiled from ANBERNIC official specs, Retro Handhelds, Retro Game Corps, Android Authority, and community sources.</p>
+    <p style="margin-top:0.5rem;">Last updated: May 2026 · Device runs Android 12 on Unisoc Tiger T618</p>
+    <p style="margin-top:0.5rem; font-size:0.75rem;">Sources: <a href="https://anbernic.com/products/rg-rotate" target="_blank">ANBERNIC Official</a> · <a href="https://retrohandhelds.gg/anbernic-rg-rotate-setup-guide/" target="_blank">Retro Handhelds Setup Guide</a> · <a href="https://cannoli.dev/" target="_blank">Cannoli</a> · <a href="https://daijisho.com/" target="_blank">Daijishō</a> · <a href="https://es-de.org/" target="_blank">ES-DE</a> · <a href="https://github.com/Macs75/pico8-android" target="_blank">PICO-8 Android Wrapper</a> · <a href="https://play.google.com/store/apps/details?id=com.sa_moo_rai.picpic" target="_blank">PicPic (Google Play)</a> · <a href="https://retrohandhelds.gg/picpic-is-a-new-pico-8-emulator-for-ios/" target="_blank">PicPic Review (Retro Handhelds)</a> · <a href="https://retrosociety.co/picpic-first/" target="_blank">PicPic Review (Retro Society)</a> · <a href="https://github.com/jtothebell/fake-08" target="_blank">Fake-08</a> · <a href="https://www.androidauthority.com/best-snes-emulator-android-368394/" target="_blank">Android Authority</a> · <a href="https://retrogamecorps.com/2024/06/21/native-pico-8-on-android-guide/" target="_blank">Retro Game Corps</a></p>
+</footer>
+
+</body>
+</html>
