@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anbernic RG Rotate vs TrimUI Brick Hammer — EDC Retro Handheld Comparison</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-alt: #1c2333;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #f78166;
+            --green: #3fb950;
+            --yellow: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.2rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 2rem 0 0.8rem;
+            color: var(--text);
+        }
+        p { margin-bottom: 1rem; color: var(--text-muted); }
+        strong { color: var(--text); }
+        .verdict-box {
+            background: linear-gradient(135deg, #1a2332, #162032);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .verdict-box h2 { border-left: none; padding-left: 0; margin-top: 0; font-size: 1.8rem; color: var(--green); }
+        .verdict-box p { color: var(--text); font-size: 1.05rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        thead { background: var(--bg-card-alt); }
+        th {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+        }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+        tr:hover td { background: rgba(88,166,255,0.04); color: var(--text); }
+        .winner { color: var(--green); font-weight: 700; }
+        .loser { color: var(--red); }
+        .tie { color: var(--yellow); }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .card h3 { margin-top: 0; }
+        .pro-list, .con-list { list-style: none; padding: 0; }
+        .pro-list li::before { content: "✅ "; }
+        .con-list li::before { content: "❌ "; }
+        .pro-list li, .con-list li { padding: 0.35rem 0; color: var(--text-muted); }
+        .pro-list li { color: #c0e0c0; }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .tag {
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        .score-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 700px) {
+            .score-card { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+            h1 { font-size: 1.7rem; }
+        }
+        .score {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .score .big {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0.5rem 0;
+        }
+        .score .label { color: var(--text-muted); font-size: 0.9rem; }
+        .score.rg .big { color: var(--accent2); }
+        .score.trim .big { color: var(--accent); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+        .callout {
+            background: rgba(88,166,255,0.08);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 1.5rem 0;
+        }
+        .callout.warn {
+            background: rgba(248,81,73,0.08);
+            border-left-color: var(--red);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+        .badge.win { background: rgba(63,185,80,0.2); color: var(--green); }
+        .badge.lose { background: rgba(248,81,73,0.2); color: var(--red); }
+        ol, ul { color: var(--text-muted); margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+    </style>
+</head>
+<body>
+
+<h1>Anbernic RG Rotate vs. TrimUI Brick Hammer</h1>
+<p class="subtitle">Which Makes More Sense as Your Everyday Carry (EDC) Retro Handheld? — A Deep-Dive Comparison</p>
+
+<!-- INTRODUCTION -->
+<p>Both the <strong>Anbernic RG Rotate</strong> and the <strong>TrimUI Brick Hammer</strong> target the same audience: people who want a premium, pocketable retro handheld they can carry every day. But they take <em>radically different approaches</em>. This guide breaks down every angle — specs, real-world performance, EDC practicality, durability, software, and hidden trade-offs — so you can make a confident decision.</p>
+
+<div class="tags">
+    <span class="tag">Everyday Carry</span>
+    <span class="tag">Retro Gaming</span>
+    <span class="tag">Pocketable</span>
+    <span class="tag">Premium Build</span>
+    <span class="tag">Emulation</span>
+</div>
+
+<!-- QUICK VERDICT -->
+<div class="verdict-box">
+    <h2>🏆 The Short Answer</h2>
+    <p><strong>For pure EDC (everyday carry), the TrimUI Brick Hammer makes more sense for most people.</strong> It's lighter, more durable (no moving hinge to fail), has a larger battery, a headphone jack, front-firing speakers, a sharper screen for 4:3 content, and costs less. It's a proven design refined with a premium metal shell — ideal for short sessions on the bus, in waiting rooms, or during a coffee break.</p>
+    <p><strong>However, the RG Rotate is the clear winner if you want an Android-powered device</strong> that doubles as a music player / podcast machine without flipping open the gamepad, offers a touchscreen, has significantly more emulation horsepower, and sports a uniquely fun rotating mechanism that's a genuine conversation starter. It's the quirkier, more versatile pick — at the cost of battery life, size, and the long-term reliability question mark of its hinge.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- SPEC TABLE -->
+<h2>📊 Full Specifications Comparison</h2>
+
+<table>
+    <thead>
+        <tr><th>Feature</th><th>Anbernic RG Rotate</th><th>TrimUI Brick Hammer</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>CPU</strong></td>
+            <td>Unisoc Tiger T618 <span class="badge win">Win</span><br><small>Octa-core: 2× A75 @ 2.0GHz + 6× A55 @ 2.0GHz</small></td>
+            <td>Allwinner A133P<br><small>Quad-core @ 1.8GHz</small></td>
+        </tr>
+        <tr>
+            <td><strong>GPU</strong></td>
+            <td>Mali-G52 @ 850MHz <span class="badge win">Win</span></td>
+            <td>PowerVR GE8300 @ 660MHz</td>
+        </tr>
+        <tr>
+            <td><strong>RAM</strong></td>
+            <td>3GB <span class="badge win">Win</span></td>
+            <td>1GB LPDDR3</td>
+        </tr>
+        <tr>
+            <td><strong>Internal Storage</strong></td>
+            <td>32GB eMCP + microSD (up to 2TB)</td>
+            <td>8GB eMMC + microSD (up to 512GB–1TB)</td>
+        </tr>
+        <tr>
+            <td><strong>Screen</strong></td>
+            <td>3.5" IPS, 720×720 (1:1), Touchscreen<br><small>~291 PPI</small></td>
+            <td>3.2" IPS, 1024×768 (4:3) <span class="badge win">Win</span><br><small>~400 PPI — incredibly sharp</small></td>
+        </tr>
+        <tr>
+            <td><strong>Operating System</strong></td>
+            <td>Android 12</td>
+            <td>Linux (TrimUI / MinUI / NextUI / muOS / Knulli)</td>
+        </tr>
+        <tr>
+            <td><strong>Battery</strong></td>
+            <td>2,000mAh (~5 hrs) <span class="badge lose">Loss</span></td>
+            <td>3,000mAh (~5–6 hrs) <span class="badge win">Win</span></td>
+        </tr>
+        <tr>
+            <td><strong>Audio</strong></td>
+            <td>Stereo speakers (rear-facing)<br>❌ No 3.5mm jack <span class="badge lose">Loss</span></td>
+            <td>Front-firing stereo speakers<br>✅ 3.5mm headphone jack <span class="badge win">Win</span></td>
+        </tr>
+        <tr>
+            <td><strong>Connectivity</strong></td>
+            <td>Wi-Fi 5, Bluetooth 5.0</td>
+            <td>Wi-Fi 2.4/5GHz, Bluetooth 4.2</td>
+        </tr>
+        <tr>
+            <td><strong>Weight</strong></td>
+            <td>167g (plastic) / 204g (metal) <span class="badge lose">Loss</span></td>
+            <td>196g (full metal) <span class="badge win">Win</span></td>
+        </tr>
+        <tr>
+            <td><strong>Dimensions</strong></td>
+            <td>80 × 80 × 21mm</td>
+            <td>110 × 73 × 12–20mm</td>
+        </tr>
+        <tr>
+            <td><strong>Analog Sticks</strong></td>
+            <td>❌ None</td>
+            <td>❌ None</td>
+        </tr>
+        <tr>
+            <td><strong>Special Feature</strong></td>
+            <td>Rotating/swivel screen mechanism</td>
+            <td>Full CNC aluminum body, RGB lighting</td>
+        </tr>
+        <tr>
+            <td><strong>Price (MSRP)</strong></td>
+            <td>$82.99 (plastic) / $99.99 (metal)<br><small>Early bird; regular $87.99 / $107.99</small></td>
+            <td>~$75–$110 depending on retailer<br><small>Often $80–$95 with coupon codes</small></td>
+        </tr>
+    </tbody>
+</table>
+
+<hr class="section-divider">
+
+<!-- HEAD-TO-HEAD SCORES -->
+<h2>⚡ Head-to-Head: EDC Category Scores</h2>
+
+<div class="score-card">
+    <div class="score rg">
+        <div class="label">Anbernic RG Rotate</div>
+        <div class="big">38</div>
+        <div class="label">out of 55 points</div>
+    </div>
+    <div class="score trim">
+        <div class="label">TrimUI Brick Hammer</div>
+        <div class="big">44</div>
+        <div class="label">out of 55 points</div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr><th>EDC Category (5 pts max)</th><th>RG Rotate</th><th>Brick Hammer</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Portability (size/weight)</strong></td><td>⭐⭐⭐⭐ <small>(4)</small></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>Brick Hammer is lighter and thinner in pocket; RG Rotate is chunky at 21mm when folded</td></tr>
+        <tr><td><strong>Durability / Build</strong></td><td>⭐⭐⭐ <small>(3)</small></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>Rotating hinge is a long-term unknown; Hammer is a solid metal unibody with no moving parts</td></tr>
+        <tr><td><strong>Battery Life</strong></td><td>⭐⭐⭐ <small>(3)</small></td><td class="winner">⭐⭐⭐⭐ <small>(4)</small></td><td>3000mAh vs 2000mAh — Hammer has 50% more capacity</td></tr>
+        <tr><td><strong>Quick Resume / Pick-Up-and-Play</strong></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>⭐⭐⭐⭐ <small>(4)</small></td><td>Android deep sleep + rotating screen = instant wake. Linux CFW also excellent but not quite as instant</td></tr>
+        <tr><td><strong>Audio (headphone jack)</strong></td><td>⭐⭐ <small>(2)</small></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>No 3.5mm jack on RG Rotate means dongle life or Bluetooth only</td></tr>
+        <tr><td><strong>Screen Sharpness</strong></td><td>⭐⭐⭐ <small>(3)</small></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>400 PPI on Brick Hammer is stunning; 291 PPI on Rotate is decent</td></tr>
+        <tr><td><strong>Emulation Power</strong></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>⭐⭐⭐ <small>(3)</small></td><td>T618 handles up to some PS2/GC; A133P taps out at PS1/N64</td></tr>
+        <tr><td><strong>Media Versatility</strong></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>⭐⭐ <small>(2)</small></td><td>Android = Play Store, music, podcasts, video, streaming apps. Linux is gaming-only</td></tr>
+        <tr><td><strong>Software Ecosystem</strong></td><td class="winner">⭐⭐⭐⭐ <small>(4)</small></td><td>⭐⭐⭐⭐ <small>(4)</small></td><td>Android is flexible but fiddly; MinUI/NextUI is streamlined perfection. Tie.</td></tr>
+        <tr><td><strong>Pocket-Feel / "Fidget Factor"</strong></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>⭐⭐⭐ <small>(3)</small></td><td>The swivel is genuinely fun and satisfying; Hammer is just a solid brick (as intended)</td></tr>
+        <tr><td><strong>Value for Money</strong></td><td>⭐⭐⭐⭐ <small>(4)</small></td><td class="winner">⭐⭐⭐⭐⭐ <small>(5)</small></td><td>Hammer is ~$80–$95 for full metal; Rotate is more expensive and plastic version exists but compromises on build</td></tr>
+    </tbody>
+</table>
+
+<hr class="section-divider">
+
+<!-- DEEP DIVE: RG ROTATE -->
+<h2>🔍 Deep Dive: Anbernic RG Rotate</h2>
+
+<div class="card">
+    <h3>What Makes It Special</h3>
+    <p>The RG Rotate's defining feature is its <strong>90° swivel-screen mechanism</strong>. When closed, the 3.5-inch 720×720 touchscreen faces outward — making the device look like a pocketable square media player, reminiscent of the old iPod Nano. Flick the screen open and a full gamepad is revealed underneath. This isn't just a gimmick: it means you can <strong>use the device as a music player, podcast machine, or Android app device without ever exposing the controls</strong> — a genuinely useful EDC feature.</p>
+    <p>It runs <strong>Android 12</strong> on a <strong>Unisoc Tiger T618</strong> chipset with 3GB RAM — that's significantly more powerful than most devices in this size class. The T618 can handle PS1, N64, Dreamcast, PSP, and even some lighter PS2 and GameCube titles. However, the <strong>lack of analog sticks</strong> severely limits the practical use of that extra power for 3D games.</p>
+</div>
+
+<div class="card">
+    <h3>What Reviewers Say</h3>
+    <ul>
+        <li><strong>Retro Dodo:</strong> "I was very impressed with its build quality… it's overpowered, limited because of the lack of analogue stick. This excels in smaller console emulation, such as Game Boy, Neo Geo, Sega Game Gear, and PS1."</li>
+        <li><strong>Retro Handhelds:</strong> "Refreshingly Odd, But Not Perfect" — praised the unique design and Android flexibility, but noted the 32GB internal storage is "laughable."</li>
+        <li><strong>The Verge:</strong> Called it "an excellent handheld emulator with a unique design and more processing power than it needs."</li>
+        <li><strong>HandheldRank:</strong> "The swivel mechanism is highly reminiscent of the Motorola Flipout… When closed, it shares a spiritual lineage with the square, touchscreen iPod Nanos."</li>
+        <li><strong>GameLandMag:</strong> Warned: "Durability and hinge longevity are legitimate concerns for heavy users."</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>Pros &amp; Cons</h3>
+    <ul class="pro-list">
+        <li>Unique, fun rotating mechanism — great conversation starter</li>
+        <li>Powerful T618 chipset — up to some PS2/GameCube emulation</li>
+        <li>Android 12 — full Play Store access, streaming, apps, music</li>
+        <li>Can function as media player without deploying gamepad</li>
+        <li>Square 1:1 screen is <em>perfect</em> for Game Boy, Game Boy Color, Neo Geo Pocket, and Pico-8</li>
+        <li>Touchscreen for DS emulation and Android navigation</li>
+        <li>Deep sleep standby (Android) means instant-on for days</li>
+        <li>Interchangeable shoulder buttons (first for Anbernic)</li>
+        <li>Six-axis gyroscope for certain games</li>
+    </ul>
+    <ul class="con-list">
+        <li><strong>No 3.5mm headphone jack</strong> — requires USB-C DAC or Bluetooth headphones</li>
+        <li>Rear-facing speakers — audio muffles when placed on a surface</li>
+        <li>Only 2,000mAh battery — ~5 hours is modest</li>
+        <li>Only 32GB internal storage — microSD card is practically mandatory</li>
+        <li><strong>No analog sticks</strong> — limits playability of N64, Dreamcast, PSP, and anything newer</li>
+        <li>Hinge durability is an unknown long-term risk</li>
+        <li>Metal version is heavy at 204g for its size</li>
+        <li>Square screen means black bars on most 4:3 and 3:2 content</li>
+        <li>Slightly more expensive than the Brick Hammer</li>
+    </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- DEEP DIVE: BRICK HAMMER -->
+<h2>🔍 Deep Dive: TrimUI Brick Hammer</h2>
+
+<div class="card">
+    <h3>What Makes It Special</h3>
+    <p>The TrimUI Brick Hammer is the <strong>premium metal evolution of the beloved TrimUI Brick</strong> — widely considered one of the best pocket retro handhelds ever made. It takes the same formula (compact, ultra-sharp screen, great controls) and wraps it in a <strong>full CNC-machined aluminum body</strong> available in stunning colors like Gunmetal Gray, Rose Gold, and Fluorescent Green.</p>
+    <p>It runs <strong>Linux</strong> with access to excellent custom firmware options — <strong>MinUI</strong> and <strong>NextUI</strong> are widely praised for their clean, distraction-free interface that gets you into games in seconds. No Android complexity, no app store — just pure gaming. The 1024×768 display at 3.2" yields an incredible <strong>400 PPI</strong>, making pixel-art games look absolutely stunning.</p>
+</div>
+
+<div class="card">
+    <h3>What Reviewers Say</h3>
+    <ul>
+        <li><strong>Retro Handhelds:</strong> "The TrimUI Brick has been a fan favorite… The screen is simply gorgeous! If you liked the TrimUI Brick, and you're willing to fork over an extra $50, this one is going to come highly recommended."</li>
+        <li><strong>Techxreviews:</strong> "The cold touch of the metal body against your skin is the first indication that you are holding something special… It feels dense, robust, and incredibly solid. The tactile experience is vastly improved."</li>
+        <li><strong>Retro Society:</strong> "The Brick Hammer feels like a celebration of the original Brick. It adds a level of class and premium feel typically reserved for higher-end devices."</li>
+        <li><strong>RetroSpecd:</strong> "The Hammer is slightly warmer and heavier than the Brick, of course. But the metal body doesn't just look and feel nice — it also helps cool down the hotspot by spreading warmth throughout the device."</li>
+        <li><strong>Pocket Retro Gaming:</strong> "Stands out as one of the most appealing choices for those seeking a vertical handheld with premium metal construction."</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>Pros &amp; Cons</h3>
+    <ul class="pro-list">
+        <li>Full CNC aluminum body — premium feel that rivals devices at twice the price</li>
+        <li>Stunning 1024×768 display at 400 PPI — pixel-art looks incredible</li>
+        <li><strong>3.5mm headphone jack</strong> — plug in and play, no dongles needed</li>
+        <li>Front-firing stereo speakers — clear audio, not muffled</li>
+        <li>3,000mAh battery — 5–6 hours real-world playtime</li>
+        <li>Excellent custom firmware ecosystem (MinUI, NextUI, muOS, Knulli)</li>
+        <li>No moving parts — rock-solid durability for daily pocket carry</li>
+        <li>Interchangeable shoulder buttons included</li>
+        <li>RGB lighting for a personal touch</li>
+        <li>Often available under $90 with coupon codes</li>
+        <li>Metal body acts as heat spreader — better cooling than plastic Brick</li>
+    </ul>
+    <ul class="con-list">
+        <li>Allwinner A133P chipset is modest — <strong>tops out at PS1</strong> (light N64/ Dreamcast/PSP at best)</li>
+        <li><strong>No touchscreen</strong> — DS emulation possible but less convenient</li>
+        <li>Linux only — no Android apps, no streaming, no Play Store</li>
+        <li>1GB RAM is limited</li>
+        <li>Compact size can cause hand cramping in longer sessions (common to all micro handhelds)</li>
+        <li>No analog sticks</li>
+        <li>Metal body adds 40g vs. plastic Brick (but only 196g total — still light)</li>
+        <li>Stock OS is mediocre — custom firmware is strongly recommended</li>
+    </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- EDC-SPECIFIC ANALYSIS -->
+<h2>🎒 EDC-Specific Analysis: What Actually Matters Day-to-Day</h2>
+
+<div class="card">
+    <h3>🏃 The "Grab and Go" Test</h3>
+    <p><strong>Brick Hammer wins.</strong> It's thinner, lighter, and has no screen to worry about scratching when you toss it in a pocket or bag. The metal body can take a beating. The RG Rotate's exposed screen (when closed) means you'll want to use the included screen protector and be more careful — or buy a case.</p>
+</div>
+
+<div class="card">
+    <h3>🎧 The Headphone Situation</h3>
+    <p><strong>Brick Hammer wins decisively.</strong> The RG Rotate's lack of a 3.5mm headphone jack is a genuine EDC pain point. You either need USB-C headphones, a USB-C-to-3.5mm DAC dongle (which adds bulk and is easy to lose), or Bluetooth earbuds (which need charging). For a device you grab on the way out the door, the Brick Hammer's native headphone jack is far more convenient.</p>
+</div>
+
+<div class="card">
+    <h3>🔋 Battery Anxiety</h3>
+    <p><strong>Brick Hammer wins.</strong> 3,000mAh vs 2,000mAh is a 50% difference. In practical terms, the Brick Hammer can last a full day of intermittent play; the RG Rotate may need a top-up by late afternoon. Android's deep sleep helps the RG Rotate when <em>not</em> in use, but when gaming, the more powerful T618 chip draws more power.</p>
+</div>
+
+<div class="card">
+    <h3>📱 The "Media Player" Angle</h3>
+    <p><strong>RG Rotate wins.</strong> This is the RG Rotate's killer EDC feature. Leave it closed, and it's a pocketable Android device for music, podcasts, audiobooks, or even quick YouTube. The square screen with the clock interface makes it feel like a dedicated device. The Brick Hammer is purely a gaming handheld — it can't serve double duty as a media player.</p>
+</div>
+
+<div class="card">
+    <h3>🕹️ What Games Will You Actually Play?</h3>
+    <p>This is the most important question. <strong>For 8-bit and 16-bit games</strong> (NES, SNES, Genesis, Game Boy, GBA, Neo Geo, Pico-8), <strong>both devices are excellent.</strong> The Brick Hammer's sharper 4:3 screen is arguably better for these systems. The RG Rotate's square screen is perfect for GB/GBC and Pico-8 specifically.</p>
+    <p><strong>For PS1 and N64:</strong> Both can handle PS1. The RG Rotate handles N64 better thanks to the T618, but the lack of an analog stick makes N64 awkward on <em>both</em> devices.</p>
+    <p><strong>For Dreamcast, PSP, PS2, GameCube:</strong> Only the RG Rotate has the horsepower, but the lack of analog sticks severely limits practical enjoyment. The T618 is "overpowered for its controller layout," as Retro Dodo noted.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- USE-CASE SCENARIOS -->
+<h2>👤 Which One Is For You? — Use-Case Scenarios</h2>
+
+<div class="card">
+    <h3>🎯 You should buy the <span style="color: var(--accent);">TrimUI Brick Hammer</span> if…</h3>
+    <ul class="pro-list">
+        <li>You want the most durable, premium-feeling pocket handheld for under $100</li>
+        <li>You mainly play 8-bit and 16-bit games (NES through PS1)</li>
+        <li>A headphone jack matters to you — you want to plug in and play immediately</li>
+        <li>You value simplicity — pick up, press one button, and be in a game within 5 seconds</li>
+        <li>You want maximum battery life for all-day outings</li>
+        <li>You're rough on your gear — the solid metal body with no moving parts is built to last</li>
+        <li>You want the sharpest possible screen for pixel-art games</li>
+        <li>You prefer Linux custom firmware (MinUI/NextUI) over tinkering with Android</li>
+        <li>You're on a tighter budget and want the best build quality per dollar</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🎯 You should buy the <span style="color: var(--accent2);">Anbernic RG Rotate</span> if…</h3>
+    <ul class="pro-list">
+        <li>You want a device that doubles as a music player / podcast machine</li>
+        <li>You love unique, conversation-starting hardware designs</li>
+        <li>You want Android flexibility — Play Store, streaming apps, cloud gaming</li>
+        <li>You play a lot of Game Boy, Game Boy Color, Neo Geo Pocket, or Pico-8 (square screen is perfect)</li>
+        <li>You want the extra emulation headroom for PSP, Dreamcast, and some PS2 titles</li>
+        <li>You value touchscreen for DS emulation or Android navigation</li>
+        <li>You enjoy the satisfying mechanical feel of the swivel hinge</li>
+        <li>You don't mind using a USB-C DAC or Bluetooth for audio</li>
+        <li>You want deep sleep standby that lasts for days without battery drain</li>
+    </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- HIDDEN CONCERNS -->
+<h2>⚠️ Things You Might Not Have Considered</h2>
+
+<div class="callout warn">
+    <h3>RG Rotate: Hinge Longevity</h3>
+    <p>This is a first-generation product with a brand-new hinge mechanism from Anbernic. While early reviews praise the satisfying mechanical feel, <strong>no one knows how it will hold up after 6–12 months of daily pocket carry</strong>. Dust, lint, and repeated use could affect the mechanism over time. If you're hard on your gear, this is a real risk.</p>
+</div>
+
+<div class="callout warn">
+    <h3>RG Rotate: The 32GB Storage Problem</h3>
+    <p>32GB of internal storage on an Android device is extremely tight — especially since the OS takes up several GB. You <em>will</em> need a microSD card. Budget an extra $15–$30 for a quality card on top of the device cost.</p>
+</div>
+
+<div class="callout warn">
+    <h3>Brick Hammer: Linux Limitations</h3>
+    <p>You can't install Android apps. No Spotify, no Netflix, no cloud gaming (Xbox Cloud, GeForce Now), no web browsing. This is a dedicated gaming device. If you want a multi-purpose pocket computer, look elsewhere.</p>
+</div>
+
+<div class="callout warn">
+    <h3>Brick Hammer: Hand Cramping</h3>
+    <p>At 110×73×12mm, this is a <em>small</em> device. Multiple reviewers note that longer sessions (45+ minutes) can cause hand discomfort, especially for users with larger hands. This is true of all micro handhelds, but worth noting for EDC where you might want extended play sessions.</p>
+</div>
+
+<div class="callout">
+    <h3>Both Devices: No Analog Sticks</h3>
+    <p>Neither device has analog sticks. This is by design for pocketability, but it means that games requiring analog input (many N64, Dreamcast, PSP, and all PS2/GameCube titles) are either unplayable or severely compromised. If 3D console gaming is important to you, consider a device like the Anbernic RG Cube or Retroid Pocket instead.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- PRICING TABLE -->
+<h2>💰 Current Pricing (as of May 2026)</h2>
+
+<table>
+    <thead>
+        <tr><th>Device</th><th>Variant</th><th>Price</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2"><strong>Anbernic RG Rotate</strong></td>
+            <td>Polar Black (aluminum front, plastic back)</td>
+            <td>$82.99 (early bird) / $87.99</td>
+            <td>Lightest option (167g), but partially plastic</td>
+        </tr>
+        <tr>
+            <td>Aurora Silver (full aluminum)</td>
+            <td>$99.99 (early bird) / $107.99</td>
+            <td>Heavier (204g) but fully premium</td>
+        </tr>
+        <tr>
+            <td rowspan="2"><strong>TrimUI Brick Hammer</strong></td>
+            <td>AliExpress (with coupon)</td>
+            <td>~$75–$85</td>
+            <td>Use codes like CDUS08, ROYIBEILA01, RH</td>
+        </tr>
+        <tr>
+            <td>Official TrimUI Store / Amazon</td>
+            <td>$89.99–$109.99</td>
+            <td>Depends on included SD card size</td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="color: var(--text-muted); font-size: 0.9rem;"><em>Prices fluctuate with sales and coupon codes. The Brick Hammer is frequently available at a discount on AliExpress, making it the better pure-value proposition. The RG Rotate's early bird pricing is only available for the first 72 hours after May 11, 2026 launch.</em></p>
+
+<hr class="section-divider">
+
+<!-- FINAL RECOMMENDATION -->
+<div class="verdict-box">
+    <h2>🏁 Final Verdict</h2>
+    <p><strong>For the majority of people seeking an everyday carry retro handheld, the TrimUI Brick Hammer is the smarter choice.</strong> It nails the fundamentals: premium build, gorgeous screen, great battery, headphone jack, and seamless pick-up-and-play experience. It's less expensive, more durable (no hinge to fail), and the custom firmware options provide a friction-free gaming experience that a fiddly Android setup can't match. The metal body makes it feel like a luxury item that happens to play retro games.</p>
+    <p><strong>However, the Anbernic RG Rotate is the more interesting and versatile device.</strong> If you'll use it as a media player too, if you love the novelty of the swivel, if you want Android apps, or if you play a lot of square-aspect-ratio games (GB/GBC/Pico-8), then the RG Rotate offers things no other handheld can. Just be prepared for the compromises: no headphone jack, shorter battery life, and the lingering question of hinge durability.</p>
+    <p style="margin-top: 1.2rem; font-style: italic; color: var(--text-muted);">My personal recommendation: If you want a <strong>pure gaming EDC</strong>, get the Brick Hammer. If you want a <strong>gadget that games</strong>, get the RG Rotate.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- SOURCES -->
+<h2>📚 Sources</h2>
+<ol>
+    <li><a href="https://anbernic.com/products/rg-rotate" target="_blank" rel="noopener">Anbernic Official — RG Rotate Product Page</a></li>
+    <li><a href="https://www.gamelandmag.com/anbernic-rg-rotate-swivel-handheld-review-compact-design-android-power/" target="_blank" rel="noopener">GameLandMag — RG Rotate Review: Compact Design, Android Power</a></li>
+    <li><a href="https://retrododo.com/you-can-now-buy-anbernics-rg-rotate-retro-handheld/" target="_blank" rel="noopener">Retro Dodo — You Can Now Buy ANBERNIC's RG Rotate</a></li>
+    <li><a href="https://www.theverge.com/tech/927953/anbernic-rg-rotate-handheld-emulator-price-available" target="_blank" rel="noopener">The Verge — Anbernic's Rotating Screen Android Handheld Is Now Available</a></li>
+    <li><a href="https://www.handheldrank.com/everything-we-know-about-anbernic-rg-rotate-leaks-and-rumors/" target="_blank" rel="noopener">HandheldRank — The Anbernic RG Rotate: Here's What We Know So Far</a></li>
+    <li><a href="https://retrohandhelds.gg/anbernic-rg-rotate-setup-guide/" target="_blank" rel="noopener">Retro Handhelds — RG Rotate Setup Guide (with full specs)</a></li>
+    <li><a href="https://www.geeky-gadgets.com/rotating-screen-retro-handheld/" target="_blank" rel="noopener">Geeky Gadgets — RG Rotate: The $82 Android 12 Retro Gaming Console</a></li>
+    <li><a href="https://retrohandhelds.gg/trimui-brick-hammer-review/" target="_blank" rel="noopener">Retro Handhelds — TrimUI Brick Hammer Review: A Metal Facelift</a></li>
+    <li><a href="https://techxreviews.com/trimui-brick-hammer-review/" target="_blank" rel="noopener">Techxreviews — TrimUI Brick Hammer Review: Is Metal Worth the Extra Cash?</a></li>
+    <li><a href="https://retrosociety.co/trimui-brick-hammer-review/" target="_blank" rel="noopener">Retro Society — TrimUI Brick Hammer Goes Hard</a></li>
+    <li><a href="https://retrospecd.gg/trimui-hammer-handson/" target="_blank" rel="noopener">RetroSpecd — Hands-On with the New Metal TrimUI Hammer</a></li>
+    <li><a href="https://pocketretrogaming.com/en/anbernic/trimui-brick-hammer/" target="_blank" rel="noopener">Pocket Retro Gaming — TrimUI Brick Hammer: Premium Metal Design</a></li>
+    <li><a href="https://retrogear.nl/en/products/trimui-brick-hammer" target="_blank" rel="noopener">RetroGear — TrimUI Brick Hammer Product Page</a></li>
+    <li><a href="https://trimui.net/products/trimui-brick-hammer-retro-handheld-game-console-64g" target="_blank" rel="noopener">TrimUI Official Store — Brick Hammer Product Page</a></li>
+</ol>
+
+<p style="text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.85rem;">Last updated: May 2026 · Research compiled from official product pages, hands-on reviews, and community feedback across 14 sources.</p>
+
+</body>
+</html>
