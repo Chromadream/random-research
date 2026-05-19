@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step-by-Step Guide to Learning & Improving at Mahjong in Yakuza Games</title>
+    <title>Step-by-Step Guide to Learning &amp; Improving at Mahjong in Yakuza Games (Plus Human Play)</title>
     <style>
         :root {
             --bg: #1a1a1e;
@@ -59,10 +59,11 @@
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
-            padding: 0.35rem 0.7rem;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.6rem;
             border-radius: 6px;
             transition: all 0.15s;
+            white-space: nowrap;
         }
         nav a:hover { color: var(--accent); background: var(--surface2); }
 
@@ -76,7 +77,7 @@
         .toc h3 { color: var(--accent); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem; }
         .toc ol { padding-left: 1.5rem; columns: 2; column-gap: 2rem; }
         .toc li { margin-bottom: 0.25rem; break-inside: avoid; }
-        .toc a { color: var(--accent2); text-decoration: none; font-size: 0.95rem; }
+        .toc a { color: var(--accent2); text-decoration: none; font-size: 0.9rem; }
         .toc a:hover { text-decoration: underline; }
 
         h2 {
@@ -115,6 +116,7 @@
         .card.info { border-left: 4px solid var(--accent2); }
         .card.warning { border-left: 4px solid var(--danger); }
         .card.success { border-left: 4px solid var(--success); }
+        .card.purple { border-left: 4px solid #c080f0; }
         .card h4 { margin-top: 0; }
 
         table {
@@ -176,8 +178,12 @@
             display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
             margin: 1rem 0;
         }
+        .grid3 {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;
+            margin: 1rem 0;
+        }
         @media (max-width: 700px) {
-            .grid2 { grid-template-columns: 1fr; }
+            .grid2, .grid3 { grid-template-columns: 1fr; }
             .toc ol { columns: 1; }
         }
 
@@ -192,20 +198,22 @@
         .sources { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--border); }
         .sources h3 { color: var(--text-muted); font-size: 1rem; }
         .sources a { color: var(--accent2); word-break: break-all; }
+
+        .comparison-table td:first-child { white-space: nowrap; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>🀄 Learning &amp; Improving at Mahjong in Yakuza Games</h1>
-    <p>A comprehensive step-by-step guide — from complete beginner to confidently clearing the Completion List</p>
+    <p>A comprehensive step-by-step guide — from complete beginner to confidently clearing the Completion List<br><span style="color:var(--accent2);">Plus: Taking your skills from Yakuza AI to real human opponents (IRL &amp; online)</span></p>
 </header>
 
 <nav>
     <div class="nav-inner">
         <a href="#intro">Intro</a>
         <a href="#step1">1. Tiles</a>
-        <a href="#step2">2. Goal &amp; Flow</a>
+        <a href="#step2">2. Goal</a>
         <a href="#step3">3. Settings</a>
         <a href="#step4">4. Building Hands</a>
         <a href="#step5">5. Calling</a>
@@ -216,6 +224,9 @@
         <a href="#step10">10. Defense</a>
         <a href="#step11">11. Completion</a>
         <a href="#step12">12. Practice</a>
+        <a href="#step13">13. IRL</a>
+        <a href="#step14">14. Online</a>
+        <a href="#yaku-table">Yaku Table</a>
         <a href="#faq">FAQ</a>
     </div>
 </nav>
@@ -239,6 +250,8 @@
     <li><a href="#step10">Step 10: Defensive Play &amp; Reading Discards</a></li>
     <li><a href="#step11">Step 11: Completion List Strategies</a></li>
     <li><a href="#step12">Step 12: Practice Tools &amp; External Resources</a></li>
+    <li><a href="#step13">🆕 Step 13: Playing IRL — From Screen to Table</a></li>
+    <li><a href="#step14">🆕 Step 14: Playing Online — Against Real Humans</a></li>
     <li><a href="#yaku-table">Quick-Reference Yaku Table</a></li>
     <li><a href="#faq">Common Mistakes &amp; FAQ</a></li>
 </ol>
@@ -714,6 +727,382 @@
 
 <hr>
 
+<!-- ===== STEP 13: PLAYING IRL ===== -->
+<h2 id="step13">🆕 Step 13: Playing In Real Life — From Screen to Table</h2>
+<div class="step-title"><span class="step-number">13</span><span>Take your Yakuza-honed skills into the physical world</span></div>
+
+<p>So you've mastered the Yakuza mahjong tables. You can spot a Pinfu at twenty paces, and the Completion List trembles before you. But sitting down at a <em>real</em> mahjong table with actual human beings and physical tiles is a completely different experience. This section covers everything Yakuza <strong>didn't</strong> teach you.</p>
+
+<div class="card purple">
+    <h4>🎮 What Yakuza Handles for You vs. What You Must Do IRL</h4>
+    <table class="comparison-table">
+        <tr><th>Task</th><th>Yakuza (Video Game)</th><th>Real Life</th></tr>
+        <tr><td>Shuffling &amp; building the wall</td><td>Automatic</td><td><strong>You do it</strong> — every hand, ~3 minutes</td></tr>
+        <tr><td>Dealing tiles</td><td>Automatic</td><td><strong>You do it</strong> — dealer breaks wall, everyone draws</td></tr>
+        <tr><td>Furiten detection</td><td>Automatic (icon appears)</td><td><strong>You must track your own discards</strong></td></tr>
+        <tr><td>Scoring</td><td>Automatic</td><td><strong>You calculate it</strong> (or use a scoring chart)</td></tr>
+        <tr><td>Han / Fu counting</td><td>Automatic</td><td><strong>You announce your score</strong></td></tr>
+        <tr><td>Point stick exchange</td><td>Automatic</td><td><strong>You physically hand over sticks</strong></td></tr>
+        <tr><td>Dora indicator</td><td>Shown on screen</td><td><strong>You flip the tile yourself</strong></td></tr>
+        <tr><td>Call prompts (Pon/Chi/Kan)</td><td>Button prompt appears</td><td><strong>Nothing — you must notice and call out loud</strong></td></tr>
+        <tr><td>Wait indicators / Shanten</td><td>Riichi helper shows waits</td><td><strong>Nothing — calculated entirely in your head</strong></td></tr>
+        <tr><td>Draw / discard timing</td><td>Take as long as you want</td><td><strong>Keep pace — people are waiting on you</strong></td></tr>
+        <tr><td>Declaring a win</td><td>Press a button</td><td><strong>Shout "Ron!" or "Tsumo!" loud and clear</strong></td></tr>
+    </table>
+</div>
+
+<h3>Equipment You'll Need</h3>
+
+<div class="grid2">
+    <div class="card">
+        <h4>🀄 The Tile Set</h4>
+        <ul>
+            <li><strong>Japanese-size tiles</strong> (smaller than Chinese) — 26mm tall standard</li>
+            <li>136 tiles: 108 suited + 28 honors. No flowers, no jokers.</li>
+            <li>Optional: <strong>Red 5 tiles</strong> (Aka Dora) — one red 5 per suit</li>
+            <li>Budget starter set: <strong>$30–50</strong> on Amazon (plastic, functional)</li>
+            <li>Quality set: <strong>$100–300</strong> (heavier resin, better feel)</li>
+            <li>Premium: <strong>$500+</strong> (bone &amp; bamboo, hand-carved)</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>🧮 Point Sticks (Tenbou)</h4>
+        <ul>
+            <li><strong>10,000-point sticks</strong> — ornate, largest</li>
+            <li><strong>5,000-point sticks</strong> — medium, often with dots</li>
+            <li><strong>1,000-point sticks</strong> — smaller (used for Riichi bet)</li>
+            <li><strong>100-point sticks</strong> — smallest (used for Honba counters)</li>
+            <li>Each player starts with 25,000 points (varies by ruleset)</li>
+            <li>Common starter distribution: 1×10k, 2×5k, 4×1k, 10×100</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card info">
+    <h4>🛒 Additional Gear</h4>
+    <ul>
+        <li><strong>Mahjong mat (Jang Mat):</strong> A padded cloth surface (~80cm square) that dampens tile noise and provides a smooth playing surface. Essential for home play. ~$20–40.</li>
+        <li><strong>Dice:</strong> Two standard dice included with most sets.</li>
+        <li><strong>Compass marker / wind indicator:</strong> A small tray or marker showing East/South/West/North to track round wind and seat positions.</li>
+        <li><strong>Scoring chart / Cheat sheet:</strong> Absolutely acceptable for beginners. Many clubs provide laminated reference cards.</li>
+        <li><strong>Yaku reference sheet:</strong> Keep one handy until you've memorized them.</li>
+    </ul>
+</div>
+
+<h3>Basic IRL Table Etiquette — The "Don't Look Like a Yakuza-Only Player" Guide</h3>
+
+<p>Etiquette in riichi mahjong serves two purposes: <strong>preventing cheating</strong> and <strong>keeping the game flowing</strong>. These rules come from Japanese jansou (mahjong parlors) and are observed at all levels from casual clubs to the World Riichi Championship.</p>
+
+<div class="card warning">
+    <h4>🚨 The Absolute Essentials (Do These or Look Rude)</h4>
+    <table>
+        <tr><th>Rule</th><th>Why It Matters</th></tr>
+        <tr><td><strong>Draw and discard with ONE HAND only</strong></td><td>Using two hands is associated with tile-switching tricks. The only exceptions: sorting your starting tiles, straightening your hand, revealing tiles on a win, and pushing the wall forward.</td></tr>
+        <tr><td><strong>Keep discards in neat rows of 6 tiles</strong></td><td>Disorganized discards make it impossible to track what was discarded when — critical for Furiten and defensive reading.</td></tr>
+        <tr><td><strong>Call out loud: "Pon!", "Chi!", "Kan!", "Riichi!", "Ron!", "Tsumo!"</strong></td><td>Must be audible to all players. Call <em>before</em> you touch any tiles. Grabbing a tile then calling is a dead hand (penalty).</td></tr>
+        <tr><td><strong>For Chi: wait a beat</strong> before revealing your tiles</td><td>Someone might call Pon, which takes priority. Protecting your hand info is good practice — though late "interruption Pon" is considered inelegant.</td></tr>
+        <tr><td><strong>Place called sets to your RIGHT</strong>, not in front of you</td><td>Keeps the center clear. Rotate the called tile sideways to show who discarded it: left tile = player to your left, middle = across, right = player to right.</td></tr>
+        <tr><td><strong>When you win by Tsumo, show the winning tile SEPARATELY</strong></td><td>Don't mix it into your hand before revealing. Keep it distinct so everyone can verify Pinfu status and the 2-fu Tsumo bonus.</td></tr>
+        <tr><td><strong>When you win by Ron, do NOT take the tile</strong></td><td>Leave the winning tile in the discarder's pond. Only on TV broadcasts is the tile moved to the winner's hand (and that's solely for the camera).</td></tr>
+    </table>
+</div>
+
+<h3>Etiquette by Level of Formality</h3>
+
+<div class="grid3">
+    <div class="card success">
+        <h4>🟢 Friendly / Casual</h4>
+        <ul>
+            <li>Reference sheets and Yaku lists are <strong>welcome</strong></li>
+            <li>Asking "what should I discard?" is fine</li>
+            <li>Friendly table talk, occasional jokes</li>
+            <li>Mistakes are laughed off, not penalized</li>
+            <li>Perfect for: home games, teaching sessions, bar meetups</li>
+            <li>Don't: use your phone excessively, comment on your own hand ("wow my hand is terrible"), imitate anime tropes</li>
+        </ul>
+    </div>
+    <div class="card info">
+        <h4>🟡 Club / Semi-Formal</h4>
+        <ul>
+            <li>No reference materials on the table</li>
+            <li>Minimal table talk; focus on the game</li>
+            <li>Quick pace expected — don't stall</li>
+            <li>No commenting on other people's plays</li>
+            <li>Keep hands concealed after the hand ends</li>
+            <li>Don't check the dead wall or next draws after a hand concludes</li>
+            <li>Perfect for: club nights, interclub matches</li>
+        </ul>
+    </div>
+    <div class="card warning">
+        <h4>🔴 Tournament / Competitive</h4>
+        <ul>
+            <li><strong>No talking</strong> except calls and score announcements</li>
+            <li>No phones, smartwatches, or earpieces</li>
+            <li>No reaction to draws (no sighs, no smiles)</li>
+            <li>No eating at the table</li>
+            <li>Use minimal point sticks for payments (e.g., one 5k stick, not five 1k sticks)</li>
+            <li>Score is announced: base score first, then total with Honba</li>
+            <li>Don't thank players for payment or apologize for winning</li>
+            <li>Perfect for: EMA tournaments, WRC events, ranked competitions</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Common IRL Mistakes Yakuza Players Make</h3>
+
+<div class="grid2">
+    <div class="card warning">
+        <h4>❌ Calling Tiles Too Slowly</h4>
+        <p>In Yakuza, the game pauses and shows you a prompt. IRL, if you hesitate for even a second after someone discards, the next player will draw — and your chance to call that tile is <strong>gone forever</strong>. Stay alert during <em>every</em> discard, not just your own turn.</p>
+    </div>
+    <div class="card warning">
+        <h4>❌ Not Keeping the Drawn Tile Separate</h4>
+        <p>In Yakuza, you can sort tiles freely. IRL, many clubs expect you to place the drawn tile <strong>to the side</strong> of your hand, discard, and only <em>then</em> incorporate kept tiles. This prevents confusion about what was just drawn vs. what was already in your hand — critical for Furiten tracking.</p>
+    </div>
+    <div class="card warning">
+        <h4>❌ Forgetting to Track Furiten</h4>
+        <p>Yakuza warns you with a Furiten icon. IRL, <strong>nothing warns you</strong>. You must remember every tile you've discarded. Calling Ron while in Furiten is a <strong>Chombo</strong> (penalty) — typically a Mangan payment to all players and a re-deal. This is the #1 penalty committed by digital-to-IRL converts.</p>
+    </div>
+    <div class="card warning">
+        <h4>❌ Playing Too Slowly</h4>
+        <p>Yakuza lets you ponder each discard indefinitely. IRL, there are <strong>no time banks</strong>. At tournaments, shot clocks as short as <strong>5 seconds + 10 seconds reserve</strong> are common. At casual tables, excessively slow play is seen as disrespectful to everyone's time.</p>
+    </div>
+    <div class="card warning">
+        <h4>❌ Incorrect Point Payments</h4>
+        <p>Use the <strong>minimum number of sticks</strong>. Paying 1,000 points with ten 100-point sticks because "you have too many" is considered rude — it slows the game and leaves you with the wrong denominations. Exchange sticks between hands if needed.</p>
+    </div>
+    <div class="card warning">
+        <h4>❌ Not Knowing Your Score</h4>
+        <p>In Yakuza, the game tells you the score. IRL, <strong>the winner is expected to announce their own score</strong>. For Tsumo wins by non-dealer: announce the non-dealer payment first, then the dealer payment. Example: "1,000 - 2,000" (meaning non-dealers pay 1,000 each, dealer pays 2,000).</p>
+    </div>
+</div>
+
+<h3>How to Find a Local Group</h3>
+
+<div class="grid2">
+    <div class="card">
+        <h4>🇺🇸 North America</h4>
+        <ul>
+            <li><strong>American Riichi Association Club Database:</strong> <a href="https://arariichi.org/clubs" target="_blank">arariichi.org/clubs</a> — comprehensive, searchable map</li>
+            <li><strong>RiichiOut Club Registry:</strong> <a href="https://riichiout.com/clubs" target="_blank">riichiout.com/clubs</a> — 49+ clubs listed across the US and Canada</li>
+            <li><strong>Meetup.com:</strong> <a href="https://www.meetup.com/topics/riichi/" target="_blank">meetup.com/topics/riichi</a> — search "Riichi Mahjong" + your city</li>
+            <li><strong>Discord:</strong> Most clubs have Discord servers. Search "<em>your city</em> riichi mahjong discord"</li>
+            <li>Major clubs: NYC (Riichi Nomi), Seattle, Bay Area (Pacific Mahjong League), DC (DC Riichi Mahjong), Philly (Mah-Jawn), Toronto, Montréal, Chicago</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>🌍 International</h4>
+        <ul>
+            <li><strong>Europe:</strong> Riichi clubs in most major cities — London, Paris, Cologne (Rinshan Kaihou), Stockholm, Oslo, Krakow, Lisbon, Moscow. Check the EMA website and local Facebook/Discord groups.</li>
+            <li><strong>Asia-Pacific:</strong> Japan (hundreds of jansou), Singapore (SgRiichi meetups), Australia (Adelaide, Melbourne, Sydney clubs), Philippines, Indonesia.</li>
+            <li><strong>South America:</strong> Brazil (Brazilian Mahjong Association, São Paulo), Chile (Mahjong Chile).</li>
+            <li><strong>Online directories:</strong> The Riichi Wiki maintains lists of known clubs worldwide.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card accent">
+    <h4>🏆 Major Physical Tournaments</h4>
+    <p>If you want to test your skills at the highest level:</p>
+    <ul>
+        <li><strong>World Riichi Championship (WRC)</strong> — the premier international event, held every ~3 years</li>
+        <li><strong>European Riichi Championship (ERC)</strong> — EMA-sanctioned, rotates host cities</li>
+        <li><strong>North American Riichi Championship (NARC)</strong> — top North American competition</li>
+        <li><strong>M.League</strong> — professional Japanese league with corporate teams, televised matches (spectator-only for most!)</li>
+    </ul>
+</div>
+
+<h3>IRL Wall Setup — The Quick Version</h3>
+<p>This is what Yakuza does for you:</p>
+<ol>
+    <li><strong>Shuffle:</strong> All tiles face-down. Scramble them thoroughly. Don't be violent — gentle shoving motion.</li>
+    <li><strong>Build walls:</strong> Each player builds a row of 17 tiles (face-down), then stacks a second row of 17 on top. Total: 34 tiles per wall, two tiles high.</li>
+    <li><strong>Form the square:</strong> Push all four walls together into a closed square.</li>
+    <li><strong>Roll dice (dealer):</strong> Dealer rolls two dice. Count counterclockwise starting from yourself. The result points at the wall to break.</li>
+    <li><strong>Break the wall:</strong> The player whose wall was chosen counts from the right end of their wall, equal to the dice roll, and separates the wall there. Tiles to the left = draw wall. The 14 tiles to the right = dead wall.</li>
+    <li><strong>Flip Dora:</strong> The third tile from the right end of the dead wall (top row) is flipped as the Dora indicator.</li>
+    <li><strong>Deal tiles:</strong> Starting from the break, deal 4 tiles at a time (two stacks), counterclockwise, until all have 12 tiles. Then deal 1 more tile each (13). Dealer takes a 14th tile as their first draw.</li>
+</ol>
+
+<div class="card info">
+    <h4>👋 What to Expect at Your First IRL Session</h4>
+    <p>Most clubs are <strong>extremely welcoming</strong> to beginners, especially if you already know the rules from Yakuza. Let them know it's your first time playing with real tiles — they'll help with wall building, scoring, and pacing. Bring a Yaku reference sheet and a scoring chart. Expect to play much <strong>slower</strong> than Yakuza — 8–12 hands per hour vs. 20+. Expect to make etiquette mistakes; nobody will be harsh. The community is small and eager to grow. Within 3–4 sessions, most Yakuza players feel completely comfortable at a real table.</p>
+</div>
+
+<hr>
+
+<!-- ===== STEP 14: PLAYING ONLINE ===== -->
+<h2 id="step14">🆕 Step 14: Playing Online — Against Real Humans</h2>
+<div class="step-title"><span class="step-number">14</span><span>Graduate from Yakuza AI to the global riichi community</span></div>
+
+<p>Yakuza's AI opponents are predictable. They follow patterns. They don't bluff. They don't adapt. Playing against real humans online is the single best way to improve — but you need to understand what you're getting into. The skills that crush Yakuza AI will get you <strong>destroyed</strong> by competent human players if you don't adjust.</p>
+
+<div class="card purple">
+    <h4>🧠 Key Differences: Yakuza AI vs. Human Opponents</h4>
+    <table>
+        <tr><th>Aspect</th><th>Yakuza AI</th><th>Human Players</th></tr>
+        <tr><td>Defense</td><td>Weak. AI rarely folds properly; will push cheap hands into dangerous situations.</td><td>At Silver+ ranks, humans fold intelligently against Riichi. They will betaori (full defense) when your hand looks dangerous.</td></tr>
+        <tr><td>Discard reading</td><td>AI discards are somewhat random. Hard to read patterns.</td><td>Humans give off readable patterns: early honor discards → likely Tanyao. Missing suit → possible Flush.</td></tr>
+        <tr><td>Bluffing / Dama</td><td>AI almost always declares Riichi if possible.</td><td>Humans frequently use <strong>Dama</strong> (silent Tenpai) — staying one tile away without declaring Riichi, to trap you into dealing their winning tile.</td></tr>
+        <tr><td>Speed</td><td>AI plays at a consistent pace.</td><td>Humans vary wildly. Some play lightning fast (5s/discard), some agonize over every decision.</td></tr>
+        <tr><td>Psychological pressure</td><td>None.</td><td>Real. A Riichi declaration from a human feels different. Tilt (emotional frustration) is real and affects decision-making.</td></tr>
+        <tr><td>Adaptability</td><td>AI plays the same way every game.</td><td>Humans notice your patterns. If you always fold to Riichi, they'll Riichi more aggressively against you. If you always push, they'll trap you.</td></tr>
+    </table>
+</div>
+
+<h3>Major Online Platforms — Full Comparison</h3>
+
+<table>
+    <tr><th>Platform</th><th>Best For</th><th>Languages</th><th>Assists</th><th>Cost</th><th>Player Pool</th></tr>
+    <tr>
+        <td><strong>Mahjong Soul</strong></td>
+        <td>🎯 Best starting point for Yakuza graduates</td>
+        <td>✅ English, 中文, 日本語, 한국어</td>
+        <td>Wait preview, Furiten warning, Dora highlight, shanten display</td>
+        <td>Free (copper for Silver+ rooms, earnable via events)</td>
+        <td>Very large, global. Bronze room region-locked → gentle start.</td>
+    </tr>
+    <tr>
+        <td><strong>Tenhou.net</strong></td>
+        <td>🏆 Hardcore competitive play</td>
+        <td>🇯🇵 Japanese (browser extension for English)</td>
+        <td>Minimal — call prompts only. No wait hints, no Furiten warnings, no shanten helper.</td>
+        <td>Free through 6-dan. Highest room (Houou) requires ¥550/25 days.</td>
+        <td>Largest in Japan. Highest skill ceiling. The standard for serious players.</td>
+    </tr>
+    <tr>
+        <td><strong>Riichi City</strong></td>
+        <td>🎮 Casual gacha alternative to Mahjong Soul</td>
+        <td>✅ English, 中文, 日本語, 한국어</td>
+        <td>Wait preview, Furiten warning, tedashi/tsumogiri marker, Auto Kan during Riichi 😂</td>
+        <td>Free (coins for Moon+ rooms, earnable)</td>
+        <td>Smaller but growing. Less sweaty at lower ranks.</td>
+    </tr>
+    <tr>
+        <td><strong>SEGA Net MJ</strong></td>
+        <td>⚡ Lightning-fast, arcade-style play</td>
+        <td>🇯🇵 Japanese only</td>
+        <td>Everything: wait preview, safe tile display, shanten display, overtake guide at all-last</td>
+        <td>Free with daily tickets; ranked requires currency</td>
+        <td>Large Japanese player base. Fastest pace of any client.</td>
+    </tr>
+    <tr>
+        <td><strong>FFXIV (Doman Mahjong)</strong></td>
+        <td>🎲 Already play FFXIV? Built-in option.</td>
+        <td>✅ English + 4 other languages</td>
+        <td>Furiten warning (post-discard), discard hints, tile safety ratings</td>
+        <td>Free (included with FFXIV; free trial works!)</td>
+        <td>Small but dedicated. Chat during games is unique and fun.</td>
+    </tr>
+    <tr>
+        <td><strong>Amatsuki Mahjong</strong></td>
+        <td>🌏 Multi-variant: Riichi + HK + Sichuan + Taiwanese</td>
+        <td>✅ English, 中文, 日本語</td>
+        <td>Wait preview, Furiten warning, tedashi/tsumogiri marker</td>
+        <td>Free (gacha for cosmetics)</td>
+        <td>New (2025). Smaller pool, multi-variant niche.</td>
+    </tr>
+</table>
+
+<h3>Platform Deep Dives</h3>
+
+<div class="card accent">
+    <h4>🌟 Mahjong Soul (MajSoul / 雀魂) — Your Best First Step</h4>
+    <p><strong>Why start here:</strong> Native English support, polished tutorial, familiar anime aesthetic, and enough assists to bridge the gap from Yakuza's automated helpers. The <strong>Bronze room</strong> is region-locked, meaning you'll only face other beginners in your region — a gentle on-ramp.</p>
+    <p><strong>Assists available:</strong> Wait preview (shows which tiles complete your hand), Furiten warning, Dora highlighting, shanten counter. These are <strong>disabled in the highest rooms</strong> (Throne room), so you'll naturally wean off them as you climb.</p>
+    <p><strong>Time controls:</strong> 5 seconds + 20 seconds reserve per turn. Comfortable pace for learners.</p>
+    <p><strong>Rooms:</strong> Bronze → Silver → Gold → Jade → Throne. Hanchan (East+South) and Tonpuusen (East only) available.</p>
+    <p><strong>Gacha warning:</strong> Characters and cosmetics are obtained via gacha. Purely cosmetic — zero gameplay impact. But it can be expensive if you get hooked. One free character has been earnable <em>ever</em>, and she's unobtainable now. Set a budget or ignore cosmetics entirely.</p>
+    <p><strong>Community:</strong> Large English-speaking Discord communities. Active subreddit (<a href="https://reddit.com/r/mahjongsoul" target="_blank">r/mahjongsoul</a>). Streamers and content creators.</p>
+</div>
+
+<div class="card warning">
+    <h4>🔥 Tenhou.net — The Deep End (Read Before Playing)</h4>
+    <p>Tenhou is Japan's most competitive online mahjong server, and the standard against which serious players measure themselves. But it has a <strong>very specific ruleset</strong> that can warp your play if you don't understand its design.</p>
+
+    <h4>⚠️ The Tenhou Trap: 4th-Place Avoidance Mentality</h4>
+    <p>Tenhou's ranking system was specifically designed to <strong>punish 4th place extremely harshly</strong>. The gap between 3rd and 4th is roughly <strong>4× larger</strong> than the gap between 2nd and 3rd. This was deliberately engineered to prevent players from disconnecting when behind — but it creates a specific, defensive playstyle:</p>
+    <ul>
+        <li>Tenhou players learn to <strong>avoid coin flips</strong> and risky gambles</li>
+        <li>They prioritize <strong>not dealing in</strong> over winning big hands</li>
+        <li>They fold more conservatively than in any other ruleset</li>
+    </ul>
+    <p>Professional players warn: <strong>"Stop playing like this is Tenhou."</strong> The defensive habits that rank you up online can make you <strong>too passive</strong> in tournaments, clubs, and other online platforms where 1st place is rewarded proportionally. A 50-50 1st-or-4th gamble is mathematically good in most rulesets — but terrible on Tenhou.</p>
+
+    <h4>💡 How to Use Tenhou Correctly</h4>
+    <ul>
+        <li>Use Tenhou as <strong>output</strong>, not input — play there to measure your skill after studying theory</li>
+        <li>Supplement Tenhou with play on Mahjong Soul or at local clubs to maintain a balanced style</li>
+        <li>Understand <em>why</em> you're making different decisions on different platforms</li>
+        <li>Don't spam games mindlessly; review your replays and learn from your mistakes</li>
+        <li>The road to 6-dan is achievable with disciplined, conservative play. <strong>Real mahjong starts after 6-dan.</strong></li>
+    </ul>
+</div>
+
+<h3>Platform Selection — Which Should YOU Use?</h3>
+
+<table>
+    <tr><th>If You're…</th><th>Play On</th><th>Why</th></tr>
+    <tr><td>Just finished Yakuza, first time online</td><td><strong>Mahjong Soul</strong> — Bronze room</td><td>English UI, tutorial, assists, gentle competition</td></tr>
+    <tr><td>Comfortable with rules, want to improve fast</td><td><strong>Mahjong Soul</strong> — Silver/Gold room</td><td>Larger player pool, faster queues, still has assists</td></tr>
+    <tr><td>Want to get seriously good, study theory</td><td><strong>Tenhou</strong> — paired with community discussion</td><td>Highest skill ceiling, but use as a gauge not your only training</td></tr>
+    <tr><td>Want casual, chatty games</td><td><strong>FFXIV Doman Mahjong</strong></td><td>Unrestricted text chat, smaller community, relaxed</td></tr>
+    <tr><td>Want pure speed, arcade feel</td><td><strong>SEGA Net MJ</strong></td><td>Fastest pace, most assists, flashy. Japanese only.</td></tr>
+    <tr><td>Want to try non-Riichi variants</td><td><strong>Amatsuki Mahjong</strong> or <strong>Mahjong Time</strong></td><td>Hong Kong, MCR, Sichuan, Taiwanese, American all available</td></tr>
+</table>
+
+<h3>Mindset Shifts for Human Play</h3>
+
+<div class="grid2">
+    <div class="card">
+        <h4>✅ Do This</h4>
+        <ul>
+            <li><strong>Learn Dama (silent Tenpai):</strong> If your hand is already worth 3+ Han without Riichi, consider staying silent. You'll catch more Ron calls and can still fold if danger appears.</li>
+            <li><strong>Track discards actively:</strong> Watch what suits opponents aren't discarding. Missing suit = Flush danger.</li>
+            <li><strong>Fold early, fold often:</strong> Against human Riichi, if your hand is 2-shanten or worse, folding is almost always correct.</li>
+            <li><strong>Review your games:</strong> Most platforms save replays. Watch your losses — what could you have done differently?</li>
+            <li><strong>Use the community:</strong> Post hand reviews on Reddit or Discord. Getting a stronger player to review your decisions is the fastest way to improve.</li>
+        </ul>
+    </div>
+    <div class="card warning">
+        <h4>❌ Don't Do This</h4>
+        <ul>
+            <li><strong>Don't Riichi every Tenpai:</strong> Yakuza AI is bad enough that Riichi → win works reliably. Humans fold to Riichi. Sometimes Dama is better.</li>
+            <li><strong>Don't ignore defense:</strong> In Yakuza, dealing in is annoying. Online, dealing into a Haneman can lose you the entire match.</li>
+            <li><strong>Don't autopilot:</strong> Playing on autopilot while watching TV might work against Yakuza AI. It will get you crushed by humans.</li>
+            <li><strong>Don't tilt:</strong> Bad beats happen. A string of 4th places happens. Tilt leads to more mistakes. Take breaks.</li>
+            <li><strong>Don't assume everyone plays like Yakuza AI:</strong> They don't. Humans are more defensive, more deceptive, and more unpredictable.</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Quick-Reference: Online Etiquette</h3>
+
+<div class="card">
+    <ul>
+        <li><strong>Queue when you have time:</strong> Don't start a hanchan (East+South round, ~30–45 min) if you might need to leave. Disconnecting mid-game ruins it for everyone.</li>
+        <li><strong>Don't stall:</strong> Intentionally running down the timer when losing is considered toxic. Most platforms have auto-kick for repeated slow play.</li>
+        <li><strong>No collusion:</strong> Don't coordinate with friends in ranked queues. This is cheating and detectable.</li>
+        <li><strong>Emotes are fine, spam is not:</strong> A well-timed emote after a big hand is fun. Spamming emotes every 2 seconds tilts people.</li>
+        <li><strong>GG at the end:</strong> A simple "GG" or thumbs-up emote after the match is good sportsmanship, regardless of where you placed.</li>
+    </ul>
+</div>
+
+<div class="card success">
+    <h4>🔄 How Online Play Improves Your Yakuza Game</h4>
+    <p>Playing against humans online will make you a <strong>dramatically better Yakuza player</strong>:</p>
+    <ul>
+        <li><strong>You'll recognize Yaku faster:</strong> High-volume play builds pattern recognition that makes Yakuza's AI feel slow and predictable.</li>
+        <li><strong>Your defense will improve:</strong> Learning to fold against human Riichi translates directly to avoiding deal-ins against AI.</li>
+        <li><strong>You'll understand tile efficiency:</strong> Human opponents punish inefficient discards. You'll quickly learn to optimize.</li>
+        <li><strong>Scoring will become intuitive:</strong> After hundreds of human games, Mangan/Haneman requirements become second nature — making Completion List goals much easier.</li>
+        <li><strong>Furiten awareness will be automatic:</strong> Playing without the safety net of a Furiten warning trains you to track discards subconsciously.</li>
+    </ul>
+    <p>Many Yakuza completionists report that after 100+ games on Mahjong Soul, returning to Yakuza's Mahjong tables feels like playing on easy mode.</p>
+</div>
+
+<hr>
+
 <!-- YAKU TABLE -->
 <h2 id="yaku-table">Quick-Reference Yaku Table</h2>
 <table>
@@ -783,6 +1172,17 @@
     <p>Some games have <strong>cheat items</strong>: Yakuza Kiwami has the Lucky Tile (Locker I2) for auto-Thirteen Orphans. Yakuza: Dead Souls has a Lucky Mahjong Marker from Erika's hostess quest. Yakuza 0, Kiwami 2, and most others have <strong>no cheat items</strong> — you must learn the game.</p>
 </div>
 
+<!-- New FAQ entries for human play -->
+<div class="card info">
+    <h4>🆕 "I'm good at Yakuza Mahjong — will I get destroyed online?"</h4>
+    <p><strong>Initially, yes — and that's okay.</strong> Yakuza AI doesn't play defense properly, never uses Dama effectively, and doesn't adapt to you. Expect to lose a lot in your first ~20 online games. Focus on learning, not winning. After 50–100 online games, you'll likely be stronger than 90% of Yakuza-only players. Then return to Yakuza and marvel at how easy it feels.</p>
+</div>
+
+<div class="card info">
+    <h4>🆕 "What's the minimum etiquette for my first IRL club visit?"</h4>
+    <p>Six things: (1) Draw/discard with one hand, (2) keep discards in rows of 6, (3) call Pon/Chi/Kan/Ron/Tsumo out loud, (4) don't grab tiles before calling, (5) be ready for your turn — keep up the pace, (6) tell them it's your first time with physical tiles. That covers 90% of first-timer etiquette mistakes.</p>
+</div>
+
 <hr>
 
 <h2>🎯 Your Learning Path — Summary Cheat Sheet</h2>
@@ -795,6 +1195,7 @@
         <tr><td><strong>Session 4</strong></td><td>Learn Pinfu. Aim for all-sequences hands. Experiment with Yakuhai (Dragon/Wind triplets) as a Plan B for open hands.</td></tr>
         <tr><td><strong>Session 5+</strong></td><td>Go for Mangan/Haneman. Stack Riichi + Tanyao + Pinfu + Dora. Try Honitsu when the hand calls for it.</td></tr>
         <tr><td><strong>Advanced</strong></td><td>Learn defensive folding. Use the Tenhou analyzer. Try the Efficiency Trainer. Attempt Full Straight for Completion.</td></tr>
+        <tr><td><strong>🆕 Human Play</strong></td><td>Create a Mahjong Soul account. Play 20 Bronze-room games. Find a local club on Meetup/ARA. Learn wall setup. Play your first IRL game. Join a Discord community.</td></tr>
     </table>
 </div>
 
@@ -804,6 +1205,8 @@
 
 <div class="sources">
     <h3>📚 Sources</h3>
+
+    <h4>Yakuza Mahjong Guides (Original Sections)</h4>
     <ul>
         <li>CyricZ — <a href="https://gamefaqs.gamespot.com/ps4/816306-yakuza-0/faqs/74451/mahjong" target="_blank">Yakuza 0 Mahjong Guide (GameFAQs)</a></li>
         <li>CyricZ — <a href="https://gamefaqs.gamespot.com/ps4/181171-yakuza-kiwami/faqs/75194/mahjong" target="_blank">Yakuza Kiwami Mahjong Guide (GameFAQs)</a></li>
@@ -818,6 +1221,25 @@
         <li><a href="https://tsumoron.com/en/articles/rules/all-yaku-list/" target="_blank">Complete Mahjong Yaku List (Tsumoron)</a></li>
         <li><a href="https://www.trueachievements.com/game/Yakuza-0/walkthrough/26" target="_blank">Yakuza 0 Mahjong Walkthrough (TrueAchievements)</a></li>
         <li>Euophrys — <a href="https://euophrys.itch.io/mahjong-efficiency-trainer" target="_blank">Mahjong Efficiency Trainer (itch.io)</a></li>
+    </ul>
+
+    <h4>IRL &amp; Online Human Play (New Sections)</h4>
+    <ul>
+        <li>Rinshan Kaihou Cologne — <a href="https://riichi.cologne/en/the-game/etiquette/" target="_blank">Full Etiquette Document</a></li>
+        <li>Singapore Riichi Mahjong — <a href="https://sgriichimahjong.com/etiquette/" target="_blank">Behaviour Etiquette Levels 1–5</a></li>
+        <li>Toronto Riichi Club — <a href="https://www.torontoriichi.club/tournament-etiquette/" target="_blank">Tournament Etiquette</a></li>
+        <li>Osamuko / Ron5 — <a href="https://osamuko.com/completely-unofficial-wrc-manner-guidelines/" target="_blank">Unofficial WRC Manner Guidelines</a></li>
+        <li>Riichi Reporter / Gemma — <a href="https://riichireporter.com/tyranny-of-etiquette/" target="_blank">The Tyranny of Etiquette</a></li>
+        <li>NPMahjong / Nicolas Pro — <a href="https://npmahjong.com/blog/tenhou-players-pro-tips" target="_blank">Tenhou: A Warning for New Players (Online vs Offline)</a></li>
+        <li>Mahjong Playbook — <a href="https://mahjongplaybook.com/learn/digital-vs-physical-mahjong/" target="_blank">Digital vs Physical Mahjong</a></li>
+        <li>Mahjong Playbook — <a href="https://mahjongplaybook.com/learn/riichi-mahjong/" target="_blank">Master Japanese Riichi Mahjong Guide</a></li>
+        <li>worldsbe.st — <a href="https://worldsbe.st/riichi-mahjong-in-current-year/" target="_blank">Riichi Mahjong in $CURRENT_YEAR — Platform Reviews</a></li>
+        <li>Riichi Wiki — <a href="https://riichi.wiki/Playing_online" target="_blank">Playing Online — Platform Comparison</a></li>
+        <li>American Riichi Association — <a href="https://arariichi.org/clubs" target="_blank">USA Riichi Club Database</a></li>
+        <li>RiichiOut — <a href="https://riichiout.com/clubs" target="_blank">Club Registry (49+ Clubs)</a></li>
+        <li>Meetup — <a href="https://www.meetup.com/topics/riichi/" target="_blank">Riichi Groups Worldwide</a></li>
+        <li>Reach Mahjong of New York — <a href="http://mahjong-ny.com/" target="_blank">Beginners' Guide &amp; Resources</a></li>
+        <li>Japanese Mahjong Pros — <a href="https://mahjongpros.com/blogs/how-to-play/beginners-guide-to-japanese-mahjong" target="_blank">Beginner's Guide to Japanese Riichi Mahjong</a></li>
     </ul>
 </div>
 
