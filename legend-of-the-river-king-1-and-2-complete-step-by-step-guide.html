@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legend of the River King (1 &amp; 2) on GBC — Complete Step-by-Step Guide</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --surface2: #252525;
+            --text: #e0e0e0;
+            --text2: #b0b0b0;
+            --accent: #64b5f6;
+            --accent2: #4fc3f7;
+            --gold: #ffd54f;
+            --green: #81c784;
+            --red: #e57373;
+            --orange: #ffb74d;
+            --purple: #ba68c8;
+            --border: #333;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 20px 0 10px;
+            color: var(--accent2);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+        }
+        h2 {
+            font-size: 1.7rem;
+            margin: 40px 0 15px;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
+        }
+        h3 {
+            font-size: 1.3rem;
+            margin: 25px 0 10px;
+            color: var(--accent2);
+        }
+        h4 {
+            font-size: 1.1rem;
+            margin: 20px 0 8px;
+            color: var(--gold);
+        }
+        p, li { margin-bottom: 8px; color: var(--text2); }
+        ul, ol { margin-left: 24px; margin-bottom: 16px; }
+        strong { color: var(--text); }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 18px 0;
+        }
+        .card h3 { margin-top: 0; }
+        .card h4 { margin-top: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--surface2);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--surface); }
+        .highlight { background: #1a3a2a; border-left: 4px solid var(--green); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+        .warning { background: #3a2a1a; border-left: 4px solid var(--orange); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+        .tip { background: #1a2a3a; border-left: 4px solid var(--accent); padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+        .step-num {
+            display: inline-block;
+            background: var(--accent);
+            color: #121212;
+            width: 28px; height: 28px;
+            text-align: center;
+            line-height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 2px 4px;
+        }
+        .tag-bait { background:#4a3; color:#fff; }
+        .tag-lure { background:#a43; color:#fff; }
+        .tag-fly { background:#34a; color:#fff; }
+        .tag-item { background:#a3a; color:#fff; }
+        .tag-important { background:#a33; color:#fff; }
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 30px 0;
+        }
+        a { color: var(--accent2); }
+        .toc { column-count: 2; column-gap: 30px; }
+        @media (max-width:600px) { .toc { column-count: 1; } }
+        .fish-table-wrapper { overflow-x: auto; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<h1>🎣 Legend of the River King (1 &amp; 2) on GBC<br>Complete Step-by-Step Guide to Playing Effectively</h1>
+
+<p style="text-align:center;color:var(--text2);font-size:0.9rem;">Covers <strong>Legend of the River King GBC</strong> (1999) and <strong>Legend of the River King 2</strong> (2001) — both published by Natsume for Game Boy Color.</p>
+
+<div class="card">
+<h3>📖 Table of Contents</h3>
+<div class="toc">
+<ol>
+<li><a href="#game1-overview">Legend of the River King 1 — Overview</a></li>
+<li><a href="#game1-controls">Game 1 — Controls &amp; Fishing Mechanics</a></li>
+<li><a href="#game1-combat">Game 1 — Combat System</a></li>
+<li><a href="#game1-best-gear">Game 1 — Best Equipment &amp; Money Tips</a></li>
+<li><a href="#game1-walkthrough">Game 1 — Complete Step-by-Step Walkthrough</a></li>
+<li><a href="#game1-funlake">Game 1 — Fun Lake &amp; Raise Mode</a></li>
+<li><a href="#game1-cheats">Game 1 — Secrets, Cheats &amp; GameShark Codes</a></li>
+<li><a href="#game2-overview">Legend of the River King 2 — Overview</a></li>
+<li><a href="#game2-controls">Game 2 — Controls, Fishing &amp; Activities</a></li>
+<li><a href="#game2-best-gear">Game 2 — Best Equipment &amp; Money Tips</a></li>
+<li><a href="#game2-kid-walkthrough">Game 2 — Kid Walkthrough (Lake Start)</a></li>
+<li><a href="#game2-teen-walkthrough">Game 2 — Teen Walkthrough (Beach Start)</a></li>
+<li><a href="#game2-remote">Game 2 — Remote Island &amp; King of Kings</a></li>
+<li><a href="#game2-trading">Game 2 — Trading with Harvest Moon 2</a></li>
+<li><a href="#game2-glitches">Game 2 — Known Glitches</a></li>
+<li><a href="#game-comparison">Both Games Compared</a></li>
+<li><a href="#sources">Sources</a></li>
+</ol>
+</div>
+</div>
+
+<!-- ============ GAME 1 ============ -->
+<h2 id="game1-overview">🐟 Legend of the River King 1 — Overview</h2>
+
+<div class="card">
+<table>
+    <tr><th>Platform</th><td>Nintendo Game Boy / Game Boy Color</td></tr>
+    <tr><th>Publisher / Developer</th><td>Natsume</td></tr>
+    <tr><th>Genre</th><td>Fishing RPG</td></tr>
+    <tr><th>Released</th><td>November 23, 1999 (GBC version)</td></tr>
+    <tr><th>Players</th><td>1</td></tr>
+    <tr><th>Total Fish</th><td><strong>48</strong> (GBC) / 40 (original GB)</td></tr>
+    <tr><th>Areas</th><td>Torrent → Lake 1 → Stream → Lake 2 → Fun Lake (bonus)</td></tr>
+</table>
+</div>
+
+<h3>Story &amp; Goal</h3>
+<p>Your sister <strong>Teruyo</strong> has fallen gravely ill. Your mother tells you the only cure is the legendary <strong>Guardian Fish</strong>, a magical fish hidden deep in the wilderness. Armed with a primitive fishing stick, you must journey through four regions, complete quests for the locals, gather better equipment, and ultimately catch the Guardian to save your sister.</p>
+
+<!-- ============ GAME 1 CONTROLS ============ -->
+<h2 id="game1-controls">🎮 Game 1 — Controls &amp; Fishing Mechanics</h2>
+
+<div class="card">
+<h3>Basic Controls</h3>
+<table>
+    <tr><th>D-Pad</th><td>Move character, cycle menus, direct casting/reeling. Walk into NPCs to talk.</td></tr>
+    <tr><th>A Button</th><td>Reel in fish, attack animals, confirm menu selections.</td></tr>
+    <tr><th>B Button</th><td>Cast line (hold longer = farther cast), cancel/exit menus.</td></tr>
+    <tr><th>Start</th><td>Pause / unpause.</td></tr>
+    <tr><th>Select</th><td>Toggle between walking and fishing mode.</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>How to Fish — Bait &amp; Fly Fishing (Easier)</h3>
+<ol>
+    <li>Press and hold <strong>B</strong> to cast — the longer you hold, the farther you cast.</li>
+    <li>The current carries your bobber. With fly fishing or a sinker, you can slowly reel in with <strong>A</strong>.</li>
+    <li>When a fish shows interest, it circles your bobber and you'll hear <strong>three beeps</strong>.</li>
+    <li>Then you'll hear <strong>one long beep</strong> — immediately press <strong>A</strong> or <strong>B</strong> to enter the underwater battle.</li>
+    <li>Let the fish swim until it <strong>stops completely</strong>. Then hold <strong>A</strong> or <strong>B</strong> to reel it in.</li>
+    <li>If the fish resists and you hear a loud screech, <strong>STOP holding the button</strong> immediately — otherwise the fish escapes.</li>
+    <li>Repeat: wait → reel → release when it fights → wait → reel. Do this until caught.</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>How to Fish — Lure Fishing (Harder)</h3>
+<ol>
+    <li>Cast your lure out and <strong>pull it in</strong> (tap A/B rhythmically) so it acts like a living creature.</li>
+    <li>When a fish approaches, <strong>stop moving the lure</strong>. It will circle.</li>
+    <li>You'll hear multiple short beeps — press <strong>A</strong> or <strong>B</strong> to enter the underwater view.</li>
+    <li><strong>Drag the lure</strong> near the fish by holding A/B until the fish bites onto it.</li>
+    <li>Once hooked, reel it in the same way as bait/fly fishing (let it tire, then reel).</li>
+    <li><strong>Lures can break</strong> during long battles — you'll need to buy replacements.</li>
+</ol>
+</div>
+
+<div class="tip">
+<strong>💡 Key Fishing Tip:</strong> The single most common mistake is reeling while the fish is still fighting. <strong>Always wait until the fish stops moving entirely</strong> before holding A/B. On the 3DS Virtual Console release, use Restore Points before each cast to avoid losing bait.
+</div>
+
+<!-- ============ GAME 1 COMBAT ============ -->
+<h2 id="game1-combat">⚔️ Game 1 — Combat System</h2>
+
+<div class="card">
+<p>Random encounters with wild animals occur as you walk around. When you enter combat:</p>
+<ul>
+    <li><strong>FIGHT</strong> — A fist moves randomly on screen. Press <strong>A</strong> when the fist reaches the animal's weak point for maximum damage.</li>
+    <li><strong>MEAL</strong> — Eat food to recover HP mid-battle.</li>
+    <li><strong>RUN</strong> — Attempt to flee (often fails; usually better to fight).</li>
+</ul>
+<p><strong>Damage dealt scales with your current HP.</strong> More HP = harder hits. More EXP = higher max HP.</p>
+
+<h4>Enemy Stats (Weak Points)</h4>
+<table>
+    <tr><th>Enemy</th><th>HP</th><th>Weak Point</th><th>EXP</th><th>Area</th></tr>
+    <tr><td>Spider</td><td>12</td><td>Head</td><td>2</td><td>Torrent</td></tr>
+    <tr><td>Bat</td><td>22</td><td>Ear</td><td>3</td><td>Torrent/Lake 1</td></tr>
+    <tr><td>Poison Spider</td><td>20</td><td>Head</td><td>3</td><td>Torrent</td></tr>
+    <tr><td>Lynx</td><td>28</td><td>Face</td><td>3</td><td>Torrent</td></tr>
+    <tr><td>Bee</td><td>34</td><td>Face</td><td>5</td><td>Lake 1</td></tr>
+    <tr><td>Crow</td><td>35</td><td>Beak</td><td>4</td><td>Lake 1</td></tr>
+    <tr><td>Demoncat</td><td>35</td><td>Face</td><td>5</td><td>Lake 1</td></tr>
+    <tr><td>Vampire</td><td>40</td><td>Ear</td><td>5</td><td>Lake 1</td></tr>
+    <tr><td>Snake</td><td>40</td><td>Head</td><td>7</td><td>Lake 1</td></tr>
+    <tr><td>Monkey</td><td>45</td><td>Face</td><td>6</td><td>Stream</td></tr>
+    <tr><td>Eagle</td><td>45</td><td>Beak</td><td>7</td><td>Stream</td></tr>
+    <tr><td>Brown Bear</td><td>52</td><td>Face</td><td>9</td><td>Stream</td></tr>
+    <tr><td>Brown Monkey</td><td>56</td><td>Face</td><td>11</td><td>Lake 2</td></tr>
+    <tr><td>Wasp</td><td>58</td><td>Face</td><td>8</td><td>Stream</td></tr>
+    <tr><td>Viper</td><td>60</td><td>Head</td><td>9</td><td>Lake 2</td></tr>
+    <tr><td><strong>Bear (boss)</strong></td><td><strong>68</strong></td><td><strong>Face</strong></td><td><strong>12</strong></td><td><strong>Lake 1</strong></td></tr>
+</table>
+</div>
+
+<!-- ============ GAME 1 BEST GEAR ============ -->
+<h2 id="game1-best-gear">🏆 Game 1 — Best Equipment &amp; Money Strategy</h2>
+
+<div class="card">
+<h3>💰 How to Get Rich Fast</h3>
+<p>Once you reach the <strong>Stream</strong> area, catch <strong>Ayu</strong> (use Stonefly Wet fly or Spinner lure) and sell them to the <strong>Uncle by the Restaurant</strong> for <strong>60 Gold each</strong> — far more than the standard fish market pays. This is the best farming method in the game. Fish one side of the river, then switch sides, and enter/exit a building to respawn all fish.</p>
+
+<h3>🐟 Best All-Purpose Tackle</h3>
+<table>
+    <tr><th>Category</th><th>Best Choice</th><th>Cost</th><th>Notes</th></tr>
+    <tr><td>Bait</td><td><strong>Worm</strong></td><td>5G / 10</td><td>Cheapest, works on almost everything</td></tr>
+    <tr><td>Bait (runner-up)</td><td>Larva</td><td>25G / 10</td><td>Great in Torrent, Lake 1, Stream</td></tr>
+    <tr><td>Lure</td><td><strong>Spinner</strong></td><td>20G</td><td>Best lure overall; few fish resist it</td></tr>
+    <tr><td>Lure (runner-up)</td><td>Worm Lure</td><td>35G</td><td>Highly recommended</td></tr>
+    <tr><td>Fly</td><td><strong>Stonefly (Wet)</strong></td><td>45G</td><td><strong>THE best item in the game.</strong> Almost nothing resists it</td></tr>
+    <tr><td>Fly (runner-up)</td><td>Caddis Fly (Dry)</td><td>15G</td><td>Excellent value</td></tr>
+    <tr><td>Rod (Bait)</td><td>Casting Rod Large</td><td>400G</td><td>Best for bait fishing</td></tr>
+    <tr><td>Rod (Lure)</td><td>Lure Rod Large</td><td>Gift</td><td>Obtained by helping Uncle in Lake 2</td></tr>
+    <tr><td>Rod (Fly)</td><td>Fly Rod Large</td><td>500G</td><td>Buy it ASAP for Lake 1+</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>🎣 Recommended Items to Buy Early</h3>
+<ul>
+    <li><strong>Net</strong> (100G) — Buy immediately! Catches free live bait. Pro tip: Use net one space away, then back — more bait appears.</li>
+    <li><strong>Pail (Medium)</strong> (100G) — Holds 8 fish; essential upgrade.</li>
+    <li><strong>Pail (Large)</strong> (200G) — Holds 16 fish; available in Stream and Lake 2.</li>
+    <li><strong>Rice Balls</strong> (10G, recover 20 HP) — Stock up before big fights.</li>
+    <li><strong>Lunches</strong> (20G, recover 40 HP) — Best HP/gold ratio.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>📏 Selling Prices</h3>
+<table>
+    <tr><th>Size</th><th>Standard Price</th><th>Special Buyers</th></tr>
+    <tr><td>0–10 cm</td><td>15 Gold</td><td>Smelt → Aunt in Lake 1: 50G each</td></tr>
+    <tr><td>11–20 cm</td><td>25 Gold</td><td>Ayu → Uncle in Stream: 60G each</td></tr>
+    <tr><td>21–40 cm</td><td>40 Gold</td><td>Loach → Aunt in Lake 2: 40G each</td></tr>
+    <tr><td>41–60 cm</td><td>50 Gold</td><td></td></tr>
+    <tr><td>61+ cm</td><td>80 Gold</td><td></td></tr>
+</table>
+</div>
+
+<!-- ============ GAME 1 WALKTHROUGH ============ -->
+<h2 id="game1-walkthrough">🗺️ Game 1 — Complete Step-by-Step Walkthrough</h2>
+
+<h3>🏘️ Area 1: TORRENT (Hometown)</h3>
+
+<div class="card">
+<h4><span class="step-num">1</span> Wake Up &amp; Get Started</h4>
+<ul>
+    <li>Your mother wakes you — sister Teruyo is sick. Mother gives you a <span class="tag tag-item">Charm</span>.</li>
+    <li>Go outside. Catch some fish with your starter rod + worms and sell them for early cash.</li>
+    <li>Talk to everyone in town to learn about the world.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">2</span> Get the Raft from the Raft Master</h4>
+<ul>
+    <li>Talk to the Raft Master. He wants a <strong>Rainbow Trout</strong>.</li>
+    <li>Catch Rainbow Trout east of the bridge using <span class="tag tag-bait">Larva</span> + <strong>Medium Hook</strong>.</li>
+    <li>Give him the Rainbow Trout. He'll build you a raft.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">3</span> Cutthroat Trout for Lunch</h4>
+<ul>
+    <li>The Raft Master's niece (in the house across the bridge) needs a <strong>Cutthroat Trout</strong>.</li>
+    <li>Go as far <strong>west</strong> as possible. Use <span class="tag tag-bait">Larva</span> + Small or Medium Hook.</li>
+    <li>Bring the fish back to the niece, then deliver the lunch to the Raft Master.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">4</span> Torrent Wrap-Up (Grind Phase)</h4>
+<ul>
+    <li>Now you can raft into deeper waters. <strong>Rafting costs HP</strong> — be careful!</li>
+    <li>Catch <strong>at least one of every fish</strong> in Torrent (Bullhead, Char, Cutthroat Trout, Gila Trout, Rainbow Trout, Trout, Goby, B.S.Brm).</li>
+    <li>Buy the <span class="tag tag-item">Net</span> (100G) and <span class="tag tag-item">Pail Medium</span> (100G).</li>
+    <li>Save up and buy all rods and the Stonefly Wet fly.</li>
+    <li><strong>Target: Have at least 1,000 Gold</strong> before leaving Torrent.</li>
+    <li>Fight every animal — HP growth from EXP is crucial.</li>
+</ul>
+</div>
+<div class="warning"><strong>⚠️ Don't skip the grind:</strong> Having good equipment and lots of gold now makes the rest of the game much smoother.</div>
+
+<hr>
+
+<h3>🌊 Area 2: LAKE 1</h3>
+
+<div class="card">
+<h4><span class="step-num">5</span> Broken Raft</h4>
+<ul>
+    <li>Your raft crashes into a rock upon entering Lake 1. The <strong>Pupil</strong> (Raft Master's student) offers to fix it for free. Explore while you wait.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">6</span> Trade the Charm</h4>
+<ul>
+    <li>Talk to the <strong>Artist</strong>. Trade your <span class="tag tag-item">Charm</span> → <span class="tag tag-item">Teacup</span>.</li>
+    <li>You can't use the Teacup yet, but it's part of a critical trade chain.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">7</span> Defeat the Bear (Boss)</h4>
+<ul>
+    <li>A bear is terrorizing the town. <strong>Stock up on Rice Balls</strong>.</li>
+    <li>Walk south across the bridges. You'll encounter the Bear (HP: 68, WP: Face).</li>
+    <li>By now you should have enough EXP to beat it in <strong>4–5 hits on its face</strong>.</li>
+    <li>Return. The Pupil says the old raft was destroyed but he built you a <strong>new one</strong>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">8</span> Get the Pickaxe</h4>
+<ul>
+    <li>Go to the Restaurant in the <strong>southeast corner</strong>. The Miner wants <strong>Three-Spined Stickleback</strong>.</li>
+    <li>Found in reeds next to the village. Use <span class="tag tag-fly">Stonefly Wet</span> or <span class="tag tag-fly">Mayfly Wet/Dry</span>.</li>
+    <li>Give him the fish → receive <span class="tag tag-item">Pick</span>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">9</span> Find the Secret Cave (Optional but Helpful)</h4>
+<ul>
+    <li>Talk to the Map Maker (north of Miner's house). He wants <strong>Smelt</strong>.</li>
+    <li>Use <span class="tag tag-fly">Stonefly Wet</span> near the bridges. Give him one → he reveals the cave location.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">10</span> Lake 1 Wrap-Up</h4>
+<ul>
+    <li>Catch every fish species in Lake 1 (Black Bass, Blue Gill, Brown Trout, Darter, Golden Trout, Lake Trout, Minnow, Smelt, Three-Spined Stickleback, Blowfish, Sea Bass).</li>
+    <li>Have at least <strong>900 Gold</strong>. Stock Rice Balls. Use the Pick on the cave to enter the Stream.</li>
+</ul>
+</div>
+
+<hr>
+
+<h3>🏞️ Area 3: STREAM</h3>
+
+<div class="card">
+<h4><span class="step-num">11</span> Save the Drowning Man</h4>
+<ul>
+    <li>Exit the cave into a new town. A man is drowning in the water — save him.</li>
+    <li>He gives you the <span class="tag tag-item">Casting Rod, Small</span> as thanks.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">12</span> Get the Charcoal</h4>
+<ul>
+    <li>Go southeast to the Restaurant. Trade your <span class="tag tag-item">Teacup</span> → <span class="tag tag-item">Charcoal</span>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">13</span> Quick Cash: Sell Ayu</h4>
+<ul>
+    <li>Catch <strong>Ayu</strong> (use Stonefly Wet). Sell to the Uncle near the Restaurant for <strong>60G each</strong>.</li>
+    <li>This is your best money farm for the whole game!</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">14</span> Open the Dam</h4>
+<ul>
+    <li>Further downstream, a girl wants a <strong>big Pale Chub</strong> (must break a record to qualify).</li>
+    <li>Use <span class="tag tag-fly">Stonefly Wet</span> or <span class="tag tag-bait">Larva</span> + Small Hook near the Teacup trade area.</li>
+    <li>She's the Dam Master's daughter — she'll have him open the dam for Lake 2.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">15</span> Stream Wrap-Up</h4>
+<ul>
+    <li>Catch all fish except Golden Carp and Bitterling (can't reach those yet).</li>
+    <li>Buy the <span class="tag tag-item">Pail Large</span> (200G). Have at least 900 Gold.</li>
+</ul>
+</div>
+
+<hr>
+
+<h3>🏔️ Area 4: LAKE 2</h3>
+
+<div class="card">
+<h4><span class="step-num">16</span> New Equipment</h4>
+<ul>
+    <li>You're now in the best area for big fish like Eels. Head to the town in the northeast.</li>
+    <li>Buy the <span class="tag tag-item">Pail Large</span> if you haven't yet. <span class="tag tag-item">Lunches</span> are now available.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">17</span> Get the Axe</h4>
+<ul>
+    <li>On the western side, an old Lumberjack will trade his <span class="tag tag-item">Axe</span> for a <strong>Willow Gudgeon</strong> and a <strong>Slender Gudgeon</strong>.</li>
+    <li>Both respond well to <span class="tag tag-fly">Stonefly Wet</span> + Small Hook.</li>
+    <li>Willow Gudgeon: fish off the southern side of the lower western peninsula.</li>
+    <li>Slender Gudgeon: fish in the small pond west of the short bridge near town.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">18</span> Get the Wind Chime (Trade Chain Finale)</h4>
+<ul>
+    <li>The lady in the Restaurant won't trade yet — <strong>you must help her family first</strong>:</li>
+    <li>① Go north of town to a man on a dock who wants <strong>Killifish</strong>. Catch 5 → receive <strong>Lure Rod, Large</strong>.</li>
+    <li>② Go back to the Stream and help the man near the Ayu-buying Uncle.</li>
+    <li>③ Back in Lake 2, help the man near the cliff.</li>
+    <li>④ Now the lady will trade: <span class="tag tag-item">Charcoal</span> → <span class="tag tag-item">Wind Chime</span>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h4><span class="step-num">19</span> Lake 2 Wrap-Up</h4>
+<ul>
+    <li>You should now have: All rods, all lures/baits/flies, all hooks, Pail Large, Axe, Wind Chime, and all fish except Guardian, Bitterling, and Common Carp. Target 1,000+ Gold.</li>
+</ul>
+</div>
+
+<hr>
+
+<h3>🏁 FINISHING THE GAME</h3>
+
+<div class="card">
+<h4><span class="step-num">20</span> The Secret Pond — Catch the Guardian Fish!</h4>
+<ol>
+    <li>Return to the <strong>Stream</strong>. Find a lone tree (with one stone above and one below it) on the western landmass.</li>
+    <li>Use the <span class="tag tag-item">Axe</span> on the tree to open a path to the secret pond.</li>
+    <li>In the pond, catch a <strong>Bitterling</strong> (Small Hook + Worm) and a <strong>Common Carp</strong> (Stonefly Wet).</li>
+    <li>Equip a <strong>Large Hook</strong> + <strong>Dough Ball</strong> (this is the ONLY bait the Guardian eats).</li>
+    <li>Use the <span class="tag tag-item">Wind Chime</span> to summon the Guardian Fish.</li>
+    <li>Cast directly into the <strong>middle of the pond</strong>. The Guardian (85–106 cm) isn't too hard to reel in.</li>
+</ol>
+</div>
+
+<div class="highlight">
+<strong>✅ Game Complete!</strong> After catching the Guardian, you return home, your mother cures Teruyo, and the credits roll. The game will tell you if you've unlocked <strong>Fun Lake</strong>.
+</div>
+
+<!-- ============ FUN LAKE ============ -->
+<h2 id="game1-funlake">🏝️ Game 1 — Fun Lake &amp; Raise Mode</h2>
+
+<div class="card">
+<h3>Fun Lake (Secret 5th Area)</h3>
+<ul>
+    <li><strong>Unlock:</strong> Catch <strong>all 48 fish</strong> (including the Guardian). A message appears after the credits.</li>
+    <li><strong>Access:</strong> Sleep at the <strong>Inn in Torrent</strong> — you'll wake up in Fun Lake.</li>
+    <li><strong>Contents:</strong> One of every fish in the game + an Inn (10G). <strong>No enemies here.</strong></li>
+    <li><strong>Note:</strong> Records don't get recorded in your Fishing Memo here, but you can keep and sell fish.</li>
+    <li><strong>To leave:</strong> Sleep at the Inn in Fun Lake.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Raise Mode (Virtual Pet Minigame)</h3>
+<p>A Tamagotchi-style minigame where fish evolve through <strong>6 stages</strong> based on what you feed them. Example evolution chain: <strong>Three-Spined Stickleback → Sculpin (40% worm) → Dark Chub (70% larva) → Blue Gill (20% worm + 20% larva) → Black Bass (25% worm + 25% larva + 25% small fish + 10% frog) → Rainbow Trout</strong>.</p>
+</div>
+
+<!-- ============ GAME 1 CHEATS ============ -->
+<h2 id="game1-cheats">🔧 Game 1 — Secrets, Cheats &amp; GameShark Codes</h2>
+
+<div class="card">
+<h3>In-Game Secrets</h3>
+<ul>
+    <li><strong>Music While Fishing:</strong> While fishing, press A to open the menu → Tools → Memo → Fishing Record. Exit — music now plays while fishing.</li>
+    <li><strong>Infinite Free Bait Trick:</strong> Use the Net to catch bait. Move one space away, then back — more bait will have spawned.</li>
+    <li><strong>Fish Respawn:</strong> Enter any building and exit — all fish return to their original spots (no need to buy Chumming for this).</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>GameShark Codes (Requires 2.1+ Cheat Device)</h3>
+<table>
+    <tr><th>Effect</th><th>Code</th></tr>
+    <tr><td>Infinite Health</td><td><code>01FF25D2</code></td></tr>
+    <tr><td>Infinite Gold</td><td><code>01FF29D2</code></td></tr>
+    <tr><td>All Fish</td><td><code>01FF26D2</code></td></tr>
+    <tr><td>Fun Lake</td><td><code>01FF27D2</code> + <code>01FF28D2</code></td></tr>
+</table>
+</div>
+
+<!-- ================================================================== -->
+<!-- ========================= GAME 2 ================================== -->
+<!-- ================================================================== -->
+
+<hr style="border-top:3px solid var(--accent);margin:50px 0;">
+
+<h1>🐡 Legend of the River King 2 — Complete Step-by-Step Guide</h1>
+
+<h2 id="game2-overview">Legend of the River King 2 — Overview</h2>
+
+<div class="card">
+<table>
+    <tr><th>Platform</th><td>Game Boy Color (also runs on original GB, GBA, Super Game Boy)</td></tr>
+    <tr><th>Publisher / Developer</th><td>Natsume / TOSE</td></tr>
+    <tr><th>Genre</th><td>Fishing RPG with bug/flower/shellfish collecting</td></tr>
+    <tr><th>Released</th><td>April 17, 2001</td></tr>
+    <tr><th>Players</th><td>1 (with 2-player trading via Link Cable)</td></tr>
+    <tr><th>Total Collectibles</th><td><strong>104 Fish</strong> · 24 Shellfish · 48 Bugs · 32 Flowers</td></tr>
+    <tr><th>Maps</th><td>Lake → Stream → Summit → Moor (lake side) | Beach → Shore → Ocean (sea side) | Remote Island</td></tr>
+    <tr><th>3DS Virtual Console</th><td>NA: Sept 18, 2014 · EU: Oct 23, 2014</td></tr>
+</table>
+</div>
+
+<h3>Story &amp; Goal</h3>
+<p>A sprite named <strong>Yuki</strong> controlled the <strong>Heaven Jewel</strong>, which has split into two pieces. One piece was taken by the <strong>Mountain God</strong> (now the River King), the other by the <strong>Sea God</strong> (now the Sea King). Earthquakes and chaos ensue. You play as one of two brothers — Yuki sends one after the River King and the other after the Sea King. Your ultimate goal: catch both Kings, restore the Heaven Jewel, then face the <strong>King of Kings</strong> on the Remote Island.</p>
+
+<h3>Two Playable Characters</h3>
+<div class="card">
+<table>
+    <tr><th></th><th>Kid (Little Brother)</th><th>Teen (Big Brother)</th></tr>
+    <tr><td>Starting Area</td><td>The Lake (west)</td><td>The Beach (east)</td></tr>
+    <tr><td>Starting Level</td><td>Level 1, 50 HP</td><td><strong>Level 8, 80 HP</strong></td></tr>
+    <tr><td>Starting Bait</td><td>Earthworms</td><td>Lugworms</td></tr>
+    <tr><td>First Target</td><td>River King</td><td>Sea King</td></tr>
+    <tr><td>Difficulty</td><td>Harder start</td><td><strong>Easier start</strong></td></tr>
+</table>
+<p>The Teen starts stronger but both eventually access each other's maps and complete the same quests.</p>
+</div>
+
+<!-- ============ GAME 2 CONTROLS ============ -->
+<h2 id="game2-controls">🎮 Game 2 — Controls, Fishing &amp; All Activities</h2>
+
+<div class="card">
+<h3>Basic Controls</h3>
+<table>
+    <tr><th>D-Pad</th><td>Move character, direct casting, cycle menus</td></tr>
+    <tr><th>A Button</th><td>Open menu, reel in fish, confirm, attack in battle</td></tr>
+    <tr><th>B Button</th><td>Cast line, cancel/exit, swim down while diving</td></tr>
+    <tr><th>Start</th><td>Pause, skip intro scenes</td></tr>
+    <tr><th>Select</th><td>Quick-toggle to fishing mode near water</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>6 Rod Types (16 Total Rods)</h3>
+<table>
+    <tr><th>Rod Type</th><th>Uses</th><th>Key Notes</th></tr>
+    <tr><td><strong>T. Rods</strong></td><td>Bait + Hooks</td><td>Basic starter rod. No reel; relies on current.</td></tr>
+    <tr><td><strong>Reel Rods / Surf Rods</strong></td><td>Bait + Hooks</td><td>Can reel line in with A. Upgrade from T.Rod. Correct hook size required.</td></tr>
+    <tr><td><strong>Lure Rods</strong></td><td>Lures only</td><td>Reusable lures. Must entice fish to bite in underwater view. Lures can break.</td></tr>
+    <tr><td><strong>Fly Rods</strong></td><td>Flies only</td><td>Flies are reusable; auto-hook on bite. Can't catch very large fish with flies.</td></tr>
+    <tr><td><strong>Boat Rods</strong></td><td>Bait + Hooks (sea maps)</td><td>Press A to lower bait, B to raise. Number shows depth. Only usable from boats.</td></tr>
+    <tr><td><strong>Trolling Rods</strong></td><td>Trolling Flies (sea maps)</td><td>Cast backward from boat direction. Move boat to drag fly through water.</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>Fishing Sound Cues</h3>
+<table>
+    <tr><th>Sound</th><th>Meaning</th></tr>
+    <tr><td><em>dingydingydingy</em></td><td>Fish is not interested in your bait. Try different bait.</td></tr>
+    <tr><td><em>dingaling… dingaling…</em></td><td>Fish is circling your bait — get ready!</td></tr>
+    <tr><td><strong><em>diiiiiiiiiiiiiiiiiiii!</em></strong></td><td><strong>Fish took the bait! Press A immediately!</strong></td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>Reeling In (Underwater Scene)</h3>
+<ol>
+    <li>Let the fish swim away until it <strong>stops completely</strong>.</li>
+    <li>Hold <strong>A</strong> or <strong>B</strong> to reel it in.</li>
+    <li>When the fish arches up and stops moving toward you, <strong>RELEASE the button</strong> or it will escape.</li>
+    <li>Repeat until the fish is reeled to the top of the screen.</li>
+</ol>
+<p><strong>Lure-specific:</strong> In the underwater scene with lures/trolling flies, the fish ISN'T hooked yet. You must press A to drag the lure near the fish until it bites. Don't move it too fast — some fish are slow swimmers.</p>
+</div>
+
+<div class="card">
+<h3>Other Activities</h3>
+<h4>🐚 Shellfish Diving</h4>
+<ul><li>Available in Beach, Shore, Ocean, Remote Island. Need canoe/boat + <strong>Flippers</strong> (200G). Press B repeatedly to swim down. Avoid eels, jellyfish, lanternfish. Reach the bottom to auto-collect.</li></ul>
+<h4>🦗 Bug Collecting</h4>
+<ul><li>Press A → menu → BUG. Use <strong>Tree Sap</strong> (20G) to freeze moving bugs. Must wait for ground/tree bugs to stop moving before catching. Flying bugs require positioning cursor in flight path.</li></ul>
+<h4>🌸 Flower Collecting</h4>
+<ul><li>Walk up to pink flower graphics. Press A → menu → PIC. Only the front flower can be picked. Flowers regrow after day→night or night→day transitions.</li></ul>
+</div>
+
+<div class="card">
+<h3>Combat (Same as Game 1 but with new enemies)</h3>
+<ul>
+    <li>Random encounters. Options: <strong>BEAT</strong> (aim fist at weak point), <strong>EAT</strong> (use food), <strong>RUN</strong> (may fail).</li>
+    <li>Enemies can <strong>steal your fish!</strong></li>
+    <li>HP at time of attack determines damage output.</li>
+</ul>
+</div>
+
+<!-- ============ GAME 2 BEST GEAR ============ -->
+<h2 id="game2-best-gear">🏆 Game 2 — Best Equipment &amp; Money Strategy</h2>
+
+<div class="card">
+<h3>💰 Best Money Makers</h3>
+<ul>
+    <li><strong>Early game (Kid):</strong> Sell fish at the Fish Market. Focus on larger fish (51+ cm = 50G, 81+ cm = 80G).</li>
+    <li><strong>Early game (Teen):</strong> Catch <strong>Kasago</strong> or <strong>Sea Sculpin</strong> at the Beach, trade them to the Tulip girl for <strong>S-Rank Tulips</strong> (sell for 50G each!). Repeatable.</li>
+    <li><strong>Ocean:</strong> Special Fish Market pays extra for <strong>Sardines</strong> and <strong>Saurels</strong> (found at Shore dock).</li>
+    <li><strong>Summit:</strong> Extra Fish Shop in southeast pays more for <strong>Darters</strong> and <strong>Loach Minnows</strong>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🎣 Key Rods to Acquire (Via Quests)</h3>
+<table>
+    <tr><th>Rod</th><th>How to Get</th><th>Map</th></tr>
+    <tr><td>8 ft Lure Rod</td><td>Give girl a Violet → get Rose → give Rose to guy</td><td>Stream</td></tr>
+    <tr><td>14 ft Lure Rod</td><td>Catch 3 Breams for fisherman on southern island</td><td>Summit</td></tr>
+    <tr><td>5 ft Fly Rod</td><td>Catch a Catfish for father-son duo in north</td><td>Summit</td></tr>
+    <tr><td>11 ft Fly Rod</td><td>Catch Brook Trout for lady by Inn</td><td>Moor</td></tr>
+    <tr><td>Small Surf Rod</td><td>Catch Opaleye for fisherman east of Tackle Shop</td><td>Beach</td></tr>
+    <tr><td>Small Boat Rod</td><td>Catch Yellowtail for man south of Tackle Shop</td><td>Ocean</td></tr>
+    <tr><td>30b Trolling Rod</td><td>Catch Red Seabream for man south of Shore dock</td><td>Shore</td></tr>
+    <tr><td><strong>130b Trolling Rod</strong></td><td>Win Spearfish contest vs. old man in cave (230cm+)</td><td>Shore</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>🛒 Critical Purchases</h3>
+<ul>
+    <li><strong>Flippers</strong> (200G) — Essential for shellfish diving. Buy at any sea Tackle Shop.</li>
+    <li><strong>Large Cooler</strong> (300G) — Holds 32 fish.</li>
+    <li><strong>Box Lunch</strong> (20G) — Recover 40 HP. Best food.</li>
+    <li><strong>Tree Sap</strong> (20G) — Freezes bugs for easy catching.</li>
+    <li><strong>Large Bug Cage / Large Flower Basket</strong> (100G each) — 16 slots.</li>
+</ul>
+</div>
+
+<!-- ============ GAME 2 KID WALKTHROUGH ============ -->
+<h2 id="game2-kid-walkthrough">🗺️ Game 2 — Kid Walkthrough (Start at The Lake)</h2>
+
+<div class="warning"><strong>Note:</strong> The Kid starts at Level 1 with 50 HP — the harder route. If you're struggling, consider restarting as the Teen (Level 8, 80 HP).</div>
+
+<h3>🌿 The Lake</h3>
+<div class="card">
+<ol>
+    <li><strong>Get the Watch:</strong> Man by Tackle Shop wants a <strong>Roach</strong> (south of Inn). Use starting equipment. Reward: <span class="tag tag-item">Watch</span> (change time of day).</li>
+    <li><strong>Get the Canoe:</strong> Man by Inn wants a <strong>Sucker Eel</strong> (north of bridge among water plants). Use Small Hook + worms. Reward: <span class="tag tag-item">Canoe</span>.</li>
+    <li><strong>+10 HP Bonus:</strong> Old lady across bridge wants <strong>5 Green Grasshoppers</strong> (found just north of her). Reward: +10 max HP.</li>
+    <li><strong>Get Tofu to pass the Ogre:</strong> Foxes in southwest house need a <strong>Pink flower</strong> (on island in middle of lake — use canoe). Give Pink → receive <span class="tag tag-item">Tofu</span>. Give Tofu to ogre blocking path → access to The Stream.</li>
+</ol>
+</div>
+
+<h3>🏞️ The Stream</h3>
+<div class="card">
+<ol>
+    <li><strong>8 ft Lure Rod:</strong> Girl by Inn is tired of Roses. Pick a <strong>Violet</strong> (by save shrine) → give to girl → receive <span class="tag tag-item">Rose</span>. Give Rose to the guy behind her → receive <span class="tag tag-item">8 ft Lure Rod</span>.</li>
+    <li><strong>Get the Axe (Bridge to Summit):</strong> Worker near entrance lost his Axe in the pond. Catch a <strong>Carp</strong> (south of waterfall — use Fly or Lure rod; Carp won't take bait-hook). Give Carp to the girl at the pond → she becomes the Goddess → receive <span class="tag tag-item">Axe</span>. Give Axe to worker → bridge to Summit built.</li>
+</ol>
+</div>
+
+<h3>⛰️ The Summit</h3>
+<div class="card">
+<ol>
+    <li><strong>Hyacinth:</strong> Boy left of bridge wants a <strong>Blue Gill</strong>. Catch one just right of the bridge. Reward: <span class="tag tag-item">Hyacinth</span> (S-Rank flower).</li>
+    <li><strong>14 ft Lure Rod:</strong> Fisherman on southern island needs <strong>3 Breams</strong> (west of bridge). Reward: <span class="tag tag-item">14 ft Lure Rod</span>.</li>
+    <li><strong>5 ft Fly Rod:</strong> Father-son duo in north want a <strong>Catfish</strong> (found just south of them). Reward: <span class="tag tag-item">5 ft Fly Rod</span>.</li>
+    <li><strong>Talk to Yuki:</strong> She's on rocks at the waterfall. River King is here but won't appear until it rains. She sends you to the <strong>Underwater Palace</strong> for a Cloud Seed Slug. You now need to reach the sea maps.</li>
+</ol>
+</div>
+
+<h3>🏖️ The Beach (Kid's First Visit to Sea Maps)</h3>
+<div class="card">
+<ol>
+    <li><strong>Small Surf Rod:</strong> Man east of Tackle Shop wants <strong>Opaleye</strong>. Catch just south of him. Reward: <span class="tag tag-item">Small Surf Rod</span>.</li>
+    <li><strong>Tulips for Cash:</strong> Girl north of Fish Market exchanges <strong>Kasago</strong> or <strong>Sea Sculpin</strong> for S-Rank Tulips (50G each!). Farm these for money.</li>
+    <li><strong>Save the Turtle:</strong> Boy pestering a turtle wants <strong>300 Gold</strong> (he says "3 dollars" — translation error!). Pay him → Turtle invites you to the Sea Palace.</li>
+</ol>
+</div>
+
+<h3>🌊 The Shore</h3>
+<div class="card">
+<ol>
+    <li><strong>Get Dad's Boat:</strong> Canoe can't handle Shore waters. Dad wants a <strong>Pearl Oyster</strong>. Dive in northeast corner of Beach (need Flippers!). Return it → access to <span class="tag tag-item">Dad's Boat</span>.</li>
+    <li><strong>Find the Turtle:</strong> Boat far east, then slightly north. Dive next to Turtle — <strong>need ~140 HP</strong> to survive the deep swim. Reach the Underwater Palace.</li>
+    <li><strong>Princess needs Cloud Sea Slug:</strong> Found diving along Beach coastline (near the lady who mentions "strange creature"). Give to Princess → receive <span class="tag tag-item">Cloud Seed Slug box</span>. Return to Yuki at Summit.</li>
+</ol>
+</div>
+
+<h3>🔙 Back to The Stream → The Moor</h3>
+<div class="card">
+<ol>
+    <li><strong>Get the Pickax:</strong> Worker is now in northwest corner. He gives back the Axe. Go to Goddess pond, drop Axe → get <span class="tag tag-item">Pickax</span>. Give to worker → path to The Moor opened.</li>
+</ol>
+</div>
+
+<h3>🌲 The Moor</h3>
+<div class="card">
+<ol>
+    <li><strong>11 ft Fly Rod:</strong> Lady by Inn wants <strong>Brook Trout</strong> (far southern waters). Reward: <span class="tag tag-item">11 ft Fly Rod</span>.</li>
+    <li><strong>7 Spring Herbs (+40 HP):</strong> Girl at home wants: Bee Nettle, Chickweed, Cottonweed, Parsley, Radish, Shepherd's Purse, Turnip. The girl by Fish Market tells you which. Reward: <strong>+40 max HP!</strong></li>
+    <li><strong>Get Pansy:</strong> Boy north of bridge wants a <strong>Cherry Salmon</strong> (northeast of him). Reward: <span class="tag tag-item">Pansy</span> (S-Rank).</li>
+    <li><strong>Get Cucumber:</strong> Girl on east side of river (south end) wants <strong>Rainbow Trout</strong> (south of bridge — use Fly/Lure, not bait). Reward: <span class="tag tag-item">Cucumber</span>.</li>
+    <li><strong>Visit Kappa (Master Craftsman):</strong> Locked door in northwest corner. Give Cucumber → Kappa lets you in. He needs <strong>Genji Firefly</strong> + <strong>Heike Firefly</strong> (found east of his cave by firefly boy). Give him your <strong>Frog Lure</strong> → he modifies it for the <strong>River King</strong>.</li>
+</ol>
+</div>
+
+<h3>⛰️ Return to The Summit — Catch the River King!</h3>
+<div class="card">
+<ol>
+    <li><strong>Brown Trout Contest:</strong> Yuki's dad (Zeus) demands a contest. Catch a Brown Trout <strong>at least 65 cm</strong> (near waterfall, use Lure/Fly). Beat Yuki → she makes it rain.</li>
+    <li><strong>Catch the River King:</strong> Northwest corner among Snakeheads. Use <strong>14 ft Lure Rod + Kappa's Frog Lure</strong>. Darker fins than normal Snakeheads. Once caught → half the Heaven Jewel restored.</li>
+</ol>
+</div>
+
+<h3>🌊 Now Chase the Sea King (Brother Failed)</h3>
+<div class="card">
+<ol>
+    <li><strong>Calm the Storm:</strong> Dad's boat to northeast Shore → storm appears. Dad needs a "Scarab" — get a <strong>Dung Beetle</strong> from Stream's southwest corner.</li>
+    <li><strong>30b Trolling Rod:</strong> Man south of Shore dock wants "<strong>Red Seabream</strong>" (mislabeled as "S. Reabrm" — translation glitch!). Found around the middle island or lighthouse in Ocean.</li>
+    <li><strong>Ocean — Small Boat Rod:</strong> Man south of Tackle Shop wants <strong>Yellowtail</strong> (west of lighthouse in northeast corner).</li>
+    <li><strong>Save the Girl:</strong> Little girl at dock attacked by Sea Eagle. Defeat it → receive <span class="tag tag-item">Momo (Stuffed Doll)</span>.</li>
+    <li><strong>Get the Cruiser:</strong> Captain can't sail while mermaids sing. Get <strong>S. Cicada</strong> from behind Stream's Fish Market.</li>
+    <li><strong>Visit Mermaids:</strong> Cruiser to shipwreck in southeast Ocean corner. Dive down. Mermaid wants <strong>2 Scallops</strong> (dive south of lighthouse). She tells you about an old man on a Shore island.</li>
+    <li><strong>130b Trolling Rod:</strong> Shore's southeast island cave. Old man recognizes Momo. Beat his contest: catch <strong>Spearfish ≥ 230 cm</strong> (just north of his island). Reward: <span class="tag tag-item">130b Trolling Rod</span>.</li>
+    <li><strong>Catch the Sea King:</strong> Equip 130b Trolling Rod + <strong>Squid fly</strong>. Go to shipwreck. Sea King hides among Bluefin Tuna northwest of the wreck.</li>
+</ol>
+</div>
+
+<div class="highlight"><strong>✅ Both Kings Caught!</strong> Yuki reassembles the Heaven Jewel. You notice an island inside it…</div>
+
+<!-- ============ GAME 2 TEEN WALKTHROUGH ============ -->
+<h2 id="game2-teen-walkthrough">🗺️ Game 2 — Teen Walkthrough (Start at The Beach)</h2>
+
+<div class="tip"><strong>💡 Recommended for beginners:</strong> The Teen starts at Level 8 with 80 HP — significantly easier than the Kid.</div>
+
+<h3>🏖️ The Beach</h3>
+<div class="card">
+<ol>
+    <li><strong>Get the Watch:</strong> Lady between Inn and Grocery wants <strong>Sweet Brier</strong> (south of the bridge).</li>
+    <li><strong>Get the Canoe:</strong> Man next to Tackle Shop wants <strong>Dandelion</strong> (south of Sweet Brier).</li>
+    <li><strong>Small Surf Rod:</strong> Man east of Tackle Shop wants <strong>Opaleye</strong> (just south of him).</li>
+    <li><strong>Farm Tulips:</strong> Girl north of Fish Market trades Tulips for Kasago/Sea Sculpin. 50G per Tulip!</li>
+</ol>
+</div>
+
+<h3>🌊 The Shore → The Lake → The Stream</h3>
+<div class="card">
+<ol>
+    <li><strong>Get Dad's Boat:</strong> Dad wants a Pearl Oyster (dive northeast Beach corner).</li>
+    <li><strong>Storm blocks northeast:</strong> Dad needs a Scarab. Walk through Mom's garden → The Lake.</li>
+    <li><strong>+10 HP:</strong> Old lady wants 5 Green Grasshoppers at The Lake.</li>
+    <li><strong>Get Tofu:</strong> Foxes need Pink flower (Lake island) → Tofu → give to ogre → Stream.</li>
+    <li><strong>Get Dung Beetle:</strong> Stream's southwest corner. Also grab an <strong>S. Cicada</strong> (behind Fish Market) for later.</li>
+    <li><strong>8 ft Lure Rod:</strong> Same Violet → Rose → Lure Rod chain at Stream.</li>
+    <li><strong>Return to Shore:</strong> Give Dung Beetle to Dad → access northeast dock.</li>
+    <li><strong>30b Trolling Rod:</strong> Man south of dock wants Red Seabream (Ocean middle island).</li>
+</ol>
+</div>
+
+<h3>🌊 The Ocean</h3>
+<div class="card">
+<ol>
+    <li><strong>Small Boat Rod:</strong> Man south of Tackle Shop wants Yellowtail (near lighthouse).</li>
+    <li><strong>Save the Girl:</strong> Defeat Sea Eagle at dock → get Momo doll.</li>
+    <li><strong>Get Cruiser:</strong> Give S. Cicada to captain → mermaid singing stops.</li>
+    <li><strong>Visit Mermaids:</strong> Shipwreck in southeast → get 2 Scallops (south of lighthouse).</li>
+    <li><strong>130b Trolling Rod:</strong> Old man in Shore southeast cave. Catch Spearfish ≥ 230 cm.</li>
+    <li><strong>Catch the Sea King:</strong> 130b Rod + Squid fly at shipwreck. Among Bluefin Tuna. <strong>Sea King caught!</strong></li>
+</ol>
+</div>
+
+<h3>🔙 Now Catch the River King (Brother Failed)</h3>
+<div class="card">
+<p>From here, follow the <strong>same steps as the Kid walkthrough</strong> starting from:</p>
+<ul>
+    <li>Stream — Get Axe from Goddess (Carp in pond) → bridge to Summit</li>
+    <li>Summit — Hyacinth, 14 ft Lure Rod, 5 ft Fly Rod, talk to Yuki</li>
+    <li>Beach — Save the Turtle (300 Gold)</li>
+    <li>Shore — Find Turtle far east, dive to Palace (need ~120 HP), get Cloud Seed Slug from Princess (trade Cloud Sea Slug from Beach)</li>
+    <li>Stream — Pickax from Goddess → access Moor</li>
+    <li>Moor — 11 ft Fly Rod, 7 Spring Herbs (+40 HP), Pansy, Cucumber</li>
+    <li>Kappa's Cave — Genji + Heike Fireflies → modified Frog Lure</li>
+    <li>Summit — Brown Trout contest (≥ 65 cm) → rain → <strong>catch River King</strong> with 14 ft Lure Rod + Kappa's Frog Lure in northwest corner among Snakeheads</li>
+</ul>
+</div>
+
+<!-- ============ REMOTE ISLAND ============ -->
+<h2 id="game2-remote">🏝️ Game 2 — Remote Island &amp; The King of Kings</h2>
+
+<div class="card">
+<h3>Accessing the Remote Island</h3>
+<ol>
+    <li>After catching both Kings, the credits roll. <strong>Reload your save</strong> — you'll be at your house.</li>
+    <li>Dad tells you to talk to the cruiser captain at The Shore.</li>
+    <li>The captain takes you to the Remote Island — Yuki's home among the gods.</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>Catching the King of Kings (True Final Boss)</h3>
+<ol>
+    <li>Yuki's in trouble again (stole a star from the Milky Way). Zeus will forgive her if you catch him in fish form.</li>
+    <li><strong>Requirement:</strong> Complete the Fish Memo — all <strong>103 fish</strong> documented. (The King of Kings is #104.)</li>
+    <li><strong>Rock Cod</strong> is a commonly missed fish — found along the east side of The Beach.</li>
+    <li>6 new fish appear at the Remote Island (Alowana, Amiya, Itou Salmon, King Salmon, Tilapia, Yellow Perch). They're all between the northern bridge and Yuki's cliff. <strong>Species change randomly</strong> — use the Watch to switch day/night until all 6 appear.</li>
+    <li>Once you have all 103, talk to Yuki → <strong>King of Kings appears</strong> as a King Salmon at the base of the cliff.</li>
+    <li>Catch him with your Lure Rod + Frog Lure.</li>
+</ol>
+<div class="highlight"><strong>👑 TRUE ENDING!</strong> Zeus forgives Yuki. You've beaten the whole game!</div>
+</div>
+
+<!-- ============ TRADING ============ -->
+<h2 id="game2-trading">🔗 Game 2 — Trading with Harvest Moon 2 &amp; River King 2</h2>
+
+<div class="card">
+<h3>Trading Between Two River King 2 Carts</h3>
+<ul>
+    <li>Use Gamelink Cable. Both players go to Grocery Shop → talk to old man → <strong>Comm</strong>.</li>
+    <li>Trade fish/shellfish for fish/shellfish, bugs for bugs, flowers for flowers.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Trading with Harvest Moon 2 (GBC)</h3>
+<ul>
+    <li>River King 2 player: Grocery Shop → Comm.</li>
+    <li>Harvest Moon 2 player: Mary's Library → Communication Center (closed Sundays/event days).</li>
+    <li><strong>To complete Flower Memo</strong> you MUST trade with HM2 for: <strong>Camomile, Sage, Saffron, Rosemary</strong>.</li>
+    <li><strong>To complete Bug Memo</strong> you need from HM2: <strong>H. Beetle, M. Butterfly, O.S. Beetle</strong>.</li>
+</ul>
+</div>
+
+<!-- ============ GLITCHES ============ -->
+<h2 id="game2-glitches">🐛 Game 2 — Known Glitches &amp; Translation Errors</h2>
+
+<div class="card">
+<ul>
+    <li><strong>"S. Reabrm" = Red Seabream:</strong> Man at Shore dock asks for "S. Reabrm" — this is a mistranslation. He actually wants a <strong>Red Seabream</strong>.</li>
+    <li><strong>"3 dollars" = 300 Gold:</strong> The boy harassing the turtle says "3 dollars" but actually demands 300 Gold.</li>
+    <li><strong>"Cow" = Crow:</strong> Summit enemy labeled "Cow" is actually a bird (Crow).</li>
+    <li><strong>"Tale" = Tail:</strong> The game manual says to hit a Seal on its "Tale." It should be "Tail."</li>
+    <li><strong>Rockfish mislabel:</strong> The manual says Rockfish are at The Beach. They're actually called <strong>Kasago</strong> in-game. The Tulip girl won't accept actual Rockfish — only Kasago or Sea Sculpin.</li>
+    <li><strong>Cherry Trout = Cherry Salmon:</strong> Moor map in manual lists "Cherry Trout" — it's actually Cherry Salmon.</li>
+    <li><strong>Ocean Fish Market pricing:</strong> The $ sign appears but the gold amount is missing from the dialogue.</li>
+    <li><strong>Rumble Pack:</strong> Removed from the English release.</li>
+</ul>
+</div>
+
+<!-- ============ COMPARISON ============ -->
+<h2 id="game-comparison">⚖️ Both Games Compared</h2>
+
+<div class="card">
+<div class="fish-table-wrapper">
+<table>
+    <tr><th>Feature</th><th>Legend of the River King 1</th><th>Legend of the River King 2</th></tr>
+    <tr><td>Release Year</td><td>1999</td><td>2001</td></tr>
+    <tr><td>Fish Count</td><td>48 (GBC) / 40 (GB)</td><td><strong>104</strong></td></tr>
+    <tr><td>Maps</td><td>4 + Fun Lake (bonus)</td><td><strong>8</strong></td></tr>
+    <tr><td>Playable Characters</td><td>1 (the boy)</td><td><strong>2</strong> (Kid + Teen with different starts)</td></tr>
+    <tr><td>Other Collectibles</td><td>None</td><td>24 Shellfish, 48 Bugs, 32 Flowers</td></tr>
+    <tr><td>Rod Types</td><td>3 (Bait, Lure, Fly)</td><td><strong>6</strong> (T.Rod, Reel, Lure, Fly, Boat, Trolling)</td></tr>
+    <tr><td>Total Rods</td><td>7</td><td><strong>16</strong></td></tr>
+    <tr><td>Trading</td><td>No</td><td>Yes — with RK2 and Harvest Moon 2</td></tr>
+    <tr><td>Story</td><td>Save sister from illness</td><td>Recover Heaven Jewel pieces from two gods</td></tr>
+    <tr><td>Bosses</td><td>Bear (Lake 1), Guardian Fish</td><td>River King, Sea King, King of Kings + many quests</td></tr>
+    <tr><td>Raise Mode</td><td>Yes (fish evolution)</td><td>No</td></tr>
+    <tr><td>Virtual Console</td><td>Yes (3DS, 2014)</td><td>Yes (3DS, 2014)</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ============ KEY DIFFERENCES SUMMARY ============ -->
+<div class="card">
+<h3>🎯 Quick-Reference: Which Game Should You Play?</h3>
+<ul>
+    <li><strong>Play River King 1 if:</strong> You want a focused, shorter fishing RPG with a sweet story about saving your sister. The combat is simpler, the fishing mechanics are more forgiving, and there's less to collect.</li>
+    <li><strong>Play River King 2 if:</strong> You want a <strong>much larger</strong> game with two story paths, ocean fishing, shellfish diving, bug/flower collecting, trading, and a massive 104-fish memo to complete. The scope is dramatically bigger.</li>
+    <li><strong>Play both in order:</strong> River King 1 teaches the core mechanics. River King 2 expands on everything and adds sea fishing. The original also has the charming Raise Mode virtual pet feature that the sequel lacks.</li>
+</ul>
+</div>
+
+<!-- ============ COMMON MISTAKES ============ -->
+<div class="warning">
+<h3>⚠️ Common Beginner Mistakes in Both Games</h3>
+<ul>
+    <li><strong>Reeling while the fish fights:</strong> You MUST wait for the fish to stop moving completely or it escapes.</li>
+    <li><strong>Wrong hook size:</strong> Small fish need Small Hooks, large fish need Large Hooks. Using the wrong size = guaranteed escape.</li>
+    <li><strong>Not buying the Net early (Game 1):</strong> Free bait saves tons of gold.</li>
+    <li><strong>Not buying Flippers (Game 2):</strong> You can't dive effectively without them.</li>
+    <li><strong>Skipping enemy fights:</strong> HP growth from EXP is essential for longer casts and survival.</li>
+    <li><strong>Rafting/running everywhere:</strong> Movement costs HP. Take efficient routes and use the Inn.</li>
+    <li><strong>Not catching all fish in each area before moving on:</strong> Makes 100% completion much harder later.</li>
+</ul>
+</div>
+
+<!-- ============ FINAL TIPS ============ -->
+<div class="tip">
+<h3>💡 Top 10 Tips for Both Games</h3>
+<ol>
+    <li><strong>Stonefly Wet (Game 1) / Spinner Bait (Game 2)</strong> are your go-to all-purpose lures/flies.</li>
+    <li>Always carry <strong>at least 5–10 food items</strong> before exploring new areas.</li>
+    <li><strong>Talk to every NPC</strong> — many give quests, items, or money-making opportunities.</li>
+    <li>Entering/exiting any building <strong>respawns all fish</strong> — no need for Chumming/Ground Bait.</li>
+    <li>In Game 1, <strong>grind the Torrent thoroughly</strong> before moving on. Buy the Fly Rod Large + Stonefly Wet.</li>
+    <li>In Game 2, the <strong>Teen is easier for beginners</strong> (starts at Level 8 vs Kid's Level 1).</li>
+    <li>Use the <strong>Watch</strong> (Game 2) to toggle day/night — some fish/bugs only appear at specific times.</li>
+    <li>In Game 2, <strong>don't sell S-Rank collectibles</strong> unless you've already traded them to complete memos.</li>
+    <li>The <strong>Dough Ball</strong> in Game 1 is ONLY for the Guardian Fish — don't use it for anything else.</li>
+    <li>On 3DS Virtual Console, use <strong>Restore Points</strong> liberally — these games are punishing.</li>
+</ol>
+</div>
+
+<!-- ============ SOURCES ============ -->
+<h2 id="sources">📚 Sources</h2>
+
+<div class="card">
+<ul>
+    <li>Knepper0560 (JunoGem). "Legend of the River King GBC – Guide and Walkthrough." <em>GameFAQs</em>, v1.5, November 29, 2000. <a href="https://gamefaqs.gamespot.com/gbc/375730-legend-of-the-river-king-gbc/faqs/8142">GameFAQs Link</a></li>
+    <li>Cherubae. "A Fishy Guide to Legend of the River King 2." <em>Fogu.com</em>, v2.8, September 7, 2001. <a href="https://fogu.com/rk2/">Fogu RK2 Guide</a> — FAQ of the Month Winner April 2001 on GameFAQs</li>
+    <li>Cherubae. "Legend of the River King 2 — Kid Walkthrough" &amp; "Teen Walkthrough." <em>Fogu.com</em>, 2001. <a href="https://fogu.com/rk2/basics/walk.html">Walkthrough Index</a></li>
+    <li>Froggy_W (Wil Cerbone). "Legend of the River King GB – FAQ." <em>GameFAQs</em>, v1.5, June 20, 2000. <a href="https://gamefaqs.gamespot.com/gameboy/570010-legend-of-the-river-king-gb/faqs/7030">GameFAQs Link</a></li>
+    <li>LoudKing (Andrew R Morozin). "Legend of the River King GB – Guide and Walkthrough." <em>GameFAQs</em>, v1.1, September 30, 1999.</li>
+    <li>Natsume. "Legend of the River King GBC Game Manual." <a href="https://www.thegameisafootarcade.com/wp-content/uploads/2017/05/Legend-of-the-River-King-GBC-Game-Manual.pdf">PDF Manual</a></li>
+    <li>Nintendo Power, Issue 107, pp. 84–89 (Raise Mode section for Game 1).</li>
+    <li>GameFAQs Message Boards — "I must really suck" thread (fishing mechanics tips). <a href="https://gamefaqs.gamespot.com/boards/375730-legend-of-the-river-king-gbc/65796827">Link</a></li>
+    <li>AbsolutCheats. "Legend of the River King Cheats and Hints." <a href="http://www.absolutcheats.com/gb/legend-of-the-river-king-cheats">Link</a></li>
+</ul>
+</div>
+
+<div class="card" style="text-align:center; margin-top:40px;">
+<p style="color:var(--accent2);">🎣 <strong>Good luck, angler! May your line stay tight and your pail stay full.</strong> 🎣</p>
+</div>
+
+</div>
+</body>
+</html>
