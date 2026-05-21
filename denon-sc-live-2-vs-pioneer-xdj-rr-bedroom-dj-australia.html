@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denon SC Live 2 vs Pioneer XDJ-RR — Bedroom DJ Comparison (Australia)</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232733;
+            --text: #e1e4ed;
+            --text-secondary: #9399ab;
+            --accent: #7c8af0;
+            --accent2: #4adea0;
+            --warning: #f0a050;
+            --danger: #f07070;
+            --border: #2a2e3a;
+            --pioneer: #e85d3a;
+            --denon: #4a9eff;
+            --winner: #4adea0;
+            --alphatheta: #6c7dd0;
+            --omnis: #5b6ab8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2.5rem 1.5rem;
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--denon), var(--pioneer));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-denon { background: rgba(74,158,255,0.15); color: var(--denon); }
+        .badge-pioneer { background: rgba(232,93,58,0.15); color: var(--pioneer); }
+        .badge-winner { background: rgba(74,222,160,0.15); color: var(--winner); }
+        .badge-warn { background: rgba(240,160,80,0.15); color: var(--warning); }
+        .badge-alphatheta { background: rgba(107,125,208,0.15); color: var(--alphatheta); }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .price-grid { grid-template-columns: 1fr; }
+        }
+
+        .price-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .price-card.denon { border-top: 3px solid var(--denon); }
+        .price-card.pioneer { border-top: 3px solid var(--pioneer); }
+        .price-card.omnis { border-top: 3px solid var(--alphatheta); }
+
+        .price-card .brand { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .price-card .price { font-size: 2rem; font-weight: 800; }
+        .price-card .rrp { color: var(--text-secondary); font-size: 0.85rem; text-decoration: line-through; }
+        .price-card .retailer { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface2);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child { border-radius: 8px 0 0 0; }
+        th:last-child { border-radius: 0 8px 0 0; }
+
+        td:first-child { font-weight: 600; color: var(--text-secondary); }
+
+        .winner-cell { color: var(--winner); font-weight: 700; }
+        .lose-cell { color: var(--danger); }
+
+        .verdict-box {
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+        .verdict-box.denon-win { background: rgba(74,158,255,0.08); border: 1px solid rgba(74,158,255,0.25); }
+        .verdict-box.pioneer-win { background: rgba(232,93,58,0.08); border: 1px solid rgba(232,93,58,0.25); }
+        .verdict-box.omnis-win { background: rgba(107,125,208,0.08); border: 1px solid rgba(107,125,208,0.25); }
+
+        .verdict-box h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ul { margin: 0.75rem 0 0.75rem 1.25rem; }
+        li { margin-bottom: 0.4rem; }
+
+        .final-verdict {
+            background: linear-gradient(135deg, rgba(74,222,160,0.1), rgba(74,158,255,0.1));
+            border: 2px solid var(--winner);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            text-align: center;
+        }
+
+        .final-verdict h2 {
+            border: none;
+            font-size: 1.6rem;
+            margin-top: 0;
+            color: var(--winner);
+        }
+
+        .final-verdict .pick {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+
+        .section-box {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .highlight {
+            background: rgba(124,138,240,0.1);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .sources {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .sources h3 { color: var(--text); margin-top: 0; }
+        .sources a { color: var(--accent); word-break: break-all; }
+        .sources li { margin-bottom: 0.5rem; }
+
+        .availability-warning {
+            background: rgba(240,112,112,0.1);
+            border: 1px solid rgba(240,112,112,0.3);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+
+        .featured-box {
+            background: linear-gradient(135deg, rgba(107,125,208,0.12), rgba(91,106,184,0.08));
+            border: 2px solid var(--alphatheta);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .featured-box h2 {
+            border: none;
+            margin-top: 0;
+            font-size: 1.6rem;
+            color: var(--alphatheta);
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        .score-label { width: 160px; font-weight: 600; }
+        .score-bar-bg {
+            flex: 1;
+            height: 10px;
+            background: var(--surface2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+        }
+        .score-bar-fill.denon-bar { background: var(--denon); }
+        .score-bar-fill.pioneer-bar { background: var(--pioneer); }
+        .score-num { width: 40px; text-align: right; font-weight: 700; font-size: 0.9rem; }
+
+        .comparison-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-card h4 {
+            color: var(--alphatheta);
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .pro-con-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.25rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .pro-con-grid { grid-template-columns: 1fr; }
+        }
+
+        .pro-list { color: var(--accent2); }
+        .con-list { color: var(--danger); }
+
+        .omnis-hero-banner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, #1a1e30, #1e2340);
+            border: 1px solid var(--alphatheta);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .omnis-hero-banner .emoji-large { font-size: 2.5rem; }
+        .omnis-hero-banner .hero-text { font-size: 0.95rem; line-height: 1.6; }
+        .omnis-hero-banner .hero-text strong { color: var(--alphatheta); }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Denon SC Live 2 vs Pioneer XDJ-RR</h1>
+    <p class="subtitle">Comprehensive comparison for a bedroom DJ in Australia —<br>Primary genre: Japanese Happy Hardcore (and beyond)</p>
+</header>
+
+<!-- PRICES -->
+<h2>&#128176; Australian Pricing (AUD)</h2>
+
+<div class="price-grid">
+    <div class="price-card denon">
+        <span class="badge badge-denon">Denon</span>
+        <div class="brand">SC Live 2</div>
+        <div class="price">~$1,739 – $1,849</div>
+        <div class="rrp">Was listed at retail</div>
+        <div class="retailer" style="margin-top:0.75rem;">
+            DJ City: $1,779<br>
+            Valentine Music Centre: $1,739–$1,849<br>
+        </div>
+        <div class="availability-warning" style="margin-top:0.75rem;">
+            &#9888;&#65039; DISCONTINUED at most Australian retailers
+        </div>
+    </div>
+    <div class="price-card pioneer">
+        <span class="badge badge-pioneer">Pioneer</span>
+        <div class="brand">XDJ-RR</div>
+        <div class="price">$1,599 – $2,199</div>
+        <div class="rrp">RRP: $2,549 AUD</div>
+        <div class="retailer" style="margin-top:0.75rem;">
+            Turramurra Music: <strong>$1,599</strong><br>
+            Better Music: $1,899<br>
+            Sky Music: $2,199<br>
+            Music On Stage: $2,140
+        </div>
+        <div style="margin-top:0.75rem; color: var(--accent2); font-weight:600;">
+            &#9989; Widely available — best street price ~$1,599
+        </div>
+    </div>
+</div>
+
+<p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+    &#9432;&#65039; Prices sourced from Australian retailers as of mid-2025. The SC Live 2 appears to have been largely discontinued in the Australian market, while the XDJ-RR remains widely stocked and actively sold.
+</p>
+
+<!-- QUICK HEAD-TO-HEAD -->
+<h2>&#9879;&#65039; Quick Head-to-Head</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Feature</th>
+            <th><span class="badge badge-denon">Denon SC Live 2</span></th>
+            <th><span class="badge badge-pioneer">Pioneer XDJ-RR</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Standalone OS</td>
+            <td>Engine DJ OS</td>
+            <td>rekordbox (USB export)</td>
+        </tr>
+        <tr>
+            <td>Screen</td>
+            <td>7" multi-touch <span class="winner-cell">&#10003;</span></td>
+            <td>7" colour LCD (no touch)</td>
+        </tr>
+        <tr>
+            <td>Jog Wheels</td>
+            <td>6" (no centre LCD)</td>
+            <td>7" (larger) <span class="winner-cell">&#10003;</span></td>
+        </tr>
+        <tr>
+            <td>Built-in Speakers</td>
+            <td><span class="winner-cell">&#10003; Yes</span></td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Wi-Fi / Streaming</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Amazon Music, TIDAL, Beatport, SoundCloud, Beatsource, Dropbox, Apple Music)</td>
+            <td>&#10007; No — USB drives / laptop only</td>
+        </tr>
+        <tr>
+            <td>Performance Pads (per deck)</td>
+            <td>4 physical (+ Bank = 8 virtual) <span class="winner-cell">&#10003;</span></td>
+            <td>4 physical (8 Hot Cues via shift)</td>
+        </tr>
+        <tr>
+            <td>Onboard FX</td>
+            <td>4 Sweep FX + 13 BPM FX <span class="winner-cell">&#10003;</span></td>
+            <td>4 Sound Color FX + 3 Beat FX</td>
+        </tr>
+        <tr>
+            <td>Key Shift / Key Sync</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Engine DJ)</td>
+            <td>&#10003; Yes (via rekordbox)</td>
+        </tr>
+        <tr>
+            <td>Booth Output</td>
+            <td>&#10007; No</td>
+            <td>&#10007; No (Master XLR+RCA only)</td>
+        </tr>
+        <tr>
+            <td>Mic Input</td>
+            <td>1/4" TRS only</td>
+            <td>XLR + 1/4" combo <span class="winner-cell">&#10003;</span></td>
+        </tr>
+        <tr>
+            <td>Aux / External Input</td>
+            <td>&#10007; No</td>
+            <td><span class="winner-cell">&#10003; RCA phono/line</span></td>
+        </tr>
+        <tr>
+            <td>Media Slots</td>
+            <td>SD card + 2x USB-A <span class="winner-cell">&#10003;</span></td>
+            <td>2x USB-A</td>
+        </tr>
+        <tr>
+            <td>Software Controller Mode</td>
+            <td>Serato DJ Pro (included) + Virtual DJ</td>
+            <td>rekordbox DJ (included)</td>
+        </tr>
+        <tr>
+            <td>USB Recording</td>
+            <td>&#10007; No</td>
+            <td><span class="winner-cell">&#10003; Record mix to USB</span></td>
+        </tr>
+        <tr>
+            <td>Lighting Control</td>
+            <td><span class="winner-cell">&#10003; Engine Lighting</span> (DMX, Hue, Nanoleaf)</td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Build Material</td>
+            <td>Predominantly plastic</td>
+            <td>Metal/plastic hybrid <span class="winner-cell">&#10003;</span></td>
+        </tr>
+        <tr>
+            <td>Weight</td>
+            <td><span class="winner-cell">4.6 kg</span> (lighter)</td>
+            <td>5.2 kg</td>
+        </tr>
+        <tr>
+            <td>Dimensions (W×D×H)</td>
+            <td>67.8 × 39.1 × 9.9 cm</td>
+            <td>62.5 × 38.9 × 7.4 cm <span class="winner-cell">&#10003;</span></td>
+        </tr>
+        <tr>
+            <td>AUS Availability</td>
+            <td><span class="lose-cell">&#10007; Discontinued</span></td>
+            <td><span class="winner-cell">&#10003; Widely in stock</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- FEATURE DEEP DIVE -->
+<h2>&#128269; Deep Dive: What Matters for a Japanese Happy Hardcore DJ</h2>
+
+<div class="section-box">
+    <h3>&#127925; Music Sources &amp; the "Niche Genre" Problem</h3>
+    <p>
+        Japanese happy hardcore (and doujin music generally) is a <strong>niche, enthusiast-driven scene</strong>. 
+        Most tracks come from <strong>purchased downloads</strong> (Bandcamp, Booth.pm, DLsite, doujin circles), 
+        <strong>ripped CDs</strong> from Comiket/M3 events, or private trackers. 
+        This has a major implication:
+    </p>
+    <ul>
+        <li><strong>Streaming services have very little Japanese happy hardcore.</strong> TIDAL, Beatport, Amazon Music, and Apple Music simply don't carry the vast majority of doujin hardcore releases. Relying on the SC Live 2's streaming features for this genre would be deeply disappointing.</li>
+        <li><strong>You will almost certainly be playing from local files</strong> — MP3, WAV, FLAC, AIFF that you've purchased or collected.</li>
+        <li>This means the SC Live 2's headline feature (built-in streaming) is <strong>far less valuable for your specific use case</strong> than it would be for a DJ playing mainstream EDM, hip-hop, or pop.</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#128260; BPM &amp; Pitch: Fast-Mixing Demands</h3>
+    <p>Japanese happy hardcore typically sits at <strong>160–185 BPM</strong>, with some subgenres reaching even higher. Both controllers handle this fine, but there are nuances:</p>
+    <ul>
+        <li><strong>Pitch faders:</strong> Both have long-throw 100mm pitch faders — good for precise adjustments at high BPMs. The XDJ-RR's pitch fader resolution benefits from Pioneer's established CDJ heritage.</li>
+        <li><strong>Key Sync/Shift:</strong> The SC Live 2 has key sync <em>built into Engine DJ OS</em>. The XDJ-RR supports key shift through rekordbox when used in Performance mode (laptop connected). In standalone USB mode, key shift availability depends on track analysis having been done in rekordbox first.</li>
+        <li><strong>Beat Sync:</strong> Both offer beat sync. Engine DJ's beat grid analysis is generally regarded as slightly more accurate for electronic music with clear transients, which suits hardcore well.</li>
+        <li><strong>Quantize:</strong> Both support quantized looping and hot cues — essential for tight, fast-paced mixing.</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#127911; Built-in Speakers — The Bedroom DJ Factor</h3>
+    <p>
+        The SC Live 2's <strong>built-in speakers</strong> are a genuine convenience for a bedroom DJ. Reviews describe them as 
+        "surprisingly loud with decent bass" though they sound "middy" and "hollow" compared to proper monitors. 
+        They're perfectly usable for practice sessions without needing to fire up external monitors — especially 
+        valuable in a bedroom setting where you might want to keep things compact.
+    </p>
+    <p>
+        The XDJ-RR has <strong>no built-in speakers</strong>, meaning you <em>must</em> connect external monitors or 
+        use headphones-only. This adds cost if you don't already own speakers. Budget at least $300–500 AUD 
+        for a reasonable pair of powered monitors (e.g., Pioneer DM-40, KRK Rokit, or similar).
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#127918; Workflow &amp; Ecosystem</h3>
+    <p>
+        The <strong>XDJ-RR uses the NXS2 club-standard layout</strong> — the same arrangement you'd find on 
+        CDJ-2000NXS2 + DJM-900NXS2 setups in clubs worldwide. If you ever plan to play at events, 
+        bars, or clubs (including Japanese doujin music events or anime conventions in Australia), 
+        being familiar with the Pioneer/Rekordbox ecosystem is a <strong>huge advantage</strong>.
+    </p>
+    <p>
+        The SC Live 2 uses Engine DJ OS, which is widely praised as the <strong>most powerful standalone OS</strong> 
+        on the market. Its multi-touch screen with gestures feels like a smartphone. However, 
+        <strong>no clubs or events use Engine DJ gear</strong> — they use Pioneer CDJs. If you ever transition 
+        to playing out, you'll need to adapt.
+    </p>
+    <p>
+        <strong>Rekordbox is the industry standard for track preparation.</strong> Even if you buy the 
+        SC Live 2, many DJs find they still need to use rekordbox to prep tracks for club gigs. 
+        The XDJ-RR uses rekordbox natively, streamlining this workflow.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#127925; Track Analysis: On-the-Fly vs. Pre-Prepared</h3>
+    <p>
+        A key difference: <strong>Engine DJ (SC Live 2) can analyse tracks on the unit itself</strong> — 
+        you can load a new track from USB/SD and it will be analysed for BPM and key right there. 
+        With the XDJ-RR, tracks <em>must</em> be pre-analysed in rekordbox on a computer before 
+        they can be played with full waveform and beat grid data in standalone mode.
+    </p>
+    <p>
+        For a DJ downloading new doujin releases frequently, the SC Live 2's on-the-fly analysis 
+        is genuinely useful — no need to fire up a laptop first. However, rekordbox's desktop analysis 
+        is generally more accurate and gives you more control over beat grids.
+    </p>
+</div>
+
+<!-- GENRE-SPECIFIC SCORES -->
+<h2>&#127942; Category Scores (Japanese Happy Hardcore Bedroom DJ)</h2>
+
+<div class="section-box">
+    <div class="score-row">
+        <span class="score-label">Music Source Flexibility</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:70%"></div></div>
+        <span class="score-num" style="color:var(--denon)">7</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:60%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">6</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        SC Live 2: streaming + USB + SD + Dropbox. XDJ-RR: USB + laptop only. But for niche J-core, streaming is largely useless — both end up relying on USB.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Pitch &amp; BPM Control</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:85%"></div></div>
+        <span class="score-num" style="color:var(--denon)">8.5</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:85%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">8.5</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        Both excellent. Long pitch faders, accurate. Tie.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Effects for High-Energy Mixing</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:90%"></div></div>
+        <span class="score-num" style="color:var(--denon)">9</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:70%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">7</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        SC Live 2: 4 Sweep + 13 BPM FX. XDJ-RR: 4 Sound Color + 3 Beat FX. More variety on the Denon.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Bedroom Convenience</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:95%"></div></div>
+        <span class="score-num" style="color:var(--denon)">9.5</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:55%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">5.5</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        Built-in speakers, Wi-Fi updates, on-the-fly analysis. XDJ-RR needs monitors + pre-analysis.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Build Quality &amp; Durability</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:60%"></div></div>
+        <span class="score-num" style="color:var(--denon)">6</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:80%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">8</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        XDJ-RR uses more metal, feels more premium. SC Live 2 is mostly plastic.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Club/Future-Proofing</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:40%"></div></div>
+        <span class="score-num" style="color:var(--denon)">4</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:95%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">9.5</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        Pioneer/Rekordbox is the club standard. Engine DJ is not used in venues.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Screen Experience</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:85%"></div></div>
+        <span class="score-num" style="color:var(--denon)">8.5</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:65%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">6.5</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        SC Live 2 touchscreen is more modern. XDJ-RR is non-touch with browse knob navigation.
+    </p>
+
+    <div class="score-row" style="margin-top:0.75rem;">
+        <span class="score-label">Value (AUD)</span>
+        <div class="score-bar-bg"><div class="score-bar-fill denon-bar" style="width:70%"></div></div>
+        <span class="score-num" style="color:var(--denon)">7</span>
+        <div class="score-bar-bg"><div class="score-bar-fill pioneer-bar" style="width:80%"></div></div>
+        <span class="score-num" style="color:var(--pioneer)">8</span>
+    </div>
+    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">
+        XDJ-RR at $1,599 is excellent value. SC Live 2 is discontinued and harder to find at original pricing.
+    </p>
+</div>
+
+<!-- WHAT EACH EXCELS AT -->
+<h2>&#11088; What Each Controller Does Best</h2>
+
+<div class="verdict-box denon-win">
+    <h4><span class="badge badge-denon">Denon SC Live 2</span> — Best For:</h4>
+    <ul>
+        <li>&#127968; <strong>Pure bedroom convenience:</strong> Built-in speakers mean you can practice anywhere without external monitors.</li>
+        <li>&#127760; <strong>Wi-Fi &amp; streaming:</strong> Built-in access to TIDAL, Beatport, SoundCloud, Dropbox, Amazon Music, Apple Music.</li>
+        <li>&#128248; <strong>Modern touchscreen UI:</strong> Multi-touch gestures, pinch-to-zoom waveforms — feels like using a tablet.</li>
+        <li>&#127925; <strong>On-the-fly track analysis:</strong> Load a new file and it's analysed instantly — no laptop prep needed.</li>
+        <li>&#128165; <strong>More FX variety:</strong> 4 Sweep FX per channel + 13 assignable BPM FX.</li>
+        <li>&#128161; <strong>Built-in lighting control:</strong> DMX, Philips Hue, and Nanoleaf integration.</li>
+        <li>&#128187; <strong>Serato DJ Pro included:</strong> Works as a full Serato controller with hardware unlock.</li>
+        <li>&#128230; <strong>SD card slot:</strong> Extra media flexibility beyond USB.</li>
+    </ul>
+</div>
+
+<div class="verdict-box pioneer-win">
+    <h4><span class="badge badge-pioneer">Pioneer XDJ-RR</span> — Best For:</h4>
+    <ul>
+        <li>&#127981; <strong>Club-standard ecosystem:</strong> NXS2 layout — the muscle memory you build transfers directly to CDJ/DJM setups in any venue worldwide.</li>
+        <li>&#128190; <strong>Rekordbox integration:</strong> Industry-standard track prep. Analyse once, play anywhere — from your bedroom to a club CDJ-3000.</li>
+        <li>&#127925; <strong>Direct USB recording:</strong> Record your mixes straight to a USB drive — essential for reviewing and sharing sets.</li>
+        <li>&#128295; <strong>Better build quality:</strong> Metal/plastic hybrid construction feels more robust than the all-plastic SC Live 2.</li>
+        <li>&#127908; <strong>Better mic input:</strong> XLR + 1/4" combo jack with 2-band EQ and talkover — useful if you ever want to MC or livestream with voice.</li>
+        <li>&#128267; <strong>External audio input:</strong> RCA phono/line AUX lets you plug in a phone, another mixer, or even turntables.</li>
+        <li>&#128230; <strong>Widely available in Australia:</strong> Actively stocked by multiple retailers with competitive pricing.</li>
+        <li>&#9971; <strong>Larger jog wheels:</strong> 7" vs 6" — better for nudging, pitch bending, and general tactile control at high BPMs.</li>
+        <li>&#9889; <strong>Lighter/smaller footprint:</strong> 62.5cm wide vs 67.8cm — slightly more desk-friendly for a bedroom setup.</li>
+    </ul>
+</div>
+
+<!-- CRITICAL WEAKNESSES -->
+<h2>&#9888;&#65039; Critical Weaknesses to Consider</h2>
+
+<div class="section-box">
+    <table>
+        <thead>
+            <tr>
+                <th>Weakness</th>
+                <th><span class="badge badge-denon">SC Live 2</span></th>
+                <th><span class="badge badge-pioneer">XDJ-RR</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>No built-in speakers</td>
+                <td>—</td>
+                <td><span class="lose-cell">&#10007; Must buy monitors</span></td>
+            </tr>
+            <tr>
+                <td>No Wi-Fi / streaming</td>
+                <td>—</td>
+                <td><span class="lose-cell">&#10007; USB or laptop only</span></td>
+            </tr>
+            <tr>
+                <td>Screen not touch-sensitive</td>
+                <td>—</td>
+                <td><span class="lose-cell">&#10007; Browse knob navigation</span></td>
+            </tr>
+            <tr>
+                <td>Limited FX (3 Beat FX only)</td>
+                <td>—</td>
+                <td><span class="lose-cell">&#10007; Fewer creative options</span></td>
+            </tr>
+            <tr>
+                <td>No track analysis without laptop</td>
+                <td>—</td>
+                <td><span class="lose-cell">&#10007; Must pre-analyse in rekordbox</span></td>
+            </tr>
+            <tr>
+                <td>Plastic build quality</td>
+                <td><span class="lose-cell">&#10007; Feels cheaper</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>No USB recording</td>
+                <td><span class="lose-cell">&#10007; Can't record mixes directly</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>No booth output</td>
+                <td><span class="lose-cell">&#10007;</span></td>
+                <td><span class="lose-cell">&#10007; (neither has one)</span></td>
+            </tr>
+            <tr>
+                <td>No AUX input</td>
+                <td><span class="lose-cell">&#10007;</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Not club-standard ecosystem</td>
+                <td><span class="lose-cell">&#10007; Engine DJ not used in venues</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Discontinued in Australia</td>
+                <td><span class="lose-cell">&#10007; Hard to buy new</span></td>
+                <td>—</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- THE VERDICT -->
+<div class="final-verdict">
+    <h2>&#127942; Final Verdict</h2>
+    <p class="pick" style="color:var(--pioneer);">Winner: Pioneer XDJ-RR</p>
+    <p style="font-size:1rem; line-height:1.8; max-width:800px; margin:0 auto;">
+        For a <strong>bedroom DJ in Australia playing primarily Japanese happy hardcore</strong>, the 
+        <strong>Pioneer XDJ-RR</strong> is the stronger recommendation — and it's not especially close 
+        once you account for your specific circumstances.
+    </p>
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:1.5rem 0;">
+    <div class="section-box">
+        <h3 style="margin-top:0; color:var(--accent2);">Why XDJ-RR Wins</h3>
+        <ol>
+            <li><strong>Your genre lives outside streaming.</strong> Japanese happy hardcore simply isn't on TIDAL, Beatport, or Amazon Music. The SC Live 2's headline streaming feature is near-useless for your core genre. Both controllers will run from USB drives — and the XDJ-RR does this just as well.</li>
+            <li><strong>Rekordbox is the standard.</strong> If you ever play at an anime convention, doujin music event, or club in Australia (or Japan!), you'll encounter Pioneer CDJs running rekordbox-analysed tracks. The XDJ-RR builds that muscle memory from day one.</li>
+            <li><strong>It's actually available to buy.</strong> The SC Live 2 has been discontinued at most Australian retailers. Finding one new is difficult. The XDJ-RR is actively stocked and deeply discounted (as low as $1,599 AUD at Turramurra Music).</li>
+            <li><strong>USB recording is invaluable.</strong> Recording your happy hardcore mixes to review transitions, share with friends, or post to Mixcloud/SoundCloud is a core part of the bedroom DJ experience. The SC Live 2 cannot do this directly.</li>
+            <li><strong>Better value.</strong> At ~$1,599 AUD, the XDJ-RR offers club-relevant skills, solid build, and Rekordbox integration. Factor in the $300–500 you'd spend on monitors and you're still within the SC Live 2's original price range — but with a more future-proof setup.</li>
+        </ol>
+    </div>
+    <div class="section-box">
+        <h3 style="margin-top:0; color:var(--warning);">When SC Live 2 Makes Sense</h3>
+        <ol>
+            <li><strong>You find one used or on clearance</strong> at a great price (well under $1,500 AUD) and don't mind the discontinued status.</li>
+            <li><strong>You also DJ mainstream genres</strong> (EDM, hip-hop, pop) where streaming services <em>do</em> have extensive catalogues — the Wi-Fi/streaming becomes genuinely useful.</li>
+            <li><strong>Built-in speakers are a must-have</strong> — you have zero space or budget for external monitors and want an all-in-one solution.</li>
+            <li><strong>You have no intention of ever playing in clubs or events</strong> — the Pioneer ecosystem advantage doesn't matter if you're strictly bedroom-only forever.</li>
+            <li><strong>You value on-the-fly track analysis</strong> — you frequently acquire new tracks and want to play them immediately without laptop prep.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- WHAT YOU MIGHT BE MISSING -->
+<h2>&#128161; Things You Might Not Have Considered</h2>
+
+<div class="section-box">
+    <h3>&#127911; Budget for Monitors (If You Go XDJ-RR)</h3>
+    <p>
+        The XDJ-RR has no speakers. Budget <strong>$300–500 AUD</strong> for entry-level powered monitors. 
+        Good options available in Australia include:
+    </p>
+    <ul>
+        <li>Pioneer DJ DM-40D / DM-50D (~$250–$350 AUD)</li>
+        <li>KRK Rokit 5 G4 (~$350–$450 AUD a pair)</li>
+        <li>PreSonus Eris E5 (~$350–$400 AUD a pair)</li>
+    </ul>
+    <p style="margin-top:0.5rem;">Total setup cost (XDJ-RR + monitors): <strong>~$1,900–$2,100 AUD</strong> — still competitive with the SC Live 2's original RRP.</p>
+</div>
+
+<div class="section-box">
+    <h3>&#128263; Headphones Are Non-Negotiable for Both</h3>
+    <p>
+        Even with the SC Live 2's built-in speakers, you <strong>need proper DJ headphones</strong> for cueing and beat-matching. 
+        Budget at least <strong>$100–$200 AUD</strong>. The Pioneer HDJ-X5 (~$150 AUD) or Audio-Technica ATH-M50x (~$200 AUD) are solid choices.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#128190; USB Drive Preparation Workflow</h3>
+    <p>
+        For the XDJ-RR, you'll need to analyse tracks in rekordbox (free with the controller) and export to USB. 
+        For Japanese happy hardcore, you'll likely be managing a library of purchased/downloaded files. 
+        Rekordbox's library management is excellent — it's one reason it's the industry standard. 
+        However, it <em>is</em> an extra step compared to the SC Live 2's drag-and-drop + on-the-fly analysis.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#127758; The Australian DJ Retail Landscape</h3>
+    <p>
+        Key Australian DJ retailers to check for both new and used gear:
+    </p>
+    <ul>
+        <li><strong>Store DJ</strong> (storedj.com.au) — Australia's largest DJ retailer</li>
+        <li><strong>DJ City</strong> (djcity.com.au) — Major national chain</li>
+        <li><strong>Better Music</strong> (bettermusic.com.au) — Canberra-based, competitive pricing</li>
+        <li><strong>Turramurra Music</strong> (turramusic.com.au) — Sydney, currently listing XDJ-RR at $1,599</li>
+        <li><strong>Sky Music</strong> (skymusic.com.au) — Melbourne</li>
+        <li><strong>Music On Stage</strong> (musiconstage.com.au)</li>
+        <li><strong>Gumtree / Facebook Marketplace</strong> — Good for finding used SC Live 2 units</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#128260; Alternative Worth Considering: Pioneer XDJ-RX3</h3>
+    <p>
+        If budget allows, the <strong>Pioneer XDJ-RX3</strong> (~$3,275 AUD at Music On Stage) is a significant step up from both. 
+        It features a <strong>10.1" touchscreen</strong>, larger jog wheels with centre LCD displays, 
+        8 performance pads per deck, 14 Beat FX + 6 Sound Color FX, and a booth output. 
+        It's the sweet spot between the XDJ-RR and full CDJ/DJM setups. For a serious bedroom DJ 
+        who wants room to grow, it's worth the stretch.
+    </p>
+</div>
+
+
+
+<!-- ============================================ -->
+<!-- SUPPLEMENTARY: ALPHATHETA OMNIS-DUO AS PREMIUM ALTERNATIVE -->
+<!-- ============================================ -->
+
+<div class="featured-box">
+    <h2>&#128640; Premium Alternative: AlphaTheta OMNIS-DUO</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+        What if neither the SC Live 2 nor the XDJ-RR quite hits the mark — and you're willing to spend more for something that blends the best of both worlds?
+    </p>
+    <p>
+        Enter the <strong>AlphaTheta OMNIS-DUO</strong> — launched January 2024 by Pioneer DJ's parent company AlphaTheta Corporation. 
+        It's a battery-powered, ultra-portable, standalone 2-deck all-in-one DJ system that sits above both the SC Live 2 and XDJ-RR 
+        in price, portability, and premium feel. It runs the rekordbox ecosystem (including the new Device Library Plus) 
+        alongside Serato DJ Lite support.
+    </p>
+</div>
+
+<!-- OMNIS-DUO QUICK FACTS -->
+<div class="omnis-hero-banner">
+    <span class="emoji-large">&#128268;</span>
+    <span class="hero-text">
+        <strong>5-hour built-in battery</strong> · 4.6 kg · Fits in a backpack · 7" capacitive touchscreen · 8 Beat FX + 6 Sound Color FX · 
+        <strong>rekordbox + Serato</strong> · Bluetooth in/out · XLR + RCA + Booth outputs · Indigo finish · USB-C charging
+    </span>
+</div>
+
+<!-- OMNIS-DUO AUSTRALIAN PRICING -->
+<h2>&#128176; OMNIS-DUO Australian Pricing (AUD)</h2>
+
+<div class="price-grid">
+    <div class="price-card omnis">
+        <span class="badge badge-alphatheta">AlphaTheta</span>
+        <div class="brand">OMNIS-DUO</div>
+        <div class="price">$1,999 – $3,380</div>
+        <div class="rrp">RRP: $3,299 AUD</div>
+        <div class="retailer" style="margin-top:0.75rem;">
+            <strong>DJ City: $1,999</strong> (best deal!)<br>
+            Turramurra Music: $2,499<br>
+            Belfield Music: $2,599<br>
+            JD Sound: $2,699<br>
+            Pro DJ HQ: $2,499<br>
+            Music On Stage: $3,380<br>
+            Mega Music: $3,299
+        </div>
+        <div style="margin-top:0.75rem; color: var(--accent2); font-weight:600;">
+            &#9989; Widely stocked across Australian retailers<br>
+            &#128293; Best street price: <strong>$1,999 at DJ City</strong>
+        </div>
+    </div>
+    <div class="price-card" style="border-top: 3px solid var(--text-secondary);">
+        <span class="badge" style="background:rgba(255,255,255,0.1); color: var(--text-secondary);">Price Context</span>
+        <div class="brand">How It Compares</div>
+        <div class="price" style="font-size:1rem; line-height:1.6; text-align:left;">
+            <strong>XDJ-RR:</strong> $1,599 (+ monitors $300–500)<br>
+            <strong>SC Live 2:</strong> $1,739–1,849 (discontinued)<br>
+            <strong>OMNIS-DUO:</strong> $1,999<br><br>
+            <strong>XDJ-RX3:</strong> ~$3,275<br>
+        </div>
+        <p style="font-size:0.85rem; color: var(--text-secondary); margin-top:0.5rem;">
+            The OMNIS-DUO at $1,999 sits neatly between the XDJ-RR and XDJ-RX3 — making it a compelling "step up" that doesn't quite reach RX3 money.
+        </p>
+    </div>
+</div>
+
+<!-- OMNIS-DUO vs SC LIVE 2 vs XDJ-RR COMPARISON -->
+<h2>&#9879;&#65039; OMNIS-DUO vs SC Live 2 vs XDJ-RR: Three-Way Comparison</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Feature</th>
+            <th><span class="badge badge-alphatheta">OMNIS-DUO</span></th>
+            <th><span class="badge badge-denon">SC Live 2</span></th>
+            <th><span class="badge badge-pioneer">XDJ-RR</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Standalone OS</td>
+            <td>rekordbox (Device Library Plus)</td>
+            <td>Engine DJ OS</td>
+            <td>rekordbox (USB export)</td>
+        </tr>
+        <tr>
+            <td>Screen</td>
+            <td>7" capacitive touch <span class="winner-cell">&#10003;</span></td>
+            <td>7" multi-touch <span class="winner-cell">&#10003;</span></td>
+            <td>7" LCD (no touch)</td>
+        </tr>
+        <tr>
+            <td>Built-in Battery</td>
+            <td><span class="winner-cell">&#10003; 5 hrs</span> (USB-C PD)</td>
+            <td>&#10007; Mains only</td>
+            <td>&#10007; Mains only</td>
+        </tr>
+        <tr>
+            <td>Built-in Speakers</td>
+            <td>&#10007; No</td>
+            <td><span class="winner-cell">&#10003; Yes</span></td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Wi-Fi / Streaming</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Beatport, TIDAL, Apple Music, CloudDirectPlay, Google Drive)</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Amazon Music, TIDAL, Beatport, SoundCloud, Beatsource, Dropbox, Apple Music)</td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Bluetooth Input</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Input Playback — DJ from phone!)</td>
+            <td>&#10007; No</td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Bluetooth Output</td>
+            <td><span class="winner-cell">&#10003; Yes</span></td>
+            <td>&#10007; No</td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Performance Pads (per deck)</td>
+            <td><span class="winner-cell">&#10003; 8</span> (Hot Cues only)</td>
+            <td>4 physical (+ Bank = 8 virtual)</td>
+            <td>4 physical (8 Hot Cues via shift)</td>
+        </tr>
+        <tr>
+            <td>Onboard FX</td>
+            <td><span class="winner-cell">&#10003; 8 Beat FX + 6 Sound Color FX</span></td>
+            <td>4 Sweep FX + 13 BPM FX</td>
+            <td>4 Sound Color FX + 3 Beat FX</td>
+        </tr>
+        <tr>
+            <td>Key Shift / Key Sync</td>
+            <td>&#10007; <strong>Not available</strong> (notable omission)</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (Engine DJ)</td>
+            <td>&#10003; Yes (via rekordbox)</td>
+        </tr>
+        <tr>
+            <td>Booth Output</td>
+            <td><span class="winner-cell">&#10003; Yes</span> (shared w/ RCA)</td>
+            <td>&#10007; No</td>
+            <td>&#10007; No</td>
+        </tr>
+        <tr>
+            <td>Mic Input</td>
+            <td><span class="winner-cell">&#10003; 2× Mic</span> (XLR combo + TRS, with attenuators)</td>
+            <td>1/4" TRS only</td>
+            <td>XLR + 1/4" combo</td>
+        </tr>
+        <tr>
+            <td>USB Recording</td>
+            <td><span class="winner-cell">&#10003; To USB/SD</span></td>
+            <td>&#10007; No</td>
+            <td><span class="winner-cell">&#10003; To USB</span></td>
+        </tr>
+        <tr>
+            <td>Media Slots</td>
+            <td>USB-A + SD card</td>
+            <td><span class="winner-cell">2× USB-A + SD card</span></td>
+            <td>2× USB-A</td>
+        </tr>
+        <tr>
+            <td>Software Controller Mode</td>
+            <td>rekordbox Performance + Serato DJ Lite</td>
+            <td><span class="winner-cell">Serato DJ Pro + Virtual DJ</span></td>
+            <td>rekordbox DJ</td>
+        </tr>
+        <tr>
+            <td>Jog Wheels</td>
+            <td>Decent size, smooth — good feel</td>
+            <td>6" (no centre LCD)</td>
+            <td><span class="winner-cell">7" (largest)</span></td>
+        </tr>
+        <tr>
+            <td>Build Quality</td>
+            <td><span class="winner-cell">&#10003; Premium</span> — sturdy, rubberised, satisfying</td>
+            <td>Predominantly plastic</td>
+            <td>Metal/plastic hybrid</td>
+        </tr>
+        <tr>
+            <td>Weight</td>
+            <td><span class="winner-cell">4.6 kg</span></td>
+            <td><span class="winner-cell">4.6 kg</span></td>
+            <td>5.2 kg</td>
+        </tr>
+        <tr>
+            <td>Dimensions (W×D×H)</td>
+            <td><span class="winner-cell">50.0 × 30.7 × 7.1 cm</span></td>
+            <td>67.8 × 39.1 × 9.9 cm</td>
+            <td>62.5 × 38.9 × 7.4 cm</td>
+        </tr>
+        <tr>
+            <td>AUS Price (best current)</td>
+            <td>$1,999 (DJ City)</td>
+            <td>$1,739+ (discontinued)</td>
+            <td><span class="winner-cell">$1,599</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- WHY OMNIS-DUO FOR A JAPANESE HAPPY HARDCORE BEDROOM DJ -->
+<h2>&#127775; Why the OMNIS-DUO Could Be Your Perfect Match</h2>
+
+<div class="section-box">
+    <h3>&#127918; 1. Rekordbox Ecosystem — Club-Ready from Day One</h3>
+    <p>
+        This is the single biggest reason to consider the OMNIS-DUO over the SC Live 2. 
+        It runs <strong>rekordbox</strong> natively — the same ecosystem used by CDJ-3000s and DJM-A9s in clubs worldwide. 
+        For a Japanese happy hardcore DJ, this matters in a very specific way:
+    </p>
+    <ul>
+        <li><strong>Anime conventions &amp; doujin music events</strong> in Australia (and Japan) use Pioneer CDJs. Your rekordbox-analysed USB stick is <em>plug-and-play</em> on any club setup.</li>
+        <li>The OMNIS-DUO uses the new <strong>Device Library Plus</strong> database, making it more future-proof than the XDJ-RR.</li>
+        <li>You can also use rekordbox's <strong>CloudDirectPlay</strong> and <strong>Link Export</strong> to wirelessly access your library — no USB stick required.</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#128267; 2. True Portability — The Battery Changes Everything</h3>
+    <p>
+        The OMNIS-DUO's <strong>5-hour built-in battery</strong> is a genuine game-changer for a bedroom DJ. 
+        Unlike the XDJ-RR and SC Live 2 which are tethered to mains power:
+    </p>
+    <ul>
+        <li>Practice <strong>anywhere in your room, house, or outdoors</strong> — on the couch, at the desk, on the floor, at a friend's place, at the park.</li>
+        <li>USB-C charging means you can top up from a <strong>power bank</strong> (45W+) for up to 10 hours total with Eco mode.</li>
+        <li>At only <strong>50cm wide and 4.6 kg</strong>, it fits in a good-sized backpack — the SC Live 2 is nearly 68cm wide and needs mains power.</li>
+        <li>For doujin music meetups, small gatherings, or impromptu back-to-back sessions with friends — it's effortlessly portable.</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#127760; 3. Streaming Services — Finally Arrived via Firmware Updates</h3>
+    <p>
+        A major criticism at launch was the lack of streaming. That's been <strong>fixed via firmware updates</strong>:
+    </p>
+    <ul>
+        <li><strong>Firmware v1.11 (Dec 2024):</strong> Added Beatport Streaming and TIDAL support, plus Google Drive for CloudDirectPlay.</li>
+        <li><strong>Firmware v1.21 (Mar 2025):</strong> Added Apple Music StreamingDirectPlay.</li>
+        <li><strong>Firmware v1.23 (Dec 2025):</strong> Latest version with security enhancements.</li>
+    </ul>
+    <p>
+        <strong>Caveat for J-Core DJs:</strong> As noted throughout this guide, Japanese happy hardcore has minimal presence on streaming services. 
+        However, if you also mix mainstream genres or want to quickly grab a track you don't own, 
+        having Beatport, TIDAL, and Apple Music built-in is a genuine plus — and a feature the XDJ-RR entirely lacks.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#128225; 4. Bluetooth Input Playback — The Secret Weapon</h3>
+    <p>
+        This is one of the OMNIS-DUO's most unique and genuinely useful features. 
+        The <strong>Input Playback</strong> function lets someone connect their phone via Bluetooth, 
+        and the OMNIS-DUO <strong>records the incoming audio into a temporary deck memory</strong> (up to 10 minutes per deck), 
+        building a waveform in real time. Once cached, you can:
+    </p>
+    <ul>
+        <li>Apply <strong>full deck controls</strong> — pitch fader, hot cues, loops, EQ, FX, even scratch.</li>
+        <li><strong>Beat-match</strong> a song from someone's phone into your set properly — not just fade it in awkwardly.</li>
+    </ul>
+    <p>
+        For a J-Core DJ: imagine a friend has a rare doujin track on their phone that you don't own. 
+        They connect via Bluetooth, you cache it, and you can <strong>properly mix it</strong> into your set. That's genuinely powerful.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#127925; 5. FX Quality — Pioneer Heritage Shines</h3>
+    <p>
+        The OMNIS-DUO inherits <strong>Pioneer's class-leading effects</strong>:
+    </p>
+    <ul>
+        <li><strong>8 Beat FX:</strong> Delay, Echo, Transform, Flanger, Spiral, Reverb, Pitch, Roll — assignable to Mic, Ch1, Ch2, or Master.</li>
+        <li><strong>6 Sound Color FX:</strong> Filter, Space, Dub Echo, Crush, Sweep, Noise — per channel with parameter control.</li>
+    </ul>
+    <p>
+        These are the same algorithms found on Pioneer's DJM club mixers. The sound quality is excellent — 
+        S/N ratio of 112 dB and THD under 0.003%. For high-BPM happy hardcore mixing, 
+        having delay, spiral, flanger, and transform at your fingertips adds serious creative potential.
+    </p>
+</div>
+
+<div class="section-box">
+    <h3>&#128230; 6. Connectivity — Surprisingly Complete</h3>
+    <p>
+        The OMNIS-DUO packs more connectivity than either the SC Live 2 or XDJ-RR:
+    </p>
+    <ul>
+        <li><strong>XLR Master Output</strong> — professional balanced outputs for PA systems.</li>
+        <li><strong>RCA Booth/Master Output</strong> — the XDJ-RR and SC Live 2 <em>lack a dedicated booth output</em>.</li>
+        <li><strong>Bluetooth Output</strong> — first all-in-one DJ system with this feature (latency caveats apply, but great for casual playback).</li>
+        <li><strong>Dual headphone jacks</strong> (1/4" + 3.5mm) — ideal for back-to-back sessions.</li>
+        <li><strong>2× Mic inputs</strong> with individual attenuator pots — better than the single TRS-only mic on the SC Live 2.</li>
+        <li><strong>SD card slot + USB-A</strong> for media, USB-C for laptop control, USB-C for power.</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>&#128295; 7. Build Quality — A Clear Step Up</h3>
+    <p>
+        Reviewers consistently praise the OMNIS-DUO's build. MusicTech called it "sturdy and solid — the channel faders glide with a satisfying resistance; 
+        its cue buttons respond with an affirming click, and the knobs don't feel loose." 
+        Digital DJ Tips noted it's "reassuringly heavy" with a "slightly rubberised finish." 
+        This is a notable step above the all-plastic SC Live 2 and feels more premium than the XDJ-RR.
+    </p>
+</div>
+
+<!-- OMNIS-DUO WEAKNESSES -->
+<h2>&#9888;&#65039; OMNIS-DUO: What You Sacrifice</h2>
+
+<div class="section-box">
+    <table>
+        <thead>
+            <tr>
+                <th>Weakness</th>
+                <th>Details</th>
+                <th>How Significant for You?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>No Key Shift / Key Sync</strong></td>
+                <td>The biggest omission. Despite having Master Tempo, the OMNIS-DUO cannot shift a track's key up or down. Digital DJ Tips called this "a big omission" that "stops me using it."</td>
+                <td><span class="lose-cell">HIGH</span> — For happy hardcore, key-matching at 170+ BPM is important. You'd need to pre-shift keys in rekordbox desktop.</td>
+            </tr>
+            <tr>
+                <td><strong>No Built-in Speakers</strong></td>
+                <td>Unlike the SC Live 2, there are no speakers. You need monitors or headphones.</td>
+                <td><span class="warn-cell" style="color:var(--warning);">MEDIUM</span> — Same situation as XDJ-RR. Budget $300–500 for monitors.</td>
+            </tr>
+            <tr>
+                <td><strong>Pads Are Hot Cues Only</strong></td>
+                <td>8 pads per deck but they only function as Hot Cues — no sampler, slicer, or roll modes.</td>
+                <td><span style="color:var(--accent2);">LOW</span> — For happy hardcore mixing, Hot Cues + dedicated Beat Jump/Loop buttons cover most needs.</td>
+            </tr>
+            <tr>
+                <td><strong>No Wired Aux Input</strong></td>
+                <td>The only external audio input is Bluetooth. There's no RCA/line input for connecting an external player.</td>
+                <td><span style="color:var(--accent2);">LOW</span> — The Bluetooth Input Playback partially compensates.</td>
+            </tr>
+            <tr>
+                <td><strong>FX Channel Assignment Requires Screen</strong></td>
+                <td>You must use the touchscreen to assign Beat FX to a channel — there's no physical button. Clunky in fast-paced mixing.</td>
+                <td><span class="warn-cell" style="color:var(--warning);">MEDIUM</span> — At 170+ BPM, every second counts. This slows you down.</td>
+            </tr>
+            <tr>
+                <td><strong>Screen Is Flat (Not Tilted)</strong></td>
+                <td>The 7" touchscreen lies flat on the unit. Viewing angle can be awkward depending on setup height.</td>
+                <td><span class="warn-cell" style="color:var(--warning);">MEDIUM</span> — Depends on your desk/stand setup. A laptop stand can fix this.</td>
+            </tr>
+            <tr>
+                <td><strong>Only 1 USB-A Port</strong></td>
+                <td>Compared to 2× on the XDJ-RR and SC Live 2. Back-to-back DJs swapping USBs may find this limiting.</td>
+                <td><span style="color:var(--accent2);">LOW</span> — SD card slot provides a second media option.</td>
+            </tr>
+            <tr>
+                <td><strong>USB-C Power — Potentially Fragile</strong></td>
+                <td>Charges via USB-C. Some reviewers worry about the cable getting knocked during a set.</td>
+                <td><span style="color:var(--accent2);">LOW</span> — Use the battery. Cable grip helps. Charge between sets.</td>
+            </tr>
+            <tr>
+                <td><strong>Price Premium</strong></td>
+                <td>At $1,999 AUD (best price), it's $400 more than the XDJ-RR and roughly $200 more than the SC Live 2's old pricing.</td>
+                <td><span class="warn-cell" style="color:var(--warning);">MEDIUM</span> — The premium buys battery freedom, better build, more FX, Bluetooth tricks, and booth out.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- OMNIS-DUO USE CASE SCENARIOS -->
+<h2>&#127912; OMNIS-DUO: Who It's Perfect For (and Who Should Skip It)</h2>
+
+<div class="pro-con-grid">
+    <div class="comparison-card">
+        <h4>&#9989; Go OMNIS-DUO If…</h4>
+        <ul class="pro-list">
+            <li><strong>You want rekordbox ecosystem</strong> but need more modern features than the aging XDJ-RR — touchscreen, Wi-Fi, Bluetooth, and battery power.</li>
+            <li><strong>Portability matters.</strong> You'll practice in different spots around the house, take it to friends' places, or want to DJ outdoors occasionally.</li>
+            <li><strong>The battery excites you.</strong> Cable-free DJing on the couch, at a picnic, or anywhere without hunting for a power point is genuinely liberating.</li>
+            <li><strong>You do back-to-back sessions.</strong> Dual headphone jacks, Bluetooth input for friends' phones, and compact size make collaborative DJing effortless.</li>
+            <li><strong>You want better FX than the XDJ-RR</strong> without jumping all the way to the XDJ-RX3's price. 8 Beat FX + 6 Sound Color FX is a serious toolkit.</li>
+            <li><strong>Build quality matters to you.</strong> The OMNIS-DUO feels premium. The SC Live 2 does not.</li>
+            <li><strong>You also DJ mainstream genres</strong> where streaming services (Beatport, TIDAL, Apple Music) are genuinely useful.</li>
+            <li><strong>You can find it at $1,999 AUD</strong> — at that price it's only $400 more than the XDJ-RR and you get dramatically more.</li>
+        </ul>
+    </div>
+    <div class="comparison-card">
+        <h4>&#10060; Skip OMNIS-DUO If…</h4>
+        <ul class="con-list">
+            <li><strong>Key shifting is non-negotiable.</strong> The OMNIS-DUO simply cannot do it. For harmonic mixing at high BPMs, this could be a deal-breaker. The SC Live 2 has it built in.</li>
+            <li><strong>Budget is tight.</strong> The XDJ-RR at $1,599 + ~$400 monitors = $1,999 total, same as just the OMNIS-DUO unit. The XDJ-RR gives you a complete setup for the same money.</li>
+            <li><strong>You want built-in speakers.</strong> The SC Live 2 remains the only option here with speakers. The OMNIS-DUO needs monitors or headphones.</li>
+            <li><strong>You need the absolute largest jog wheels.</strong> The XDJ-RR's 7" jogs beat the OMNIS-DUO's. For fast-paced hardcore, bigger jogs can feel better.</li>
+            <li><strong>You only ever play at a desk plugged into mains.</strong> If portability and battery life won't change your workflow, you're paying for features you won't use.</li>
+            <li><strong>You're strictly J-Core only with zero interest in streaming.</strong> The OMNIS-DUO's streaming capabilities (added via firmware) won't matter to you.</li>
+            <li><strong>You want to go all the way to the top.</strong> If your budget stretches further, the XDJ-RX3 (~$3,275) or even a used XDJ-XZ are bigger investments that deliver more.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- OMNIS-DUO VS XDJ-RR HEAD-TO-HEAD -->
+<h2>&#9879;&#65039; OMNIS-DUO vs XDJ-RR: Direct Face-Off</h2>
+
+<div class="section-box">
+    <p style="margin-bottom:1rem;">
+        Since the XDJ-RR was our overall winner in the original comparison, here's the direct matchup against the OMNIS-DUO:
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Criterion</th>
+                <th>Winner</th>
+                <th>Why</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Price (best AUD)</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>$1,599 vs $1,999 — $400 less</td></tr>
+            <tr><td>Portability</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Battery, smaller, lighter, backpack-friendly</td></tr>
+            <tr><td>Screen Experience</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Capacitive touch vs non-touch LCD</td></tr>
+            <tr><td>FX Quality &amp; Variety</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>14 FX total (8+6) vs 7 (4+3)</td></tr>
+            <tr><td>Build Quality</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Premium rubberised feel vs metal/plastic hybrid</td></tr>
+            <tr><td>Jog Wheel Size</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>7" vs smaller OMNIS-DUO jogs</td></tr>
+            <tr><td>Club Ecosystem</td><td><span style="color:var(--accent2);">TIE</span></td><td>Both rekordbox. OMNIS-DUO uses newer Device Library Plus.</td></tr>
+            <tr><td>USB Recording</td><td><span style="color:var(--accent2);">TIE</span></td><td>Both support recording to USB/SD.</td></tr>
+            <tr><td>Booth Output</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Has one (shared w/ RCA); XDJ-RR does not</td></tr>
+            <tr><td>Key Shift/Sync</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>Available via rekordbox; OMNIS-DUO lacks it entirely</td></tr>
+            <tr><td>Streaming Services</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Beatport, TIDAL, Apple Music; XDJ-RR has none</td></tr>
+            <tr><td>Bluetooth Tricks</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>Input Playback is unique and genuinely useful</td></tr>
+            <tr><td>Overall for J-Core Bedroom DJ</td><td><span class="badge badge-alphatheta">OMNIS-DUO</span></td><td>If budget allows $1,999 — the modern features justify the $400 premium</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- OMNIS-DUO FINAL VERDICT -->
+<div class="final-verdict" style="border-color: var(--alphatheta); background: linear-gradient(135deg, rgba(107,125,208,0.12), rgba(91,106,184,0.06));">
+    <h2 style="color: var(--alphatheta);">&#128640; OMNIS-DUO Verdict: The Premium Sweet Spot</h2>
+    <p class="pick" style="color: var(--alphatheta);">Best "Step-Up" Choice — If You Can Afford $1,999 AUD</p>
+    <p style="font-size:1rem; line-height:1.8; max-width:800px; margin:0 auto;">
+        The <strong>AlphaTheta OMNIS-DUO</strong> is what you get when you take the XDJ-RR's rekordbox ecosystem, 
+        add the SC Live 2's touchscreen and Wi-Fi capabilities, wrap it in a premium portable body with a 5-hour battery, 
+        and sprinkle in unique features like Bluetooth Input Playback and a booth output. 
+        At <strong>$1,999 AUD from DJ City</strong>, it's only $400 more than the XDJ-RR — and you get a <em>lot</em> 
+        for that extra money. The key shift omission is frustrating (and hopefully addressed in a future firmware update), 
+        but for a Japanese happy hardcore bedroom DJ who wants rekordbox compatibility, genuine portability, 
+        premium build, and room to grow — the OMNIS-DUO is the most exciting option in this price bracket.
+    </p>
+</div>
+
+<!-- OMNIS-DUO COMPARISON TABLE -->
+<h2>&#128202; Final Rankings: All Four Controllers Compared</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Controller</th>
+            <th>Best AUD Price</th>
+            <th>Best For</th>
+            <th>Key Trade-off</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="badge badge-winner">#1</span></td>
+            <td><strong>AlphaTheta OMNIS-DUO</strong></td>
+            <td>$1,999</td>
+            <td>Portability + rekordbox + modern features</td>
+            <td>No key shift; no built-in speakers; $400 more than XDJ-RR</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-pioneer">#2</span></td>
+            <td><strong>Pioneer XDJ-RR</strong></td>
+            <td>$1,599</td>
+            <td>Best value; club-standard layout; larger jogs</td>
+            <td>No touchscreen; no Wi-Fi; no battery; needs monitors</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-denon">#3</span></td>
+            <td><strong>Denon SC Live 2</strong></td>
+            <td>$1,739+</td>
+            <td>Bedroom convenience; built-in speakers; on-the-fly analysis</td>
+            <td>Discontinued in Australia; plastic build; not club ecosystem</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-warn">Stretch</span></td>
+            <td><strong>Pioneer XDJ-RX3</strong></td>
+            <td>~$3,275</td>
+            <td>Flagship experience; 10.1" screen; 14 Beat FX</td>
+            <td>Significantly more expensive; heavier; no battery</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- OMNIS-DUO BUYING GUIDE -->
+<div class="section-box">
+    <h3>&#128722; Where to Buy the OMNIS-DUO in Australia</h3>
+    <p>As of mid-2025, the OMNIS-DUO is actively stocked at these Australian retailers (best price first):</p>
+    <ul>
+        <li><strong>DJ City</strong> — <strong>$1,999 AUD</strong> (best deal, free shipping, in stock) &#128293;</li>
+        <li><strong>Turramurra Music</strong> — $2,499 AUD (Sydney)</li>
+        <li><strong>Pro DJ HQ</strong> — $2,499 AUD</li>
+        <li><strong>Belfield Music</strong> — $2,599 AUD</li>
+        <li><strong>JD Sound &amp; Lighting</strong> — $2,699 AUD (Lilydale, VIC)</li>
+        <li><strong>Mega Music</strong> — $3,299 AUD (Myaree/Wangara, WA)</li>
+        <li><strong>Music On Stage</strong> — $3,380 AUD</li>
+        <li><strong>Jands</strong> (Australian distributor) — Contact for local dealer pricing</li>
+        <li><strong>Store DJ</strong> — Check for stock</li>
+    </ul>
+    <p style="margin-top:0.75rem; color:var(--text-secondary); font-size:0.85rem;">
+        &#9432;&#65039; The OMNIS-DUO launched at $3,299 AUD RRP but street pricing has settled significantly. 
+        At $1,999 from DJ City, it represents excellent value against the XDJ-RR and SC Live 2. 
+        Always verify current stock and pricing before purchasing.
+    </p>
+</div>
+
+<!-- OMNIS-DUO FAQ-STYLE TIPS -->
+<div class="section-box">
+    <h3>&#128161; OMNIS-DUO Tips for Japanese Happy Hardcore DJs</h3>
+    <ol>
+        <li><strong>Pre-shift your keys in rekordbox.</strong> Since the OMNIS-DUO lacks onboard key shift, use rekordbox desktop to adjust track keys before exporting. Set Master Tempo on and your pitch changes won't affect key.</li>
+        <li><strong>Use the SD card slot for recording.</strong> Keep the USB-A port for your music library and dedicate an SD card to recording your mixes — the OMNIS-DUO supports both simultaneously.</li>
+        <li><strong>Eco mode for longer sessions.</strong> Turn off Wi-Fi and Bluetooth in Eco mode to extend battery life past 5 hours when you're just playing from USB/SD.</li>
+        <li><strong>Cache requests in advance.</strong> If using Bluetooth Input Playback, start caching the song <em>before</em> you need to mix it in. The OMNIS-DUO records in real time — a 4-minute track takes 4 minutes to cache fully.</li>
+        <li><strong>Consider the WAVE-EIGHT speaker.</strong> AlphaTheta's battery-powered WAVE-EIGHT speaker uses ultra-low-latency SonicLink wireless — pairing it with the OMNIS-DUO gives you a fully wireless setup. Great for small gatherings.</li>
+        <li><strong>Keep the firmware updated.</strong> AlphaTheta has been actively adding features via firmware (Beatport, TIDAL, Apple Music streaming). Check for updates regularly at alphatheta.com.</li>
+    </ol>
+</div>
+
+
+<!-- SUMMARY TABLE -->
+<h2>&#128202; Summary: At a Glance (Original Comparison)</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Criterion</th>
+            <th>Winner</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Price (AUD, best current)</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>$1,599 vs discontinued/unavailable</td></tr>
+        <tr><td>Availability in Australia</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>Widely stocked; SC Live 2 mostly discontinued</td></tr>
+        <tr><td>Club-standard layout &amp; ecosystem</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>NXS2 layout = direct CDJ/DJM transfer</td></tr>
+        <tr><td>Bedroom convenience</td><td><span class="badge badge-denon">SC Live 2</span></td><td>Built-in speakers, Wi-Fi, on-the-fly analysis</td></tr>
+        <tr><td>FX variety &amp; depth</td><td><span class="badge badge-denon">SC Live 2</span></td><td>17 total vs 7 on XDJ-RR</td></tr>
+        <tr><td>Screen quality &amp; UX</td><td><span class="badge badge-denon">SC Live 2</span></td><td>Multi-touch vs non-touch LCD</td></tr>
+        <tr><td>Build quality</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>Metal/plastic hybrid vs all-plastic</td></tr>
+        <tr><td>Jog wheel size</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>7" vs 6"</td></tr>
+        <tr><td>Value for Japanese hardcore DJ</td><td><span class="badge badge-pioneer">XDJ-RR</span></td><td>Streaming not useful for niche genre; rekordbox matters more</td></tr>
+        <tr><td>Overall Recommendation</td><td><span class="badge badge-winner">XDJ-RR</span></td><td>Better fit for your specific needs &amp; market reality</td></tr>
+    </tbody>
+</table>
+
+<!-- SOURCES -->
+<div class="sources">
+    <h3>&#128214; Sources &amp; References</h3>
+    <h4 style="color:var(--text-secondary); margin:1rem 0 0.5rem;">Original Comparison Sources</h4>
+    <ol>
+        <li><strong>Denon DJ Official — SC Live 2 product page:</strong> <a href="https://www.denondj.com/sclive2">https://www.denondj.com/sclive2</a></li>
+        <li><strong>Pioneer DJ Official — XDJ-RR product page:</strong> <a href="https://pioneerdj.com/en-us/product/all-in-one-system/xdj-rr/black/overview">https://pioneerdj.com/en-us/product/all-in-one-system/xdj-rr/black/overview</a></li>
+        <li><strong>Pioneer DJ Official — XDJ-RR specifications:</strong> <a href="https://pioneerdj.com/en-us/product/all-in-one-system/xdj-rr/black/specifications">https://pioneerdj.com/en-us/product/all-in-one-system/xdj-rr/black/specifications</a></li>
+        <li><strong>Digital DJ Tips — Denon DJ SC Live 4 &amp; 2 Review:</strong> <a href="https://www.digitaldjtips.com/reviews/denon-dj-sc-live-4-sc-live-2/">https://www.digitaldjtips.com/reviews/denon-dj-sc-live-4-sc-live-2/</a></li>
+        <li><strong>Digital DJ Tips — Pioneer XDJ-RR Review:</strong> <a href="https://www.digitaldjtips.com/reviews/pioneer-dj-xdj-rr-rekordbox-system/">https://www.digitaldjtips.com/reviews/pioneer-dj-xdj-rr-rekordbox-system/</a></li>
+        <li><strong>We Are Crossfader — Denon DJ SC Live 2 Review:</strong> <a href="https://wearecrossfader.co.uk/blog/denon-dj-sc-live-2/">https://wearecrossfader.co.uk/blog/denon-dj-sc-live-2/</a></li>
+        <li><strong>Westend DJ — Compact Standalone Shootout 2024:</strong> <a href="https://westenddj.co.uk/blogs/news/compact-standalone-shootout-2024">https://westenddj.co.uk/blogs/news/compact-standalone-shootout-2024</a></li>
+        <li><strong>DJ City Australia — SC Live 2 listing:</strong> <a href="https://djcity.com.au/product/denon-dj-sc-live-2-standalone-2-channel-dj-controller/">https://djcity.com.au/product/denon-dj-sc-live-2-standalone-2-channel-dj-controller/</a></li>
+        <li><strong>Turramurra Music — XDJ-RR listing:</strong> <a href="https://www.turramusic.com.au/products/pioneer-dj-xdj-rr">https://www.turramusic.com.au/products/pioneer-dj-xdj-rr</a></li>
+        <li><strong>Better Music — XDJ-RR listing:</strong> <a href="https://www.bettermusic.com.au/products/pioneer-xdjrr">https://www.bettermusic.com.au/products/pioneer-xdjrr</a></li>
+        <li><strong>Sky Music — XDJ-RR listing:</strong> <a href="https://skymusic.com.au/products/pioneer-dj-xdj-rr-digital-dj-system">https://skymusic.com.au/products/pioneer-dj-xdj-rr-digital-dj-system</a></li>
+        <li><strong>Music On Stage — XDJ-RR listing:</strong> <a href="https://www.musiconstage.com.au/shop/pioneer-dj-xdj-rr/">https://www.musiconstage.com.au/shop/pioneer-dj-xdj-rr/</a></li>
+        <li><strong>Valentine Music Centre — SC Live 2 listing:</strong> <a href="https://vmcdjs.com/shop/denon-dj-sc-live-2-standalone-dj-controller-with-case/">https://vmcdjs.com/shop/denon-dj-sc-live-2-standalone-dj-controller-with-case/</a></li>
+        <li><strong>Musical Advice — SC Live 4 &amp; 2 Review:</strong> <a href="https://musicaladvice.com/dj/denon-dj-sc-live-4-and-sc-live-2/">https://musicaladvice.com/dj/denon-dj-sc-live-4-and-sc-live-2/</a></li>
+        <li><strong>DJ Tech Reviews — SC Live 4 &amp; 2 Review:</strong> <a href="https://djtechreviews.com/reviews/controllers/denon-dj-sc-live-4-and-sc-live-2">https://djtechreviews.com/reviews/controllers/denon-dj-sc-live-4-and-sc-live-2</a></li>
+    </ol>
+
+    <h4 style="color:var(--text-secondary); margin:1.25rem 0 0.5rem;">OMNIS-DUO Supplementary Sources</h4>
+    <ol start="16">
+        <li><strong>AlphaTheta Official — OMNIS-DUO product page:</strong> <a href="https://alphatheta.com/en/landing/omnis-duo/">https://alphatheta.com/en/landing/omnis-duo/</a></li>
+        <li><strong>AlphaTheta — OMNIS-DUO Firmware v1.11 (Beatport/TIDAL):</strong> <a href="https://alphatheta.com/en/information/update-omnis-duo-firmware-ver-1-11/">https://alphatheta.com/en/information/update-omnis-duo-firmware-ver-1-11/</a></li>
+        <li><strong>AlphaTheta — OMNIS-DUO Firmware v1.21 (Apple Music):</strong> <a href="https://alphatheta.com/en/information/update-omnis-duo-firmware-ver-1-21/">https://alphatheta.com/en/information/update-omnis-duo-firmware-ver-1-21/</a></li>
+        <li><strong>AlphaTheta Help Center — OMNIS-DUO Firmware (latest v1.23):</strong> <a href="https://support.alphatheta.com/en-US/articles/26559347114649">https://support.alphatheta.com/en-US/articles/26559347114649</a></li>
+        <li><strong>Digital DJ Tips — AlphaTheta OMNIS-DUO Review:</strong> <a href="https://www.digitaldjtips.com/reviews/alphatheta-omnis-duo-all-in-one-dj-system/">https://www.digitaldjtips.com/reviews/alphatheta-omnis-duo-all-in-one-dj-system/</a></li>
+        <li><strong>MusicTech — AlphaTheta OMNIS-DUO Review (8/10):</strong> <a href="https://musictech.com/reviews/controllers/alphatheta-omnis-duo-review-pioneer-dj/">https://musictech.com/reviews/controllers/alphatheta-omnis-duo-review-pioneer-dj/</a></li>
+        <li><strong>The DJ Hookup — OMNIS-DUO Hands-On Deep Dive:</strong> <a href="https://thedjhookup.com/blog/reviews/alphatheta-omnis-duo-review/">https://thedjhookup.com/blog/reviews/alphatheta-omnis-duo-review/</a></li>
+        <li><strong>Magnetic Mag — OMNIS-DUO Review:</strong> <a href="https://magneticmag.com/2024/05/alphatheta-omnis-duo-review/">https://magneticmag.com/2024/05/alphatheta-omnis-duo-review/</a></li>
+        <li><strong>Mixdown Magazine (AU) — First Look: AlphaTheta OMNIS-DUO:</strong> <a href="https://mixdownmag.com.au/features/first-look-alphatheta-omnis-duo">https://mixdownmag.com.au/features/first-look-alphatheta-omnis-duo</a></li>
+        <li><strong>Juno Daily — AlphaTheta Omnis Duo Review:</strong> <a href="https://www.juno.co.uk/junodaily/2024/04/18/alphatheta-omnis-duo-review/">https://www.juno.co.uk/junodaily/2024/04/18/alphatheta-omnis-duo-review/</a></li>
+        <li><strong>DJ City Australia — OMNIS-DUO listing ($1,999):</strong> <a href="https://djcity.com.au/product/alphatheta-omnis-duo-portable-all-in-one-dj-system/">https://djcity.com.au/product/alphatheta-omnis-duo-portable-all-in-one-dj-system/</a></li>
+        <li><strong>Turramurra Music — OMNIS-DUO listing ($2,499):</strong> <a href="https://www.turramusic.com.au/products/alphatheta-omnis-duo">https://www.turramusic.com.au/products/alphatheta-omnis-duo</a></li>
+        <li><strong>Belfield Music — OMNIS-DUO listing ($2,599):</strong> <a href="https://www.belfieldmusic.com.au/products/alphatheta-omnis-duo-portable-all-in-one-dj-system-w-bluetooth-audio-input">https://www.belfieldmusic.com.au/products/alphatheta-omnis-duo-portable-all-in-one-dj-system-w-bluetooth-audio-input</a></li>
+        <li><strong>JD Sound &amp; Lighting — OMNIS-DUO listing ($2,699):</strong> <a href="https://jdsound.com.au/products/alphatheta-omnis-duo-portable-all-in-one-dj-system">https://jdsound.com.au/products/alphatheta-omnis-duo-portable-all-in-one-dj-system</a></li>
+        <li><strong>Mega Music — OMNIS-DUO listing ($3,299):</strong> <a href="https://www.megamusiconline.com.au/product/alphatheta-omnis-duo-portable-all-in-one-dj-system/">https://www.megamusiconline.com.au/product/alphatheta-omnis-duo-portable-all-in-one-dj-system/</a></li>
+        <li><strong>Music On Stage — OMNIS-DUO listing ($3,380):</strong> <a href="https://www.musiconstage.com.au/shop/dj-equipment/dj-controllers/alphatheta-omnis-duo-portable-all-in-one-dj-system-w-bluetooth-audio-input/">https://www.musiconstage.com.au/shop/dj-equipment/dj-controllers/alphatheta-omnis-duo-portable-all-in-one-dj-system-w-bluetooth-audio-input/</a></li>
+        <li><strong>Pro DJ HQ — OMNIS-DUO listing ($2,499):</strong> <a href="https://www.prodjhq.com.au/products/alphatheta-omnis-duo-portable-all-in-one-bluetooth-audio-input-output">https://www.prodjhq.com.au/products/alphatheta-omnis-duo-portable-all-in-one-bluetooth-audio-input-output</a></li>
+        <li><strong>Westend DJ — Compact Standalone Shootout 2024 (includes OMNIS-DUO):</strong> <a href="https://westenddj.co.uk/blogs/news/compact-standalone-shootout-2024">https://westenddj.co.uk/blogs/news/compact-standalone-shootout-2024</a></li>
+        <li><strong>B&amp;H Photo — OMNIS-DUO vs XDJ-RR Spec Comparison:</strong> <a href="https://www.bhphotovideo.com/c/compare/Pioneer+DJ_DDJ-FLX4_vs_AlphaTheta_OMNIS-DUO_vs_Pioneer+DJ_XDJ-RR/BHitems/1733152-REG_1807149-REG_1431487-REG">https://www.bhphotovideo.com/c/compare/...BHitems/1733152-REG_1807149-REG_1431487-REG</a></li>
+    </ol>
+    <p style="margin-top:1rem; color:var(--text-secondary); font-size:0.8rem;">
+        <em>Research conducted August 2025. Prices and availability are subject to change. Always verify current pricing with Australian retailers before purchasing. The OMNIS-DUO section was added as a supplementary premium alternative analysis.</em>
+    </p>
+</div>
+
+</div>
+</body>
+</html>
