@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget-Effective DJ Setup for K-Pop &amp; J-Core Mixing — Australia 2025</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-hover: #1c2333;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #ff6b9d;
+            --accent2: #7b68ee;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            padding: 3rem 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent2);
+        }
+
+        p, li { margin-bottom: 0.75rem; }
+        ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .card.accent-left {
+            border-left: 4px solid var(--accent);
+        }
+        .card.green-left {
+            border-left: 4px solid var(--green);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(123,104,238,0.1));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: var(--green);
+            color: #000;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        .price-tag.secondary {
+            background: var(--orange);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface);
+            color: var(--accent);
+            font-weight: 700;
+        }
+        tr:hover { background: var(--surface-hover); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 0.3rem;
+        }
+        .badge.winner { background: var(--accent); color: #fff; }
+        .badge.alt { background: var(--accent2); color: #fff; }
+        .badge.budget { background: var(--green); color: #000; }
+
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            header h1 { font-size: 1.6rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎧 Budget-Effective DJ Setup for K-Pop &amp; J-Core Mixing</h1>
+    <p>A comprehensive guide for bedroom DJs in Australia who want gear that punches above its weight — no fluff, just signal.</p>
+</header>
+
+<div class="container">
+
+<!-- QUICK SUMMARY -->
+<div class="highlight-box">
+    <h3 style="margin-top:0;">⚡ TL;DR — The Winning Setup</h3>
+    <table>
+        <tr><td><strong>🎛️ Controller</strong></td><td>Pioneer DJ DDJ-FLX4 <span class="price-tag">~$399–$499 AUD</span></td></tr>
+        <tr><td><strong>🎧 Headphones</strong></td><td>Pioneer DJ HDJ-CUE1 <span class="price-tag secondary">~$100–$130 AUD</span></td></tr>
+        <tr><td><strong>🔊 Monitors</strong></td><td>Pioneer DJ DM-40D (pair) <span class="price-tag secondary">~$200–$270 AUD</span></td></tr>
+        <tr><td><strong>💻 Software</strong></td><td>Rekordbox (free, hardware-unlocked) + Serato DJ Lite (free)</td></tr>
+        <tr><td><strong>💰 Total (solo)</strong></td><td><strong>~$700–$900 AUD</strong> (or grab the <strong>PK-DDJFLX4 Complete Pack for $899 AUD</strong> — all three bundled)</td></tr>
+    </table>
+</div>
+
+<!-- WHY FLX4 -->
+<h2>1. Why the DDJ-FLX4 Is the Perfect Controller for This Job</h2>
+
+<p>The <strong>Pioneer DJ DDJ-FLX4</strong> (successor to the legendary DDJ-400) is the consensus pick for best entry-level controller that punches far above its price. For mixing K-Pop and J-Core — two genres with wildly different BPM ranges and production styles — it has two <em>killer</em> features no other budget controller matches:</p>
+
+<div class="card accent-left">
+    <h3>🎚️ Smart Fader — The Genre-Bridging Superpower</h3>
+    <p>This is the single biggest reason the FLX4 wins for K-Pop ↔ J-Core. Smart Fader <strong>automatically adjusts BPM, bass volume, and overall volume</strong> as you slide the crossfader. It:</p>
+    <ul>
+        <li>Syncs the two tracks and gradually shifts BPM from the old track to the new one</li>
+        <li>Drops the bass out of the outgoing track</li>
+        <li>Adds a touch of echo as the old track fades</li>
+        <li>Makes even a <strong>90 BPM K-Pop ballad → 175 BPM J-Core</strong> transition sound smooth</li>
+    </ul>
+    <p>For bedroom DJs uploading sets to the internet, this means <strong>polished-sounding transitions from day one</strong> — even before you've fully mastered manual beatmatching across extreme BPM gaps. Purists may scoff, but your listeners on YouTube/SoundCloud won't care how you did it.</p>
+</div>
+
+<div class="card accent-left">
+    <h3>🎛️ Smart CFX — One-Knob Macro Effects</h3>
+    <p>Turns the filter knobs under each channel's EQ into one-knob macro effects that combine multiple FX. Perfect for dramatic build-ups and breakdowns common in both K-Pop (think dramatic chorus drops) and J-Core (massive euphoric buildups).</p>
+</div>
+
+<!-- AUS PRICING -->
+<h2>2. Australian Pricing &amp; Where to Buy</h2>
+
+<table>
+    <thead>
+        <tr><th>Item</th><th>RRP (AUD)</th><th>Street Price (AUD)</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>DDJ-FLX4</strong></td>
+            <td>$579–$729</td>
+            <td><strong>$399–$499</strong></td>
+            <td>Seen at $399 on Amazon AU (Prime Day). Mega Music, Music On Stage, Sound Devices ~$499.</td>
+        </tr>
+        <tr>
+            <td><strong>PK-DDJFLX4 Complete Pack</strong><br><small>(FLX4 + DM-40D + HDJ-CUE1)</small></td>
+            <td>—</td>
+            <td><strong>$899</strong></td>
+            <td>Available at DJ City Australia. Best-value all-in-one bundle.</td>
+        </tr>
+        <tr>
+            <td><strong>DM-40D Monitors</strong></td>
+            <td>~$270</td>
+            <td><strong>$200–$270</strong></td>
+            <td>4" monitors with DJ/Production mode switch. Also in the bundle.</td>
+        </tr>
+        <tr>
+            <td><strong>HDJ-CUE1 Headphones</strong></td>
+            <td>~$130</td>
+            <td><strong>$100–$130</strong></td>
+            <td>50mm drivers, foldable, pro-style design.</td>
+        </tr>
+    </tbody>
+</table>
+
+<p><strong>Recommended Australian retailers:</strong> DJ City (djcity.com.au), Mega Music (megamusiconline.com.au), Sound Devices (sounddevices.com.au), Music On Stage (musiconstage.com.au), Store DJ, Sonic Sound &amp; Lighting (sonicsl.com.au), 10dB (10db.com.au), Pro DJ HQ (prodjhq.com.au).</p>
+
+<!-- ALTERNATIVES -->
+<h2>3. Alternative Controllers Worth Considering</h2>
+
+<table>
+    <thead>
+        <tr><th>Controller</th><th>Price (AUD)</th><th>Best For</th><th>Key Trade-off</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Hercules DJControl Inpulse 500</strong></td>
+            <td>~$400–$500</td>
+            <td>Absolute beginners who want training aids (LED beatmatch guide, Intelligent Music Assistant)</td>
+            <td>No Smart Fader equivalent; DJUCED software is less industry-standard</td>
+        </tr>
+        <tr>
+            <td><strong>Numark Mixtrack Pro FX</strong></td>
+            <td>~$350–$450</td>
+            <td>Tightest budget with pro features (6" jog wheels, FX paddles, Serato DJ Lite)</td>
+            <td>No Smart Fader/CFX; fewer streaming integrations</td>
+        </tr>
+        <tr>
+            <td><strong>AlphaTheta DDJ-FLX2</strong></td>
+            <td>~$239–$280</td>
+            <td>Ultra-budget, ultra-portable starter</td>
+            <td>No Smart Fader, tiny jog wheels, 3.5mm outputs only, no mic input — too limited for creative K-Pop/J-Core work</td>
+        </tr>
+        <tr>
+            <td><strong>Pioneer DJ DDJ-FLX6</strong></td>
+            <td>~$900–$1,100</td>
+            <td>4-channel mixing, Merge FX, larger jog wheels</td>
+            <td>Significantly more expensive; Merge FX is fun but Smart Fader on FLX4 is arguably more useful for cross-BPM mixing</td>
+        </tr>
+        <tr>
+            <td><strong>Roland DJ-202</strong></td>
+            <td>~$500–$650</td>
+            <td>Creative DJs who want a built-in drum machine (TR-808/909 sounds)</td>
+            <td>No Smart Fader; heavier; Serato-focused — J-Core producers may love the Roland drum sounds though</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Why the FLX4 Still Wins</h3>
+<p>The FLX4 sits in a sweet spot: it has the <strong>Smart Fader</strong> (unique to Pioneer's FLX line), <strong>dual Rekordbox + Serato compatibility</strong>, <strong>multi-device support</strong> (Mac, iPhone, iPad, Android), and <strong>streaming service integration</strong> (TIDAL, Beatport, SoundCloud Go+, Beatsource). No other controller under $500 AUD offers this combination. The FLX2 saves money but <em>loses Smart Fader</em> — which is the whole point for cross-BPM K-Pop/J-Core mixing.</p>
+
+<!-- SOFTWARE -->
+<h2>4. Software Strategy for K-Pop &amp; J-Core</h2>
+
+<div class="card green-left">
+    <h3>Rekordbox (Free — Hardware Unlocked with FLX4)</h3>
+    <p>Your primary software. Key features for this use case:</p>
+    <ul>
+        <li><strong>Stem Separation (Track Separation):</strong> Isolate vocals, drums, bass, and instrumental in real-time. This lets you extract K-Pop vocals to layer over J-Core tracks, or strip J-Core drums to create space for K-Pop acapellas.</li>
+        <li><strong>Smart Fader &amp; Smart CFX:</strong> Fully integrated — these only work in Rekordbox.</li>
+        <li><strong>Streaming:</strong> TIDAL, Beatport, SoundCloud Go+, Beatsource — essential for accessing the latest K-Pop releases and doujin/J-Core tracks.</li>
+        <li><strong>Cloud Library Sync:</strong> Prepare tracks on the go with your phone.</li>
+        <li><strong>Club Standard:</strong> If you ever play on CDJs at an anime convention, your Rekordbox-analyzed USB sticks will work perfectly.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>Serato DJ Lite (Free) / Serato DJ Pro (Paid)</h3>
+    <p>The FLX4 works with Serato out of the box. Serato's <strong>Stems</strong> feature is widely considered the best in the industry for real-time stem separation quality. If you plan to do a lot of K-Pop acapella + J-Core instrumental mashups <em>live</em>, Serato Pro + Stems is worth the upgrade cost. Serato DJ Lite (free) is fine to start.</p>
+</div>
+
+<div class="card">
+    <h3>VirtualDJ — For Advanced Stem Work</h3>
+    <p>VirtualDJ's <strong>Stems 2.0</strong> engine offers best-in-class real-time separation and is often cited as having the cleanest acapella extraction. The FLX4 works with VirtualDJ, though you'd lose Smart Fader. Worth considering if you go deep into mashup territory. Free for home use; license required for controller use.</p>
+</div>
+
+<div class="card">
+    <h3>DJ.Studio — For Pre-Prepared Mashups</h3>
+    <p>If you want to carefully craft K-Pop vocal + J-Core instrumental edits <em>before</em> your set, DJ.Studio is a DAW-like tool with built-in stem separation, harmonic mixing, and a timeline editor. Export finished mashups as tracks and play them on the FLX4. Integrates with your Rekordbox library.</p>
+</div>
+
+<!-- TECHNIQUES -->
+<h2>5. Techniques for Mixing K-Pop &amp; J-Core Effectively</h2>
+
+<div class="technique-grid">
+    <div class="card">
+        <h3>🎚️ Smart Fader Transitions</h3>
+        <p>Your bread and butter. Activate Smart Fader, start the incoming track, slide the crossfader. The FLX4 handles BPM sync, bass swap, and echo automatically. Great for jumping from a ~100 BPM K-Pop track into ~175 BPM J-Core.</p>
+    </div>
+    <div class="card">
+        <h3>⏱️ Half-Time / Double-Time Mixing</h3>
+        <p>Many K-Pop tracks sit around 80–90 BPM while J-Core is 160–180+ BPM — exactly double. Beatmatch at half speed or double speed. A 85 BPM K-Pop track syncs naturally with a 170 BPM J-Core track. The beats line up perfectly.</p>
+    </div>
+    <div class="card">
+        <h3>🎤 Acapella Layering (Stems)</h3>
+        <p>Use Rekordbox Track Separation or Serato Stems to isolate K-Pop vocals. Layer them over J-Core instrumentals (or vice versa). Instant mashups that sound like produced remixes. Especially effective with recognizable K-Pop choruses over high-energy J-Core drops.</p>
+    </div>
+    <div class="card">
+        <h3>🔇 Beatless Section Transitions</h3>
+        <p>Find the moment in a K-Pop track where drums drop out (ballad ending, bridge). Drop the J-Core track on the next downbeat. No beatmatching needed. The dramatic contrast actually <em>adds</em> impact to the transition.</p>
+    </div>
+    <div class="card">
+        <h3>🌀 Effects-Based Transitions</h3>
+        <p>Use echo/delay on the outgoing track's last beat, then drop the new track. The echo provides rhythmic continuity while you change BPM entirely. Smart CFX can also create dramatic build-ups before genre switches.</p>
+    </div>
+    <div class="card">
+        <h3>🔁 Loop-Based Bridges</h3>
+        <p>Loop a 4- or 8-bar instrumental section of the outgoing K-Pop track. Gradually bring in the J-Core track. Use filter/ EQ to smooth the blend. Exit the loop and let the J-Core track take over.</p>
+    </div>
+</div>
+
+<!-- MONITORS & HEADPHONES -->
+<h2>6. Monitors &amp; Headphones — The Complete Bedroom Setup</h2>
+
+<div class="card accent-left">
+    <h3>🔊 Pioneer DJ DM-40D (4-inch) — $200–$270 AUD</h3>
+    <p>The DM-40D is the ideal companion to the FLX4. Key features:</p>
+    <ul>
+        <li><strong>DJ / Production mode switch:</strong> DSP optimizes sound for DJing (punchy, forward) or music production (flat, accurate).</li>
+        <li><strong>Class D amplifier</strong> with 19W per driver for clean, loud output.</li>
+        <li><strong>Front-facing bass ports</strong> and DECO convex diffusers for wide sweet spot — good for bedroom use where speaker placement may not be ideal.</li>
+        <li><strong>RCA + 3.5mm inputs</strong> — connects directly to FLX4's RCA master output.</li>
+        <li><strong>Headphone out on front panel</strong> with volume control.</li>
+    </ul>
+    <p><strong>Upgrade pick:</strong> Pioneer DJ DM-50D (5-inch) — ~$409 AUD. More bass, TRS balanced input added, better for larger rooms.</p>
+</div>
+
+<div class="card accent-left">
+    <h3>🎧 Pioneer DJ HDJ-CUE1 — $100–$130 AUD</h3>
+    <ul>
+        <li>50mm dome-type drivers — deep bass for monitoring J-Core kicks</li>
+        <li>Closed-back, dynamic design with good isolation</li>
+        <li>Foldable and compact — easy to take to friends' places</li>
+        <li>Detachable coiled cable (1.2m → 1.8m extended)</li>
+        <li>104 dB sensitivity — loud enough even on bus-powered controller</li>
+        <li>Available in Bluetooth version (HDJ-CUE1BT) for wireless casual listening</li>
+    </ul>
+</div>
+
+<h3>Budget Alternative Headphones</h3>
+<p>If you need to save: <strong>Audio-Technica ATH-M20x</strong> (~$70–$90 AUD) or <strong>Hercules HDP DJ M40.1</strong> (~$60 AUD). Both are closed-back with decent isolation.</p>
+
+<!-- MACBOOK AIR M2 -->
+<h2>7. Your MacBook Air M2 — Perfectly Capable</h2>
+<p>The M2 chip is more than sufficient for DJ software. Key considerations:</p>
+<ul>
+    <li><strong>USB-C:</strong> The FLX4 uses USB-C — direct connection to your M2 Air. One cable for both power and data.</li>
+    <li><strong>Performance:</strong> Rekordbox and Serato run smoothly on Apple Silicon. Stem separation is more CPU-intensive but the M2 handles it well (the FLX4 doesn't do onboard stems — that's software-side).</li>
+    <li><strong>Storage:</strong> K-Pop and J-Core libraries can grow fast. Consider an external SSD if you accumulate lots of lossless files.</li>
+    <li><strong>Ports:</strong> You have 2 USB-C ports. One for the FLX4, one free for power/charging. The MagSafe charger frees up both USB-C ports if needed.</li>
+</ul>
+
+<!-- INTERNET SETS -->
+<h2>8. Recording &amp; Uploading Sets to the Internet</h2>
+<p>Since your primary output is online sets, here are the specifics:</p>
+<ul>
+    <li><strong>Rekordbox has built-in recording:</strong> Records your mix directly to your Mac as an audio file. The FLX4's mic input is routed via USB, so if you want to add live commentary (common in anime convention sets), it's captured in the recording.</li>
+    <li><strong>Streaming integration:</strong> Rekordbox works with TIDAL, Beatport, SoundCloud Go+, and Beatsource. You can mix streamed tracks and record — though check each service's terms for recorded sets.</li>
+    <li><strong>OBS + FLX4:</strong> For video sets (YouTube, Twitch), route your FLX4 audio into OBS. The USB audio interface in the FLX4 makes this straightforward on macOS.</li>
+    <li><strong>Post-processing:</strong> Consider lightly mastering your recorded sets in GarageBand (free on Mac) or Audacity (free) before uploading — just a touch of compression and limiting to bring levels up to streaming standards.</li>
+</ul>
+
+<!-- PLAYING OUT -->
+<h2>9. Playing at Friends' Places &amp; Anime Conventions</h2>
+<p>The FLX4 is compact (482 × 273 × 59 mm, 2.1 kg) and USB bus-powered — eminently portable. However, there are limitations for larger venues:</p>
+<ul>
+    <li><strong>RCA master output only:</strong> No XLR or balanced TRS outputs. For house parties and small venues this is fine. For larger anime convention setups, you may need an <strong>RCA-to-XLR DI box</strong> (~$30–$50 AUD) to connect to professional PA systems cleanly.</li>
+    <li><strong>No booth output:</strong> You can't have separate monitor speakers. At a convention, you'd rely on the main PA for monitoring.</li>
+    <li><strong>Mic input is 1/4" TS:</strong> Works for basic MC announcements. Route via USB for streaming.</li>
+    <li><strong>Grab a case:</strong> A padded controller bag (~$40–$80 AUD) protects the FLX4 during transport. UDG, Magma, and Pioneer make compatible cases.</li>
+</ul>
+
+<!-- BUDGET BREAKDOWN -->
+<h2>10. Budget Breakdown — Three Tiers</h2>
+
+<div class="card green-left">
+    <h3>🥉 Tier 1: Just the Essentials</h3>
+    <table>
+        <tr><td>DDJ-FLX4</td><td><strong>$399 AUD</strong> (sale price)</td></tr>
+        <tr><td>Use existing headphones/ speakers you already own</td><td>$0</td></tr>
+        <tr><td>Rekordbox (free, hardware unlocked)</td><td>$0</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>~$399 AUD</strong></td></tr>
+    </table>
+    <p>This gets you mixing immediately. Use your MacBook Air's speakers or any headphones you already have for cueing.</p>
+</div>
+
+<div class="card accent-left">
+    <h3>🥈 Tier 2: Complete Bedroom Studio (Recommended)</h3>
+    <table>
+        <tr><td>Pioneer DJ PK-DDJFLX4 Complete Pack</td><td><strong>$899 AUD</strong></td></tr>
+        <tr><td>RCA cables (included)</td><td>$0</td></tr>
+        <tr><td>Rekordbox (free)</td><td>$0</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>~$899 AUD</strong></td></tr>
+    </table>
+    <p>Includes FLX4 + DM-40D monitors + HDJ-CUE1 headphones. Everything matched and designed to work together. Available at DJ City Australia.</p>
+</div>
+
+<div class="card">
+    <h3>🥇 Tier 3: Future-Proofed Setup</h3>
+    <table>
+        <tr><td>DDJ-FLX4</td><td>$399–$499 AUD</td></tr>
+        <tr><td>Pioneer DJ DM-50D (5" monitors)</td><td>$409 AUD</td></tr>
+        <tr><td>Pioneer DJ HDJ-CUE1</td><td>$100–$130 AUD</td></tr>
+        <tr><td>Serato DJ Pro license or Rekordbox Creative plan</td><td>~$10–$20/month</td></tr>
+        <tr><td>DJ.Studio for mashup prep</td><td>~$10/month</td></tr>
+        <tr><td><strong>Total (hardware)</strong></td><td><strong>~$908–$1,038 AUD</strong></td></tr>
+    </table>
+    <p>Better monitors, pro software features, and dedicated mashup tools. The DM-50D's 5" woofers give noticeably more bass — important for feeling J-Core kick drums.</p>
+</div>
+
+<!-- WHAT YOU MIGHT HAVE MISSED -->
+<h2>11. Things You Might Not Have Considered</h2>
+
+<div class="card accent-left">
+    <h3>📦 Music Library: Where to Get K-Pop &amp; J-Core Tracks</h3>
+    <p>This is often the biggest hidden challenge:</p>
+    <ul>
+        <li><strong>Streaming (Rekordbox/Serato):</strong> TIDAL and SoundCloud Go+ have decent K-Pop catalogs. J-Core/doujin music is harder to find on mainstream streaming — SoundCloud Go+ is your best bet.</li>
+        <li><strong>Purchasing:</strong> iTunes/Apple Music Store for K-Pop. For J-Core, check <strong>BOOTH.pm</strong>, <strong>Bandcamp</strong>, <strong>Diverse Direct</strong>, and doujin circles' own websites.</li>
+        <li><strong>DJ Pools:</strong> BPM Supreme, DJcity, and ZipDJ have K-Pop edits. J-Core is niche and rarely appears in Western DJ pools.</li>
+        <li><strong>Ripping from YouTube/SoundCloud:</strong> Technically possible but audio quality suffers. Not recommended for anything you'll upload publicly.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🎵 Track Preparation Is Everything</h3>
+    <p>Multi-genre mixing lives or dies on preparation. Set up your tracks before your session:</p>
+    <ul>
+        <li><strong>Hot cues:</strong> Mark the first beat, the drop, the chorus, and a loopable section on every track</li>
+        <li><strong>Beat grids:</strong> Rekordbox auto-analysis is good but check J-Core tracks manually — complex rhythms can confuse auto-detection</li>
+        <li><strong>Key analysis:</strong> Tag every track with its musical key. Mixing in compatible keys makes cross-genre transitions sound intentional rather than chaotic</li>
+        <li><strong>Energy ratings:</strong> Rate tracks 1–5 stars by energy. K-Pop ballads (⭐) shouldn't follow J-Core bangers (⭐⭐⭐⭐⭐) without a bridge track or transition technique</li>
+        <li><strong>Genre tags:</strong> Tag broadly (K-Pop, J-Core, K-HipHop, Anisong) rather than sub-genre splitting. Use the Comments field for "mixes well with" notes</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🔌 Cables &amp; Adapters</h3>
+    <ul>
+        <li>The FLX4 uses <strong>USB-C</strong> — your M2 Air connects directly with the included cable</li>
+        <li>Monitors connect via <strong>RCA</strong> — the DM-40D comes with an RCA cable</li>
+        <li>If you ever play at a venue with XLR-only PA: get an <strong>RCA-to-dual-XLR DI box</strong> (~$30–$50 AUD)</li>
+        <li>Headphone output is 3.5mm — standard</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🎤 Livestreaming Setup</h3>
+    <p>The FLX4 routes mic audio via USB, so your voice + mix go to your computer as one signal. For OBS:</p>
+    <ol>
+        <li>Set FLX4 as audio input in OBS</li>
+        <li>Add your webcam/iPhone camera</li>
+        <li>Optional: Add overlay graphics, tracklist display</li>
+        <li>Stream to YouTube/Twitch</li>
+    </ol>
+    <p>No external mixer or audio interface needed — the FLX4 handles it all.</p>
+</div>
+
+<!-- SOURCES -->
+<h2>12. Sources</h2>
+<ul style="font-size:0.9rem; color: var(--text-muted);">
+    <li><a href="https://djtechreviews.com/reviews/controllers/pioneer-dj-ddj-flx4">DJTechReviews — Pioneer DJ DDJ-FLX4 Review (8/10)</a></li>
+    <li><a href="https://www.recordcase.de/en/pioneer-dj-ddj-flx4-review">Recordcase — Pioneer DJ DDJ-FLX4 Review</a></li>
+    <li><a href="https://djlife.tech/pioneer-dj-ddj-flx4-review/">DJLife.Tech — Pioneer DJ DDJ-FLX4 Review</a></li>
+    <li><a href="https://www.parallelchannel.com/dj-equipment/pioneer-ddj-flx4-dj-controller/">Parallel Channel — DDJ-FLX4 Review (9/10)</a></li>
+    <li><a href="https://www.wired.com/review/akphtatheta-ddj-flx2/">WIRED — AlphaTheta DDJ-FLX2 Review</a></li>
+    <li><a href="https://audioshopaustralia.com/best-dj-controllers-for-beginners-and-pros-in-australia/">Audio Shop Australia — Best DJ Controllers in Australia</a></li>
+    <li><a href="https://djcity.com.au/product/pioneer-dj-pk-ddjflx4-complete-dj-pack/">DJ City Australia — PK-DDJFLX4 Complete DJ Pack ($899 AUD)</a></li>
+    <li><a href="https://www.ozbargain.com.au/node/914263">OzBargain — DDJ-FLX4 $399 at Amazon AU</a></li>
+    <li><a href="https://www.musiconstage.com.au/shop/dj-equipment/pioneer-ddj-flx4/">Music On Stage — DDJ-FLX4 $499.95 AUD</a></li>
+    <li><a href="https://www.megamusiconline.com.au/product/pioneer-ddj-flx4-2-channel-dj-controller-for-multiple-dj-applications-in-black/">Mega Music — DDJ-FLX4 $499 AUD</a></li>
+    <li><a href="https://sonicsl.com.au/products/pioneer-dj-dm-50d-5-inch-studio-monitor-pair-black">Sonic Sound &amp; Lighting — DM-50D $409 AUD</a></li>
+    <li><a href="https://rekordbox.com/en/">Rekordbox Official — Features &amp; Stem Separation</a></li>
+    <li><a href="https://virtualdj.com/stems/">VirtualDJ — Real-Time Stems Separation 2.0</a></li>
+    <li><a href="https://www.djtoptips.com/mixing-genres-in-dj-sets/">DJ Top Tips — Mixing Genres in DJ Sets</a></li>
+    <li><a href="https://www.recordcase.de/en/dj-software-vergleich-rekordbox-serato-traktor-virtualdj">Recordcase — DJ Software Comparison 2025</a></li>
+    <li><a href="https://musicandfilmacademy.ac.ke/music-tech-resources/rekordbox-vs-serato-2026-beginner-guide/">Music And Film Academy — Rekordbox vs Serato 2026</a></li>
+    <li><a href="https://dj.studio/blog/how-to-mashup">DJ.Studio — How to Mash Up Music Guide</a></li>
+</ul>
+
+<div class="footer">
+    <p>Researched and compiled in 2025. Prices in AUD and subject to change. All controller prices checked against Australian retailers as of research date. Always verify current pricing and stock before purchasing.</p>
+    <p>This is not sponsored content — no affiliate links, no paid placements.</p>
+</div>
+
+</div>
+
+</body>
+</html>
