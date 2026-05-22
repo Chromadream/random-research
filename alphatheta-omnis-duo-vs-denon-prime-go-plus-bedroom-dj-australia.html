@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlphaTheta OMNIS-DUO vs Denon DJ Prime GO+ — Bedroom DJ in Australia: Japanese Happy Hardcore &amp; K-Pop</title>
+<style>
+  :root {
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --surface2: #2a2a2a;
+    --text: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --accent: #7c5cfc;
+    --accent2: #00bfa5;
+    --warn: #ff7043;
+    --border: #333;
+    --tag-bg: #2a2040;
+    --tag-text: #b39ddb;
+    --table-stripe: #1a1a2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h2 {
+    font-size: 1.6rem;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    color: #fff;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.75rem;
+    color: var(--accent2);
+  }
+  p, li { color: var(--text-secondary); margin-bottom: 0.8rem; }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+  a { color: var(--accent2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .card.highlight {
+    border-left: 4px solid var(--accent);
+  }
+  .card.warn {
+    border-left: 4px solid var(--warn);
+  }
+  .card.good {
+    border-left: 4px solid var(--accent2);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  td {
+    background: var(--surface2);
+    color: var(--text-secondary);
+  }
+  tr:nth-child(even) td { background: var(--table-stripe); }
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    margin: 0.15rem 0.25rem;
+    font-weight: 500;
+  }
+  .tag.green { background: #1a3a2a; color: #81c784; }
+  .tag.red { background: #3a1a1a; color: #ef9a9a; }
+  .tag.blue { background: #1a2a3a; color: #90caf9; }
+  .verdict-box {
+    background: linear-gradient(135deg, #1a1a3a, #1a2a3a);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 1.8rem;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 1.15rem;
+  }
+  .verdict-box h2 { border: none; margin-top: 0; color: var(--accent2); }
+  .verdict-box p { color: #ddd; }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 750px) {
+    body { padding: 1rem; }
+    .two-col { grid-template-columns: 1fr; }
+    h1 { font-size: 1.6rem; }
+    table { font-size: 0.78rem; }
+    th, td { padding: 0.5rem; }
+  }
+  .score-bar {
+    height: 10px;
+    border-radius: 5px;
+    background: var(--surface2);
+    margin: 0.4rem 0;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    border-radius: 5px;
+  }
+  .sources {
+    font-size: 0.82rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .sources li { word-break: break-all; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  strong { color: #f0f0f0; }
+  em { color: #bbb; }
+</style>
+</head>
+<body>
+
+<h1>AlphaTheta OMNIS-DUO vs Denon DJ Prime GO+</h1>
+<p class="subtitle">
+  A deep-dive comparison for a bedroom DJ in Australia playing Japanese Happy Hardcore &amp; K-Pop —<br>
+  with considerations for bringing your own gear to friends' places, and a laptop-controller alternative.
+</p>
+
+<!-- ==================== QUICK COMPARISON TABLE ==================== -->
+<h2>📊 At a Glance: Spec-by-Spec Comparison</h2>
+<div class="card">
+<table>
+  <tr>
+    <th>Feature</th>
+    <th>AlphaTheta OMNIS-DUO</th>
+    <th>Denon DJ Prime GO+</th>
+  </tr>
+  <tr>
+    <td><strong>Australian Price (AUD)</strong></td>
+    <td>~$1,999–$2,699 (RRP $3,299)<br><span class="tag red">$$$$</span></td>
+    <td>~$1,739–$1,799 (RRP $1,999)<br><span class="tag green">$$$</span></td>
+  </tr>
+  <tr>
+    <td><strong>Weight</strong></td>
+    <td>4.6 kg / 10.1 lbs</td>
+    <td>3.68 kg / 8.11 lbs</td>
+  </tr>
+  <tr>
+    <td><strong>Dimensions</strong></td>
+    <td>500 × 307 × 71 mm</td>
+    <td>411 × 274 × 53 mm</td>
+  </tr>
+  <tr>
+    <td><strong>Battery Life</strong></td>
+    <td>~5 hours (Eco mode extends)</td>
+    <td>~6 hours (25% improvement over original)</td>
+  </tr>
+  <tr>
+    <td><strong>Charging</strong></td>
+    <td>USB-C PD 45W — can use power bank <span class="tag green">✓</span></td>
+    <td>Proprietary DC barrel plug <span class="tag red">✗</span></td>
+  </tr>
+  <tr>
+    <td><strong>Build Quality</strong></td>
+    <td>Mostly plastic, clean design</td>
+    <td>Metal chassis, more rugged feel</td>
+  </tr>
+  <tr>
+    <td><strong>Jog Wheels</strong></td>
+    <td>Larger — smooth, FLX4-like feel</td>
+    <td>Small 3-inch capacitive — less satisfying for nudging</td>
+  </tr>
+  <tr>
+    <td><strong>Screen</strong></td>
+    <td>7-inch touch, no vertical waveform</td>
+    <td>7-inch touch, vertical + horizontal waveforms</td>
+  </tr>
+  <tr>
+    <td><strong>Performance Pads</strong></td>
+    <td>8 per deck — Hot Cue only (no loop/roll/sampler modes)</td>
+    <td>4 dual-layer (8 effective) — Hot Cue, Loop, Roll, Saved Loop, Sampler</td>
+  </tr>
+  <tr>
+    <td><strong>Effects</strong></td>
+    <td>8 Beat FX + 6 Sound Color FX<br>(Pioneer-class FX engine)</td>
+    <td>26 Main FX + 2 Sweep FX + 10 Touch FX + Fader Echo</td>
+  </tr>
+  <tr>
+    <td><strong>Streaming Services</strong></td>
+    <td>None — only CloudDirectPlay (Dropbox)<br><span class="tag red">Major gap</span></td>
+    <td>Amazon Music, TIDAL, Beatport, Beatsource, SoundCloud GO+, Apple Music, Dropbox<br><span class="tag green">Excellent</span></td>
+  </tr>
+  <tr>
+    <td><strong>Onboard Sampler</strong></td>
+    <td>No</td>
+    <td>Yes — Engine DJ Sampler</td>
+  </tr>
+  <tr>
+    <td><strong>Bluetooth</strong></td>
+    <td>Input + Output (with Input Playback caching)<br>+ SonicLink low-latency for WAVE-EIGHT</td>
+    <td>Input + Output (basic BT)<br><span class="tag blue">No low-latency option</span></td>
+  </tr>
+  <tr>
+    <td><strong>DMX / Lighting</strong></td>
+    <td>No</td>
+    <td>Yes — Philips Hue, Nanoleaf, DMX via SoundSwitch</td>
+  </tr>
+  <tr>
+    <td><strong>Software Ecosystem</strong></td>
+    <td>rekordbox (native) + Serato DJ Lite</td>
+    <td>Engine DJ OS (standalone) + Virtual DJ</td>
+  </tr>
+  <tr>
+    <td><strong>Mic EQ</strong></td>
+    <td>On-screen EQ controls</td>
+    <td>No mic EQ controls</td>
+  </tr>
+  <tr>
+    <td><strong>Master Outputs</strong></td>
+    <td>XLR + RCA (booth shared with RCA)</td>
+    <td>XLR + RCA + 1/4" Booth (dedicated)</td>
+  </tr>
+  <tr>
+    <td><strong>Key Shift / Key Sync</strong></td>
+    <td>No dedicated key shift at launch</td>
+    <td>Yes — key analysis + shift in Engine DJ</td>
+  </tr>
+</table>
+</div>
+
+<!-- ==================== GENRE #1: HAPPY HARDCORE ==================== -->
+<h2>🎌 Genre Deep-Dive #1: Japanese Happy Hardcore</h2>
+
+<div class="card highlight">
+<h3>What Happy Hardcore Demands from Your Gear</h3>
+<ul>
+  <li><strong>BPM Range:</strong> 160–185+ BPM — extremely fast tempo. Accurate beatgrid analysis at high BPM is critical.</li>
+  <li><strong>Song Structure:</strong> Typically 4/4 with big euphoric breakdowns, piano-led melodies, supersaw leads, vocal chops, and fast arpeggiated synths. Phrases tend to follow standard 16/32-bar dance structures, making phrasing easier than K-Pop.</li>
+  <li><strong>Mixing Style:</strong> Often quick, high-energy transitions. Long blends are less common than in house/techno — DJs frequently use breakdown-to-drop mixing, echo-out transitions, and quick cuts. Effects (especially echo, reverb, filter, and roll) are essential for build-ups and energy management.</li>
+  <li><strong>Harmonic Mixing:</strong> Very important — melodic content is front and centre. Clashing keys are immediately audible on those big supersaw leads and vocal lines.</li>
+  <li><strong>Beatgrid Accuracy:</strong> Absolutely critical at 170+ BPM. A grid that's even slightly off will cause visible drift within seconds.</li>
+</ul>
+</div>
+
+<div class="two-col">
+  <div class="card good">
+    <h3>✅ OMNIS-DUO for Happy Hardcore</h3>
+    <ul>
+      <li><strong>Pioneer-grade FX are legendary</strong> — the 8 Beat FX and 6 Sound Color FX are the same engine found in DJM mixers, and they sound fantastic on high-energy melodic material. Echo, Reverb, and Filter are rich and musical.</li>
+      <li><strong>Larger jog wheels</strong> make nudging and pitch-bending feel more natural at high tempos. Even though happy hardcore relies more on pitch faders, those micro-adjustments on larger jogs are more precise.</li>
+      <li><strong>rekordbox ecosystem</strong> — if you ever transition to club-standard Pioneer/AlphaTheta gear (CDJ-3000s, DJM-A9), your library, cue points, and beatgrids transfer seamlessly via USB export.</li>
+      <li><strong>The FX feel more "musical"</strong> — the Colour FX knob per channel is intuitive and fast for dramatic filter sweeps during breakdowns.</li>
+    </ul>
+  </div>
+
+  <div class="card good">
+    <h3>✅ Prime GO+ for Happy Hardcore</h3>
+    <ul>
+      <li><strong>26 Main FX + Touch FX</strong> give you far more sonic variety. The Touch FX (interactive on-screen effects) are genuinely fun for happy hardcore's playful, energetic vibe.</li>
+      <li><strong>Roll and Sampler pad modes</strong> are genuinely useful — loop rolls at 170 BPM create instant build-up energy, and the built-in sampler means you can fire off vocal stabs or FX samples without a laptop.</li>
+      <li><strong>Key analysis + key shift</strong> built into Engine DJ makes harmonic mixing at high BPM easier. You can see compatible keys and shift them on the fly.</li>
+      <li><strong>Beat Jump encoder knob</strong> is excellent for quickly navigating long tracks and finding the right phrase at speed.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card warn">
+  <h3>⚠️ Watch Out For</h3>
+  <ul>
+    <li><strong>OMNIS-DUO:</strong> The pads are <em>hot-cue only</em> — no loop roll or sampler pad mode, which are extremely useful for happy hardcore's build-and-release style. You'd need to rely on the dedicated loop encoder (which is quite good, to be fair).</li>
+    <li><strong>Prime GO+:</strong> Those tiny jog wheels at 170+ BPM can feel fiddly. If you're manually beatmatching fast tracks, the small diameter means less precision per nudge. Many happy hardcore DJs ride the pitch fader instead, which mitigates this somewhat.</li>
+    <li><strong>Both:</strong> Neither unit has beatgrid analysis as refined as a laptop running rekordbox or Serato. At very high BPM, a poorly analyzed beatgrid can ruin a transition. You'll want to pre-analyze everything on a computer before exporting.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>🏆 Happy Hardcore Verdict</h3>
+  <p><strong>Slight edge to the OMNIS-DUO</strong> — the larger jog wheels and Pioneer-grade FX engine feel more at home with melodic, high-BPM music. The FX quality matters more than quantity when you're working with lush supersaw leads and vocal-heavy tracks. However, the Prime GO+ fights back hard with its sampler, key shift, and pad roll modes — if you value creative performance tricks over pure sonic polish, the Prime GO+ could win out.</p>
+</div>
+
+<!-- ==================== GENRE #2: K-POP ==================== -->
+<h2>🎤 Genre Deep-Dive #2: K-Pop</h2>
+
+<div class="card highlight">
+<h3>What K-Pop Demands from Your Gear</h3>
+<ul>
+  <li><strong>BPM Range:</strong> Extremely wide — can range from ~70 BPM (ballads, R&amp;B cuts) to 150+ BPM (high-energy dance tracks). BPM shifts within a single set can be dramatic and require careful planning.</li>
+  <li><strong>Song Structure:</strong> Highly non-standard. K-Pop tracks often have multiple sections — rap verses, vocal choruses, dance breaks, bridge sections, key changes — and they rarely follow the predictable 16/32-bar phrase structure of Western dance music. <strong>Heavy use of hot cues is essential.</strong></li>
+  <li><strong>Key Changes:</strong> K-Pop is notorious for dramatic key changes (the "truck driver's gear change" modulation up a semitone or whole tone in the final chorus). This can throw off key detection and makes harmonic mixing more challenging.</li>
+  <li><strong>Vocal Content:</strong> Very dense — often multiple vocal layers, rap sections, ad-libs. Clean transitions require careful EQ work and sometimes stem isolation.</li>
+  <li><strong>Library Size:</strong> K-Pop fans expect a huge catalogue. The ability to take requests and pull tracks on the fly is a massive advantage. <strong>Streaming service integration is a game-changer here.</strong></li>
+  <li><strong>Genre-Hopping:</strong> A K-Pop set frequently jumps between bubblegum pop, hip-hop, EDM, R&amp;B, and ballad — often in the same set. Flexible BPM management and key analysis are essential.</li>
+</ul>
+</div>
+
+<div class="two-col">
+  <div class="card good">
+    <h3>✅ OMNIS-DUO for K-Pop</h3>
+    <ul>
+      <li><strong>8 physical hot-cue pads per deck</strong> — with K-Pop's complex song structures, having direct access to 8 cues is genuinely useful. You can mark the intro, verse 1, pre-chorus, chorus, rap break, bridge, key-change moment, and outro.</li>
+      <li><strong>Bluetooth Input Playback</strong> — while gimmicky for some genres, it's actually pretty useful for K-Pop. A friend can send you a track from their phone, it caches in real-time, and you can mix it in. Great for request-heavy K-Pop parties.</li>
+      <li><strong>rekordbox library compatibility</strong> — if you're already managing a K-Pop library in rekordbox (which many DJs do), the USB export workflow is painless.</li>
+    </ul>
+  </div>
+
+  <div class="card good">
+    <h3>✅ Prime GO+ for K-Pop</h3>
+    <ul>
+      <li><strong>Streaming services are the killer feature</strong> — direct access to Amazon Music, TIDAL, Beatport, SoundCloud GO+, and <em>Apple Music</em> (via Engine DJ 4.3) means a near-infinite K-Pop catalogue. For a genre where the catalogue is massive and requests are constant, this is transformative. You don't need to pre-download every possible track.</li>
+      <li><strong>Key analysis on the fly</strong> — Engine DJ analyzes key and BPM even for streamed tracks, which is invaluable when pulling unexpected K-Pop songs mid-set.</li>
+      <li><strong>Sampler + Roll modes</strong> — useful for transition tricks when jumping between dramatically different BPMs or genres within K-Pop.</li>
+      <li><strong>Smaller size</strong> — easier to bring to a friend's apartment or a small K-Pop fan gathering.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card warn">
+  <h3>⚠️ Watch Out For</h3>
+  <ul>
+    <li><strong>OMNIS-DUO:</strong> The lack of streaming service support is a <em>massive</em> disadvantage for K-Pop DJing. Your entire set is limited to tracks you've pre-loaded onto USB/SD. If someone requests a B-side from 2018 that you didn't anticipate, you're out of luck unless you use the Bluetooth Input Playback workaround (which requires playing the entire song from a phone in real-time first). Also, the pads being hot-cue only means no roll or sampler tricks.</li>
+    <li><strong>Prime GO+:</strong> Only 4 physical pads per deck (with layer toggle for 5–8) can slow you down when navigating complex K-Pop structures. Having to toggle to reach cues 5–8 means an extra button press that could disrupt flow. The small jog wheels are less of an issue for K-Pop since you'll likely use sync more often given the wild BPM variations.</li>
+    <li><strong>Streaming reliability:</strong> Don't rely 100% on streaming for any gig outside your bedroom. Australian internet at house parties can be unreliable. Always have a core USB/SD library as backup.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>🏆 K-Pop Verdict</h3>
+  <p><strong>Strong edge to the Prime GO+</strong> — streaming service access is simply too important for K-Pop to ignore. The ability to pull virtually any track from a catalogue of 100+ million songs (including Apple Music's full K-Pop library) is the deciding factor. Combined with on-the-fly key analysis and the sampler, the Prime GO+ is the more practical tool for K-Pop DJing. The OMNIS-DUO's Bluetooth Input Playback is a creative workaround but doesn't come close to native streaming integration.</p>
+</div>
+
+<!-- ==================== PORTABILITY / PLAYING AT FRIENDS' PLACES ==================== -->
+<h2>🎒 Playing at Other People's Places: Portability &amp; Setup</h2>
+
+<div class="two-col">
+  <div class="card">
+    <h3>OMNIS-DUO Portability</h3>
+    <ul>
+      <li><strong>4.6 kg</strong> — heavier than the Prime GO+, but still backpack-friendly with the right bag.</li>
+      <li><strong>USB-C charging is a genuine convenience</strong> — you can top up from a laptop charger, a 45W+ power bank, or any USB-PD source. This means one less proprietary brick to carry or forget.</li>
+      <li><strong>Bluetooth output to speakers</strong> — you can connect wirelessly to a friend's Bluetooth speaker for casual sessions (though latency is noticeable unless using the SonicLink WAVE-EIGHT speaker).</li>
+      <li><strong>Larger footprint</strong> (500 × 307 mm) means it needs a decent amount of table space — check your friend's desk before you go!</li>
+      <li><strong>Rounded corners, indigo aesthetic</strong> — slides easily into a backpack without snagging.</li>
+      <li><strong>Setup at a friend's place:</strong> Unpack, place on table, plug into power (or go battery), connect to their speakers via RCA/XLR/Bluetooth. Done. No laptop needed.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Prime GO+ Portability</h3>
+    <ul>
+      <li><strong>3.68 kg</strong> — noticeably lighter. The smaller dimensions (411 × 274 mm) fit on tighter surfaces.</li>
+      <li><strong>Proprietary power brick</strong> is a hassle — you must bring the dedicated charger. There are third-party USB-C to barrel-plug adapters available (see Reddit threads), but it's an extra purchase and a bit hacky.</li>
+      <li><strong>Bluetooth input + output</strong> (Engine DJ 4.1.0+) — similar wireless flexibility.</li>
+      <li><strong>Metal chassis</strong> gives more confidence when transporting — it can take knocks better than the OMNIS-DUO's plastic body.</li>
+      <li><strong>Original Prime GO cases fit the GO+</strong> — there's a healthy accessories ecosystem including flight cases and soft cases.</li>
+      <li><strong>Setup at a friend's place:</strong> Same drill — unpack, power/battery, connect speakers, play. No laptop. The smaller size is genuinely appreciated on a crowded coffee table.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card highlight">
+  <h3>🥇 Portability Winner: Prime GO+</h3>
+  <p>The Prime GO+ is smaller, lighter, tougher, and has a more established case ecosystem. The proprietary charger is annoying, but the overall portability package is superior. For Australian house parties where space might be tight (share-house living rooms, apartment balconies), the smaller footprint is a real advantage.</p>
+</div>
+
+<!-- ==================== STREAMING & MUSIC SOURCES ==================== -->
+<h2>📡 Streaming &amp; Music Access: The Elephant in the Room</h2>
+
+<div class="card warn">
+  <p>This is arguably the <strong>single biggest differentiator</strong> between these two units, and it has outsized importance for a K-Pop and happy hardcore DJ in Australia.</p>
+</div>
+
+<table>
+  <tr><th>Music Source</th><th>OMNIS-DUO</th><th>Prime GO+</th></tr>
+  <tr><td>USB-A / SD Card</td><td>✅</td><td>✅</td></tr>
+  <tr><td>rekordbox USB export</td><td>✅ Native</td><td>✅ Converts on the fly (~6 min per 1,000 tracks)</td></tr>
+  <tr><td>Cloud / Dropbox</td><td>✅ CloudDirectPlay</td><td>✅ Dropbox</td></tr>
+  <tr><td>TIDAL</td><td>❌</td><td>✅</td></tr>
+  <tr><td>Beatport / Beatsource</td><td>❌</td><td>✅</td></tr>
+  <tr><td>SoundCloud GO+</td><td>❌</td><td>✅</td></tr>
+  <tr><td>Amazon Music Unlimited</td><td>❌</td><td>✅</td></tr>
+  <tr><td>Apple Music</td><td>❌</td><td>✅ (Engine DJ 4.3+)</td></tr>
+  <tr><td>Bluetooth Input (from phone)</td><td>✅ With Input Playback caching</td><td>✅ Basic Bluetooth in</td></tr>
+</table>
+
+<div class="card">
+  <h3>Why This Matters for Your Genres</h3>
+  <p>Japanese happy hardcore is niche enough that you'll likely own most of your core tracks as files. But K-Pop's catalogue is vast and fans' requests span decades of music across dozens of groups and soloists. The ability to pull up any track via streaming — and have it auto-analyzed for BPM and key — is a workflow superpower that the OMNIS-DUO simply cannot match.</p>
+  <p><strong>Australian context note:</strong> Internet reliability at Australian homes varies. The NBN is generally solid in metro areas, but if you're playing at a friend's place with patchy Wi-Fi, streaming becomes risky. Always carry a core USB library as backup regardless of which unit you choose.</p>
+</div>
+
+<!-- ==================== THE LAPTOP + CONTROLLER ALTERNATIVE ==================== -->
+<h2>💻 Alternative: Should You Just Use a Laptop + Controller?</h2>
+
+<div class="card highlight">
+  <h3>The Third Option That Might Make More Sense</h3>
+  <p>Both the OMNIS-DUO and Prime GO+ are <strong>significant investments</strong> (AU$1,700–$2,700). Before committing, it's worth asking: would a laptop-based controller setup serve you better — and save you money?</p>
+</div>
+
+<div class="two-col">
+  <div class="card good">
+    <h3>✅ Advantages of Laptop + Controller</h3>
+    <ul>
+      <li><strong>Massive cost savings:</strong> A DDJ-FLX4 (~AU$379) or a used DDJ-1000 (~AU$1,200–1,500) plus a laptop you likely already own is significantly cheaper than either standalone unit.</li>
+      <li><strong>Full software power:</strong> rekordbox or Serato running on a laptop gives you superior library management, more accurate beatgrid analysis, full stems separation, better key detection, and access to all streaming services (rekordbox now supports Beatport/Apple Music streaming; Serato has TIDAL, SoundCloud, Beatport, Beatsource).</li>
+      <li><strong>Stems are a K-Pop secret weapon:</strong> Being able to isolate vocals, drums, or instrumentals in real-time (via Serato Stems or rekordbox Track Separation) is incredibly powerful for K-Pop mixing. You can strip a vocal for an acapella transition, or drop the instrumental for a clean blend. Neither standalone unit offers real-time stems.</li>
+      <li><strong>More controller options:</strong> You can choose a controller that fits your exact needs — the DDJ-FLX10 (AU$~2,400) with its Track Separation buttons and DMX, or the DDJ-REV5 for battle-style mixing, or a compact DDJ-FLX4 for pure portability.</li>
+      <li><strong>Larger screens:</strong> Your laptop screen is vastly better for library browsing than any 7-inch built-in display.</li>
+      <li><strong>Easier recording:</strong> Direct recording into your DJ software with no extra hardware.</li>
+    </ul>
+  </div>
+
+  <div class="card warn">
+    <h3>⚠️ Disadvantages of Laptop + Controller</h3>
+    <ul>
+      <li><strong>More gear to carry:</strong> Laptop, controller, cables, possibly a laptop stand — it adds up. For house parties where you BYO everything, this is more trips from the car.</li>
+      <li><strong>Setup complexity:</strong> You need to find space for a laptop + controller, manage cable routing, and deal with potential USB disconnects or software crashes.</li>
+      <li><strong>Laptop as failure point:</strong> OS updates, driver issues, notifications, battery anxiety — a laptop introduces variables that standalone units eliminate.</li>
+      <li><strong>"Screen face":</strong> Looking at a laptop screen creates a barrier between you and your friends/audience that a standalone unit avoids.</li>
+      <li><strong>Less "cool factor":</strong> Let's be honest — pulling out a sleek standalone unit feels more impressive than setting up a laptop and controller.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Recommended Laptop Controller Setups</h3>
+  <table>
+    <tr><th>Setup</th><th>Price (AUD, approx)</th><th>Best For</th></tr>
+    <tr>
+      <td><strong>DDJ-FLX4 + Laptop</strong></td>
+      <td>~$379 + laptop</td>
+      <td>Budget-conscious, very portable, rekordbox + Serato compatible. Great for bedroom + casual house parties. Compact enough to throw in a bag.</td>
+    </tr>
+    <tr>
+      <td><strong>DDJ-FLX10 + Laptop</strong></td>
+      <td>~$2,400 + laptop</td>
+      <td>Flagship 4-channel controller with dedicated Track Separation (Stems) buttons, DMX lighting output, full-size jog wheels, multi-colour jog rings. The ultimate laptop controller for creative K-Pop and happy hardcore mixing.</td>
+    </tr>
+    <tr>
+      <td><strong>DDJ-1000 (used) + Laptop</strong></td>
+      <td>~$1,200–1,500 + laptop</td>
+      <td>Club-standard layout, full-size mechanical jogs, 4-channel mixer. The gold standard rekordbox controller. No stems, but everything else is top-tier. Excellent value on the used market.</td>
+    </tr>
+    <tr>
+      <td><strong>DDJ-REV5 + Laptop</strong></td>
+      <td>~$1,800 + laptop</td>
+      <td>Battle-style layout with Stems controls, Auto BPM Transition, large jogs. Great if you prefer the scratch-style layout and want stems for K-Pop mashups.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="verdict-box">
+  <h2>🎯 Alternative Verdict</h2>
+  <p style="font-size: 1.1rem;">If you <strong>already own a capable laptop</strong> and don't mind the extra setup, a <strong>DDJ-FLX10 or used DDJ-1000</strong> gives you more creative power (stems, better library management, streaming via your laptop) for comparable or less money than the OMNIS-DUO. For K-Pop specifically, having stems on a laptop is arguably more useful than the portability gains of a standalone unit.</p>
+  <p style="margin-top: 1rem;">However, if you want <strong>maximum simplicity</strong> — grab the unit, grab a USB stick, and go — the standalone route still wins on convenience.</p>
+</div>
+
+<!-- ==================== AUSTRALIAN PRICING ==================== -->
+<h2>🇦🇺 Australian Pricing &amp; Where to Buy</h2>
+<div class="card">
+<table>
+  <tr><th>Unit</th><th>Best Australian Price (AUD)</th><th>RRP</th><th>Retailers</th></tr>
+  <tr>
+    <td>AlphaTheta OMNIS-DUO</td>
+    <td><strong>$1,999</strong> (DJ City, on sale from $2,499)</td>
+    <td>$3,299</td>
+    <td>DJ City, Belfield Music, Turramurra Music, Pro Sound &amp; Lighting</td>
+  </tr>
+  <tr>
+    <td>Denon DJ Prime GO+</td>
+    <td><strong>$1,739–$1,799</strong></td>
+    <td>$1,999</td>
+    <td>DJ City ($1,799), Belfield Music ($1,739)</td>
+  </tr>
+  <tr>
+    <td>Pioneer DDJ-FLX4</td>
+    <td><strong>~$379</strong></td>
+    <td>~$449</td>
+    <td>DJ City, Store DJ, Belfield Music, Mannys</td>
+  </tr>
+  <tr>
+    <td>Pioneer DDJ-FLX10</td>
+    <td><strong>~$2,399</strong></td>
+    <td>~$2,699</td>
+    <td>Store DJ, DJ City, Mannys</td>
+  </tr>
+</table>
+<p style="margin-top: 0.8rem;"><em>Prices checked July 2025. Australian DJ gear pricing fluctuates — always check current prices and ask retailers about price matching. DJ City and Store DJ frequently run sales.</em></p>
+</div>
+
+<!-- ==================== FINAL RECOMMENDATION ==================== -->
+<h2>🏁 Final Recommendation</h2>
+
+<div class="verdict-box">
+  <h2>🥇 Best Overall: Denon DJ Prime GO+</h2>
+  <p style="font-size: 1.1rem;">
+    For a <strong>bedroom DJ in Australia playing Japanese happy hardcore and K-Pop</strong> who also plays at friends' places, the <strong>Denon DJ Prime GO+</strong> offers the best balance of features, portability, and value.
+  </p>
+  <p style="margin-top: 1rem; text-align: left;">
+    <strong>Why:</strong> Streaming service access is transformative for K-Pop. The sampler and pad modes add creative options for happy hardcore. It's smaller, lighter, tougher, and nearly AU$300–$900 cheaper than the OMNIS-DUO. Engine DJ is mature and well-supported. The 6-hour battery beats the OMNIS-DUO's 5 hours. The metal chassis handles transport better.
+  </p>
+</div>
+
+<div class="card">
+  <h3>When the OMNIS-DUO Makes More Sense</h3>
+  <p>Choose the OMNIS-DUO if:</p>
+  <ul>
+    <li>You're <strong>already deeply invested in the rekordbox ecosystem</strong> and want seamless USB export to club-standard Pioneer/AlphaTheta gear.</li>
+    <li>You value <strong>sound quality and FX quality</strong> above all else — the Pioneer FX engine is genuinely superior.</li>
+    <li>You plan to <strong>transition to club DJing</strong> where CDJ-3000s and DJM mixers are the norm.</li>
+    <li>You want <strong>USB-C charging convenience</strong> (charge from a power bank) and don't want to carry a proprietary power brick.</li>
+    <li>You <strong>don't rely on streaming services</strong> and are happy managing a USB/SD card library.</li>
+    <li>Budget is less of a concern.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>When the Laptop + Controller Makes More Sense</h3>
+  <p>Skip both standalone units and go laptop + controller if:</p>
+  <ul>
+    <li>You <strong>already own a decent laptop</strong> and want to save significant money.</li>
+    <li><strong>Stems are important to you</strong> — real-time vocal/instrumental isolation for K-Pop mashups is a creative game-changer that neither standalone unit offers.</li>
+    <li>You want <strong>access to all streaming services</strong> without being locked into Engine DJ's ecosystem.</li>
+    <li>You don't mind the extra setup time at friends' places.</li>
+    <li>You want the flexibility to <strong>upgrade your software experience</strong> over time without changing hardware.</li>
+  </ul>
+  <p style="margin-top: 0.8rem;"><strong>Top pick:</strong> A used DDJ-1000 (~AU$1,200–1,500) paired with rekordbox on your laptop gives you a club-standard experience for less than a Prime GO+. Add a DDJ-FLX10 if you want stems + DMX lighting.</p>
+</div>
+
+<hr>
+
+<!-- ==================== QUICK DECISION FLOW ==================== -->
+<h2>🔀 Quick Decision Flowchart</h2>
+<div class="card">
+  <ol style="font-size: 0.95rem; line-height: 2.2;">
+    <li><strong>Do you want to DJ without a laptop at all?</strong><br>
+      → <em>Yes:</em> Go standalone (Prime GO+ or OMNIS-DUO) — continue to #2.<br>
+      → <em>No, I'm fine bringing a laptop:</em> Get a DDJ-FLX4, DDJ-1000, or DDJ-FLX10. Best value + most creative power.</li>
+    <li><strong>Is streaming access (TIDAL, Apple Music, etc.) critical for your K-Pop sets?</strong><br>
+      → <em>Yes:</em> <strong>Get the Prime GO+.</strong> The OMNIS-DUO has no streaming support.<br>
+      → <em>No, I'll curate a USB library:</em> Continue to #3.</li>
+    <li><strong>Is rekordbox ecosystem compatibility important for future club gigs?</strong><br>
+      → <em>Yes:</em> Get the OMNIS-DUO.<br>
+      → <em>No:</em> Get the Prime GO+ and save AU$300–900.</li>
+  </ol>
+</div>
+
+<!-- ==================== SOURCES ==================== -->
+<div class="sources">
+  <h2>📚 Sources &amp; Further Reading</h2>
+  <ol>
+    <li><a href="https://thedjhookup.com/blog/reviews/alphatheta-omnis-duo-review/" target="_blank">The DJ Hookup — AlphaTheta OMNIS-DUO Review (Feb 2024)</a></li>
+    <li><a href="https://musictech.com/reviews/controllers/alphatheta-omnis-duo-review-pioneer-dj/" target="_blank">MusicTech — AlphaTheta OMNIS-DUO Review (May 2024)</a></li>
+    <li><a href="https://djtechtools.com/2024/01/24/omnis-duo-is-a-portable-battery-powered-all-in-one-dj-setup-from-alphatheta/" target="_blank">DJ TechTools — OMNIS-DUO Announcement &amp; Analysis (Jan 2024)</a></li>
+    <li><a href="https://www.juno.co.uk/junodaily/2024/04/18/alphatheta-omnis-duo-review/" target="_blank">Juno Daily — AlphaTheta Omnis Duo Review (Apr 2024)</a></li>
+    <li><a href="https://magneticmag.com/2024/11/denon-dj-prime-go-review/" target="_blank">Magnetic Magazine — Denon DJ Prime Go+ Review (Nov 2024)</a></li>
+    <li><a href="https://djworx.com/denon-prime-go-plus-review/" target="_blank">DJWORX — Denon Prime Go+ Review (Dec 2024)</a></li>
+    <li><a href="https://dj-producer.com/reviews/denon-dj-prime-go-plus-review-portable-powerhouse-standalone-for-djs/" target="_blank">DJ-Producer.com — Denon DJ Prime Go Plus Review</a></li>
+    <li><a href="https://djgear2k.com/alphatheta-omnis-duo-vs-denon-dj-prime-go/" target="_blank">DJGear2K — OMNIS-DUO vs Prime GO Direct Comparison (Feb 2024)</a></li>
+    <li><a href="https://www.denondj.com/prime-go-plus.html" target="_blank">Denon DJ — Prime GO+ Official Product Page</a></li>
+    <li><a href="https://alphatheta.com/en/landing/omnis-duo/" target="_blank">AlphaTheta — OMNIS-DUO Official Product Page</a></li>
+    <li><a href="https://djcity.com.au/product/alphatheta-omnis-duo-portable-all-in-one-dj-system/" target="_blank">DJ City Australia — OMNIS-DUO Pricing</a></li>
+    <li><a href="https://djcity.com.au/product/denon-dj-prime-go-plus-channel-rechargeable-smart-dj-controller/" target="_blank">DJ City Australia — Prime GO+ Pricing</a></li>
+    <li><a href="https://www.belfieldmusic.com.au/products/denon-dj-prime-go-plus-standalone-2-ch-dj-system-battery-powered-w-7-screen" target="_blank">Belfield Music Australia — Prime GO+ Pricing</a></li>
+    <li><a href="https://support.denondj.com/en/support/solutions/articles/69000860918-denon-dj-prime-go-frequently-asked-questions" target="_blank">Denon DJ — Prime GO+ Official FAQ</a></li>
+    <li><a href="https://www.pioneerdj.com/en/product/dj-controllers/ddj-flx10/" target="_blank">Pioneer DJ — DDJ-FLX10 Official Product Page</a></li>
+    <li><a href="https://thedjhookup.com/blog/reviews/pioneer-ddj-flx10-review/" target="_blank">The DJ Hookup — DDJ-FLX10 Review (Apr 2023)</a></li>
+    <li><a href="https://djtechreviews.com/reviews/controllers/pioneer-dj-ddj-1000" target="_blank">DJ Tech Reviews — DDJ-1000 Review</a></li>
+    <li><a href="https://powerpaul.de/standalone-dj-systems-2025-the-ultimate-guide-to-laptop-free-djing/" target="_blank">DJ PowerPaul — Standalone DJ Systems 2025 Guide</a></li>
+    <li><a href="https://vibesdj.io/learn/techniques/harmonic-mixing" target="_blank">Vibes — Harmonic Mixing Guide for DJs</a></li>
+    <li><a href="https://www.thedjrevolution.com/dj-controller-vs-standalone-system/" target="_blank">The DJ Revolution — DJ Controller vs Standalone System (Feb 2026)</a></li>
+  </ol>
+</div>
+
+<p style="text-align: center; margin-top: 3rem; color: #666; font-size: 0.85rem;">
+  Last researched: July 2025. Prices in AUD and subject to change. Always verify current pricing and availability with Australian retailers.
+</p>
+
+</body>
+</html>
