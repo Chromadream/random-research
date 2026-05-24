@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Home Server for Jellyfin & Beyond — Australian Buyer's Guide 2025</title>
+    <style>
+        :root {
+            --bg: #121418;
+            --card-bg: #1a1d23;
+            --text: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --border: #2d323e;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --table-stripe: #1f232a;
+            --highlight: #1e2550;
+            --callout-bg: #1a1f2e;
+            --callout-border: #6366f1;
+            --callout-warn-bg: #2d1a1a;
+            --callout-warn-border: #ef4444;
+            --code-bg: #0d1117;
+            --code-text: #c9d1d9;
+            --tag-bg-green: #052e16;
+            --tag-text-green: #4ade80;
+            --tag-bg-orange: #422006;
+            --tag-text-orange: #fbbf24;
+            --tag-bg-red: #450a0a;
+            --tag-text-red: #f87171;
+            --tag-bg-blue: #172554;
+            --tag-text-blue: #93c5fd;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        header {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1040 50%, #1e0a30 100%);
+            color: #fff;
+            padding: 3.5rem 1.5rem 2.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+        header h1 .jf-icon { display: inline-block; width: 36px; height: 36px; vertical-align: middle; margin-right: 6px; }
+        header p { font-size: 1.1rem; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+        header .meta { margin-top: 1.2rem; font-size: 0.9rem; opacity: 0.65; }
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.8rem 0 1.1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid var(--accent);
+            color: #e2e8f0;
+        }
+        h3 { font-size: 1.25rem; margin: 1.6rem 0 0.8rem; color: #c7d2fe; }
+        h4 { font-size: 1.05rem; margin: 1.3rem 0 0.6rem; color: #a5b4fc; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.6rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .card.recommended {
+            border: 2px solid var(--green);
+            background: #0a1f14;
+            position: relative;
+        }
+        .card.recommended::before {
+            content: "★ TOP PICK";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--green);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+        thead th {
+            background: #1e1e3f;
+            color: #e2e8f0;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        tbody td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        tbody tr:nth-child(even) { background: var(--table-stripe); }
+        tbody tr:hover { background: var(--highlight); }
+        .price { font-weight: 700; color: var(--accent-hover); white-space: nowrap; }
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+        .tag-green { background: var(--tag-bg-green); color: var(--tag-text-green); }
+        .tag-orange { background: var(--tag-bg-orange); color: var(--tag-text-orange); }
+        .tag-red { background: var(--tag-bg-red); color: var(--tag-text-red); }
+        .tag-blue { background: var(--tag-bg-blue); color: var(--tag-text-blue); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.6rem; }
+        }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; color: var(--text-secondary); }
+        li { margin-bottom: 0.4rem; }
+        strong { color: var(--text); }
+        .callout {
+            background: var(--callout-bg);
+            border-left: 4px solid var(--callout-border);
+            padding: 1rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .callout.info { background: var(--callout-bg); border-left-color: var(--accent); }
+        .callout.warning { background: var(--callout-warn-bg); border-left-color: var(--red); }
+        .callout.success { background: #0a1f14; border-left-color: var(--green); }
+        a { color: var(--accent-hover); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .summary-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent-hover);
+            text-align: center;
+        }
+        .summary-label { text-align: center; font-size: 0.85rem; color: var(--text-secondary); }
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc ol { margin-bottom: 0; }
+        .toc a { font-weight: 500; }
+
+        /* Code styling */
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            overflow-x: auto;
+            margin: 0.8rem 0 1.2rem 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        code {
+            font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+            color: var(--code-text);
+        }
+        code.inline {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            border: 1px solid var(--border);
+        }
+        .steps-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+        .step-row p { margin-top: 2px; }
+        hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎬 DIY Home Server for Jellyfin &amp; Beyond</h1>
+    <p>A comprehensive Australian buyer's guide covering hardware options, power consumption, annual running costs, and expansion paths — with all pricing in AUD</p>
+    <p style="margin-top:0.5rem;"><span class="tag tag-green">Free & Open Source</span> <span class="tag tag-blue">No Plex Pass Required</span></p>
+    <p class="meta">Research compiled May 2026 &nbsp;|&nbsp; Prices sourced from Australian retailers &nbsp;|&nbsp; Jellyfin 10.10+</p>
+</header>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+    <strong>📋 Table of Contents</strong>
+    <ol>
+        <li><a href="#quick-recs">Quick Recommendations</a></li>
+        <li><a href="#key-decisions">Key Decisions Before You Build</a></li>
+        <li><a href="#build-tier-1">Build Tier 1 — Mini PC Route (Ultra-Low Power)</a></li>
+        <li><a href="#build-tier-2">Build Tier 2 — DIY Mini-ITX Build (Expandable &amp; Efficient)</a></li>
+        <li><a href="#achieving-12tb">Achieving 12TB+ Usable Storage on Tier 1 &amp; 2</a></li>
+        <li><a href="#cpu-deep-dive">CPU Deep Dive: Intel Quick Sync &amp; Jellyfin Transcoding</a></li>
+        <li><a href="#power-costs">Power Consumption &amp; Annual Running Costs (AUD)</a></li>
+        <li><a href="#storage">Storage Strategy: Drives, RAID &amp; Parity</a></li>
+        <li><a href="#software">Operating System &amp; Software Stack</a></li>
+        <li><a href="#step-by-step">Step-by-Step: Jellyfin Setup with Hardware Transcoding</a></li>
+        <li><a href="#tips-tricks">Tips &amp; Tricks for Jellyfin Perfection</a></li>
+        <li><a href="#beyond-jellyfin">Beyond Jellyfin: Services You Can Add</a></li>
+        <li><a href="#what-you-might-miss">What You Might Have Missed</a></li>
+        <li><a href="#sources">Sources &amp; References</a></li>
+    </ol>
+</div>
+
+<!-- QUICK RECOMMENDATIONS -->
+<h2 id="quick-recs">1. Quick Recommendations</h2>
+
+<div class="grid-2">
+    <div class="card recommended">
+        <h3>🥇 Best Value: Intel N100 Mini PC</h3>
+        <p><strong>Upfront cost:</strong> ~$260–$400 AUD (ready to run)</p>
+        <p><strong>Idle power:</strong> 6–10W | <strong>Annual cost:</strong> ~$22–$38 AUD</p>
+        <p>Handles 3–5 simultaneous 4K→1080p transcodes via Quick Sync. Perfect for households with 2–4 users. Tiny, silent, sips power. Jellyfin hardware transcoding is completely free — no subscription needed. Add external USB HDDs or a separate NAS for bulk storage.</p>
+        <p><span class="tag tag-green">Best Efficiency</span> <span class="tag tag-blue">Quietest</span> <span class="tag tag-green">Free Transcoding</span></p>
+    </div>
+    <div class="card">
+        <h3>🥈 Best Expandable: i3-12100 DIY Build</h3>
+        <p><strong>Upfront cost:</strong> ~$900–$1,300 AUD (base system, no storage)</p>
+        <p><strong>Idle power:</strong> 20–35W | <strong>Annual cost:</strong> ~$70–$120 AUD</p>
+        <p>Mini-ITX or mATX build with room for 6+ HDDs. Can handle 10–15 simultaneous 4K→1080p transcodes. Runs Jellyfin, NAS, Docker containers, VMs — everything in one box. UHD 730 iGPU with dual media engines.</p>
+        <p><span class="tag tag-orange">Most Flexible</span> <span class="tag tag-blue">Moderate Power</span></p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🥉 Old Enterprise Gear — ⚠️ Not Recommended for 24/7</h3>
+    <p>Refurbished Dell PowerEdge or HP ProLiant rack servers (e.g., R720, DL380) can be found for $300–$600 AUD. However, they idle at <strong>120–200W</strong>, costing <strong>$460–$650 AUD/year</strong> in NSW, and up to <strong>$788/year in SA</strong>. The electricity bill alone buys a new efficient server within 12–18 months. Only worth considering if you need ECC RAM, IPMI, and hot-swap bays for part-time use.</p>
+    <p><span class="tag tag-red">High Running Cost</span> <span class="tag tag-red">Loud</span></p>
+</div>
+
+<!-- KEY DECISIONS -->
+<h2 id="key-decisions">2. Key Decisions Before You Build</h2>
+
+<div class="card">
+    <h3>Decision #1: How many simultaneous streams?</h3>
+    <table>
+        <thead><tr><th>Usage Scenario</th><th>Concurrent Streams</th><th>Recommended CPU Tier</th></tr></thead>
+        <tbody>
+            <tr><td>Solo/couple, local streaming only</td><td>1–2</td><td>N100 or even Raspberry Pi 5 (direct play)</td></tr>
+            <tr><td>Family of 4, local + remote</td><td>2–4</td><td>N100 handles easily</td></tr>
+            <tr><td>Shared with extended family, 5–10 users</td><td>5–10</td><td>N305 or i3-12100</td></tr>
+            <tr><td>Jellyfin share with 15+ users</td><td>10–20</td><td>i5-12500 + Intel Arc GPU or i5-12400</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Decision #2: How many hard drives?</h3>
+    <table>
+        <thead><tr><th>Storage Need</th><th>Recommended Approach</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td>0–2 drives, &lt;20TB</td><td>Mini PC + USB external drives</td><td>N100 mini PC + 2× USB HDD enclosure</td></tr>
+            <tr><td>3–6 drives, 20–80TB</td><td>DIY Mini-ITX build</td><td>Fractal Node 304 + 6× HDD</td></tr>
+            <tr><td>7–12+ drives, 80TB+</td><td>DIY ATX/mATX tower</td><td>Fractal Define 7 / Meshify 2 + HBA card</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Decision #3: Transcoding needs?</h3>
+    <p><strong>Direct Play</strong> (no transcoding) uses almost zero CPU. If all your clients support your media format — <strong>Apple TV 4K running Swiftfin</strong> or <strong>Android tablets running Findroid</strong> — you barely need any CPU at all. Both of these clients direct-play nearly all formats including 4K HDR.</p>
+    <p><strong>Hardware Transcoding</strong> via Intel Quick Sync (integrated GPU) is the game-changer. A 6W N100 can transcode 4K HDR→1080p SDR with <strong>hardware tone mapping</strong> — something that would require a 17,000 PassMark CPU to do in software.</p>
+    <div class="callout success">
+        <strong>🎉 Jellyfin Advantage:</strong> Unlike Plex, Jellyfin offers <strong>completely free hardware transcoding</strong>. No paywall, no premium subscription required. Intel Quick Sync (QSV), VA-API, NVIDIA NVENC, and AMD AMF are all supported out of the box.
+    </div>
+</div>
+
+<!-- BUILD TIER 1: MINI PC -->
+<h2 id="build-tier-1">3. Build Tier 1 — Mini PC Route (Ultra-Low Power)</h2>
+
+<div class="card">
+    <h3>Recommended Hardware: Beelink S12 Pro / EQ12 (Intel N100)</h3>
+    <table>
+        <thead><tr><th>Component</th><th>Specification</th><th>Price (AUD)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Mini PC</strong></td><td>Beelink S12 Pro — Intel N100, 16GB DDR4, 500GB SSD</td><td class="price">$259–$330</td></tr>
+            <tr><td><strong>Alternative</strong></td><td>Beelink EQ12 — Intel N100, 16GB DDR5, 500GB SSD, Dual 2.5GbE</td><td class="price">$329–$400</td></tr>
+            <tr><td><strong>Alternative</strong></td><td>GMKtec NucBox G3 Plus — Intel N150, 16GB, 512GB NVMe</td><td class="price">$170–$250</td></tr>
+            <tr><td><strong>Storage</strong></td><td>External USB 3.0 HDD enclosure (2–4 bay) + HDDs of your choice</td><td class="price">Varies</td></tr>
+            <tr><td colspan="2"><strong>Total (base system)</strong></td><td class="price">~$260–$400</td></tr>
+        </tbody>
+    </table>
+    <h4>Power Profile</h4>
+    <table>
+        <thead><tr><th>State</th><th>Power Draw</th></tr></thead>
+        <tbody>
+            <tr><td>Idle (headless Linux, no containers)</td><td>5–6W</td></tr>
+            <tr><td>Light load (Jellyfin + 5–10 Docker containers)</td><td>7–9W</td></tr>
+            <tr><td>Medium load (15+ containers, occasional transcode)</td><td>10–14W</td></tr>
+            <tr><td>Full CPU load (stress test)</td><td>15–18W</td></tr>
+        </tbody>
+    </table>
+    <h4>Jellyfin Transcoding Capacity</h4>
+    <table>
+        <thead><tr><th>Encode Type</th><th>1080p Streams</th><th>4K→1080p Streams (with Tone Mapping)</th></tr></thead>
+        <tbody>
+            <tr><td>H.264 (QSV)</td><td>8–12</td><td>3–5</td></tr>
+            <tr><td>HEVC (QSV)</td><td>6–10</td><td>2–4</td></tr>
+        </tbody>
+    </table>
+    <div class="callout info">
+        <strong>💡 Pro Tip:</strong> Wipe the included Windows 11 and install <strong>Ubuntu Server 24.04 LTS</strong> or <strong>Debian 12</strong>. You'll free up 2–3 GB of RAM and drop idle power from ~8–10W (Windows) to ~5–6W (Linux headless). Jellyfin runs best on Linux — better driver support for Intel Quick Sync, especially for HDR tone mapping.
+    </div>
+    <h4>Pros &amp; Cons</h4>
+    <p>✅ Ultra-low power (6–15W) — ~$22–$55/year to run<br>
+    ✅ Tiny, silent, can sit on a shelf next to your router<br>
+    ✅ Handles 3–5× 4K→1080p transcodes via Quick Sync<br>
+    ✅ AV1 decode, HEVC encode/decode, HDR tone mapping (with OpenCL)<br>
+    ✅ Free hardware transcoding with Jellyfin<br>
+    ❌ Max 16GB RAM (official Intel spec — some boards unofficially support 32GB)<br>
+    ❌ Limited internal storage — external USB drives needed for media<br>
+    ❌ Single 2.5GbE port (EQ12 has dual)<br>
+    ❌ No AV1 <em>encoding</em> — decode only on N100</p>
+</div>
+
+<!-- BUILD TIER 2: DIY MINI-ITX -->
+<h2 id="build-tier-2">4. Build Tier 2 — DIY Mini-ITX Build (Expandable &amp; Efficient)</h2>
+
+<div class="card recommended">
+    <h3>★ Recommended Build: "The Sweet Spot" — Intel i3-12100 + Fractal Node 304</h3>
+    <p>This is the build that balances power efficiency, transcoding muscle, and drive expandability. Based on extensive community build logs from OzBargain, Jellyfin forums, and self-hosting guides.</p>
+    <table>
+        <thead><tr><th>Component</th><th>Recommended Model</th><th>Price (AUD)</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>CPU</strong></td><td>Intel Core i3-12100 (4C/8T, UHD 730, 60W TDP)</td><td class="price">$179–$199</td><td>Centre Com, Scorptec, Skycomp</td></tr>
+            <tr><td><strong>CPU Cooler</strong></td><td>Noctua NH-U12S or stock Intel cooler</td><td class="price">$40–$123</td><td>Stock cooler adequate for 24/7; Noctua for silence</td></tr>
+            <tr><td><strong>Motherboard</strong></td><td>ASUS ROG Strix B760-I Gaming WiFi (Mini-ITX)</td><td class="price">$280–$350</td><td>2× M.2, 4× SATA, 2.5GbE, DDR5</td></tr>
+            <tr><td><strong>Alternative MB</strong></td><td>ASRock B660M-ITX/ac or Gigabyte B760I</td><td class="price">$200–$300</td><td>Budget Mini-ITX options</td></tr>
+            <tr><td><strong>RAM</strong></td><td>32GB (2×16GB) DDR4-3200 or DDR5-4800</td><td class="price">$110–$180</td><td>DDR5 has on-die ECC; 32GB for ZFS/VMs/Docker</td></tr>
+            <tr><td><strong>Boot SSD</strong></td><td>Samsung 970 Evo Plus 250GB NVMe</td><td class="price">$49–$70</td><td>OS + Jellyfin + Docker containers</td></tr>
+            <tr><td><strong>Case</strong></td><td>Fractal Design Node 304 (Mini-ITX, 6× 3.5" bays)</td><td class="price">$139–$159</td><td>PLE Computers, Scorptec, Euroits ($131)</td></tr>
+            <tr><td><strong>PSU</strong></td><td>be quiet! Pure Power 12 M 550W (80+ Gold, modular)</td><td class="price">$120–$150</td><td>SFX or ATX; modular essential for small case</td></tr>
+            <tr><td><strong>Case Fans</strong></td><td>Noctua NF-A9 PWM ×2 + NF-P14s redux ×1</td><td class="price">$100–$120</td><td>Optional but recommended for silence &amp; HDD cooling</td></tr>
+            <tr><td colspan="2"><strong>Total (base, no storage HDDs)</strong></td><td class="price"><strong>~$1,020–$1,350</strong></td></tr>
+        </tbody>
+    </table>
+    <h4>Power Profile</h4>
+    <table>
+        <thead><tr><th>State</th><th>Power Draw</th></tr></thead>
+        <tbody>
+            <tr><td>Bare system idle (CPU + MB + RAM + SSD)</td><td>~20–25W</td></tr>
+            <tr><td>Idle with 4× HDDs spun down</td><td>~22–28W</td></tr>
+            <tr><td>Idle with 4× HDDs active</td><td>~42–58W</td></tr>
+            <tr><td>Transcoding load (hardware, 4K→1080p, QSV)</td><td>~50–75W</td></tr>
+        </tbody>
+    </table>
+    <p>With 6 HDDs active and CPU under load: ~90–110W peak.</p>
+
+    <h4>Jellyfin Transcoding Capacity (i3-12100, UHD 730)</h4>
+    <table>
+        <thead><tr><th>Encode Type</th><th>1080p Streams</th><th>4K→1080p Streams (with Tone Mapping)</th></tr></thead>
+        <tbody>
+            <tr><td>H.264 (QSV)</td><td>20+</td><td>10–15</td></tr>
+            <tr><td>HEVC (QSV)</td><td>15+</td><td>8–12</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Pros &amp; Cons</h4>
+    <p>✅ Room for 6× 3.5" HDDs in a compact 19.2L case<br>
+    ✅ i3-12100 with UHD 730 handles 10–15× 4K→1080p transcodes<br>
+    ✅ Full AV1 decode, HEVC encode/decode, HDR tone mapping<br>
+    ✅ Upgradeable — can add PCIe SATA card, 10GbE NIC, or GPU later<br>
+    ✅ Supports up to 128GB RAM, DDR4 or DDR5<br>
+    ✅ Can run TrueNAS, Unraid, Proxmox — full hypervisor capability<br>
+    ✅ Jellyfin hardware transcoding: completely free, no subscription<br>
+    ❌ Higher upfront cost than mini PC<br>
+    ❌ Mini-ITX limits PCIe expansion (only 1 slot)<br>
+    ❌ Cable management tight in the Node 304</p>
+</div>
+
+<div class="card">
+    <h3>Alternative Case: Fractal Design Node 804 (mATX)</h3>
+    <p>If you prefer micro-ATX for more PCIe slots and easier building, the <strong>Fractal Design Node 804</strong> (~$160–$230 AUD) supports up to 8× 3.5" drives and mATX motherboards. Pair with an <strong>MSI PRO B660M-A</strong> (~$150–$200 AUD) for more expansion options.</p>
+</div>
+
+<!-- ACHIEVING 12TB USABLE -->
+<h2 id="achieving-12tb">5. Achieving 12TB+ Usable Storage on Tier 1 &amp; 2</h2>
+
+<div class="card">
+    <h3>How Much Storage Do You Actually Need?</h3>
+    <p>To hit <strong>12TB of usable space</strong> (the space Jellyfin sees for your media), you need to account for parity/redundancy overhead and real-world binary conversion losses. Here's exactly what configuration gets you there on each tier.</p>
+</div>
+
+<div class="card">
+    <h3>Tier 1: N100 Mini PC — Achieving 12TB Usable</h3>
+    <p>Mini PCs have no internal 3.5" bays, so you'll use external USB enclosures. Here are the realistic options:</p>
+
+    <table>
+        <thead><tr><th>Setup</th><th>Drives</th><th>Raw Capacity</th><th>Usable</th><th>Drive Cost (AUD)</th><th>Enclosure Cost</th></tr></thead>
+        <tbody>
+            <tr><td><strong>2-bay RAID 1 (mirror)</strong></td><td>2× 12TB IronWolf</td><td>24TB</td><td>~10.9 TiB</td><td class="price">~$1,100–$1,160</td><td>~$80–$150</td></tr>
+            <tr><td><strong>2-bay RAID 1 (mirror)</strong></td><td>2× 14TB IronWolf</td><td>28TB</td><td>~12.7 TiB</td><td class="price">~$1,300–$1,400</td><td>~$80–$150</td></tr>
+            <tr><td><strong>4-bay RAID 5</strong></td><td>4× 6TB IronWolf</td><td>24TB</td><td>~16.4 TiB</td><td class="price">~$720–$840</td><td>~$150–$250</td></tr>
+            <tr><td><strong>4-bay RAID 5</strong></td><td>3× 8TB IronWolf</td><td>24TB</td><td>~14.6 TiB</td><td class="price">~$990–$1,110</td><td>~$150–$250</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout success">
+        <strong>🏆 Tier 1 Recommendation for 12TB Usable:</strong> <strong>4-bay USB enclosure with 3× 8TB IronWolf in RAID 5</strong> (~$1,140–$1,360 total). This gives ~14.6 TiB usable with single-drive redundancy. Alternatively, go simple with 2× 14TB in RAID 1 for ~12.7 TiB at ~$1,380–$1,550.
+    </div>
+
+    <h4>Recommended External Enclosures</h4>
+    <ul>
+        <li><strong>Terramaster D4-300</strong> (4-bay, USB 3.1 Gen 2, 10Gbps) — ~$200–$250 AUD</li>
+        <li><strong>OWC Mercury Elite Pro Quad</strong> (4-bay, USB 3.2) — ~$350–$450 AUD (pricey but reliable)</li>
+        <li><strong>Sabrent USB 3.2 4-Bay Docking Station</strong> — ~$150–$200 AUD</li>
+        <li><strong>Budget option:</strong> 2× individual USB 3.0 HDD docks + software RAID — ~$60–$100</li>
+    </ul>
+
+    <div class="callout warning">
+        <strong>⚠️ Important:</strong> USB-attached storage is less reliable for RAID than internal SATA. Use <strong>SnapRAID + mergerfs</strong> or <strong>Unraid</strong> (USB boot) rather than hardware RAID over USB. Jellyfin itself doesn't care — it just sees mounted folders.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Tier 2: i3-12100 Node 304 — Achieving 12TB+ Usable</h3>
+    <p>The Node 304 has 6 internal 3.5" bays, giving you much better options. Here's what gets you past 12TB usable with redundancy:</p>
+
+    <table>
+        <thead><tr><th>Setup</th><th>Drives</th><th>Raw</th><th>Usable (approx)</th><th>Drive Cost (AUD)</th><th>$/Usable TB</th></tr></thead>
+        <tbody>
+            <tr><td><strong>RAID 5 / SHR / RAIDZ1</strong></td><td>3× 8TB IronWolf</td><td>24TB</td><td>~14.6 TiB</td><td class="price">~$990–$1,110</td><td class="price">~$72</td></tr>
+            <tr><td><strong>RAID 5 / SHR</strong></td><td>4× 6TB IronWolf</td><td>24TB</td><td>~16.4 TiB</td><td class="price">~$720–$840</td><td class="price">~$48</td></tr>
+            <tr><td><strong>RAID 1 (mirror)</strong></td><td>2× 14TB IronWolf</td><td>28TB</td><td>~12.7 TiB</td><td class="price">~$1,300–$1,400</td><td class="price">~$106</td></tr>
+            <tr><td><strong>RAID 5 / SHR</strong></td><td>3× 12TB IronWolf</td><td>36TB</td><td>~21.8 TiB</td><td class="price">~$1,650–$1,740</td><td class="price">~$78</td></tr>
+            <tr><td><strong>Unraid (single parity)</strong></td><td>3× 8TB + 1× 8TB parity</td><td>32TB</td><td>~21.8 TiB</td><td class="price">~$1,320–$1,480</td><td class="price">~$65</td></tr>
+            <tr><td><strong>RAID 6 / SHR-2</strong></td><td>4× 8TB IronWolf</td><td>32TB</td><td>~14.6 TiB</td><td class="price">~$1,320–$1,480</td><td class="price">~$97</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout success">
+        <strong>🏆 Tier 2 Recommendation for 12TB+ Usable:</strong> <strong>3× 8TB IronWolf in RAID 5/SHR</strong> (~$990–$1,110 in drives). This gives ~14.6 TiB usable with single-drive fault tolerance. If budget allows, <strong>4× 8TB in RAID 5</strong> (~$1,320–$1,480) gives ~21.8 TiB — the best dollar-per-usable-TB ratio at ~$64/TB. If you're using Unraid, you can start with 2× 12TB (1 data + 1 parity = 12TB usable) and easily expand later by adding more data drives.
+    </div>
+
+    <h4>Current AU Pricing for NAS Drives (May 2026, via StaticICE)</h4>
+    <table>
+        <thead><tr><th>Drive</th><th>Capacity</th><th>Best AU Price</th><th>Retailers</th></tr></thead>
+        <tbody>
+            <tr><td>Seagate IronWolf</td><td>6TB</td><td class="price">~$200–$240</td><td>Umart, MSY, Mwave</td></tr>
+            <tr><td>Seagate IronWolf</td><td>8TB</td><td class="price">~$330–$370</td><td>Scorptec, Mwave, PLE, Umart</td></tr>
+            <tr><td>Seagate IronWolf</td><td>12TB</td><td class="price">~$550–$589</td><td>Scorptec, Mwave, PLE, MSY</td></tr>
+            <tr><td>Seagate IronWolf Pro</td><td>12TB</td><td class="price">~$449–$629</td><td>Umart, MSY (Pro often cheaper!)</td></tr>
+            <tr><td>Seagate IronWolf</td><td>14TB</td><td class="price">~$650–$720</td><td>Scorptec, Mwave</td></tr>
+            <tr><td>WD Red Plus</td><td>8TB</td><td class="price">~$335–$380</td><td>Scorptec, Mwave, PLE</td></tr>
+            <tr><td>WD Red Plus</td><td>12TB</td><td class="price">~$455–$525</td><td>Scorptec, Mwave, PLE</td></tr>
+        </tbody>
+    </table>
+    <p style="font-size:0.85rem; color: var(--text-secondary);">💡 <strong>Pro tip:</strong> IronWolf Pro 12TB is often cheaper than regular IronWolf 12TB at MSY/Umart — check current prices before buying. Always verify CMR (not SMR) before purchasing. All IronWolf and WD Red Plus drives listed above are CMR.</p>
+
+    <div class="callout info">
+        <strong>📊 Real-world capacity math:</strong> A "12TB" drive formats to ~10.9 TiB in your OS due to binary conversion (TB vs TiB). After filesystem overhead (ZFS: ~5%, ext4: ~1%, Btrfs: ~2%), a 12TB IronWolf in a single-drive setup gives about <strong>10.6–10.8 TiB</strong> of actual media space. Factor this in when planning your 12TB usable target.
+    </div>
+</div>
+
+<!-- CPU DEEP DIVE -->
+<h2 id="cpu-deep-dive">6. CPU Deep Dive: Intel Quick Sync &amp; Jellyfin Transcoding</h2>
+
+<div class="card">
+    <h3>Why Intel (Not AMD) for Jellyfin Transcoding</h3>
+    <p>Jellyfin supports <strong>Intel Quick Sync Video (QSV)</strong>, <strong>VA-API</strong> (which AMD also supports), and <strong>NVIDIA NVENC</strong> for hardware transcoding. However, Intel's QSV implementation is the most mature, best-supported, and offers the best performance-per-watt. AMD's integrated graphics have <strong>limited/experimental tone mapping support</strong> in Jellyfin and lag significantly behind in encoding quality. For a Jellyfin-focused build, Intel is the clear choice.</p>
+    <p><strong>Unlike Plex, Jellyfin has no artificial concurrent transcode limits on any GPU platform.</strong> Intel iGPUs and ARC dGPUs have no session cap — you're limited only by hardware performance.</p>
+</div>
+
+<div class="card">
+    <h3>Intel Quick Sync Generations Compared</h3>
+    <table>
+        <thead><tr><th>CPU Generation</th><th>QSV Version</th><th>H.265 Encode</th><th>AV1 Decode</th><th>AV1 Encode</th><th>HDR Tone Mapping</th></tr></thead>
+        <tbody>
+            <tr><td>7th–9th Gen (Kaby Lake–Coffee Lake)</td><td>5–6</td><td>✅</td><td>❌</td><td>❌</td><td>⚠️ Limited</td></tr>
+            <tr><td>10th–11th Gen (Ice Lake–Tiger Lake)</td><td>6–7</td><td>✅</td><td>❌</td><td>❌</td><td>✅ (OpenCL, Linux)</td></tr>
+            <tr><td><strong>12th Gen+ / N100/N305</strong> (Alder Lake)</td><td><strong>7–8</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td></tr>
+        </tbody>
+    </table>
+    <p><strong>12th Gen Intel and newer is the sweet spot for Jellyfin.</strong> Full AV1 decode, HEVC encode/decode, and hardware HDR→SDR tone mapping via both OpenCL and VPP (Video Post Processing).</p>
+</div>
+
+<div class="card">
+    <h3>Jellyfin Hardware Acceleration Methods: QSV vs VA-API</h3>
+    <table>
+        <thead><tr><th>Method</th><th>Platform</th><th>Best For</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Intel Quick Sync (QSV)</strong></td><td>Linux, Windows</td><td>Mainstream & newer Intel GPUs (Broadwell+)</td><td>Best performance on Linux; preferred option for 12th Gen+</td></tr>
+            <tr><td><strong>VA-API</strong></td><td>Linux only</td><td>Pre-Broadwell Intel, AMD GPUs</td><td>Fallback if QSV has issues; works on all Intel GPUs</td></tr>
+            <tr><td><strong>NVIDIA NVENC</strong></td><td>Linux, Windows</td><td>NVIDIA discrete GPUs</td><td>3-5 session limit on consumer cards (can be patched)</td></tr>
+            <tr><td><strong>AMD AMF / VA-API</strong></td><td>Linux, Windows</td><td>AMD GPUs</td><td>Limited tone mapping; use Intel if possible</td></tr>
+        </tbody>
+    </table>
+    <div class="callout info">
+        <strong>💡 For N100/i3-12100 builds:</strong> Use <strong>QSV</strong> on Linux for best performance. VA-API is the backup. On the N100 specifically, you'll need a newer <code class="inline">intel-opencl-icd</code> package (23.x+) for HDR tone mapping — Ubuntu 22.04's default 22.14 is too old. See the step-by-step guide below.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Jellyfin Transcoding Performance by CPU</h3>
+    <table>
+        <thead><tr><th>CPU</th><th>TDP</th><th>1080p Transcodes</th><th>4K→1080p Transcodes</th><th>AU Price (approx)</th></tr></thead>
+        <tbody>
+            <tr><td>Intel N100</td><td>6W</td><td>8–12 (H.264) / 6–10 (HEVC)</td><td>3–5</td><td>~$260 (mini PC)</td></tr>
+            <tr><td>Intel N150</td><td>6W</td><td>10–14 / 8–12</td><td>4–6</td><td>~$300 (mini PC)</td></tr>
+            <tr><td>Intel N305</td><td>15W</td><td>15–20 / 12–16</td><td>6–10</td><td>~$400–500 (mini PC)</td></tr>
+            <tr><td><strong>Intel i3-12100</strong> (UHD 730)</td><td><strong>60W</strong></td><td><strong>20+ / 15+</strong></td><td><strong>10–15</strong></td><td><strong>~$180 (CPU only)</strong></td></tr>
+            <tr><td>Intel i5-12400 (UHD 730)</td><td>65W</td><td>25+ / 18+</td><td>12–18</td><td>~$250 (CPU only)</td></tr>
+            <tr><td>Intel i5-12500 (UHD 770)</td><td>65W</td><td>30+ / 20+</td><td>15–20</td><td>~$280 (CPU only)</td></tr>
+        </tbody>
+    </table>
+    <p><em>These numbers come from community benchmarks on the Jellyfin forums. 4K→1080p figures include HDR tone mapping via OpenCL, which is the most demanding transcode scenario. Actual results vary based on source bitrate, subtitle burn-in, and audio transcoding.</em></p>
+</div>
+
+<div class="card">
+    <h3>HDR Tone Mapping in Jellyfin — Two Methods</h3>
+    <table>
+        <thead><tr><th>Method</th><th>GPU Load</th><th>Quality</th><th>Dolby Vision P5</th><th>Best For</th></tr></thead>
+        <tbody>
+            <tr><td><strong>OpenCL</strong></td><td>Higher</td><td>Excellent, fine-tuning options</td><td>✅ Yes</td><td>N100, all Intel 10th Gen+, requires <code class="inline">intel-opencl-icd</code></td></tr>
+            <tr><td><strong>VPP (QSV)</strong></td><td>Lower</td><td>Good, fewer tuning options</td><td>❌ No</td><td>12th Gen+ desktop, lower power consumption</td></tr>
+        </tbody>
+    </table>
+    <p>On the N100, you <strong>must</strong> use OpenCL tone mapping. On the i3-12100, you can use either — VPP is more power-efficient, OpenCL gives better quality and Dolby Vision support.</p>
+    <div class="callout warning">
+        <strong>⚠️ N100 Tone Mapping Fix:</strong> Ubuntu 22.04 ships with <code class="inline">intel-opencl-icd</code> version 22.14, which <strong>does not support the N100's GPU ID (0x46D1)</strong>. You need version 23.x+. Install from <a href="https://github.com/intel/compute-runtime/releases" target="_blank">Intel's compute-runtime releases</a> on GitHub. This is the #1 issue Jellyfin users hit on N100. Ubuntu 24.04 ships a newer version. Detailed steps are in the setup guide below.
+    </div>
+</div>
+
+<!-- POWER COSTS -->
+<h2 id="power-costs">7. Power Consumption &amp; Annual Running Costs (AUD)</h2>
+
+<div class="card">
+    <h3>Australian Electricity Rates (2025–2026, Approximate Peak Residential)</h3>
+    <table>
+        <thead><tr><th>State</th><th>Rate (c/kWh)</th><th>Annual Cost per 100W (24/7)</th></tr></thead>
+        <tbody>
+            <tr><td>ACT</td><td>~25c</td><td>~$219</td></tr>
+            <tr><td>TAS</td><td>~26c</td><td>~$228</td></tr>
+            <tr><td>VIC</td><td>~28c</td><td>~$245</td></tr>
+            <tr><td>QLD</td><td>~30c</td><td>~$263</td></tr>
+            <tr><td>WA</td><td>~31c</td><td>~$272</td></tr>
+            <tr><td><strong>NSW</strong></td><td><strong>~32c</strong></td><td><strong>~$280</strong></td></tr>
+            <tr><td><strong>SA</strong></td><td><strong>~38–45c</strong></td><td><strong>~$333–$394</strong></td></tr>
+        </tbody>
+    </table>
+    <p><em>South Australia has the highest rates — efficient hardware pays for itself fastest there.</em></p>
+</div>
+
+<div class="card">
+    <h3>Annual Running Cost Comparison (24/7 Operation)</h3>
+    <table>
+        <thead><tr><th>Build Type</th><th>Avg Power</th><th>NSW (32c)</th><th>VIC (28c)</th><th>SA (42c)</th></tr></thead>
+        <tbody>
+            <tr><td>N100 Mini PC + 1 SSD</td><td>~8W</td><td class="price">$22</td><td class="price">$20</td><td class="price">$30</td></tr>
+            <tr><td>N100 Mini PC + 2 External HDDs</td><td>~18W</td><td class="price">$50</td><td class="price">$44</td><td class="price">$66</td></tr>
+            <tr><td>N305 Mini PC + 4 HDDs</td><td>~30W</td><td class="price">$84</td><td class="price">$74</td><td class="price">$110</td></tr>
+            <tr><td><strong>i3-12100 Tower + 6 HDDs (spun down)</strong></td><td><strong>~40W</strong></td><td class="price"><strong>$112</strong></td><td class="price"><strong>$98</strong></td><td class="price"><strong>$147</strong></td></tr>
+            <tr><td>i3-12100 Tower + 6 HDDs (active)</td><td>~70W</td><td class="price">$196</td><td class="price">$172</td><td class="price">$258</td></tr>
+            <tr><td>i5-12500 Tower + 8 HDDs</td><td>~90W</td><td class="price">$252</td><td class="price">$221</td><td class="price">$331</td></tr>
+            <tr><td>Old Dell R720 Rack Server</td><td>~165W</td><td class="price">$461</td><td class="price">$403</td><td class="price">$605</td></tr>
+            <tr><td>Old Dual Xeon Workstation</td><td>~200W</td><td class="price">$560</td><td class="price">$490</td><td class="price">$735</td></tr>
+        </tbody>
+    </table>
+    <div class="callout warning">
+        <strong>⚠️ The Power Math:</strong> An old Dell R720 costs ~$460/year to run vs. ~$112/year for an i3-12100 build. That's a <strong>$348/year difference</strong> — enough to pay for the i3 build's hardware in under 3 years. In SA, the payback is under 2 years. Old servers are a false economy for 24/7 home use.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Drive Power Consumption</h3>
+    <table>
+        <thead><tr><th>Drive Type</th><th>Active</th><th>Idle / Spun Down</th></tr></thead>
+        <tbody>
+            <tr><td>3.5" HDD (7200 RPM, e.g. IronWolf 8–12TB)</td><td>5–9W</td><td>0.5–1.5W</td></tr>
+            <tr><td>3.5" HDD (5640 RPM, e.g. WD Red Plus)</td><td>4.5–6.5W</td><td>0.5–1.5W</td></tr>
+            <tr><td>2.5" SATA SSD</td><td>1–3W</td><td>~0.5W</td></tr>
+            <tr><td>M.2 NVMe SSD</td><td>2–8W</td><td>0.5–1W</td></tr>
+        </tbody>
+    </table>
+    <p>Spin-down (e.g., Unraid's disk spin-down after 15–30 min idle) saves ~6–8W per drive. With 6 drives spun down for 16 hours/day, that saves ~$120–$170 AUD/year at NSW rates. Jellyfin only wakes the drive containing the requested media — a huge advantage over traditional RAID.</p>
+</div>
+
+<!-- STORAGE -->
+<h2 id="storage">8. Storage Strategy: Drives, RAID &amp; Parity</h2>
+
+<div class="card">
+    <h3>Internal vs External vs NAS</h3>
+    <table>
+        <thead><tr><th>Approach</th><th>Best For</th><th>Pros</th><th>Cons</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Internal HDDs</strong></td><td>DIY tower builds</td><td>Fastest, most reliable, one box</td><td>Limited by case bays &amp; SATA ports</td></tr>
+            <tr><td><strong>External USB HDDs</strong></td><td>Mini PC builds</td><td>Cheap, easy, hot-swappable</td><td>Messy, USB bottlenecks, less reliable for RAID</td></tr>
+            <tr><td><strong>Dedicated NAS</strong></td><td>Separation of compute &amp; storage</td><td>Purpose-built, serves multiple devices</td><td>Extra cost, extra power, network dependency</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Recommended HDDs for NAS / Jellyfin Use</h3>
+    <ul>
+        <li><strong>Seagate IronWolf / IronWolf Pro</strong> — Designed for 24/7 NAS use, 7200 RPM, CMR. ~$30–$49/TB in Australia. IronWolf Pro 12TB is often cheaper than regular IronWolf at MSY/Umart — always check both.</li>
+        <li><strong>Western Digital Red Plus</strong> — CMR only (avoid plain WD Red — SMR). Slightly quieter (5640 RPM), lower power than IronWolf. ~$28–$45/TB.</li>
+        <li><strong>Seagate Exos</strong> — Enterprise-grade, often good value when on sale. Slightly louder but excellent reliability. 5-year warranty.</li>
+        <li><strong>"Shucking"</strong> — Buying external USB drives and removing the internal HDD can save 30–50%. Common in Australia with WD Elements/Easystore. Caveat: warranty voided, may need 3.3V pin mod.</li>
+    </ul>
+    <div class="callout warning">
+        <strong>⚠️ Critical: CMR vs SMR:</strong> Never use SMR (Shingled Magnetic Recording) drives in any RAID, ZFS, or Unraid array. SMR drives suffer catastrophic write performance during RAID rebuilds — what should take hours can take <em>days</em>. All IronWolf and WD Red Plus drives are CMR. Avoid plain WD Red (often SMR) and most consumer desktop drives. Jellyfin itself doesn't care about CMR vs SMR, but your storage layer absolutely does.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick RAID Decision Guide for Jellyfin Builders</h3>
+    <table>
+        <thead><tr><th>RAID Type</th><th>Min Drives</th><th>Usable (N drives × size)</th><th>Fault Tolerance</th><th>Best For</th></tr></thead>
+        <tbody>
+            <tr><td>RAID 1 (mirror)</td><td>2</td><td>1× drive size</td><td>1 drive</td><td>2-bay simple setups</td></tr>
+            <tr><td><strong>RAID 5 / SHR / RAIDZ1</strong></td><td><strong>3</strong></td><td><strong>(N−1)× size</strong></td><td><strong>1 drive</strong></td><td><strong>Best balance — most Jellyfin builds</strong></td></tr>
+            <tr><td>RAID 6 / SHR-2 / RAIDZ2</td><td>4</td><td>(N−2)× size</td><td>2 drives</td><td>Large arrays (6+ drives, 12TB+ drives)</td></tr>
+            <tr><td>Unraid (single parity)</td><td>2</td><td>Sum of all data drives</td><td>1 drive</td><td>Mixed drive sizes, easy expansion</td></tr>
+        </tbody>
+    </table>
+    <p><strong>For a 12TB usable Jellyfin server:</strong> 3× 8TB in RAID 5 = ~14.6 TiB usable (sweet spot). 4× 6TB in RAID 5 = ~16.4 TiB (cheapest). Or Unraid with 1× 12TB parity + 1× 12TB data = ~10.9 TiB usable (simplest to expand later).</p>
+</div>
+
+<!-- SOFTWARE -->
+<h2 id="software">9. Operating System &amp; Software Stack</h2>
+
+<div class="card">
+    <h3>OS Options at a Glance</h3>
+    <table>
+        <thead><tr><th>OS</th><th>Best For</th><th>Pros</th><th>Cons</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Unraid</strong></td><td>Mixed-size drives, Docker focus, Jellyfin</td><td>Easy UI, parity without matching drives, huge community, Jellyfin in Community Apps</td><td>Paid license (~$95–$210 AUD), USB boot</td></tr>
+            <tr><td><strong>TrueNAS Scale</strong></td><td>ZFS enthusiasts, data integrity</td><td>Free, ZFS, excellent data protection, Jellyfin app catalog</td><td>All drives should match, needs lots of RAM (1GB/TB rule of thumb)</td></tr>
+            <tr><td><strong>Proxmox VE</strong></td><td>Virtualisation + LXC containers</td><td>Free, full VM + LXC support, Jellyfin helper scripts, ZFS</td><td>Steeper learning curve, overkill for simple NAS</td></tr>
+            <tr><td><strong>Ubuntu Server / Debian</strong></td><td>Minimalist, full Docker control</td><td>Free, lightweight, Docker-first, best Jellyfin driver support</td><td>CLI management, no web UI by default</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Recommendation:</strong> For Jellyfin specifically, <strong>Ubuntu Server 24.04 LTS + Docker Compose</strong> gives the best Intel Quick Sync driver support and the leanest setup. If you want a friendly web UI and easy drive management, <strong>Unraid</strong> is the Australian community favourite — Jellyfin is a one-click install via the Community Applications plugin.</p>
+</div>
+
+<!-- STEP BY STEP JELLYFIN SETUP -->
+<h2 id="step-by-step">10. Step-by-Step: Jellyfin Setup with Hardware Transcoding</h2>
+
+<div class="card">
+    <h3>This Guide Covers</h3>
+    <p>A complete, production-ready Jellyfin setup on Ubuntu Server 24.04 LTS with Docker Compose, Intel Quick Sync hardware transcoding, HDR tone mapping, and all the fixes for common pitfalls. This has been tested extensively on N100 and i3-12100 hardware.</p>
+</div>
+
+<div class="card">
+    <h3>Prerequisites</h3>
+    <ul>
+        <li>Ubuntu Server 24.04 LTS (fresh install recommended)</li>
+        <li>Intel CPU with integrated GPU (N100, i3-12100, or similar 12th Gen+)</li>
+        <li>Docker and Docker Compose installed</li>
+        <li>Media files on local storage or mounted NAS share</li>
+        <li>Root or sudo access</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>Step 1: Install Docker &amp; Prerequisites</h3>
+    <pre><code># Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Docker
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+# Log out and back in for the group change to take effect
+
+# Verify Docker
+docker --version
+
+# Install Docker Compose (standalone plugin)
+sudo apt install docker-compose -y</code></pre>
+</div>
+
+<div class="card">
+    <h3>Step 2: Install Intel GPU Drivers &amp; Tools</h3>
+    <pre><code># Install Intel media drivers and VA-API tools
+sudo apt update
+sudo apt install -y \
+  intel-media-va-driver-non-free \
+  vainfo \
+  intel-gpu-tools \
+  libdrm-intel1 \
+  mesa-va-drivers
+
+# Verify the GPU is detected
+ls -la /dev/dri/
+# Should show: card0, renderD128
+
+# Check VA-API codecs
+vainfo
+# Should list VAProfileH264Main, VAProfileHEVCMain, etc.
+
+# Verify Quick Sync engine
+sudo intel_gpu_top
+# Should show your GPU with Render/3D, Blitter, Video, VideoEnhance engines</code></pre>
+
+    <h4>⚠️ Critical: Install OpenCL for HDR Tone Mapping (N100 especially!)</h4>
+    <p>Ubuntu 24.04's default <code class="inline">intel-opencl-icd</code> (23.x) works for N100. If you're on Ubuntu 22.04 or have issues, install from Intel's repo:</p>
+    <pre><code># Check current OpenCL version
+apt policy intel-opencl-icd
+
+# If version is below 23.x, install from Intel's GitHub releases:
+# Visit https://github.com/intel/compute-runtime/releases
+# Download the latest .deb packages and install:
+# sudo dpkg -i intel-opencl-icd_*.deb intel-igc-core_*.deb etc.
+
+# For Ubuntu 24.04, the default package works:
+sudo apt install -y intel-opencl-icd
+
+# Verify OpenCL is working with Jellyfin's ffmpeg (once Jellyfin is running)
+# docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/ffmpeg \
+#   -v verbose -init_hw_device vaapi=va:/dev/dri/renderD128 \
+#   -init_hw_device opencl@va</code></pre>
+    <div class="callout warning">
+        <strong>🔴 The #1 N100 Jellyfin Issue:</strong> If tone mapping fails with <code class="inline">Failed to get number of OpenCL platforms: -1001</code>, your OpenCL runtime is too old. The N100's GPU ID (0x46D1) requires Intel compute-runtime 22.30+. Upgrade from Intel's GitHub releases.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Step 3: Create Jellyfin Directory Structure</h3>
+    <pre><code># Create Jellyfin directories
+sudo mkdir -p /opt/jellyfin/{config,cache}
+sudo mkdir -p /media/{movies,tv,music}
+
+# Set ownership to your user
+sudo chown -R $USER:$USER /opt/jellyfin
+sudo chown -R $USER:$USER /media
+
+# Increase inotify watch limit for large media libraries
+echo "fs.inotify.max_user_watches=524288" | sudo tee -a /etc/sysctl.d/99-jellyfin.conf
+sudo sysctl -p /etc/sysctl.d/99-jellyfin.conf</code></pre>
+</div>
+
+<div class="card">
+    <h3>Step 4: Get the Render Group ID</h3>
+    <pre><code># Find the render group GID on your host
+getent group render | cut -d: -f3
+# Example output: 122 (Ubuntu) or 108 (Debian) or 989 (Proxmox LXC)
+
+# Add your user to the render and video groups
+sudo usermod -aG render,video $USER
+# Log out and back in for this to take effect</code></pre>
+</div>
+
+<div class="card">
+    <h3>Step 5: Create docker-compose.yml</h3>
+    <pre><code>cd /opt/jellyfin
+nano docker-compose.yml</code></pre>
+    <p>Paste the following (replace <code class="inline">RENDER_GID</code> with your actual render group ID and <code class="inline">YOUR_SERVER_IP</code> with your LAN IP):</p>
+    <pre><code>services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    user: "1000:1000"  # Replace with your UID:GID (run 'id' to check)
+    group_add:
+      - "122"  # Replace with your render group GID (getent group render | cut -d: -f3)
+    network_mode: 'host'
+    volumes:
+      - /opt/jellyfin/config:/config
+      - /opt/jellyfin/cache:/cache
+      - /media/movies:/media/movies:ro
+      - /media/tv:/media/tv:ro
+      - /media/music:/media/music:ro
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://192.168.1.100:8096  # Replace with your LAN IP
+      - TZ=Australia/Sydney
+    tmpfs:
+      - /transcode  # RAM disk for transcode cache — saves SSD wear
+    restart: unless-stopped</code></pre>
+    <div class="callout info">
+        <strong>💡 tmpfs for transcodes:</strong> Mapping <code class="inline">/transcode</code> as tmpfs puts the transcode cache in RAM instead of your SSD. This saves SSD write cycles and speeds up transcoding. Jellyfin will use this automatically — just set the transcode path to <code class="inline">/transcode</code> in Dashboard → Playback. With 32GB RAM, allocate 8–16GB in the Jellyfin settings.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Step 6: Launch Jellyfin</h3>
+    <pre><code># Start the container
+docker compose up -d
+
+# Check it's running
+docker compose logs -f
+# Look for: "Loaded assembly... Jellyfin.Server" and no errors
+
+# Verify GPU access inside container
+docker exec -it jellyfin ls -la /dev/dri/
+# Should show card0 and renderD128 with correct permissions</code></pre>
+</div>
+
+<div class="card">
+    <h3>Step 7: Configure Hardware Acceleration in Jellyfin</h3>
+    <ol>
+        <li>Open <code class="inline">http://YOUR-SERVER-IP:8096</code> in a browser</li>
+        <li>Complete the initial setup wizard (create admin user, add media libraries)</li>
+        <li>Go to <strong>Dashboard → Playback → Transcoding</strong></li>
+        <li>Set <strong>Hardware acceleration:</strong> <code class="inline">Intel Quick Sync (QSV)</code></li>
+        <li>Check all supported codec boxes <strong>EXCEPT</strong>:
+            <ul>
+                <li>Uncheck <strong>VP8</strong> (ancient, not needed)</li>
+                <li>Uncheck <strong>Allow encoding in AV1 format</strong> (N100 cannot encode AV1; i3-12100 cannot either — only ARC GPUs can)</li>
+                <li>Uncheck <strong>Enable low-power H.264/HEVC encoder</strong> (unless you've set up GuC/HuC firmware — see Tips section)</li>
+            </ul>
+        </li>
+        <li>✅ Check <strong>Enable hardware decoding</strong> for: H264, HEVC, MPEG2, VC1, VP9, AV1</li>
+        <li>✅ Check <strong>Enable VPP Tone mapping</strong> (preferred for 12th Gen+; uses less power)</li>
+        <li>✅ Check <strong>Enable Tone mapping</strong> (OpenCL — enables Dolby Vision support; you can enable both)</li>
+        <li>Set <strong>Transcoding thread count:</strong> Auto</li>
+        <li>Under <strong>Transcoding path:</strong> enter <code class="inline">/transcode</code> (for the RAM disk)</li>
+        <li>Click <strong>Save</strong></li>
+    </ol>
+</div>
+
+<div class="card">
+    <h3>Step 8: Verify Hardware Transcoding Works</h3>
+    <pre><code># On the host, run intel_gpu_top to monitor GPU usage
+sudo intel_gpu_top</code></pre>
+    <ol>
+        <li>Play a 4K HDR video in Jellyfin on your Apple TV or Android tablet</li>
+        <li>Set playback quality to a lower resolution (e.g., 1080p 10Mbps) to force transcoding</li>
+        <li>In <code class="inline">intel_gpu_top</code>, you should see the <strong>Video</strong> and <strong>VideoEnhance</strong> engines active</li>
+        <li>In Jellyfin Dashboard → Active Devices, click the <strong>(i)</strong> icon — the transcode reason should show <strong>"HW"</strong></li>
+        <li>CPU usage should be low (5–20%) while GPU handles the heavy lifting</li>
+    </ol>
+    <div class="callout success">
+        <strong>✅ Success indicators:</strong> GPU Video engine active in intel_gpu_top, "HW" badge in Jellyfin dashboard, low CPU usage during 4K→1080p playback. If you see 100% CPU instead, hardware transcoding isn't working — check the troubleshooting table in the Tips section below.
+    </div>
+</div>
+
+<div class="card">
+    <h3>Step 9: Configure Firewall</h3>
+    <pre><code># Allow Jellyfin web UI
+sudo ufw allow 8096/tcp comment "Jellyfin Web UI"
+
+# Allow client auto-discovery (LAN only)
+sudo ufw allow 7359/udp comment "Jellyfin Discovery"
+
+# Enable firewall
+sudo ufw enable
+sudo ufw status</code></pre>
+</div>
+
+<!-- TIPS & TRICKS -->
+<h2 id="tips-tricks">11. Tips &amp; Tricks for Jellyfin Perfection</h2>
+
+<div class="card">
+    <h3>🐧 OS-Level Optimizations</h3>
+    <ul>
+        <li><strong>Use Ubuntu 24.04 LTS (not 22.04):</strong> Ships with kernel 6.8+, newer Intel GPU firmware, and a working OpenCL runtime for N100 out of the box. Saves hours of driver debugging.</li>
+        <li><strong>Disable Ubuntu's automatic updates:</strong> <code class="inline">sudo apt remove unattended-upgrades</code> — you want to control when kernel/driver updates happen on a 24/7 server.</li>
+        <li><strong>Enable kernel HWE stack:</strong> <code class="inline">sudo apt install linux-generic-hwe-24.04</code> for the latest Intel GPU driver improvements.</li>
+        <li><strong>Set CPU governor to powersave:</strong> <code class="inline">echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</code> — saves 2–4W at idle on desktop CPUs.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🎬 Transcoding Optimizations</h3>
+    <ul>
+        <li><strong>Use the RAM disk for transcodes:</strong> Set transcode path to <code class="inline">/transcode</code> (tmpfs). This eliminates SSD wear from constant transcode writes. A 4K→1080p transcode can write 2–4GB of temporary segments per hour.</li>
+        <li><strong>Prefer HEVC target encoding:</strong> Enable "Allow encoding in HEVC format" — HEVC provides ~40% smaller file size than H.264 at the same quality, saving bandwidth for remote streaming. The N100 and i3-12100 both encode HEVC in hardware just fine.</li>
+        <li><strong>Enable VPP tone mapping first, OpenCL as backup:</strong> VPP uses less power. If you have Dolby Vision content, also enable OpenCL tone mapping — Jellyfin will pick the right method per file.</li>
+        <li><strong>Set a reasonable CRF:</strong> Under Dashboard → Playback, set "H264 encoding CRF" to 23 (default) and "HEVC encoding CRF" to 25. Lower = better quality but more bandwidth. These defaults are good for most users.</li>
+        <li><strong>Throttle transcode ahead:</strong> Set "Throttle transcodes" to on — Jellyfin stops transcoding when the buffer is full, then resumes as needed. Saves power during playback.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>📚 Library &amp; Metadata Tips</h3>
+    <ul>
+        <li><strong>Organize files strictly:</strong> <code class="inline">/media/movies/Movie Name (Year)/Movie Name (Year).mkv</code> and <code class="inline">/media/tv/Show Name/Season 01/Show Name - S01E01.mkv</code>. Jellyfin's auto-detection depends on this.</li>
+        <li><strong>Enable Trickplay images:</strong> Dashboard → Playback → Trickplay. Generates thumbnail previews when scrubbing. Costs some storage but massively improves UX.</li>
+        <li><strong>Use the Jellyfin Intro Skipper plugin:</strong> Auto-detects and skips TV show intros. Works locally (no cloud dependency).</li>
+        <li><strong>For anime:</strong> Install the <strong>AniDB</strong> and <strong>AniList</strong> metadata plugins. The default TMDb scraper struggles with anime naming.</li>
+        <li><strong>Large libraries (5,000+ files):</strong> Initial scan may take 30–60 minutes. Be patient. Metadata is fetched from TMDb, TVDb, and MusicBrainz — internet speed matters.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>📱 Client Setup: Android Tablets &amp; Apple TV</h3>
+    <p>This build is designed for two specific client types. Here's everything you need to know to set each one up for the best experience.</p>
+
+    <h4>Android Tablets — Findroid (Recommended)</h4>
+    <ul>
+        <li><strong>App:</strong> <strong>Findroid</strong> — third-party Jellyfin client built from the ground up for Android. Free on Google Play and F-Droid.</li>
+        <li><strong>Key features:</strong> Native player with excellent codec support, offline downloads, MPV-based playback for wide format compatibility, gesture controls, and a modern Material You interface.</li>
+        <li><strong>Alternative:</strong> Official <strong>Jellyfin Android</strong> app — also free. Uses ExoPlayer or web player. Good fallback if Findroid has issues with specific files.</li>
+        <li><strong>Direct play capability:</strong> Both Findroid and the official app can direct-play H.264, HEVC, and many other formats natively. For 4K HDR, Findroid handles it better thanks to its MPV backend.</li>
+        <li><strong>Offline downloads:</strong> Both apps support downloading media for offline playback — great for travel or kids' tablets.</li>
+        <li><strong>Setup:</strong> Install from Google Play → enter server URL (e.g., <code class="inline">http://192.168.1.100:8096</code>) → log in. That's it. No configuration needed on the server side.</li>
+    </ul>
+
+    <h4>Apple TV — Swiftfin</h4>
+    <ul>
+        <li><strong>App:</strong> <strong>Swiftfin</strong> — native Jellyfin client for tvOS. Free on the App Store. Built by the Jellyfin project.</li>
+        <li><strong>Key features:</strong> Native SwiftUI interface, direct plays nearly everything including 4K HDR (HDR10, Dolby Vision Profile 5 &amp; 8), and uses the native tvOS video player for the best performance.</li>
+        <li><strong>Hardware required:</strong> Apple TV 4K (1st gen or newer). The older Apple TV HD works but lacks 4K and HDR support. Apple TV 4K (3rd gen, 2022) with the A15 Bionic chip is ideal — it has the most powerful decoder and supports HDR10+ and Dolby Vision.</li>
+        <li><strong>Direct play advantage:</strong> Apple TV 4K direct-plays nearly all modern media formats. This means <strong>zero transcoding</strong> on the server when watching from the Apple TV — your Jellyfin server can be practically asleep. H.264, HEVC, HEVC 10-bit (HDR), and Dolby Vision all play natively.</li>
+        <li><strong>Audio note:</strong> Apple TV does not passthrough lossless audio formats (TrueHD, DTS-HD MA). These will be transcoded to multichannel PCM or AAC on the server. This uses minimal CPU and is handled seamlessly. For most users with TV speakers or soundbars, this is a non-issue.</li>
+        <li><strong>Setup:</strong> Install Swiftfin from the App Store → enter server URL → log in. All configuration happens on-device — no server-side changes needed.</li>
+    </ul>
+
+    <h4>Why These Two Clients Minimize Transcoding</h4>
+    <table>
+        <thead><tr><th>Format</th><th>Android Tablet (Findroid)</th><th>Apple TV 4K (Swiftfin)</th></tr></thead>
+        <tbody>
+            <tr><td>H.264 1080p</td><td>✅ Direct Play</td><td>✅ Direct Play</td></tr>
+            <tr><td>HEVC 1080p</td><td>✅ Direct Play</td><td>✅ Direct Play</td></tr>
+            <tr><td>HEVC 4K SDR</td><td>✅ Direct Play</td><td>✅ Direct Play</td></tr>
+            <tr><td>HEVC 4K HDR10</td><td>✅ Direct Play</td><td>✅ Direct Play</td></tr>
+            <tr><td>Dolby Vision P5</td><td>⚠️ May transcode</td><td>✅ Direct Play</td></tr>
+            <tr><td>Dolby Vision P8</td><td>⚠️ May transcode</td><td>✅ Direct Play</td></tr>
+            <tr><td>AV1</td><td>⚠️ Device-dependent</td><td>✅ Direct Play (A15+)</td></tr>
+            <tr><td>TrueHD / DTS-HD MA</td><td>⚠️ May transcode</td><td>⚠️ Transcodes to PCM</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Bottom line:</strong> With these two clients, the vast majority of your media will direct-play. Your server's transcoding power becomes a safety net rather than a necessity — perfect for a low-power N100 build.</p>
+</div>
+
+<div class="card">
+    <h3>🔧 Troubleshooting Common Issues</h3>
+    <table>
+        <thead><tr><th>Symptom</th><th>Likely Cause</th><th>Fix</th></tr></thead>
+        <tbody>
+            <tr><td>Tone mapping fails, "OpenCL error -1001"</td><td>OpenCL runtime too old (N100)</td><td>Install intel-compute-runtime 23.x+ from Intel's GitHub</td></tr>
+            <tr><td>100% CPU during transcode, GPU idle</td><td>Hardware acceleration not enabled</td><td>Check Playback settings, verify <code class="inline">/dev/dri</code> is mounted in container</td></tr>
+            <tr><td>Permission denied on /dev/dri/renderD128</td><td>User not in render group</td><td><code class="inline">sudo usermod -aG render $USER</code>, restart container</td></tr>
+            <tr><td>4K HDR plays but colors are washed out</td><td>Tone mapping not working</td><td>Enable both VPP and OpenCL tone mapping in settings</td></tr>
+            <tr><td>New files don't appear in library</td><td>inotify limit hit</td><td>Increase to 524288: <code class="inline">echo "fs.inotify.max_user_watches=524288" | sudo tee -a /etc/sysctl.d/99-jellyfin.conf</code></td></tr>
+            <tr><td>Docker can't resolve "render" group name</td><td>Old Docker Compose version</td><td>Use numeric GID: <code class="inline">getent group render | cut -d: -f3</code></td></tr>
+            <tr><td>Transcoded video stutters</td><td>Transcode speed too slow</td><td>Enable "Throttle transcodes", reduce target bitrate, or lower CRF</td></tr>
+            <tr><td>N100: 2nd+ 4K transcode struggles</td><td>GPU bandwidth limit (single media engine)</td><td>Limit to 3-4 simultaneous 4K transcodes; upgrade to i3-12100 for more</td></tr>
+            <tr><td>Apple TV: No 4K HDR playback</td><td>Using web player, not Swiftfin</td><td>Install Swiftfin from the App Store — the web player cannot handle 4K HDR</td></tr>
+            <tr><td>Android tablet: Choppy 4K playback</td><td>Older tablet lacks HEVC hardware decode</td><td>Lower playback quality in Findroid settings, or let server transcode to 1080p</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>🔄 Jellyfin Maintenance</h3>
+    <pre><code># Update Jellyfin to latest version
+cd /opt/jellyfin
+docker compose pull
+docker compose up -d
+
+# Check logs
+docker compose logs -f --tail=100
+
+# Backup Jellyfin config (critical — contains watch history, user accounts, library settings)
+sudo tar -czf jellyfin-backup-$(date +%Y%m%d).tar.gz /opt/jellyfin/config
+
+# Restore from backup
+# sudo tar -xzf jellyfin-backup-YYYYMMDD.tar.gz -C /</code></pre>
+</div>
+
+<div class="card">
+    <h3>🌐 Remote Access Options</h3>
+    <ul>
+        <li><strong>Tailscale (recommended):</strong> Free for personal use. Install on server and all client devices (available on Android and Apple TV via TestFlight/sideloading). Creates a private mesh VPN — no port forwarding needed, works through CGNAT. <code class="inline">curl -fsSL https://tailscale.com/install.sh | sh</code></li>
+        <li><strong>Cloudflare Tunnel:</strong> Free. Exposes Jellyfin via Cloudflare's network with HTTPS. No port forwarding. Requires a domain name (can use a free .tk or cheap .com). Works with both Android and Apple TV clients.</li>
+        <li><strong>WireGuard VPN:</strong> Self-hosted. More complex but fully self-contained. Use <code class="inline">wg-easy</code> Docker container for simple setup. WireGuard clients available for Android and can be configured on Apple TV via router-level VPN.</li>
+        <li><strong>Reverse proxy (Nginx + Let's Encrypt):</strong> If you have a public IP. Use Nginx Proxy Manager for an easy web UI.</li>
+        <li><strong>Avoid:</strong> Direct port forwarding without HTTPS. Use at minimum a reverse proxy with SSL.</li>
+    </ul>
+</div>
+
+<!-- BEYOND JELLYFIN -->
+<h2 id="beyond-jellyfin">12. Beyond Jellyfin: Services You Can Add</h2>
+
+<div class="card">
+    <p>One of the key reasons to DIY is flexibility. Here's what the community commonly runs alongside Jellyfin on the same server:</p>
+    <div class="grid-3">
+        <div>
+            <h4>🌐 Network &amp; DNS</h4>
+            <ul>
+                <li>Pi-hole / AdGuard Home (ad blocking)</li>
+                <li>Unbound (recursive DNS)</li>
+                <li>WireGuard / Tailscale (VPN)</li>
+                <li>Nginx Proxy Manager</li>
+                <li>OPNsense (firewall)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>📁 Storage &amp; Cloud</h4>
+            <ul>
+                <li>Nextcloud (self-hosted Dropbox)</li>
+                <li>Immich (self-hosted Google Photos)</li>
+                <li>Syncthing (file sync)</li>
+                <li>Vaultwarden (password manager)</li>
+                <li>Samba / NFS shares</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🎬 Media Automation</h4>
+            <ul>
+                <li>Sonarr (TV shows)</li>
+                <li>Radarr (movies)</li>
+                <li>Prowlarr / Jackett (indexers)</li>
+                <li>qBittorrent / Transmission</li>
+                <li>Bazarr (subtitles)</li>
+                <li>Tdarr (media optimisation)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🏠 Home Automation</h4>
+            <ul>
+                <li>Home Assistant</li>
+                <li>Frigate NVR (security cameras)</li>
+                <li>Mosquitto MQTT</li>
+                <li>Zigbee2MQTT</li>
+            </ul>
+        </div>
+        <div>
+            <h4>📊 Monitoring</h4>
+            <ul>
+                <li>Uptime Kuma</li>
+                <li>Grafana + Prometheus</li>
+                <li>Portainer / Dockge</li>
+                <li>Heimdall / Homepage (dashboard)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>🤖 Other</h4>
+            <ul>
+                <li>Paperless-ngx (document management)</li>
+                <li>Gitea / Forgejo (git server)</li>
+                <li>Mealie (recipe manager)</li>
+                <li>Game servers (Minecraft, etc.)</li>
+            </ul>
+        </div>
+    </div>
+    <p style="margin-top:1rem;">All of the above can run simultaneously on an i3-12100 with 32GB RAM at 10–20% CPU usage and ~8GB RAM used — that's how efficient modern hardware is with Docker containers. The N100 can handle Jellyfin + the *arr stack + Pi-hole + a few more at ~30–50% CPU.</p>
+</div>
+
+<!-- WHAT YOU MIGHT HAVE MISSED -->
+<h2 id="what-you-might-miss">13. What You Might Have Missed</h2>
+
+<div class="card">
+    <h3>🔌 Power Supply Efficiency at Low Loads</h3>
+    <p>Most ATX PSUs are <strong>designed for gaming PCs</strong> and operate poorly at the very low loads a home server typically draws (10–50W). A 750W PSU at 3% load may only be 50–60% efficient — meaning your system draws 30W at the wall but only 15–18W reaches the components. Solutions:</p>
+    <ul>
+        <li>Use a <strong>PicoPSU</strong> (DC-DC) with an external power brick — ~90% efficient at low loads</li>
+        <li>Choose an <strong>80+ Platinum or Titanium</strong> rated PSU (tested down to 10% load)</li>
+        <li>The <strong>be quiet! Pure Power 12 M</strong> series specifies efficiency down to 2% load</li>
+        <li>Size your PSU appropriately — 450W is plenty for a server without a discrete GPU</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>🌡️ HDD Cooling Matters</h3>
+    <p>6 drives packed tightly in a Node 304 can hit 45–50°C under sustained load — shortening drive lifespan. Ensure good airflow: intake fans in front, exhaust in rear. Keep drives below 40°C for longevity. The Node 304's included fans + a rear exhaust fan does this well. For the N100 mini PC with external enclosures, ensure the enclosure has active cooling (a fan).</p>
+</div>
+
+<div class="card">
+    <h3>📡 Remote Access &amp; Security</h3>
+    <p>Don't port-forward Jellyfin directly. Use <strong>Tailscale</strong> (free for personal use) or <strong>WireGuard VPN</strong> for secure remote access. If you must expose Jellyfin publicly, use a reverse proxy (Nginx Proxy Manager + Let's Encrypt) and enable 2FA on your Jellyfin accounts. Jellyfin supports TOTP 2FA natively.</p>
+</div>
+
+<div class="card">
+    <h3>🔋 UPS (Uninterruptible Power Supply)</h3>
+    <p>For a server running 24/7, a UPS protects against power surges and gives clean shutdown time. A basic 650VA UPS costs ~$100–$150 AUD. Connect via USB and configure automatic shutdown in Unraid/TrueNAS when battery is low. For Ubuntu/Debian, use <strong>NUT</strong> (Network UPS Tools) — free and well-supported.</p>
+</div>
+
+<div class="card">
+    <h3>🔄 Backup Strategy</h3>
+    <p>RAID/parity is <strong>not backup</strong>. Follow the 3-2-1 rule: 3 copies, 2 different media, 1 offsite. For media that can be re-downloaded, this may be overkill — but for personal documents, photos, and your Jellyfin config directory (watch history, user accounts), use cloud backup (Backblaze B2, ~$6/TB/month) or an external drive rotated offsite.</p>
+    <p><strong>Critical:</strong> Back up <code class="inline">/opt/jellyfin/config</code> regularly. If you lose this, you lose all watch history, user accounts, library customizations, and metadata. The media files can be re-scanned, but the config is irreplaceable.</p>
+</div>
+
+<div class="card">
+    <h3>🎯 Jellyfin Plugin Essentials</h3>
+    <ul>
+        <li><strong>Intro Skipper</strong> — Auto-detects and skips TV show intros. Must-have.</li>
+        <li><strong>Jellyscrub</strong> — Shows thumbnail previews when hovering over the seek bar.</li>
+        <li><strong>Playback Reporting</strong> — See who's watching what, when, and from which device.</li>
+        <li><strong>Reports</strong> — Generate library reports (useful for large collections).</li>
+        <li><strong>Subtitle Extract</strong> — Extracts embedded subtitles for faster access.</li>
+        <li><strong>LDAP Authentication</strong> — If you're running a homelab with centralized auth (Authentik, Authelia).</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>💡 Jellyfin vs Plex: Why Jellyfin?</h3>
+    <table>
+        <thead><tr><th>Feature</th><th>Jellyfin</th><th>Plex</th></tr></thead>
+        <tbody>
+            <tr><td>Hardware transcoding</td><td class="price">FREE</td><td>Plex Pass required (~$159 AUD lifetime)</td></tr>
+            <tr><td>Open source</td><td>✅ Full GPL</td><td>❌ Proprietary</td></tr>
+            <tr><td>Offline auth</td><td>✅ Fully local</td><td>❌ Requires Plex cloud servers</td></tr>
+            <tr><td>Mobile apps</td><td>Free (Swiftfin for Apple TV, Findroid for Android)</td><td>$7.99 AUD one-time per platform</td></tr>
+            <tr><td>Live TV / DVR</td><td>✅ Free</td><td>Plex Pass required</td></tr>
+            <tr><td>Intro skip</td><td>✅ Free plugin</td><td>Plex Pass required</td></tr>
+            <tr><td>Hardware tone mapping</td><td>✅ Free</td><td>Plex Pass required</td></tr>
+            <tr><td>Downloads for offline</td><td>✅ Free</td><td>Plex Pass required</td></tr>
+            <tr><td>Privacy</td><td>No telemetry, fully self-contained</td><td>Usage data sent to Plex Inc.</td></tr>
+        </tbody>
+    </table>
+    <p>Jellyfin saves you <strong>$159 AUD</strong> (Plex Pass lifetime) plus mobile app unlock fees, with no cloud dependency and better privacy. The trade-off: slightly rougher UI, fewer official client apps, and a smaller plugin ecosystem.</p>
+</div>
+
+<!-- COST SUMMARY -->
+<h2>14. Total Cost of Ownership Summary</h2>
+
+<div class="card">
+    <table>
+        <thead><tr><th>Build Tier</th><th>Upfront Cost</th><th>Annual Power (NSW)</th><th>3-Year TCO (NSW)</th><th>3-Year TCO (SA)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>N100 Mini PC + 3× 8TB (RAID 5, 14.6TB usable)</strong></td><td class="price">~$1,400</td><td class="price">~$60</td><td class="price">~$1,580</td><td class="price">~$1,640</td></tr>
+            <tr><td><strong>i3-12100 Node 304 + 3× 8TB (RAID 5, 14.6TB usable)</strong></td><td class="price">~$2,100</td><td class="price">~$130</td><td class="price">~$2,490</td><td class="price">~$2,670</td></tr>
+            <tr><td><strong>i3-12100 Node 304 + 4× 8TB (RAID 5, 21.8TB usable)</strong></td><td class="price">~$2,450</td><td class="price">~$155</td><td class="price">~$2,915</td><td class="price">~$3,130</td></tr>
+            <tr><td>Old Dell R720 (for comparison)</td><td class="price">~$900</td><td class="price">~$460</td><td class="price" style="color:var(--red)">~$2,280</td><td class="price" style="color:var(--red)">~$2,800</td></tr>
+        </tbody>
+    </table>
+    <p><em>Includes all hardware, drives, and estimated power costs. Jellyfin software costs: $0. Plex comparison: add ~$159 AUD for Plex Pass lifetime. Note: the N100 build beats old enterprise gear on 3-year TCO while being silent, compact, and more capable for transcoding.</em></p>
+</div>
+
+<!-- SOURCES -->
+<h2 id="sources">15. Sources &amp; References</h2>
+
+<div class="card">
+    <ul>
+        <li><a href="https://jellyfin.org/docs/general/post-install/transcoding/hardware-acceleration/intel/" target="_blank" rel="noopener">Jellyfin Official Docs — Intel GPU Hardware Acceleration</a> — Official QSV, VA-API, and OpenCL setup guide</li>
+        <li><a href="https://jellyfin-jellyfin.mintlify.app/setup/hardware-acceleration" target="_blank" rel="noopener">Jellyfin Server Docs — Hardware Acceleration Guide</a> (2026) — Comprehensive transcoding configuration</li>
+        <li><a href="https://selfhosting.sh/apps/jellyfin/ubuntu/" target="_blank" rel="noopener">selfhosting.sh — Install Jellyfin on Ubuntu Server</a> (Dec 2025) — Docker Compose, GPU driver setup, firewall</li>
+        <li><a href="https://diymediaserver.com/post/jellyfin_intel_quicksync_unprivileged_lxc/" target="_blank" rel="noopener">DiyMediaServer — Jellyfin QuickSync in Proxmox LXC</a> (Jul 2025) — Detailed GPU passthrough and GID mapping</li>
+        <li><a href="https://www.xda-developers.com/i-built-a-4k-jellyfin-server-with-intel-quick-sync-for-under-300/" target="_blank" rel="noopener">XDA Developers — 4K Jellyfin Server Build with Intel Quick Sync</a> (May 2026) — N100 performance benchmarks</li>
+        <li><a href="https://forum.jellyfin.org/t-solved-i3-12100-transcoding-performance-expectation-vs-reality" target="_blank" rel="noopener">Jellyfin Forum — i3-12100 Transcoding Performance</a> (2023) — Community benchmarks and settings tuning</li>
+        <li><a href="https://forum.jellyfin.org/t-solved-tonemapping-isn-t-working-on-intel-n100" target="_blank" rel="noopener">Jellyfin Forum — N100 Tone Mapping Fix (OpenCL)</a> (2023) — The definitive N100 OpenCL version fix</li>
+        <li><a href="https://forums.truenas.com/t/jellyfin-hardware-acceleration-with-jasper-lake-n5105/" target="_blank" rel="noopener">TrueNAS Forums — Jellyfin HW Acceleration with Jasper Lake</a> (2025) — Detailed GPU benchmarks and settings</li>
+        <li><a href="https://www.emelis.net/posts/1-Jellyfin-hardware-transcoding" target="_blank" rel="noopener">emelis.net — Hardware Transcoding for Jellyfin</a> — SELinux, Podman, and J4105-specific setup</li>
+        <li><a href="https://needtoknowit.com.au/tools/raid-calculator/" target="_blank" rel="noopener">Need to Know IT — RAID Usable Capacity Calculator</a> (2026) — Real-world AU NAS capacity planning</li>
+        <li><a href="https://needtoknowit.com.au/blog/best-nas-hard-drive-australia/" target="_blank" rel="noopener">Need to Know IT — Best NAS Hard Drives Australia</a> (2026) — AU drive pricing and recommendations</li>
+        <li><a href="https://needtoknowit.com.au/blog/homelab-hardware-australia/" target="_blank" rel="noopener">Need to Know IT — Where to Buy Homelab Hardware in Australia</a> (2026) — AU retailer guide</li>
+        <li><a href="https://needtoknowit.com.au/blog/unraid-licence-cost-australia/" target="_blank" rel="noopener">Need to Know IT — Unraid Licence Cost in Australia</a> (2026) — AUD pricing breakdown</li>
+        <li><a href="https://storagediskprices.com/raid-calculator/" target="_blank" rel="noopener">Storage Disk Prices — RAID Calculator 2026</a> — Comprehensive RAID capacity tables</li>
+        <li><a href="https://staticice.com.au/" target="_blank" rel="noopener">StaticICE Australia</a> — Real-time AU PC hardware price comparison</li>
+        <li><a href="https://www.servermo.com/howto/install-jellyfin-ubuntu-24-04/" target="_blank" rel="noopener">ServerMO — Production Jellyfin on Ubuntu 24.04</a> (2026) — Nginx reverse proxy and SSL setup</li>
+        <li><a href="https://www.saurabthakur.com/2025/05/install-jellyfin.html" target="_blank" rel="noopener">Saurab Thakur — Jellyfin Docker Setup with Permissions</a> (2025) — User permission management and auto-fix scripts</li>
+    </ul>
+    <p style="margin-top:1rem; font-size:0.85rem; color: var(--text-secondary);"><em>Prices are approximate and sourced from Australian retailers (Scorptec, PLE Computers, Centre Com, Skycomp, MSY, Umart, Mwave, Amazon AU) as of early 2026. Jellyfin is free and open source — no license fees, no subscriptions, no paywalls. Always check current pricing on StaticICE before purchasing hardware.</em></p>
+</div>
+
+</div>
+</body>
+</html>
