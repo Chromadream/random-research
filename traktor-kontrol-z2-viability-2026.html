@@ -163,19 +163,35 @@
             font-weight: 600;
             margin-left: 0.5rem;
         }
+        .correction-box {
+            background: rgba(248,81,73,0.08);
+            border: 1px dashed rgba(248,81,73,0.4);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .correction-box strong {
+            color: var(--red);
+        }
     </style>
 </head>
 <body>
 <div class="container">
 
 <h1>🎛️ Traktor Kontrol Z2 as a Primary DJ Mixer in 2026</h1>
-<p class="subtitle">Comprehensive viability assessment for a pre-owned Z2 purchase (AUD) — with <strong>X1 MK3</strong> as license donor &amp; deck controller, plus <strong>Maschine Mikro MK3</strong> integration. Research conducted March 2026. <span class="updated-tag">UPDATED</span></p>
+<p class="subtitle">Comprehensive viability assessment for a pre-owned Z2 purchase (AUD) — with <strong>X1 MK3</strong> as license donor &amp; deck controller, plus <strong>Maschine Mikro MK3</strong> integration. Research conducted March 2026. <span class="updated-tag">UPDATED &amp; CORRECTED</span></p>
+
+<div class="correction-box">
+    <strong>⚠️ CORRECTION (March 2026):</strong> A previous version of this report incorrectly stated that the <em>"X1 MK3 controls one deck at a time (toggle) — two X1s ideal for 2-deck control."</em> This has been fact-checked against NI's official manual and corrected. <strong>The X1 MK3 has two identical sides (left and right), each dedicated to one deck, enabling simultaneous control of two decks with a single unit.</strong> The left side controls Deck A; the right controls Deck B — no toggling. Two X1 MK3s are for <strong>4-deck</strong> control, not 2-deck. See <a href="#x1mk3-deck-control">corrected details below</a>.
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <h2>📋 Table of Contents</h2>
 <ol class="toc">
     <li><a href="#verdict">Executive Verdict — Updated</a></li>
     <li><a href="#x1mk3">The X1 MK3 Strategy: License + Deck Controller</a></li>
+    <li><a href="#x1mk3-deck-control">X1 MK3 Deck Control Architecture — CORRECTED</a></li>
     <li><a href="#compatibility">Software &amp; OS Compatibility</a></li>
     <li><a href="#license">Traktor Pro 4 License — Solved by X1 MK3</a></li>
     <li><a href="#pricing">Used Z2 + New X1 MK3 Pricing</a></li>
@@ -211,6 +227,7 @@
         <ul>
             <li>TP4 license included with X1 MK3 — <strong>save ~AU $235</strong></li>
             <li>X1 MK3 fills the Z2's deck-control gap (no jog wheels needed for transport/FX)</li>
+            <li>X1 MK3 controls <strong>two decks simultaneously</strong> (left = Deck A, right = Deck B) — no toggling</li>
             <li>X1 MK3's 3-port powered USB hub simplifies cabling</li>
             <li>Z2 + X1 MK3 = modular, serviceable setup (replace either piece independently)</li>
             <li>X1 MK3 has 5 OLED displays — less laptop dependency</li>
@@ -222,18 +239,18 @@
         <h4>⚠️ Weaknesses (Updated)</h4>
         <ul>
             <li>Total cost slightly higher than Z2+TP4 alone (~$130 more mid-range)</li>
-            <li>X1 MK3 controls one deck at a time (toggle) — two X1s ideal for 2-deck control</li>
-            <li>Maschine Mikro MK3 has <strong>no factory Traktor template</strong></li>
-            <li>Z2 is still 14-year-old hardware with potential issues</li>
-            <li>No jog wheels — not for scratch-style cueing without turntables</li>
-            <li>X1 MK3's "Mixer Mode" is software-only — Z2 remains the actual mixer</li>
+            <li>Maschine Mikro MK3 has <strong>no factory Traktor template</strong> — needs community/pre-made mapping</li>
+            <li>Z2 is still 14-year-old hardware with potential reliability issues</li>
+            <li>No jog wheels — not ideal for scratch-style cueing without turntables</li>
+            <li>X1 MK3's "Mixer Mode" is software-only — Z2 remains the actual hardware mixer</li>
+            <li>For 4-deck DJs: a second X1 MK3 is needed (daisy-chain), adding ~AU $400</li>
         </ul>
     </div>
 </div>
 
 <hr>
 
-<!-- 2. X1 MK3 STRATEGY — NEW SECTION -->
+<!-- 2. X1 MK3 STRATEGY -->
 <h2 id="x1mk3">🎮 The X1 MK3 Strategy: License + Deck Controller in One</h2>
 
 <div class="highlight-box">
@@ -245,23 +262,24 @@
     <div class="card">
         <h4>Deck Control (Z2's Weak Spot)</h4>
         <ul>
-            <li>Transport: Play, Cue, Sync, Flux, Shift</li>
-            <li>4 endless encoders for browsing &amp; track navigation</li>
-            <li>Loop encoder with loop size control</li>
-            <li>Hotcue triggering (via button combos or remapping)</li>
-            <li>Beatjump controls</li>
-            <li>Stem mute buttons</li>
+            <li>Transport per side: Play, Cue, Sync, Flux, Reverse, Nudge arrows</li>
+            <li>4 endless encoders for browsing &amp; track navigation (2 per side)</li>
+            <li>Loop encoder with loop size control per deck</li>
+            <li>4 hotcue/number buttons per side (8 total)</li>
+            <li>Beatjump controls (via nudge button remapping)</li>
+            <li>Stem mute buttons (via number button remapping)</li>
         </ul>
     </div>
     <div class="card">
         <h4>FX &amp; Visual Feedback</h4>
         <ul>
-            <li>FX unit control with parameter knobs</li>
+            <li>FX unit control with 4 parameter knobs + 4 buttons per side</li>
             <li>5 OLED displays: track name, time remaining, loop size, FX parameters</li>
-            <li>User-definable RGB button colour coding</li>
+            <li>Deck assign arrows for routing FX units to any deck</li>
+            <li>User-definable RGB button colour coding (16 colours)</li>
             <li>Light-based track-end &amp; active-loop warning system</li>
             <li>Mixer Mode: software EQs &amp; channel levels on displays</li>
-            <li>Tactile dots for dark-environment orientation</li>
+            <li>Tactile dots (6 Braille dots) for dark-environment orientation</li>
         </ul>
     </div>
 </div>
@@ -270,6 +288,65 @@
     <h4>🔌 X1 MK3 Built-in USB Hub — Simplify Your Setup</h4>
     <p>The X1 MK3 has a <strong>3-port powered USB-A hub</strong> (with included power supply). This is strategically useful: you can connect your Maschine Mikro MK3 (or even the Z2) through the X1 MK3's hub, reducing cable clutter and USB port usage on your laptop. The hub is bus-powered when not using the PSU, but for connecting multiple devices you'll want the power supply connected.</p>
 </div>
+
+<hr>
+
+<!-- 2.5 — NEW CORRECTED SECTION ON DECK CONTROL -->
+<h2 id="x1mk3-deck-control">🕹️ X1 MK3 Deck Control Architecture — CORRECTED</h2>
+
+<div class="card" style="border: 2px solid var(--accent);">
+    <h4>🔍 How the X1 MK3 Actually Controls Decks</h4>
+    <p>According to Native Instruments' official manual, the X1 MK3 top panel <strong>"can be divided into four main sections... All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</strong> This is not a toggle system — it is a dedicated, per-deck architecture.</p>
+</div>
+
+<div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--green);">
+        <h4>✅ The Reality: Simultaneous 2-Deck Control</h4>
+        <table>
+            <thead><tr><th>Left Side</th><th>Right Side</th></tr></thead>
+            <tbody>
+                <tr><td>Deck A (or C via FX toggle)</td><td>Deck B (or D via FX toggle)</td></tr>
+                <tr><td>Dedicated OLED display</td><td>Dedicated OLED display</td></tr>
+                <tr><td>4 hotcue buttons</td><td>4 hotcue buttons</td></tr>
+                <tr><td>Transport: Play, Cue, Sync, Rev, Nudge</td><td>Transport: Play, Cue, Sync, Rev, Nudge</td></tr>
+                <tr><td>Browse encoder + Loop encoder</td><td>Browse encoder + Loop encoder</td></tr>
+                <tr><td>FX unit with 4 knobs + 4 buttons</td><td>FX unit with 4 knobs + 4 buttons</td></tr>
+                <tr><td>SHIFT button</td><td>(Shared SHIFT in center)</td></tr>
+            </tbody>
+        </table>
+        <p>You can play Deck A <strong>and</strong> Deck B at the same time, nudge both simultaneously, loop both independently, and apply FX to each separately — all without toggling.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h4>❌ The Myth: "One Deck at a Time"</h4>
+        <p>The incorrect claim that the X1 MK3 controls "one deck at a time (toggle)" likely stems from confusion with the <strong>FX unit assignment</strong> system: each side's FX section can be toggled between FX Units 1&amp;2 vs 3&amp;4 via the Mode button, or between FX Mode and Mixer Mode. But the <strong>transport, browsing, looping, and hotcue sections</strong> are hard-wired per-side and per-deck — they never toggle.</p>
+    </div>
+</div>
+
+<div class="highlight-box">
+    <h4>📊 What This Means for Your Z2 Setup</h4>
+    <table>
+        <thead><tr><th>Configuration</th><th>Decks Controlled</th><th>Use Case</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1× X1 MK3</strong></td><td>2 decks (A+B) simultaneously</td><td>Standard 2-deck DVS mixing with Z2 — <strong>this is your setup</strong></td></tr>
+            <tr><td><strong>2× X1 MK3s daisy-chained</strong></td><td>4 decks (A+B+C+D) simultaneously</td><td>4-deck mixing, remix decks, complex layering</td></tr>
+            <tr><td><strong>1× X1 MK3 + CDJs (HID mode)</strong></td><td>CDJs handle transport; X1 handles FX/loops</td><td>Club setup — X1 adds Traktor FX to Pioneer ecosystem</td></tr>
+        </tbody>
+    </table>
+    <p style="margin-top: 0.75rem;"><strong>Bottom line:</strong> One X1 MK3 is purpose-built for two-deck simultaneous control. NI's official blog explicitly states: <em>"If you plan to use two decks in Traktor, connecting one Traktor X1 MK3 along with a DJ mixer that features a built-in audio interface is a highly practical setup."</em> Two X1 MK3s are recommended for 4-deck setups, not 2-deck.</p>
+</div>
+
+<div class="card">
+    <h4>🎛️ FX Unit Flexibility: The Only "Toggling" on the X1 MK3</h4>
+    <p>The Mode button at the top center cycles between:</p>
+    <ul>
+        <li><strong>FX Units 1 &amp; 2:</strong> Left side = FX Unit 1, Right side = FX Unit 2</li>
+        <li><strong>FX Units 3 &amp; 4:</strong> Left side = FX Unit 3, Right side = FX Unit 4</li>
+        <li><strong>Mixer Mode:</strong> Left side = Deck A EQ/volume/cue, Right side = Deck B EQ/volume/cue</li>
+    </ul>
+    <p>This is the <em>only</em> toggling on the device — and it only affects the top FX/knob section. Transport, browsing, looping, and hotcues remain fixed to their respective decks at all times. You can even assign FX Unit 1 to Deck B and FX Unit 2 to Deck A via the deck assign arrows — the routing is fully flexible.</p>
+</div>
+
+<hr>
 
 <h3>X1 MK3 Australian Pricing (March 2026)</h3>
 <table>
@@ -366,6 +443,7 @@
             <li>Includes: TP4 license, PSU, USB cable</li>
             <li>2-year warranty (AU consumer law)</li>
             <li>5 OLED displays, 3-port USB hub</li>
+            <li>Controls 2 decks simultaneously</li>
         </ul>
     </div>
 </div>
@@ -399,7 +477,7 @@
             <tr>
                 <td><strong>New: Z2 + X1 MK3 (TP4 incl.)</strong></td>
                 <td>$779</td><td>$989</td><td>$1,269</td>
-                <td>Z2 mixer + software + X1 MK3 deck/FX controller</td>
+                <td>Z2 mixer + software + X1 MK3 (simultaneous 2-deck control)</td>
             </tr>
             <tr>
                 <td><strong>Difference</strong></td>
@@ -411,7 +489,7 @@
 </div>
 
 <div class="highlight-box">
-    <strong>📌 Comparison Point:</strong> A brand-new <strong>Traktor Kontrol S4 MK3</strong> (4-channel, motorized jogs, TP4 included) retails ~AU $1,499. The Z2+X1 MK3 combo at ~$990 mid-range gives you DVS capability + standalone mixer mode that the S4 MK3 lacks, at ~$500 less. However, you give up motorized jog wheels and 4-channel hardware faders.
+    <strong>📌 Comparison Point:</strong> A brand-new <strong>Traktor Kontrol S4 MK3</strong> (4-channel, motorized jogs, TP4 included) retails ~AU $1,499. The Z2+X1 MK3 combo at ~$990 mid-range gives you DVS capability + standalone mixer mode that the S4 MK3 lacks, at ~$500 less. However, you give up motorized jog wheels and 4-channel hardware faders. A second X1 MK3 (~$400) would bring 4-deck control, bringing the total to ~$1,390 — still ~$100 less than a new S4 MK3, with DVS and standalone mixer advantages.
 </div>
 
 <hr>
@@ -477,18 +555,20 @@
 
 <div class="card">
     <h4>🎯 How the X1 MK3 Complements the Z2</h4>
-    <p>The Z2's weakest area as a standalone controller is <strong>deck transport and detailed FX manipulation</strong>. It has basic transport (play via cue buttons, sync), but no dedicated play/pause, no beatjump, no hotcue access, and limited FX parameter control beyond the Macro FX knob. The X1 MK3 fills <em>exactly</em> these gaps:</p>
+    <p>The Z2's weakest area as a standalone controller is <strong>deck transport and detailed FX manipulation</strong>. It has basic transport (play via cue buttons, sync), but no dedicated play/pause, no beatjump, no hotcue access, and limited FX parameter control beyond the Macro FX knob. The X1 MK3 fills <em>exactly</em> these gaps — and controls both decks simultaneously:</p>
     <table>
         <thead><tr><th>Function</th><th>Z2 Alone</th><th>Z2 + X1 MK3</th></tr></thead>
         <tbody>
-            <tr><td>Play/Pause</td><td><span class="warn">⚠️ Via cue buttons</span></td><td><span class="check">✅ Dedicated transport buttons</span></td></tr>
-            <tr><td>Track Browsing</td><td><span class="check">✅ Browse encoder + load</span></td><td><span class="check">✅ Browse encoder + OLED displays</span></td></tr>
-            <tr><td>FX Parameter Control</td><td><span class="warn">⚠️ Macro FX only</span></td><td><span class="check">✅ Full FX unit control with OLED readout</span></td></tr>
-            <tr><td>Hotcues</td><td><span class="warn">⚠️ 4 per side (shared with samples)</span></td><td><span class="check">✅ Dedicated hotcue buttons + OLED</span></td></tr>
-            <tr><td>Beatjump</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Yes</span></td></tr>
-            <tr><td>Loop Control</td><td><span class="check">✅ Loop encoder</span></td><td><span class="check">✅ Loop encoder + OLED display</span></td></tr>
-            <tr><td>Stem Control</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Stem mute buttons</span></td></tr>
-            <tr><td>Visual Feedback</td><td><span class="warn">⚠️ 7-segment LED only</span></td><td><span class="check">✅ 5 OLED displays</span></td></tr>
+            <tr><td>Play/Pause</td><td><span class="warn">⚠️ Via cue buttons</span></td><td><span class="check">✅ Dedicated Play/Cue per deck</span></td></tr>
+            <tr><td>Simultaneous 2-Deck Control</td><td><span class="check">✅ Mixer faders/EQs</span></td><td><span class="check">✅ Left side = Deck A, Right = Deck B — no toggling</span></td></tr>
+            <tr><td>Track Browsing</td><td><span class="check">✅ Browse encoder + load</span></td><td><span class="check">✅ Browse encoder + OLED displays per deck</span></td></tr>
+            <tr><td>FX Parameter Control</td><td><span class="warn">⚠️ Macro FX only</span></td><td><span class="check">✅ 4 knobs + 4 buttons per FX unit with OLED readout</span></td></tr>
+            <tr><td>Hotcues</td><td><span class="warn">⚠️ 4 per side (shared with samples)</span></td><td><span class="check">✅ 4 dedicated hotcue buttons per deck (8 total)</span></td></tr>
+            <tr><td>Beatjump</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Via nudge button remapping</span></td></tr>
+            <tr><td>Loop Control</td><td><span class="check">✅ Loop encoder</span></td><td><span class="check">✅ Loop encoder + OLED display per deck</span></td></tr>
+            <tr><td>Stem Control</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Via number button remapping</span></td></tr>
+            <tr><td>Visual Feedback</td><td><span class="warn">⚠️ 7-segment LED only</span></td><td><span class="check">✅ 5 OLED displays + bottom LED warning lights</span></td></tr>
+            <tr><td>Nudge/Tempo Bend</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Dedicated nudge arrows per deck</span></td></tr>
         </tbody>
     </table>
 </div>
@@ -621,10 +701,10 @@
 
 <div class="card">
     <h4>🎨 Recommended Maschine Mikro MK3 Layout for Z2+X1 Setup</h4>
-    <p>Since the X1 MK3 already handles deck transport, FX, and browsing, the Mikro MK3 is best used for:</p>
+    <p>Since the X1 MK3 already handles deck transport, FX, and browsing for both decks (simultaneously), the Mikro MK3 is best used for:</p>
     <ul>
         <li><strong>Remix Deck / Sample triggering</strong> — launch one-shots, loops, stems</li>
-        <li><strong>Hotcues</strong> for Decks A &amp; B (16 pads = 8 hotcues per deck)</li>
+        <li><strong>Hotcues 5–8</strong> for Decks A &amp; B (X1 MK3 handles hotcues 1–4 natively)</li>
         <li><strong>Stem isolation</strong> — mute/unmute drums, bass, melody, vocals</li>
         <li><strong>Maschine software sync</strong> — run Maschine 2 as a drum machine synced via Ableton Link, route audio into Z2 Aux input</li>
         <li><strong>Touch strip</strong> — assign to filter sweep or FX parameter for performance</li>
@@ -656,11 +736,13 @@
                                  │ USB                │ USB
                     ┌────────────▼─────┐    ┌─────────▼──────────┐
                     │   X1 MK3         │    │ Maschine Mikro MK3 │
-                    │  (Deck Control)  │    │  (MIDI Mode:       │
-                    │                  │    │   Samples/Hotcues/ │
-                    │  OLED Displays   │    │   Remix Decks)     │
-                    │  3-Port USB Hub  │    │                    │
-                    │  ┌────────────┐  │    └────────────────────┘
+                    │                  │    │  (MIDI Mode:       │
+                    │  LEFT = Deck A   │    │   Samples/Hotcues/ │
+                    │  RIGHT = Deck B  │    │   Remix Decks)     │
+                    │  (simultaneous)  │    │                    │
+                    │  OLED Displays   │    └────────────────────┘
+                    │  3-Port USB Hub  │
+                    │  ┌────────────┐  │
                     │  │ Z2 connects│  │
                     │  │ via X1 hub │  │
                     └──┼────────────┼──┘
@@ -682,7 +764,7 @@
     │           1/4" Headphone → Cue                            │
     └───────────────────────────────────────────────────────────┘
     </pre>
-    <p><strong>Signal flow:</strong> Turntables (timecode) → Z2 Phono inputs → Traktor DVS → Z2 audio interface → XLR/booth/headphone outputs. X1 MK3 controls Deck A/B transport, FX, browsing, looping, stems. Maschine Mikro MK3 triggers samples/remix decks in MIDI mode, or runs Maschine 2 synced via Link → audio into Z2 Aux.</p>
+    <p><strong>Signal flow:</strong> Turntables (timecode) → Z2 Phono inputs → Traktor DVS → Z2 audio interface → XLR/booth/headphone outputs. X1 MK3 controls Deck A (left side) and Deck B (right side) <strong>simultaneously</strong> for transport, FX, browsing, looping, and stems. Maschine Mikro MK3 triggers samples/remix decks in MIDI mode, or runs Maschine 2 synced via Link → audio into Z2 Aux.</p>
 </div>
 
 <div class="card">
@@ -706,7 +788,7 @@
         <tr>
             <td><strong>Z2 + X1 MK3</strong> (your plan)</td>
             <td><strong>~$779–989</strong></td>
-            <td>DVS, standalone mixer, modular, Innofader, XLR out, OLED displays (X1)</td>
+            <td>DVS, standalone mixer, modular, Innofader, XLR out, OLED displays (X1), simultaneous 2-deck control</td>
             <td>14-year-old Z2 hardware, no jog wheels, 2 physical channels</td>
         </tr>
         <tr>
@@ -763,6 +845,7 @@
         <li><strong>Are committed to the Traktor ecosystem</strong> — the Z2+X1 combo only makes sense if you're staying with Traktor. Both are tightly integrated.</li>
         <li><strong>Understand the Maschine Mikro MK3 limitation</strong> — no factory template. Budget ~AU $55 for the Ninja mapping ($35 USD) or time for DIY Controller Editor work. The Mikro MK3 is best used for sample triggering and remix decks in this setup.</li>
         <li><strong>You own or plan to own turntables</strong> — without turntables for DVS, the Z2's main advantage evaporates. The X1 MK3 alone can control 2 decks, or pair it with a Z1 MK2 for a compact non-DVS setup.</li>
+        <li><strong>Appreciate that one X1 MK3 controls 2 decks simultaneously</strong> — left side is Deck A, right side is Deck B. No toggling needed. This is confirmed by NI's official manual: "All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</li>
     </ol>
 </div>
 
@@ -777,6 +860,7 @@
             <li>You want a battle-style layout with Innofader</li>
             <li>The Z2 is tested, in good condition, and ~$350–500</li>
             <li>You're deep in the Traktor ecosystem and want hardware that complements Traktor's strengths</li>
+            <li>You want simultaneous 2-deck hardware control (1 X1 = Deck A + Deck B)</li>
         </ul>
     </div>
     <div class="card">
@@ -784,7 +868,7 @@
         <ul>
             <li>You don't own turntables and don't plan to (get S2/S4 MK3 or Z1+X1 instead)</li>
             <li>Your total budget is under ~$750 (Z2+TP4-only might work, but you'll miss deck controls)</li>
-            <li>You want four full-featured hardware channels</li>
+            <li>You want four full-featured hardware channels (add a second X1 MK3 for 4-deck)</li>
             <li>You want built-in jog wheels</li>
             <li>The Z2 unit shows signs of heavy use or sticky buttons</li>
             <li>You might switch to Serato or Rekordbox</li>
@@ -794,10 +878,11 @@
 </div>
 
 <div class="highlight-box">
-    <h3>🎯 Bottom Line (Updated)</h3>
+    <h3>🎯 Bottom Line (Updated &amp; Corrected)</h3>
     <p>Pairing a <strong>used Z2 with a new X1 MK3</strong> is arguably the <strong>smartest way to enter the Traktor DVS ecosystem on a budget in 2026</strong>. The X1 MK3 kills two birds with one stone: it provides the TP4 license and fills the Z2's biggest functional gap (deck transport and detailed FX control). You get modern OLED displays, a powered USB hub, and a brand-new device with warranty — all for a net ~$165–200 more than buying TP4 alone.</p>
+    <p><strong>Clarification on deck control:</strong> Contrary to a common misconception, the X1 MK3 does <em>not</em> require toggling between decks. Per NI's official hardware manual, the controller has two identical sides (left and right) that provide <strong>direct, simultaneous access to two decks</strong>. Transport, browsing, looping, and hotcue controls are all dedicated per-side. The only toggling is for FX unit selection (FX 1&amp;2 vs 3&amp;4) and switching into Mixer Mode — the core deck controls remain fixed to their respective decks at all times. A single X1 MK3 is purpose-built for 2-deck mixing; two X1 MK3s daisy-chain for 4-deck control.</p>
     <p>The Maschine Mikro MK3 is the weaker link — it requires either a purchased mapping (~$55) or DIY time. But in a Z2+X1 setup, the Mikro MK3 isn't essential for core DJing; it's a bonus for sample triggering, remix decks, and creative performance.</p>
-    <p>At the mid-range estimate of <strong>~AU $990 all-in</strong>, you're getting a DVS-capable battle mixer with XLR outs + a modern deck/FX controller — a combo that would cost significantly more to replicate with new gear (the Rane Seventy alone is $2,499 without a deck controller).</p>
+    <p>At the mid-range estimate of <strong>~AU $990 all-in</strong>, you're getting a DVS-capable battle mixer with XLR outs + a modern deck/FX controller that controls two decks simultaneously — a combo that would cost significantly more to replicate with new gear (the Rane Seventy alone is $2,499 without a deck controller).</p>
     <p style="margin-top: 1rem;"><strong>Risk Level: </strong><span class="verdict-badge verdict-caution">MODERATE</span> (Z2 hardware age) — but the X1 MK3 addition <strong>significantly de-risks</strong> the setup by providing a modern, warrantied controller that can operate independently if the Z2 ever fails. <strong>Verdict: Strong Viable.</strong></p>
 </div>
 
@@ -810,10 +895,17 @@
     <li><strong>NI Windows Compatibility:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360000618297-Compatibility-of-Native-Instruments-Products-on-Windows">support.native-instruments.com/hc/en-us/articles/360000618297</a></li>
     <li><strong>Traktor Pro 4 Pricing:</strong> <a class="source-link" href="https://www.native-instruments.com/en/pricing/traktor-pro-4/">native-instruments.com/en/pricing/traktor-pro-4/</a></li>
     <li><strong>X1 MK3 Official FAQ (NI):</strong> <a class="source-link" href="https://www.native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/">native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/</a></li>
+    <li><strong>X1 MK3 Official Manual — Hardware Overview:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview</a> — <em>"All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</em></li>
+    <li><strong>X1 MK3 Official Manual — Mixer Control:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/mixer-control">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/mixer-control</a></li>
+    <li><strong>X1 MK3 Official Manual — Effect Control:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/effect-control">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/effect-control</a></li>
+    <li><strong>X1 MK3 Official Manual — Customizing the Controller:</strong> <a class="source-link" href="https://native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/customizing-the-controller">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/customizing-the-controller</a> — <em>Default hotcue buttons: 4 per side. Number buttons customizable to up to 8 additional hotcues.</em></li>
+    <li><strong>NI Blog: How to Incorporate X1 MK3 Into Your DJ Setup:</strong> <a class="source-link" href="https://blog.native-instruments.com/x1-mk3-dj-setup/">blog.native-instruments.com/x1-mk3-dj-setup/</a> — <em>"If you plan to use two decks in Traktor, connecting one Traktor X1 MK3 along with a DJ mixer that features a built-in audio interface is a highly practical setup."</em> and <em>"When utilizing four decks in Traktor, the option to daisy chain two Traktor X1 MK3 controllers..."</em></li>
+    <li><strong>NI Blog: Why Upgrade to X1 MK3:</strong> <a class="source-link" href="https://blog.native-instruments.com/why-upgrade-to-traktor-x1-mk3/">blog.native-instruments.com/why-upgrade-to-traktor-x1-mk3/</a> — <em>"Take control over all four Traktor decks... Daisy chain two X1 MK3s together with a club mixer..."</em></li>
+    <li><strong>X1 MK3 Product Page (NI):</strong> <a class="source-link" href="https://www.native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/">native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/</a> — <em>"10 transport control buttons per deck"</em></li>
     <li><strong>X1 MK3 AU Pricing — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/traktor-kontrol-x1-mk3-effects-dj-controller/">djcity.com.au</a> — AU $399</li>
     <li><strong>X1 MK3 AU Pricing — Sounds Easy:</strong> <a class="source-link" href="https://www.soundseasy.com.au/products/native-instruments-traktor-x1-mk3">soundseasy.com.au</a> — AU $425</li>
     <li><strong>X1 MK3 — Sweetwater:</strong> <a class="source-link" href="https://www.sweetwater.com/store/detail/TX1mk3--native-instruments-traktor-kontrol-x1-mk3-dj-controller-module">sweetwater.com</a> — US $249–299, TP4 included</li>
-    <li><strong>X1 MK3 — The Disc DJ Store (UK):</strong> <a class="source-link" href="https://www.thediscdjstore.com/products/native-instruments-traktor-kontrol-x1-mk3">thediscdjstore.com</a> — £154, TP4 included</li>
+    <li><strong>X1 MK3 — Studio Economik (specs):</strong> <a class="source-link" href="https://www.economik.com/products/traktor-x1-mk3">economik.com</a> — <em>"4 Hotcue/Number buttons per side, 4 Transport buttons per side"</em></li>
     <li><strong>NI: Maschine as MIDI Controller for Traktor:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">support.native-instruments.com/hc/en-us/articles/210263965</a></li>
     <li><strong>NI: Switching Controllers to MIDI Mode:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">support.native-instruments.com/hc/en-us/articles/210264145</a></li>
     <li><strong>Maschine Mikro MK3 Ninja Mapping:</strong> <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">traktormaps.com</a> — US $35</li>
@@ -831,7 +923,8 @@
 <hr>
 
 <footer>
-    <p><strong>Research completed:</strong> March 2026 · <strong>Updated:</strong> March 2026 (X1 MK3 strategy + Maschine Mikro MK3 specifics)</p>
+    <p><strong>Research completed:</strong> March 2026 · <strong>Updated &amp; Corrected:</strong> March 2026 (X1 MK3 simultaneous 2-deck control correction + Maschine Mikro MK3 specifics)</p>
+    <p><strong>Correction note:</strong> A previous version incorrectly claimed the X1 MK3 "controls one deck at a time (toggle)." NI's official manual states: <em>"All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</em> One X1 MK3 controls two decks simultaneously (left=A, right=B). Two X1 MK3s daisy-chain for 4-deck control. The only toggling is for FX unit selection (1&amp;2 vs 3&amp;4) and Mixer Mode — transport, browsing, looping, and hotcues remain fixed per-side at all times.</p>
     <p><strong>Disclaimer:</strong> Pricing is indicative and based on available data at time of research. Always verify current prices and compatibility before purchasing. Hardware compatibility information sourced from Native Instruments' official support pages. Used market pricing from publicly available marketplace data.</p>
     <p>Filename: traktor-kontrol-z2-viability-2026.html</p>
 </footer>
