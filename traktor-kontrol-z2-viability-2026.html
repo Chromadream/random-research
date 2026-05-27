@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traktor Kontrol Z2 Viability as Primary DJ Mixer in 2026 — With X1 MK3 & Maschine Mikro MK3</title>
+    <title>Traktor Kontrol Z2 Viability as Primary DJ Mixer in 2026 — With X1 MK3, Maschine Mikro MK3 & Deck Options</title>
     <style>
         :root {
             --bg: #0d1117;
@@ -174,13 +174,23 @@
         .correction-box strong {
             color: var(--red);
         }
+        .new-section-tag {
+            display: inline-block;
+            background: rgba(63,185,80,0.15);
+            color: var(--green);
+            padding: 0.2rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 <body>
 <div class="container">
 
 <h1>🎛️ Traktor Kontrol Z2 as a Primary DJ Mixer in 2026</h1>
-<p class="subtitle">Comprehensive viability assessment for a pre-owned Z2 purchase (AUD) — with <strong>X1 MK3</strong> as license donor &amp; deck controller, plus <strong>Maschine Mikro MK3</strong> integration. Research conducted March 2026. <span class="updated-tag">UPDATED &amp; CORRECTED</span></p>
+<p class="subtitle">Comprehensive viability assessment for a pre-owned Z2 purchase (AUD) — with <strong>X1 MK3</strong> as license donor &amp; deck controller, plus <strong>Maschine Mikro MK3</strong> integration and <strong>turntable / CDJ</strong> decision guide. Research conducted March 2026. <span class="updated-tag">UPDATED &amp; CORRECTED</span></p>
 
 <div class="correction-box">
     <strong>⚠️ CORRECTION (March 2026):</strong> A previous version of this report incorrectly stated that the <em>"X1 MK3 controls one deck at a time (toggle) — two X1s ideal for 2-deck control."</em> This has been fact-checked against NI's official manual and corrected. <strong>The X1 MK3 has two identical sides (left and right), each dedicated to one deck, enabling simultaneous control of two decks with a single unit.</strong> The left side controls Deck A; the right controls Deck B — no toggling. Two X1 MK3s are for <strong>4-deck</strong> control, not 2-deck. See <a href="#x1mk3-deck-control">corrected details below</a>.
@@ -189,7 +199,7 @@
 <!-- TABLE OF CONTENTS -->
 <h2>📋 Table of Contents</h2>
 <ol class="toc">
-    <li><a href="#verdict">Executive Verdict — Updated</a></li>
+    <li><a href="#verdict">Executive Verdict</a></li>
     <li><a href="#x1mk3">The X1 MK3 Strategy: License + Deck Controller</a></li>
     <li><a href="#x1mk3-deck-control">X1 MK3 Deck Control Architecture — CORRECTED</a></li>
     <li><a href="#compatibility">Software &amp; OS Compatibility</a></li>
@@ -199,20 +209,23 @@
     <li><a href="#features">Z2 Feature Set &amp; What You Get</a></li>
     <li><a href="#issues">Known Issues &amp; Reliability Concerns</a></li>
     <li><a href="#maschine">Integrating Maschine Mikro MK3 as a MIDI Controller</a></li>
+    <li><a href="#maschine2-required">Do You Actually Need Maschine 2 Software? — DEEP DIVE</a></li>
     <li><a href="#workflow">Proposed Workflow: Z2 + X1 MK3 + Maschine Mikro MK3</a></li>
-    <li><a href="#alternatives">Alternatives Worth Considering — Updated</a></li>
-    <li><a href="#final">Final Recommendations — Updated</a></li>
+    <li><a href="#decks">🆕 When to Add Turntables or CDJs — DECISION GUIDE</a></li>
+    <li><a href="#alternatives">Alternatives Worth Considering</a></li>
+    <li><a href="#final">Final Recommendations</a></li>
     <li><a href="#sources">Sources</a></li>
 </ol>
 
 <hr>
 
-<!-- 1. VERDICT — UPDATED -->
-<h2 id="verdict">🏆 Executive Verdict — Updated</h2>
+<!-- 1. VERDICT -->
+<h2 id="verdict">🏆 Executive Verdict</h2>
 <div class="card">
     <p><span class="verdict-badge verdict-positive">STRONG VIABLE</span> with <span class="verdict-badge verdict-caution">MANAGEABLE CAVEATS</span></p>
     <p>Buying an <strong>X1 MK3</strong> alongside a used Z2 transforms the equation. The X1 MK3 includes a <strong>full Traktor Pro 4 license</strong> (AU $235 value), eliminating the biggest hidden cost. It also gives you a modern, OLED-equipped deck controller that fills the Z2's biggest gap: lack of transport controls, browsing, and detailed FX manipulation. The Z2 handles mixing/DVS/audio I/O; the X1 MK3 handles deck transport, FX, looping, and browsing — a genuinely complementary pairing.</p>
-    <p>The Maschine Mikro MK3, while lacking a factory Traktor template, can still be integrated via community mappings or custom Controller Editor setups. See the <a href="#maschine">dedicated section</a> for specifics.</p>
+    <p>The Maschine Mikro MK3 can be integrated as a MIDI controller <strong>without purchasing Maschine 2 software</strong> — it works in hardware MIDI mode via SHIFT+Project. See the <a href="#maschine2-required">deep dive section</a> for full details.</p>
+    <p><strong>🆕 New:</strong> A comprehensive <a href="#decks">turntable vs. CDJ decision guide</a> has been added to help you choose the right deck source for this Z2+X1 setup — covering DVS with turntables, CDJ HID integration, and hybrid approaches.</p>
 </div>
 
 <div class="success-box">
@@ -223,7 +236,7 @@
 
 <div class="grid-2">
     <div class="card">
-        <h4>✅ Strengths (Updated)</h4>
+        <h4>✅ Strengths</h4>
         <ul>
             <li>TP4 license included with X1 MK3 — <strong>save ~AU $235</strong></li>
             <li>X1 MK3 fills the Z2's deck-control gap (no jog wheels needed for transport/FX)</li>
@@ -233,10 +246,11 @@
             <li>X1 MK3 has 5 OLED displays — less laptop dependency</li>
             <li>Both devices are officially supported in TP4 + macOS 26</li>
             <li>Z2 still provides: DVS, Innofader, XLR outs, standalone mixer mode</li>
+            <li>Maschine Mikro MK3 works in MIDI mode <strong>without Maschine 2</strong> — zero software cost</li>
         </ul>
     </div>
     <div class="card">
-        <h4>⚠️ Weaknesses (Updated)</h4>
+        <h4>⚠️ Weaknesses</h4>
         <ul>
             <li>Total cost slightly higher than Z2+TP4 alone (~$130 more mid-range)</li>
             <li>Maschine Mikro MK3 has <strong>no factory Traktor template</strong> — needs community/pre-made mapping</li>
@@ -244,6 +258,7 @@
             <li>No jog wheels — not ideal for scratch-style cueing without turntables</li>
             <li>X1 MK3's "Mixer Mode" is software-only — Z2 remains the actual hardware mixer</li>
             <li>For 4-deck DJs: a second X1 MK3 is needed (daisy-chain), adding ~AU $400</li>
+            <li>You still need to buy turntables or CDJs — the Z2 is just the mixer half of the equation</li>
         </ul>
     </div>
 </div>
@@ -291,7 +306,7 @@
 
 <hr>
 
-<!-- 2.5 — NEW CORRECTED SECTION ON DECK CONTROL -->
+<!-- 2.5 — CORRECTED SECTION ON DECK CONTROL -->
 <h2 id="x1mk3-deck-control">🕹️ X1 MK3 Deck Control Architecture — CORRECTED</h2>
 
 <div class="card" style="border: 2px solid var(--accent);">
@@ -390,7 +405,7 @@
 
 <hr>
 
-<!-- 4. LICENSE — UPDATED -->
+<!-- 4. LICENSE -->
 <h2 id="license">💰 Traktor Pro 4 License — Solved by X1 MK3</h2>
 
 <div class="success-box">
@@ -419,7 +434,7 @@
 
 <hr>
 
-<!-- 5. PRICING — UPDATED -->
+<!-- 5. PRICING -->
 <h2 id="pricing">🏷️ Used Z2 + New X1 MK3 Pricing (AUD)</h2>
 
 <div class="grid-2">
@@ -450,7 +465,7 @@
 
 <hr>
 
-<!-- 6. TOTAL COST — REVISED -->
+<!-- 6. TOTAL COST -->
 <h2 id="total-cost">🧮 Total Cost of Ownership — Revised (AUD)</h2>
 <table>
     <thead><tr><th>Item</th><th>Low Estimate</th><th>Mid Estimate</th><th>High Estimate</th></tr></thead>
@@ -460,7 +475,14 @@
         <tr><td style="color: var(--green);"><strong>TP4 License</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td></tr>
         <tr><td>Timecode vinyl (if needed)</td><td>—</td><td>$40</td><td>$60</td></tr>
         <tr><td>RCA / XLR cables</td><td>$30</td><td>$50</td><td>$80</td></tr>
-        <tr><td><strong>TOTAL</strong></td><td><strong>~$779</strong></td><td><strong>~$989</strong></td><td><strong>~$1,269</strong></td></tr>
+        <tr><td><strong>SUBTOTAL (Mixer + Controller)</strong></td><td><strong>~$779</strong></td><td><strong>~$989</strong></td><td><strong>~$1,269</strong></td></tr>
+        <tr style="background: rgba(63,185,80,0.06);"><td colspan="4"><strong>🆕 With Deck Source Options:</strong></td></tr>
+        <tr><td>+ 2× PLX-500 turntables (new)</td><td colspan="2">+ $1,258 (DJ City: $629 ea.)</td><td>+ $1,398</td></tr>
+        <tr><td>+ 2× PLX-1000 turntables (new)</td><td colspan="2">+ $2,798 (JD Sound: $1,399 ea.)</td><td>+ $3,198</td></tr>
+        <tr><td>+ 2× used Technics SL-1200</td><td colspan="2">+ $1,000–1,600 (used market)</td><td>+ $2,000</td></tr>
+        <tr><td>+ 2× CDJ-3000 (new)</td><td colspan="2">+ $7,798 (Musos Corner: $3,899 ea.)</td><td>+ $8,900</td></tr>
+        <tr><td>+ 2× used CDJ-2000NXS2</td><td colspan="2">+ $2,500–3,500 (used market)</td><td>+ $4,000</td></tr>
+        <tr><td><strong>GRAND TOTAL (Z2+X1+2 Turntables)</strong></td><td><strong>~$2,037</strong></td><td><strong>~$2,247</strong></td><td><strong>~$2,667</strong></td></tr>
     </tbody>
 </table>
 
@@ -494,7 +516,7 @@
 
 <hr>
 
-<!-- 7. FEATURES — UNCHANGED -->
+<!-- 7. FEATURES -->
 <h2 id="features">🎚️ Z2 Feature Set &amp; What You Get</h2>
 
 <div class="grid-2">
@@ -575,7 +597,7 @@
 
 <hr>
 
-<!-- 8. KNOWN ISSUES — UNCHANGED -->
+<!-- 8. KNOWN ISSUES -->
 <h2 id="issues">⚠️ Known Issues &amp; Reliability Concerns</h2>
 
 <div class="danger-box">
@@ -635,12 +657,12 @@
 
 <hr>
 
-<!-- 9. MASCHINE — UPDATED FOR MIKRO MK3 -->
+<!-- 9. MASCHINE -->
 <h2 id="maschine">🥁 Integrating Maschine Mikro MK3 as a MIDI Controller</h2>
 
 <div class="card" style="border: 2px solid var(--orange);">
     <h4>⚠️ Important: Maschine Mikro MK3 Has NO Factory Traktor Template</h4>
-    <p>Native Instruments <strong>does not provide factory Traktor templates</strong> for the Maschine Mikro MK3 (or any MK3-generation Maschine). This is confirmed by NI's official support documentation. The factory templates only exist for older MK1/MK2 Maschine models. For the Mikro MK3, you have three paths forward.</p>
+    <p>Native Instruments <strong>does not provide factory Traktor templates</strong> for the Maschine Mikro MK3 (or any MK3-generation Maschine). This is confirmed by NI's official support documentation. The factory templates only exist for older MK1/MK2 Maschine models. For the Mikro MK3, you have three paths forward — but <strong>none of them require purchasing Maschine 2 software</strong>. See the <a href="#maschine2-required">deep dive below</a>.</p>
 </div>
 
 <h3>Maschine Mikro MK3 MIDI Mode Basics</h3>
@@ -648,11 +670,13 @@
     <thead><tr><th>Aspect</th><th>Maschine Mikro MK3</th></tr></thead>
     <tbody>
         <tr><td><strong>Switch to MIDI Mode</strong></td><td><strong>SHIFT + Project button</strong> (NOT SHIFT + F1 like older Mikros)</td></tr>
+        <tr><td><strong>Maschine 2 Software Required?</strong></td><td><span class="check">✅ NO</span> — MIDI mode is firmware-level, works without Maschine 2</td></tr>
         <tr><td><strong>Factory Traktor Template</strong></td><td><span class="cross">❌ None</span></td></tr>
-        <tr><td><strong>Controller Editor Support</strong></td><td><span class="check">✅ Full</span> — can create custom templates</td></tr>
+        <tr><td><strong>Controller Editor Support</strong></td><td><span class="check">✅ Full</span> — free download, can create custom templates</td></tr>
         <tr><td><strong>Community Mappings</strong></td><td><span class="check">✅ Available</span> (see below)</td></tr>
         <tr><td><strong>Controls Available</strong></td><td>16 velocity-sensitive RGB pads, 1 touch strip, 1 encoder, Group buttons, transport buttons, 8 mode buttons</td></tr>
         <tr><td><strong>Limitations</strong></td><td>No dedicated knobs (unlike full Maschine MK3), no LCD displays, fewer mappable controls</td></tr>
+        <tr><td><strong>USB Protocol</strong></td><td>USB HID (not class-compliant MIDI). Requires NI driver on Windows; macOS recognises it but needs Controller Editor for MIDI configuration.</td></tr>
     </tbody>
 </table>
 
@@ -674,6 +698,7 @@
             <li>Includes infographics + install guide</li>
         </ul>
         <p><strong>Best for:</strong> Plug-and-play, comprehensive control without DIY time.</p>
+        <p><strong>Software needed:</strong> Only the free Controller Editor + Traktor.</p>
     </div>
     <div class="card">
         <h4>🆓 Path 2: Use Free Community Mappings</h4>
@@ -684,6 +709,7 @@
         </ul>
         <p><strong>Best for:</strong> Trying before committing, or if your needs are basic.</p>
         <p><strong>Caveat:</strong> May not have LED feedback or be as polished as paid mappings. Test thoroughly before gigging.</p>
+        <p><strong>Software needed:</strong> Only the free Controller Editor + Traktor.</p>
     </div>
     <div class="card">
         <h4>🔧 Path 3: Build Your Own Mapping</h4>
@@ -695,6 +721,7 @@
             <li>Map each MIDI message to Traktor functions</li>
         </ol>
         <p><strong>Best for:</strong> Full customisation. Time investment: several hours to days.</p>
+        <p><strong>Software needed:</strong> Only the free Controller Editor + Traktor.</p>
         <p>NI's blog has a <strong>2-part tutorial</strong> on building Maschine→Traktor mappings.</p>
     </div>
 </div>
@@ -712,14 +739,125 @@
 </div>
 
 <div class="highlight-box">
-    <strong>💡 Pro Tip — Syncing Maschine Software + Traktor:</strong> Enable <strong>Ableton Link</strong> in both Traktor (header bar) and Maschine 2 (header bar). Both apps will share tempo. Route Maschine's audio into the Z2's Aux input (RCA) using a second audio interface or virtual routing. Requires Traktor Pro 2.11+ (TP4 is fine) and Maschine 2.5.6+.
+    <strong>💡 Pro Tip — Syncing Maschine Software + Traktor (Optional):</strong> If you <em>do</em> choose to run Maschine 2 as a separate drum machine (not required), enable <strong>Ableton Link</strong> in both Traktor (header bar) and Maschine 2 (header bar). Both apps will share tempo. Route Maschine's audio into the Z2's Aux input (RCA) using a second audio interface or virtual routing. Requires Traktor Pro 2.11+ (TP4 is fine) and Maschine 2.5.6+. <strong>This is entirely optional — the Mikro MK3 works as a pure MIDI controller without Maschine 2.</strong>
 </div>
 
 <p style="font-size:0.8rem; color: var(--text-muted);">Sources: <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">NI: Maschine as MIDI Controller</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">NI: MIDI Mode Switching</a> · <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">TraktorMaps: Mikro MK3 Ninja</a> · <a class="source-link" href="https://maps.djtechtools.com/mappings/12014">DJTT: Reybans Mikro MK3</a> · <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-1/">NI Blog: Mapping Part 1</a> · <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-2/">Part 2</a></p>
 
 <hr>
 
-<!-- 10. WORKFLOW — UPDATED -->
+<!-- 9.5 — DEEP DIVE -->
+<h2 id="maschine2-required">🔬 Do You Actually Need Maschine 2 Software? — Deep Dive</h2>
+
+<div class="card" style="border: 2px solid var(--green);">
+    <h3 style="color: var(--green);">✅ The Short Answer: NO. You do NOT need Maschine 2 (or Maschine 3) software to use the Maschine Mikro MK3 as a MIDI controller in your Traktor DJ setup.</h3>
+</div>
+
+<p>This is one of the most misunderstood aspects of the Maschine hardware. The Maschine Mikro MK3's MIDI mode is <strong>built into the hardware firmware</strong> — it doesn't depend on the Maschine software being installed, running, or even owned.</p>
+
+<h3>How MIDI Mode Actually Works (Technically)</h3>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>🔌 The Hardware Layer</h4>
+        <p>The Maschine Mikro MK3 communicates over USB using a <strong>proprietary HID (Human Interface Device) protocol</strong>, not standard MIDI-over-USB. This is why it's not "class-compliant" as a MIDI device — your DAW won't see it as a MIDI controller by default.</p>
+        <p>However, the firmware has a built-in <strong>MIDI mode</strong> that translates button presses, pad hits, encoder turns, and touch strip movements into standard MIDI messages (Note On/Off, CC values, Pitch Bend). This translation happens entirely inside the hardware — the computer just sees a MIDI device.</p>
+        <p><strong>Entering MIDI mode:</strong> <code>SHIFT + Project</code> button. The display dims to indicate MIDI mode is active. That's it. No software required.</p>
+    </div>
+    <div class="card">
+        <h4>🖥️ The Software Layer</h4>
+        <p>When in MIDI mode, the Mikro MK3 presents itself to the OS as a standard MIDI device. On <strong>Windows</strong>, you'll need the NI driver (installed via Native Access or the driver package). On <strong>macOS</strong>, it's recognised natively.</p>
+        <p>The <strong>Controller Editor</strong> (free download from NI) lets you customise what MIDI messages each control sends — note numbers, CC values, colours, behaviour modes. This is entirely separate from Maschine 2/3 software.</p>
+        <p><strong>Traktor Pro 4</strong> then reads those MIDI messages via its Controller Manager, where you map them to DJ functions.</p>
+    </div>
+</div>
+
+<div class="success-box">
+    <h4>🧪 Proof Points: Evidence That Maschine 2 Is Not Required</h4>
+    <ol>
+        <li><strong>NI's own MIDI mode documentation</strong> lists the key combo (SHIFT+Project) as a <em>hardware-level</em> function. There's no prerequisite of Maschine software being installed. <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">Source</a></li>
+        <li><strong>The open-source community has reverse-engineered the protocol.</strong> Projects like <code>pymikro</code> (Python) and <code>maschine-mikro-mk3-driver</code> (Rust/Linux) communicate directly with the hardware over USB HID <strong>without any NI software at all</strong>. The Rust driver even creates a virtual MIDI port on Linux — an OS NI never supported. This proves the MIDI functionality is entirely in the firmware. <a class="source-link" href="https://github.com/flokapi/pymikro">Source: pymikro</a> · <a class="source-link" href="https://github.com/r00tman/maschine-mikro-mk3-driver">Source: Rust driver</a></li>
+        <li><strong>NI's official support article</strong> on using Maschine as a MIDI controller for Traktor states that <strong>no templates exist for MK3 controllers</strong> but recommends using Controller Editor — <em>not</em> Maschine 2 — to create them. <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">Source</a></li>
+        <li><strong>DrivenByMoss</strong> (a popular Bitwig/Reaper extension) supports the Mikro MK3 purely through the NI Host Integration service + Controller Editor template — zero Maschine software involvement. <a class="source-link" href="https://github.com/git-moss/DrivenByMoss-Documentation/blob/master/Native-Instruments/Native-Instruments-Maschine-Mikro-Mk3.md">Source</a></li>
+        <li><strong>VI-Control forum users confirm</strong> they use the Mikro MK3 as a general MIDI controller with just Controller Editor, switching to MIDI mode via SHIFT+Project. <a class="source-link" href="https://vi-control.net/community/threads/using-maschine-as-a-general-midi-controller-without-losing-functionality.167158/">Source</a></li>
+    </ol>
+</div>
+
+<h3>What You Actually Need (Minimal Software Stack)</h3>
+
+<table>
+    <thead><tr><th>Software</th><th>Required?</th><th>Cost</th><th>Purpose</th></tr></thead>
+    <tbody>
+        <tr>
+            <td><strong>Native Access</strong></td>
+            <td><span class="check">✅ Yes</span></td>
+            <td>Free</td>
+            <td>Installs drivers, Controller Editor, registers hardware serials</td>
+        </tr>
+        <tr>
+            <td><strong>NI Hardware Driver</strong></td>
+            <td><span class="check">✅ Yes (Windows)</span><br><span class="warn">⚠️ Built-in (macOS)</span></td>
+            <td>Free</td>
+            <td>Lets the OS recognise the Mikro MK3 as a MIDI device</td>
+        </tr>
+        <tr>
+            <td><strong>Controller Editor</strong></td>
+            <td><span class="warn">⚠️ For custom mappings</span></td>
+            <td>Free</td>
+            <td>Creates/edits MIDI templates. Required to load 3rd-party mappings.</td>
+        </tr>
+        <tr>
+            <td><strong>Traktor Pro 4</strong></td>
+            <td><span class="check">✅ Yes</span></td>
+            <td>AU $235, or free with X1 MK3</td>
+            <td>The DJ software. Reads MIDI from the Mikro MK3 via Controller Manager.</td>
+        </tr>
+        <tr>
+            <td><strong>Maschine 2 / Maschine 3</strong></td>
+            <td><span class="cross">❌ NOT REQUIRED</span></td>
+            <td>$0 (skip it)</td>
+            <td>Only needed if you want to use Maschine as a production groovebox alongside Traktor</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>When You WOULD Want Maschine 2/3 Software</h3>
+
+<div class="card">
+    <p>There are scenarios where having Maschine software <em>alongside</em> Traktor makes sense, but these are <strong>production/performance hybrid</strong> use cases — not basic DJ controller functionality:</p>
+    <ul>
+        <li><strong>Running Maschine as a synced drum machine:</strong> Maschine 2/3 runs standalone (or as a plugin), synced to Traktor via Ableton Link. You play beats live on the Mikro MK3 in Maschine's native "Application Mode." Audio routes into the Z2 Aux input. This is a creative performance add-on, not required for DJing.</li>
+        <li><strong>Using Maschine's chord/scale/keyboard modes:</strong> Features like Chord mode, Keyboard mode, and the Arpeggiator only work in Maschine's native Application Mode — not MIDI mode. If you want to play melodic parts live with smart chord voicings, you need Maschine software.</li>
+        <li><strong>Accessing Maschine's sound library:</strong> The massive Maschine factory library (samples, kits, instruments) requires Maschine software to browse and load.</li>
+        <li><strong>Maschine 3's stem separation:</strong> The new iZotope-powered stem separation in Maschine 3 is software-only.</li>
+    </ul>
+    <p><strong>But for basic Traktor DJ control?</strong> MIDI mode + Controller Editor + a mapping (free or paid) is all you need.</p>
+</div>
+
+<div class="highlight-box">
+    <h4>🎯 Practical Bottom Line for the Z2+X1+Maschine Setup</h4>
+    <p>In your proposed Z2 + X1 MK3 + Maschine Mikro MK3 setup:</p>
+    <ul>
+        <li><strong>The X1 MK3 handles all core DJ functions</strong> — transport, FX, browsing, looping, hotcues. It connects natively to Traktor (not MIDI mode).</li>
+        <li><strong>The Maschine Mikro MK3 in MIDI mode</strong> can add sample triggering, remix deck control, stem isolation, or extra hotcues — <strong>zero additional software cost beyond what you already have.</strong></li>
+        <li><strong>The Controller Editor is a free download</strong> via Native Access. It's the same app used for any NI controller MIDI customisation.</li>
+        <li><strong>Budget ~AU $55</strong> for the Ninja mapping if you want plug-and-play, or $0 + time for a community mapping or DIY.</li>
+        <li><strong>Maschine 2 software (US $99 / AU ~$155) is an optional extra</strong> if you later decide you want Maschine as a full production groovebox synced to Traktor. It's a nice-to-have, not a must-have.</li>
+    </ul>
+    <p style="margin-top: 1rem;"><strong>Total mandatory software spend: $0</strong> (beyond the TP4 license already bundled with your X1 MK3). The Maschine Mikro MK3 is a fully functional MIDI controller out of the box, no Maschine 2 purchase required.</p>
+</div>
+
+<h3>Maschine 2 vs Maschine 3 — What's Current?</h3>
+<div class="card">
+    <p>Native Instruments released <strong>Maschine 3</strong> in late 2024. As of 2026, Maschine 3 is the current version. The Mikro MK3 is <strong>fully compatible with Maschine 3</strong> (unlike older MK1/MK2 hardware which was dropped). Key new features in Maschine 3 include stem separation (powered by iZotope RX), bounce-in-place, MP3/FLAC support, per-scene tempo, and basic Kontrol S-Series MK3 integration.</p>
+    <p>However, this is all irrelevant if you're <strong>only using the Mikro MK3 as a MIDI controller for Traktor</strong>. Maschine 3's features only matter if you plan to use Maschine as a production environment. The MIDI mode works identically regardless of which Maschine software version you have (or don't have).</p>
+</div>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Sources: <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">NI: MIDI Mode Switching</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">NI: Maschine as MIDI Controller</a> · <a class="source-link" href="https://github.com/flokapi/pymikro">pymikro: Python Mikro MK3 Library</a> · <a class="source-link" href="https://github.com/r00tman/maschine-mikro-mk3-driver">Rust Maschine Mikro MK3 Driver (Linux)</a> · <a class="source-link" href="https://github.com/git-moss/DrivenByMoss-Documentation/blob/master/Native-Instruments/Native-Instruments-Maschine-Mikro-Mk3.md">DrivenByMoss: Mikro MK3 Support</a> · <a class="source-link" href="https://vi-control.net/community/threads/using-maschine-as-a-general-midi-controller-without-losing-functionality.167158/">VI-Control: Maschine as General MIDI Controller</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/22939484556189-Maschine-3-FAQs">NI: Maschine 3 FAQ</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/22800279866909-Guide-to-Maschine-3-features-and-compatibility">NI: Maschine 3 Features Guide</a></p>
+
+<hr>
+
+<!-- 10. WORKFLOW -->
 <h2 id="workflow">🔄 Proposed Workflow: Z2 + X1 MK3 + Maschine Mikro MK3 + Turntables</h2>
 
 <div class="card">
@@ -740,9 +878,9 @@
                     │  LEFT = Deck A   │    │   Samples/Hotcues/ │
                     │  RIGHT = Deck B  │    │   Remix Decks)     │
                     │  (simultaneous)  │    │                    │
-                    │  OLED Displays   │    └────────────────────┘
-                    │  3-Port USB Hub  │
-                    │  ┌────────────┐  │
+                    │  OLED Displays   │    │  No Maschine 2     │
+                    │  3-Port USB Hub  │    │  software needed!  │
+                    │  ┌────────────┐  │    └────────────────────┘
                     │  │ Z2 connects│  │
                     │  │ via X1 hub │  │
                     └──┼────────────┼──┘
@@ -764,7 +902,7 @@
     │           1/4" Headphone → Cue                            │
     └───────────────────────────────────────────────────────────┘
     </pre>
-    <p><strong>Signal flow:</strong> Turntables (timecode) → Z2 Phono inputs → Traktor DVS → Z2 audio interface → XLR/booth/headphone outputs. X1 MK3 controls Deck A (left side) and Deck B (right side) <strong>simultaneously</strong> for transport, FX, browsing, looping, and stems. Maschine Mikro MK3 triggers samples/remix decks in MIDI mode, or runs Maschine 2 synced via Link → audio into Z2 Aux.</p>
+    <p><strong>Signal flow:</strong> Turntables (timecode) → Z2 Phono inputs → Traktor DVS → Z2 audio interface → XLR/booth/headphone outputs. X1 MK3 controls Deck A (left side) and Deck B (right side) <strong>simultaneously</strong> for transport, FX, browsing, looping, and stems. Maschine Mikro MK3 triggers samples/remix decks in MIDI mode (SHIFT+Project) — no Maschine 2 required. If you optionally run Maschine 2/3 synced via Ableton Link, audio routes into Z2 Aux.</p>
 </div>
 
 <div class="card">
@@ -779,8 +917,279 @@
 
 <hr>
 
-<!-- 11. ALTERNATIVES — UPDATED -->
-<h2 id="alternatives">🆚 Alternatives Worth Considering — Updated</h2>
+<!-- 11. NEW: WHEN TO ADD TURNTABLE OR CDJ -->
+<h2 id="decks">🆕 When to Add Turntables or CDJs — Decision Guide <span class="new-section-tag">NEW SECTION</span></h2>
+
+<div class="card" style="border: 2px solid var(--accent);">
+    <h3>🎯 The Critical Question: What Actually Plays the Music?</h3>
+    <p>The Z2 is a mixer with a built-in audio interface — but it doesn't play music by itself. You need <strong>deck sources</strong> connected to its phono/line inputs. The X1 MK3 controls Traktor's software decks, but you still need physical hardware to feed timecode (or real audio) into the Z2. The question is: <strong>turntables, CDJs, or neither?</strong></p>
+</div>
+
+<h3>Understanding the Z2's Input Architecture</h3>
+
+<div class="card">
+    <p>The Z2 has <strong>two main channels</strong> (A and B), each with switchable <strong>Phono (RCA) and Line (RCA)</strong> inputs. The PH/LN switch on the top panel selects which input is active per channel.</p>
+    <ul>
+        <li><strong>Phono inputs:</strong> For turntables. Include built-in RIAA phono preamps — no external preamp needed. Feature ground screws for turntable grounding.</li>
+        <li><strong>Line inputs:</strong> For CDJs, CD players, or any line-level audio source.</li>
+        <li><strong>TRAKTOR buttons:</strong> Per channel. When ON, the input signal is routed through Traktor for DVS/software processing. When OFF (Direct mode), the input passes through hardware EQ/filter/faders directly to outputs — works as a pure analog mixer.</li>
+    </ul>
+</div>
+
+<h3>Option 1: Turntables + DVS (The Classic Z2 Setup)</h3>
+
+<div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--green);">
+        <h4>✅ Why Choose Turntables</h4>
+        <ul>
+            <li><strong>The Z2 was designed for this.</strong> Its phono preamps, ground screws, and battle-mixer layout scream "turntablism."</li>
+            <li><strong>DVS (Digital Vinyl System):</strong> Use Traktor Scratch timecode vinyl (~AU $39 each from DJ City) to control digital tracks with the tactile feel of vinyl.</li>
+            <li><strong>Real vinyl playback:</strong> Switch the Z2 to Direct Mode and play actual vinyl records. The Z2 works as a standalone analog mixer.</li>
+            <li><strong>Scratch performance:</strong> The Innofader crossfader + high-torque direct-drive turntables = the gold standard for scratching.</li>
+            <li><strong>Hybrid flexibility:</strong> Mix timecode DVS on one deck with real vinyl on the other — all through the same Z2 channel.</li>
+            <li><strong>Durable investment:</strong> Quality turntables (especially Technics SL-1200s) last decades.</li>
+        </ul>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h4>❌ The Downsides</h4>
+        <ul>
+            <li><strong>Heavy and bulky:</strong> Two turntables weigh ~20–30 kg combined and take up significant table space.</li>
+            <li><strong>High maintenance:</strong> Styli wear out, need replacement (~$50–150 each). Tonearms need calibration. Vinyl and slipmats need care.</li>
+            <li><strong>Not club-standard anymore:</strong> Most venues have CDJs installed, not turntables. You'll likely need to bring your own.</li>
+            <li><strong>Timecode calibration:</strong> DVS requires calibrating the timecode signal in Traktor. Ground hum, dusty needles, or worn timecode vinyl can cause issues.</li>
+            <li><strong>No visual feedback on the deck itself:</strong> Unlike CDJs, turntables have no screens — you'll rely on the laptop/X1 MK3 OLEDs for track info.</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Turntable Options &amp; Pricing (AUD, March 2026)</h3>
+
+<table>
+    <thead><tr><th>Model</th><th>Price (New, each)</th><th>Type</th><th>Notes</th></tr></thead>
+    <tbody>
+        <tr>
+            <td><strong>Pioneer DJ PLX-500</strong></td>
+            <td><strong>$598–699</strong></td>
+            <td>Direct drive, servo-type</td>
+            <td>Entry-level. 1.6 kgf·cm torque. ±8% pitch. Built-in phono preamp &amp; USB out. Includes cartridge. DJ City: $629</td>
+        </tr>
+        <tr>
+            <td><strong>Pioneer DJ PLX-1000</strong></td>
+            <td><strong>$1,399</strong></td>
+            <td>Direct drive, quartz lock</td>
+            <td>Professional. 4.5+ kgf·cm torque. ±8/±16/±50% pitch. No cartridge included. JD Sound: $1,399</td>
+        </tr>
+        <tr>
+            <td><strong>Audio-Technica AT-LP120XBT-USB</strong></td>
+            <td><strong>$729</strong></td>
+            <td>Direct drive</td>
+            <td>Mid-range. USB + Bluetooth. Includes cartridge. Modern Musician: $729</td>
+        </tr>
+        <tr>
+            <td><strong>Technics SL-1200 MK7</strong></td>
+            <td><strong>~$1,600–1,800</strong></td>
+            <td>Direct drive, quartz lock</td>
+            <td>Industry gold standard. 1.8 kgf·cm torque. ±8/±16% pitch. No cartridge included.</td>
+        </tr>
+        <tr>
+            <td><strong>Technics SL-1200 (used)</strong></td>
+            <td><strong>~$500–800 (used)</strong></td>
+            <td>Direct drive</td>
+            <td>MK2–MK5 models on used market. Check for tonearm bearing wear and pitch fader accuracy.</td>
+        </tr>
+        <tr>
+            <td><strong>Traktor Scratch MK2 Timecode Vinyl</strong></td>
+            <td><strong>$39 each</strong></td>
+            <td>DVS control media</td>
+            <td>Required for DVS. DJ City: $39 (Red, Blue, Clear, Black). 2 needed for stereo setup.</td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Sources: <a class="source-link" href="https://djcity.com.au/product/pioneer-plx-500-dj-turntable/">DJ City: PLX-500</a> · <a class="source-link" href="https://jdsound.com.au/products/pioneer-dj-plx-1000-high-torque-direct-drive-professional-turntable">JD Sound: PLX-1000</a> · <a class="source-link" href="https://djcity.com.au/product/native-instruments-vinyl-red-traktor-scratch-control-vinyl-mk2/">DJ City: Timecode Vinyl</a> · <a class="source-link" href="https://www.groovecentral.com.au/products/pioneer-dj-plx-500-direct-drive-turntable-black">Groove Central: PLX-500</a></p>
+
+<div class="highlight-box">
+    <h4>🏆 Turntable Recommendation for Z2 Setup</h4>
+    <p><strong>Best value:</strong> 2× <strong>Pioneer PLX-500</strong> (~$1,258/pair) — adequate torque for DVS and light scratching, includes cartridges and built-in phono preamps (useful as backup). USB out is a bonus for recording vinyl.</p>
+    <p><strong>Best performance:</strong> 2× <strong>used Technics SL-1200 MK2/MK3</strong> (~$1,000–1,600/pair) — the unrivalled standard. Higher torque, bulletproof build, and the tonearm quality that makes DVS tracking more reliable. Check for bearing wear before buying.</p>
+    <p><strong>Premium:</strong> 2× <strong>PLX-1000</strong> (~$2,798/pair) — high torque (4.5+ kgf·cm), multi-pitch control, detachable cables, club-grade build.</p>
+    <p><strong>Don't forget:</strong> 2× Traktor Scratch MK2 timecode vinyl = ~$78. Budget another $100–300 for a decent pair of cartridges/styli (e.g., Ortofon Concorde MKII Mix or Shure M44-7).</p>
+</div>
+
+<hr>
+
+<h3>Option 2: CDJs via HID Mode (The Club-Integration Setup)</h3>
+
+<div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--green);">
+        <h4>✅ Why Choose CDJs</h4>
+        <ul>
+            <li><strong>Club standard:</strong> If you play in clubs, CDJs (especially Pioneer CDJ-2000NXS2 / CDJ-3000) are what you'll find in 95% of booths. Practicing on CDJs at home means zero adaptation at gigs.</li>
+            <li><strong>Traktor HID mode:</strong> Connect CDJs to your laptop via USB and they become Traktor controllers — track names, waveforms, cue points, and browsing all appear on the CDJ screen. <strong>No timecode CDs needed.</strong></li>
+            <li><strong>Standalone playback:</strong> Unlike turntables, CDJs can play music independently via USB sticks/SD cards. If your laptop fails, you can keep playing.</li>
+            <li><strong>Visual feedback:</strong> Large colour screens show waveforms, BPM, cue points, and album art — reducing laptop dependency.</li>
+            <li><strong>Low maintenance:</strong> No styli, no tonearms, no ground hum. Solid-state reliability.</li>
+        </ul>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--red);">
+        <h4>❌ The Downsides</h4>
+        <ul>
+            <li><strong>Extremely expensive:</strong> A single CDJ-3000 costs ~$3,899 AUD. A pair is nearly $8,000 — more than 6× the cost of a Z2+X1 MK3 setup.</li>
+            <li><strong>HID integration with Z2 is non-standard:</strong> The Z2 is designed as a DVS mixer first. Running CDJs into the Z2's <em>Line</em> inputs in HID mode means you're not using the Z2's phono preamps or DVS capabilities — you're essentially using the Z2 as a regular mixer + audio interface.</li>
+            <li><strong>No scratching (effectively):</strong> While CDJ jog wheels allow scratching, it's nothing like vinyl on a turntable. The Z2's Innofader is somewhat wasted on CDJs.</li>
+            <li><strong>Technology lifecycle:</strong> CDJs depreciate faster than turntables as newer models are released.</li>
+            <li><strong>HID requires USB cables per CDJ:</strong> Two CDJs = two USB cables to your laptop, plus the Z2 USB. Cable management gets complex.</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Traktor HID-Compatible CDJ Models</h3>
+
+<table>
+    <thead><tr><th>Model</th><th>HID Support</th><th>Price (New, each)</th><th>Price (Used, each)</th><th>Notes</th></tr></thead>
+    <tbody>
+        <tr><td><strong>CDJ-3000</strong></td><td><span class="check">✅ Full HID + Audio</span></td><td>$3,899–4,450</td><td>~$2,500–3,000</td><td>Flagship. 9" touchscreen. Gigabit Ethernet. 8 hot cues. Key Sync. Best HID experience.</td></tr>
+        <tr><td><strong>CDJ-2000NXS2</strong></td><td><span class="check">✅ Full HID + Audio</span></td><td>Discontinued</td><td>~$1,500–2,000</td><td>Previous flagship. 7" touchscreen. Pro DJ Link. Reliable workhorse.</td></tr>
+        <tr><td><strong>CDJ-TOUR1</strong></td><td><span class="check">✅ Full HID + Audio</span></td><td>Discontinued</td><td>Rare</td><td>Tour-grade NXS2. Hard to find used.</td></tr>
+        <tr><td><strong>XDJ-1000MK2</strong></td><td><span class="check">✅ Full HID + Audio</span></td><td>$2,299</td><td>~$1,000–1,400</td><td>No CD drive. 7" touchscreen. USB/SD only. Great value for HID use.</td></tr>
+        <tr><td><strong>XDJ-700</strong></td><td><span class="check">✅ Full HID + Audio</span></td><td>$1,299</td><td>~$700–900</td><td>Compact. 7" touchscreen. USB only. Good budget HID option.</td></tr>
+        <tr><td><strong>CDJ-2000NXS</strong></td><td><span class="check">✅ HID Control</span></td><td>Discontinued</td><td>~$800–1,200</td><td>Older model. HID works but audio routing is more complex. Separate driver needed.</td></tr>
+        <tr><td><strong>CDJ-900NXS</strong></td><td><span class="check">✅ HID Control</span></td><td>Discontinued</td><td>~$600–900</td><td>Budget NXS. Smaller screen. HID-capable.</td></tr>
+    </tbody>
+</table>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Source: <a class="source-link" href="https://support.pioneerdj.com/hc/en-us/articles/4413431958553-TRAKTOR-Connection-Guide-CDJ-3000-CDJ-2000NXS2-CDJ-TOUR1-XDJ-1000MK2-XDJ-700">Pioneer DJ: Traktor Connection Guide (CDJ-3000, NXS2, etc.)</a> · <a class="source-link" href="https://support.pioneerdj.com/hc/en-us/articles/4413432038041-TRAKTOR-Connection-Guide-CDJ-2000NXS-CDJ-900NXS-XDJ-1000-CDJ-2000-CDJ-900">Pioneer DJ: Traktor Connection Guide (CDJ-2000NXS, etc.)</a></p>
+
+<div class="highlight-box">
+    <h4>⚠️ Important: How CDJ HID Actually Works With the Z2</h4>
+    <p>When using CDJs in HID mode with the Z2, here's the connection scheme:</p>
+    <ol>
+        <li><strong>Each CDJ</strong> connects to your laptop via <strong>USB-B cable</strong> (separate from the Z2's USB).</li>
+        <li>The CDJ appears in Traktor as an HID controller — its jog wheel, play/cue buttons, pitch fader, and display all control Traktor directly.</li>
+        <li><strong>Audio output</strong> comes from the Z2's audio interface (not the CDJ's outputs) — so connect CDJ audio outs to Z2 Line inputs <strong>only if you want standalone fallback</strong>.</li>
+        <li>The Z2's TRAKTOR buttons must be ON for Traktor-mode mixing. If you switch to Direct mode, you'll hear the CDJ's standalone audio (if connected to Line inputs).</li>
+        <li><strong>For HID-only use, you don't need to connect the CDJ's RCA audio outs at all</strong> — the Z2's sound card handles all audio. The CDJ is purely a controller.</li>
+    </ol>
+    <p>This means you can use the Z2+X1 MK3 <em>without</em> CDJ audio connected, and just use the CDJs as fancy jog-wheel controllers — but at that point, you're paying thousands for jog wheels that the X1 MK3 already handles (minus the platter feel).</p>
+</div>
+
+<hr>
+
+<h3>Option 3: Hybrid Setup (Turntable + CDJ)</h3>
+
+<div class="card">
+    <h4>🔀 One of Each: The Best of Both Worlds</h4>
+    <p>The Z2 supports different sources on each channel. A popular hybrid setup is:</p>
+    <ul>
+        <li><strong>Channel A (Phono):</strong> Turntable with timecode vinyl — for scratching, DVS control, and real vinyl playback.</li>
+        <li><strong>Channel B (Line):</strong> CDJ in HID mode — for club-style mixing with visual feedback, or standalone USB playback as backup.</li>
+    </ul>
+    <p>This is particularly powerful for DJs who scratch (left deck turntable) but want club-standard mixing on the right side, or for those who play venues that might have one CDJ and one turntable installed. The Z2's per-channel TRAKTOR button and PH/LN switch make this seamless.</p>
+    <p><strong>Cost estimate:</strong> 1× PLX-500 ($629) + 1× used XDJ-1000MK2 (~$1,200) = ~$1,829 for the pair. Add $39 for one timecode vinyl.</p>
+</div>
+
+<hr>
+
+<h3>Option 4: No External Decks — Just the X1 MK3</h3>
+
+<div class="card">
+    <h4>💻 The "Controllerist" Approach</h4>
+    <p>You can absolutely use the Z2 + X1 MK3 with <strong>no turntables and no CDJs at all</strong>. The X1 MK3 gives you full transport control (play, cue, sync, nudge, loop, hotcues, browse) for both decks simultaneously. The Z2 provides the mixer, audio interface, and Macro FX.</p>
+    <p>This is effectively a "controllerist" setup — compact, laptop-centric, and highly portable. <strong>However:</strong></p>
+    <ul>
+        <li>You lose the tactile platter control that turntables/CDJs provide.</li>
+        <li>Beat-matching must be done via sync button or nudge arrows (no pitch-riding on a platter).</li>
+        <li>The Z2's phono preamps and ground screws go unused — you're paying for DVS hardware you're not using.</li>
+        <li>For pure controllerism, a Z1 MK2 + X1 MK3 (~$585 all-new) would be cheaper and more compact.</li>
+    </ul>
+    <p><strong>Verdict:</strong> This works but under-utilises the Z2. If you're buying a Z2, plan to add turntables eventually — otherwise consider a different mixer.</p>
+</div>
+
+<hr>
+
+<h3>Decision Matrix: Turntables vs CDJs vs Hybrid vs None</h3>
+
+<table>
+    <thead><tr><th>Factor</th><th>Turntables (DVS)</th><th>CDJs (HID)</th><th>Hybrid (1+1)</th><th>X1 MK3 Only</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Budget (decks only)</strong></td><td>$1,258–2,798</td><td>$1,400–8,900</td><td>~$1,800–3,500</td><td>$0</td></tr>
+        <tr><td><strong>Scratching</strong></td><td><span class="check">✅ Excellent</span></td><td><span class="warn">⚠️ Limited</span></td><td><span class="check">✅ One deck</span></td><td><span class="cross">❌ No</span></td></tr>
+        <tr><td><strong>Club readiness</strong></td><td><span class="warn">⚠️ Bring your own</span></td><td><span class="check">✅ Club standard</span></td><td><span class="check">✅ Flexible</span></td><td><span class="cross">❌ No</span></td></tr>
+        <tr><td><strong>Real vinyl playback</strong></td><td><span class="check">✅ Yes</span></td><td><span class="cross">❌ No (CDs only)</span></td><td><span class="check">✅ One deck</span></td><td><span class="cross">❌ No</span></td></tr>
+        <tr><td><strong>Portability</strong></td><td><span class="cross">❌ Heavy</span></td><td><span class="warn">⚠️ Bulky</span></td><td><span class="warn">⚠️ Mixed</span></td><td><span class="check">✅ Excellent</span></td></tr>
+        <tr><td><strong>Maintenance</strong></td><td><span class="cross">❌ High</span></td><td><span class="check">✅ Low</span></td><td><span class="warn">⚠️ Medium</span></td><td><span class="check">✅ None</span></td></tr>
+        <tr><td><strong>Visual feedback</strong></td><td><span class="cross">❌ None on deck</span></td><td><span class="check">✅ Large screen</span></td><td><span class="warn">⚠️ One screen</span></td><td><span class="warn">⚠️ X1 OLEDs</span></td></tr>
+        <tr><td><strong>Standalone (no laptop)</strong></td><td><span class="check">✅ With real vinyl</span></td><td><span class="check">✅ USB/SD playback</span></td><td><span class="check">✅ Both options</span></td><td><span class="cross">❌ No</span></td></tr>
+        <tr><td><strong>Uses Z2's DVS phono preamps</strong></td><td><span class="check">✅ Fully</span></td><td><span class="cross">❌ No (Line in)</span></td><td><span class="warn">⚠️ Partially</span></td><td><span class="cross">❌ No</span></td></tr>
+        <tr><td><strong>Best for</strong></td><td>Turntablists, vinyl collectors, scratch DJs, DVS purists</td><td>Club DJs, festival performers, those who value screens &amp; reliability</td><td>Versatile DJs who want both workflows</td><td>Budget starter, controllerists, bedroom DJs</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h3>🎯 Recommended Path for Each DJ Type</h3>
+
+<div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--accent);">
+        <h4>🔄 The Turntablist / Scratch DJ</h4>
+        <p><strong>Path:</strong> Z2 + X1 MK3 + <strong>2× PLX-1000 or used Technics SL-1200s</strong></p>
+        <p>The Z2 was built for this. The Innofader crossfader, DVS phono inputs, and Macro FX are all optimised for scratch performance. The X1 MK3 handles browsing and FX so you can focus on the turntables. Budget ~$1,400–2,800 for the turntable pair.</p>
+        <p><strong>Total all-in (mid):</strong> Z2 ($500) + X1 MK3 ($400) + 2× PLX-1000 ($2,798) + timecode vinyl ($78) + cartridges (~$200) = <strong>~$3,976</strong></p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--accent);">
+        <h4>🏢 The Club / Festival DJ</h4>
+        <p><strong>Path:</strong> Z2 + X1 MK3 + <strong>2× used XDJ-1000MK2 or CDJ-2000NXS2</strong></p>
+        <p>HID integration means your laptop runs Traktor but the CDJs provide the familiar club interface. When you play out, your setup mirrors the booth. The Z2 can stay home for club gigs (use the venue's DJM instead). Budget ~$2,000–4,000 for the CDJ pair.</p>
+        <p><strong>Total all-in (mid):</strong> Z2 ($500) + X1 MK3 ($400) + 2× used XDJ-1000MK2 (~$2,400) = <strong>~$3,300</strong></p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--accent);">
+        <h4>💰 The Budget-Conscious DJ</h4>
+        <p><strong>Path:</strong> Z2 + X1 MK3 + <strong>2× PLX-500</strong></p>
+        <p>Entry-level direct-drive turntables with built-in phono preamps and included cartridges. Adequate torque for DVS and light scratching. USB recording capability is a bonus. This is the cheapest way to get a full DVS-capable setup with new gear.</p>
+        <p><strong>Total all-in (mid):</strong> Z2 ($500) + X1 MK3 ($400) + 2× PLX-500 ($1,258) + timecode vinyl ($78) = <strong>~$2,236</strong></p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--accent);">
+        <h4>🎨 The Hybrid Performer</h4>
+        <p><strong>Path:</strong> Z2 + X1 MK3 + <strong>1× turntable + 1× CDJ</strong></p>
+        <p>Left deck: turntable for scratching and real vinyl. Right deck: CDJ in HID mode for club-style mixing with screen feedback. Best of both worlds, and you're prepared for any venue setup. The Z2's per-channel flexibility makes this seamless.</p>
+        <p><strong>Total all-in (mid):</strong> Z2 ($500) + X1 MK3 ($400) + 1× PLX-500 ($629) + 1× used XDJ-1000MK2 (~$1,200) + timecode vinyl ($39) = <strong>~$2,768</strong></p>
+    </div>
+</div>
+
+<hr>
+
+<h3>💡 Key Considerations Often Overlooked</h3>
+
+<div class="card">
+    <h4>You Can Start With Just the Mixer + Controller</h4>
+    <p>Many DJs forget: you can buy the Z2 + X1 MK3 <strong>first</strong> and start mixing immediately using only the X1 MK3's transport controls. The Z2's audio interface plays Traktor's internal decks through the master output without any external deck sources. This gives you time to save up for turntables or CDJs while still being able to DJ. When you add turntables later, you unlock DVS — but you're not blocked from starting without them.</p>
+</div>
+
+<div class="card">
+    <h4>DVS Tracking Quality Matters</h4>
+    <p>Not all turntables track timecode equally well. Higher-torque direct-drive turntables (PLX-1000, Technics SL-1200) provide more stable timecode tracking, especially for scratching. The PLX-500's 1.6 kgf·cm torque is adequate for mixing but can feel sluggish for fast scratch routines. If scratching is important to you, invest in higher-torque turntables — the Z2's Innofader deserves quality decks.</p>
+</div>
+
+<div class="card">
+    <h4>The CDJ Audio Routing Quirk</h4>
+    <p>When using CDJs in HID mode <em>with the Z2 as your audio interface</em>, the CDJ doesn't output any audio — it's purely a controller. The Z2's sound card handles all D/A conversion. This means you're <strong>not</strong> using the CDJ-3000's acclaimed 96 kHz/32-bit DAC. If audio quality from the CDJ's own converters matters to you, you'd route CDJ audio through the Z2's Line inputs and use timecode CDs instead of HID — but then you lose the HID screen integration. It's a trade-off.</p>
+</div>
+
+<div class="card">
+    <h4>Cartridges &amp; Styli: The Hidden Cost</h4>
+    <p>Turntables (except the PLX-500) typically don't include cartridges. Budget for:</p>
+    <ul>
+        <li><strong>Ortofon Concorde MKII Mix:</strong> ~$150 each. Industry standard for DVS. Elliptical stylus — good for mixing.</li>
+        <li><strong>Ortofon Concorde MKII Scratch:</strong> ~$180 each. Spherical stylus — optimised for scratching and tracking.</li>
+        <li><strong>Shure M44-7:</strong> Discontinued but available used. The legendary scratch cartridge. ~$100–150 used.</li>
+        <li>Styli wear out every 500–1,000 hours of play. Replacement styli: ~$50–100 each.</li>
+    </ul>
+</div>
+
+<hr>
+
+<!-- 12. ALTERNATIVES -->
+<h2 id="alternatives">🆚 Alternatives Worth Considering</h2>
 
 <table>
     <thead><tr><th>Option</th><th>Price (New, AUD)</th><th>Pros vs Z2+X1 MK3</th><th>Cons vs Z2+X1 MK3</th></tr></thead>
@@ -832,8 +1241,8 @@
 
 <hr>
 
-<!-- 12. FINAL — UPDATED -->
-<h2 id="final">📝 Final Recommendations — Updated</h2>
+<!-- 13. FINAL -->
+<h2 id="final">📝 Final Recommendations</h2>
 
 <div class="card" style="border: 2px solid var(--green);">
     <h3>The Z2 + X1 MK3 combo is a strong, modular DVS setup in 2026, provided you:</h3>
@@ -843,9 +1252,9 @@
         <li><strong>The TP4 license is no longer a separate budget item</strong> — the X1 MK3 covers it. This was the biggest hidden cost in the original plan.</li>
         <li><strong>Test the Z2 before buying</strong> — cue/sample buttons, crossfader, USB port, and all I/O. See the checklist above.</li>
         <li><strong>Are committed to the Traktor ecosystem</strong> — the Z2+X1 combo only makes sense if you're staying with Traktor. Both are tightly integrated.</li>
-        <li><strong>Understand the Maschine Mikro MK3 limitation</strong> — no factory template. Budget ~AU $55 for the Ninja mapping ($35 USD) or time for DIY Controller Editor work. The Mikro MK3 is best used for sample triggering and remix decks in this setup.</li>
-        <li><strong>You own or plan to own turntables</strong> — without turntables for DVS, the Z2's main advantage evaporates. The X1 MK3 alone can control 2 decks, or pair it with a Z1 MK2 for a compact non-DVS setup.</li>
-        <li><strong>Appreciate that one X1 MK3 controls 2 decks simultaneously</strong> — left side is Deck A, right side is Deck B. No toggling needed. This is confirmed by NI's official manual: "All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</li>
+        <li><strong>Use the Maschine Mikro MK3 in MIDI mode WITHOUT Maschine 2</strong> — press SHIFT+Project, load a free/paid mapping via Controller Editor, and you're set. Maschine 2/3 software is purely optional.</li>
+        <li><strong>You own or plan to own turntables</strong> — without turntables for DVS, the Z2's main advantage evaporates. The X1 MK3 alone can control 2 decks, or pair it with a Z1 MK2 for a compact non-DVS setup. <strong>See the <a href="#decks">turntable/CDJ decision guide</a> above for a detailed breakdown.</strong></li>
+        <li><strong>Appreciate that one X1 MK3 controls 2 decks simultaneously</strong> — left side is Deck A, right side is Deck B. No toggling needed. This is confirmed by NI's official manual.</li>
     </ol>
 </div>
 
@@ -859,8 +1268,10 @@
             <li>You need XLR balanced outputs + booth out</li>
             <li>You want a battle-style layout with Innofader</li>
             <li>The Z2 is tested, in good condition, and ~$350–500</li>
-            <li>You're deep in the Traktor ecosystem and want hardware that complements Traktor's strengths</li>
+            <li>You're deep in the Traktor ecosystem</li>
             <li>You want simultaneous 2-deck hardware control (1 X1 = Deck A + Deck B)</li>
+            <li>You're fine using the Mikro MK3 in MIDI mode (no Maschine 2 needed)</li>
+            <li>🆕 You plan to add turntables (PLX-500 or used Technics) as your deck source</li>
         </ul>
     </div>
     <div class="card">
@@ -873,16 +1284,24 @@
             <li>The Z2 unit shows signs of heavy use or sticky buttons</li>
             <li>You might switch to Serato or Rekordbox</li>
             <li>You want a simple, single-box solution (get an S4 MK3)</li>
+            <li>You want smart chord/scale/keyboard modes from the Mikro (requires Maschine software)</li>
+            <li>🆕 You want CDJs as your primary deck source — the Z2 is a DVS mixer first; consider a Pioneer DJM mixer for a CDJ-centric setup</li>
         </ul>
     </div>
 </div>
 
 <div class="highlight-box">
-    <h3>🎯 Bottom Line (Updated &amp; Corrected)</h3>
+    <h3>🎯 Bottom Line (Updated — March 2026)</h3>
     <p>Pairing a <strong>used Z2 with a new X1 MK3</strong> is arguably the <strong>smartest way to enter the Traktor DVS ecosystem on a budget in 2026</strong>. The X1 MK3 kills two birds with one stone: it provides the TP4 license and fills the Z2's biggest functional gap (deck transport and detailed FX control). You get modern OLED displays, a powered USB hub, and a brand-new device with warranty — all for a net ~$165–200 more than buying TP4 alone.</p>
-    <p><strong>Clarification on deck control:</strong> Contrary to a common misconception, the X1 MK3 does <em>not</em> require toggling between decks. Per NI's official hardware manual, the controller has two identical sides (left and right) that provide <strong>direct, simultaneous access to two decks</strong>. Transport, browsing, looping, and hotcue controls are all dedicated per-side. The only toggling is for FX unit selection (FX 1&amp;2 vs 3&amp;4) and switching into Mixer Mode — the core deck controls remain fixed to their respective decks at all times. A single X1 MK3 is purpose-built for 2-deck mixing; two X1 MK3s daisy-chain for 4-deck control.</p>
-    <p>The Maschine Mikro MK3 is the weaker link — it requires either a purchased mapping (~$55) or DIY time. But in a Z2+X1 setup, the Mikro MK3 isn't essential for core DJing; it's a bonus for sample triggering, remix decks, and creative performance.</p>
-    <p>At the mid-range estimate of <strong>~AU $990 all-in</strong>, you're getting a DVS-capable battle mixer with XLR outs + a modern deck/FX controller that controls two decks simultaneously — a combo that would cost significantly more to replicate with new gear (the Rane Seventy alone is $2,499 without a deck controller).</p>
+
+    <p><strong>On the Maschine Mikro MK3:</strong> <strong>You absolutely do NOT need Maschine 2 (or Maschine 3) software.</strong> The MIDI mode is built into the hardware firmware. Press SHIFT+Project, load a mapping via the free Controller Editor, and the Mikro MK3 becomes a fully functional Traktor MIDI controller. Budget ~AU $55 for the Ninja mapping or $0 + DIY time.</p>
+
+    <p><strong>🆕 On turntables vs CDJs:</strong> The Z2 is fundamentally a <strong>DVS battle mixer</strong> — it was designed to be paired with turntables. Its phono preamps, ground screws, Innofader crossfader, and Traktor Scratch heritage all point toward turntables as the natural deck source. CDJs work via HID mode but under-utilise the Z2's phono stage and DVS capabilities. <strong>For most Z2 owners, a pair of direct-drive turntables (PLX-500 at ~$1,258/pair or used Technics at ~$1,000–1,600/pair) is the recommended path.</strong> CDJs make sense if you play clubs regularly and need the practice, or if you want the hybrid approach (one turntable + one CDJ). You can also start with just the Z2+X1 MK3 and add deck sources later — the X1 MK3 alone provides full transport control for two software decks.</p>
+
+    <p><strong>Clarification on deck control:</strong> The X1 MK3 does <em>not</em> require toggling between decks. Per NI's official hardware manual, the controller has two identical sides (left and right) that provide <strong>direct, simultaneous access to two decks</strong>. Transport, browsing, looping, and hotcue controls are all dedicated per-side.</p>
+
+    <p>At the mid-range estimate of <strong>~AU $990 all-in</strong> (Z2 + X1 MK3 + free Mikro MK3 MIDI integration), plus ~$1,258 for a pair of PLX-500 turntables + $78 timecode vinyl, you're looking at <strong>~AU $2,326 total</strong> for a complete, DVS-capable battle mixer with XLR outs + a modern deck/FX controller that controls two decks simultaneously + a 16-pad sample/remix deck controller + a pair of direct-drive turntables — a combo that would cost significantly more to replicate with new, all-in-one gear.</p>
+
     <p style="margin-top: 1rem;"><strong>Risk Level: </strong><span class="verdict-badge verdict-caution">MODERATE</span> (Z2 hardware age) — but the X1 MK3 addition <strong>significantly de-risks</strong> the setup by providing a modern, warrantied controller that can operate independently if the Z2 ever fails. <strong>Verdict: Strong Viable.</strong></p>
 </div>
 
@@ -895,37 +1314,44 @@
     <li><strong>NI Windows Compatibility:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360000618297-Compatibility-of-Native-Instruments-Products-on-Windows">support.native-instruments.com/hc/en-us/articles/360000618297</a></li>
     <li><strong>Traktor Pro 4 Pricing:</strong> <a class="source-link" href="https://www.native-instruments.com/en/pricing/traktor-pro-4/">native-instruments.com/en/pricing/traktor-pro-4/</a></li>
     <li><strong>X1 MK3 Official FAQ (NI):</strong> <a class="source-link" href="https://www.native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/">native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/</a></li>
-    <li><strong>X1 MK3 Official Manual — Hardware Overview:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview</a> — <em>"All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</em></li>
+    <li><strong>X1 MK3 Official Manual — Hardware Overview:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/hardware-overview</a></li>
     <li><strong>X1 MK3 Official Manual — Mixer Control:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/mixer-control">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/mixer-control</a></li>
     <li><strong>X1 MK3 Official Manual — Effect Control:</strong> <a class="source-link" href="https://www.native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/effect-control">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/effect-control</a></li>
-    <li><strong>X1 MK3 Official Manual — Customizing the Controller:</strong> <a class="source-link" href="https://native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/customizing-the-controller">native-instruments.com/ni-tech-manuals/traktor-x1-mk3-manual/en/customizing-the-controller</a> — <em>Default hotcue buttons: 4 per side. Number buttons customizable to up to 8 additional hotcues.</em></li>
-    <li><strong>NI Blog: How to Incorporate X1 MK3 Into Your DJ Setup:</strong> <a class="source-link" href="https://blog.native-instruments.com/x1-mk3-dj-setup/">blog.native-instruments.com/x1-mk3-dj-setup/</a> — <em>"If you plan to use two decks in Traktor, connecting one Traktor X1 MK3 along with a DJ mixer that features a built-in audio interface is a highly practical setup."</em> and <em>"When utilizing four decks in Traktor, the option to daisy chain two Traktor X1 MK3 controllers..."</em></li>
-    <li><strong>NI Blog: Why Upgrade to X1 MK3:</strong> <a class="source-link" href="https://blog.native-instruments.com/why-upgrade-to-traktor-x1-mk3/">blog.native-instruments.com/why-upgrade-to-traktor-x1-mk3/</a> — <em>"Take control over all four Traktor decks... Daisy chain two X1 MK3s together with a club mixer..."</em></li>
-    <li><strong>X1 MK3 Product Page (NI):</strong> <a class="source-link" href="https://www.native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/">native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/</a> — <em>"10 transport control buttons per deck"</em></li>
-    <li><strong>X1 MK3 AU Pricing — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/traktor-kontrol-x1-mk3-effects-dj-controller/">djcity.com.au</a> — AU $399</li>
-    <li><strong>X1 MK3 AU Pricing — Sounds Easy:</strong> <a class="source-link" href="https://www.soundseasy.com.au/products/native-instruments-traktor-x1-mk3">soundseasy.com.au</a> — AU $425</li>
-    <li><strong>X1 MK3 — Sweetwater:</strong> <a class="source-link" href="https://www.sweetwater.com/store/detail/TX1mk3--native-instruments-traktor-kontrol-x1-mk3-dj-controller-module">sweetwater.com</a> — US $249–299, TP4 included</li>
-    <li><strong>X1 MK3 — Studio Economik (specs):</strong> <a class="source-link" href="https://www.economik.com/products/traktor-x1-mk3">economik.com</a> — <em>"4 Hotcue/Number buttons per side, 4 Transport buttons per side"</em></li>
+    <li><strong>NI Blog: How to Incorporate X1 MK3 Into Your DJ Setup:</strong> <a class="source-link" href="https://blog.native-instruments.com/x1-mk3-dj-setup/">blog.native-instruments.com/x1-mk3-dj-setup/</a></li>
+    <li><strong>X1 MK3 AU Pricing — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/traktor-kontrol-x1-mk3-effects-dj-controller/">djcity.com.au</a></li>
+    <li><strong>X1 MK3 AU Pricing — Sounds Easy:</strong> <a class="source-link" href="https://www.soundseasy.com.au/products/native-instruments-traktor-x1-mk3">soundseasy.com.au</a></li>
     <li><strong>NI: Maschine as MIDI Controller for Traktor:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">support.native-instruments.com/hc/en-us/articles/210263965</a></li>
     <li><strong>NI: Switching Controllers to MIDI Mode:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">support.native-instruments.com/hc/en-us/articles/210264145</a></li>
-    <li><strong>Maschine Mikro MK3 Ninja Mapping:</strong> <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">traktormaps.com</a> — US $35</li>
+    <li><strong>Maschine Mikro MK3 Ninja Mapping:</strong> <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">traktormaps.com</a></li>
     <li><strong>DJ Reybans Maschine Mikro MK3 Mapping (DJTT):</strong> <a class="source-link" href="https://maps.djtechtools.com/mappings/12014">maps.djtechtools.com/mappings/12014</a></li>
-    <li><strong>NI Maschine Mikro MK3 TP3 Mapping (DJTT):</strong> <a class="source-link" href="https://maps.djtechtools.com/mappings/11859">maps.djtechtools.com/mappings/11859</a></li>
-    <li><strong>NI Blog: Maschine Mapping for Traktor Part 1:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-1/">blog.native-instruments.com/...part-1/</a></li>
-    <li><strong>NI Blog: Maschine Mapping for Traktor Part 2:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-2/">blog.native-instruments.com/...part-2/</a></li>
-    <li><strong>Z2 Known Issues — NI Community:</strong> <a class="source-link" href="https://community.native-instruments.com/discussion/1226/issues-with-z2-level-meters-not-lighting-up-and-reversed-cross-fader">community.native-instruments.com/discussion/1226</a></li>
-    <li><strong>Z2 Hardware Recognition Issue — NI Community:</strong> <a class="source-link" href="https://community.native-instruments.com/discussion/6918/z2">community.native-instruments.com/discussion/6918</a></li>
-    <li><strong>Z2 Sticky Buttons — DJ TechTools:</strong> <a class="source-link" href="https://forum.djtechtools.com/showthread.php?t=80543">forum.djtechtools.com/showthread.php?t=80543</a></li>
-    <li><strong>Z2 Used Pricing — Sweetwater Gear Exchange:</strong> <a class="source-link" href="https://www.sweetwater.com/used/guide/TraktorKontZ2--native-instruments-traktor-kontrol-z2-dj-mixer-traktor-controller-and-interface">sweetwater.com/used/guide/TraktorKontZ2</a></li>
-    <li><strong>Z2 Official Manual (NI):</strong> <a class="source-link" href="https://native-instruments.com/fileadmin/ni_media/downloads/manuals/traktor/traktor_kontrol_z2_manual_english.pdf">native-instruments.com/.../traktor_kontrol_z2_manual_english.pdf</a></li>
+    <li><strong>NI Blog: Maschine Mapping for Traktor Part 1 &amp; 2:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-1/">blog.native-instruments.com/...part-1/</a></li>
+    <li><strong>pymikro — Python Mikro MK3 Library:</strong> <a class="source-link" href="https://github.com/flokapi/pymikro">github.com/flokapi/pymikro</a></li>
+    <li><strong>Rust Maschine Mikro MK3 Driver (Linux):</strong> <a class="source-link" href="https://github.com/r00tman/maschine-mikro-mk3-driver">github.com/r00tman/maschine-mikro-mk3-driver</a></li>
+    <li><strong>DrivenByMoss: Mikro MK3 Support:</strong> <a class="source-link" href="https://github.com/git-moss/DrivenByMoss-Documentation/blob/master/Native-Instruments/Native-Instruments-Maschine-Mikro-Mk3.md">github.com/git-moss</a></li>
+    <li><strong>NI: Maschine 3 FAQ:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/22939484556189-Maschine-3-FAQs">support.native-instruments.com/hc/en-us/articles/22939484556189</a></li>
+    <li><strong>Z2 Known Issues — NI Community:</strong> <a class="source-link" href="https://community.native-instruments.com/discussion/1226/issues-with-z2-level-meters-not-lighting-up-and-reversed-cross-fader">community.native-instruments.com</a></li>
+    <li><strong>Z2 Sticky Buttons — DJ TechTools:</strong> <a class="source-link" href="https://forum.djtechtools.com/showthread.php?t=80543">forum.djtechtools.com</a></li>
+    <li><strong>Z2 Official Manual (NI):</strong> <a class="source-link" href="https://native-instruments.com/fileadmin/ni_media/downloads/manuals/traktor/traktor_kontrol_z2_manual_english.pdf">native-instruments.com</a></li>
+    <li><strong>🆕 Pioneer DJ: Traktor HID Connection Guide (CDJ-3000, NXS2, etc.):</strong> <a class="source-link" href="https://support.pioneerdj.com/hc/en-us/articles/4413431958553-TRAKTOR-Connection-Guide-CDJ-3000-CDJ-2000NXS2-CDJ-TOUR1-XDJ-1000MK2-XDJ-700">support.pioneerdj.com</a></li>
+    <li><strong>🆕 Pioneer DJ: Traktor HID Connection Guide (CDJ-2000NXS, etc.):</strong> <a class="source-link" href="https://support.pioneerdj.com/hc/en-us/articles/4413432038041-TRAKTOR-Connection-Guide-CDJ-2000NXS-CDJ-900NXS-XDJ-1000-CDJ-2000-CDJ-900">support.pioneerdj.com</a></li>
+    <li><strong>🆕 DJ TechTools: Z2 Setup Examples (DVS, CDJ, Hybrid):</strong> <a class="source-link" href="https://techtools.zendesk.com/hc/en-us/articles/202165524-Kontrol-Z2-Setup-Examples">techtools.zendesk.com</a></li>
+    <li><strong>🆕 NI Blog: How to Mix Vinyl Into Traktor Sets:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-mix-vinyl-into-traktor-sets/">blog.native-instruments.com</a></li>
+    <li><strong>🆕 PLX-500 Pricing — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/pioneer-plx-500-dj-turntable/">djcity.com.au</a></li>
+    <li><strong>🆕 PLX-1000 Pricing — JD Sound:</strong> <a class="source-link" href="https://jdsound.com.au/products/pioneer-dj-plx-1000-high-torque-direct-drive-professional-turntable">jdsound.com.au</a></li>
+    <li><strong>🆕 CDJ-3000 Pricing — Musos Corner:</strong> <a class="source-link" href="https://www.musoscorner.com.au/pioneer-dj-cdj-3000-evolved-flagship-multi-player-with-advanced-mpu">musoscorner.com.au</a></li>
+    <li><strong>🆕 CDJ-3000 Pricing — Bounce Audio:</strong> <a class="source-link" href="https://bounceaudio.com.au/products/pioneer-cdj3000-professional-media-player">bounceaudio.com.au</a></li>
+    <li><strong>🆕 Traktor Scratch MK2 Timecode Vinyl — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/native-instruments-vinyl-red-traktor-scratch-control-vinyl-mk2/">djcity.com.au</a></li>
+    <li><strong>🆕 DVS Guide (gearnews):</strong> <a class="source-link" href="https://www.gearnews.com/dvs-and-djing/">gearnews.com</a></li>
+    <li><strong>🆕 CDJs vs Turntables (djtechreviews):</strong> <a class="source-link" href="https://djtechreviews.com/guides/explainers/cdjs-vs-turntables">djtechreviews.com</a></li>
 </ol>
 
 <hr>
 
 <footer>
-    <p><strong>Research completed:</strong> March 2026 · <strong>Updated &amp; Corrected:</strong> March 2026 (X1 MK3 simultaneous 2-deck control correction + Maschine Mikro MK3 specifics)</p>
-    <p><strong>Correction note:</strong> A previous version incorrectly claimed the X1 MK3 "controls one deck at a time (toggle)." NI's official manual states: <em>"All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</em> One X1 MK3 controls two decks simultaneously (left=A, right=B). Two X1 MK3s daisy-chain for 4-deck control. The only toggling is for FX unit selection (1&amp;2 vs 3&amp;4) and Mixer Mode — transport, browsing, looping, and hotcues remain fixed per-side at all times.</p>
-    <p><strong>Disclaimer:</strong> Pricing is indicative and based on available data at time of research. Always verify current prices and compatibility before purchasing. Hardware compatibility information sourced from Native Instruments' official support pages. Used market pricing from publicly available marketplace data.</p>
+    <p><strong>Research completed:</strong> March 2026 · <strong>Updated:</strong> March 2026 (cleaned up corrections; added comprehensive "When to Add Turntables or CDJs" decision guide with Australian pricing)</p>
+    <p><strong>Key findings this update:</strong> The Maschine Mikro MK3 does <strong>NOT</strong> require Maschine 2 (or Maschine 3) software to function as a MIDI controller for Traktor. MIDI mode is built into the hardware firmware (SHIFT+Project). Only the free Controller Editor is needed to load/create mappings. 🆕 The Z2 is fundamentally a DVS battle mixer best paired with turntables. For most Z2 owners, a pair of PLX-500 (~$1,258/pair) or used Technics SL-1200s (~$1,000–1,600/pair) is the recommended deck source. CDJs work via HID but under-utilise the Z2's phono stage. A hybrid setup (1 turntable + 1 CDJ) offers maximum flexibility for ~$1,800 in deck costs.</p>
+    <p><strong>Correction note:</strong> A previous version incorrectly claimed the X1 MK3 "controls one deck at a time (toggle)." NI's official manual states: <em>"All sections comprise two identical sides on the left and right, enabling direct access to two decks or FX units."</em> One X1 MK3 controls two decks simultaneously.</p>
+    <p><strong>Disclaimer:</strong> Pricing is indicative and based on available data at time of research. Always verify current prices and compatibility before purchasing. Hardware compatibility information sourced from Native Instruments' and Pioneer DJ's official support pages. Used market pricing from publicly available marketplace data.</p>
     <p>Filename: traktor-kontrol-z2-viability-2026.html</p>
 </footer>
 
