@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traktor Kontrol Z2 Viability as Primary DJ Mixer in 2026 — With X1 MK3 & Maschine Mikro MK3</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.75rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+        }
+        h3 {
+            font-size: 1.15rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #f0f6fc;
+        }
+        p { margin-bottom: 1rem; }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .verdict-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+        .verdict-positive { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+        .verdict-caution  { background: rgba(210,153,29,0.15); color: var(--orange); border: 1px solid rgba(210,153,29,0.3); }
+        .verdict-negative { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 0.65rem 0.85rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface2);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        tr:hover { background: rgba(88,166,255,0.04); }
+        .check { color: var(--green); font-weight: bold; }
+        .warn  { color: var(--orange); font-weight: bold; }
+        .cross { color: var(--red); font-weight: bold; }
+        .price-big {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .price-label { color: var(--text-muted); font-size: 0.85rem; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+        .source-link {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-decoration: none;
+            border-bottom: 1px dotted var(--border);
+        }
+        .source-link:hover { color: var(--accent); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        @media (max-width: 700px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+        }
+        .highlight-box {
+            background: var(--surface2);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .success-box {
+            background: rgba(63,185,80,0.06);
+            border-left: 4px solid var(--green);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .danger-box {
+            background: rgba(248,81,73,0.06);
+            border-left: 4px solid var(--red);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+        .toc { list-style: none; margin-left: 0; }
+        .toc li { margin-bottom: 0.35rem; }
+        .toc a { color: var(--accent); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+        .updated-tag {
+            display: inline-block;
+            background: rgba(163,113,247,0.15);
+            color: var(--purple);
+            padding: 0.2rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<h1>🎛️ Traktor Kontrol Z2 as a Primary DJ Mixer in 2026</h1>
+<p class="subtitle">Comprehensive viability assessment for a pre-owned Z2 purchase (AUD) — with <strong>X1 MK3</strong> as license donor &amp; deck controller, plus <strong>Maschine Mikro MK3</strong> integration. Research conducted March 2026. <span class="updated-tag">UPDATED</span></p>
+
+<!-- TABLE OF CONTENTS -->
+<h2>📋 Table of Contents</h2>
+<ol class="toc">
+    <li><a href="#verdict">Executive Verdict — Updated</a></li>
+    <li><a href="#x1mk3">The X1 MK3 Strategy: License + Deck Controller</a></li>
+    <li><a href="#compatibility">Software &amp; OS Compatibility</a></li>
+    <li><a href="#license">Traktor Pro 4 License — Solved by X1 MK3</a></li>
+    <li><a href="#pricing">Used Z2 + New X1 MK3 Pricing</a></li>
+    <li><a href="#total-cost">Total Cost of Ownership — Revised (AUD)</a></li>
+    <li><a href="#features">Z2 Feature Set &amp; What You Get</a></li>
+    <li><a href="#issues">Known Issues &amp; Reliability Concerns</a></li>
+    <li><a href="#maschine">Integrating Maschine Mikro MK3 as a MIDI Controller</a></li>
+    <li><a href="#workflow">Proposed Workflow: Z2 + X1 MK3 + Maschine Mikro MK3</a></li>
+    <li><a href="#alternatives">Alternatives Worth Considering — Updated</a></li>
+    <li><a href="#final">Final Recommendations — Updated</a></li>
+    <li><a href="#sources">Sources</a></li>
+</ol>
+
+<hr>
+
+<!-- 1. VERDICT — UPDATED -->
+<h2 id="verdict">🏆 Executive Verdict — Updated</h2>
+<div class="card">
+    <p><span class="verdict-badge verdict-positive">STRONG VIABLE</span> with <span class="verdict-badge verdict-caution">MANAGEABLE CAVEATS</span></p>
+    <p>Buying an <strong>X1 MK3</strong> alongside a used Z2 transforms the equation. The X1 MK3 includes a <strong>full Traktor Pro 4 license</strong> (AU $235 value), eliminating the biggest hidden cost. It also gives you a modern, OLED-equipped deck controller that fills the Z2's biggest gap: lack of transport controls, browsing, and detailed FX manipulation. The Z2 handles mixing/DVS/audio I/O; the X1 MK3 handles deck transport, FX, looping, and browsing — a genuinely complementary pairing.</p>
+    <p>The Maschine Mikro MK3, while lacking a factory Traktor template, can still be integrated via community mappings or custom Controller Editor setups. See the <a href="#maschine">dedicated section</a> for specifics.</p>
+</div>
+
+<div class="success-box">
+    <h3>🎯 The Big Shift</h3>
+    <p><strong>Previous plan (Z2 + separate TP4):</strong> ~AU $615–1,075 all-in, with the Z2's limited deck controls as a pain point.</p>
+    <p><strong>New plan (Z2 + X1 MK3):</strong> ~AU $749–1,125 all-in, but you get a <strong>brand-new deck controller with warranty</strong>, colour OLED displays, a powered USB hub, and the TP4 license bundled in. The X1 MK3 is hardware you'd likely want anyway to complement the Z2's mixer-only design.</p>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>✅ Strengths (Updated)</h4>
+        <ul>
+            <li>TP4 license included with X1 MK3 — <strong>save ~AU $235</strong></li>
+            <li>X1 MK3 fills the Z2's deck-control gap (no jog wheels needed for transport/FX)</li>
+            <li>X1 MK3's 3-port powered USB hub simplifies cabling</li>
+            <li>Z2 + X1 MK3 = modular, serviceable setup (replace either piece independently)</li>
+            <li>X1 MK3 has 5 OLED displays — less laptop dependency</li>
+            <li>Both devices are officially supported in TP4 + macOS 26</li>
+            <li>Z2 still provides: DVS, Innofader, XLR outs, standalone mixer mode</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>⚠️ Weaknesses (Updated)</h4>
+        <ul>
+            <li>Total cost slightly higher than Z2+TP4 alone (~$130 more mid-range)</li>
+            <li>X1 MK3 controls one deck at a time (toggle) — two X1s ideal for 2-deck control</li>
+            <li>Maschine Mikro MK3 has <strong>no factory Traktor template</strong></li>
+            <li>Z2 is still 14-year-old hardware with potential issues</li>
+            <li>No jog wheels — not for scratch-style cueing without turntables</li>
+            <li>X1 MK3's "Mixer Mode" is software-only — Z2 remains the actual mixer</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<!-- 2. X1 MK3 STRATEGY — NEW SECTION -->
+<h2 id="x1mk3">🎮 The X1 MK3 Strategy: License + Deck Controller in One</h2>
+
+<div class="highlight-box">
+    <strong>Key Insight:</strong> Instead of paying ~AU $235 for a standalone Traktor Pro 4 license, you can put that money toward an <strong>X1 MK3 (~AU $399–425)</strong> which includes TP4 <em>and</em> gives you a powerful hardware deck controller. The net additional cost over the old plan is ~AU $165–190, but you gain substantial hardware functionality.
+</div>
+
+<h3>What the X1 MK3 Brings to the Z2 Setup</h3>
+<div class="grid-2">
+    <div class="card">
+        <h4>Deck Control (Z2's Weak Spot)</h4>
+        <ul>
+            <li>Transport: Play, Cue, Sync, Flux, Shift</li>
+            <li>4 endless encoders for browsing &amp; track navigation</li>
+            <li>Loop encoder with loop size control</li>
+            <li>Hotcue triggering (via button combos or remapping)</li>
+            <li>Beatjump controls</li>
+            <li>Stem mute buttons</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>FX &amp; Visual Feedback</h4>
+        <ul>
+            <li>FX unit control with parameter knobs</li>
+            <li>5 OLED displays: track name, time remaining, loop size, FX parameters</li>
+            <li>User-definable RGB button colour coding</li>
+            <li>Light-based track-end &amp; active-loop warning system</li>
+            <li>Mixer Mode: software EQs &amp; channel levels on displays</li>
+            <li>Tactile dots for dark-environment orientation</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <h4>🔌 X1 MK3 Built-in USB Hub — Simplify Your Setup</h4>
+    <p>The X1 MK3 has a <strong>3-port powered USB-A hub</strong> (with included power supply). This is strategically useful: you can connect your Maschine Mikro MK3 (or even the Z2) through the X1 MK3's hub, reducing cable clutter and USB port usage on your laptop. The hub is bus-powered when not using the PSU, but for connecting multiple devices you'll want the power supply connected.</p>
+</div>
+
+<h3>X1 MK3 Australian Pricing (March 2026)</h3>
+<table>
+    <thead><tr><th>Retailer</th><th>Price (AUD)</th><th>Notes</th></tr></thead>
+    <tbody>
+        <tr><td>DJ City</td><td><strong>$399</strong></td><td>On sale from $429 RRP; free shipping</td></tr>
+        <tr><td>Sounds Easy</td><td>$425</td><td>Sold out at time of research</td></tr>
+        <tr><td>Manny's</td><td>~$399–429</td><td>Free shipping over $100</td></tr>
+        <tr><td>CMI (distributor)</td><td>Wholesale</td><td>Australian distributor; stock through retailers</td></tr>
+    </tbody>
+</table>
+<p><strong>Budget AUD $400 for a new X1 MK3.</strong> All units include the full Traktor Pro 4 license.</p>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Sources: <a class="source-link" href="https://djcity.com.au/product/traktor-kontrol-x1-mk3-effects-dj-controller/">DJ City</a> · <a class="source-link" href="https://www.soundseasy.com.au/products/native-instruments-traktor-x1-mk3">Sounds Easy</a> · <a class="source-link" href="https://www.mannys.com.au/products/native-instruments-traktor-kontrol-x1-mk3-controller">Manny's</a></p>
+
+<hr>
+
+<!-- 3. COMPATIBILITY -->
+<h2 id="compatibility">💻 Software &amp; OS Compatibility</h2>
+<div class="highlight-box">
+    <strong>Key Finding:</strong> According to Native Instruments' official compatibility page last updated <strong>January 8, 2026</strong>, both the Z2 <em>and</em> the X1 MK3 are officially listed as compatible with <strong>macOS 26 (Tahoe)</strong>, macOS 15 (Sequoia), macOS 14 (Sonoma), Windows 11, and Windows 10. Both are compatible with <strong>Traktor Pro 4</strong> (latest version 4.4.1).
+</div>
+
+<table>
+    <thead>
+        <tr><th>Platform</th><th>Z2 Status</th><th>X1 MK3 Status</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>macOS 26 Tahoe</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Supported</span></td><td>Both in NI compatibility table (Jan 2026)</td></tr>
+        <tr><td>macOS 15 Sequoia</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Supported</span></td><td>TP4 4.0.0+ required</td></tr>
+        <tr><td>macOS 14 Sonoma</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Supported</span></td><td>TP3 3.10.0+ / TP4 4.0.0+</td></tr>
+        <tr><td>Apple Silicon (M1–M4)</td><td><span class="check">✅ Rosetta 2</span></td><td><span class="check">✅ Rosetta 2</span></td><td>TP4 runs via Rosetta 2</td></tr>
+        <tr><td>Windows 11</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Supported</span></td><td>Z2 needs driver + Device Updater</td></tr>
+        <tr><td>Windows 10</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Supported</span></td><td></td></tr>
+        <tr><td>Traktor Pro 4</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ Native</span></td><td>X1 MK3 is TP4-native hardware</td></tr>
+        <tr><td>Traktor Pro 3</td><td><span class="check">✅ Supported</span></td><td><span class="check">✅ 3.10+</span></td><td>X1 MK3 needs at least TP3 3.10</td></tr>
+    </tbody>
+</table>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Source: <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360014900358-Compatibility-of-Native-Instruments-Products-on-macOS">NI macOS Compatibility Page</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360000618297-Compatibility-of-Native-Instruments-Products-on-Windows">NI Windows Compatibility Page</a></p>
+
+<hr>
+
+<!-- 4. LICENSE — UPDATED -->
+<h2 id="license">💰 Traktor Pro 4 License — Solved by X1 MK3</h2>
+
+<div class="success-box">
+    <h3>✅ The License Problem Is Eliminated</h3>
+    <p>The <strong>X1 MK3 ships with a full Traktor Pro 4 license</strong> in the box. This is confirmed by Native Instruments' official FAQ, every major retailer (Sweetwater, Thomann, DJ City, Music Store, Gear4music), and the product description. Once you register the X1 MK3 hardware serial in Native Access, TP4 is unlocked — and it works with <strong>all</strong> your Traktor hardware, including the Z2.</p>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>Old Plan: Buy TP4 Separately</h4>
+        <p class="price-big" style="color: var(--red);">AU $235</p>
+        <p class="price-label">Full license, direct from NI</p>
+        <p>Just software. No hardware. The Z2 works but you lack deck controls.</p>
+    </div>
+    <div class="card">
+        <h4>New Plan: X1 MK3 Includes TP4</h4>
+        <p class="price-big" style="color: var(--green);">AU $400</p>
+        <p class="price-label">Hardware + TP4 license bundled</p>
+        <p>Net extra over TP4-only: ~$165. You get a full deck/FX controller.</p>
+    </div>
+</div>
+
+<div class="highlight-box">
+    <strong>💡 Important:</strong> The X1 MK3's license is tied to the hardware serial. Register it in Native Access and TP4 is yours. This license covers your entire Traktor setup — Z2, X1 MK3, and any other NI controllers. <strong>One license, all hardware.</strong>
+</div>
+
+<hr>
+
+<!-- 5. PRICING — UPDATED -->
+<h2 id="pricing">🏷️ Used Z2 + New X1 MK3 Pricing (AUD)</h2>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>🔄 Pre-owned Z2 (AUD)</h4>
+        <p class="price-big">$350–700</p>
+        <p class="price-label">Depending on condition</p>
+        <ul>
+            <li><strong>$350–450:</strong> Fair, good condition, no license</li>
+            <li><strong>$450–600:</strong> Mint with box &amp; accessories</li>
+            <li><strong>$600+:</strong> Only if exceptional</li>
+            <li>Japanese imports: ~AU $480 avg.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>🆕 X1 MK3 (New, AUD)</h4>
+        <p class="price-big">$399–429</p>
+        <p class="price-label">Brand new with warranty</p>
+        <ul>
+            <li>DJ City: <strong>$399</strong> (on sale)</li>
+            <li>Includes: TP4 license, PSU, USB cable</li>
+            <li>2-year warranty (AU consumer law)</li>
+            <li>5 OLED displays, 3-port USB hub</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<!-- 6. TOTAL COST — REVISED -->
+<h2 id="total-cost">🧮 Total Cost of Ownership — Revised (AUD)</h2>
+<table>
+    <thead><tr><th>Item</th><th>Low Estimate</th><th>Mid Estimate</th><th>High Estimate</th></tr></thead>
+    <tbody>
+        <tr><td>Pre-owned Z2 Mixer</td><td>$350</td><td>$500</td><td>$700</td></tr>
+        <tr><td>X1 MK3 (new, incl. TP4)</td><td>$399</td><td>$399</td><td>$429</td></tr>
+        <tr><td style="color: var(--green);"><strong>TP4 License</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td><td style="color: var(--green);"><strong>$0 (included)</strong></td></tr>
+        <tr><td>Timecode vinyl (if needed)</td><td>—</td><td>$40</td><td>$60</td></tr>
+        <tr><td>RCA / XLR cables</td><td>$30</td><td>$50</td><td>$80</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>~$779</strong></td><td><strong>~$989</strong></td><td><strong>~$1,269</strong></td></tr>
+    </tbody>
+</table>
+
+<div class="card" style="border: 2px solid var(--accent);">
+    <h4>📊 Cost Comparison: Old Plan vs. New Plan</h4>
+    <table>
+        <thead><tr><th>Scenario</th><th>Low</th><th>Mid</th><th>High</th><th>What You Get</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>Old: Z2 + TP4 license only</strong></td>
+                <td>$615</td><td>$785</td><td>$1,015</td>
+                <td>Z2 mixer + software. No deck controller.</td>
+            </tr>
+            <tr>
+                <td><strong>New: Z2 + X1 MK3 (TP4 incl.)</strong></td>
+                <td>$779</td><td>$989</td><td>$1,269</td>
+                <td>Z2 mixer + software + X1 MK3 deck/FX controller</td>
+            </tr>
+            <tr>
+                <td><strong>Difference</strong></td>
+                <td>+$164</td><td>+$204</td><td>+$254</td>
+                <td>Adds: OLED displays, deck transport, FX knobs, USB hub, new warranty</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="highlight-box">
+    <strong>📌 Comparison Point:</strong> A brand-new <strong>Traktor Kontrol S4 MK3</strong> (4-channel, motorized jogs, TP4 included) retails ~AU $1,499. The Z2+X1 MK3 combo at ~$990 mid-range gives you DVS capability + standalone mixer mode that the S4 MK3 lacks, at ~$500 less. However, you give up motorized jog wheels and 4-channel hardware faders.
+</div>
+
+<hr>
+
+<!-- 7. FEATURES — UNCHANGED -->
+<h2 id="features">🎚️ Z2 Feature Set &amp; What You Get</h2>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>Mixer Section</h4>
+        <ul>
+            <li>2 full channels (A &amp; B) with channel faders</li>
+            <li>Channels C &amp; D: knob-only volume control (no faders)</li>
+            <li>3-band EQ (HI, MID, LOW) per channel — Z ISO / P900 Kill type</li>
+            <li>Per-channel filter knob (high-pass / low-pass)</li>
+            <li>Innofader crossfader with adjustable curve + reverse</li>
+            <li>Gain knobs with Auto-Gain / User-Gain modes</li>
+            <li>Standalone "Direct Mode" — works as analog mixer without computer</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>Controller &amp; FX Section</h4>
+        <ul>
+            <li>8 cue/sample trigger buttons (4 per side)</li>
+            <li>Macro FX knob + D/W knob per channel</li>
+            <li>FX assign buttons (FX Units 1 &amp; 2)</li>
+            <li>Flux Mode buttons (per channel)</li>
+            <li>Loop encoder with 7-segment display per channel</li>
+            <li>Browse encoder + Load A/B buttons</li>
+            <li>SYNC, REL/INTL (Relative/Internal mode) buttons</li>
+        </ul>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>Audio I/O</h4>
+        <ul>
+            <li>2× RCA Phono/Line inputs (switchable per channel)</li>
+            <li>1× Aux input (RCA) + 1× Mic input (1/4" TRS)</li>
+            <li>2× XLR balanced Master outputs</li>
+            <li>1× RCA unbalanced Master outputs</li>
+            <li>2× 1/4" TRS balanced Booth outputs</li>
+            <li>1/4" + 1/8" headphone jacks (front panel)</li>
+            <li>2× USB-A hub ports + 1× USB-B computer connection</li>
+            <li>Ground screws for turntable grounding</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>Audio Interface Specs</h4>
+        <ul>
+            <li>Cirrus Logic 24-bit converters</li>
+            <li>48 kHz fixed sample rate</li>
+            <li>Dynamic Range: ~110 dB (Master)</li>
+            <li>THD+N: &lt;0.001% (Master)</li>
+            <li>Class-compliant on macOS</li>
+            <li>ASIO driver for Windows</li>
+            <li>Internal multi-voltage PSU (115–230V)</li>
+            <li>Weight: ~5.2 kg, Dimensions: 279×381×76 mm</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <h4>🎯 How the X1 MK3 Complements the Z2</h4>
+    <p>The Z2's weakest area as a standalone controller is <strong>deck transport and detailed FX manipulation</strong>. It has basic transport (play via cue buttons, sync), but no dedicated play/pause, no beatjump, no hotcue access, and limited FX parameter control beyond the Macro FX knob. The X1 MK3 fills <em>exactly</em> these gaps:</p>
+    <table>
+        <thead><tr><th>Function</th><th>Z2 Alone</th><th>Z2 + X1 MK3</th></tr></thead>
+        <tbody>
+            <tr><td>Play/Pause</td><td><span class="warn">⚠️ Via cue buttons</span></td><td><span class="check">✅ Dedicated transport buttons</span></td></tr>
+            <tr><td>Track Browsing</td><td><span class="check">✅ Browse encoder + load</span></td><td><span class="check">✅ Browse encoder + OLED displays</span></td></tr>
+            <tr><td>FX Parameter Control</td><td><span class="warn">⚠️ Macro FX only</span></td><td><span class="check">✅ Full FX unit control with OLED readout</span></td></tr>
+            <tr><td>Hotcues</td><td><span class="warn">⚠️ 4 per side (shared with samples)</span></td><td><span class="check">✅ Dedicated hotcue buttons + OLED</span></td></tr>
+            <tr><td>Beatjump</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Yes</span></td></tr>
+            <tr><td>Loop Control</td><td><span class="check">✅ Loop encoder</span></td><td><span class="check">✅ Loop encoder + OLED display</span></td></tr>
+            <tr><td>Stem Control</td><td><span class="cross">❌ No</span></td><td><span class="check">✅ Stem mute buttons</span></td></tr>
+            <tr><td>Visual Feedback</td><td><span class="warn">⚠️ 7-segment LED only</span></td><td><span class="check">✅ 5 OLED displays</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+
+<!-- 8. KNOWN ISSUES — UNCHANGED -->
+<h2 id="issues">⚠️ Known Issues &amp; Reliability Concerns</h2>
+
+<div class="danger-box">
+    <h3 style="color:var(--red);">Issues to Inspect Before Buying the Z2</h3>
+    <p>These issues have been reported across DJ forums, NI community, and user reviews. As with any used gear, <strong>always test before buying</strong> or ensure a return policy is available.</p>
+</div>
+
+<table>
+    <thead><tr><th>Issue</th><th>Severity</th><th>Details</th></tr></thead>
+    <tbody>
+        <tr>
+            <td><strong>Sticky Cue/Sample Buttons</strong></td>
+            <td><span class="warn">⚠️ Moderate</span></td>
+            <td>Multiple users on DJ TechTools forum (2014) reported cue buttons sticking and not returning after pressing. One user received 3 replacement units all with the same issue. <strong>Test all 8 cue buttons thoroughly.</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Crossfader Reversed (Windows)</strong></td>
+            <td><span class="warn">⚠️ Minor</span></td>
+            <td>NI Community forum report (2022): On Windows 10, crossfader may appear reversed after Timecode calibration. Workaround: toggle hamster/reverse switch.</td>
+        </tr>
+        <tr>
+            <td><strong>Hardware Recognition Freeze (Mac)</strong></td>
+            <td><span class="cross">❌ Serious</span></td>
+            <td>NI Community (2022): Mac recognizes Z2 but Traktor gets stuck/doesn't start playback. Likely USB port or cable issue. Check USB-B port for wear.</td>
+        </tr>
+        <tr>
+            <td><strong>Mic/Aux Routing Limitations</strong></td>
+            <td><span class="warn">⚠️ Design</span></td>
+            <td>Mic and aux inputs bypass channel EQs, filters, FX, and crossfader — straight to master bus.</td>
+        </tr>
+        <tr>
+            <td><strong>FX Not Available in Standalone Mode</strong></td>
+            <td><span class="warn">⚠️ Design</span></td>
+            <td>Macro FX section only works when connected to Traktor. In Direct mode, only hardware EQ and filter are available.</td>
+        </tr>
+        <tr>
+            <td><strong>Knob/Fader Calibration Drift</strong></td>
+            <td><span class="warn">⚠️ Minor</span></td>
+            <td>EQ and filter knobs can drift. NI calibration tool in Traktor Preferences > Z2 tab fixes this.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
+    <h4>🛠️ Pre-Purchase Z2 Inspection Checklist</h4>
+    <ol>
+        <li><strong>Test every button, knob, and fader</strong> — especially the 8 cue/sample buttons for sticking</li>
+        <li><strong>Check the crossfader</strong> in both directions, test curve knob and reverse switch</li>
+        <li><strong>Test all inputs and outputs</strong> — phono, line, aux, mic, XLR, RCA, booth, headphones</li>
+        <li><strong>Check the USB port</strong> — ensure it grips the cable firmly (Z2 has a reinforced port)</li>
+        <li><strong>Test both USB hub ports</strong> with a peripheral device</li>
+        <li><strong>Listen for ground hum</strong> — connect turntables and check for unwanted noise</li>
+        <li><strong>Verify all LED meters and 7-segment displays</strong> work correctly</li>
+        <li><strong>Ask about the Innofader</strong> — has it been replaced? These are wear items for scratch DJs</li>
+    </ol>
+</div>
+
+<hr>
+
+<!-- 9. MASCHINE — UPDATED FOR MIKRO MK3 -->
+<h2 id="maschine">🥁 Integrating Maschine Mikro MK3 as a MIDI Controller</h2>
+
+<div class="card" style="border: 2px solid var(--orange);">
+    <h4>⚠️ Important: Maschine Mikro MK3 Has NO Factory Traktor Template</h4>
+    <p>Native Instruments <strong>does not provide factory Traktor templates</strong> for the Maschine Mikro MK3 (or any MK3-generation Maschine). This is confirmed by NI's official support documentation. The factory templates only exist for older MK1/MK2 Maschine models. For the Mikro MK3, you have three paths forward.</p>
+</div>
+
+<h3>Maschine Mikro MK3 MIDI Mode Basics</h3>
+<table>
+    <thead><tr><th>Aspect</th><th>Maschine Mikro MK3</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Switch to MIDI Mode</strong></td><td><strong>SHIFT + Project button</strong> (NOT SHIFT + F1 like older Mikros)</td></tr>
+        <tr><td><strong>Factory Traktor Template</strong></td><td><span class="cross">❌ None</span></td></tr>
+        <tr><td><strong>Controller Editor Support</strong></td><td><span class="check">✅ Full</span> — can create custom templates</td></tr>
+        <tr><td><strong>Community Mappings</strong></td><td><span class="check">✅ Available</span> (see below)</td></tr>
+        <tr><td><strong>Controls Available</strong></td><td>16 velocity-sensitive RGB pads, 1 touch strip, 1 encoder, Group buttons, transport buttons, 8 mode buttons</td></tr>
+        <tr><td><strong>Limitations</strong></td><td>No dedicated knobs (unlike full Maschine MK3), no LCD displays, fewer mappable controls</td></tr>
+    </tbody>
+</table>
+
+<h3>Three Paths to Integrate Maschine Mikro MK3</h3>
+
+<div class="grid-3">
+    <div class="card">
+        <h4>🛒 Path 1: Buy a Pre-Made Mapping</h4>
+        <p><strong>Maschine Mikro MK3 Ninja</strong> by TraktorMaps.com — <strong>US $35 (~AU $55)</strong></p>
+        <ul>
+            <li>2 Track Decks + 2 Remix Decks</li>
+            <li>64 Sample Cell triggers</li>
+            <li>Full LED feedback</li>
+            <li>4 FX Units + Pattern Player</li>
+            <li>8 Pad Modes, Browser, Load, Cue, Play</li>
+            <li>Flux Mode, Sync, Autoloops, Beatjump</li>
+            <li>Stem Mute, Touchstrip Effects</li>
+            <li>Step Sequencer, Swing control</li>
+            <li>Includes infographics + install guide</li>
+        </ul>
+        <p><strong>Best for:</strong> Plug-and-play, comprehensive control without DIY time.</p>
+    </div>
+    <div class="card">
+        <h4>🆓 Path 2: Use Free Community Mappings</h4>
+        <p>Available on <strong>DJ TechTools Maps</strong>:</p>
+        <ul>
+            <li><strong>"DJ Reybans Maschine Mikro MK3"</strong> — "Traktor on the go" mapping, portable focus</li>
+            <li><strong>"NI Maschine Mikro MK3, Traktor Pro 3"</strong> — basic Controller Editor + TP3 mapping</li>
+        </ul>
+        <p><strong>Best for:</strong> Trying before committing, or if your needs are basic.</p>
+        <p><strong>Caveat:</strong> May not have LED feedback or be as polished as paid mappings. Test thoroughly before gigging.</p>
+    </div>
+    <div class="card">
+        <h4>🔧 Path 3: Build Your Own Mapping</h4>
+        <p>Use <strong>Controller Editor</strong> + Traktor's <strong>Controller Manager</strong>:</p>
+        <ol>
+            <li>Open Controller Editor, select Maschine Mikro MK3</li>
+            <li>Create new template, configure MIDI messages for pads/buttons/strip/encoder</li>
+            <li>Export template, load into Traktor Controller Manager</li>
+            <li>Map each MIDI message to Traktor functions</li>
+        </ol>
+        <p><strong>Best for:</strong> Full customisation. Time investment: several hours to days.</p>
+        <p>NI's blog has a <strong>2-part tutorial</strong> on building Maschine→Traktor mappings.</p>
+    </div>
+</div>
+
+<div class="card">
+    <h4>🎨 Recommended Maschine Mikro MK3 Layout for Z2+X1 Setup</h4>
+    <p>Since the X1 MK3 already handles deck transport, FX, and browsing, the Mikro MK3 is best used for:</p>
+    <ul>
+        <li><strong>Remix Deck / Sample triggering</strong> — launch one-shots, loops, stems</li>
+        <li><strong>Hotcues</strong> for Decks A &amp; B (16 pads = 8 hotcues per deck)</li>
+        <li><strong>Stem isolation</strong> — mute/unmute drums, bass, melody, vocals</li>
+        <li><strong>Maschine software sync</strong> — run Maschine 2 as a drum machine synced via Ableton Link, route audio into Z2 Aux input</li>
+        <li><strong>Touch strip</strong> — assign to filter sweep or FX parameter for performance</li>
+    </ul>
+</div>
+
+<div class="highlight-box">
+    <strong>💡 Pro Tip — Syncing Maschine Software + Traktor:</strong> Enable <strong>Ableton Link</strong> in both Traktor (header bar) and Maschine 2 (header bar). Both apps will share tempo. Route Maschine's audio into the Z2's Aux input (RCA) using a second audio interface or virtual routing. Requires Traktor Pro 2.11+ (TP4 is fine) and Maschine 2.5.6+.
+</div>
+
+<p style="font-size:0.8rem; color: var(--text-muted);">Sources: <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">NI: Maschine as MIDI Controller</a> · <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">NI: MIDI Mode Switching</a> · <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">TraktorMaps: Mikro MK3 Ninja</a> · <a class="source-link" href="https://maps.djtechtools.com/mappings/12014">DJTT: Reybans Mikro MK3</a> · <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-1/">NI Blog: Mapping Part 1</a> · <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-2/">Part 2</a></p>
+
+<hr>
+
+<!-- 10. WORKFLOW — UPDATED -->
+<h2 id="workflow">🔄 Proposed Workflow: Z2 + X1 MK3 + Maschine Mikro MK3 + Turntables</h2>
+
+<div class="card">
+    <h4>Physical Setup Diagram</h4>
+    <pre style="background:var(--bg); padding:1.25rem; border-radius:6px; overflow-x:auto; font-size:0.82rem;">
+
+                         ┌────────────────────────────────────────┐
+                         │            LAPTOP (USB-C)              │
+                         │  ┌──────────┐      ┌──────────────┐   │
+                         │  │ TRAKTOR  │◄Link►│  MASCHINE 2  │   │
+                         │  │  Pro 4   │      │  (optional)  │   │
+                         │  └────┬─────┘      └──────┬───────┘   │
+                         └───────┼────────────────────┼───────────┘
+                                 │ USB                │ USB
+                    ┌────────────▼─────┐    ┌─────────▼──────────┐
+                    │   X1 MK3         │    │ Maschine Mikro MK3 │
+                    │  (Deck Control)  │    │  (MIDI Mode:       │
+                    │                  │    │   Samples/Hotcues/ │
+                    │  OLED Displays   │    │   Remix Decks)     │
+                    │  3-Port USB Hub  │    │                    │
+                    │  ┌────────────┐  │    └────────────────────┘
+                    │  │ Z2 connects│  │
+                    │  │ via X1 hub │  │
+                    └──┼────────────┼──┘
+                       │            │
+    ┌──────────────────▼────────────▼──────────────────────────┐
+    │              TRAKTOR KONTROL Z2 (Mixer + Audio I/F)      │
+    │  ┌──────────────┐           ┌──────────────┐             │
+    │  │  Channel A   │ CROSSFADER│  Channel B   │             │
+    │  │  (PHONO)     │◄─────────►│  (PHONO)     │             │
+    │  │  Turntable 1 │           │  Turntable 2 │             │
+    │  │  EQ/Filter   │           │  EQ/Filter   │             │
+    │  │  Macro FX    │           │  Macro FX    │             │
+    │  │  Fader       │           │  Fader       │             │
+    │  └──────────────┘           └──────────────┘             │
+    │         AUX IN: Maschine audio (if using sync approach)   │
+    │                                                           │
+    │  OUTPUTS: XLR Master → PA/Speakers                        │
+    │           1/4" Booth → Monitor                            │
+    │           1/4" Headphone → Cue                            │
+    └───────────────────────────────────────────────────────────┘
+    </pre>
+    <p><strong>Signal flow:</strong> Turntables (timecode) → Z2 Phono inputs → Traktor DVS → Z2 audio interface → XLR/booth/headphone outputs. X1 MK3 controls Deck A/B transport, FX, browsing, looping, stems. Maschine Mikro MK3 triggers samples/remix decks in MIDI mode, or runs Maschine 2 synced via Link → audio into Z2 Aux.</p>
+</div>
+
+<div class="card">
+    <h4>🔗 Connection Strategy Using X1 MK3's USB Hub</h4>
+    <ol>
+        <li><strong>X1 MK3</strong> → Laptop via USB (with included PSU for hub power)</li>
+        <li><strong>Z2</strong> → X1 MK3 USB hub port 1 (or direct to laptop if preferred)</li>
+        <li><strong>Maschine Mikro MK3</strong> → X1 MK3 USB hub port 2 (or direct to laptop)</li>
+        <li>This reduces laptop USB port usage to just 1 (or 2 if Z2 direct)</li>
+    </ol>
+</div>
+
+<hr>
+
+<!-- 11. ALTERNATIVES — UPDATED -->
+<h2 id="alternatives">🆚 Alternatives Worth Considering — Updated</h2>
+
+<table>
+    <thead><tr><th>Option</th><th>Price (New, AUD)</th><th>Pros vs Z2+X1 MK3</th><th>Cons vs Z2+X1 MK3</th></tr></thead>
+    <tbody>
+        <tr>
+            <td><strong>Z2 + X1 MK3</strong> (your plan)</td>
+            <td><strong>~$779–989</strong></td>
+            <td>DVS, standalone mixer, modular, Innofader, XLR out, OLED displays (X1)</td>
+            <td>14-year-old Z2 hardware, no jog wheels, 2 physical channels</td>
+        </tr>
+        <tr>
+            <td><strong>Traktor Kontrol S4 MK3</strong></td>
+            <td>~$1,499</td>
+            <td>4 channels, motorized jogs, TP4 included, all-in-one, new warranty</td>
+            <td>$500–700 more, no standalone mixer mode, no DVS-ready phono preamps</td>
+        </tr>
+        <tr>
+            <td><strong>Traktor Kontrol S2 MK3</strong></td>
+            <td>~$549</td>
+            <td>Brand new, TP4 included, jog wheels, compact</td>
+            <td>No DVS, no XLR, no standalone mixer, plastic build, no Innofader</td>
+        </tr>
+        <tr>
+            <td><strong>Z1 MK2 + X1 MK3</strong></td>
+            <td>~$585</td>
+            <td>All new, TP4 included (with Z1), modular, compact</td>
+            <td>No DVS phono inputs, no XLR, no standalone mixer, no audio I/O</td>
+        </tr>
+        <tr>
+            <td><strong>Pioneer DJM-250MK2</strong></td>
+            <td>~$550</td>
+            <td>Battle mixer, Magvel fader, standalone, Rekordbox DVS unlock</td>
+            <td>No audio interface built in, Rekordbox ecosystem, no controller section, still need TP4</td>
+        </tr>
+        <tr>
+            <td><strong>Rane Seventy</strong></td>
+            <td>~$2,499</td>
+            <td>Pro-level, Serato DJ Pro included, Mag Four fader, FX, dual USB</td>
+            <td>Far more expensive, Serato-only</td>
+        </tr>
+        <tr>
+            <td><strong>Z2 + TP4 license only</strong> (old plan)</td>
+            <td><strong>~$615–785</strong></td>
+            <td>Cheapest entry to DVS + Traktor</td>
+            <td>No deck controller, limited transport/FX control on Z2 alone</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<!-- 12. FINAL — UPDATED -->
+<h2 id="final">📝 Final Recommendations — Updated</h2>
+
+<div class="card" style="border: 2px solid var(--green);">
+    <h3>The Z2 + X1 MK3 combo is a strong, modular DVS setup in 2026, provided you:</h3>
+    <ol>
+        <li><strong>Buy the X1 MK3 first</strong> — it gives you TP4 immediately. You can even start mixing with just the X1 MK3 and your laptop while you hunt for the right Z2.</li>
+        <li><strong>Get the Z2 at a fair price</strong> — ideally AU $350–500 for the hardware alone. Above $600, the total package starts approaching used S4 MK3 territory.</li>
+        <li><strong>The TP4 license is no longer a separate budget item</strong> — the X1 MK3 covers it. This was the biggest hidden cost in the original plan.</li>
+        <li><strong>Test the Z2 before buying</strong> — cue/sample buttons, crossfader, USB port, and all I/O. See the checklist above.</li>
+        <li><strong>Are committed to the Traktor ecosystem</strong> — the Z2+X1 combo only makes sense if you're staying with Traktor. Both are tightly integrated.</li>
+        <li><strong>Understand the Maschine Mikro MK3 limitation</strong> — no factory template. Budget ~AU $55 for the Ninja mapping ($35 USD) or time for DIY Controller Editor work. The Mikro MK3 is best used for sample triggering and remix decks in this setup.</li>
+        <li><strong>You own or plan to own turntables</strong> — without turntables for DVS, the Z2's main advantage evaporates. The X1 MK3 alone can control 2 decks, or pair it with a Z1 MK2 for a compact non-DVS setup.</li>
+    </ol>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>👍 Buy the Z2 + X1 MK3 If...</h4>
+        <ul>
+            <li>You already own turntables and want DVS</li>
+            <li>You want a modular, repairable setup (replace pieces independently)</li>
+            <li>You value standalone mixer mode for backup/vinyl-only sets</li>
+            <li>You need XLR balanced outputs + booth out</li>
+            <li>You want a battle-style layout with Innofader</li>
+            <li>The Z2 is tested, in good condition, and ~$350–500</li>
+            <li>You're deep in the Traktor ecosystem and want hardware that complements Traktor's strengths</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>👎 Skip If...</h4>
+        <ul>
+            <li>You don't own turntables and don't plan to (get S2/S4 MK3 or Z1+X1 instead)</li>
+            <li>Your total budget is under ~$750 (Z2+TP4-only might work, but you'll miss deck controls)</li>
+            <li>You want four full-featured hardware channels</li>
+            <li>You want built-in jog wheels</li>
+            <li>The Z2 unit shows signs of heavy use or sticky buttons</li>
+            <li>You might switch to Serato or Rekordbox</li>
+            <li>You want a simple, single-box solution (get an S4 MK3)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="highlight-box">
+    <h3>🎯 Bottom Line (Updated)</h3>
+    <p>Pairing a <strong>used Z2 with a new X1 MK3</strong> is arguably the <strong>smartest way to enter the Traktor DVS ecosystem on a budget in 2026</strong>. The X1 MK3 kills two birds with one stone: it provides the TP4 license and fills the Z2's biggest functional gap (deck transport and detailed FX control). You get modern OLED displays, a powered USB hub, and a brand-new device with warranty — all for a net ~$165–200 more than buying TP4 alone.</p>
+    <p>The Maschine Mikro MK3 is the weaker link — it requires either a purchased mapping (~$55) or DIY time. But in a Z2+X1 setup, the Mikro MK3 isn't essential for core DJing; it's a bonus for sample triggering, remix decks, and creative performance.</p>
+    <p>At the mid-range estimate of <strong>~AU $990 all-in</strong>, you're getting a DVS-capable battle mixer with XLR outs + a modern deck/FX controller — a combo that would cost significantly more to replicate with new gear (the Rane Seventy alone is $2,499 without a deck controller).</p>
+    <p style="margin-top: 1rem;"><strong>Risk Level: </strong><span class="verdict-badge verdict-caution">MODERATE</span> (Z2 hardware age) — but the X1 MK3 addition <strong>significantly de-risks</strong> the setup by providing a modern, warrantied controller that can operate independently if the Z2 ever fails. <strong>Verdict: Strong Viable.</strong></p>
+</div>
+
+<hr>
+
+<!-- SOURCES -->
+<h2 id="sources">📚 Sources</h2>
+<ol style="font-size:0.85rem;">
+    <li><strong>NI macOS Compatibility (Jan 2026):</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360014900358-Compatibility-of-Native-Instruments-Products-on-macOS">support.native-instruments.com/hc/en-us/articles/360014900358</a></li>
+    <li><strong>NI Windows Compatibility:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/360000618297-Compatibility-of-Native-Instruments-Products-on-Windows">support.native-instruments.com/hc/en-us/articles/360000618297</a></li>
+    <li><strong>Traktor Pro 4 Pricing:</strong> <a class="source-link" href="https://www.native-instruments.com/en/pricing/traktor-pro-4/">native-instruments.com/en/pricing/traktor-pro-4/</a></li>
+    <li><strong>X1 MK3 Official FAQ (NI):</strong> <a class="source-link" href="https://www.native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/">native-instruments.com/en/products/traktor/dj-controllers/traktor-x1/faq/</a></li>
+    <li><strong>X1 MK3 AU Pricing — DJ City:</strong> <a class="source-link" href="https://djcity.com.au/product/traktor-kontrol-x1-mk3-effects-dj-controller/">djcity.com.au</a> — AU $399</li>
+    <li><strong>X1 MK3 AU Pricing — Sounds Easy:</strong> <a class="source-link" href="https://www.soundseasy.com.au/products/native-instruments-traktor-x1-mk3">soundseasy.com.au</a> — AU $425</li>
+    <li><strong>X1 MK3 — Sweetwater:</strong> <a class="source-link" href="https://www.sweetwater.com/store/detail/TX1mk3--native-instruments-traktor-kontrol-x1-mk3-dj-controller-module">sweetwater.com</a> — US $249–299, TP4 included</li>
+    <li><strong>X1 MK3 — The Disc DJ Store (UK):</strong> <a class="source-link" href="https://www.thediscdjstore.com/products/native-instruments-traktor-kontrol-x1-mk3">thediscdjstore.com</a> — £154, TP4 included</li>
+    <li><strong>NI: Maschine as MIDI Controller for Traktor:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210263965-How-to-Use-MASCHINE-as-a-MIDI-Controller-for-TRAKTOR">support.native-instruments.com/hc/en-us/articles/210263965</a></li>
+    <li><strong>NI: Switching Controllers to MIDI Mode:</strong> <a class="source-link" href="https://support.native-instruments.com/hc/en-us/articles/210264145-How-to-Switch-Your-Native-Instruments-Controller-to-MIDI-Mode">support.native-instruments.com/hc/en-us/articles/210264145</a></li>
+    <li><strong>Maschine Mikro MK3 Ninja Mapping:</strong> <a class="source-link" href="https://traktormaps.com/mappings/maschine-mikro-mk3-ninja">traktormaps.com</a> — US $35</li>
+    <li><strong>DJ Reybans Maschine Mikro MK3 Mapping (DJTT):</strong> <a class="source-link" href="https://maps.djtechtools.com/mappings/12014">maps.djtechtools.com/mappings/12014</a></li>
+    <li><strong>NI Maschine Mikro MK3 TP3 Mapping (DJTT):</strong> <a class="source-link" href="https://maps.djtechtools.com/mappings/11859">maps.djtechtools.com/mappings/11859</a></li>
+    <li><strong>NI Blog: Maschine Mapping for Traktor Part 1:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-1/">blog.native-instruments.com/...part-1/</a></li>
+    <li><strong>NI Blog: Maschine Mapping for Traktor Part 2:</strong> <a class="source-link" href="https://blog.native-instruments.com/how-to-make-a-maschine-mapping-for-traktor-part-2/">blog.native-instruments.com/...part-2/</a></li>
+    <li><strong>Z2 Known Issues — NI Community:</strong> <a class="source-link" href="https://community.native-instruments.com/discussion/1226/issues-with-z2-level-meters-not-lighting-up-and-reversed-cross-fader">community.native-instruments.com/discussion/1226</a></li>
+    <li><strong>Z2 Hardware Recognition Issue — NI Community:</strong> <a class="source-link" href="https://community.native-instruments.com/discussion/6918/z2">community.native-instruments.com/discussion/6918</a></li>
+    <li><strong>Z2 Sticky Buttons — DJ TechTools:</strong> <a class="source-link" href="https://forum.djtechtools.com/showthread.php?t=80543">forum.djtechtools.com/showthread.php?t=80543</a></li>
+    <li><strong>Z2 Used Pricing — Sweetwater Gear Exchange:</strong> <a class="source-link" href="https://www.sweetwater.com/used/guide/TraktorKontZ2--native-instruments-traktor-kontrol-z2-dj-mixer-traktor-controller-and-interface">sweetwater.com/used/guide/TraktorKontZ2</a></li>
+    <li><strong>Z2 Official Manual (NI):</strong> <a class="source-link" href="https://native-instruments.com/fileadmin/ni_media/downloads/manuals/traktor/traktor_kontrol_z2_manual_english.pdf">native-instruments.com/.../traktor_kontrol_z2_manual_english.pdf</a></li>
+</ol>
+
+<hr>
+
+<footer>
+    <p><strong>Research completed:</strong> March 2026 · <strong>Updated:</strong> March 2026 (X1 MK3 strategy + Maschine Mikro MK3 specifics)</p>
+    <p><strong>Disclaimer:</strong> Pricing is indicative and based on available data at time of research. Always verify current prices and compatibility before purchasing. Hardware compatibility information sourced from Native Instruments' official support pages. Used market pricing from publicly available marketplace data.</p>
+    <p>Filename: traktor-kontrol-z2-viability-2026.html</p>
+</footer>
+
+</div>
+</body>
+</html>
