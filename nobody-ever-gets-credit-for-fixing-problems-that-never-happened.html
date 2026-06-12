@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nobody Ever Gets Credit for Fixing Problems That Never Happened — Paper Explanation</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #f0883e;
+            --green: #3fb950;
+            --red: #f85149;
+            --yellow: #d2991d;
+            --purple: #a371f7;
+            --code-bg: #1c2128;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text);
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            line-height: 1.3;
+        }
+
+        header .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        header .meta {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        header .meta span {
+            display: inline-block;
+            margin: 0.25rem 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--surface2);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        nav.toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        nav.toc h2 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        nav.toc ol {
+            list-style: decimal;
+            padding-left: 1.5rem;
+        }
+
+        nav.toc li {
+            margin: 0.4rem 0;
+            color: var(--text-secondary);
+        }
+
+        nav.toc a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        nav.toc a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent2);
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card.accent {
+            border-left: 4px solid var(--accent);
+        }
+
+        .card.warning {
+            border-left: 4px solid var(--yellow);
+        }
+
+        .card.success {
+            border-left: 4px solid var(--green);
+        }
+
+        .card h4 {
+            margin-top: 0;
+        }
+
+        blockquote {
+            background: var(--surface2);
+            border-left: 4px solid var(--accent2);
+            margin: 1.25rem 0;
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        blockquote strong {
+            color: var(--accent2);
+            font-style: normal;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        .diagram-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .diagram-container .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        svg text {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .legend-line {
+            width: 28px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .highlight-box {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .loop-badge {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 0.4rem;
+        }
+
+        .loop-badge.balancing {
+            background: #0d419d33;
+            color: var(--accent);
+            border: 1px solid #58a6ff44;
+        }
+
+        .loop-badge.reinforcing {
+            background: #9d3e0d33;
+            color: var(--accent2);
+            border: 1px solid #f0883e44;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        table th, table td {
+            padding: 0.6rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        table th {
+            background: var(--surface2);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) td {
+            background: var(--surface);
+        }
+
+        .footnote {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Nobody Ever Gets Credit for Fixing Problems That Never Happened</h1>
+    <p class="subtitle">Creating and Sustaining Process Improvement</p>
+    <div class="meta">
+        <span>Nelson P. Repenning &amp; John D. Sterman</span>
+        <span>MIT Sloan School of Management</span>
+        <span>California Management Review, Summer 2001</span>
+    </div>
+</header>
+
+<div class="container">
+
+<nav class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#overview">Overview — The Improvement Paradox</a></li>
+        <li><a href="#physics">The "Physics" of Process Improvement</a></li>
+        <li><a href="#feedback">The Five Feedback Loops</a></li>
+        <li><a href="#capability-trap">The Capability Trap Explained</a></li>
+        <li><a href="#attribution">Why the Trap Persists — Self-Confirming Attribution Error</a></li>
+        <li><a href="#superstitious">Superstitious Learning &amp; Why Improvement Programs Fail</a></li>
+        <li><a href="#overcoming">Overcoming the Capability Trap — Case Studies</a></li>
+        <li><a href="#key-takeaways">Key Takeaways</a></li>
+    </ol>
+</nav>
+
+<!-- ============ SECTION 1 ============ -->
+<section id="overview">
+    <h2>1. Overview — The Improvement Paradox</h2>
+
+    <p>In 1997, U.S. companies spent <strong>over $100 billion</strong> on management consultants and training — a significant fraction aimed at developing world-class operational capabilities like Toyota's manufacturing prowess or Dell's supply chain management. Yet, <strong>few efforts produce significant, lasting results</strong>.</p>
+
+    <div class="card warning">
+        <h4>🔑 The Core Paradox</h4>
+        <p>Companies that <em>do</em> make a serious commitment to improvement methods (e.g., TQM, Six Sigma) <strong>outperform their competitors</strong>. The techniques have proven value. Yet fewer than <strong>10% of Fortune 1000</strong> firms have well-developed programs, and TQM fell from the 3rd to the 14th most-used business tool between 1993 and 1999.</p>
+        <p style="margin-bottom:0;">The problem isn't finding good tools — it's <strong>implementing</strong> them successfully.</p>
+    </div>
+
+    <p>The authors spent over a decade studying process improvement across industries (telecom, semiconductors, chemicals, oil, autos, recreational products) using in-depth case studies and <strong>system dynamics</strong> modeling. Their central finding:</p>
+
+    <blockquote>
+        "The inability of most organizations to reap the full benefit of these innovations has little to do with the specific improvement tool they select. Instead, the problem has its roots in <strong>how the introduction of a new improvement program interacts with the physical, economic, social, and psychological structures</strong> in which implementation takes place."
+    </blockquote>
+
+    <p>In short: <strong>It's a systemic problem</strong>, not merely a tool problem, a leadership problem, or a people problem.</p>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section id="physics">
+    <h2>2. The "Physics" of Process Improvement</h2>
+
+    <p>At its core, the performance of any process depends on exactly <strong>two factors</strong>:</p>
+
+    <div class="two-col">
+        <div class="card accent">
+            <h4>① Time Spent Working</h4>
+            <p>Hours spent producing output. Boosting the workweek 20% might raise output 20% — but only for the duration of that overtime. <strong>Temporary gains.</strong></p>
+        </div>
+        <div class="card accent">
+            <h4>② Process Capability</h4>
+            <p>The productivity &amp; quality of the process itself. Improving capability boosts <strong>every subsequent hour</strong> of effort. <strong>Enduring gains.</strong></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h4>🏭 Concrete Example — Manufacturing</h4>
+        <p><strong>Net Usable Output = Labor Hours × Productivity (usable units/hour)</strong></p>
+        <p>Overtime spent reworking defects boosts output <em>today</em>. Eliminating root causes of those defects <strong>permanently</strong> reduces rework needs. The latter is far more valuable — but it doesn't help with <em>today's</em> shipment that's already late.</p>
+    </div>
+
+    <p>Critically, <strong>capability is a stock</strong> (an asset that accumulates). Investing time in improvement builds this stock over time — but with a delay. Capability also erodes: machines wear, processes drift, designs become obsolete. Without ongoing investment, capability inevitably declines.</p>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section id="feedback">
+    <h2>3. The Five Feedback Loops</h2>
+
+    <p>The authors model the dynamics of improvement using <strong>causal loop diagrams</strong> — a system dynamics technique. Five interlocking feedback loops explain why organizations so often fail at improvement.</p>
+
+    <!-- Diagram: Full Causal Loop -->
+    <div class="diagram-container">
+        <div class="label">Figure — The Complete Causal Loop Diagram of Process Improvement</div>
+        <svg viewBox="0 0 800 480" width="100%" max-width="750" style="max-width:750px;">
+            <!-- Background -->
+            <rect x="0" y="0" width="800" height="480" fill="#161b22" rx="10"/>
+
+            <!-- Stocks -->
+            <rect x="300" y="55" width="150" height="48" rx="8" fill="#1a3a2a" stroke="#3fb950" stroke-width="2"/>
+            <text x="375" y="84" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="600">Capability</text>
+
+            <!-- Flows -->
+            <text x="265" y="35" fill="#8b949e" font-size="10">Investment in</text>
+            <text x="270" y="48" fill="#8b949e" font-size="10">Capability</text>
+            <text x="460" y="120" fill="#8b949e" font-size="10">Capability</text>
+            <text x="462" y="133" fill="#8b949e" font-size="10">Erosion</text>
+
+            <!-- Arrows into/out of Capability -->
+            <line x1="270" y1="65" x2="300" y2="65" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrowG)"/>
+            <line x1="450" y1="103" x2="450" y2="130" stroke="#f85149" stroke-width="1.5" marker-end="url(#arrowR)"/>
+
+            <!-- Variables -->
+            <rect x="50" y="175" width="130" height="32" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+            <text x="115" y="196" text-anchor="middle" fill="#e6edf3" font-size="11">Time on Improvement</text>
+
+            <rect x="530" y="200" width="130" height="32" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+            <text x="595" y="222" text-anchor="middle" fill="#e6edf3" font-size="11">Time Spent Working</text>
+
+            <rect x="280" y="290" width="150" height="32" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+            <text x="355" y="312" text-anchor="middle" fill="#e6edf3" font-size="11">Actual Performance</text>
+
+            <rect x="560" y="320" width="130" height="32" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+            <text x="625" y="342" text-anchor="middle" fill="#e6edf3" font-size="11">Desired Performance</text>
+
+            <rect x="280" y="370" width="150" height="32" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+            <text x="355" y="392" text-anchor="middle" fill="#e6edf3" font-size="11">Performance Gap</text>
+
+            <!-- Time on Improvement -> Investment in Capability -->
+            <line x1="130" y1="175" x2="220" y2="90" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+            <!-- Investment in Capability -> Capability (delay) -->
+            <text x="265" y="57" fill="#8b949e" font-size="9" font-style="italic">DELAY</text>
+
+            <!-- Time on Improvement -(neg)> Time Working (Shortcuts link) -->
+            <line x1="180" y1="190" x2="530" y2="210" stroke="#f85149" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowR)"/>
+            <text x="350" y="200" text-anchor="middle" fill="#f85149" font-size="9">(−) Shortcuts</text>
+
+            <!-- Time Working -> Actual Performance -->
+            <line x1="590" y1="232" x2="430" y2="295" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrowB)"/>
+            <text x="545" y="265" fill="#8b949e" font-size="9">(+)</text>
+
+            <!-- Capability -> Actual Performance -->
+            <line x1="375" y1="103" x2="375" y2="290" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrowG)"/>
+            <text x="385" y="200" fill="#8b949e" font-size="9">(+)</text>
+
+            <!-- Actual Performance -> Performance Gap (-) -->
+            <line x1="355" y1="322" x2="355" y2="370" stroke="#f85149" stroke-width="1.5" marker-end="url(#arrowR)"/>
+            <text x="365" y="350" fill="#8b949e" font-size="9">(−)</text>
+
+            <!-- Desired Performance -> Performance Gap (+) -->
+            <line x1="610" y1="352" x2="430" y2="380" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrowB)"/>
+            <text x="545" y="372" fill="#8b949e" font-size="9">(+)</text>
+
+            <!-- Performance Gap -> Pressure to Do Work -->
+            <text x="410" y="430" fill="#e6edf3" font-size="10">Pressure to Do Work</text>
+            <line x1="355" y1="402" x2="530" y2="360" stroke="#58a6ff" stroke-width="1.5"/>
+
+            <!-- Pressure to Do Work -> Time Working (+) -->
+            <text x="590" y="255" fill="#8b949e" font-size="9">(+)</text>
+
+            <!-- Performance Gap -> Pressure to Improve Capability -->
+            <text x="180" y="430" fill="#e6edf3" font-size="10">Pressure to Improve</text>
+            <line x1="280" y1="395" x2="130" y2="207" stroke="#58a6ff" stroke-width="1.5"/>
+
+            <!-- === LOOP LABELS === -->
+            <!-- B1 Work Harder -->
+            <rect x="620" y="360" width="122" height="20" rx="10" fill="#0d419d44" stroke="#58a6ff" stroke-width="1"/>
+            <text x="681" y="374" text-anchor="middle" fill="#58a6ff" font-size="9" font-weight="600">B1 Work Harder</text>
+
+            <!-- B2 Work Smarter -->
+            <rect x="25" y="235" width="122" height="20" rx="10" fill="#0d419d44" stroke="#58a6ff" stroke-width="1"/>
+            <text x="86" y="249" text-anchor="middle" fill="#58a6ff" font-size="9" font-weight="600">B2 Work Smarter</text>
+
+            <!-- R1 Reinvestment -->
+            <rect x="300" y="440" width="130" height="20" rx="10" fill="#9d3e0d33" stroke="#f0883e" stroke-width="1"/>
+            <text x="365" y="454" text-anchor="middle" fill="#f0883e" font-size="9" font-weight="600">R1 Reinvestment</text>
+
+            <!-- B3 Shortcuts -->
+            <rect x="250" y="160" width="100" height="20" rx="10" fill="#9d3e0d33" stroke="#f0883e" stroke-width="1"/>
+            <text x="300" y="174" text-anchor="middle" fill="#f0883e" font-size="9" font-weight="600">B3 Shortcuts</text>
+
+            <!-- Arrow defs -->
+            <defs>
+                <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <polygon points="0,0 8,3 0,6" fill="#3fb950"/>
+                </marker>
+                <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <polygon points="0,0 8,3 0,6" fill="#f85149"/>
+                </marker>
+                <marker id="arrowB" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <polygon points="0,0 8,3 0,6" fill="#58a6ff"/>
+                </marker>
+            </defs>
+        </svg>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-line" style="background:#58a6ff;"></span> Positive (+) Link</div>
+            <div class="legend-item"><span class="legend-line" style="background:#f85149;"></span> Negative (−) Link</div>
+            <div class="legend-item"><span class="legend-line" style="background:#3fb950;"></span> Flow into Stock</div>
+            <div class="legend-item"><span class="legend-line" style="background:#f0883e; border:1px dashed #f0883e;"></span> Key Crossover Link</div>
+        </div>
+    </div>
+
+    <h3>Loop-by-Loop Breakdown</h3>
+
+    <div class="card">
+        <h4><span class="loop-badge balancing">B1</span> Work Harder (Balancing)</h4>
+        <p>Performance Gap ↑ → Pressure to Do Work ↑ → Time Spent Working ↑ → Actual Performance ↑ → Gap ↓</p>
+        <p><em>"Push people harder, get more output."</em> Works immediately, but gains are temporary. Includes overtime, stricter targets, frequent status reviews, and penalties for missed targets.</p>
+    </div>
+
+    <div class="card">
+        <h4><span class="loop-badge balancing">B2</span> Work Smarter (Balancing)</h4>
+        <p>Performance Gap ↑ → Pressure to Improve Capability ↑ → Time on Improvement ↑ → (with delay) Capability ↑ → Actual Performance ↑ → Gap ↓</p>
+        <p><em>"Invest in better processes, get enduring gains."</em> But there's a <strong>significant delay</strong> between effort and results — months in simple settings, years for complex processes like product development.</p>
+    </div>
+
+    <div class="card warning">
+        <h4><span class="loop-badge reinforcing">R1</span> Reinvestment (Reinforcing)</h4>
+        <p>This is the loop that <strong>amplifies</strong> whatever direction you're heading. Time on improvement &amp; time working compete for finite resources. When performance improves, people have <em>more</em> time for improvement (virtuous cycle). When performance lags, people cut improvement to work more, capability erodes, and the gap grows (vicious cycle).</p>
+    </div>
+
+    <div class="card warning">
+        <h4><span class="loop-badge balancing">B3</span> Shortcuts (Balancing)</h4>
+        <p>Performance Gap ↑ → Pressure ↑ → Time on Improvement ↓ → Time Working ↑ → Performance ↑ → Gap ↓</p>
+        <p>The <strong>most deceptive</strong> loop. Cutting improvement activities immediately frees time for production and closes the gap — but capability erodes <em>later</em>. This creates the <strong>"better before worse"</strong> dynamic that makes shortcuts so seductive.</p>
+    </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section id="capability-trap">
+    <h2>4. The Capability Trap Explained</h2>
+
+    <p>The interaction of the Shortcuts (B3) and Reinvestment (R1) loops creates what the authors call the <strong>Capability Trap</strong>:</p>
+
+    <div class="card warning">
+        <h4>⚠️ The Trap Mechanism</h4>
+        <ol>
+            <li>Facing a performance shortfall, managers pressure workers to produce more.</li>
+            <li>Workers respond by cutting improvement time (Shortcuts loop) — throughput rises <em>immediately</em>.</li>
+            <li>Capability doesn't drop right away — there's a "grace period."</li>
+            <li>Over time, capability erodes. The performance gap <em>widens</em> despite more effort.</li>
+            <li>Managers apply <em>even more</em> production pressure. Workers cut <em>more</em> improvement time.</li>
+            <li>The Reinvestment loop (R1) now operates as a <strong>vicious cycle</strong>, driving capability to minimal levels.</li>
+        </ol>
+    </div>
+
+    <h3>"Better Before Worse" vs. "Worse Before Better"</h3>
+
+    <div class="two-col">
+        <div class="card" style="border-left:4px solid var(--red);">
+            <h4 style="color:var(--red);">Working Harder</h4>
+            <p><strong>Better Before Worse</strong></p>
+            <p>Output rises immediately when you cut improvement time. But capability gradually erodes, eventually more than offsetting the initial gains. You end up <em>worse</em> than where you started.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green);">
+            <h4 style="color:var(--green);">Working Smarter</h4>
+            <p><strong>Worse Before Better</strong></p>
+            <p>Investing in improvement <em>reduces</em> output in the short run (time is diverted from production). Eventually, capability rises more than enough to compensate. You end up <em>permanently better off</em>.</p>
+        </div>
+    </div>
+
+    <blockquote>
+        A manufacturing supervisor at an auto company captured the trap perfectly: <strong>"In the minds of the team leaders they had to hit their pack counts. This meant if you were having a bad day... you had to run like crazy to hit your target. You could say, 'You are making 20% garbage, stop the line and fix the problem,' and they would say, 'I can't hit my pack count without running like crazy.' They could never get ahead of the game."</strong>
+    </blockquote>
+
+    <p>The capability trap is <strong>not limited to manufacturing</strong>. The authors observed it in financial services, construction, and product development. An engineering manager described how engineers skipped documenting reusable designs to hit project deadlines — preventing the organization from ever building a shared knowledge base.</p>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section id="attribution">
+    <h2>5. Why the Trap Persists — The Self-Confirming Attribution Error</h2>
+
+    <p>Given enough time, shouldn't managers figure out they're in the trap? The authors argue <strong>the structure of the system makes that extremely unlikely</strong>. In fact, the lessons managers learn typically <em>reinforce</em> the trap.</p>
+
+    <h3>The Fundamental Attribution Error</h3>
+    <p>Psychologists have shown that people tend to:</p>
+    <ul>
+        <li>Assume cause and effect are <strong>close in time and space</strong></li>
+        <li>Attribute outcomes to <strong>individuals' character</strong> rather than to the <strong>system</strong></li>
+        <li>Underestimate time delays and fail to account for feedback processes</li>
+    </ul>
+
+    <p>In the workplace, this means when a manager sees low throughput, the most visible "cause" is the worker — not a poorly-designed process, inadequate training, or deferred maintenance from months ago.</p>
+
+    <h3>How Self-Confirming Attribution Works</h3>
+
+    <div class="diagram-container">
+        <div class="label">The Vicious Cycle of Self-Confirming Attributions</div>
+        <svg viewBox="0 0 700 400" width="100%" max-width="650" style="max-width:650px;">
+            <rect x="0" y="0" width="700" height="400" fill="#161b22" rx="10"/>
+
+            <!-- Boxes -->
+            <rect x="220" y="30" width="200" height="50" rx="8" fill="#21262d" stroke="#f85149" stroke-width="1.5"/>
+            <text x="320" y="50" text-anchor="middle" fill="#f85149" font-size="12" font-weight="600">Manager attributes</text>
+            <text x="320" y="68" text-anchor="middle" fill="#f85149" font-size="12" font-weight="600">problem to lazy workers</text>
+
+            <rect x="220" y="140" width="200" height="50" rx="8" fill="#21262d" stroke="#f0883e" stroke-width="1.5"/>
+            <text x="320" y="160" text-anchor="middle" fill="#f0883e" font-size="12" font-weight="600">Increases production</text>
+            <text x="320" y="178" text-anchor="middle" fill="#f0883e" font-size="12" font-weight="600">pressure &amp; monitoring</text>
+
+            <rect x="220" y="250" width="200" height="50" rx="8" fill="#21262d" stroke="#d2991d" stroke-width="1.5"/>
+            <text x="320" y="270" text-anchor="middle" fill="#d2991d" font-size="12" font-weight="600">Workers cut corners</text>
+            <text x="320" y="288" text-anchor="middle" fill="#d2991d" font-size="12" font-weight="600">&amp; hide problems</text>
+
+            <rect x="220" y="340" width="200" height="40" rx="8" fill="#21262d" stroke="#3fb950" stroke-width="1.5"/>
+            <text x="320" y="365" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="600">Throughput rises briefly ✓</text>
+
+            <!-- Arrows -->
+            <line x1="320" y1="80" x2="320" y2="140" stroke="#f0883e" stroke-width="2" marker-end="url(#aO)"/>
+            <line x1="320" y1="190" x2="320" y2="250" stroke="#d2991d" stroke-width="2" marker-end="url(#aY)"/>
+            <line x1="320" y1="300" x2="320" y2="340" stroke="#3fb950" stroke-width="2" marker-end="url(#aG)"/>
+
+            <!-- Feedback arrow: "Confirms manager's belief" -->
+            <path d="M420,360 Q550,360 550,200 Q550,55 420,55" fill="none" stroke="#58a6ff" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#aB)"/>
+            <text x="565" y="200" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="600">"I was right —</text>
+            <text x="565" y="218" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="600">they WERE slacking!"</text>
+
+            <!-- Long-run outcome -->
+            <rect x="40" y="240" width="140" height="60" rx="8" fill="#f8514922" stroke="#f85149" stroke-width="1.5"/>
+            <text x="110" y="262" text-anchor="middle" fill="#f85149" font-size="11" font-weight="600">Capability erodes</text>
+            <text x="110" y="280" text-anchor="middle" fill="#f85149" font-size="11" font-weight="600">over time...</text>
+
+            <path d="M220,270 L180,270" stroke="#f8514922" stroke-width="2" stroke-dasharray="4,4"/>
+
+            <defs>
+                <marker id="aO" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#f0883e"/></marker>
+                <marker id="aY" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#d2991d"/></marker>
+                <marker id="aG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#3fb950"/></marker>
+                <marker id="aB" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0,0 8,3 0,6" fill="#58a6ff"/></marker>
+            </defs>
+        </svg>
+    </div>
+
+    <p>The cycle works as follows:</p>
+    <ol>
+        <li><strong>Manager assumes workers are lazy/unmotivated</strong> → increases production pressure.</li>
+        <li>Workers respond by cutting breaks AND cutting improvement time (shortcuts).</li>
+        <li><strong>Throughput rises</strong> — the manager sees only this result, not the hidden sacrifice.</li>
+        <li>This "confirms" the manager's original belief: <em>"See, they just needed to work harder."</em></li>
+        <li>Over time, capability erodes → performance drops → manager interprets this as workers slacking off <em>again</em>.</li>
+        <li><strong>Even more pressure</strong> is applied. The cycle intensifies.</li>
+    </ol>
+
+    <div class="card warning">
+        <h4>🔴 The Tragic Irony</h4>
+        <p>Managers' worst fears about workers <strong>become true as a consequence of their own actions</strong>. Workers, under crushing pressure, do start cutting corners, hiding problems, and working around processes. The manager's initial erroneous attribution becomes a <strong>self-fulfilling prophecy</strong>.</p>
+    </div>
+
+    <blockquote>
+        As one engineer put it: <strong>"Nobody ever gets credit for fixing problems that never happened."</strong> Organizations reward the heroes who save troubled projects through heroic last-minute effort — not those who prevent crises through methodical improvement work.
+    </blockquote>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section id="superstitious">
+    <h2>6. Superstitious Learning &amp; Why Improvement Programs Fail</h2>
+
+    <p>When an organization trapped in the capability trap attempts to launch an improvement program (TQM, Six Sigma, etc.), a predictable sequence unfolds:</p>
+
+    <h3>The Double Bind</h3>
+    <div class="card">
+        <p>Management imposes <strong>aggressive stretch objectives</strong> for <em>both</em> throughput and improvement simultaneously — believing that aggressive goals are needed to motivate people and that engineers/workers have slack they're not using.</p>
+    </div>
+
+    <p>Workers now face an impossible situation. They must:</p>
+    <ul>
+        <li>Hit aggressive production targets <em>and</em></li>
+        <li>Invest significant time learning and applying new improvement tools</li>
+    </ul>
+
+    <p>Since production targets are immediate and non-negotiable, workers <strong>cut corners on improvement</strong>. They appear to follow the new process while actually working around it. As one engineer said: <em>"We had a due date and we did whatever it took to hit it."</em></p>
+
+    <h3>What Managers See vs. What Engineers Experience</h3>
+
+    <table>
+        <tr><th>Managers Say</th><th>Engineers/Workers Say</th></tr>
+        <tr>
+            <td>"Engineers lack discipline. It's a Wild West culture."</td>
+            <td>"We never had time to take the courses... It was really exhausting trying to learn the tools and do the design at the same time."</td>
+        </tr>
+        <tr>
+            <td>"They view process as bureaucratic, no value-add."</td>
+            <td>"People had to do their normal work as well. There just weren't enough hours in the day."</td>
+        </tr>
+        <tr>
+            <td>"They brushed it off."</td>
+            <td>"Most of the team was working 7:00 AM to 8:00 PM and on weekends. A lot of people worked right through Christmas vacation."</td>
+        </tr>
+        <tr>
+            <td>"They just wanted the fancy tools, to hell with process."</td>
+            <td>"The new process is a good one. Someday I'd like to work on a project that actually uses it."</td>
+        </tr>
+    </table>
+
+    <h3>The Downward Spiral</h3>
+    <p>The result is a destructive dynamic:</p>
+    <ol>
+        <li>Improvement programs add stress → triggers more work pressure → prevents investment in improvement.</li>
+        <li>If people <em>do</em> invest time in improvement, performance drops in the short term (worse-before-better).</li>
+        <li>Managers, seeing no improvement, conclude the method doesn't work → <strong>abandon it</strong>.</li>
+        <li>They search for a new, more promising tool → same fate → growing cynicism about <strong>"flavor of the month"</strong> programs.</li>
+    </ol>
+
+    <h3>Deeper Cultural Embedding</h3>
+    <p>Over time, the capability trap gets embedded in organizational culture:</p>
+    <ul>
+        <li><strong>Hero culture:</strong> Those who "save" troubled projects through heroic firefighting get promoted.</li>
+        <li><strong>Management pipeline:</strong> Senior leaders are increasingly war heroes who groom other can-do firefighters.</li>
+        <li><strong>Hidden problems:</strong> In one firm, engineers called weekly reviews the <strong>"liars' club"</strong> — everyone overstated progress and hid defects.</li>
+        <li><strong>Pernicious stereotypes:</strong> A senior manager attributed failure to "the undisciplined character of Western engineers" — blaming national culture rather than the systemic pressures he himself helped create.</li>
+    </ul>
+</section>
+
+<!-- ============ SECTION 7 ============ -->
+<section id="overcoming">
+    <h2>7. Overcoming the Capability Trap — Two Case Studies</h2>
+
+    <p>The authors present two detailed cases showing that <strong>breaking the trap is possible</strong>, but requires fundamentally shifting mental models — not just deploying new tools.</p>
+
+    <blockquote>
+        "There are two theories. One says, 'there's a problem, let's fix it.' The other says 'we have a problem, someone is screwing up, let's go beat them up.' To make improvement, we could no longer embrace the second theory, we had to use the first." 
+        <br>— <strong>Manager in a successful improvement effort</strong>
+    </blockquote>
+
+    <hr>
+
+    <h3>Case Study 1: Du Pont — The Manufacturing Game</h3>
+
+    <div class="card success">
+        <h4>🏭 The Problem</h4>
+        <p>In 1991, benchmarking revealed a paradox: Du Pont spent <strong>10–30% more on maintenance</strong> per dollar of plant value than industry leaders, yet had <strong>10–15% lower plant uptime</strong>. More maintenance employees, more overtime, more spare parts — but worse results.</p>
+    </div>
+
+    <p><strong>Root cause:</strong> Cost-cutting since the 1973 oil crisis had pushed plants into the capability trap. Reactive maintenance crowded out planned maintenance, which caused more breakdowns, which required more reactive maintenance, which eroded uptime, which pressured operators to skip scheduled maintenance...</p>
+
+    <div class="card success">
+        <h4>🎮 The Solution</h4>
+        <p>Winston Ledet's team built a system dynamics model, then turned it into an <strong>interactive role-playing simulation — The Manufacturing Game</strong>. The game compressed years of capability-trap dynamics into a few hours. Players experienced the "worse-before-better" dynamic in a safe environment.</p>
+        <p>Workshops included lectures, skits, music, and participative exercises in an off-site setting — deliberately different from routine plant meetings to <strong>open up thinking</strong>.</p>
+    </div>
+
+    <div class="card success">
+        <h4>📊 Results</h4>
+        <ul>
+            <li>1,200+ participants by end of 1992; 50+ certified facilitators</li>
+            <li>Plants implementing the program: <strong>MTBF for pumps rose 12%</strong> each time cumulative operating experience doubled</li>
+            <li>Direct maintenance costs <strong>fell ~20%</strong></li>
+            <li>Non-implementing plants: learning rate was only 5%, costs <em>rose</em> 7%</li>
+            <li>Washington Works: production capability <strong>+20%</strong>, customer service <strong>+90%</strong>, lead time <strong>−50%</strong></li>
+            <li>Company-wide: <strong>>$350 million/year</strong> in avoided maintenance costs (conservative estimate)</li>
+        </ul>
+    </div>
+
+    <p><strong>Key insight:</strong> The game didn't teach anyone <em>how</em> to maintain equipment. People already had the technical know-how. What changed was their <strong>mental model</strong> about whether improvement was possible and whether they had agency to make a difference.</p>
+
+    <hr>
+
+    <h3>Case Study 2: BP's Lima Refinery — Rescue from Closure</h3>
+
+    <div class="card success">
+        <h4>🛢️ The Problem</h4>
+        <p>BP's Lima, Ohio refinery — once the "Queen of the Fleet" (founded by Rockefeller in 1886) — had spiraled into the capability trap through 1980s cost-cutting. By the early 1990s, it lagged far behind other U.S. refineries. <strong>BP planned to sell or close it.</strong></p>
+    </div>
+
+    <div class="card success">
+        <h4>🔄 The Turnaround</h4>
+        <p>In 1994, the refinery introduced the maintenance learning lab. Champions were <strong>not top management</strong> — they were an equipment specialist, a maintenance training supervisor, and an engineer. Eventually <strong>80% of all employees</strong> participated.</p>
+    </div>
+
+    <p><strong>They experienced the worse-before-better dynamic head-on:</strong> maintenance costs ballooned 30% in the first six months. But <em>because they had experienced this in the game</em>, management was prepared and stayed the course.</p>
+
+    <p>Then BP announced it would <strong>close the refinery</strong> (no buyer at a satisfactory price). Many experienced people left. But those who stayed developed a new spirit:</p>
+
+    <blockquote>
+        "For those who decided to stay with the ship, a new spirit emerged. They realized that they needed a future in Lima and should take responsibility for creating that future." — <strong>Winston Ledet</strong>
+    </blockquote>
+
+    <div class="card success">
+        <h4>📊 Results</h4>
+        <table>
+            <tr><th>Metric</th><th>Before</th><th>After</th></tr>
+            <tr><td>Pump MTBF</td><td>12 months</td><td><strong>58 months</strong></td></tr>
+            <tr><td>Pump failures/year</td><td>640+ (1991)</td><td><strong>131 (1998)</strong></td></tr>
+            <tr><td>Hydrocarbon flare-off</td><td>1.5%</td><td><strong>0.35%</strong></td></tr>
+            <tr><td>On-line analyzer uptime</td><td>75% (untrusted)</td><td><strong>97% (trusted)</strong></td></tr>
+            <tr><td>Safety incidents</td><td>Baseline</td><td><strong>Cut by factor of 4</strong></td></tr>
+            <tr><td>Production records set</td><td>—</td><td><strong>34</strong></td></tr>
+            <tr><td>Cash margin improvement</td><td>—</td><td><strong>$0.77/barrel</strong></td></tr>
+            <tr><td>Total new value created</td><td>—</td><td><strong>$43M/year</strong></td></tr>
+            <tr><td>Total program cost</td><td>—</td><td><strong>$320K/year (143:1 ROI)</strong></td></tr>
+        </table>
+    </div>
+
+    <p>On July 2, 1998, the banner headline of the <em>Lima News</em> read: <strong>"Oil Refinery Rescued."</strong> Clark USA bought the refinery for $215 million and kept it operating.</p>
+
+    <div class="card accent">
+        <h4>💡 The Most Striking Example</h4>
+        <p>A BP team reduced butane flare-off to zero, saving <strong>$1.5 million/year</strong> and reducing pollution. The effort took <strong>two weeks and cost $5,000</strong> — a <strong>30,000% annual ROI</strong>.</p>
+        <p>Members of the team had known about the problem <strong>and how to solve it for eight years</strong>. All the engineering know-how, equipment, and materials were already on site.</p>
+        <p><strong>The only barrier was the mental model</strong> that there were no resources or time for improvement, that these problems were outside their control, and that they could never make a difference.</p>
+    </div>
+</section>
+
+<!-- ============ SECTION 8 ============ -->
+<section id="key-takeaways">
+    <h2>8. Key Takeaways</h2>
+
+    <div class="card accent">
+        <h4>🎯 1. The Problem Is Systemic, Not Personal</h4>
+        <p>The capability trap isn't caused by lazy workers, bad managers, or the wrong improvement tool. It emerges from the <strong>interaction of physical, economic, social, and psychological structures</strong>. Blaming individuals makes it worse.</p>
+    </div>
+
+    <div class="card accent">
+        <h4>⏳ 2. "Worse Before Better" Is Inevitable — Plan for It</h4>
+        <p>Any serious improvement effort will cause short-term performance dips. Organizations that don't anticipate and budget for this will abandon improvement before it pays off. The BP Lima team experienced 30% cost increases before the turnaround.</p>
+    </div>
+
+    <div class="card accent">
+        <h4>🔄 3. Reinvest the Gains</h4>
+        <p>When improvement does yield productivity gains, explicitly reinvest freed resources into <em>further</em> improvement. If you downsize or raise targets immediately, you'll break the virtuous reinvestment loop and slide back into the trap.</p>
+    </div>
+
+    <div class="card accent">
+        <h4>🧠 4. Change Mental Models First, Tools Second</h4>
+        <p>The Manufacturing Game worked because it let people <em>experience</em> the system dynamics — compressing years into hours — in an emotionally engaging, experiential way. The technical know-how was already present. The barrier was the belief that improvement was impossible.</p>
+    </div>
+
+    <div class="card accent">
+        <h4>🏆 5. Reward Problem Prevention, Not Just Heroic Firefighting</h4>
+        <p>As long as promotions and recognition go to those who save troubled projects through heroic overtime, the capability trap will persist. Organizations must learn to value and reward the quiet work of preventing problems — even though "nobody ever gets credit for fixing problems that never happened."</p>
+    </div>
+
+    <div class="card accent">
+        <h4>👥 6. Bottom-Up Champions Matter</h4>
+        <p>Both Du Pont and BP Lima succeeded with champions who were <em>not</em> top-down mandates. The BP Lima effort was started by an equipment specialist and a training supervisor. Success spread through word of mouth and demonstrated results.</p>
+    </div>
+</section>
+
+<hr>
+
+<section id="sources">
+    <h2>Sources &amp; Further Reading</h2>
+    <ul>
+        <li><strong>Primary paper:</strong> Repenning, N.P. &amp; Sterman, J.D. (2001). "Nobody Ever Gets Credit for Fixing Problems that Never Happened: Creating and Sustaining Process Improvement." <em>California Management Review</em>, 43(4), 64–88.</li>
+        <li><strong>Related work by the authors:</strong> Sterman, J.D., Repenning, N.P., &amp; Kofman, F. (1997). "Unanticipated Side Effects of Successful Quality Programs." <em>Management Science</em>, 43(4), 503–521.</li>
+        <li>Sterman, J.D. (2000). <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. Irwin/McGraw-Hill.</li>
+        <li>Repenning, N.P. (2000). "Drive Out Fear (Unless You Can Drive It In)." <em>Management Science</em>, 46(11), 1385–1396.</li>
+        <li>For the Du Pont case: Ledet, W. (1999). "Engaging the Entire Organization: Key to Improving Reliability." <em>Oil and Gas Journal</em>, 97(21), 54–57.</li>
+    </ul>
+</section>
+
+<div class="footnote">
+    <p>This explanation was generated based on the full text of the paper retrieved from MIT. The paper was published in the <em>California Management Review</em>, Volume 43, Number 4 (Summer 2001), pages 64–88. The research was supported by the MIT Center for Innovation in Product Development under NSF Cooperative Agreement Number EEC-9529140.</p>
+</div>
+
+</div>
+
+</body>
+</html>
