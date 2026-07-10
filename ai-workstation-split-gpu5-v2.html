@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>AI Workstation: Splitting GPU 5 into a Dedicated Inference Box</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #f78166;
+    --green: #3fb950;
+    --red: #f85149;
+    --yellow: #d2991d;
+    --code-bg: #1c2128;
+    --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 { font-size: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin: 2rem 0 1rem; color: #f0f6fc; }
+  h2 { font-size: 1.35rem; margin: 2rem 0 0.75rem; color: #f0f6fc; border-bottom: 1px solid var(--border); padding-bottom: 0.35rem; }
+  h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: #f0f6fc; }
+  h4 { font-size: 1rem; margin: 1.25rem 0 0.4rem; color: #e6edf3; }
+  p { margin: 0.6rem 0; }
+  strong { color: #f0f6fc; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+    /* allow horizontal scrolling on narrow screens via wrapper */
+  }
+  th {
+    background: var(--surface2);
+    color: #f0f6fc;
+    text-align: left;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  td {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--surface); }
+  tr:nth-child(odd) td { background: transparent; }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .table-wrap table {
+    margin: 0;
+    border: none;
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin: 0.8rem 0;
+    white-space: pre-wrap;
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--surface);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    background: var(--surface);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-muted);
+  }
+  blockquote p { margin: 0.25rem 0; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+  li { margin: 0.25rem 0; }
+
+  .summary-box {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .summary-box ul { list-style: none; margin-left: 0; }
+  .summary-box li::before { content: "\2713\00a0"; color: var(--green); font-weight: bold; }
+
+  .cost-box {
+    background: var(--surface);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .cost-box .label { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .cost-box .amount { font-size: 1.5rem; font-weight: 700; color: var(--green); }
+
+  .warn-box {
+    background: var(--surface);
+    border: 1px solid var(--red);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .diagram {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 1rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.4;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--text-muted);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag-ok { background: #1a3a1a; color: var(--green); }
+  .tag-warn { background: #3a2a0a; color: var(--yellow); }
+  .tag-fail { background: #3a1a1a; color: var(--red); }
+  .tag-info { background: #1a2a3a; color: var(--accent); }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0; }
+  .toc ol { margin-left: 1.2rem; }
+  .toc li { margin: 0.3rem 0; }
+  .toc a { color: var(--accent); }
+
+  .batching-diagram {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    margin: 1rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.77rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 0.75rem 0.6rem; font-size: 0.95rem; }
+    h1 { font-size: 1.3rem; margin-top: 0.5rem; }
+    h2 { font-size: 1.1rem; margin-top: 1.5rem; }
+    h3 { font-size: 1rem; }
+    h4 { font-size: 0.9rem; }
+
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      font-size: 0.75rem;
+    }
+    th, td { padding: 5px 7px; white-space: nowrap; }
+
+    pre, .diagram, .batching-diagram {
+      font-size: 0.68rem;
+      padding: 10px 12px;
+      border-radius: 4px;
+    }
+
+    .summary-box, .cost-box, .warn-box, .toc {
+      padding: 0.85rem;
+      border-radius: 6px;
+    }
+    .cost-box .amount { font-size: 1.25rem; }
+
+    ul, ol { margin-left: 1.2rem; }
+
+    .toc ol { margin-left: 1rem; }
+    .toc a {
+      display: inline-block;
+      padding: 0.2rem 0;
+    }
+  }
+
+  /* small phones */
+  @media (max-width: 400px) {
+    body { padding: 0.5rem 0.4rem; }
+    h1 { font-size: 1.15rem; }
+    h2 { font-size: 1rem; }
+
+    table { font-size: 0.68rem; }
+    th, td { padding: 4px 5px; }
+
+    pre, .diagram, .batching-diagram {
+      font-size: 0.62rem;
+      padding: 8px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Splitting GPU 5 into a Dedicated Inference Box</h1>
+<p style="color: var(--text-muted);">Research &amp; Architecture &mdash; v2 (Corrected GPU Specs) &mdash; July 2026</p>
+
+<div class="toc">
+<strong style="color: #f0f6fc;">Contents</strong>
+<ol>
+  <li><a href="#corrections">Corrections to Initial Research</a></li>
+  <li><a href="#exec">Executive Summary</a></li>
+  <li><a href="#why-single-mess">Why a Single 5-GPU Box Is a Mess</a></li>
+  <li><a href="#vram-analysis">VRAM Analysis: What Qwen3.6 Actually Needs</a></li>
+  <li><a href="#continuous-batching">How Continuous Batching Works</a></li>
+  <li><a href="#architecture">Proposed Two-Box Architecture</a></li>
+  <li><a href="#box1">Box 1: GLM Workstation (GPUs 1&ndash;4)</a></li>
+  <li><a href="#box2">Box 2: Qwen Inference Box</a></li>
+  <li><a href="#networking">Networking Architecture</a></li>
+  <li><a href="#software">Software Architecture: Inter-Box Offload Pattern</a></li>
+  <li><a href="#cost">Cost Comparison</a></li>
+  <li><a href="#budget">Alternative: RTX 5080 Budget Qwen Box</a></li>
+  <li><a href="#deployment">Deployment Sequence</a></li>
+  <li><a href="#risk">Risk Assessment</a></li>
+  <li><a href="#recommendations">Recommendations</a></li>
+</ol>
+</div>
+
+<!-- ================================================================== -->
+<h2 id="corrections">Corrections to Initial Research</h2>
+
+<p>The <code>initial-research.md</code> contained errors in consumer GPU specifications. This document uses <strong>verified</strong> specs:</p>
+
+<table>
+  <tr><th>GPU</th><th>VRAM</th><th>TDP</th><th>Correct?</th></tr>
+  <tr><td>RTX 6000 Pro Blackwell (workstation)</td><td>96 GB GDDR7</td><td>600 W</td><td class="tag tag-ok">Yes</td></tr>
+  <tr><td><strong>RTX 5090</strong> (consumer flagship)</td><td><strong>32 GB GDDR7</strong></td><td><strong>575 W</strong></td><td class="tag tag-warn">Fixed &mdash; original incorrectly stated 96 GB / 450 W</td></tr>
+  <tr><td><strong>RTX 5080</strong> (consumer high-end)</td><td><strong>16 GB GDDR7</strong></td><td><strong>360 W</strong></td><td class="tag tag-warn">Fixed &mdash; original incorrectly stated 48 GB / 350 W</td></tr>
+  <tr><td>RTX 5070 Ti</td><td>16 GB GDDR7</td><td>300 W</td><td class="tag tag-warn">Fixed &mdash; original incorrectly stated 24 GB</td></tr>
+</table>
+
+<p><strong>Qwen3.6 model sizing correction:</strong> Qwen3.6 is available only as <strong>27B dense</strong> or <strong>35B Mixture of Experts (MoE)</strong> &mdash; NOT 72B or 32B as previously assumed. This dramatically changes VRAM requirements and GPU selection for the Qwen box.</p>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="exec">Executive Summary</h2>
+
+<p>The original 5-GPU single-box design presents significant deployment friction: 5 dual-slot GPUs need 10 physical PCIe slots, yet the best available 4U chassis offers only 7, forcing riser gymnastics. Thermal density (~3.5 kW in one enclosure) demands exotic cooling and risks throttling. Power delivery borders on the limits of a single domestic circuit. Operationally, the GLM-5.2 and Qwen3.6 workloads have fundamentally different requirements &mdash; co-locating them couples their fates.</p>
+
+<p><strong>Key new finding:</strong> With corrected GPU specs and Qwen3.6 model sizes, the Qwen box does <strong>not</strong> need an RTX 6000 Pro. An RTX 5090 (32 GB) comfortably runs Qwen3.6-35B MoE for 4+ concurrent users at less than a quarter of the cost. This means the two-box split can actually <strong>save</strong> significant money versus the original single-box design while eliminating all deployment problems.</p>
+
+<div class="summary-box">
+<strong>Two-box outcome:</strong>
+<ul>
+  <li>Eliminates the PCIe slot crisis (4 GPUs = 8 slots, fits in standard chassis)</li>
+  <li>Cools both boxes with commodity air cooling, no exotic water loops</li>
+  <li>Keeps per-box power under 3 kW (fits standard circuits)</li>
+  <li>Isolates failure domains (Qwen stays up when GLM reboots, and vice versa)</li>
+  <li>Costs ~A$10,500 <strong>less</strong> than a corrected single-box, or roughly break-even with the original estimate &mdash; while solving all deployment problems</li>
+</ul>
+</div>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="why-single-mess">1. Why a Single 5-GPU Box Is a Mess</h2>
+
+<table>
+  <tr><th>Problem</th><th>Detail</th></tr>
+  <tr><td><strong>PCIe slot count</strong></td><td>5 dual-slot GPUs = 10 slots. Best available 4U chassis has 7. Requires risers, vertical mounts, frame hacking.</td></tr>
+  <tr><td><strong>Thermal density</strong></td><td>5 &times; 600 W + 350 W CPU = ~3.5 kW in one enclosure. Air hits 85&deg;C+ on inner cards; water needs 3+ radiators, 5 GPU blocks, massive pump.</td></tr>
+  <tr><td><strong>Power</strong></td><td>3.5 kW at 230 V = 15.2 A. Pushes a standard 16 A/20 A Australian circuit to its limit.</td></tr>
+  <tr><td><strong>Operational coupling</strong></td><td>GLM reboot kills Qwen. Qwen automation runaway starves GLM inference.</td></tr>
+  <tr><td><strong>Noise</strong></td><td>5 &times; 600 W GPU fans + chassis fans = ~65&ndash;70 dBA. Requires server room.</td></tr>
+  <tr><td><strong>Upgrade rigidity</strong></td><td>Expanding either GLM or Qwen capacity means re-engineering the whole system.</td></tr>
+  <tr><td><strong>Gross GPU mismatch</strong></td><td>GPU 5 (96 GB, 600 W) is massive overkill for Qwen3.6-35B which needs only ~22 GB. Wasting 74 GB VRAM and 600 W on a model that would run perfectly on a consumer card.</td></tr>
+</table>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="vram-analysis">2. VRAM Analysis: What Qwen3.6 Actually Needs</h2>
+
+<h3>2.1 Model Weight Memory</h3>
+
+<table>
+  <tr><th>Qwen3.6 Variant</th><th>Quantization</th><th>Bytes per param</th><th>Model VRAM</th></tr>
+  <tr><td>27B dense</td><td>FP16</td><td>2.0</td><td>~54 GB</td></tr>
+  <tr><td>27B dense</td><td>Q8_0 (8-bit)</td><td>1.0</td><td>~27 GB</td></tr>
+  <tr><td>27B dense</td><td>Q6_K (6-bit)</td><td>0.75</td><td>~20 GB</td></tr>
+  <tr><td>27B dense</td><td>IQ4_XS (4-bit)</td><td>~0.55</td><td><strong>~15 GB</strong></td></tr>
+  <tr><td>35B MoE</td><td>FP16</td><td>2.0</td><td>~70 GB</td></tr>
+  <tr><td>35B MoE</td><td>Q6_K (6-bit)</td><td>0.75</td><td>~26 GB</td></tr>
+  <tr><td>35B MoE</td><td>IQ4_XS (4-bit)</td><td>~0.55</td><td><strong>~19 GB</strong></td></tr>
+  <tr><td>35B MoE</td><td>IQ3_XXS (3-bit)</td><td>~0.4</td><td>~14 GB</td></tr>
+</table>
+
+<blockquote><strong>MoE note:</strong> All 35B expert weights are loaded into VRAM even though only a subset (typically ~7B active parameters) execute per token. The full weight set must reside on the GPU.</blockquote>
+
+<h3>2.2 Concurrent Session KV-Cache Overhead</h3>
+
+<p>Per concurrent user session, assuming 32K context window:</p>
+
+<table>
+  <tr><td>KV-Cache per user (Qwen3.6-35B MoE)</td><td>~1&ndash;2 GB at IQ4_XS</td></tr>
+  <tr><td>4 concurrent users</td><td>~4&ndash;8 GB</td></tr>
+  <tr><td>Model weights (35B MoE IQ4_XS)</td><td>~19 GB</td></tr>
+  <tr><td><strong>Total VRAM for 4 users</strong></td><td><strong>~23&ndash;27 GB</strong></td></tr>
+</table>
+
+<p>For Qwen3.6-27B dense, 4 concurrent users:</p>
+<table>
+  <tr><td>Model weights (IQ4_XS)</td><td>~15 GB</td></tr>
+  <tr><td>4-user KV-cache</td><td>~3&ndash;6 GB</td></tr>
+  <tr><td><strong>Total VRAM for 4 users</strong></td><td><strong>~18&ndash;21 GB</strong></td></tr>
+</table>
+
+<h3>2.3 GPU Suitability Matrix for Qwen3.6</h3>
+
+<table>
+  <tr><th>GPU</th><th>VRAM</th><th>Qwen 27B (4 users)</th><th>Qwen 35B MoE (4 users)</th><th>Verdict</th></tr>
+  <tr><td>RTX 6000 Pro</td><td>96 GB</td><td>Trivial overkill</td><td>Trivial overkill</td><td>Only justified for future larger models or massive batching</td></tr>
+  <tr style="background: #1a3a1a;"><td>RTX 5090</td><td>32 GB</td><td>Comfortable, plenty of headroom</td><td>Comfortable fit, small surplus</td><td><strong>Optimal choice</strong></td></tr>
+  <tr><td>RTX 5080</td><td>16 GB</td><td>Fits but tight on KV-cache</td><td>Fails &mdash; needs lower quant (IQ3) or fewer users</td><td>Viable but constrained</td></tr>
+  <tr><td>RTX 5070 Ti</td><td>16 GB</td><td>Fits but tight</td><td>Fails &mdash; same as 5080</td><td>Viable budget option for 27B</td></tr>
+  <tr><td>RTX 5070</td><td>12 GB</td><td>Fails at IQ4, borderline at IQ3</td><td>Fails</td><td>Not suitable</td></tr>
+</table>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="continuous-batching">3. How Continuous Batching Works</h2>
+
+<p>Continuous batching (also called <em>in-flight batching</em> or <em>dynamic batching</em>) is the mechanism that lets a single model instance serve multiple concurrent users efficiently. It is the critical piece that makes the VRAM numbers in Section 2 work in practice.</p>
+
+<h3>Traditional Batching vs. Continuous Batching</h3>
+
+<p><strong>Traditional batching:</strong> Wait until <em>N</em> requests arrive, batch them, run full inference on the batch, return all results. A request arriving 1 ms after the batch starts waits for the entire batch to complete. Latency spikes, GPU time is wasted waiting for batch windows to fill.</p>
+
+<p><strong>Continuous batching:</strong> The GPU runs a single model instance. Requests stream in continuously. On <em>every single forward pass</em> (one token-generation step), the server packs <strong>all currently active requests</strong> into a batch &mdash; regardless of when each request started. A new request joins the very next forward pass, not after some batch finishes.</p>
+
+<h3>Visual Timeline</h3>
+
+<div class="batching-diagram">Time &rarr;
+
+Request A: [tok1][tok2][tok3][tok4][tok5][tok6]  &larr; long generation
+Request B:           [tok1][tok2]                 &larr; short, joined mid-flight
+Request C:                      [tok1][tok2][tok3]
+
+GPU forward pass:   &#x2588;&#x2588;  &#x2588;&#x2588;  &#x2588;&#x2588;  &#x2588;&#x2588;  &#x2588;&#x2588;  &#x2588;&#x2588;
+Batch size:          1   1   2   2   3   2     &larr; grows/shrinks every step</div>
+
+<h3>Key Properties</h3>
+
+<table>
+  <tr><th>Property</th><th>What it means</th></tr>
+  <tr><td><strong>Single model copy</strong></td><td>One set of weights in VRAM (~15 GB for Qwen 27B). All requests share it. No per-user copies needed.</td></tr>
+  <tr><td><strong>Per-request KV-cache</strong></td><td>Each user gets their own KV-cache allocation, growing token by token. 4 users with 32K context = 4 separate allocations totalling ~6 GB at peak.</td></tr>
+  <tr><td><strong>Zero waiting</strong></td><td>New users join the next step immediately. Completed generations drop out without disrupting others.</td></tr>
+  <tr><td><strong>Near-constant per-token latency</strong></td><td>Adding users slightly increases each forward pass (bigger batch = more compute), but per-token generation time stays roughly constant regardless of concurrency.</td></tr>
+  <tr><td><strong>No instance isolation needed</strong></td><td>You don't spin up 4 separate Qwen processes. One process handles all 4 users.</td></tr>
+</table>
+
+<h3>Why This Matters for the Qwen Box</h3>
+
+<p>Without continuous batching, serving 4 concurrent users might mean 4 separate model instances &mdash; 4 &times; 19 GB = 76 GB VRAM just for weights, requiring a 96 GB GPU. <strong>With</strong> continuous batching, you need only ~19 GB for the model plus ~8 GB for all 4 users' KV-caches = ~27 GB total. The RTX 5090's 32 GB fits this comfortably.</p>
+
+<p>Both <strong>vLLM</strong> and <strong>llama.cpp server</strong> (with <code>--cont-batching</code>) support this out of the box. You simply set <code>--max-num-seqs 4</code> (or your peak concurrency) and the server handles the rest.</p>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="architecture">4. Proposed Two-Box Architecture</h2>
+
+<div class="diagram">+------------------------------------------------------------------+
+|                        LOCAL NETWORK                              |
+|  +-----------------------------+    +--------------------------+  |
+|  |     GLM WORKSTATION BOX     |    |    QWEN INFERENCE BOX    |  |
+|  |                             |    |                          |  |
+|  |  GPU 0 ─── RTX 6000 Pro   |    |  GPU 0 ─── RTX 5090      |  |
+|  |  GPU 1 ─── RTX 6000 Pro   |    |    (32 GB GDDR7)         |  |
+|  |  GPU 2 ─── RTX 6000 Pro   |    |                          |  |
+|  |  GPU 3 ─── RTX 6000 Pro   |    |  Qwen3.6-35B MoE API     |  |
+|  |                             |    |  Claw automations        |  |
+|  |  GLM-5.2 serving API       |    |  Offload router          |  |
+|  |  384 GB total VRAM          |    |                          |  |
+|  |                             |    |  AMD Ryzen 7 / 9         |  |
+|  |  Threadripper PRO          |    |  32–64 GB DDR5           |  |
+|  |  128 GB DDR5 ECC           |    |  2 TB NVMe               |  |
+|  |  2×2 TB NVMe               |    |  750–1000 W PSU          |  |
+|  |  4U/XL tower chassis       |    |  Mid-tower case          |  |
+|  |  3000 W PSU                |    |                          |  |
+|  +----------+------------------+    +------------+-------------+  |
+|             |                                    |                |
+|             |  10GbE direct link                 |                |
+|             +------------------------------------+                |
+|                                                                    |
+|                       10GbE Switch (optional)                      |
+|                              |                                     |
+|                         Office LAN                                 |
++------------------------------------------------------------------+</div>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="box1">5. Box 1: GLM Workstation (GPUs 1&ndash;4)</h2>
+
+<p><strong>Role:</strong> Runs a single instance of GLM-5.2 (IQ4_XS quantized) across 4 &times; RTX 6000 Pro providing 384 GB total VRAM. Serves as the SOTA-capable backend for complex tasks offloaded from the Qwen box.</p>
+
+<h3>Hardware</h3>
+
+<table>
+  <tr><th>Component</th><th>Model / Spec</th><th>Qty</th><th>Unit Price (A$)</th><th>Total (A$)</th></tr>
+  <tr><td>GPU</td><td>NVIDIA RTX 6000 Pro Blackwell, 96 GB GDDR7, 600 W</td><td>4</td><td>20,000*</td><td>80,000</td></tr>
+  <tr><td>Motherboard</td><td>ASUS Pro WS TRX50-SAGE WIFI (sTR5, 5&times; PCIe 5.0 x16)</td><td>1</td><td>1,699</td><td>1,699</td></tr>
+  <tr><td>CPU</td><td>AMD Threadripper PRO 7975WX (32c/64t)</td><td>1</td><td>6,000</td><td>6,000</td></tr>
+  <tr><td>CPU Cooler</td><td>Noctua NH-U14S TR4-SP3</td><td>1</td><td>149</td><td>149</td></tr>
+  <tr><td>RAM</td><td>Kingston FURY Renegade Pro 128 GB (8&times;16 GB) DDR5-6000 ECC</td><td>1 kit</td><td>6,899</td><td>6,899</td></tr>
+  <tr><td>Storage</td><td>PNY CS2241 2 TB PCIe 4.0 NVMe (&times;2)</td><td>2</td><td>389</td><td>778</td></tr>
+  <tr><td>Chassis</td><td>Fractal Define 7 XL (9 PCIe slots, E-ATX, excellent airflow)</td><td>1</td><td>379</td><td>379</td></tr>
+  <tr><td>PSU</td><td>Corsair WS3000 3000 W ATX 3.1</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Cooling</td><td>6&times; Arctic P14 140 mm PWM PST + 2&times; Arctic P12 120 mm exhaust</td><td>8 fans</td><td>24/16</td><td>160</td></tr>
+  <tr><td>Cables &amp; risers</td><td>PCIe 5.0 risers, 12V-2&times;6 power cables</td><td>&mdash;</td><td>300</td><td>300</td></tr>
+  <tr><td>UPS</td><td>3000 VA rackmount UPS</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Misc</td><td>Thermal paste, GPU support brackets</td><td>&mdash;</td><td>150</td><td>150</td></tr>
+  <tr><td colspan="4"><strong>Box 1 Subtotal</strong></td><td><strong>102,514</strong></td></tr>
+</table>
+
+<p style="font-size: 0.8rem; color: var(--text-muted);">*RTX 6000 Pro Blackwell pricing updated from original A$17,999 to A$20,000 reflecting mid-2026 AI-demand-driven price increases (+55% over MSRP per Tom's Hardware/Newegg data).</p>
+
+<p><strong>Why 4 GPUs now fit cleanly:</strong></p>
+<ul>
+  <li>Fractal Define 7 XL offers 9 horizontal PCIe slots. 4 dual-slot GPUs = 8 slots &mdash; fits perfectly, all cards plugged directly into the motherboard. Zero risers needed.</li>
+  <li>Power: 4 &times; 600 W + 350 W CPU + 150 W system = 2,900 W. Comfortable margin on 3,000 W PSU.</li>
+  <li>Cooling: 4 GPUs in a well-ventilated XL tower with 6&times; 140 mm intake + 2&times; 120 mm exhaust stays under 80&deg;C at sustained full load. No custom water loop required.</li>
+</ul>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="box2">6. Box 2: Qwen Inference Box</h2>
+
+<p><strong>Role:</strong> Serves Qwen3.6-35B MoE for chat UX (1&ndash;4 concurrent users) and claw-like automations. Contains the offload router that forwards complex tasks to the GLM workstation.</p>
+
+<h3>6.1 Recommended Configuration (RTX 5090)</h3>
+
+<table>
+  <tr><th>Component</th><th>Model / Spec</th><th>Qty</th><th>Unit Price (A$)</th><th>Total (A$)</th></tr>
+  <tr><td>GPU</td><td>NVIDIA GeForce RTX 5090, 32 GB GDDR7, 575 W</td><td>1</td><td>6,500</td><td>6,500</td></tr>
+  <tr><td>Motherboard</td><td>ASUS TUF Gaming B650-PLUS WIFI (AM5, 1&times; PCIe 5.0 x16, 2.5GbE)</td><td>1</td><td>349</td><td>349</td></tr>
+  <tr><td>CPU</td><td>AMD Ryzen 7 7700X (8c/16t, 5.4 GHz)</td><td>1</td><td>449</td><td>449</td></tr>
+  <tr><td>CPU Cooler</td><td>Thermalright Peerless Assassin 120 SE</td><td>1</td><td>65</td><td>65</td></tr>
+  <tr><td>RAM</td><td>Corsair Vengeance 64 GB (2&times;32 GB) DDR5-5600 CL40</td><td>1 kit</td><td>329</td><td>329</td></tr>
+  <tr><td>Storage</td><td>PNY CS2241 2 TB PCIe 4.0 NVMe</td><td>1</td><td>389</td><td>389</td></tr>
+  <tr><td>Chassis</td><td>Fractal Design Meshify 2 Compact (mid-tower)</td><td>1</td><td>199</td><td>199</td></tr>
+  <tr><td>PSU</td><td>Corsair RM1000e 1000 W 80+ Gold (fully modular)</td><td>1</td><td>249</td><td>249</td></tr>
+  <tr><td>10GbE NIC</td><td>Intel X550-T2 dual-port 10GbE PCIe card</td><td>1</td><td>249</td><td>249</td></tr>
+  <tr><td>UPS</td><td>CyberPower 1500VA / 900 W line-interactive UPS</td><td>1</td><td>349</td><td>349</td></tr>
+  <tr><td>Misc</td><td>Thermal paste, cable ties</td><td>&mdash;</td><td>50</td><td>50</td></tr>
+  <tr><td colspan="4"><strong>Box 2 Subtotal</strong></td><td><strong>9,177</strong></td></tr>
+</table>
+
+<p style="font-size: 0.8rem; color: var(--text-muted);">RTX 5090 pricing source: Australian retail as of July 2026. Base models from A$6,300, premium cards (e.g. ASUS ROG Astral LC) up to A$6,999. Midpoint A$6,500 used for budgeting.</p>
+
+<p><strong>Why this configuration:</strong></p>
+<ul>
+  <li><strong>RTX 5090 (32 GB):</strong> Fits Qwen3.6-35B MoE IQ4_XS (~19 GB model + 4&ndash;8 GB KV-cache for 4 users = 23&ndash;27 GB total). Leaves ~5&ndash;9 GB headroom for system overhead, larger context windows, or a second model instance. With continuous batching, one model instance efficiently serves all 4 users.</li>
+  <li><strong>Ryzen 7 7700X (8c/16t):</strong> Handles API serving, automation scheduling, and inter-box communication. No CPU bottleneck for inference serving.</li>
+  <li><strong>64 GB RAM:</strong> Generous for automation tooling, session caching, and future expansion.</li>
+  <li><strong>1000 W PSU:</strong> RTX 5090 draws up to 575 W. 1000 W provides comfortable headroom (575 + 105 CPU + 80 system = 760 W, 76% of rated capacity at peak).</li>
+  <li><strong>10GbE NIC:</strong> Ensures zero network bottleneck for GLM offload traffic.</li>
+</ul>
+
+<h3>6.2 VRAM Reality Check for RTX 5090</h3>
+
+<table>
+  <tr><th>Scenario</th><th>VRAM Used</th><th>Fits in 32 GB?</th></tr>
+  <tr><td>Qwen3.6-27B dense IQ4_XS, 1 user, 8K context</td><td>~16 GB</td><td class="tag tag-ok">Yes, 50% free</td></tr>
+  <tr><td>Qwen3.6-27B dense IQ4_XS, 4 users, 32K context</td><td>~21 GB</td><td class="tag tag-ok">Yes, 34% free</td></tr>
+  <tr><td>Qwen3.6-35B MoE IQ4_XS, 1 user, 8K context</td><td>~20 GB</td><td class="tag tag-ok">Yes, 37% free</td></tr>
+  <tr><td>Qwen3.6-35B MoE IQ4_XS, 4 users, 32K context</td><td>~27 GB</td><td class="tag tag-ok">Yes, 15% free</td></tr>
+  <tr><td>Qwen3.6-35B MoE Q6_K, 1 user, 8K context</td><td>~28 GB</td><td class="tag tag-ok">Yes, tight but works</td></tr>
+  <tr><td>Qwen3.6-35B MoE Q6_K, 4 users</td><td>&gt;32 GB</td><td class="tag tag-fail">Fails &mdash; requires lower quant</td></tr>
+  <tr><td>Qwen3.6-35B MoE + separate Qwen3.6-27B for automations</td><td>&gt;32 GB</td><td class="tag tag-fail">Fails &mdash; pick one model at a time</td></tr>
+  <tr><td>Future 70B+ model at IQ4_XS</td><td>&gt;40 GB</td><td class="tag tag-fail">Fails &mdash; would need a bigger GPU</td></tr>
+</table>
+
+<p><strong>Bottom line:</strong> RTX 5090 serves Qwen3.6-35B MoE to 4 concurrent users at IQ4_XS with comfortable headroom. It is the cost-optimal choice for today's Qwen3.6 sizes. Use continuous batching (vLLM or llama.cpp) &mdash; do not run separate instances per user.</p>
+
+<h3>6.3 Alternative GPU Options for Box 2</h3>
+
+<table>
+  <tr><th>GPU</th><th>VRAM</th><th>TDP</th><th>Price (A$)</th><th>Qwen 35B MoE?</th><th>Notes</th></tr>
+  <tr style="background: #1a3a1a;"><td><strong>RTX 5090</strong></td><td>32 GB</td><td>575 W</td><td>6,300&ndash;6,999</td><td>Yes, comfortable</td><td><strong>Recommended</strong> &mdash; best price/VRAM ratio for Qwen3.6</td></tr>
+  <tr><td>RTX 5080</td><td>16 GB</td><td>360 W</td><td>1,699&ndash;2,599</td><td>Only IQ3_XXS or fewer users</td><td>Constrained. Works for 27B dense only.</td></tr>
+  <tr><td>RTX 5070 Ti</td><td>16 GB</td><td>300 W</td><td>~1,800*</td><td>Same constraint as 5080</td><td>Cheaper but same VRAM limit.</td></tr>
+  <tr><td>RTX 6000 Pro</td><td>96 GB</td><td>600 W</td><td>~20,000</td><td>Massive overkill</td><td>Only if you plan to run future 70B+ models.</td></tr>
+</table>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="networking">7. Networking Architecture</h2>
+
+<h3>7.1 Physical Layer</h3>
+
+<div class="diagram">┌─────────────────────┐          ┌─────────────────────┐
+│   GLM Workstation   │          │  Qwen Inference Box  │
+│                     │          │                      │
+│  10GbE onboard ─────┼──────────┼──── 10GbE NIC        │
+│  (Marvell AQtion)   │  CAT6a   │  (Intel X550-T2)     │
+│                     │  direct  │                      │
+│  2.5GbE onboard ────┼────┐     │  2.5GbE onboard ─────┼───┐
+│                     │    │     │                      │   │
+└─────────────────────┘    │     └──────────────────────┘   │
+                           │                                │
+                    ┌──────┴────────────────────────┐       │
+                    │     10GbE Switch (optional)    │       │
+                    │     MikroTik CRS305-1G-4S+IN   │       │
+                    │     ~A$280                      │       │
+                    └────────────────┬───────────────┘       │
+                                     │                       │
+                               Office LAN                    │
+                           (Internet, SSH, monitoring)        │</div>
+
+<p><strong>Connection details:</strong></p>
+<ol>
+  <li><strong>Direct 10GbE point-to-point</strong> between boxes (primary inter-box data path).<br>
+    ASUS TRX50 motherboard has dual 10GbE onboard. Intel X550-T2 10GbE NIC in Box 2 (~A$249). CAT6a cable or SFP+ DAC for direct connection. Carries offload prompts/responses, health checks, log streaming. A single LLM token stream is ~5 KB/s &mdash; 10GbE can handle 250,000+ concurrent streams. Headroom exists for bulk model-weight transfers.</li>
+  <li><strong>2.5GbE</strong> on both boxes to office switch for management (SSH, monitoring, Docker registry pulls, internet).</li>
+</ol>
+
+<h3>7.2 Logical Layer (IP Plan)</h3>
+
+<table>
+  <tr><th>Device</th><th>Interface</th><th>IP (example)</th><th>Purpose</th></tr>
+  <tr><td>GLM Box</td><td>enp1s0 (10GbE onboard)</td><td>10.0.0.1/30</td><td>Direct inter-box data link</td></tr>
+  <tr><td>Qwen Box</td><td>enp3s0 (10GbE NIC)</td><td>10.0.0.2/30</td><td>Direct inter-box data link</td></tr>
+  <tr><td>GLM Box</td><td>enp2s0 (2.5GbE onboard)</td><td>192.168.1.10/24</td><td>Management LAN</td></tr>
+  <tr><td>Qwen Box</td><td>enp1s0 (2.5GbE onboard)</td><td>192.168.1.20/24</td><td>Management LAN</td></tr>
+</table>
+
+<p>The direct 10GbE link uses a /30 subnet &mdash; just the two hosts, no gateway needed.</p>
+
+<h3>7.3 Firewall Rules (UFW)</h3>
+
+<p><strong>GLM Box:</strong></p>
+<pre><code>ufw allow in on enp1s0 from 10.0.0.2 to any port 8080 proto tcp   # GLM API
+ufw allow in on enp1s0 from 10.0.0.2 to any port 9090 proto tcp   # Health/metrics
+ufw allow in on enp2s0 from 192.168.1.0/24 to any port 22 proto tcp   # SSH
+ufw allow in on enp2s0 from 192.168.1.0/24 to any port 3000 proto tcp  # Monitoring
+ufw deny in on enp1s0                                             # Block everything else</code></pre>
+
+<p><strong>Qwen Box:</strong></p>
+<pre><code>ufw allow in on enp1s0 from 192.168.1.0/24 to any port 11434 proto tcp  # Qwen API (Ollama compat)
+ufw allow in on enp1s0 from 192.168.1.0/24 to any port 8081 proto tcp    # Chat UI
+ufw allow in on enp1s0 from 192.168.1.0/24 to any port 22 proto tcp      # SSH</code></pre>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="software">8. Software Architecture: Inter-Box Offload Pattern</h2>
+
+<h3>8.1 The Offload Decision</h3>
+
+<p>The Qwen box runs the <strong>Offload Router</strong> &mdash; thin middleware between the user-facing chat API and the two inference backends:</p>
+
+<pre><code>User ──► [Chat API] ──► [Offload Router] ──┬──► Qwen3.6 (local RTX 5090)  ──► User
+                                           │
+                                           └──► GLM-5.2 (Box 1, 10.0.0.1:8080) ──► User</code></pre>
+
+<p><strong>Offload triggers (configurable):</strong></p>
+<ol>
+  <li><strong>Keyword/Intent classifier:</strong> Regex or distilled classifier detects complexity indicators ("analyze codebase", "architectural review", "write implementation", "debug complex").</li>
+  <li><strong>Qwen self-assessment:</strong> Prompt Qwen with: <em>"Rate task complexity 1&ndash;10. If &gt;=7, recommend large-model offload."</em> Parse the response.</li>
+  <li><strong>Explicit user routing:</strong> <code>/glm &lt;message&gt;</code> forces GLM; <code>/qwen &lt;message&gt;</code> forces local.</li>
+  <li><strong>Fallback on low confidence:</strong> If Qwen output contains "I'm not sure", "I can't fully", or has unusually short output, retry on GLM.</li>
+</ol>
+
+<h3>8.2 API Contract</h3>
+
+<p><strong>GLM Box exposes OpenAI-compatible endpoints:</strong></p>
+<pre><code>POST http://10.0.0.1:8080/v1/chat/completions
+GET  http://10.0.0.1:9090/health
+GET  http://10.0.0.1:9090/metrics</code></pre>
+
+<p>Served via <strong>vLLM</strong> or <strong>llama.cpp server</strong> with tensor parallelism across all 4 GPUs. The OpenAI-compatible API means the Qwen box can use standard <code>openai</code> Python library pointed at <code>http://10.0.0.1:8080/v1</code>.</p>
+
+<h3>8.3 Concurrent Session Management (Qwen Box)</h3>
+
+<p>With RTX 5090 (32 GB) and Qwen3.6-35B MoE IQ4_XS (~19 GB model):</p>
+
+<table>
+  <tr><th>Deployment strategy</th><th>VRAM usage</th><th>Max users</th></tr>
+  <tr><td>Single instance, vLLM continuous batching</td><td>~19 GB + ~4&ndash;8 GB KV-cache</td><td>4&ndash;8 users efficiently interleaved</td></tr>
+  <tr><td>Two instances (27B + 35B MoE)</td><td>~15 + ~19 = 34 GB</td><td class="tag tag-fail">Fails &mdash; exceeds 32 GB</td></tr>
+  <tr><td>One 35B MoE instance, prefix caching</td><td>~19 GB + variable cache</td><td>4&ndash;6 users typical</td></tr>
+</table>
+
+<p><strong>Recommended:</strong> One Qwen3.6-35B MoE IQ4_XS instance with vLLM continuous batching. Serves 1&ndash;4 chat users and automation workloads from the same model efficiently. No need for separate instances.</p>
+
+<h3>8.4 Claw-Like Automation Engine</h3>
+
+<p>A lightweight framework (LangChain, CrewAI, or bespoke event loop) running on the Qwen box:</p>
+
+<pre><code>[Trigger: cron/webhook/filesystem] → [Qwen3.6: tool-calling]
+    ├── Simple task → [Qwen executes tool] → [Result]
+    └── Complex task → [Offload Router → GLM-5.2] → [Result]</code></pre>
+
+<p><strong>Example flows:</strong></p>
+<ul>
+  <li><strong>PR watcher:</strong> New PR &rarr; Qwen triages &rarr; complex review offloaded to GLM &rarr; comment posted</li>
+  <li><strong>Code generator:</strong> User prompt &rarr; Qwen drafts &rarr; offload to GLM for refinement &rarr; return</li>
+  <li><strong>Monitoring agent:</strong> Alert fires &rarr; Qwen diagnoses &rarr; critical issue escalated to GLM</li>
+</ul>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="cost">9. Cost Comparison (Corrected)</h2>
+
+<h3>9.1 Original Single-Box (incorrect GPU specs from initial-research.md)</h3>
+
+<table>
+  <tr><th>Component</th><th>Qty</th><th>Unit (A$)</th><th>Total (A$)</th></tr>
+  <tr><td>RTX 6000 Pro Blackwell (96 GB)</td><td>5</td><td>17,999</td><td>89,995</td></tr>
+  <tr><td>ASUS Pro WS TRX50-SAGE WIFI</td><td>1</td><td>1,699</td><td>1,699</td></tr>
+  <tr><td>Threadripper PRO 7975WX</td><td>1</td><td>6,000</td><td>6,000</td></tr>
+  <tr><td>RAM 128 GB DDR5-6000 ECC</td><td>1 kit</td><td>6,899</td><td>6,899</td></tr>
+  <tr><td>NVMe 2 TB</td><td>2</td><td>389</td><td>778</td></tr>
+  <tr><td>Chassis 4U</td><td>1</td><td>349</td><td>349</td></tr>
+  <tr><td>PSU 3000 W</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Cooling (exotic air/water)</td><td>&mdash;</td><td>1,000</td><td>1,000</td></tr>
+  <tr><td>Cables/Risers</td><td>&mdash;</td><td>500</td><td>500</td></tr>
+  <tr><td>UPS 3000 VA</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Misc</td><td>&mdash;</td><td>200</td><td>200</td></tr>
+  <tr><td colspan="3"><strong>Total (original estimate)</strong></td><td><strong>112,420</strong></td></tr>
+</table>
+
+<blockquote>The original spec used incorrect GPU pricing (A$17,999). Real mid-2026 pricing for RTX 6000 Pro is ~A$20,000 due to AI-driven demand. At corrected pricing, the single-box would cost <strong>A$122,425</strong>.</blockquote>
+
+<h3>9.2 Two-Box: GLM + RTX 5090 Qwen Box (Recommended)</h3>
+
+<h4>Box 1 &mdash; GLM Workstation</h4>
+<table>
+  <tr><th>Component</th><th>Qty</th><th>Unit (A$)</th><th>Total (A$)</th></tr>
+  <tr><td>RTX 6000 Pro Blackwell</td><td>4</td><td>20,000</td><td>80,000</td></tr>
+  <tr><td>ASUS Pro WS TRX50-SAGE WIFI</td><td>1</td><td>1,699</td><td>1,699</td></tr>
+  <tr><td>Threadripper PRO 7975WX</td><td>1</td><td>6,000</td><td>6,000</td></tr>
+  <tr><td>Noctua NH-U14S TR4-SP3</td><td>1</td><td>149</td><td>149</td></tr>
+  <tr><td>RAM 128 GB DDR5-6000 ECC</td><td>1 kit</td><td>6,899</td><td>6,899</td></tr>
+  <tr><td>NVMe 2 TB</td><td>2</td><td>389</td><td>778</td></tr>
+  <tr><td>Fractal Define 7 XL</td><td>1</td><td>379</td><td>379</td></tr>
+  <tr><td>Corsair WS3000 3000 W</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Fans</td><td>8</td><td>24/16</td><td>160</td></tr>
+  <tr><td>Cables/Risers</td><td>&mdash;</td><td>300</td><td>300</td></tr>
+  <tr><td>UPS 3000 VA</td><td>1</td><td>3,000</td><td>3,000</td></tr>
+  <tr><td>Misc</td><td>&mdash;</td><td>150</td><td>150</td></tr>
+  <tr><td colspan="3"><strong>Box 1 Subtotal</strong></td><td><strong>102,514</strong></td></tr>
+</table>
+
+<h4>Box 2 &mdash; Qwen Inference (RTX 5090)</h4>
+<table>
+  <tr><th>Component</th><th>Qty</th><th>Unit (A$)</th><th>Total (A$)</th></tr>
+  <tr><td>RTX 5090 (32 GB)</td><td>1</td><td>6,500</td><td>6,500</td></tr>
+  <tr><td>ASUS TUF B650-PLUS WIFI</td><td>1</td><td>349</td><td>349</td></tr>
+  <tr><td>Ryzen 7 7700X</td><td>1</td><td>449</td><td>449</td></tr>
+  <tr><td>Thermalright Peerless Assassin 120</td><td>1</td><td>65</td><td>65</td></tr>
+  <tr><td>RAM 64 GB DDR5-5600</td><td>1 kit</td><td>329</td><td>329</td></tr>
+  <tr><td>NVMe 2 TB</td><td>1</td><td>389</td><td>389</td></tr>
+  <tr><td>Fractal Meshify 2 Compact</td><td>1</td><td>199</td><td>199</td></tr>
+  <tr><td>Corsair RM1000e 1000 W</td><td>1</td><td>249</td><td>249</td></tr>
+  <tr><td>Intel X550-T2 10GbE NIC</td><td>1</td><td>249</td><td>249</td></tr>
+  <tr><td>UPS 1500VA</td><td>1</td><td>349</td><td>349</td></tr>
+  <tr><td>Misc</td><td>&mdash;</td><td>50</td><td>50</td></tr>
+  <tr><td colspan="3"><strong>Box 2 Subtotal</strong></td><td><strong>9,177</strong></td></tr>
+</table>
+
+<h4>Grand Total</h4>
+
+<table>
+  <tr><th></th><th>Original Single-Box (corrected)</th><th>Two-Box (RTX 5090 Qwen)</th><th>Delta</th></tr>
+  <tr><td>Box 1 (GLM)</td><td>&mdash;</td><td>102,514</td><td>&mdash;</td></tr>
+  <tr><td>Box 2 (Qwen)</td><td>&mdash;</td><td>9,177</td><td>&mdash;</td></tr>
+  <tr><td>10GbE Switch (optional)</td><td>&mdash;</td><td>280</td><td>&mdash;</td></tr>
+  <tr><td><strong>Total</strong></td><td><strong>122,425</strong></td><td><strong>111,971</strong></td><td><strong>&minus;10,454</strong></td></tr>
+</table>
+
+<div class="cost-box">
+<p class="label">Recommended Two-Box Total (with switch)</p>
+<p class="amount">A$111,971</p>
+<p style="margin-top: 0.5rem; color: var(--text-muted);">Without optional 10GbE switch: <strong>A$111,691</strong></p>
+</div>
+
+<p>The two-box design with RTX 5090 Qwen box saves <strong>~A$10,500</strong> versus the corrected single-box estimate. Against the original (incorrectly priced) A$112,420 estimate, the two-box is ~A$450 cheaper while solving every deployment problem.</p>
+
+<h3>9.3 Two-Box: GLM + RTX 6000 Pro Qwen Box (Overkill Option)</h3>
+
+<p>If you insist on matching GPUs (or anticipate a future where Qwen outgrows 32 GB):</p>
+
+<table>
+  <tr><td>Box 1 (GLM, 4&times; RTX 6000 Pro)</td><td>102,514</td></tr>
+  <tr><td>Box 2 (Qwen, 1&times; RTX 6000 Pro)</td><td>22,677</td></tr>
+  <tr><td><strong>Total</strong></td><td><strong>125,191</strong></td></tr>
+</table>
+
+<p>This is ~A$2,800 more than the corrected single-box and ~A$13,500 more than the RTX 5090 option. Only justified if you need 96 GB in the Qwen box for future large-model support.</p>
+
+<h3>9.4 Power Budget Comparison</h3>
+
+<table>
+  <tr><th></th><th>Original Single-Box</th><th>Two-Box (RTX 5090 Qwen)</th></tr>
+  <tr><td>GLM Box</td><td>&mdash;</td><td>2,900 W (4 &times; 600 W GPU + 350 W CPU + system)</td></tr>
+  <tr><td>Qwen Box</td><td>&mdash;</td><td>760 W (575 W GPU + 105 W CPU + system)</td></tr>
+  <tr><td>Combined peak</td><td>3,500 W</td><td>3,660 W</td></tr>
+  <tr><td>Per circuit</td><td>15.2 A (single circuit)</td><td>12.6 A + 3.3 A (two circuits)</td></tr>
+</table>
+
+<p>Two-box splits across two circuits. Each box comfortably within standard 10 A circuit limits. Peace of mind on a single 20 A circuit with room to spare.</p>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="budget">10. Alternative: RTX 5080 Budget Qwen Box</h2>
+
+<p>If budget is extremely tight and you're willing to run Qwen3.6-27B dense only:</p>
+
+<table>
+  <tr><th></th><th>Replace With</th><th>Savings</th></tr>
+  <tr><td>RTX 5090 (A$6,500) &rarr; RTX 5080 (A$2,200)</td><td>&minus;~A$4,300</td></tr>
+  <tr><td><strong>Box 2 Total</strong></td><td><strong>~A$4,877</strong></td></tr>
+  <tr><td><strong>Two-Box Grand Total</strong></td><td><strong>~A$107,391</strong></td></tr>
+</table>
+
+<p><strong>Trade-offs:</strong></p>
+<ul>
+  <li>Qwen3.6-27B dense IQ4_XS fits (~15 GB). 35B MoE is marginal &mdash; requires IQ3_XXS quantization (~14 GB), which noticeably degrades quality for tool-calling/automation tasks.</li>
+  <li>Reduced KV-cache headroom means fewer concurrent users or shorter context windows.</li>
+  <li>16 GB leaves zero room for future model upgrades.</li>
+  <li>Not recommended for a production chat system &mdash; the ~A$4,300 savings comes at a significant quality and flexibility cost.</li>
+</ul>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="deployment">11. Deployment Sequence</h2>
+
+<ol>
+  <li><strong>Procure</strong> both boxes in parallel. Consumer components from Australian retailers (PCCG, Mwave, Scorptec). RTX 6000 Pro GPUs may have 4&ndash;6 week B2B lead time; RTX 5090 available retail.</li>
+  <li><strong>Assemble GLM Box</strong> (4 GPUs, Threadripper, Define 7 XL). 4 GPUs plug directly into slots 1, 3, 5, 7. ~4 hours.</li>
+  <li><strong>Assemble Qwen Box</strong> (1 GPU, Ryzen, Meshify 2 Compact). Standard single-GPU build. ~1.5 hours.</li>
+  <li><strong>OS &amp; drivers:</strong> Ubuntu 24.04 LTS both boxes. NVIDIA driver 550+, CUDA 12.6. Docker + NVIDIA Container Toolkit.</li>
+  <li><strong>Network:</strong> CAT6a direct 10GbE link. Static IPs (/30 subnet). Verify <code>iperf3</code> &ge;9.4 Gbps.</li>
+  <li><strong>Deploy GLM-5.2:</strong> vLLM or llama.cpp server across 4 GPUs (tensor parallelism = 4). OpenAI-compatible API on port 8080.</li>
+  <li><strong>Deploy Qwen3.6:</strong> vLLM on single RTX 5090 with continuous batching (<code>--max-num-seqs 4</code>). Verify multi-user concurrent requests.</li>
+  <li><strong>Deploy Offload Router:</strong> FastAPI + <code>openai</code> SDK. Route to local Qwen or remote GLM based on complexity heuristic.</li>
+  <li><strong>Firewall:</strong> UFW rules from Section 7.3. Verify inter-box connectivity and isolation.</li>
+  <li><strong>Load test:</strong> 4 concurrent Qwen users + 4 concurrent GLM offloads. Monitor GPU temps (target &lt;80&deg;C), power draw, p50/p99 latency.</li>
+  <li><strong>Handover:</strong> IP plan diagram, wiring diagram, API endpoints, health check URLs, SSH keys.</li>
+</ol>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="risk">12. Risk Assessment</h2>
+
+<table>
+  <tr><th>Risk</th><th>Mitigation</th></tr>
+  <tr><td><strong>10GbE link failure</strong></td><td>Fall back to 2.5GbE management link. LLM API traffic is &lt;100 KB/s &mdash; functionally transparent.</td></tr>
+  <tr><td><strong>GLM box down</strong></td><td>Qwen box degrades gracefully. Offload router returns "GLM unavailable, responding with Qwen" to users. Chat and automations continue, just without SOTA-quality fallback.</td></tr>
+  <tr><td><strong>Qwen box down</strong></td><td>GLM box unaffected. Users lose chat until Qwen box recovers. Acceptable MTTR for a 1&ndash;4 user system.</td></tr>
+  <tr><td><strong>RTX 5090 VRAM insufficient for future Qwen</strong></td><td>If Qwen4.x ships at 70B+, swap RTX 5090 for RTX 6000 Pro (~A$20,000) or add a second 5090 for tensor-parallel. The consumer platform (AM5, 1000W PSU) supports the upgrade path.</td></tr>
+  <tr><td><strong>Power circuit overload</strong></td><td>Two-box splits across two circuits. Combined peak 3,660 W fits safely on a single 20 A circuit (4,600 W) with margin.</td></tr>
+  <tr><td><strong>GPU failure</strong></td><td>Box 2 GPU failure: Qwen down, GLM continues. GLM Box GPU failure: Fall back to 3-GPU inference (slower, still functional). Keep a cold-spare RTX 5090 if high-availability is required.</td></tr>
+</table>
+
+<hr>
+
+<!-- ================================================================== -->
+<h2 id="recommendations">13. Recommendations</h2>
+
+<ol>
+  <li><strong>Split GPU 5 into a dedicated Qwen box.</strong> Solves the slot/cooling/power crisis with zero downsides.</li>
+  <li><strong>Use an RTX 5090 (32 GB) for the Qwen box, not an RTX 6000 Pro (96 GB).</strong> Qwen3.6-35B MoE at IQ4_XS needs only ~27 GB for 4 concurrent users with continuous batching. The 6000 Pro's extra 74 GB VRAM would sit idle at 600 W of wasted power and ~A$13,500 of wasted budget. The 5090 at A$6,500 (current Australian retail) is the right tool for the job.</li>
+  <li><strong>Use continuous batching (vLLM or llama.cpp server).</strong> One model instance serves all users by packing active requests into every forward pass. No per-user model copies needed. This is what makes the VRAM math work.</li>
+  <li><strong>Use Fractal Define 7 XL</strong> for the GLM box (9 PCIe slots, 4 GPUs plug directly, zero risers).</li>
+  <li><strong>10GbE direct link</strong> between boxes (~A$249 NIC). Commodity cost, permanent network headroom.</li>
+  <li><strong>Deploy the Offload Router as a first-class service</strong> on the Qwen box. It's the architectural linchpin that makes the two-box system transparent to end users.</li>
+  <li><strong>If you must have matching GPUs</strong> or need to future-proof for much larger Qwen models, the RTX 6000 Pro option adds ~A$13,500. Only do this if there's a concrete plan to deploy a model that needs &gt;32 GB in the Qwen box within 12 months.</li>
+</ol>
+
+<hr>
+
+<p style="color: var(--text-muted); font-size: 0.8rem;">Research compiled July 2026. Prices in Australian dollars (AUD), inclusive of GST. GPU specs verified against Wikipedia (GeForce RTX 50 series table) and Tom's Hardware (RTX PRO 6000 Blackwell). Qwen3.6 model sizes confirmed as 27B dense / 35B MoE only. Australian RTX 5090 retail pricing (A$6,300&ndash;6,999) and RTX 5080 retail pricing (A$1,699&ndash;2,599) as of July 2026. RTX 6000 Pro Blackwell estimated at ~A$20,000 based on US$13,250 market price. Other component pricing from PCCG, Mwave, Scorptec.</p>
+
+</body>
+</html>
