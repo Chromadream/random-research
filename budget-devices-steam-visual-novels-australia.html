@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Devices for Steam Visual Novels on the Go — Australian Buyer's Guide</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg-card: #1a1d27;
+    --bg-card-hover: #21242f;
+    --text: #e1e4eb;
+    --text-muted: #8b8fa4;
+    --accent: #6c8cff;
+    --accent-glow: rgba(108, 140, 255, 0.25);
+    --green: #4cd964;
+    --orange: #ff9f0a;
+    --red: #ff453a;
+    --border: #2a2d3a;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0 20px 60px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 {
+    font-size: 2.2rem;
+    margin: 40px 0 10px;
+    background: linear-gradient(135deg, #6c8cff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+  h2 {
+    font-size: 1.5rem;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  h3 { font-size: 1.2rem; margin: 24px 0 10px; color: #c8cdf0; }
+  p { margin-bottom: 14px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .badge-best { background: var(--green); color: #000; }
+  .badge-great { background: var(--accent); color: #fff; }
+  .badge-budget { background: var(--orange); color: #000; }
+  .badge-warn { background: var(--red); color: #fff; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: background 0.2s;
+  }
+  .card:hover { background: var(--bg-card-hover); }
+  .card h3 { margin-top: 0; }
+  .price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green);
+    margin: 8px 0;
+  }
+  .price-note { font-size: 0.85rem; color: var(--text-muted); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .pros, .cons { padding: 14px; border-radius: var(--radius-sm); }
+  .pros { background: rgba(76, 217, 100, 0.08); }
+  .cons { background: rgba(255, 69, 58, 0.08); }
+  .pros h4 { color: var(--green); margin-bottom: 6px; }
+  .cons h4 { color: var(--red); margin-bottom: 6px; }
+  ul { padding-left: 18px; }
+  li { margin-bottom: 4px; }
+
+  .highlight-box {
+    background: rgba(108, 140, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    padding: 16px 18px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 20px 0;
+  }
+  .highlight-box strong { color: var(--accent); }
+
+  .tier-label {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+  .tier-gold { background: #f0a030; color: #000; }
+  .tier-silver { background: #8b8fa4; color: #fff; }
+  .tier-bronze { background: #b87333; color: #fff; }
+
+  .quick-verdict {
+    font-size: 1.05rem;
+    padding: 12px 16px;
+    background: rgba(76, 217, 100, 0.06);
+    border-radius: var(--radius-sm);
+    margin: 12px 0;
+  }
+  .quick-verdict span { color: var(--green); font-weight: 700; }
+
+  a { color: var(--accent); }
+  a:hover { text-decoration: underline; }
+
+  .chart-bar {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+  }
+  .chart-label { width: 100px; font-size: 0.85rem; color: var(--text-muted); }
+  .chart-fill {
+    height: 18px;
+    border-radius: 4px;
+    margin-right: 8px;
+    min-width: 4px;
+  }
+  .chart-val { font-size: 0.8rem; color: var(--text-muted); }
+
+  .note { font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 1.6rem; }
+    .pros-cons { grid-template-columns: 1fr; }
+    table { font-size: 0.8rem; }
+    th, td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🎮 Budget Devices for Steam Visual Novels on the Go</h1>
+<p class="subtitle">A comprehensive Australian buyer's guide for playing visual novels (with or without gamepad support) during your train commute. All prices in AUD. Last updated: July 2025.</p>
+
+<!-- TOC -->
+<h2>📋 Quick Navigation</h2>
+<ul>
+  <li><a href="#key-insight">The Key Insight: Visual Novels Have Unique Needs</a></li>
+  <li><a href="#tier-list">Tier List: Best Options at Each Budget</a></li>
+  <li><a href="#steam-deck">🥇 Steam Deck — The Gold Standard</a></li>
+  <li><a href="#gpd-devices">🥈 GPD Handhelds — Physical Keyboard Advantage</a></li>
+  <li><a href="#refurb-laptops">🥉 Refurbished/Used Windows Laptops</a></li>
+  <li><a href="#chuwi-minibook">Chuwi MiniBook X — Tiny Yoga Laptop</a></li>
+  <li><a href="#retroid">Retroid Pocket 5 — Android Streaming Option</a></li>
+  <li><a href="#mini-pc">⚠️ Mini PCs — Why They Don't Work on a Train</a></li>
+  <li><a href="#comparison-table">Full Comparison Table</a></li>
+  <li><a href="#what-about">What About: Chromebooks, Tablets, Phones?</a></li>
+  <li><a href="#final-advice">Final Advice & Where to Buy</a></li>
+  <li><a href="#sources">Sources</a></li>
+</ul>
+
+<!-- KEY INSIGHT -->
+<h2 id="key-insight">🔑 The Key Insight: Visual Novels Have Unique Needs</h2>
+
+<div class="highlight-box">
+<strong>Critical point:</strong> Many Steam visual novels were designed as PC-first, keyboard-and-mouse experiences. They may <strong>not</strong> recognise gamepad/controller input. This changes the hardware equation significantly.
+</div>
+
+<p>If your visual novel only responds to mouse clicks or keyboard shortcuts (Enter, Space, Arrow Keys, etc.), you need one of these input methods:</p>
+
+<table>
+  <tr><th>Input Method</th><th>Best Devices</th></tr>
+  <tr><td>🖱️ <strong>Trackpad + on-screen keyboard</strong></td><td>Steam Deck, GPD WIN Mini</td></tr>
+  <tr><td>⌨️ <strong>Physical keyboard</strong></td><td>GPD WIN 4, GPD WIN Mini, Chuwi MiniBook, laptops</td></tr>
+  <tr><td>👆 <strong>Touchscreen</strong></td><td>Steam Deck, any touchscreen laptop/2-in-1</td></tr>
+  <tr><td>🎮 <strong>Hardware keyboard/mouse mode</strong></td><td>AYANEO 3 (maps gamepad → kb/m at hardware level)</td></tr>
+  <tr><td>🕹️ <strong>Steam Input remapping</strong></td><td>Steam Deck (trackpad → mouse; back buttons → keys)</td></tr>
+</table>
+
+<p>Visual novels also have <strong>extremely low hardware demands</strong>. Any integrated GPU from the last 8 years can run them. This means you can go very cheap on specs — what you're really paying for is form factor and input flexibility.</p>
+
+<!-- TIER LIST -->
+<h2 id="tier-list">🏆 Tier List: Best Options at Each Budget</h2>
+
+<div class="card">
+  <table>
+    <tr><th>Tier</th><th>Device</th><th>Price (AUD)</th><th>Best For</th></tr>
+    <tr>
+      <td><span class="tier-label tier-gold">BEST</span></td>
+      <td><strong>Used Steam Deck (LCD, 64GB)</strong></td>
+      <td>$600 – $649</td>
+      <td>All-round king: trackpads, touchscreen, Steam Input, huge community</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-gold">BEST</span></td>
+      <td><strong>Steam Deck 256GB LCD (New)</strong></td>
+      <td>$649 new</td>
+      <td>Same as above + warranty + faster SSD</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-silver">GREAT</span></td>
+      <td><strong>Used Windows laptop (ThinkPad/Surface)</strong></td>
+      <td>$206 – $535</td>
+      <td>Keyboard & mouse built-in; cheapest entry point</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-silver">GREAT</span></td>
+      <td><strong>Steam Deck OLED 512GB (Used)</strong></td>
+      <td>~$850 used</td>
+      <td>Premium screen + battery, same input flexibility</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-silver">GREAT</span></td>
+      <td><strong>GPD WIN 4 2025 (8840U, refurb)</strong></td>
+      <td>~$1,300–$1,400</td>
+      <td>Physical keyboard + optical mouse; tiny & pocketable</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-bronze">BUDGET</span></td>
+      <td><strong>Chuwi MiniBook X N100</strong></td>
+      <td>~$550–$600</td>
+      <td>Tiny convertible laptop; keyboard + touchscreen</td>
+    </tr>
+    <tr>
+      <td><span class="tier-label tier-bronze">BUDGET</span></td>
+      <td><strong>Retroid Pocket 5 (Android)</strong></td>
+      <td>~$400</td>
+      <td>Streaming only (Moonlight/Steam Link); great AMOLED</td>
+    </tr>
+  </table>
+</div>
+
+<!-- STEAM DECK -->
+<h2 id="steam-deck">🥇 Steam Deck — The Gold Standard</h2>
+
+<div class="card">
+  <p><span class="badge badge-best">TOP PICK</span></p>
+  <h3>Valve Steam Deck (LCD, 64GB or 256GB)</h3>
+  <div class="price">$600 – $649 AUD <span class="price-note">(used – new)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> The single best device for visual novels on the go. Twin trackpads + touchscreen + Steam Input remapping solve the "no gamepad support" problem elegantly. And it's the cheapest option that does everything well.</div>
+
+  <h4>Why It's Perfect for Visual Novels</h4>
+  <ul>
+    <li><strong>Dual trackpads</strong> act as precise mice — click through VN dialogue with your thumb</li>
+    <li><strong>Steam Input</strong> lets you remap <em>any</em> button to <em>any</em> keyboard key (Space/Enter → A button)</li>
+    <li><strong>7-inch touchscreen</strong> — just tap to advance text, like a tablet</li>
+    <li><strong>Back paddle buttons (L4/R4, L5/R5)</strong> — map to Ctrl (skip), Escape (menu), etc.</li>
+    <li><strong>SteamOS suspends/resumes instantly</strong> — perfect for interrupted train reading</li>
+    <li><strong>Massive community</strong> — countless guides, plugins (Decky Loader), themes</li>
+  </ul>
+
+  <h4>Australian Pricing (as of mid-2025)</h4>
+  <table>
+    <tr><th>Model</th><th>New (Steam Store)</th><th>Used (eBay/FB Marketplace)</th></tr>
+    <tr><td>256GB LCD</td><td>$649 AUD</td><td>$600 – $635</td></tr>
+    <tr><td>512GB OLED</td><td>$899 AUD</td><td>$700 – $850</td></tr>
+    <tr><td>1TB OLED</td><td>$1,049 AUD</td><td>$900 – $1,000</td></tr>
+  </table>
+  <p class="note">Tip: The used 64GB LCD can often be found for ~$600 from Australian refurbishers like Sydney Mobile Phone Repairs (with 90-day warranty). You can upgrade the SSD yourself later — it's a standard M.2 2230 drive.</p>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>✅ Pros</h4>
+      <ul>
+        <li>Unmatched input flexibility (trackpads + touch + gyro + remappable back buttons)</li>
+        <li>SteamOS = console-like experience, instant suspend/resume</li>
+        <li>OLED model has fantastic 90Hz HDR screen (great for VN artwork)</li>
+        <li>Huge battery on OLED (3–12 hrs, VNs sip power)</li>
+        <li>Massive accessory ecosystem</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>❌ Cons</h4>
+      <ul>
+        <li>LCD screen is just "okay" (washed out compared to OLED)</li>
+        <li>Quite large — 298mm wide, 669g</li>
+        <li>No physical keyboard for typing notes or searching</li>
+        <li>Some VNs need Proton tweaking (check <a href="https://www.protondb.com" target="_blank">ProtonDB</a>)</li>
+        <li>Used market can be inflated by delusional sellers (per OzBargain forums)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>Battery Life for Visual Novels</h4>
+  <div class="chart-bar"><span class="chart-label">LCD model</span><span class="chart-fill" style="width:200px;background:var(--accent)"></span><span class="chart-val">~6–8 hrs</span></div>
+  <div class="chart-bar"><span class="chart-label">OLED model</span><span class="chart-fill" style="width:260px;background:var(--green)"></span><span class="chart-val">~8–12 hrs</span></div>
+  <p class="note">Visual novels are among the least demanding games. At low TDP (3–5W), the battery lasts an entire train journey and then some.</p>
+</div>
+
+<!-- GPD DEVICES -->
+<h2 id="gpd-devices">🥈 GPD Handhelds — Physical Keyboard Advantage</h2>
+
+<div class="card">
+  <p><span class="badge badge-great">GREAT FOR KB/M VNs</span></p>
+  <h3>GPD WIN 4 (2025) — Ryzen 7 8840U</h3>
+  <div class="price">~$1,300 – $1,550 AUD <span class="price-note">(refurb – new import)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> If your VNs absolutely require keyboard and mouse input and you want the smallest possible device, this is your answer. The slide-up physical keyboard + optical finger mouse + touchscreen cover every input scenario.</div>
+
+  <ul>
+    <li><strong>6-inch 1080p display</strong> with slide-up physical QWERTY keyboard</li>
+    <li><strong>Optical finger navigation (OFN) mouse</strong> — like a tiny trackpoint, no need to switch modes</li>
+    <li><strong>Windows 11</strong> — runs every VN natively, no Proton compatibility concerns</li>
+    <li><strong>32GB LPDDR5x 7500 MT/s + 1–2TB PCIe 4.0 SSD</strong></li>
+    <li><strong>Only 598g</strong> — smaller than a Steam Deck</li>
+    <li>OcuLink port for eGPU expansion if you ever want to play AAA games at a desk</li>
+  </ul>
+
+  <p class="note">⚠️ Note: The GPD WIN 4 series is being discontinued in favour of the larger WIN 5. Stock is limited. Refurb units (Class A) from gpdstore.net ship from UK/global — expect ~$896 USD (~A$1,400) plus shipping. Amazon AU sometimes has listings but availability is spotty.</p>
+</div>
+
+<div class="card">
+  <p><span class="badge badge-great">GREAT ALL-ROUNDER</span></p>
+  <h3>GPD WIN Mini (2025) — Ryzen 7 8840U</h3>
+  <div class="price">~$1,870 AUD <span class="price-note">(gpdstore.net, 8840U/16GB/1TB)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> A clamshell mini-laptop that's also a handheld gaming PC. The built-in keyboard + touchpad + game controls make it the most versatile option — but it's significantly more expensive.</div>
+
+  <ul>
+    <li><strong>7-inch 120Hz VRR display</strong> with clamshell design (protects the screen)</li>
+    <li><strong>Full backlit QWERTY keyboard + precision touchpad</strong> (PTP, 4-finger gestures)</li>
+    <li><strong>Hall effect joysticks + linear triggers</strong> for gamepad-compatible VNs</li>
+    <li><strong>555g</strong> — remarkably light</li>
+    <li>172×109×27mm — fits in a cargo pocket</li>
+    <li>44.24Wh battery — 6–8 hrs light use, 2–3 hrs intensive gaming</li>
+  </ul>
+
+  <p class="note">This device is essentially a tiny laptop <em>and</em> a handheld in one. For VNs, you can use it in laptop mode with the keyboard for mouse-heavy titles, or flip to controller mode for gamepad-supported ones. The clamshell design means you can just close it and toss it in your bag — the screen is always protected.</p>
+</div>
+
+<!-- REFURB LAPTOPS -->
+<h2 id="refurb-laptops">🥉 Refurbished/Used Windows Laptops — Cheapest Entry</h2>
+
+<div class="card">
+  <p><span class="badge badge-budget">BUDGET KING</span></p>
+  <h3>Used Business Laptops (ThinkPad, Latitude, EliteBook)</h3>
+  <div class="price">$206 – $535 AUD <span class="price-note">(Australian refurbishers)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> If your budget is tight and you don't mind the larger form factor, a used business laptop offers a full keyboard, trackpad, and Windows for under $350. Ideal for sitting on a train seat with the laptop on your lap or tray table.</div>
+
+  <h4>Standout Deals from Australian Refurbishers</h4>
+  <table>
+    <tr><th>Device</th><th>Price</th><th>Specs</th><th>Source</th></tr>
+    <tr><td>HP EliteBook 840 G5 14"</td><td>$206 AUD</td><td>i5 8th Gen, 8GB, 256GB SSD, Win 11</td><td>Australian Computer Traders</td></tr>
+    <tr><td>Microsoft Surface Go 2 10.5"</td><td>$299 AUD</td><td>Core m3, 8GB, 256GB SSD, Win 11</td><td>Australian Computer Traders</td></tr>
+    <tr><td>Lenovo ThinkPad T14 Gen 1 14"</td><td>$324 AUD</td><td>i5 10th Gen, 16GB, 512GB SSD, Win 11</td><td>Australian Computer Traders</td></tr>
+    <tr><td>Dell Latitude 7410 2-in-1 14"</td><td>$349 AUD</td><td>i5 10th Gen, 16GB, 256GB SSD, Win 11, touch</td><td>Australian Computer Traders</td></tr>
+    <tr><td>Microsoft Surface Pro 6 12.3"</td><td>$349 AUD</td><td>i5 8th Gen, 8GB, 256GB SSD, Win 11</td><td>Australian Computer Traders</td></tr>
+    <tr><td>Lenovo ThinkPad X12 Detachable Gen 1</td><td>$400 AUD</td><td>i5 11th Gen, 16GB, 256GB SSD, Win 11</td><td>Australian Computer Traders</td></tr>
+  </table>
+
+  <h4>Why This Works for VNs</h4>
+  <ul>
+    <li><strong>Full Windows</strong> — every Steam VN runs natively</li>
+    <li><strong>Keyboard + trackpad built-in</strong> — zero compatibility issues</li>
+    <li><strong>12-month warranty</strong> from most Australian refurbishers</li>
+    <li><strong>Detachable/2-in-1 options</strong> (Surface Pro, Lenovo X12) give you tablet-mode reading</li>
+    <li><strong>Larger screen</strong> (12–14") for reading text comfortably</li>
+  </ul>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>✅ Pros</h4>
+      <ul>
+        <li>Cheapest possible option</li>
+        <li>Full keyboard and trackpad</li>
+        <li>Large screen for reading</li>
+        <li>Warranty included from reputable sellers</li>
+        <li>Can also do productivity work</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>❌ Cons</h4>
+      <ul>
+        <li>Larger and heavier (1.1–1.7 kg)</li>
+        <li>Needs a bag; less "pick up and play"</li>
+        <li>No gamepad controls for VNs that support them</li>
+        <li>Battery life may be degraded on used units</li>
+        <li>Less discrete on a crowded train</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CHUWI MINIBOOK -->
+<h2 id="chuwi-minibook">📗 Chuwi MiniBook X — Tiny Yoga Laptop</h2>
+
+<div class="card">
+  <p><span class="badge badge-budget">BUDGET COMPACT</span></p>
+  <h3>Chuwi MiniBook X (N100)</h3>
+  <div class="price">~$550 – $600 AUD <span class="price-note">(import, AliExpress/Chuwi store)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> If you love the idea of a tiny clamshell laptop but can't afford the GPD WIN Mini, this is the budget alternative. N100 CPU is weak but perfectly adequate for visual novels.</div>
+
+  <ul>
+    <li><strong>10.51-inch 1920×1200 IPS touchscreen</strong> — 360° yoga hinge</li>
+    <li><strong>Full keyboard + glass touchpad</strong></li>
+    <li><strong>920g</strong> — ultra-light</li>
+    <li>Intel N100 (4C/4T, up to 3.4GHz), 12GB LPDDR5, 512GB SSD</li>
+    <li><strong>Windows 11</strong> pre-installed</li>
+    <li>26.6Wh battery — ~6–8 hrs for light use</li>
+    <li>45W PD fast charging via USB-C</li>
+  </ul>
+
+  <p class="note">The N100 is an entry-level CPU, but visual novels are not demanding. The 1920×1200 screen in a 10.5" size is crisp (~220 PPI). The 360° hinge means you can fold it into tablet mode for pure touchscreen reading. Chuwi now also sells a <strong>MiniBook X U300</strong> variant with Intel U300 (5 cores, 4.4GHz turbo, 16GB RAM) for ~$469 USD — a significant upgrade if you can find it.</p>
+</div>
+
+<!-- RETROID -->
+<h2 id="retroid">📱 Retroid Pocket 5 — Android Streaming Option</h2>
+
+<div class="card">
+  <p><span class="badge badge-budget">STREAMING ONLY</span></p>
+  <h3>Retroid Pocket 5</h3>
+  <div class="price">~$397 AUD <span class="price-note">(import)</span></div>
+
+  <div class="quick-verdict"><span>⭐ Verdict:</span> Not a Steam device per se — but a gorgeous 5.5" AMOLED Android handheld that can stream Steam games from your home PC via Moonlight/Sunshine or Steam Link. Only works if you have a gaming PC at home and reliable mobile data.</div>
+
+  <ul>
+    <li><strong>5.5-inch 1080p AMOLED</strong> — stunning display for VN artwork</li>
+    <li><strong>Snapdragon 865</strong> — excellent for streaming, weak for native PC gaming</li>
+    <li><strong>Android 13</strong> — runs Steam Link, Moonlight, native Android VN ports</li>
+    <li>Compact and lightweight; great battery life</li>
+  </ul>
+
+  <div class="highlight-box">
+    <strong>⚠️ Major limitation:</strong> This is a <strong>streaming-only</strong> solution for Steam VNs. You need a PC running at home, a solid internet connection on both ends, and sufficient mobile data. Not suitable for underground train sections with no reception. Also: <strong>no keyboard, no trackpad</strong> — you'd need to use touchscreen or gamepad mapping for non-controller VNs.
+  </div>
+</div>
+
+<!-- MINI PC -->
+<h2 id="mini-pc">⚠️ Mini PCs — Why They Don't Work on a Train</h2>
+
+<div class="card">
+  <p><span class="badge badge-warn">NOT RECOMMENDED</span></p>
+  <h3>Mini PCs (MINISFORUM, GEEKOM, QOOBE, etc.)</h3>
+  <div class="price">$349 – $549 AUD</div>
+
+  <p>Mini PCs like the <strong>MINISFORUM Elite M1 Lite</strong> ($439 AUD barebone), <strong>GEEKOM A5 Pro</strong> (Ryzen 5 7430U), or <strong>QOOBE I ANN150</strong> ($379 AUD) are excellent value for desktop use — but they're <strong>completely impractical for train use</strong>:</p>
+
+  <ul>
+    <li>❌ Require external monitor, keyboard, and mouse</li>
+    <li>❌ Require mains power (no battery)</li>
+    <li>❌ No integrated display</li>
+    <li>❌ Not handheld — not even close</li>
+  </ul>
+
+  <p class="note">A mini PC is a great <em>desktop</em> companion for VNs at home, but it has no place on a train. Don't be tempted by the low price — factor in the cost of a portable monitor, battery bank, and peripherals and you've spent more than a used Steam Deck for a far clunkier setup.</p>
+</div>
+
+<!-- COMPARISON TABLE -->
+<h2 id="comparison-table">📊 Full Comparison Table</h2>
+
+<table>
+  <tr>
+    <th>Device</th>
+    <th>Price (AUD)</th>
+    <th>Form Factor</th>
+    <th>KB/Mouse Input</th>
+    <th>Gamepad</th>
+    <th>Screen</th>
+    <th>OS</th>
+    <th>Train-Friendly?</th>
+  </tr>
+  <tr>
+    <td><strong>Steam Deck LCD 64GB (used)</strong></td>
+    <td>$600</td>
+    <td>Handheld</td>
+    <td>Trackpads + touch</td>
+    <td>✅ Full</td>
+    <td>7" LCD 800p</td>
+    <td>SteamOS</td>
+    <td>✅ Excellent</td>
+  </tr>
+  <tr>
+    <td><strong>Steam Deck 256GB LCD (new)</strong></td>
+    <td>$649</td>
+    <td>Handheld</td>
+    <td>Trackpads + touch</td>
+    <td>✅ Full</td>
+    <td>7" LCD 800p</td>
+    <td>SteamOS</td>
+    <td>✅ Excellent</td>
+  </tr>
+  <tr>
+    <td><strong>Steam Deck OLED 512GB (used)</strong></td>
+    <td>~$850</td>
+    <td>Handheld</td>
+    <td>Trackpads + touch</td>
+    <td>✅ Full</td>
+    <td>7.4" OLED HDR 90Hz</td>
+    <td>SteamOS</td>
+    <td>✅ Excellent</td>
+  </tr>
+  <tr>
+    <td><strong>GPD WIN 4 2025 8840U (refurb)</strong></td>
+    <td>~$1,400</td>
+    <td>Slider handheld</td>
+    <td>Phys KB + OFN mouse</td>
+    <td>✅ Full</td>
+    <td>6" IPS 1080p</td>
+    <td>Win 11</td>
+    <td>✅ Great</td>
+  </tr>
+  <tr>
+    <td><strong>GPD WIN Mini 2025 8840U</strong></td>
+    <td>~$1,870</td>
+    <td>Clamshell mini-laptop</td>
+    <td>Phys KB + touchpad</td>
+    <td>✅ Full</td>
+    <td>7" LTPS 1080p 120Hz</td>
+    <td>Win 11</td>
+    <td>✅ Great</td>
+  </tr>
+  <tr>
+    <td><strong>HP EliteBook 840 G5 (used)</strong></td>
+    <td>$206</td>
+    <td>Laptop</td>
+    <td>Full KB + trackpad</td>
+    <td>❌ None</td>
+    <td>14" FHD</td>
+    <td>Win 11</td>
+    <td>⚠️ Okay (larger)</td>
+  </tr>
+  <tr>
+    <td><strong>Surface Go 2 (used)</strong></td>
+    <td>$299</td>
+    <td>Tablet + KB</td>
+    <td>KB + trackpad (Type Cover)</td>
+    <td>❌ None</td>
+    <td>10.5" 1800p</td>
+    <td>Win 11</td>
+    <td>✅ Good</td>
+  </tr>
+  <tr>
+    <td><strong>Lenovo ThinkPad T14 Gen 1 (used)</strong></td>
+    <td>$324</td>
+    <td>Laptop</td>
+    <td>Full KB + trackpad</td>
+    <td>❌ None</td>
+    <td>14" FHD</td>
+    <td>Win 11</td>
+    <td>⚠️ Okay (larger)</td>
+  </tr>
+  <tr>
+    <td><strong>Chuwi MiniBook X N100</strong></td>
+    <td>~$550</td>
+    <td>Mini convertible</td>
+    <td>Phys KB + touchpad</td>
+    <td>❌ None</td>
+    <td>10.5" 1200p touch</td>
+    <td>Win 11</td>
+    <td>✅ Good</td>
+  </tr>
+  <tr>
+    <td><strong>Retroid Pocket 5</strong></td>
+    <td>~$397</td>
+    <td>Handheld</td>
+    <td>Touch only</td>
+    <td>✅ Full</td>
+    <td>5.5" AMOLED 1080p</td>
+    <td>Android</td>
+    <td>⚠️ Streaming only</td>
+  </tr>
+  <tr>
+    <td><strong>AYANEO 3 (8840U, OLED)</strong></td>
+    <td>$1,650–$1,800</td>
+    <td>Handheld</td>
+    <td>HW kb/m mode + touch</td>
+    <td>✅ Full + modular</td>
+    <td>7" OLED 144Hz</td>
+    <td>Win 11</td>
+    <td>✅ Great</td>
+  </tr>
+</table>
+
+<!-- WHAT ABOUT -->
+<h2 id="what-about">🤔 What About: Chromebooks, Tablets, Phones?</h2>
+
+<h3>Chromebooks</h3>
+<div class="highlight-box">
+<strong>❌ Not recommended for Steam VNs.</strong> Chrome OS cannot natively run Steam games (Steam on ChromeOS is limited to very specific high-end Chromebooks via Borealis/Linux, and most budget Chromebooks aren't compatible). A refurb Lenovo 500e Chromebook at $185–$209 is tempting for the price, but it simply won't run your Steam library.
+</div>
+
+<h3>iPad / Android Tablets</h3>
+<p>Tablets can run <em>some</em> visual novels that have native iOS/Android ports (e.g. Steins;Gate, Ace Attorney, Danganronpa). But <strong>Steam VNs cannot run on iPads or Android tablets</strong> unless you stream from a PC. If streaming is acceptable, a used iPad with Steam Link + a Bluetooth keyboard could work — but it's a compromised experience.</p>
+
+<h3>Your Phone + Controller Grip</h3>
+<p>Steam Link on a phone with a telescopic controller (e.g. Backbone, Gamesir) is the cheapest possible option — essentially free if you already own a phone. But: small screen for reading text, streaming latency, and no keyboard/mouse for VNs that need it.</p>
+
+<!-- FINAL ADVICE -->
+<h2 id="final-advice">💡 Final Advice & Where to Buy</h2>
+
+<div class="card">
+  <h3>My Recommendations by Budget</h3>
+
+  <div class="highlight-box">
+    <strong>💰 Under $400:</strong> Used Surface Go 2 or Lenovo ThinkPad from <a href="https://www.australiancomputertraders.com.au/laptops-under-500/" target="_blank">Australian Computer Traders</a>. Full Windows, keyboard, trackpad — done. Not the sexiest, but totally functional for train VN reading.
+  </div>
+
+  <div class="highlight-box">
+    <strong>💰 $600–$650:</strong> <strong>Used Steam Deck LCD (64GB)</strong> from a reputable seller or the <strong>new 256GB LCD</strong> directly from Steam. This is the sweet spot. Trackpads + touch + Steam Input remapping make even keyboard-only VNs playable, and you get a full handheld gaming PC for other games too. <em>This is what I'd buy.</em>
+  </div>
+
+  <div class="highlight-box">
+    <strong>💰 $800–$900:</strong> Used Steam Deck OLED 512GB. The OLED screen is genuinely transformative for visual novel artwork (deep blacks, vibrant colours), and the 90Hz refresh + bigger battery are meaningful upgrades. Worth the stretch if you can find a good deal.
+  </div>
+
+  <div class="highlight-box">
+    <strong>💰 $1,300+:</strong> GPD WIN 4 or WIN Mini if you specifically need a <em>physical keyboard</em> on-device and want the smallest possible form factor. These are enthusiast devices with less community support than the Steam Deck.
+  </div>
+
+  <h3>Where to Buy in Australia</h3>
+  <table>
+    <tr><th>Store</th><th>What They Sell</th><th>Notes</th></tr>
+    <tr><td><a href="https://store.steampowered.com/steamdeck" target="_blank">Steam Store</a></td><td>New Steam Decks</td><td>Official AU store, ships from local warehouse, full warranty</td></tr>
+    <tr><td><a href="https://www.australiancomputertraders.com.au/" target="_blank">Australian Computer Traders</a></td><td>Refurb laptops</td><td>12-month warranty, free shipping, great prices on ThinkPads/Latitudes</td></tr>
+    <tr><td><a href="https://reboot-it.com.au/" target="_blank">Reboot IT</a></td><td>Refurb laptops & Chromebooks</td><td>12-month warranty, Australia's largest refurbisher since 2001</td></tr>
+    <tr><td><a href="https://sydneymobilephonerepairs.com.au/" target="_blank">Sydney Mobile Phone Repairs</a></td><td>Used Steam Decks</td><td>90-day warranty, good-condition units ~$600</td></tr>
+    <tr><td>eBay AU / FB Marketplace</td><td>Used everything</td><td>Buyer beware — prices often inflated; check RRP first (per OzBargain: 512GB OLED used ~$700–$800 is fair)</td></tr>
+    <tr><td><a href="https://gpdstore.net/en-au/" target="_blank">GPDStore (DROIX)</a></td><td>GPD devices</td><td>Ships to AU, 2-year warranty, prices in AUD incl. tax</td></tr>
+    <tr><td><a href="https://www.gamesmen.com.au/" target="_blank">The Gamesmen</a> / <a href="https://www.jbhifi.com.au/" target="_blank">JB Hi-Fi</a></td><td>AYANEO 3</td><td>Local AU retailers for AYANEO devices</td></tr>
+  </table>
+
+  <h3>One More Thing You Might Not Have Considered</h3>
+  <ul>
+    <li><strong>Steam Input virtual menus:</strong> On Steam Deck, you can create on-screen radial menus mapped to keyboard shortcuts (Save, Load, Skip, Auto, Backlog, etc.). This is a game-changer for keyboard-only VNs.</li>
+    <li><strong>Decky Loader + SteamGridDB:</strong> Custom artwork for your VN library makes browsing your collection a joy on Steam Deck.</li>
+    <li><strong>Proton compatibility:</strong> Most modern VNs run flawlessly on Steam Deck via Proton. Check <a href="https://www.protondb.com" target="_blank">ProtonDB</a> before buying. Older Japanese VNs sometimes need GE-Proton or specific launch options — but the community has already solved most of these.</li>
+    <li><strong>microSD expansion:</strong> VNs are typically 2–8GB each. A 512GB microSD card (~$50 AUD) holds dozens of them. Don't stress about internal storage on the LCD Deck.</li>
+    <li><strong>Train etiquette:</strong> A Steam Deck or GPD device is quiet (especially playing VNs at low TDP) and doesn't scream "I'M GAMING" like a gaming laptop with RGB would. The Deck looks like a chunky tablet to most passersby.</li>
+  </ul>
+</div>
+
+<!-- SOURCES -->
+<h2 id="sources">📚 Sources</h2>
+<ul style="font-size:0.85rem;color:var(--text-muted);">
+  <li>Valve Steam Store — Official Australian Steam Deck pricing (256GB LCD: $649, 512GB OLED: $899, 1TB OLED: $1,049 AUD)</li>
+  <li>Press Start Australia — "The Steam Deck Finally Goes On Sale In Australia" (Nov 2024)</li>
+  <li>Press Start Australia — "The Modular AYANEO 3 Handheld Is Getting An Aussie Release" (Mar 2025) — $1,799.95 AUD at JB Hi-Fi, Gamesmen, Kogan</li>
+  <li>Costco Australia — AYANEO 3 OLED (8840U, 32GB, 1TB): $1,649.99 AUD</li>
+  <li>GPDStore.net (DROIX) — GPD WIN Mini 2025 pricing in AUD; GPD WIN 4 2024/2025 pricing</li>
+  <li>gpd.hk — Official GPD WIN 4 2025 specs and features</li>
+  <li>Australian Computer Traders — Refurbished laptop pricing: <a href="https://www.australiancomputertraders.com.au/laptops-under-500/" target="_blank">laptops-under-500</a></li>
+  <li>Sydney Mobile Phone Repairs — Used Steam Deck 64GB LCD: $600 AUD with 90-day warranty</li>
+  <li>PriceHound AU — Used Steam Deck OLED 512GB tracked at $850 AUD (Jun 2025)</li>
+  <li>OzBargain Forums — Community discussion on used Steam Deck pricing (Dec 2025)</li>
+  <li>Retropalm AU — GPD WIN 4 2025: $2,369.99 AUD</li>
+  <li>Sunsky Online — GPD WIN 4 2025 (HX 370, 32GB+2TB): ~A$1,548</li>
+  <li>Reboot IT — Refurb Lenovo 500e Chromebook: $185–$209 AUD</li>
+  <li>Chuwi Official — MiniBook X N100 specs; WebProNews — MiniBook X U300 review (Jul 2026)</li>
+  <li>Held Games — "18 Best Visual Novels for Handhelds" + "Best Handhelds for Visual Novels" (2025)</li>
+  <li>SteamDeckHQ — "Steam March 2025 Visual Novel Fest Recommendations for Steam Deck"</li>
+  <li>GamingOnLinux — "Steam Deck comes to Australia on November 19" (Nov 2024)</li>
+  <li>MINISFORUM AU — Elite M1 Lite-125U: $439 AUD barebone</li>
+  <li>QOOBE/Chipset AU — I ANN150 Mini PC: $379 AUD</li>
+  <li>GEEKOM AU — A5 Pro Mini PC (Ryzen 5 7430U)</li>
+  <li>The Good Guys — Lenovo IdeaPad Slim 3 Chromebook: $449 AUD</li>
+</ul>
+
+<p style="text-align:center;margin-top:40px;color:var(--text-muted);font-size:0.85rem;">Guide compiled July 2025. All prices in AUD and subject to change. Always verify current pricing before purchasing.</p>
+
+</div>
+</body>
+</html>
