@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY 2.0/2.1 Home Theatre: Schiit Gjallarhorn F System Guide (Australian Pricing)</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --surface: #16213e;
+            --surface-alt: #0f3460;
+            --accent: #e94560;
+            --accent-alt: #533483;
+            --text: #e0e0e0;
+            --text-muted: #a0a0b8;
+            --border: #2a2a4a;
+            --good: #00c853;
+            --warn: #ffab00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-alt) 100%);
+            border-bottom: 3px solid var(--accent);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin: 1.2rem 0 0.6rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card.highlight {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--surface) 0%, rgba(233, 68, 96, 0.08) 100%);
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .price-tag.alt {
+            background: var(--accent-alt);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface-alt);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover td {
+            background: rgba(233, 68, 96, 0.04);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .badge.best { background: var(--good); color: #000; }
+        .badge.value { background: var(--warn); color: #000; }
+
+        ul, ol {
+            padding-left: 1.5rem;
+            margin: 0.75rem 0;
+        }
+
+        li { margin-bottom: 0.35rem; }
+
+        .chain {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            padding: 0.75rem;
+            background: var(--surface-alt);
+            border-radius: 8px;
+            margin: 0.75rem 0;
+        }
+
+        .chain .arrow { color: var(--accent); font-weight: 700; }
+        .chain .component { background: var(--surface); padding: 0.2rem 0.5rem; border-radius: 4px; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer a { color: var(--accent); text-decoration: none; }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .two-col { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.5rem; }
+        }
+
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .toc a:hover { color: var(--accent); }
+        .toc ol { list-style-type: decimal; }
+        .toc ol ol { list-style-type: lower-alpha; }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .spec-grid span:nth-child(odd) { color: var(--text-muted); }
+        .spec-grid span:nth-child(even) { font-weight: 600; }
+
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            background: rgba(233, 68, 96, 0.05);
+            font-style: italic;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>DIY 2.0 / 2.1 Home Theatre System</h1>
+    <p>Revolving around the <strong>Schiit Gjallarhorn F</strong> power amplifier — Australian pricing &amp; recommendations for a small-room setup with better frequency response</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Research compiled from Australian retailers, manufacturer pages, and reviews — prices in AUD</p>
+</header>
+
+<main>
+
+<!-- TOC -->
+<section>
+    <h2>Table of Contents</h2>
+    <div class="toc">
+        <ol>
+            <li><a href="#amp">The Amplifier: Schiit Gjallarhorn F</a></li>
+            <li><a href="#dac">DAC/Preamp Options</a>
+                <ol>
+                    <li><a href="#dac-all">All-in-One: Streamer + DAC + Preamp with HDMI ARC</a></li>
+                    <li><a href="#dac-split">Split Schiit Stack: Separate DAC + Preamp</a></li>
+                    <li><a href="#dac-comparison">Comparison Table</a></li>
+                </ol>
+            </li>
+            <li><a href="#speakers">Speakers for a Small Room</a></li>
+            <li><a href="#subwoofer">Subwoofer for 2.1</a></li>
+            <li><a href="#builds">Recommended System Builds</a></li>
+            <li><a href="#important">Important Considerations</a></li>
+            <li><a href="#sources">Sources</a></li>
+        </ol>
+    </div>
+</section>
+
+<!-- AMPLIFIER -->
+<section id="amp">
+    <h2>1. The Amplifier: Schiit Gjallarhorn F</h2>
+
+    <div class="card highlight">
+        <h3>Schiit Gjallarhorn F — Compact Continuity S™ Speaker Amp</h3>
+        <p><span class="price-tag">~AUD $550–650</span> <em>(estimated Australian landed price; USD $299–349 direct)</em></p>
+
+        <div class="spec-grid">
+            <span>Power (Stereo, 8Ω)</span><span>10W RMS per channel</span>
+            <span>Power (Stereo, 4Ω)</span><span>15W RMS per channel</span>
+            <span>Power (Mono, 8Ω)</span><span>30W RMS</span>
+            <span>Frequency Response</span><span>20Hz–20kHz ±0.01dB</span>
+            <span>THD</span><span>&lt;0.004%</span>
+            <span>SNR</span><span>&gt;117dB</span>
+            <span>Damping Factor</span><span>&gt;100 into 8Ω</span>
+            <span>Gain</span><span>10 (20dB)</span>
+            <span>Topology</span><span>Fully discrete, Class AB, Continuity S™</span>
+            <span>Inputs</span><span>L/R RCA (stereo), single XLR (mono)</span>
+            <span>Power Supply</span><span>Linear — 80VA toroidal, 30,000µF</span>
+            <span>Size</span><span>9" × 6" × 2.5" (228 × 152 × 63 mm)</span>
+            <span>Weight</span><span>3.6 kg</span>
+        </div>
+
+        <blockquote>"10W out of Gjallarhorn with 95dB efficient speakers is like 100W out of Vidar into 85dB efficient speakers." — Schiit FAQ</blockquote>
+
+        <p><strong>Key takeaway:</strong> This is a low-power, ultra-high-quality Class AB amplifier. At only 10W into 8Ω, <em>speaker sensitivity is critical</em>. For a small room at moderate volumes, 88dB+ sensitivity speakers are recommended. Schiit themselves call it "perfect for desktops and smaller rooms" and explicitly recommend pairing with Saga 2 for a "mini-stack."</p>
+
+        <p>The Gjallarhorn F is the newer "Forkbeard" version adding app control. It is designed and built in the USA. Schiit sells direct with an Australian plug option (+$50 USD). The older non-F Gjallarhorn sells for AUD $629–699 at Addicted to Audio, so expect similar pricing for the F once Australian stock arrives.</p>
+    </div>
+</section>
+
+<!-- DAC/PREAMP -->
+<section id="dac">
+    <h2>2. DAC / Preamp Options</h2>
+    <p>Since you're using an Apple TV 4K connected to your TV, you need a way to get audio <em>from the TV</em> into your stereo system. The Gjallarhorn F is a pure power amp — it has no volume control, no DAC, and no HDMI input. You have two architectural approaches:</p>
+
+    <!-- OPTION A: ALL IN ONE -->
+    <h3 id="dac-all">Option A: All-in-One Streamer/DAC/Preamp (with HDMI ARC)</h3>
+
+    <div class="card highlight">
+        <h3>🥇 WiiM Ultra <span class="badge best">TOP PICK</span></h3>
+        <p><span class="price-tag">AUD $595–599</span></p>
+        <p><strong>Available at:</strong> Groove Central, Sturmans AV, The HiFi Shop, CHT Solutions, The Speaker Project</p>
+
+        <div class="spec-grid">
+            <span>DAC Chip</span><span>ESS ES9038Q2M SABRE (32-bit/384kHz)</span>
+            <span>HDMI Input</span><span>HDMI ARC (for TV audio)</span>
+            <span>Other Inputs</span><span>Optical, Line (RCA), Phono (MM), USB Host</span>
+            <span>Outputs</span><span>Line Out (RCA), Coaxial, Optical, USB, Sub Out, Headphone, 12V Trigger</span>
+            <span>Streaming</span><span>Wi-Fi 6E, BT 5.3, AirPlay 2, Chromecast, Spotify Connect, TIDAL Connect, Roon Ready</span>
+            <span>SNR (Line Out)</span><span>121dB</span>
+            <span>THD+N</span><span>0.00018% (−115dB)</span>
+            <span>Display</span><span>3.5" colour touchscreen</span>
+            <span>Subwoofer Management</span><span>Adjustable crossover, level, phase, latency</span>
+            <span>Room Correction</span><span>Built-in room correction + 10-band PEQ</span>
+            <span>Phono Stage</span><span>Built-in MM phono preamp</span>
+            <span>Preamp Function</span><span>Full preamp mode with volume control</span>
+        </div>
+
+        <p><strong>Why it's the top pick:</strong> The WiiM Ultra is a genuine all-in-one solution. It has HDMI ARC for TV audio, a very capable ESS Sabre DAC, full preamp functionality (volume control + sub out), built-in streaming (so you may not even need the Apple TV for music), a phono stage for a future turntable, room correction, and a subwoofer output with proper bass management. Connect it via RCA to the Gjallarhorn F and you're done. It also has optical and line inputs for a CD player or dedicated streamer. At $595 AUD, it's incredible value.</p>
+
+        <p><strong>Future-proofing:</strong> Already has streaming built-in + optical/line inputs for CD player or external streamer. Phono input for turntable.</p>
+    </div>
+
+    <div class="card">
+        <h3>🥈 Bluesound Node N132 <span class="badge value">PREMIUM</span></h3>
+        <p><span class="price-tag">AUD $989–1,099</span></p>
+        <p><strong>Available at:</strong> Tivoli Hi-Fi, The HiFi Shop, Audio Influence, InStyle HiFi, Todds Hi Fi</p>
+
+        <div class="spec-grid">
+            <span>DAC Chip</span><span>ESS ES9039Q2M SABRE</span>
+            <span>HDMI Input</span><span>HDMI eARC</span>
+            <span>Other Inputs</span><span>Optical/Analog Combo, USB</span>
+            <span>Outputs</span><span>RCA, Optical, Coaxial, USB, Sub Out, Headphone (¼")</span>
+            <span>Headphone Amp</span><span>THX AAA™ technology</span>
+            <span>Streaming</span><span>BluOS, AirPlay 2, Spotify Connect, TIDAL Connect, Roon Ready</span>
+            <span>Room Correction</span><span>Dirac Live Ready (license extra)</span>
+            <span>SNR</span><span>−118dB</span>
+            <span>THD+N</span><span>0.0007%</span>
+        </div>
+
+        <p><strong>Best for:</strong> Those who want a more premium streaming platform (BluOS is widely regarded as excellent), THX AAA headphone output, and Dirac Live room correction capability. Costs ~$400 more than the WiiM Ultra but offers a more refined ecosystem.</p>
+    </div>
+
+    <div class="card">
+        <h3>🥉 Fosi Audio ZD3 <span class="badge value">BUDGET</span></h3>
+        <p><span class="price-tag">~AUD $280</span> <em>(USD $180, imported)</em></p>
+
+        <div class="spec-grid">
+            <span>DAC Chip</span><span>ESS ES9039Q2M</span>
+            <span>HDMI Input</span><span>HDMI ARC</span>
+            <span>Other Inputs</span><span>USB, Optical, Coaxial, Bluetooth</span>
+            <span>Outputs</span><span>XLR Balanced, RCA, 12V Trigger</span>
+            <span>Preamp</span><span>Yes, with bypass switch</span>
+            <span>Display</span><span>1.5" OLED</span>
+        </div>
+
+        <p><strong>Best for:</strong> Ultra-budget. No streaming or subwoofer output, but you get HDMI ARC, a balanced output, and a good DAC chip for minimal spend. No streaming built-in — you'd rely on the Apple TV. No subwoofer management either, limiting 2.1 use.</p>
+    </div>
+
+    <!-- OPTION B: SPLIT -->
+    <h3 id="dac-split">Option B: Split Schiit Stack — Separate DAC + Preamp</h3>
+    <p>This is the "purist" route that pairs beautifully with the Gjallarhorn. <strong>The catch:</strong> neither Schiit DACs nor preamps have HDMI ARC. You'd need an HDMI ARC audio extractor to convert TV HDMI ARC → optical SPDIF.</p>
+
+    <div class="card">
+        <h3>Schiit Modi+ DAC + Schiit Saga 2 Preamp</h3>
+
+        <div class="chain">
+            <span class="component">TV (HDMI ARC)</span>
+            <span class="arrow">→</span>
+            <span class="component">HDMI ARC Extractor (~$30-50)</span>
+            <span class="arrow">→</span>
+            <span class="component">Schiit Modi+ DAC</span>
+            <span class="arrow">→</span>
+            <span class="component">Schiit Saga 2 Preamp</span>
+            <span class="arrow">→</span>
+            <span class="component">Gjallarhorn F</span>
+        </div>
+
+        <table>
+            <tr><th>Component</th><th>Role</th><th>Price (AUD)</th></tr>
+            <tr><td>Schiit Modi+ DAC</td><td>ESS ES9018 DAC — USB, Optical, Coax inputs → RCA out</td><td><strong>$299–329</strong> (Addicted to Audio)</td></tr>
+            <tr><td>Schiit Saga 2 Preamp</td><td>Class A, relay-ladder volume, 4× RCA in, XLR+RCA out, remote</td><td><strong>~$500–550</strong> (estimated)</td></tr>
+            <tr><td>HDMI ARC Extractor</td><td>HDMI ARC → Optical SPDIF converter</td><td><strong>~$30–50</strong></td></tr>
+            <tr><td colspan="2"><strong>Total (Split Schiit Stack)</strong></td><td><strong>~$830–930</strong></td></tr>
+        </table>
+
+        <p>The Saga 2 has <strong>4 RCA inputs</strong>, so you can connect the Modi+ DAC, a future CD player, and a future dedicated streamer — all switchable via remote. It also has balanced XLR outputs for future mono-blocking with a second Gjallarhorn. The Saga 2 was explicitly designed to pair with the Gjallarhorn F.</p>
+
+        <p><strong>Downside:</strong> No HDMI ARC natively. No subwoofer output (you'd need a sub with speaker-level inputs or run the sub from a splitter off the preamp outputs). No built-in streaming.</p>
+    </div>
+
+    <div class="card">
+        <h3>Schiit Modi 5 (New) + Saga 2</h3>
+        <p><span class="price-tag alt">Alternative</span> The new Modi 5 has just been released at USD $149. When it reaches Australia, it should be around AUD $250–300, making this stack slightly cheaper. Uses Schiit's Unison USB™ and improved specs. Still no HDMI ARC — extractor needed.</p>
+    </div>
+
+    <!-- COMPARISON -->
+    <h3 id="dac-comparison">DAC/Preamp Comparison</h3>
+    <table>
+        <tr>
+            <th>Solution</th><th>Price (AUD)</th><th>HDMI ARC</th><th>Streaming</th><th>Sub Out</th><th>CD Input</th><th>Best For</th>
+        </tr>
+        <tr>
+            <td>WiiM Ultra</td><td>$595–599</td><td>✅ Native</td><td>✅ Full</td><td>✅ + DSP</td><td>✅ Optical/Line</td><td>All-in-one simplicity</td>
+        </tr>
+        <tr>
+            <td>Bluesound Node N132</td><td>$989–1,099</td><td>✅ eARC</td><td>✅ BluOS</td><td>✅</td><td>✅ Optical</td><td>Premium streaming</td>
+        </tr>
+        <tr>
+            <td>Fosi ZD3</td><td>~$280</td><td>✅</td><td>❌ BT only</td><td>❌</td><td>❌ (Opt/Coax)</td><td>Budget, stereo only</td>
+        </tr>
+        <tr>
+            <td>Schiit Modi+ / Saga 2</td><td>~$830–930</td><td>❌ (extractor)</td><td>❌</td><td>❌</td><td>✅ 4 RCA in</td><td>Purist Schiit stack</td>
+        </tr>
+    </table>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers">
+    <h2>3. Speakers for a Small Room</h2>
+    <p>With only 10W (8Ω) from the Gjallarhorn F, <strong>speaker sensitivity is critical</strong>. You want 87dB+ sensitivity, ideally 88dB+. All speakers below are 8Ω nominal or 8Ω-compatible.</p>
+
+    <div class="card highlight">
+        <h3>🥇 Wharfedale Diamond 12.1 <span class="badge best">BEST MATCH</span></h3>
+        <p><span class="price-tag">AUD $455–649</span> (on sale from $649 RRP)</p>
+        <p><strong>Available at:</strong> Wharfedale Australia, West Coast HiFi, Apollo HiFi, The HiFi Shop, Digital Cinema</p>
+        <div class="spec-grid">
+            <span>Sensitivity</span><span>88dB (2.83V @ 1m)</span>
+            <span>Impedance</span><span>8Ω compatible (4Ω min)</span>
+            <span>Frequency Response</span><span>65Hz – 20kHz (±3dB)</span>
+            <span>Bass Driver</span><span>5" (130mm) Klarity™ PP cone</span>
+            <span>Tweeter</span><span>1" (25mm) textile dome</span>
+            <span>Recommended Power</span><span>20–100W</span>
+            <span>Dimensions</span><span>312 × 180 × 278 mm</span>
+        </div>
+        <p><strong>Why it's the best match:</strong> 88dB sensitivity with 8Ω impedance is ideal for the Gjallarhorn. Warm, forgiving character. Excellent soundstage. What Hi-Fi? award winner. At 65Hz extension, a subwoofer will be beneficial for the bottom octave. The Diamond 12.1 is the sweet spot of the Diamond range — not too big, not too small, just right for a small room.</p>
+    </div>
+
+    <div class="card">
+        <h3>🥈 Q Acoustics 3030i <span class="badge value">BASS CHAMP</span></h3>
+        <p><span class="price-tag">AUD $489–699</span> (commonly on sale at $489)</p>
+        <p><strong>Available at:</strong> Addicted to Audio</p>
+        <div class="spec-grid">
+            <span>Sensitivity</span><span>88dB (2.83V @ 1m)</span>
+            <span>Impedance</span><span>6Ω (4Ω min)</span>
+            <span>Frequency Response</span><span>46Hz – 30kHz</span>
+            <span>Bass Driver</span><span>165mm (6.5") paper cone</span>
+            <span>Tweeter</span><span>22mm decoupled dome</span>
+            <span>Recommended Power</span><span>25–75W</span>
+        </div>
+        <p><strong>Why consider it:</strong> The 6.5" driver gives substantially more bass presence — reaching down to 46Hz, which is remarkable for a bookshelf. This might even let you skip a subwoofer in a small room. Same 88dB sensitivity as the Wharfedale. The 6Ω nominal impedance is fine for the Gjallarhorn. Punchy, dynamic, and fun.</p>
+    </div>
+
+    <div class="card">
+        <h3>🥉 Monitor Audio Bronze 50 7G</h3>
+        <p><span class="price-tag">AUD $819–1,099</span></p>
+        <p><strong>Available at:</strong> Decibel HiFi, Lenc Australia</p>
+        <div class="spec-grid">
+            <span>Sensitivity</span><span>86dB</span>
+            <span>Impedance</span><span>8Ω</span>
+            <span>Frequency Response</span><span>41Hz – 30kHz (in-room: 37Hz)</span>
+            <span>Bass Driver</span><span>6" (150mm) C-CAM</span>
+            <span>Tweeter</span><span>25mm C-CAM Gold Dome with UD Waveguide</span>
+            <span>Recommended Power</span><span>100W (max)</span>
+        </div>
+        <p>Lower sensitivity (86dB) means the Gjallarhorn will need to work harder. However, Monitor Audio's C-CAM technology delivers superb detail and dynamics. 5-year warranty. Best paired with a subwoofer for full-range performance.</p>
+    </div>
+
+    <div class="card">
+        <h3>KEF Q1 Meta</h3>
+        <p><span class="price-tag">AUD $1,000</span> (KEF Australia)</p>
+        <div class="spec-grid">
+            <span>Sensitivity</span><span>86dB</span>
+            <span>Impedance</span><span>4Ω (3.2Ω min)</span>
+            <span>Frequency Response</span><span>51Hz – 20kHz (±3dB)</span>
+            <span>Driver</span><span>12th Gen Uni-Q with MAT</span>
+        </div>
+        <p><strong>⚠️ Caution:</strong> 4Ω nominal with 3.2Ω minimum is a challenging load. The Gjallarhorn F does 15W into 4Ω, but KEF's low sensitivity means limited headroom. The Uni-Q imaging is superb but this pairing may struggle at higher volumes.</p>
+    </div>
+
+    <h3>Speaker Sensitivity &amp; Volume Estimates</h3>
+    <table>
+        <tr><th>Speaker</th><th>Sensitivity</th><th>Est. SPL @ 1m (10W)</th><th>Est. SPL @ 2.5m</th><th>Sub Needed?</th></tr>
+        <tr><td>Wharfedale Diamond 12.1</td><td>88dB</td><td>~98dB</td><td>~90dB</td><td>Recommended for &lt;60Hz</td></tr>
+        <tr><td>Q Acoustics 3030i</td><td>88dB</td><td>~98dB</td><td>~90dB</td><td>Optional (extends to 46Hz)</td></tr>
+        <tr><td>Monitor Audio Bronze 50 7G</td><td>86dB</td><td>~96dB</td><td>~88dB</td><td>Recommended</td></tr>
+        <tr><td>KEF Q1 Meta</td><td>86dB</td><td>~96dB</td><td>~88dB</td><td>Recommended</td></tr>
+    </table>
+    <p style="font-size: 0.8rem; color: var(--text-muted);">Estimates based on anechoic sensitivity + 10dB for 10W. Real-world in-room SPL is typically 2–3dB higher. ~90dB at listening position is comfortably loud for music/movies.</p>
+</section>
+
+<!-- SUBWOOFER -->
+<section id="subwoofer">
+    <h2>4. Subwoofer for 2.1</h2>
+    <p>For a small room, a sealed subwoofer integrates most naturally for music and avoids boomy bass. The SVS SB-1000 Pro is the gold standard at this price point.</p>
+
+    <div class="card highlight">
+        <h3>SVS SB-1000 Pro</h3>
+        <p><span class="price-tag">AUD $1,214–1,349</span></p>
+        <p><strong>Available at:</strong> Audio Trends, West Coast HiFi, Eastwood HiFi, LUMI-FI</p>
+        <div class="spec-grid">
+            <span>Driver</span><span>12" high-excursion</span>
+            <span>Amplifier</span><span>325W RMS / 820W+ peak (Sledge STA-325D)</span>
+            <span>Frequency Response</span><span>20–270Hz ±3dB</span>
+            <span>Enclosure</span><span>Sealed (acoustic suspension)</span>
+            <span>DSP</span><span>50MHz Analog Devices, app-controlled</span>
+            <span>Dimensions</span><span>330 × 342 × 375mm</span>
+            <span>Weight</span><span>11.9 kg</span>
+            <span>App Control</span><span>3-band PEQ, crossover, phase, room gain</span>
+        </div>
+        <p>The SB-1000 Pro has speaker-level inputs, which is <strong>crucial if using the Schiit split stack</strong> (since the Saga 2 has no dedicated sub out). You can run speaker wire from the Gjallarhorn F's outputs to the sub's speaker-level inputs, and the sub's internal crossover handles bass management.</p>
+        <p>With the WiiM Ultra or Bluesound Node, you'd use the dedicated subwoofer RCA output with proper bass management — a cleaner approach.</p>
+    </div>
+
+    <div class="card">
+        <h3>Budget Alternative: Q Acoustics Q3060S</h3>
+        <p><span class="price-tag alt">AUD ~$399–899</span> (8" slim sub, often on sale)</p>
+        <p>Much smaller and cheaper than the SVS. Adequate for a very small room. 8" driver, 150W. Won't reach as deep or play as clean as the SVS but costs significantly less.</p>
+    </div>
+
+    <h3>Subwoofer Connection Methods for 2.1</h3>
+    <table>
+        <tr><th>DAC/Preamp</th><th>Subwoofer Connection</th><th>Bass Management</th></tr>
+        <tr><td>WiiM Ultra</td><td>RCA Sub Out</td><td>✅ Full DSP crossover, level, phase, latency</td></tr>
+        <tr><td>Bluesound Node N132</td><td>RCA Sub Out</td><td>✅ BluOS bass management</td></tr>
+        <tr><td>Schiit Saga 2 stack</td><td>Speaker-level inputs on sub</td><td>⚠️ Sub's internal crossover only</td></tr>
+        <tr><td>Fosi ZD3</td><td>Y-splitter from RCA out</td><td>⚠️ Manual, no proper crossover</td></tr>
+    </table>
+</section>
+
+<!-- BUILDS -->
+<section id="builds">
+    <h2>5. Recommended System Builds</h2>
+
+    <div class="card highlight">
+        <h3>Build A: All-in-One Value King 🏆</h3>
+        <table>
+            <tr><td><strong>Streamer/DAC/Preamp</strong></td><td>WiiM Ultra</td><td><strong>$595</strong></td></tr>
+            <tr><td><strong>Amplifier</strong></td><td>Schiit Gjallarhorn F</td><td><strong>$600 est.</strong></td></tr>
+            <tr><td><strong>Speakers</strong></td><td>Wharfedale Diamond 12.1</td><td><strong>$455</strong></td></tr>
+            <tr><td><strong>Subwoofer</strong></td><td>SVS SB-1000 Pro</td><td><strong>$1,214</strong></td></tr>
+            <tr><td colspan="2"><strong>Total (2.1)</strong></td><td><strong>~$2,864</strong></td></tr>
+            <tr><td colspan="2"><strong>Total (2.0, no sub)</strong></td><td><strong>~$1,650</strong></td></tr>
+        </table>
+        <p><strong>Signal chain:</strong> TV → (HDMI ARC) → WiiM Ultra → (RCA) → Gjallarhorn F → Wharfedale 12.1 | WiiM Ultra → (RCA Sub Out) → SVS SB-1000 Pro</p>
+        <p>✅ Simplest setup. ✅ Full streaming. ✅ HDMI ARC. ✅ Subwoofer DSP. ✅ Room correction. ✅ Phono input. ✅ Future CD player via optical.</p>
+    </div>
+
+    <div class="card">
+        <h3>Build B: Schiit Purist Stack</h3>
+        <table>
+            <tr><td><strong>HDMI ARC Extractor</strong></td><td>Generic (~$40)</td><td><strong>$40</strong></td></tr>
+            <tr><td><strong>DAC</strong></td><td>Schiit Modi+</td><td><strong>$329</strong></td></tr>
+            <tr><td><strong>Preamp</strong></td><td>Schiit Saga 2</td><td><strong>$525 est.</strong></td></tr>
+            <tr><td><strong>Amplifier</strong></td><td>Schiit Gjallarhorn F</td><td><strong>$600 est.</strong></td></tr>
+            <tr><td><strong>Speakers</strong></td><td>Wharfedale Diamond 12.1</td><td><strong>$455</strong></td></tr>
+            <tr><td><strong>Subwoofer</strong></td><td>SVS SB-1000 Pro (speaker-level)</td><td><strong>$1,214</strong></td></tr>
+            <tr><td colspan="2"><strong>Total (2.1)</strong></td><td><strong>~$3,163</strong></td></tr>
+        </table>
+        <p><strong>Signal chain:</strong> TV → HDMI ARC Extractor → (Optical) → Modi+ → (RCA) → Saga 2 → (RCA) → Gjallarhorn F → Wharfedale 12.1 + SB-1000 Pro (speaker-level)</p>
+        <p>✅ All-Schiit front-end. ✅ 4 preamp inputs for CD/streamer expansion. ✅ Balanced XLR out for future mono-blocking. ⚠️ No streaming built-in (rely on Apple TV). ⚠️ No proper subwoofer bass management.</p>
+    </div>
+
+    <div class="card">
+        <h3>Build C: Budget 2.0 (No Sub)</h3>
+        <table>
+            <tr><td><strong>Streamer/DAC/Preamp</strong></td><td>WiiM Ultra</td><td><strong>$595</strong></td></tr>
+            <tr><td><strong>Amplifier</strong></td><td>Schiit Gjallarhorn F</td><td><strong>$600 est.</strong></td></tr>
+            <tr><td><strong>Speakers</strong></td><td>Q Acoustics 3030i</td><td><strong>$489</strong></td></tr>
+            <tr><td colspan="2"><strong>Total (2.0)</strong></td><td><strong>~$1,684</strong></td></tr>
+        </table>
+        <p>The Q Acoustics 3030i reaches down to 46Hz, which is enough for satisfying bass in a small room without a subwoofer. Add the SVS SB-1000 Pro later for a true 2.1 system.</p>
+    </div>
+</section>
+
+<!-- IMPORTANT -->
+<section id="important">
+    <h2>6. Important Considerations</h2>
+
+    <div class="card">
+        <h3>⚠️ Gjallarhorn F Power Limitations</h3>
+        <p>10W into 8Ω is <em>genuinely low</em> by modern standards. This amp is designed for:</p>
+        <ul>
+            <li><strong>Desktop/nearfield</strong> — sitting close to the speakers</li>
+            <li><strong>Small rooms</strong> — bedrooms, studies, small living rooms</li>
+            <li><strong>Efficient speakers</strong> — 88dB+ sensitivity strongly recommended</li>
+            <li><strong>Moderate volumes</strong> — not party levels</li>
+        </ul>
+        <p>If your room is on the larger side of "small," or you like to listen loud, consider stepping up to the <strong>Schiit Vidar 2F</strong> (USD $799, ~AUD $1,300–1,500 est.) for 100W into 8Ω — much more headroom.</p>
+    </div>
+
+    <div class="card">
+        <h3>🎛️ Volume Control</h3>
+        <p>The Gjallarhorn F is a pure power amplifier — it has <strong>no volume knob</strong>. You <em>must</em> have a preamp or DAC with volume control. All options in this guide include volume control (WiiM Ultra, Bluesound Node, Saga 2, Fosi ZD3 all function as preamps).</p>
+    </div>
+
+    <div class="card">
+        <h3>📺 HDMI ARC vs Optical</h3>
+        <ul>
+            <li><strong>HDMI ARC:</strong> TV remote controls volume. Supports CEC (auto on/off). Limited to stereo PCM or Dolby Digital (which is fine for 2.1).</li>
+            <li><strong>Optical:</strong> Same audio quality as HDMI ARC for stereo. No CEC. Needs an HDMI ARC extractor if your TV only has HDMI ARC output (most modern TVs do). Many TVs still have optical out — check yours.</li>
+            <li><strong>If your TV has optical out:</strong> You can skip the extractor entirely and go TV optical → Modi+ (or WiiM Ultra optical in). This simplifies the Schiit stack significantly.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>🍎 Apple TV as Streamer</h3>
+        <p>The Apple TV 4K is a capable streamer for Apple Music, Spotify, Tidal, etc. via the TV's HDMI ARC. However, for critical music listening, a dedicated streamer with a better DAC (like the WiiM Ultra or Bluesound Node) will sound noticeably better than the TV's internal DAC. With the Schiit stack, you'd be relying on the Apple TV → TV → optical → Modi+ path, which is perfectly fine but not as elegant as an all-in-one solution.</p>
+    </div>
+
+    <div class="card">
+        <h3>🔮 Future Expansion</h3>
+        <ul>
+            <li><strong>CD Player:</strong> Any CD player with optical or coaxial output can connect to the WiiM Ultra (optical in), Bluesound Node (optical in), or Modi+ (optical/coax). The Saga 2 has 4 RCA inputs for analog sources.</li>
+            <li><strong>Dedicated Streamer:</strong> With the WiiM Ultra or Bluesound Node, streaming is already built-in. With the Schiit stack, you'd add a WiiM Mini ($139) or Pro ($219–339) via optical into the Modi+.</li>
+            <li><strong>Turntable:</strong> The WiiM Ultra has a built-in MM phono stage. For the Schiit stack, add a Schiit Mani ($149 USD, ~$250 AUD est.) → Saga 2.</li>
+            <li><strong>Mono-blocking:</strong> The Saga 2's balanced XLR outputs let you run two Gjallarhorn Fs in mono (30W each). A future upgrade path for more power.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>📏 Room Size &amp; Speaker Placement</h3>
+        <p>For a small room (say, 3m × 4m or smaller):</p>
+        <ul>
+            <li>Place speakers at least 30cm from the rear wall (especially rear-ported designs like the Diamond 12.1 and 3030i).</li>
+            <li>Form an equilateral triangle with your listening position.</li>
+            <li>Tweeters at ear height.</li>
+            <li>If using a subwoofer, do the "subwoofer crawl" to find the best position.</li>
+            <li>The WiiM Ultra's room correction can help tame room modes.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+    <h2>7. Sources &amp; References</h2>
+    <table>
+        <tr><th>Source</th><th>Information Used</th></tr>
+        <tr><td>Schiit.com — Gjallarhorn F product page</td><td>Amplifier specs, pricing (USD $299–349)</td></tr>
+        <tr><td>Schiit.com — Saga 2 product page</td><td>Preamp specs, pricing (USD $279–309)</td></tr>
+        <tr><td>Addicted to Audio (addictedtoaudio.com.au)</td><td>Schiit Gjallarhorn (non-F) AUD $629–699, Modi+ AUD $299–329, Q Acoustics 3030i AUD $489</td></tr>
+        <tr><td>Groove Central, Sturmans AV, CHT Solutions, The HiFi Shop, The Speaker Project</td><td>WiiM Ultra AUD $595–599 pricing &amp; specs</td></tr>
+        <tr><td>Tivoli Hi-Fi, The HiFi Shop, Audio Influence, InStyle HiFi</td><td>Bluesound Node N132 AUD $989–1,099 pricing &amp; specs</td></tr>
+        <tr><td>Wharfedale Australia, West Coast HiFi, Apollo HiFi, Digital Cinema</td><td>Diamond 12.1 AUD $455–649 pricing &amp; specs</td></tr>
+        <tr><td>Decibel HiFi, Lenc Australia</td><td>Monitor Audio Bronze 50 7G pricing &amp; specs</td></tr>
+        <tr><td>KEF Australia (au.kef.com)</td><td>Q1 Meta AUD $1,000 pricing &amp; specs</td></tr>
+        <tr><td>Audio Trends, West Coast HiFi, Eastwood HiFi, SVS Sound Australia, LUMI-FI</td><td>SVS SB-1000 Pro AUD $1,214–1,349 pricing &amp; specs</td></tr>
+        <tr><td>Walmart / Fosi Audio</td><td>Fosi ZD3 USD $180 pricing &amp; specs</td></tr>
+        <tr><td>PSB / Living Sound + Vision</td><td>PSB Alpha P5 AUD $849 pricing &amp; specs</td></tr>
+    </table>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">Prices are approximate and were gathered from Australian retailers as of mid-2025. Schiit Gjallarhorn F and Saga 2 Australian pricing are estimates based on US direct pricing with Australian plug options and typical Schiit Australia markups seen on comparable products. Always check current pricing before purchasing.</p>
+</section>
+
+</main>
+
+<footer>
+    <p>DIY 2.0/2.1 Home Theatre System Guide — Built around the Schiit Gjallarhorn F · Australian Pricing · Research compiled for educational purposes</p>
+</footer>
+
+</body>
+</html>
