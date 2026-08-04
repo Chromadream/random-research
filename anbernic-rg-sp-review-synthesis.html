@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A detailed synthesis of two video reviews of the Anbernic RG SP retro gaming handheld.">
+  <title>Anbernic RG SP: Two Reviews, One Verdict</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f2eee4;
+      --muted: #bdb7aa;
+      --faint: #857e72;
+      --paper: #161716;
+      --panel: #20221f;
+      --line: #3a3e38;
+      --lime: #d6f95c;
+      --blue: #9dc5ff;
+      --orange: #ffbb7c;
+      --rose: #ef9ab6;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.62;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover { color: var(--lime); }
+
+    .shell { max-width: 1180px; margin: 0 auto; padding: 0 28px 80px; }
+
+    .masthead {
+      min-height: 620px;
+      display: grid;
+      align-content: end;
+      padding: 82px 0 70px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 83% 28%, rgba(214, 249, 92, 0.18), transparent 23rem),
+        radial-gradient(circle at 72% 80%, rgba(157, 197, 255, 0.16), transparent 26rem),
+        linear-gradient(150deg, #1e211d 0%, #161716 58%, #111211 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 24px;
+      color: var(--lime);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { line-height: 1.06; letter-spacing: -0.035em; }
+
+    h1 {
+      max-width: 950px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3.35rem, 9vw, 7.4rem);
+      font-weight: 400;
+    }
+
+    .deck {
+      max-width: 760px;
+      margin: 28px 0 0;
+      color: #d6d0c4;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      line-height: 1.48;
+    }
+
+    .source-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 36px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #595e56;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      text-decoration: none;
+    }
+
+    .tag::before { content: "↗"; color: var(--lime); }
+
+    .report-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .report-nav a { text-decoration: none; }
+
+    section { padding: 74px 0; border-bottom: 1px solid var(--line); }
+
+    h2 {
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(2.25rem, 5vw, 4.35rem);
+      font-weight: 400;
+    }
+
+    h3 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      font-weight: 750;
+    }
+
+    p { margin: 0 0 18px; }
+
+    .lede {
+      max-width: 850px;
+      color: #e0dbd0;
+      font-family: var(--serif);
+      font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+      line-height: 1.45;
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(230px, 0.65fr);
+      gap: 42px;
+      margin-top: 36px;
+      padding: 38px;
+      border: 1px solid #59654a;
+      background: #242b1d;
+    }
+
+    .verdict h3 { color: var(--lime); }
+    .verdict p { max-width: 710px; margin-bottom: 0; font-size: 1.08rem; }
+
+    .score-label {
+      margin: 0 0 8px;
+      color: var(--faint);
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .score {
+      margin: 0;
+      color: var(--lime);
+      font-family: var(--serif);
+      font-size: 3.35rem;
+      line-height: 1;
+    }
+
+    .grid-2, .grid-3 { display: grid; gap: 20px; margin-top: 32px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .label {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .accent-orange { color: var(--orange); }
+    .accent-rose { color: var(--rose); }
+
+    .facts {
+      width: 100%;
+      margin-top: 34px;
+      border-collapse: collapse;
+      font-size: 0.96rem;
+    }
+
+    .facts th, .facts td {
+      padding: 15px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .facts th {
+      width: 29%;
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      margin-top: 30px;
+      padding: 22px 24px 22px 28px;
+      border-left: 4px solid var(--orange);
+      background: #2a251e;
+      color: #e5dccd;
+    }
+
+    .callout strong { color: var(--orange); }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 190px 1fr 1fr;
+      margin-top: 32px;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .comparison > div {
+      min-height: 100%;
+      padding: 18px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .comparison .heading {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .comparison .topic { color: var(--lime); font-weight: 750; }
+    .comparison p { margin: 0; font-size: 0.92rem; }
+
+    .timeline { display: grid; gap: 0; margin-top: 28px; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 22px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .time { color: var(--blue); font-size: 0.86rem; font-weight: 750; }
+    .timeline-item p { margin: 0; }
+
+    ul { padding-left: 1.2em; }
+    li { margin: 0 0 10px; }
+
+    .buyer-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+    .buyer { padding: 24px; border-top: 3px solid var(--line); background: var(--panel); }
+    .buyer.yes { border-color: var(--lime); }
+    .buyer.maybe { border-color: var(--orange); }
+    .buyer.no { border-color: var(--rose); }
+    .buyer p:last-child { margin-bottom: 0; }
+
+    .footnotes {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footnotes p { max-width: 920px; }
+
+    .fineprint {
+      margin-top: 26px;
+      color: var(--faint);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    footer { padding: 36px 0 0; color: var(--faint); font-size: 0.82rem; }
+
+    @media (max-width: 760px) {
+      .shell { padding-left: 18px; padding-right: 18px; }
+      .masthead { min-height: 530px; padding: 72px 0 56px; }
+      section { padding: 54px 0; }
+      .verdict, .grid-2, .grid-3, .buyer-list { grid-template-columns: 1fr; }
+      .comparison { grid-template-columns: 1fr; }
+      .comparison .heading { display: none; }
+      .comparison .topic { padding-bottom: 4px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 5px; }
+      .facts th { width: 40%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell">
+      <p class="eyebrow">Review synthesis / Anbernic RG SP</p>
+      <h1>Two reviews.<br>One very focused handheld.</h1>
+      <p class="deck">A detailed synthesis of Adin Walls and Retro Game Corps on Anbernic's RG SP: a $60–65 Linux clamshell that deliberately trades all-purpose emulation for an unusually convincing Game Boy Advance experience.</p>
+      <div class="source-strip" aria-label="Source videos">
+        <a class="tag" href="https://www.youtube.com/watch?v=96wV5ef7xRA">Adin Walls: “The Anbernic RG SP is simply BETTER than everything else”</a>
+        <a class="tag" href="https://www.youtube.com/watch?v=Ac2GW3BJSjE">Retro Game Corps: “Anbernic RG SP Review: Pitch Perfect GBA”</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <nav class="report-nav" aria-label="Report sections">
+      <a href="#verdict">Verdict</a>
+      <a href="#specs">What it is</a>
+      <a href="#agreement">Where they agree</a>
+      <a href="#differences">Where they differ</a>
+      <a href="#deep-dive">Detailed findings</a>
+      <a href="#buying">Buying advice</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="verdict">
+      <p class="eyebrow">Executive conclusion</p>
+      <h2>The best Anbernic SP for a new GBA-first buyer, not an automatic upgrade.</h2>
+      <p class="lede">Both reviewers consider the RG SP a successful refinement rather than a new performance tier. It keeps the familiar H700 internals, but removes the RG34XXSP's analog sticks, centers the 3:2 screen more cleanly, reduces size and weight, and leans hard into the Game Boy Advance SP shape. The result is a handheld whose appeal is clarity of purpose, not specification novelty.</p>
+      <div class="verdict">
+        <div>
+          <h3>Unified verdict</h3>
+          <p>Buy it if you want a compact, protective, GBA-shaped emulator and expect most of your time to be spent with GBA, plus lighter 8/16-bit and PS1 libraries. Its 720 × 480 panel gives GBA a clean 3× integer scale; its hinge, size, D-pad, sleep behavior, firmware ecosystem, and price make the total package unusually coherent. Skip an upgrade if you already own an RG34XXSP and do not specifically dislike its sticks, screen placement, or styling. Do not buy it as a broadly optimal 4:3 machine, a high-end-system handheld, or a flawless premium build.</p>
+        </div>
+        <div>
+          <p class="score-label">Review consensus</p>
+          <p class="score">Strong buy<br>for its niche</p>
+          <p class="fineprint">This is a synthesis, not a numerical score assigned by either reviewer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="specs">
+      <p class="eyebrow">The product in context</p>
+      <h2>A GBA machine that happens to do more.</h2>
+      <p>The RG SP is the third recent Anbernic clamshell in this family, following the RG35XXSP and RG34XXSP. Both reviewers frame it as the version that best commits to the original Game Boy Advance SP idea. It is not a new chip, screen technology, or emulation-performance class. It is a careful reshaping of existing H700 hardware around a single use case.</p>
+      <table class="facts">
+        <tbody>
+          <tr><th>Processor / memory</th><td>Allwinner H700 with 1 GB RAM. This is established Anbernic XX-series hardware, not a performance upgrade.</td></tr>
+          <tr><th>Screen</th><td>3.4-inch LCD, 720 × 480, 3:2. Its key advantage is a perfect 3× integer scale for the GBA's 240 × 160 image.</td></tr>
+          <tr><th>Battery</th><td>3,300 mAh. Retro Game Corps reports roughly six hours of average play time.</td></tr>
+          <tr><th>Weight / form</th><td>About 165–166 g, approximately 10 g lighter than the RG34XXSP. It is close to an original GBA SP in footprint and around 24 mm thick when shut.</td></tr>
+          <tr><th>Storage</th><td>No internal storage. Two microSD slots: one for the operating system and one for games.</td></tr>
+          <tr><th>Connectivity</th><td>5 GHz Wi-Fi, Bluetooth 4.2, USB-C, mini HDMI, and a 3.5 mm headphone jack.</td></tr>
+          <tr><th>Expected price</th><td>Approximately US$60–65 in both reviews.</td></tr>
+          <tr><th>Performance envelope</th><td>Comfortable through PS1. Some Nintendo 64 and Dreamcast titles may run only with compromises such as frameskip; this is not its intended strength.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Important framing:</strong> “Pitch perfect” in the Retro Game Corps title means pitch-perfect for Game Boy Advance, not a claim that every system, control style, or use case is equally well served.</div>
+    </section>
+
+    <section id="agreement">
+      <p class="eyebrow">Shared findings</p>
+      <h2>Why both reviews land positively.</h2>
+      <div class="grid-3">
+        <article class="card">
+          <p class="label">01 / Purpose</p>
+          <h3>It finally feels like a deliberate GBA SP homage.</h3>
+          <p>The centered 3:2 screen, removal of analog sticks, compact mass, clamshell protection, and SP-like hinge give the device a much more internally consistent identity than its predecessors. It is nostalgia-led, but not merely cosmetic: the geometry directly serves the GBA library.</p>
+        </article>
+        <article class="card">
+          <p class="label">02 / Screen</p>
+          <h3>The 3× GBA scale is the feature.</h3>
+          <p>Both reviewers emphasize sharp, evenly scaled GBA pixels. There is no need to negotiate awkward scaling for the system this handheld was designed around. Color correction and optional LCD shaders let users choose between a brighter image and a more original-hardware-like presentation.</p>
+        </article>
+        <article class="card">
+          <p class="label">03 / Hinge</p>
+          <h3>The hinge earns confidence.</h3>
+          <p>The double-hinge design is repeatedly called out as excellent. It settles into a default, GBA SP-like viewing angle and can be positioned somewhat beyond it. Neither reviewer treats its limited free positioning as a major fault because hinge strength is more important on a clamshell.</p>
+        </article>
+        <article class="card">
+          <p class="label">04 / Inputs</p>
+          <h3>The control layout is better matched to its library.</h3>
+          <p>The D-pad is larger and closer in shape to the original SP's. Retro Game Corps reports clean directional separation in a Contra-style rocking test. Both see the absent sticks as a positive for a GBA-focused device, despite the resulting compromises for systems designed around analog input.</p>
+        </article>
+        <article class="card">
+          <p class="label">05 / Software future</p>
+          <h3>Shared H700 hardware makes it fertile ground for firmware.</h3>
+          <p>The stock OS is usable, while the established XX-device install base gives developers a reason to support it. NextUI already runs in the Retro Game Corps review; both expect the larger custom-firmware selection to arrive or be available, including options such as MuOS, Knulli, ROCKNIX, and Spruce.</p>
+        </article>
+        <article class="card">
+          <p class="label">06 / Value</p>
+          <h3>It makes a modernized GBA experience inexpensive.</h3>
+          <p>At around $65, the handheld undercuts a reshelled, IPS-upgraded original GBA SP and avoids the cost of physical cartridges or a flash cart. In exchange, the buyer accepts software emulation and the quality compromises normal at this price tier.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="differences">
+      <p class="eyebrow">Different emphasis, not a different conclusion</p>
+      <h2>Where the reviewers diverge.</h2>
+      <p>The two reviews do not substantially disagree about the audience or the main strengths. They differ in how harshly they judge the physical finish and how much weight they give the practical compromises of the H700 platform.</p>
+      <div class="comparison" role="table" aria-label="Comparison of reviewer perspectives">
+        <div class="heading">Topic</div><div class="heading">Adin Walls</div><div class="heading">Retro Game Corps</div>
+        <div class="topic">Exterior finish</div>
+        <div><p>Most critical. He describes the painted metallic shell as a scratch magnet and says it feels less refined at its edges than the RG34XXSP's plastic. He notes that some owners may enjoy the eventual worn-SP character.</p></div>
+        <div><p>More favorable. He prefers the newer, more matte-feeling plastic to an older silver RG35XXSP shell, though he would personally prefer bolder color options.</p></div>
+        <div class="topic">Button feel and sound</div>
+        <div><p>Still finds the dome-switch buttons slightly too clicky. His suggested modification is applying tape to reduce the sound/feel.</p></div>
+        <div><p>Finds the 70–80 g face-button actuation force close to the original SP's 60–70 g. He calls the face buttons relatively quiet and the D-pad precise.</p></div>
+        <div class="topic">H700 drawbacks</div>
+        <div><p>More skeptical. He repeatedly cites chipset quirks: charging oddities, sleep-mode workarounds, stock software limitations, and the board layout placing the CPU under the battery.</p></div>
+        <div><p>More operational. He demonstrates cable-specific charging behavior, notes warmth in heavier games with Wi-Fi/RetroAchievements, and treats the established platform as a firmware advantage.</p></div>
+        <div class="topic">Position versus alternatives</div>
+        <div><p>Calls it the best of the clamshell group, but discusses rivals in depth: the Miyoo Flip's otherwise strong hardware is undermined by hinge failures; the Powkiddy V90S with Knulli is a valid membrane-button alternative.</p></div>
+        <div><p>Most directly says existing RG34XXSP owners can skip it. The changes are real but minor: centered screen/bezel treatment and stick removal rather than a new capability tier.</p></div>
+      </div>
+      <p class="fineprint">The finish and button observations are subjective. The report preserves the distinction rather than treating either preference as an objective defect.</p>
+    </section>
+
+    <section id="deep-dive">
+      <p class="eyebrow">Detailed synthesis</p>
+      <h2>The experience, part by part.</h2>
+
+      <div class="grid-2">
+        <article class="card">
+          <p class="label">Design and portability</p>
+          <h3>Near-original proportions, with a cleaner face.</h3>
+          <p>The RG SP is almost the same size and closed thickness as an original GBA SP. Compared with Anbernic's prior clamshells, it is much slimmer than the RG35XXSP and nearly the same scale as the RG34XXSP. Removing the sticks makes the lower half look and feel more like the Nintendo device it imitates.</p>
+          <p>Its 165–166 g weight is light for the class, and the clamshell protects the display when carried. Both reviews regard it as genuinely pocketable rather than merely portable.</p>
+        </article>
+        <article class="card">
+          <p class="label">Screen and image</p>
+          <h3>Excellent for GBA; adequate, not ideal, for 4:3.</h3>
+          <p>The 3:2, 720 × 480 display is the correct canvas for GBA: 240 × 160 multiplies cleanly by three. The output is sharp without special scaling work, and the device can apply an LCD-grid shader for a retro presentation. Color correction can tame the overly green, bright look of uncorrected GBA output.</p>
+          <p>The trade-off is physical image size for 4:3 systems. Retro Game Corps estimates 4:3 content at about 3.1 inches, making Genesis, NES, SNES, and other 4:3 libraries feel cramped compared with a purpose-built 4:3 handheld. Adin also notes the panel can be overly bright in low light, although it has enough brightness for outdoor use.</p>
+        </article>
+        <article class="card">
+          <p class="label">Controls</p>
+          <h3>A good D-pad matters more than sticks here.</h3>
+          <p>For 2D game libraries, the controls are a strength. The wider D-pad is comfortable and directional inputs remain distinct. Face buttons use dome switches, while menu, start/select, and shoulder controls are microswitch-based; the shoulder buttons are damped and raised enough to find by feel.</p>
+          <p>There is a legitimate preference split: Russ considers the buttons close enough to an original SP to be broadly satisfying; Adin still wants them quieter. Neither reports a functional problem. The lack of sticks does limit the fit for analog-native games, although the stock OS can temporarily map the D-pad to left analog by quickly tapping power.</p>
+        </article>
+        <article class="card">
+          <p class="label">Emulation and heat</p>
+          <h3>Great at its target systems, bounded above PS1.</h3>
+          <p>The H700 runs the intended 8/16-bit platforms and PS1 comfortably. It can attempt selected N64 and Dreamcast games, but not as a full-speed promise. Those titles may require frameskip, and their controls are an awkward match for a stickless device.</p>
+          <p>Retro Game Corps observed some warmth during higher-end emulation, especially with Wi-Fi active for RetroAchievements. That is a practical caveat, not evidence of damage. Adin's teardown concern is different: the CPU sits immediately beneath the battery, so he flags the layout as an unprotected design choice rather than reporting a battery failure.</p>
+        </article>
+        <article class="card">
+          <p class="label">Hinge and lid behavior</p>
+          <h3>Strong hinge, genuinely useful close-to-pause behavior.</h3>
+          <p>Both reviewers consider the hinge a standout. It is firm, stable, and shaped around a natural default angle. The lid's magnetic Hall-sensor system can put the device into standby or, depending on firmware settings, quick-shut it down while retaining progress.</p>
+          <p>Quick shutdown combined with auto-load state is one of the most practical quality-of-life features discussed: close the device, preserve the game state, reopen later, and resume. It avoids standby's ongoing battery drain for people who prefer a console-like interruption point.</p>
+        </article>
+        <article class="card">
+          <p class="label">Sound and outputs</p>
+          <h3>Fine speaker, modest wired-audio ambitions.</h3>
+          <p>The single mono speaker meets expectations at this price. Both reviews describe it as better than its small size implies, but neither presents it as a premium audio feature.</p>
+          <p>Adin is more critical of wired output: he hears a quality drop through the 3.5 mm jack, finds no high-quality USB-C DAC path, and says stock firmware lacks Bluetooth audio. Mini HDMI does work; audio routes through the HDMI display on stock firmware. Retro Game Corps also confirms HDMI output and appropriate game scaling on a 16:9 screen.</p>
+        </article>
+      </div>
+
+      <h3 style="margin-top: 42px; font-family: var(--serif); font-size: 2rem; font-weight: 400;">Software: usable now, better because the platform is familiar.</h3>
+      <p>The stock Linux software is not the central reason to buy the RG SP, but it is functional enough for a first-time owner. It offers a simple system-and-game menu, RetroArch cores, favorites, history, search, Wi-Fi settings, and optional bundled game storage. Retro Game Corps advises immediately disabling the loud menu button sound, enabling auto-load state, and choosing quick shutdown rather than standby if battery preservation matters.</p>
+      <p>The larger point is ecosystem maturity. Because Anbernic has shipped many H700/XX devices, custom-firmware maintainers can support multiple machines with related work. At review time, Retro Game Corps had NextUI working already and expected Knulli and ROCKNIX support to follow; Adin presents the breadth of choices as a principal upside of the formerly frustrating H700 platform. Stock firmware may be a compromise, but it is unlikely to be the endpoint for an enthusiast buyer.</p>
+      <div class="callout"><strong>Practical setup advice distilled from the reviews:</strong> use a reliable microSD card, test your charger with a basic USB-C cable first, set lid action and auto-load state deliberately, and use GBA color correction/shaders according to whether authenticity or maximum brightness matters more to you.</div>
+    </section>
+
+    <section id="risks">
+      <p class="eyebrow">Caveats that survive the praise</p>
+      <h2>The compromises are real.</h2>
+      <div class="grid-2">
+        <article class="card">
+          <p class="label accent-orange">Charging is cable-sensitive</p>
+          <h3>USB-C support does not mean every cable works.</h3>
+          <p>Retro Game Corps tested several cables with the same multi-port charger and found the cable, particularly high-spec/e-marked examples, more likely than charger wattage to be the issue. A standard cable charged while some 100 W or display-equipped cables did not. Adin independently identifies charging as one of the H700 family quirks. If a setup fails, try a simpler cable before assuming the handheld or charger is faulty.</p>
+        </article>
+        <article class="card">
+          <p class="label accent-orange">Paint may age quickly</p>
+          <h3>Metallic colors do not offer a premium shell guarantee.</h3>
+          <p>Adin's review unit scratched readily and felt less finished than the RG34XXSP in places. For some buyers, the scuffed GBA-SP-like patina is charming; for others, it is an avoidable quality concern. Russ's more positive view of the matte feel shows that this will depend on the exact color and one's tolerance for cosmetic wear.</p>
+        </article>
+        <article class="card">
+          <p class="label accent-orange">Do not overbuy for other systems</p>
+          <h3>The screen ratio is a meaningful constraint.</h3>
+          <p>It can launch many non-GBA systems, but it does not display all of them equally well. The handheld's 3:2 screen shines with GBA and handles 480p content neatly; 4:3 systems are smaller than they would be on similarly priced 4:3 devices. Analog-heavy N64/Dreamcast games compound that mismatch.</p>
+        </article>
+        <article class="card">
+          <p class="label accent-orange">The refresh is small</p>
+          <h3>RG34XXSP owners have the least reason to move.</h3>
+          <p>The RG SP keeps the same general screen, chipset, and performance as the RG34XXSP. Its advantages are refinement: no sticks, a more centered screen treatment, a cleaner GBA silhouette, lower weight, and altered colors/finish. That is enough for a first purchase or an enthusiast who values the form, but likely not enough to replace a satisfactory RG34XXSP.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="buying">
+      <p class="eyebrow">Decision guide</p>
+      <h2>Who should actually buy it?</h2>
+      <div class="buyer-list">
+        <article class="buyer yes">
+          <p class="label">Recommended</p>
+          <h3>GBA-first player without a recent Anbernic SP</h3>
+          <p>You want an affordable all-in-one emulation device that feels close to a GBA SP, stores safely in a pocket, and makes GBA games look properly scaled. This is the clearest match for the RG SP.</p>
+        </article>
+        <article class="buyer maybe">
+          <p class="label accent-orange">Conditional</p>
+          <h3>Current RG35XXSP or RG34XXSP owner</h3>
+          <p>Choose it only if the no-stick GBA layout, centered display, lighter body, and new visual treatment solve a real annoyance. There is no major performance or core-emulation reason to upgrade.</p>
+        </article>
+        <article class="buyer no">
+          <p class="label accent-rose">Look elsewhere</p>
+          <h3>All-system or 4:3-focused buyer</h3>
+          <p>You prioritize SNES, Genesis, arcade, N64/Dreamcast, analog controls, a larger 4:3 picture, pristine premium materials, or universally trouble-free USB-C behavior. The RG SP deliberately makes trade-offs against those goals.</p>
+        </article>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <p class="label">Compared with RG35XXSP</p>
+          <h3>Better ratio and proportions for GBA.</h3>
+          <p>The older model's larger 4:3 screen makes more sense for 4:3 libraries, but it is thicker and does not present GBA as elegantly. The RG SP is the better choice when GBA authenticity and a smaller SP-like body are the priority.</p>
+        </article>
+        <article class="card">
+          <p class="label">Compared with RG34XXSP</p>
+          <h3>Same category, clearer identity.</h3>
+          <p>The RG34XXSP already has the useful 3:2 panel and similar performance, but it includes sticks and has a less centered presentation. The RG SP exchanges its broader control flexibility for the cleaner, more focused GBA experience both reviews prefer.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">Evidence and timestamps</p>
+      <h2>How the synthesis was built.</h2>
+      <p class="footnotes">This report combines the reviewers' observations rather than treating a product specification sheet as a review. Timestamps are supplied so the claims can be checked in their original context. The listed times are approximate because the source videos did not provide usable captions; they were transcribed locally for analysis.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=19s">Retro Game Corps 0:19</a></div>
+          <p>Frames the RG SP as a mid-cycle correction: centered screen, stick removal, and a closer GBA SP focus. Advises many RG34XXSP owners to skip it.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=84s">Retro Game Corps 1:24</a></div>
+          <p>Covers H700 performance, 3.4-inch 720 × 480 display, 3× GBA scaling, 3,300 mAh battery, dual microSD slots, and price.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=131s">Retro Game Corps 2:11</a></div>
+          <p>Demonstrates USB-C charging differences across cables and argues that cable electronics, rather than charger rating alone, are the main compatibility factor.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=578s">Retro Game Corps 9:38</a></div>
+          <p>Assesses the hinge, button force/sound, D-pad precision, ports, and HDMI output.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=896s">Retro Game Corps 14:56</a></div>
+          <p>Explains screen brightness, shaders, GBA color correction, the strong GBA fit, and the smaller 4:3 display area.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=1154s">Retro Game Corps 19:14</a></div>
+          <p>Walks through stock OS behavior, auto-load/quick-shutdown options, NextUI, and expected custom-firmware support.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=Ac2GW3BJSjE&t=1614s">Retro Game Corps 26:54</a></div>
+          <p>Final strengths, limitations, comparison with older SP models, and value conclusion.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=96wV5ef7xRA&t=52s">Adin Walls 0:52</a></div>
+          <p>Introduces the RG SP as a thinner, screen-focused, stick-free refinement with the same praised hinge and new metallic colors.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=96wV5ef7xRA&t=163s">Adin Walls 2:43</a></div>
+          <p>Raises H700 concerns: charging quirks, sleep-mode compromises, painted-plastic finish, clicky controls, and the CPU/battery arrangement.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=96wV5ef7xRA&t=462s">Adin Walls 7:42</a></div>
+          <p>Compares competing clamshells and explains why he considers Anbernic's hinge and overall design the strongest in the group.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=96wV5ef7xRA&t=655s">Adin Walls 10:55</a></div>
+          <p>Teardown, hinge discussion, screen brightness and integer scaling, weight comparison, shell finish, audio, output, Bluetooth, and stock OS evaluation.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="time"><a href="https://www.youtube.com/watch?v=96wV5ef7xRA&t=1220s">Adin Walls 20:20</a></div>
+          <p>Summarizes the paint, buttons, and stock OS as the main faults, then concludes that low cost and broad firmware support outweigh the familiar H700 frustrations.</p>
+        </div>
+      </div>
+      <p class="fineprint">Video titles, creator attribution, observations, and links are provided for review and navigation. This document is an independent summary and does not reproduce the videos or their scripts.</p>
+    </section>
+  </main>
+
+  <footer class="shell">Prepared from the two supplied YouTube reviews. Static, standalone HTML; no external assets or scripts required.</footer>
+</body>
+</html>
