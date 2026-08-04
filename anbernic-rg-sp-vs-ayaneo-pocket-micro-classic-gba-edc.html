@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anbernic RG SP vs Ayaneo Pocket Micro Classic — Ultimate EDC GBA Handheld Comparison</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface-hover: #1c2333;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-alt: #3fb950;
+    --warn: #d2991d;
+    --danger: #f85149;
+    --anbernic: #f78166;
+    --ayaneo: #7ee787;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    line-height: 1.7;
+    padding: 2rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .badge-gba { background: #2b3b6b; color: #7aa2f7; }
+  .badge-edc { background: #3b2b1f; color: #e0a050; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Comparison table */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  .spec-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    background: var(--surface-hover);
+    border-bottom: 2px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .spec-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .spec-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .spec-table td:first-child { font-weight: 600; white-space: nowrap; color: var(--text-muted); }
+  .spec-table .winner { color: var(--accent-alt); font-weight: 700; }
+  .spec-table .loser { color: var(--danger); }
+
+  /* Benchmark bars */
+  .bar-group { margin: 1rem 0; }
+  .bar-label { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.9rem; }
+  .bar-track { background: var(--surface-hover); border-radius: 0.5rem; height: 1.5rem; position: relative; overflow: hidden; }
+  .bar-fill {
+    position: absolute; left: 0; top: 0; height: 100%;
+    border-radius: 0.5rem;
+    display: flex; align-items: center; padding-left: 0.6rem;
+    font-size: 0.75rem; font-weight: 700;
+    min-width: 3rem;
+  }
+  .bar-anbernic { background: var(--anbernic); }
+  .bar-ayaneo { background: var(--ayaneo); }
+
+  /* Pros / cons */
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) { .pros-cons { grid-template-columns: 1fr; } }
+  .pros, .cons { padding: 1.2rem; border-radius: 0.75rem; }
+  .pros { background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.3); }
+  .cons { background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3); }
+  .pros h4, .cons h4 { margin-bottom: 0.7rem; }
+  .pros h4 { color: var(--accent-alt); }
+  .cons h4 { color: var(--danger); }
+  .pros ul, .cons ul { list-style: none; padding: 0; }
+  .pros li::before { content: '✓ '; color: var(--accent-alt); }
+  .cons li::before { content: '✗ '; color: var(--danger); }
+  .pros li, .cons li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+
+  .verdict-box {
+    background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(63,185,80,0.1));
+    border: 2px solid var(--accent);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .verdict-box h2 { border-bottom: none; margin-bottom: 1rem; }
+  .verdict-box .icon { font-size: 2rem; }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--accent); }
+
+  .score-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--surface-hover); border: 1px solid var(--border);
+    border-radius: 2rem; padding: 0.5rem 1rem; font-size: 0.9rem; margin-right: 0.6rem; margin-bottom: 0.4rem;
+  }
+  .score-num { font-weight: 800; font-size: 1.1rem; }
+  .score-num.win { color: var(--accent-alt); }
+
+  .callout {
+    background: rgba(210,153,29,0.1);
+    border-left: 3px solid var(--warn);
+    padding: 0.8rem 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Anbernic RG SP vs. Ayaneo Pocket Micro Classic</h1>
+<p class="subtitle">
+  <span class="badge badge-gba">GBA Focus</span>
+  <span class="badge badge-edc">EDC / Everyday Carry</span>
+  &nbsp;—&nbsp;The definitive head-to-head for the pure 2D-era retro enthusiast who already owns a Pocket Micro Classic
+</p>
+
+<!-- ====== QUICK SNAPSHOT ====== -->
+<div class="card">
+  <h2>🔍 At a Glance</h2>
+  <p>The <strong>Anbernic RG SP</strong> (launched August 5, 2026) is Anbernic's third and most refined GBA SP-inspired clamshell. It drops analog sticks entirely and focuses on a slim, pocketable, <strong>$65 Linux-powered</strong> 2D powerhouse. The <strong>Ayaneo Pocket Micro Classic</strong> (launched March 2025) is a premium Android candybar inspired by the Game Boy Micro, with an aluminum/glass build starting at <strong>$179</strong>.</p>
+  <p style="margin-top:0.5rem;">Both devices are <strong>stickless, D-pad-only</strong> handhelds with 3:2 IPS displays purpose-built for integer-scaled GBA emulation — but they approach the "EDC GBA device" mission from <em>dramatically</em> different angles.</p>
+</div>
+
+<!-- ====== SPEC TABLE ====== -->
+<div class="card">
+  <h2>📊 Full Specification Comparison</h2>
+  <div style="overflow-x: auto;">
+  <table class="spec-table">
+    <thead>
+      <tr><th>Category</th><th>Anbernic RG SP 🟠</th><th>Ayaneo Pocket Micro Classic 🟢</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Price (base)</td><td class="winner">$64.99</td><td>$179.00</td></tr>
+      <tr><td>Price (top SKU)</td><td class="winner">$94.99 (128GB)</td><td>$239.00 (8+256, Retro)</td></tr>
+      <tr><td>Release Date</td><td>August 5, 2026</td><td>March 2025</td></tr>
+      <tr><td>Form Factor</td><td class="winner">Clamshell (GBA SP homage)</td><td>Landscape candybar (GB Micro homage)</td></tr>
+      <tr><td>SoC</td><td>Allwinner H700<br><small>4× Cortex-A53 @ 1.5GHz</small></td><td class="winner">MediaTek Helio G99<br><small>2× A76 @ 2.2GHz + 6× A55 @ 2.0GHz</small></td></tr>
+      <tr><td>GPU</td><td>Mali-G31 MP2</td><td class="winner">Mali-G57 MC2</td></tr>
+      <tr><td>RAM</td><td>1 GB</td><td class="winner">6 GB / 8 GB LPDDR4X</td></tr>
+      <tr><td>Storage</td><td>No internal; dual microSD</td><td class="winner">128 / 256 GB UFS 2.2 + microSD</td></tr>
+      <tr><td>OS</td><td>Linux (64-bit, Anbernic stock)</td><td>Android 13</td></tr>
+      <tr><td>Display</td><td>3.4" IPS, 720×480 (3:2)</td><td class="winner">3.5" IPS, 960×640 (3:2)</td></tr>
+      <tr><td>Pixel Density</td><td>254 PPI</td><td class="winner">330 PPI</td></tr>
+      <tr><td>GBA Integer Scale</td><td>3× (perfect)</td><td class="winner">4× (perfect, sharper)</td></tr>
+      <tr><td>Brightness</td><td>~300–350 nits (est.)</td><td class="winner">400 nits</td></tr>
+      <tr><td>Battery</td><td class="winner">3,300 mAh (~6 hrs)</td><td>2,600 mAh (~5–6 hrs)</td></tr>
+      <tr><td>Charging</td><td>USB-C, 7.5W</td><td>USB-C</td></tr>
+      <tr><td>Weight</td><td class="winner">168 g</td><td>227 g</td></tr>
+      <tr><td>Dimensions</td><td>83 × 82 × 24 mm (closed)</td><td>156 × 63 × 18 mm</td></tr>
+      <tr><td>Build Material</td><td>Plastic, metallic paint</td><td class="winner">Aluminum alloy frame, glass front</td></tr>
+      <tr><td>Analog Sticks</td><td colspan="2" style="text-align:center;color:var(--text-muted);">❌ None (both D-pad only)</td></tr>
+      <tr><td>Audio</td><td>Mono speaker</td><td class="winner">Stereo speakers (down-firing)</td></tr>
+      <tr><td>3.5mm Jack</td><td class="winner">✅ Yes</td><td>❌ No (USB-C audio only)</td></tr>
+      <tr><td>Wi-Fi</td><td>Wi-Fi 5 (2.4/5 GHz)</td><td>Wi-Fi 5</td></tr>
+      <tr><td>Bluetooth</td><td>4.2</td><td class="winner">5.2</td></tr>
+      <tr><td>TV Out</td><td class="winner">✅ Mini HDMI</td><td>❌ None</td></tr>
+      <tr><td>Active Cooling</td><td>❌ Passive</td><td class="winner">✅ Active fan</td></tr>
+      <tr><td>Fingerprint Sensor</td><td>❌</td><td class="winner">✅ Power button</td></tr>
+      <tr><td>Colors</td><td>Platinum, Graphite, Pearl Blue, Pearl Pink</td><td>Magic Black, Retro Gray, Retro Gold</td></tr>
+      <tr><td>Custom Firmware</td><td>muOS, KNULLI, Next UI</td><td>AYASpace, ES-DE, Console Launcher</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ====== GBA-SPECIFIC RATINGS ====== -->
+<div class="card">
+  <h2>🎯 EDC GBA Scorecard <span style="font-size:0.8rem;color:var(--text-muted);">(out of 10)</span></h2>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>GBA Display Quality</span><span><span class="score-num win">9.5</span> / 7.5</span></div>
+    <div class="bar-track"><div class="bar-fill bar-ayaneo" style="width:95%">Pocket Micro Classic</div><div class="bar-fill bar-anbernic" style="width:75%">RG SP</div></div>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">4× integer scaling at 330 PPI vs 3× at 254 PPI — the Ayaneo is visibly sharper</p>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Pocketability</span><span>7.0 / <span class="score-num win">9.5</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:95%">RG SP – clamshell snaps shut, protects screen</div></div>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">The clamshell design means no case needed; the Ayaneo's exposed glass front demands a sleeve</p>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Battery Life (GBA)</span><span><span class="score-num win">9.0</span> / 7.0</span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:90%">RG SP ~6hrs (3300mAh, efficient Linux)</div><div class="bar-fill bar-ayaneo" style="width:70%">PMC ~5-6hrs (2600mAh, Android overhead)</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Build Quality &amp; Premium Feel</span><span>5.5 / <span class="score-num win">9.5</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-ayaneo" style="width:95%">Aluminum + glass, 227g heft</div><div class="bar-fill bar-anbernic" style="width:55%">Plastic, metallic paint</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Value for Money</span><span><span class="score-num win">9.5</span> / 5.0</span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:95%">$65 – unmatched bang-per-buck</div><div class="bar-fill bar-ayaneo" style="width:50%">$179+ – premium tax</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Pick-Up-and-Play Speed</span><span><span class="score-num win">9.0</span> / 7.5</span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:90%">Open lid → instant resume via Hall sensor</div><div class="bar-fill bar-ayaneo" style="width:75%">Android boot, unlock, launch emulator</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span>Shaders &amp; CRT/CRT-Royale Capable</span><span>2.0 / <span class="score-num win">9.0</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-ayaneo" style="width:90%">Helio G99 eats shaders for breakfast</div><div class="bar-fill bar-anbernic" style="width:20%">H700 struggles with heavy shader passes</div></div>
+  </div>
+</div>
+
+<!-- ====== PROS / CONS ====== -->
+<div class="card">
+  <h2>⚖️ Pros &amp; Cons for Each Device</h2>
+  <div class="pros-cons">
+    <div>
+      <div class="pros">
+        <h4>🟠 Anbernic RG SP — Pros</h4>
+        <ul>
+          <li>Incredible value at ~$65</li>
+          <li>Clamshell = screen self-protects, no case needed for EDC</li>
+          <li>Lighter (168g) &amp; more compact when closed</li>
+          <li>Hall sensor: open-to-wake, close-to-sleep — pure pickup-and-play</li>
+          <li>Better battery life (3300mAh + efficient Linux)</li>
+          <li>HDMI out for TV play</li>
+          <li>3.5mm headphone jack</li>
+          <li>Strong custom firmware ecosystem (muOS, KNULLI)</li>
+          <li>Dual microSD slots</li>
+          <li>Perfect 3× GBA integer scaling with no black bars</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>🟠 Anbernic RG SP — Cons</h4>
+        <ul>
+          <li>Plastic build — not premium</li>
+          <li>Only 1GB RAM; weak for shaders</li>
+          <li>Mono speaker</li>
+          <li>H700 can't handle N64/Dreamcast well (moot for GBA-only use)</li>
+          <li>Lower PPI (254 vs 330)</li>
+          <li>Device can warm up with Wi-Fi on</li>
+          <li>Not yet released — firmware support still maturing</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="pros">
+        <h4>🟢 Ayaneo Pocket Micro Classic — Pros</h4>
+        <ul>
+          <li>Stunning 4× GBA integer scale at 330 PPI — true endgame GBA screen</li>
+          <li>Premium aluminum/glass build, gorgeous Famicom-style colors</li>
+          <li>Massive headroom: Helio G99 runs heavy CRT shaders effortlessly</li>
+          <li>6–8 GB RAM means flawless multi-tasking, Android games, streaming</li>
+          <li>Active cooling — sustained performance without throttling</li>
+          <li>Fingerprint sensor for quick unlock</li>
+          <li>Stereo speakers (though muffled)</li>
+          <li>Bluetooth 5.2</li>
+          <li>Android = cloud streaming (GeForce Now, Xbox), native Android games</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>🟢 Ayaneo Pocket Micro Classic — Cons</h4>
+        <ul>
+          <li>Expensive — 3× the price of the RG SP</li>
+          <li>Heavy (227g) for its size</li>
+          <li>Exposed glass front — needs a case/sleeve for EDC</li>
+          <li>No 3.5mm headphone jack</li>
+          <li>No TV-out</li>
+          <li>Weaker battery (2600mAh) with Android overhead</li>
+          <li>Start/Select button placement is awkward — accidental home-screen exits</li>
+          <li>Android setup is more involved than Linux pick-up-and-play</li>
+          <li>Fan reportedly very quiet/possibly not engaging correctly (reviewer reports)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== EMULATION PERFORMANCE ====== -->
+<div class="card">
+  <h2>🎮 Emulation Performance Comparison (GBA-Relevant Systems)</h2>
+  <div style="overflow-x: auto;">
+  <table class="spec-table">
+    <thead><tr><th>Platform</th><th>Anbernic RG SP</th><th>Ayaneo PMC</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Game Boy / GBC</td><td class="winner">✅ Perfect</td><td class="winner">✅ Perfect</td><td>Both flawless</td></tr>
+      <tr><td><strong>Game Boy Advance</strong></td><td class="winner">✅ Perfect (3×)</td><td class="winner">✅ Perfect (4×)</td><td>Ayaneo visibly sharper; both integer-scaled</td></tr>
+      <tr><td>NES / SNES</td><td class="winner">✅ Perfect</td><td class="winner">✅ Perfect</td><td>Both flawless</td></tr>
+      <tr><td>Sega Genesis / MD</td><td class="winner">✅ Perfect</td><td class="winner">✅ Perfect</td><td>Both flawless</td></tr>
+      <tr><td>PS1</td><td class="winner">✅ Perfect (2×)</td><td class="winner">✅ Perfect</td><td>Both handle PS1 with ease</td></tr>
+      <tr><td>Nintendo DS</td><td>⚠️ Playable</td><td class="winner">✅ Great</td><td>More RAM helps Ayaneo; RG SP runs most titles</td></tr>
+      <tr><td>PSP</td><td>⚠️ Some titles</td><td class="winner">✅ Most titles</td><td>3:2 screen means black bars on both for 16:9</td></tr>
+      <tr><td>N64</td><td>⚠️ Spotty, no stick</td><td>⚠️ Playable, no stick</td><td>Neither ideal without analog</td></tr>
+      <tr><td>Dreamcast</td><td>⚠️ Frame drops</td><td class="winner">✅ Smooth</td><td>Helio G99 much stronger</td></tr>
+      <tr><td>Saturn</td><td>❌ Struggles</td><td class="winner">✅ Full speed</td><td>Big gap in capability</td></tr>
+      <tr><td>PS2 / GameCube</td><td>❌ Not playable</td><td>⚠️ Some titles</td><td>Helio G99 can push into PS2; no sticks limits playability</td></tr>
+      <tr><td><strong>CRT Shaders</strong></td><td>❌ Very limited</td><td class="winner">✅ Excellent</td><td>Ayaneo's extra power enables CRT-Royale, Mega Bezel, etc.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout">
+    <strong>💡 Note:</strong> Since you already own the Pocket Micro Classic, the RG SP would be a <em>side-grade for portability</em>, not an upgrade. The Ayaneo outclasses it in raw power, screen quality, and shader capability. The RG SP's only unambiguous wins are pocketability, battery life, and price.
+  </div>
+</div>
+
+<!-- ====== BENCHMARKS ====== -->
+<div class="card">
+  <h2>📈 Synthetic Benchmarks</h2>
+  <table class="spec-table">
+    <thead><tr><th>Benchmark</th><th>Anbernic RG SP (H700)</th><th>Ayaneo PMC (Helio G99)</th><th>Delta</th></tr></thead>
+    <tbody>
+      <tr><td>Geekbench 6 Single</td><td>~130 (est.)</td><td class="winner">717</td><td>~5.5× faster</td></tr>
+      <tr><td>Geekbench 6 Multi</td><td>~400 (est.)</td><td class="winner">1,940</td><td>~4.8× faster</td></tr>
+      <tr><td>Antutu v9</td><td>~50,000 (est.)</td><td class="winner">325,136</td><td>~6.5× higher</td></tr>
+      <tr><td>PassMark CPU</td><td>~850 (est.)</td><td class="winner">4,243</td><td>~5× higher</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">The Helio G99 is in a completely different performance tier. For GBA-only emulation, this gap matters <em>only</em> if you run heavy shaders. For pure GBA with no shaders, both are overkill.</p>
+</div>
+
+<!-- ====== EDC ANALYSIS ====== -->
+<div class="card">
+  <h2>🏃 EDC (Everyday Carry) Analysis</h2>
+  <p>For a device you throw in your pocket every day, these factors matter most:</p>
+
+  <div class="bar-group">
+    <div class="bar-label"><span><strong>Screen Protection</strong></span><span><span class="score-num win">RG SP</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:100%">Clamshell = zero screen exposure when closed</div></div>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">The Pocket Micro Classic's glass front <strong>must</strong> be protected by a case. The RG SP you can literally toss in a pocket with keys.</p>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span><strong>Weight in Pocket</strong></span><span><span class="score-num win">RG SP (168g)</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:74%">168g</div><div class="bar-fill bar-ayaneo" style="width:100%">227g (35% heavier)</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span><strong>One-Handed Playability</strong></span><span><span class="score-num win">PMC</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-ayaneo" style="width:90%">Narrow candybar: 63mm wide, easy one-hand grip</div><div class="bar-fill bar-anbernic" style="width:75%">82×83mm when open, wider grip needed</div></div>
+  </div>
+
+  <div class="bar-group">
+    <div class="bar-label"><span><strong>Instant Resume</strong></span><span><span class="score-num win">RG SP</span></span></div>
+    <div class="bar-track"><div class="bar-fill bar-anbernic" style="width:95%">Flip open → instantly back in game</div><div class="bar-fill bar-ayaneo" style="width:50%">Power on → unlock → launch emulator → resume</div></div>
+  </div>
+</div>
+
+<!-- ====== BUYING ADVICE ====== -->
+<div class="card">
+  <h2>🛒 Should You Buy the RG SP if You Already Own the Pocket Micro Classic?</h2>
+
+  <table class="spec-table">
+    <thead><tr><th>Scenario</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>You want a <strong>beater/throw-in-bag</strong> GBA device you won't worry about scratching</td>
+        <td class="winner">✅ Buy RG SP — $65 is disposable-tier pricing. No case needed.</td>
+      </tr>
+      <tr>
+        <td>You love your PMC but wish it was <strong>lighter and more pocketable</strong></td>
+        <td class="winner">✅ Buy RG SP — 168g clamshell disappears in a pocket.</td>
+      </tr>
+      <tr>
+        <td>You want a <strong>second device with a completely different feel</strong> (clamshell nostalgia)</td>
+        <td class="winner">✅ Buy RG SP — the GBA SP form factor is iconic and distinct from the Micro style.</td>
+      </tr>
+      <tr>
+        <td>You want <strong>better GBA image quality</strong> than your PMC</td>
+        <td>❌ Stay with PMC — 4× scaling at 330 PPI beats 3× at 254 PPI.</td>
+      </tr>
+      <tr>
+        <td>You need <strong>shader-heavy CRT filters</strong> for GBA games</td>
+        <td>❌ Stay with PMC — the H700 can't handle heavy shader passes.</td>
+      </tr>
+      <tr>
+        <td>You want <strong>HDMI TV-out</strong> for occasional couch play</td>
+        <td class="winner">✅ Buy RG SP — the PMC has no video output at all.</td>
+      </tr>
+      <tr>
+        <td>You're a <strong>collector</strong> who wants the best GBA handhelds from both camps</td>
+        <td class="winner">✅ Buy RG SP — at $65, it's a low-risk addition.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ====== VERDICT ====== -->
+<div class="verdict-box">
+  <h2>🏆 Final Verdict</h2>
+  <p style="font-size:1.1rem; margin-bottom:1rem;">
+    <strong>For pure GBA EDC:</strong> The <span style="color:var(--accent-alt);">Ayaneo Pocket Micro Classic</span> is the <em>better</em> device — its 4× integer-scaled screen at 330 PPI is genuinely the best GBA display on any retro handheld. The premium build, shader capability, and Android flexibility make it the "endgame GBA device" as multiple reviewers have called it.
+  </p>
+  <p style="font-size:1.1rem; margin-bottom:1rem;">
+    <strong>But the <span style="color:var(--anbernic);">Anbernic RG SP</span> is the better <em>EDC</em> device.</strong> The clamshell design means you can literally toss it in a pocket with zero concern for the screen. The Hall-sensor open-to-play is faster than any Android device. It's 35% lighter. It costs less than a nice dinner. If you already own the PMC, the RG SP makes a compelling <em>companion</em> — the one you grab when you're heading out the door and don't want to baby a $200+ piece of aluminum and glass.
+  </p>
+  <p style="font-size:1.1rem;">
+    <strong>Bottom line:</strong> They're not competitors — they're complementary. The PMC is your at-home/show-off GBA machine. The RG SP is your actual EDC beater. At $65, owning both is not unreasonable.
+  </p>
+</div>
+
+<!-- ====== THINGS YOU DIDN'T ASK BUT SHOULD KNOW ====== -->
+<div class="card">
+  <h2>🔔 Things You Didn't Ask (But Should Know)</h2>
+  <ul style="list-style:none;padding:0;">
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>⚠️ RG SP RAM Roulette:</strong> Anbernic has a history of quietly downgrading RAM on its H700 devices mid-production. The RG34XXSP launched with 2GB, was downgraded to 1GB, and some teardowns found 512MB. The RG SP currently ships with 1GB, but this could change. For GBA-only, even 512MB is fine — but it's something to watch.
+    </li>
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>⚠️ PMC Fan Concerns:</strong> Multiple reviewers reported that the Pocket Micro Classic's active cooling fan either doesn't spin audibly or may not engage correctly. Ayaneo claims it activates above 40°C. This hasn't caused overheating issues in practice, but hardware QC on the fan is a known question mark.
+    </li>
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>🔌 USB-C Cable Compatibility:</strong> The RG SP is reported to have some pickiness with USB-C cables. Some C-to-C cables may not charge it properly; A-to-C is safer.
+    </li>
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>🎧 No Headphone Jack on PMC:</strong> The Ayaneo Pocket Micro Classic has <em>no 3.5mm jack</em>. If you use wired headphones, you'll need a USB-C DAC/adapter. The RG SP has a standard headphone jack.
+    </li>
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>🖥️ PMC Has No Video Out:</strong> You cannot connect the Pocket Micro Classic to a TV or external monitor at all. The RG SP has mini HDMI out and supports Bluetooth controllers for couch play.
+    </li>
+    <li style="margin-bottom:1rem;padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>📦 RG SP Launch Discount:</strong> Anbernic offered a $7 early-bird discount for the first 3 days, bringing the base model to $57.99. The standard price is $64.99, but Anbernic frequently runs sales.
+    </li>
+    <li style="padding-left:1.5rem;border-left:3px solid var(--accent);">
+      <strong>🔄 The KONKR Pocket Advance:</strong> Ayaneo is also releasing a GBA (original horizontal) inspired device called the KONKR Pocket Advance. If the clamshell vs. Micro debate doesn't settle it, there's a third Ayaneo GBA homage on the horizon. Details are still scarce as of mid-2026.
+    </li>
+  </ul>
+</div>
+
+<footer>
+  <p><strong>Sources:</strong> Retro Handhelds, Geeky Gadgets, Notebookcheck, Android Authority, Retro Game Corps, Pocket Tactics, HandheldWiki, RetroSpecGame, The Gadgeteer, Held Games, Time Extension, Ayaneo Official — all accessed July–August 2026.</p>
+  <p style="margin-top:0.5rem;">Created for comparative research purposes. Prices and specifications are as reported at time of research and may change.</p>
+</footer>
+
+</div>
+</body>
+</html>
