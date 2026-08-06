@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Budget DIY Retro ROM NAS in Australia</title>
+  <style>
+    :root {
+      --bg: #0b0e12;
+      --panel: #12171d;
+      --panel-2: #171e26;
+      --line: #2b3642;
+      --text: #e8edf2;
+      --muted: #9ba8b5;
+      --green: #65d69e;
+      --cyan: #62c9e8;
+      --amber: #f0bd69;
+      --red: #ef8585;
+      --purple: #b49af4;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.62;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+    }
+    a { color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #a5e9fb; }
+    .wrap { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+    header { padding: 76px 0 48px; border-bottom: 1px solid var(--line); }
+    .eyebrow { color: var(--green); font: 700 .76rem/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { max-width: 900px; margin: 14px 0 18px; font-size: clamp(2.55rem, 7vw, 5.6rem); line-height: .97; letter-spacing: -.055em; }
+    .deck { max-width: 800px; margin: 0; color: #c3cdd6; font-size: clamp(1.05rem, 2vw, 1.3rem); }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 28px; color: var(--muted); font-size: .9rem; }
+    nav { position: sticky; top: 0; z-index: 5; overflow-x: auto; background: rgba(11,14,18,.94); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    nav .wrap { display: flex; gap: 24px; padding-block: 13px; white-space: nowrap; }
+    nav a { color: var(--muted); font-size: .82rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: .06em; }
+    nav a:hover { color: var(--text); }
+    main { padding: 48px 0 88px; }
+    section { margin: 0 0 72px; scroll-margin-top: 72px; }
+    h2 { margin: 0 0 22px; font-size: clamp(1.75rem, 4vw, 2.6rem); letter-spacing: -.035em; line-height: 1.1; }
+    h3 { margin: 30px 0 12px; font-size: 1.2rem; letter-spacing: -.015em; }
+    p { max-width: 84ch; }
+    .lede { max-width: 78ch; color: #c7d0d9; font-size: 1.08rem; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { grid-column: span 4; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+    .card.wide { grid-column: span 8; }
+    .card.full { grid-column: 1 / -1; }
+    .card h3 { margin-top: 0; }
+    .metric { display: block; margin: 6px 0 2px; color: var(--green); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+    .metric.amber { color: var(--amber); }
+    .metric.cyan { color: var(--cyan); }
+    .metric.purple { color: var(--purple); }
+    .small, small { color: var(--muted); font-size: .86rem; }
+    .verdict { padding: 26px; border: 1px solid #39755a; border-left: 5px solid var(--green); border-radius: 10px; background: #102019; }
+    .verdict strong { color: #8fe7b8; }
+    .warning { padding: 18px 20px; border: 1px solid #715b35; border-left: 4px solid var(--amber); border-radius: 8px; background: #211a10; }
+    .danger { padding: 18px 20px; border: 1px solid #704040; border-left: 4px solid var(--red); border-radius: 8px; background: #211313; }
+    .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--line); border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; background: var(--panel); }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: #c8d2db; background: var(--panel-2); font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; }
+    td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #151c23; }
+    tr.total td { color: #fff; background: #19232b; font-weight: 800; }
+    .tag { display: inline-block; padding: 2px 7px; color: #cae9d9; background: #183226; border: 1px solid #315e49; border-radius: 999px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+    .tag.model { color: #f4d69c; background: #322711; border-color: #665026; }
+    .tag.choice { color: #d9ccfb; background: #241d37; border-color: #514078; }
+    .bar-chart { display: grid; gap: 14px; margin: 24px 0; }
+    .bar-row { display: grid; grid-template-columns: minmax(110px, 170px) 1fr 72px; gap: 12px; align-items: center; }
+    .bar-label { color: #c7d1da; font-size: .88rem; }
+    .bar-track { height: 13px; overflow: hidden; background: #202832; border-radius: 999px; }
+    .bar { height: 100%; border-radius: inherit; background: var(--green); }
+    .bar.alt { background: var(--cyan); }
+    .bar.other { background: var(--purple); }
+    .bar-value { text-align: right; color: var(--muted); font: .8rem ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .formula { padding: 15px 18px; overflow-x: auto; color: #d6e2ea; background: #0c1218; border: 1px solid var(--line); border-radius: 8px; font: .88rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    code { padding: .1em .35em; color: #d7e7f0; background: #1c252e; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    ol.sources { padding-left: 24px; }
+    ol.sources li { margin: 0 0 13px; color: #b9c4ce; }
+    .cite { font-size: .76em; vertical-align: super; text-decoration: none; }
+    details { margin: 18px 0; background: var(--panel); border: 1px solid var(--line); border-radius: 9px; }
+    summary { padding: 15px 18px; cursor: pointer; color: #dce4eb; font-weight: 750; }
+    details > div { padding: 0 18px 18px; }
+    .checks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px 24px; padding: 0; list-style: none; }
+    .checks li { padding-left: 22px; position: relative; }
+    .checks li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
+    footer { padding: 30px 0 48px; color: var(--muted); border-top: 1px solid var(--line); font-size: .86rem; }
+    @media (max-width: 820px) {
+      header { padding-top: 52px; }
+      .card, .card.wide { grid-column: 1 / -1; }
+      .bar-row { grid-template-columns: 100px 1fr 62px; gap: 8px; }
+      .checks { grid-template-columns: 1fr; }
+    }
+    @media print {
+      :root { --bg: #fff; --panel: #fff; --panel-2: #f2f4f6; --line: #ccd3d9; --text: #111; --muted: #4d5963; }
+      body::before, nav { display: none; }
+      body { font-size: 11pt; }
+      a { color: #075d7c; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Australian buyer research</div>
+      <h1>A budget NAS for retro ROMs</h1>
+      <p class="deck">This report covers console and handheld games from the NES era through PS2, GameCube, Wii, and Nintendo 3DS.</p>
+      <div class="meta">
+        <span>Prices checked: 6 August 2026</span>
+        <span>Currency: AUD</span>
+        <span>Storage: decimal TB</span>
+      </div>
+    </div>
+  </header>
+
+  <nav aria-label="Report sections">
+    <div class="wrap">
+      <a href="#answer">Answer</a>
+      <a href="#storage">Storage</a>
+      <a href="#three-ds">3DS</a>
+      <a href="#build">Build</a>
+      <a href="#operation">Operation</a>
+      <a href="#raid-appendix">RAID Appendix</a>
+      <a href="#sources">Sources</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="answer">
+      <h2>Recommendation</h2>
+      <div class="verdict">
+        <strong>Use a worldwide 1G1R collection.</strong> Buy one 24 TB CMR drive and a refurbished HP ProDesk 600 G4 SFF.
+      </div>
+
+      <div class="grid" style="margin-top:16px">
+        <article class="card">
+          <div class="small">1G1R collection</div>
+          <span class="metric">17.3-19.0 TB</span>
+          <div class="small">Includes regional exclusives</div>
+        </article>
+        <article class="card">
+          <div class="small">Required capacity</div>
+          <span class="metric cyan">21.1-22.9 TB</span>
+          <div class="small">Includes hacks and 10% free space</div>
+        </article>
+        <article class="card">
+          <div class="small">Local new-drive build</div>
+          <span class="metric amber">$1,359</span>
+          <div class="small">Before small cables or brackets</div>
+        </article>
+      </div>
+
+      <p>A 24 TB drive gives about 21.83 TiB in many operating systems. It still contains 24 decimal TB.</p>
+      <p>The upper estimate leaves only 1.1 TB unused. Therefore, 24 TB is the minimum practical size.</p>
+      <div class="warning"><strong>CAUTION:</strong> One drive gives no protection from a disk failure. Keep a separate backup of saves, patches, lists, and personal files.</div>
+    </section>
+
+    <section id="storage">
+      <h2>Storage estimate</h2>
+      <p>1G1R keeps one preferred release of each game. It also keeps games that only exist in Japan or another region.</p>
+      <p>The full-set estimate keeps all selected regions and revisions. Both estimates exclude demos, BIOS files, prototypes, and most non-game software.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Group</th><th>Stored format</th><th class="num">All variants</th><th class="num">Worldwide 1G1R</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cartridges and handhelds before 3DS</td><td>Compressed ROMs</td><td class="num">0.30-0.32 TB</td><td class="num">0.14-0.15 TB</td></tr>
+            <tr><td>Other CD systems</td><td>Raw BIN/CUE</td><td class="num">2.06 TB</td><td class="num">1.05 TB</td></tr>
+            <tr><td>Dreamcast</td><td>GDI and raw tracks</td><td class="num">1.75 TB</td><td class="num">0.78 TB</td></tr>
+            <tr><td>PlayStation</td><td>BIN/CUE</td><td class="num">5.04 TB</td><td class="num">2.01 TB</td></tr>
+            <tr><td>PlayStation 2</td><td>DVD ISO and raw CD tracks</td><td class="num">28.04 TB</td><td class="num">9.75 TB</td></tr>
+            <tr><td>GameCube</td><td>Lossless RVZ</td><td class="num">1.47-1.91 TB</td><td class="num">0.50-0.65 TB</td></tr>
+            <tr><td>Wii</td><td>Lossless RVZ</td><td class="num">5.37-7.16 TB</td><td class="num">2.35-3.14 TB</td></tr>
+            <tr><td>Nintendo 3DS</td><td>Compressed decrypted CCI and CIA</td><td class="num">1.70-2.50 TB</td><td class="num">0.70-1.40 TB</td></tr>
+            <tr class="total"><td colspan="2">Collection total</td><td class="num">45.7-48.8 TB</td><td class="num">17.3-19.0 TB</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bar-chart" aria-label="Main storage use in a 1G1R collection">
+        <div class="bar-row"><div class="bar-label">PlayStation 2</div><div class="bar-track"><div class="bar" style="width:100%"></div></div><div class="bar-value">9.75 TB</div></div>
+        <div class="bar-row"><div class="bar-label">Wii</div><div class="bar-track"><div class="bar alt" style="width:28%"></div></div><div class="bar-value">2.35-3.14</div></div>
+        <div class="bar-row"><div class="bar-label">PlayStation</div><div class="bar-track"><div class="bar" style="width:21%"></div></div><div class="bar-value">2.01 TB</div></div>
+        <div class="bar-row"><div class="bar-label">Nintendo 3DS</div><div class="bar-track"><div class="bar other" style="width:11%"></div></div><div class="bar-value">0.70-1.40</div></div>
+      </div>
+
+      <h3>Purchase target</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Plan</th><th class="num">Games</th><th class="num">Hack space</th><th class="num">Capacity with 10% free</th><th>Minimum purchase</th></tr></thead>
+          <tbody>
+            <tr><td>Worldwide 1G1R</td><td class="num">17.3-19.0 TB</td><td class="num">1.65 TB</td><td class="num"><strong>21.1-22.9 TB</strong></td><td>24 TB</td></tr>
+            <tr><td>All variants</td><td class="num">45.7-48.8 TB</td><td class="num">1.65 TB</td><td class="num"><strong>52.6-56.1 TB</strong></td><td>60 TB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formula">Upper 1G1R target = (19.0 TB + 1.65 TB) ÷ 0.90 = 22.94 TB</div>
+    </section>
+
+    <section id="three-ds">
+      <h2>Nintendo 3DS</h2>
+      <p>The 3DS estimate includes retail games and native eShop-exclusive games. It includes New Nintendo 3DS games.</p>
+      <p>It excludes updates, DLC, demos, videos, themes, Virtual Console, DSiWare, system titles, and applications.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>3DS group</th><th class="num">All variants</th><th class="num">Worldwide 1G1R</th><th>Evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Retail working files</td><td class="num">1.2-1.5 TB</td><td class="num">0.5-0.9 TB</td><td>Compression model</td></tr>
+            <tr><td>eShop-exclusive games</td><td class="num">0.5-1.0 TB</td><td class="num">0.2-0.5 TB</td><td>Catalog model</td></tr>
+            <tr class="total"><td>Total</td><td class="num">1.7-2.5 TB</td><td class="num">0.7-1.4 TB</td><td>Planning range</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A March 2024 No-Intro DAT contains 2,104 retail games. Its untrimmed card images total 2.055 TB.<a class="cite" href="#s8">[8]</a></p>
+      <p>The current CDN DAT has 10,152 records. This number includes updates, DLC, and other content, so it is not a game count.<a class="cite" href="#s9">[9]</a></p>
+      <p>Use decrypted CCI files for retail games. Use one CIA or CDN form for each digital game.</p>
+      <p>Azahar supports compressed ZCCI and ZCIA files. Standard ZIP and 7z files can require extraction before use.<a class="cite" href="#s10">[10]</a></p>
+
+      <div class="warning"><strong>CAUTION:</strong> Trimming or compression changes the full-file hash. Keep untrimmed images only if DAT-level preservation is necessary.</div>
+      <p>Untrimmed 3DS masters can add 2 TB or more. A 24 TB disk then has too little free space.</p>
+    </section>
+
+    <section id="build">
+      <h2>Budget build</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Part</th><th>Details</th><th class="num">Price</th></tr></thead>
+          <tbody>
+            <tr><td>HP ProDesk 600 G4 SFF</td><td>i3-8100, 8 GB RAM, 256 GB SSD, Gigabit Ethernet</td><td class="num">$160<a class="cite" href="#s11">[11]</a></td></tr>
+            <tr><td>Seagate BarraCuda 24 TB</td><td>New, CMR, SATA, two-year warranty</td><td class="num">$1,199<a class="cite" href="#s12">[12]</a></td></tr>
+            <tr><td>OpenMediaVault</td><td>NAS operating system</td><td class="num">$0<a class="cite" href="#s13">[13]</a></td></tr>
+            <tr class="total"><td colspan="2">Total</td><td class="num">$1,359</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The included SSD stores the operating system. The 24 TB disk stores the games.</p>
+      <p>The Intel UHD 630 graphics unit can help with occasional video conversion. Direct Play needs little processor power.</p>
+      <p>Make sure that the computer includes the disk bracket, screws, SATA cable, and a free SATA power plug.</p>
+
+      <h3>Lower-cost drive option</h3>
+      <p>A recertified WD Ultrastar HC580 24 TB costs $963 before international checkout charges.<a class="cite" href="#s14">[14]</a></p>
+      <p>This option reduces the advertised build price to $1,123. Shipping, tax, and warranty return costs can remove the saving.</p>
+    </section>
+
+    <section id="operation">
+      <h2>Operation</h2>
+      <ul class="checks">
+        <li>Use ext4 on the data disk.</li>
+        <li>Use Samba over wired Gigabit Ethernet.</li>
+        <li>Enable SMART tests and temperature alerts.</li>
+        <li>Keep verified source files read-only.</li>
+        <li>Keep patches and modified games in a separate folder.</li>
+        <li>Keep saves on another device and at an off-site location.</li>
+      </ul>
+
+      <p>Gigabit Ethernet has a theoretical limit of 125 MB/s.<a class="cite" href="#s15">[15]</a> A 50 Mb/s video uses 6.25 MB/s.</p>
+      <p>Use Direct Play when possible. Video conversion starts when the client does not support the source format.<a class="cite" href="#s16">[16]</a></p>
+      <p>Each continuous 10 W costs about $23-$29 per year at the sampled Australian tariffs.<a class="cite" href="#s17">[17]</a></p>
+    </section>
+
+    <section id="raid-appendix">
+      <h2>Appendix: RAID 1 cost</h2>
+      <p>RAID 1 writes the same data to two drives. One drive can fail without stopping access to the files.</p>
+      <p>Two 24 TB drives give 24 TB of usable space. RAID 1 does not give 48 TB of usable space.</p>
+      <p>An mdadm RAID 1 or a ZFS mirror has the same drive cost. Both software options are free.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mirror option</th><th class="num">One-drive cost</th><th class="num">Second drive</th><th class="num">Two-drive cost</th><th class="num">Added cost</th></tr></thead>
+          <tbody>
+            <tr><td>Local new drives</td><td class="num">$1,199</td><td class="num">$1,199</td><td class="num">$2,398</td><td class="num"><strong>+$1,199</strong></td></tr>
+            <tr><td>Imported recertified drives</td><td class="num">$963</td><td class="num">$963</td><td class="num">$1,926</td><td class="num"><strong>+$963</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="danger"><strong>CAUTION:</strong> The recommended HP SFF has one practical 3.5-inch bay. Use a two-drive tower for RAID 1.</div>
+
+      <h3>Complete local mirror estimate</h3>
+      <p>A refurbished Dell OptiPlex 7070 Tower costs $324.<a class="cite" href="#s18">[18]</a> It has more SATA connections than the HP SFF.</p>
+      <p>The tower has one normal 3.5-inch bay. The optical bay needs an adapter for the second 3.5-inch drive.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th class="num">Local new</th><th class="num">Imported recertified</th></tr></thead>
+          <tbody>
+            <tr><td>Dell tower</td><td class="num">$324</td><td class="num">$324</td></tr>
+            <tr><td>Two 24 TB drives</td><td class="num">$2,398</td><td class="num">$1,926</td></tr>
+            <tr class="total"><td>Total before adapter and cables</td><td class="num">$2,722</td><td class="num">$2,250 + import costs</td></tr>
+            <tr><td>Increase from the $1,359 budget build</td><td class="num"><strong>+$1,363</strong></td><td class="num"><strong>+$891 + import costs</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Make sure that the tower has two SATA power plugs. Add the price of the optical-bay adapter and any missing cable.</p>
+      <p>RAID 1 does not protect files from deletion, malware, theft, or fire. A separate backup is still necessary.</p>
+    </section>
+
+    <section id="sources">
+      <h2>Sources</h2>
+      <ol class="sources">
+        <li id="s1"><a href="https://datomatic.no-intro.org/index.php?page=download&amp;s=64&amp;op=dat">No-Intro DAT-o-MATIC</a>. Cartridge and handheld DAT files.</li>
+        <li id="s2"><a href="http://redump.org/downloads/">Redump downloads</a>. Disc DAT files and cue data.</li>
+        <li id="s3"><a href="https://github.com/unexpectedpanda/retool">Retool</a>. 1G1R region and title filters.</li>
+        <li id="s4"><a href="https://www.igir.io/roms/1g1r/">igir 1G1R guide</a>. Parent and clone selection rules.</li>
+        <li id="s5"><a href="https://dolphin-emu.org/blog/2020/07/05/dolphin-progress-report-may-and-june-2020/">Dolphin RVZ report</a>. Lossless RVZ support and size examples.</li>
+        <li id="s6"><a href="https://archive.org/details/2024-sony-playstation-jap-hearto-1g1r-collection">PlayStation 1G1R metadata</a>. Collection count and compressed size.</li>
+        <li id="s7"><a href="https://archive.org/details/rd-se-dc">Dreamcast collection metadata</a>. Collection count and compressed size.</li>
+        <li id="s8"><a href="https://archive.org/metadata/no-intro-love-pack-standard-2024-03-27">No-Intro Love Pack metadata</a>. Dated 3DS retail and CDN DAT data.</li>
+        <li id="s9"><a href="https://datomatic.no-intro.org/index.php?page=download&amp;s=64">No-Intro system index</a>. Current 3DS and New 3DS entry counts.</li>
+        <li id="s10"><a href="https://github.com/azahar-emu/azahar/blob/master/src/core/loader/loader.cpp">Azahar loader source</a>. Supported CCI, CIA, and compressed formats.</li>
+        <li id="s11"><a href="https://www.australiancomputertraders.com.au/hp-prodesk-600-g4-sff-intel-i3-8100-3.60ghz-8gb-ra~838418">Australian Computer Traders HP ProDesk 600 G4</a>. Price and specifications.</li>
+        <li id="s12"><a href="https://www.mwave.com.au/product/seagate-st24000dm001-24tb-barracuda-35-sata3-7200pm-hard-drive-ac87239">Mwave Seagate 24 TB BarraCuda</a>. Local price and warranty.</li>
+        <li id="s13"><a href="https://docs.openmediavault.org/en/latest/prerequisites.html">OpenMediaVault prerequisites</a>. Memory, disk, and CMR guidance.</li>
+        <li id="s14"><a href="https://serverpartdeals.com/products/western-digital-ultrastar-dc-hc580-wuh722424ale604-0f62798-24tb-7-2k-rpm-sata-6gb-s-512e-3-5-recertified-hard-drive">ServerPartDeals WD Ultrastar 24 TB</a>. Advertised AUD price and seller warranty.</li>
+        <li id="s15"><a href="https://www.truenas.com/docs/references/performance/interconnectdatarates/">TrueNAS interconnect rates</a>. Gigabit Ethernet rate.</li>
+        <li id="s16"><a href="https://support.plex.tv/articles/200430303-streaming-overview/">Plex streaming overview</a>. Direct Play and video conversion behavior.</li>
+        <li id="s17"><a href="https://www.esc.vic.gov.au/electricity-and-gas/prices-tariffs-and-benchmarks/victorian-default-offer">Victorian Default Offer</a> and <a href="https://www.synergy.net.au/Your-home/Energy-plans/Home-Plan-A1">Synergy A1 tariff</a>. Sample electricity prices.</li>
+        <li id="s18"><a href="https://www.australiancomputertraders.com.au/dell-optiplex-7070-tower-intel-i7-9700-3.0ghz-16gb~838968">Australian Computer Traders Dell OptiPlex 7070 Tower</a>. Tower price and specifications.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Prices can change. Make sure that the drive model, stock, shipping cost, and warranty are correct before purchase.</div>
+  </footer>
+</body>
+</html>
