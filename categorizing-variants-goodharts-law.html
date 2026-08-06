@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorizing Variants of Goodhart's Law — Paper Explanation</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-hover: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-rgb: 88, 166, 255;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+            --yellow: #e3b341;
+            --cyan: #39d3d7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ── Header ─────────────────────── */
+        .hero {
+            background: linear-gradient(145deg, #161b22 0%, #0d1117 60%, #110f1a 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 50%, rgba(163, 113, 247, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.02em;
+        }
+        .hero .meta {
+            margin-top: 0.8rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero .meta span { margin: 0 0.5rem; }
+        .hero .meta a { color: var(--accent); text-decoration: none; }
+        .hero .tags {
+            margin-top: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero .tags .tag {
+            display: inline-block;
+            background: var(--surface-hover);
+            color: var(--accent);
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin: 0 0.3rem;
+            border: 1px solid var(--border);
+        }
+
+        /* ── Container ──────────────────── */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* ── Section Titles ─────────────── */
+        h2 {
+            font-size: 1.7rem;
+            color: #fff;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: -0.01em;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin: 1.8rem 0 0.8rem;
+        }
+        h4 {
+            font-size: 1.05rem;
+            color: var(--text);
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        p { margin-bottom: 1rem; color: var(--text); }
+        strong { color: #e6edf3; }
+        a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.4rem; }
+
+        /* ── Cards ──────────────────────── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+        }
+        .card.accent-blue { border-left: 4px solid var(--accent); }
+        .card.accent-green { border-left: 4px solid var(--green); }
+        .card.accent-orange { border-left: 4px solid var(--orange); }
+        .card.accent-red { border-left: 4px solid var(--red); }
+        .card.accent-purple { border-left: 4px solid var(--purple); }
+        .card.accent-yellow { border-left: 4px solid var(--yellow); }
+
+        /* ── Formula block ──────────────── */
+        .formula {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.95rem;
+            color: var(--cyan);
+            overflow-x: auto;
+        }
+
+        /* ── Diagram ────────────────────── */
+        .diagram {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+        .diagram .node { color: var(--accent); }
+        .diagram .shaded { color: var(--orange); font-weight: bold; }
+        .diagram .dashed { color: var(--text-muted); font-style: italic; }
+        .diagram .dotted { color: var(--purple); }
+        .diagram .arrow { color: var(--text-muted); }
+
+        /* ── Callout ────────────────────── */
+        .callout {
+            background: rgba(var(--accent-rgb), 0.08);
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+        .callout-icon { font-size: 1.3rem; flex-shrink: 0; }
+        .callout.green { background: rgba(63,185,80,0.08); border-color: rgba(63,185,80,0.3); }
+
+        /* ── Table ──────────────────────── */
+        .table-wrap { overflow-x: auto; margin: 1.2rem 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface-hover);
+            font-weight: 600;
+            color: #e6edf3;
+            font-size: 0.9rem;
+        }
+        td { font-size: 0.9rem; }
+        tr:last-child td { border-bottom: none; }
+
+        /* ── Gradient text ──────────────── */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Responsive ─────────────────── */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.6rem; }
+            .container { padding: 1rem; }
+            h2 { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════ -->
+<header class="hero">
+    <h1 class="gradient-text">Categorizing Variants of Goodhart's Law</h1>
+    <div class="meta">
+        <strong>David Manheim</strong> &amp; <strong>Scott Garrabrant</strong>
+        <span>•</span> 2018
+        <span>•</span> <a href="https://arxiv.org/abs/1803.04585" target="_blank">arXiv:1803.04585</a>
+    </div>
+    <div class="tags">
+        <span class="tag">AI Alignment</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Public Policy</span>
+        <span class="tag">Causal Inference</span>
+    </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MAIN -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="container">
+
+<!-- ──────────────────────────────────────────── -->
+<h2>1. What Is This Paper About?</h2>
+<!-- ──────────────────────────────────────────── -->
+<p>
+    <strong>Goodhart's Law</strong>, in its original formulation, states:
+</p>
+<div class="callout">
+    <span class="callout-icon">💬</span>
+    <div>
+        <em>"Any observed statistical regularity will tend to collapse once pressure is placed upon it for control purposes."</em>
+        <br><span style="color:var(--text-muted); font-size:0.85rem;">— Charles Goodhart, 1975</span>
+    </div>
+</div>
+
+<p>
+    In plain English: <strong>when a measure becomes a target, it ceases to be a good measure.</strong>
+    The moment you start optimizing for a metric, the very relationship that made the metric useful breaks down.
+</p>
+
+<p>
+    This paper by Manheim &amp; Garrabrant does something crucial that had not been formally done before:
+    it <strong>decomposes Goodhart's Law into a rigorous taxonomy of four distinct failure modes</strong>,
+    each with its own causal mechanism, mathematical model, and real-world examples.
+    The authors argue that lumping all metric-overoptimization failures under one umbrella obscures
+    important differences — and that understanding <em>which</em> Goodhart effect is at play is essential
+    for designing robust systems in economics, public policy, machine learning, and AI alignment.
+</p>
+
+<!-- ──────────────────────────────────────────── -->
+<h2>2. The Formal Framework</h2>
+<!-- ──────────────────────────────────────────── -->
+<p>
+    Before diving into the categories, the authors set up a simple but powerful formalism:
+</p>
+<ul>
+    <li><strong>System <em>S</em></strong> with possible states <em>s ∈ S</em>.</li>
+    <li><strong>Regulator</strong>: a single actor who selects a permissible region <em>A ⊆ S</em>.</li>
+    <li><strong>Goal <em>G(s)</em></strong>: the regulator's <em>true</em> objective — a mapping from states to a real number.</li>
+    <li><strong>Proxy (Metric) <em>M(s)</em></strong>: the <em>measurable</em> stand-in the regulator actually uses, since <em>G</em> is unobservable or too costly to measure directly.</li>
+    <li><strong>Selection pressure</strong>: the regulator chooses a threshold <em>c</em> such that states are only permitted when <em>M(s) ≥ c</em>.</li>
+</ul>
+<p>
+    A <strong>Goodhart effect</strong> is defined as: <em>optimization causes a collapse of the statistical relationship between the intended goal <strong>G</strong> and the proxy <strong>M</strong></em>.
+</p>
+
+<!-- ──────────────────────────────────────────── -->
+<h2>3. The Four Categories — Overview</h2>
+<!-- ──────────────────────────────────────────── -->
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th style="width:10%;">#</th>
+                <th style="width:22%;">Category</th>
+                <th style="width:38%;">Core Idea</th>
+                <th style="width:30%;">Key Question</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td><span style="color:var(--accent);">Regressional</span></td>
+                <td>Selecting for the proxy also selects for noise; the <strong>tails come apart</strong>.</td>
+                <td>Is the proxy inherently noisy?</td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td><span style="color:var(--green);">Extremal</span></td>
+                <td>Optimization pushes into regions where the <strong>old relationships break</strong>.</td>
+                <td>Does the relationship hold in extreme regions?</td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td><span style="color:var(--orange);">Causal</span></td>
+                <td>The regulator's <strong>own intervention</strong> breaks the causal link between proxy and goal.</td>
+                <td>Does acting on the proxy destroy the link?</td>
+            </tr>
+            <tr>
+                <td><strong>4</strong></td>
+                <td><span style="color:var(--red);">Adversarial</span></td>
+                <td><strong>Other agents</strong> with misaligned goals corrupt the metric.</td>
+                <td>Are there strategic actors gaming the metric?</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 4. REGRESSIONAL GOODHART -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>4. Category 1 — Regressional Goodhart</h2>
+<div class="card accent-blue">
+    <h3>🔹 "Tails Come Apart"</h3>
+    <p>
+        <strong>Definition:</strong> When you select for a noisy proxy, you unavoidably select for both the true goal <em>and</em> the noise.
+        In the extreme tail of the distribution, the noise component dominates.
+    </p>
+    <div class="formula">
+        M = G + ε, &nbsp;&nbsp; where ε ~ Normal(μ, σ²)
+    </div>
+    <p>
+        A point with a very large <em>M</em> likely has a large <em>G</em> and a large <em>ε</em>.
+        At the extreme, <em>G</em> will be <strong>predictably smaller than M</strong> — the proxy overstates the goal.
+    </p>
+    <div class="callout green">
+        <span class="callout-icon">⚠️</span>
+        <div>
+            <strong>Key insight:</strong> Regressional Goodhart is <em>fundamental and unavoidable</em>.
+            No matter what measure you choose, if it is an inexact proxy, the proxy and goal will diverge in the tail.
+            You can mitigate it (better proxies, less noise), but you can never eliminate it.
+        </div>
+    </div>
+</div>
+
+<h4>📊 Intuitive Diagram — Regressional Goodhart</h4>
+<div class="diagram">
+    ┌─────────────────────────────────────────────────┐
+    │          REGRESSIONAL GOODHART                   │
+    │                                                  │
+    │    G (True Goal)                                 │
+    │    ^                                             │
+    │    │        ╱                                    │
+    │    │     ╱ ╱   ••••   ← Tail: points scatter     │
+    │    │  ╱  ╱ ••••••••     widely — M systematically│
+    │    │ ╱ ••••••••••••     overestimates G          │
+    │    │ ••••••••••••••                               │
+    │    └──────────────────────→ M (Proxy)            │
+    │                                                  │
+    │  At extreme M:  E[G | M] < M                    │
+    │  "The tails come apart"                          │
+    └─────────────────────────────────────────────────┘
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 5. EXTREMAL GOODHART -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>5. Category 2 — Extremal Goodhart</h2>
+<div class="card accent-green">
+    <h3>🔹 "Out of Distribution"</h3>
+    <p>
+        <strong>Definition:</strong> When optimization pushes the system into regions of state-space that are very different from
+        where the relationship between <em>M</em> and <em>G</em> was originally observed or learned.
+    </p>
+</div>
+
+<h3>5.1 Subtype: Model Insufficiency</h3>
+<div class="card accent-green">
+    <p>
+        The learned relationship between <em>M</em> and <em>G</em> is a <strong>simplified approximation</strong>
+        that is accurate only in the observed region. When selection pressure pushes beyond that region,
+        the approximation breaks.
+    </p>
+    <div class="formula">
+        M = G(sᵢ) + G′(sᵢ)    ← simplified model misses higher-order terms
+    </div>
+    <h4>Machine Learning Example</h4>
+    <p>
+        You fit a low-degree polynomial to data. In the observed region, higher-order terms are small.
+        But when you optimize to maximize <em>M</em>, you move into regions where those higher-order terms dominate,
+        and the model's predictions become wildly wrong. This is essentially <strong>underfitting + distribution shift</strong>.
+    </p>
+    <h4>Public Policy Example</h4>
+    <p>
+        A government simplifies a complex social relationship into a metric (e.g., standardized test scores as a proxy for educational quality).
+        As resources are poured into maximizing that metric, the simplification itself becomes the problem —
+        teachers "teach to the test," and the original relationship between test scores and genuine learning collapses.
+    </p>
+</div>
+
+<h3>5.2 Subtype: Change in Regime</h3>
+<div class="card accent-green">
+    <p>
+        Even if the relationship is <em>perfectly learned</em> for the observed region, the generating process
+        <strong>fundamentally changes</strong> beyond a certain boundary.
+    </p>
+    <div class="formula">
+        G = { M + x,  when M ≤ a
+            { M + y,  when M > a      ← regime change at threshold a
+    </div>
+    <h4>Physical Example</h4>
+    <p>
+        Wind-speed instruments are calibrated for speeds below their design tolerance.
+        Above that threshold, measurements are systematically biased downward.
+        If you optimize for "measured wind speed" to assess wind-damage risk,
+        you get systematically wrong answers for extreme storms.
+    </p>
+    <h4>Another Example</h4>
+    <p>
+        The relationship between wind speed and height changes above the atmospheric boundary layer.
+        A model learned from lower-altitude data fails entirely above that boundary — a genuine
+        <strong>phase transition</strong> in the underlying physics.
+    </p>
+</div>
+
+<h4>📊 Intuitive Diagram — Extremal Goodhart</h4>
+<div class="diagram">
+    ┌─────────────────────────────────────────────────┐
+    │           EXTREMAL GOODHART                      │
+    │                                                  │
+    │   G ^                                            │
+    │     │    ╱╱╱╱                                   │
+    │     │  ╱╱    ╲                                  │
+    │     │ ╱╱      ╲    ← The relationship BREAKS    │
+    │     │╱╱        ╲      in this region             │
+    │     │             ╲                              │
+    │     ├──────────────┼──────────→ M               │
+    │     │  Observed    │  Unseen/Extreme             │
+    │     │  Region      │  Region                     │
+    │     │(relationship │(relationship                │
+    │     │  holds)      │  collapses)                 │
+    └─────────────────────────────────────────────────┘
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 6. CAUSAL GOODHART -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>6. Category 3 — Causal Goodhart</h2>
+<div class="card accent-orange">
+    <h3>🔹 "The Regulator Breaks It"</h3>
+    <p>
+        <strong>Definition:</strong> When the regulator <em>intervenes</em> in the system to maximize the metric,
+        the causal pathway connecting proxy to goal is severed or distorted. Unlike Regressional and Extremal
+        Goodhart (which only require <em>selection pressure</em>), Causal Goodhart requires the regulator's
+        <strong>own action</strong> to change the causal structure.
+    </p>
+    <div class="callout green">
+        <span class="callout-icon">💡</span>
+        <div>
+            <strong>Critical distinction:</strong> Causal Goodhart does <em>not</em> require uncertainty or incorrect models.
+            Even with perfect knowledge of all relationships, the very act of intervention can destroy the
+            proxy-goal link. This is fundamentally a <em>causal</em> problem, not an epistemic one.
+        </div>
+    </div>
+</div>
+
+<h3>6.1 Three Causal Goodhart Mechanisms</h3>
+
+<div class="card accent-orange">
+    <h4>🔸 Shared Cause Intervention</h4>
+    <p>The regulator intervenes on a variable <strong>X</strong> that is a common cause of both <em>M</em> and <em>G</em>.</p>
+    <div class="diagram">
+                    ┌───────┐
+                    │   X   │  ← The regulator sets X to a maximal value
+                    └──┬──┬─┘
+                       │  │
+                       ▼  ▼
+               ┌────────┐  ┌────────┐
+               │ Metric │  │  Goal  │
+               └────────┘  └────────┘
+
+    After intervention: Metric ⟂ Goal | X
+    The correlation between M and G collapses.
+    </div>
+    <p><strong>Example:</strong> A teacher trains general test-taking skills (shared cause).
+    Scores on both Math and Reading tests improve, but the <em>correlation between them</em> drops.
+    Further optimization based on one test becomes less informative about the other.</p>
+</div>
+
+<div class="card accent-orange">
+    <h4>🔸 Intermediary Intervention</h4>
+    <p>The regulator intervenes on a variable <strong>X</strong> that lies on the causal path from <em>G</em> to <em>M</em>.</p>
+    <div class="diagram">
+        ┌────────┐     ┌───────┐     ┌────────┐
+        │  Goal  │ ──→ │   X   │ ──→ │ Metric │
+        └────────┘     └───────┘     └────────┘
+                           ↑
+                    Regulator sets X directly
+
+        After intervention: Goal and Metric become independent.
+        Increasing M no longer requires increasing G.
+    </div>
+    <p><strong>Example:</strong> A company wants to increase revenue (Goal) and uses website visits (Metric).
+    Revenue → Marketing spend → Website visits. If the company directly buys bot traffic to inflate visits,
+    the causal chain is broken — visits increase but revenue doesn't.</p>
+</div>
+
+<div class="card accent-orange">
+    <h4>🔸 Metric Manipulation</h4>
+    <p>The regulator directly sets the metric <strong>M</strong> to a desired value, bypassing the goal entirely.</p>
+    <div class="diagram">
+        ┌────────┐          ┌────────┐
+        │  Goal  │    ?     │ Metric │  ← Regulator sets M directly
+        └────────┘          └────────┘
+                                 ↑
+                          (causal link severed)
+
+        The relationship between M and G no longer holds.
+    </div>
+    <p><strong>Example:</strong> A teacher simply changes students' test scores in the gradebook.
+    This does nothing for actual learning (Goal), but makes the metric look perfect — and thus useless.</p>
+</div>
+
+<h3>6.2 Non-Causal Goodhart Effects in Causal Systems</h3>
+<p>
+    The authors also identify three cases where the regulator <em>misunderstands</em> the causal structure
+    but doesn't intervene. These <strong>worsen Regressional or Extremal Goodhart</strong>, rather than creating
+    true Causal Goodhart:
+</p>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Case</th><th>What the regulator gets wrong</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Ignored Shared Cause</strong></td>
+                <td>Assumes a direct M→G link, but both share a common cause X</td>
+                <td>Selection on M conditions on X, creating an extremal-like collapse</td>
+            </tr>
+            <tr>
+                <td><strong>Ignored Intermediary</strong></td>
+                <td>Assumes M→G is direct, but an unmodeled intermediary adds noise</td>
+                <td>Amplifies regressional Goodhart due to extra error term</td>
+            </tr>
+            <tr>
+                <td><strong>Ignored Additional Cause</strong></td>
+                <td>Metric/goal is caused by extra factors not in the model</td>
+                <td>Can worsen regressional or extremal effects depending on the distribution</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 7. ADVERSARIAL GOODHART -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>7. Category 4 — Adversarial Goodhart</h2>
+<div class="card accent-red">
+    <h3>🔹 "Other Agents Game the Metric"</h3>
+    <p>
+        <strong>Definition:</strong> When there are <strong>multiple actors</strong> with different goals,
+        agents can deliberately exploit or corrupt the metric, triggering any of the above Goodhart effects.
+        This is the most complex category because it involves <em>strategic behavior</em>.
+    </p>
+</div>
+
+<h3>7.1 Adversarial Misalignment (Campbell's Law)</h3>
+<div class="card accent-red">
+    <h4>🔸 Campbell's Law (formalized)</h4>
+    <p>
+        <strong>Campbell's original formulation:</strong> <em>"The more any quantitative social indicator is used for social decision-making,
+        the more subject it will be to corruption pressures and the more apt it will be to distort and corrupt the social
+        processes it is intended to monitor."</em>
+    </p>
+    <p>
+        The authors formalize this: the agent <strong>chooses their own metric M<sub>A</sub></strong> after seeing the regulator's choice of M<sub>R</sub>,
+        and then selects on M<sub>A</sub> to hijack the regulator's optimization.
+    </p>
+    <div class="formula">
+        M_R = G_R + X          (Regulator's proxy = Goal + error)
+        M_A = G_A · X          (Agent's metric = their Goal × the error term)
+
+        The agent selects for high M_A values.
+        The regulator's later selection on M_R then inadvertently
+        creates a correlation between X and the regulator's goal.
+    </div>
+    <p>
+        <strong>Key twist:</strong> M<sub>A</sub> and G<sub>A</sub> may be <strong>uncorrelated</strong> over the full state-space,
+        but become <strong>positively correlated</strong> on the subspace selected by the regulator.
+        The agent exploits the regulator's selection pressure for their own ends.
+    </p>
+</div>
+
+<h3>7.2 The Cobra Effect</h3>
+<div class="card accent-red">
+    <h4>🔸 Normal Cobra Effect</h4>
+    <p>
+        <strong>Historical anecdote:</strong> In colonial India, British authorities offered a bounty for dead cobras to reduce the cobra population.
+        Instead, enterprising locals <em>bred cobras</em> to kill for the reward.
+        When the program was cancelled, breeders released their now-worthless cobras — resulting in <strong>more cobras than before</strong>.
+    </p>
+    <div class="diagram">
+        ┌────────┐     ┌────────┐
+        │  Goal  │     │ Metric │
+        └───┬────┘     └───┬────┘
+            │              │
+            │    ┌────┐    │
+            └───→│ Y  │←───┘
+                 └────┘
+              (Unobserved cause
+               the agent exploits)
+
+        Regulator sets: G_AR = G_A0 + M_R
+        Agent finds Y and manipulates it to maximize M_R
+        without advancing the original Goal.
+    </div>
+    <p>
+        In the formal model: the regulator modifies the agent's goal to align with their metric (via incentives).
+        The agent then finds an unobserved causal variable <strong>Y</strong> and manipulates it to maximize the metric through
+        a causal Goodhart mechanism (metric manipulation, shared cause, or intermediary intervention).
+    </p>
+</div>
+
+<div class="card accent-red">
+    <h4>🔸 Non-Causal Cobra Effect</h4>
+    <p>
+        The regulator aligns the agent's goal with the metric, and the agent applies <strong>selection pressure</strong>
+        (rather than causal intervention). This then triggers <strong>extremal or regressional Goodhart effects</strong>
+        on the regulator's metric.
+    </p>
+    <div class="formula">
+        G_AR = G_A0 + M_R
+
+        When the agent applies selection pressure to maximize G_AR,
+        it creates a Goodhart effect on M_R.
+    </div>
+    <p>
+        <strong>Difference from Normal Cobra:</strong> Here the agent doesn't find a clever causal loophole —
+        they simply optimize hard enough that the statistical relationship between M<sub>R</sub> and G<sub>R</sub>
+        breaks down (regressional or extremal effects).
+    </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 8. COMPREHENSIVE COMPARISON -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>8. Comprehensive Taxonomy at a Glance</h2>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Subtype</th>
+                <th>Requires Intervention?</th>
+                <th>Requires Multiple Actors?</th>
+                <th>Avoidable?</th>
+                <th>Classic Analogy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="1"><strong>Regressional</strong></td>
+                <td>—</td>
+                <td>❌ No</td>
+                <td>❌ No</td>
+                <td>❌ Never</td>
+                <td>Tails come apart</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>Extremal</strong></td>
+                <td>Model Insufficiency</td>
+                <td>❌ No</td>
+                <td>❌ No</td>
+                <td>✅ Better models</td>
+                <td>Underfitting / Out-of-sample</td>
+            </tr>
+            <tr>
+                <td>Change in Regime</td>
+                <td>❌ No</td>
+                <td>❌ No</td>
+                <td>⚠️ Hard</td>
+                <td>Phase transition</td>
+            </tr>
+            <tr>
+                <td rowspan="3"><strong>Causal</strong></td>
+                <td>Shared Cause Intervention</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>⚠️ Partial</td>
+                <td>Teaching to the test</td>
+            </tr>
+            <tr>
+                <td>Intermediary Intervention</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>⚠️ Partial</td>
+                <td>Buying bot traffic</td>
+            </tr>
+            <tr>
+                <td>Metric Manipulation</td>
+                <td>✅ Yes</td>
+                <td>❌ No</td>
+                <td>⚠️ Partial</td>
+                <td>Changing scores directly</td>
+            </tr>
+            <tr>
+                <td rowspan="3"><strong>Adversarial</strong></td>
+                <td>Campbell's Law</td>
+                <td>❌ (Selection)</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Very Hard</td>
+                <td>Gaming social indicators</td>
+            </tr>
+            <tr>
+                <td>Normal Cobra Effect</td>
+                <td>✅ (by agent)</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Very Hard</td>
+                <td>Breeding cobras for bounty</td>
+            </tr>
+            <tr>
+                <td>Non-Causal Cobra Effect</td>
+                <td>❌ (Selection)</td>
+                <td>✅ Yes</td>
+                <td>⚠️ Very Hard</td>
+                <td>Over-optimizing incentives</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 9. DECISION TREE -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>9. Decision Tree: Which Goodhart Effect Is This?</h2>
+<div class="diagram">
+    ┌──────────────────────────────────────────────────────────────┐
+    │                WHICH GOODHART EFFECT?                        │
+    │                                                              │
+    │  Are there multiple strategic actors?                        │
+    │     │                                                        │
+    │     ├── YES ──→ Does the regulator use incentives?           │
+    │     │              │                                         │
+    │     │              ├── YES ──→ COBRA EFFECT                  │
+    │     │              │    ├── Agent finds causal loophole      │
+    │     │              │    │    → Normal Cobra                  │
+    │     │              │    └── Agent applies selection pressure │
+    │     │              │         → Non-Causal Cobra              │
+    │     │              │                                         │
+    │     │              └── NO ───→ ADVERSARIAL MISALIGNMENT      │
+    │     │                         (Campbell's Law)               │
+    │     │                                                        │
+    │     └── NO ──→ Does the regulator INTERVENE                  │
+    │                    (not just select)?                         │
+    │                    │                                         │
+    │                    ├── YES ──→ CAUSAL GOODHART               │
+    │                    │    ├── Shared Cause Intervention        │
+    │                    │    ├── Intermediary Intervention        │
+    │                    │    └── Metric Manipulation              │
+    │                    │                                         │
+    │                    └── NO (just selection)                    │
+    │                         │                                    │
+    │                         └──→ Is the proxy pushed into        │
+    │                              an extreme / unseen region?     │
+    │                                   │                          │
+    │                                   ├── YES ──→ EXTREMAL      │
+    │                                   │    ├── Model wrong?     │
+    │                                   │    │    → Insufficiency │
+    │                                   │    └── Regime change?   │
+    │                                   │         → Change in     │
+    │                                   │            Regime       │
+    │                                   │                          │
+    │                                   └── NO ──→ REGRESSIONAL   │
+    │                                        (always present       │
+    │                                         to some degree)      │
+    └──────────────────────────────────────────────────────────────┘
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 10. KEY INSIGHTS -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>10. Key Insights and Takeaways</h2>
+
+<div class="card accent-purple">
+    <h3>🔑 Insight #1: Goodhart Is Not One Thing</h3>
+    <p>
+        The paper's central contribution is showing that "Goodhart's Law" is actually an <strong>umbrella term</strong>
+        covering at least four mechanistically distinct failure modes. Conflating them leads to
+        confused diagnosis and ineffective solutions.
+    </p>
+</div>
+
+<div class="card accent-purple">
+    <h3>🔑 Insight #2: Regressional Goodhart Is Unavoidable</h3>
+    <p>
+        Because all proxies are imperfect, the "tails coming apart" phenomenon is a <strong>mathematical inevitability</strong>.
+        You can reduce the noise (better proxies), but you can never eliminate it. This has profound implications
+        for AI alignment: even a near-perfect reward model will diverge from true human values under sufficient optimization pressure.
+    </p>
+</div>
+
+<div class="card accent-purple">
+    <h3>🔑 Insight #3: Causal Goodhart Doesn't Need Uncertainty</h3>
+    <p>
+        Unlike regressional and extremal Goodhart, causal Goodhart can occur <strong>even with perfect knowledge</strong>.
+        The very act of optimizing changes the system. This is closely related to the <strong>Lucas Critique</strong> in
+        macroeconomics: policy interventions change the behavior that the policy was based on.
+    </p>
+</div>
+
+<div class="card accent-purple">
+    <h3>🔑 Insight #4: Adversarial Goodhart Is the Hardest</h3>
+    <p>
+        When other intelligent agents are involved, they can <strong>actively search for and exploit</strong> any
+        of the above failure modes. This makes adversarial Goodhart the most dangerous category
+        for AI alignment — a sufficiently capable AI will find ways to game any metric it's optimized against.
+    </p>
+</div>
+
+<div class="card accent-purple">
+    <h3>🔑 Insight #5: Optimization Power Amplifies Everything</h3>
+    <p>
+        The severity of <em>all</em> Goodhart effects scales with the amount of optimization power applied.
+        As AI systems become more capable optimizers, the risk of catastrophic Goodhart failures grows.
+        This makes the taxonomy <strong>especially critical for AI alignment research</strong>.
+    </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 11. APPLICATIONS -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>11. Real-World Applications</h2>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Domain</th><th>Example</th><th>Primary Goodhart Type(s)</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ML / AI</strong></td>
+                <td>Reward hacking in RL: agent maximizes reward signal without achieving intended goal</td>
+                <td>Regressional + Causal + Adversarial</td>
+            </tr>
+            <tr>
+                <td><strong>Education</strong></td>
+                <td>Teaching to the test narrows curriculum and doesn't improve real learning</td>
+                <td>Causal (Shared Cause)</td>
+            </tr>
+            <tr>
+                <td><strong>Healthcare</strong></td>
+                <td>Hospitals optimize "patient satisfaction scores" rather than health outcomes</td>
+                <td>Regressional + Adversarial</td>
+            </tr>
+            <tr>
+                <td><strong>Economics</strong></td>
+                <td>GDP as a proxy for wellbeing: optimizing GDP can harm actual welfare</td>
+                <td>Regressional + Extremal</td>
+            </tr>
+            <tr>
+                <td><strong>Policing</strong></td>
+                <td>Quotas for arrests lead to over-policing of minor offenses</td>
+                <td>Adversarial (Cobra Effect)</td>
+            </tr>
+            <tr>
+                <td><strong>Tech Industry</strong></td>
+                <td>Optimizing for "engagement time" leads to addictive design patterns</td>
+                <td>Regressional + Causal</td>
+            </tr>
+            <tr>
+                <td><strong>Science</strong></td>
+                <td>Publish-or-perish leads to p-hacking and replication crisis</td>
+                <td>Adversarial (Campbell's Law)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 12. CONCLUSION -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>12. Conclusion</h2>
+<p>
+    Manheim &amp; Garrabrant's paper provides a <strong>much-needed formal taxonomy</strong> for a phenomenon
+    that had previously been discussed in vague and overlapping terms.
+    By decomposing Goodhart's Law into four distinct mechanisms — <strong>Regressional, Extremal, Causal, and Adversarial</strong> —
+    with clearly specified subcategories, the authors give researchers and practitioners a shared vocabulary
+    and diagnostic framework.
+</p>
+<p>
+    The taxonomy is not merely academic: it has direct practical implications for how we design metrics,
+    incentives, and optimization systems. Understanding <em>which</em> Goodhart effect is at play suggests
+    <em>which</em> mitigations are appropriate:
+</p>
+<ul>
+    <li><strong>Regressional:</strong> Reduce noise in proxies, but accept that some divergence is inevitable.</li>
+    <li><strong>Extremal:</strong> Use better models, gather data from extreme regions, add uncertainty quantification.</li>
+    <li><strong>Causal:</strong> Model causal structure explicitly; consider the effects of your own interventions.</li>
+    <li><strong>Adversarial:</strong> Design robust metrics, anticipate gaming, use multiple diverse metrics, and limit optimization power.</li>
+</ul>
+<p>
+    As AI systems become more powerful optimizers, the importance of this taxonomy only grows.
+    The paper is a foundational reference for anyone working on AI alignment, mechanism design,
+    or any domain where metrics are used to guide optimization.
+</p>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- REFERENCES -->
+<!-- ══════════════════════════════════════════════════ -->
+<h2>13. References &amp; Further Reading</h2>
+<ul>
+    <li>
+        <strong>Manheim, D. &amp; Garrabrant, S. (2018).</strong>
+        <em>Categorizing Variants of Goodhart's Law.</em>
+        arXiv:1803.04585.
+        <a href="https://arxiv.org/abs/1803.04585" target="_blank">Link</a>
+    </li>
+    <li>
+        <strong>Goodhart, C. E. (1975).</strong>
+        <em>Problems of Monetary Management: The U.K. Experience.</em>
+        Papers in Monetary Economics, Reserve Bank of Australia.
+    </li>
+    <li>
+        <strong>Garrabrant, S. (2017).</strong>
+        <em>Goodhart Taxonomy.</em>
+        <a href="https://www.lesserwrong.com/posts/EbFABnst8LsidYs5Y/goodhart-taxonomy" target="_blank">LesserWrong</a>
+    </li>
+    <li>
+        <strong>Campbell, D. T. (1979).</strong>
+        <em>Assessing the Impact of Planned Social Change.</em>
+        Evaluation and Program Planning, 2(1), 67–90.
+    </li>
+    <li>
+        <strong>Bostrom, N. (2014).</strong>
+        <em>Superintelligence: Paths, Dangers, Strategies.</em>
+        Oxford University Press.
+    </li>
+    <li>
+        <strong>Lewis, G. (Thrasymachus) (2014).</strong>
+        <em>Why the Tails Come Apart.</em>
+        <a href="http://lesswrong.com/lw/km6/why-the-tails-come-apart/" target="_blank">LessWrong</a>
+    </li>
+    <li>
+        <strong>Siebert, H. (2001).</strong>
+        <em>Der Kobra-Effekt: Wie man Irrwege der Wirtschaftspolitik vermeidet.</em>
+        Deutsche Verlags-Anstalt.
+    </li>
+    <li>
+        <strong>Rodamar, J. (2018).</strong>
+        <em>There Ought to Be a Law! Campbell v. Goodhart.</em>
+        Significance, 15(6).
+    </li>
+</ul>
+
+<hr style="border-color: var(--border); margin: 3rem 0 2rem;">
+
+<p style="text-align:center; color: var(--text-muted); font-size: 0.85rem;">
+    This explanation was generated from the paper
+    <a href="https://arxiv.org/abs/1803.04585" target="_blank">arXiv:1803.04585</a>
+    by David Manheim &amp; Scott Garrabrant (2018).
+</p>
+
+</div>
+</body>
+</html>
