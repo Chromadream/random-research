@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3:2 Retro Handheld Strategy Guide — Maximizing Four Devices</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #1c2333;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent-1: #ff7b72;
+            --accent-2: #79c0ff;
+            --accent-3: #d2a8ff;
+            --accent-4: #7ee787;
+            --accent-5: #ffa657;
+            --accent-gba: #7c3aed;
+            --accent-psp: #2563eb;
+            --accent-arcade: #dc2626;
+            --accent-power: #f59e0b;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent-2);
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h3 { margin-top: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #21262d;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        td { vertical-align: top; }
+        .badge {
+            display: inline-block;
+            padding: 0.2em 0.65em;
+            border-radius: 99px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+        }
+        .badge-gba { background: rgba(124,58,237,0.2); color: #c4b5fd; }
+        .badge-psp { background: rgba(37,99,235,0.2); color: #93c5fd; }
+        .badge-arcade { background: rgba(220,38,38,0.2); color: #fca5a5; }
+        .badge-power { background: rgba(245,158,11,0.2); color: #fcd34d; }
+        .badge-unique { background: rgba(34,197,94,0.2); color: #86efac; }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin: 0.4rem 0; }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(121,192,255,0.08), rgba(210,168,255,0.08));
+            border: 1px solid rgba(121,192,255,0.25);
+            border-radius: 8px;
+            padding: 1rem 1.3rem;
+            margin: 1rem 0;
+        }
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .spec-item {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+        }
+        .spec-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .spec-value { font-size: 1.05rem; font-weight: 600; }
+        .role-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0.3rem 0;
+        }
+        .pro-con-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .pro-con-grid { grid-template-columns: 1fr; }
+            table { font-size: 0.78rem; }
+        }
+        a { color: var(--accent-2); }
+        .strategy-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .s1 { background: var(--accent-1); color: #0d1117; }
+        .s2 { background: var(--accent-2); color: #0d1117; }
+        .s3 { background: var(--accent-3); color: #0d1117; }
+        .s4 { background: var(--accent-4); color: #0d1117; }
+    </style>
+</head>
+<body>
+
+<h1>🎮 The 3:2 Quartet: A Strategy Guide</h1>
+<p class="subtitle">Maximizing four retro handhelds with identical 3.5″ 960×640 3:2 displays — no overlap wasted, every strength exploited.</p>
+
+<div class="card">
+    <h3>📐 The Common Thread</h3>
+    <p>All four devices share the same <strong>3.5″ IPS panel at 960×640 (3:2, ~330 PPI)</strong>. This is the <em>perfect</em> integer-scaled canvas for Game Boy Advance (4× point-to-point at 960×640 fills the screen exactly). But each handheld brings wildly different chipsets, controls, and philosophies — and that's where the strategy unfolds.</p>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+        <span class="badge badge-gba">GBA: 4× Integer Scale</span>
+        <span class="badge badge-psp">PSP: 2× with minimal bars</span>
+        <span class="badge badge-arcade">Arcade Shmups: TATE</span>
+        <span class="badge badge-power">6th-Gen: GC / PS2 / DC</span>
+    </div>
+</div>
+
+<!-- SPECS COMPARISON TABLE -->
+<h2>📊 Specs at a Glance</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Spec</th>
+            <th>Ayaneo Pocket Micro Classic</th>
+            <th>Ayaneo Pocket Micro 2</th>
+            <th>KONKR Pocket Advance (Peach)</th>
+            <th>MagicX One35</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Chipset</strong></td>
+            <td>MediaTek Helio G99</td>
+            <td>Snapdragon 865-class<br><span style="color:#fcd34d;">🏆 ~220% faster than G99</span></td>
+            <td>MediaTek Helio G90T</td>
+            <td>MediaTek Helio G85</td>
+        </tr>
+        <tr>
+            <td><strong>GPU</strong></td>
+            <td>Mali-G57 MC2</td>
+            <td>Adreno 650</td>
+            <td>Mali-G76 MC4</td>
+            <td>Mali-G52 MC2</td>
+        </tr>
+        <tr>
+            <td><strong>RAM / Storage</strong></td>
+            <td>6–8 GB / 128–256 GB</td>
+            <td>6–8 GB / 128–256 GB</td>
+            <td>3–4 GB / 32–64 GB</td>
+            <td>3–4 GB / 32–64 GB</td>
+        </tr>
+        <tr>
+            <td><strong>Battery</strong></td>
+            <td>2,600 mAh ⚠️</td>
+            <td>3,950 mAh</td>
+            <td>4,000 mAh</td>
+            <td>4,300 mAh 🏆</td>
+        </tr>
+        <tr>
+            <td><strong>Analog Sticks</strong></td>
+            <td>❌ None</td>
+            <td>✅ Dual recessed TMR</td>
+            <td>❌ None</td>
+            <td>✅ Single Hall-effect</td>
+        </tr>
+        <tr>
+            <td><strong>Unique Feature</strong></td>
+            <td>Premium CNC aluminum body</td>
+            <td>SD865 + TMR sticks + WiFi 6</td>
+            <td>GBA silhouette + volume wheel</td>
+            <td>🔄 TATE mode (dual D-pads)</td>
+        </tr>
+        <tr>
+            <td><strong>Headphone Jack</strong></td>
+            <td>❌</td>
+            <td>✅ 3.5 mm</td>
+            <td>✅ 3.5 mm</td>
+            <td>✅ 3.5 mm</td>
+        </tr>
+        <tr>
+            <td><strong>Weight</strong></td>
+            <td>~227 g</td>
+            <td>~248 g</td>
+            <td>~224 g</td>
+            <td>~189 g 🏆</td>
+        </tr>
+        <tr>
+            <td><strong>OS</strong></td>
+            <td>Android 13</td>
+            <td>Android 13</td>
+            <td>Android 12</td>
+            <td>Android 12 (Dawn Launcher)</td>
+        </tr>
+        <tr>
+            <td><strong>Price (approx.)</strong></td>
+            <td>$179–$239</td>
+            <td>$239–$339</td>
+            <td>$89–$129</td>
+            <td>$55–$95</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="highlight-box">
+    <strong>🔑 Key Insight:</strong> These four devices span a <strong>6× price range</strong> ($55 → $339) and a <strong>~3× performance range</strong> (G85 → SD865). The secret to a satisfying collection isn't making them all do everything — it's making each one the <em>undisputed best</em> at a specific job.
+</div>
+
+<hr class="divider">
+
+<!-- DEVICE 1: POCKET MICRO CLASSIC -->
+<h2>🥇 Device #1: Ayaneo Pocket Micro Classic</h2>
+<div class="card">
+    <p class="role-header" style="color: var(--accent-1);">🎯 Role: The GBA Shrine — Premium 4× Shader Showcase + 8/16-bit CRT Canvas</p>
+</div>
+
+<h3>Why This Role?</h3>
+<p>The Pocket Micro Classic is the <strong>only metal-bodied device</strong> in the quartet. It <em>feels</em> premium. Pair that with the Helio G99 — a chip that is <em>hilariously overpowered</em> for GBA — and you've got a device whose very excess becomes its strength: <strong>heavy CRT & LCD shader pipelines that would choke weaker chips run flawlessly here.</strong></p>
+
+<div class="spec-grid">
+    <div class="spec-item">
+        <div class="spec-label">Chip Headroom</div>
+        <div class="spec-value">Massive for 2D</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">G99 laughs at 4× GBA + CRT-Royale</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Build</div>
+        <div class="spec-value">CNC Aluminum + Glass</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Only metal device here</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Perfect For</div>
+        <div class="spec-value">GBA / SNES / NES / Genesis / TG-16</div>
+    </div>
+</div>
+
+<h3>🎨 Creative Assignment: The "Reference" GBA + 16-bit Console Experience</h3>
+<ol>
+    <li><strong>Primary Library: Game Boy Advance</strong> — This is the core. 4× integer scale (240×4 = 960, 160×4 = 640) fills the 3:2 screen <em>perfectly</em> with zero interpolation blur. Combine with the mGBA core in RetroArch and layer on:
+        <ul>
+            <li><strong>CRT-Royale</strong> or <strong>CRT-Lottes</strong> shader for that "playing on a tiny CRT TV" vibe</li>
+            <li><strong>LCD3x</strong> or <strong>Grid</strong> shader for authentic GBA pixel-grid reproduction (simulates the original unlit GBA screen)</li>
+            <li><strong>Color correction</strong> (GBA desaturation → vivid) to mimic the original GBA's undersaturated panel</li>
+        </ul>
+    </li>
+    <li><strong>Secondary Library: 16-bit Consoles (SNES / Genesis / NES / TG-16 / PC Engine)</strong> — These are 4:3 or 8:7 systems that display beautifully on the 3:2 panel with small horizontal bars. The G99's extra power means:
+        <ul>
+            <li>Run <strong>BSNES-HD</strong> or <strong>Mesen</strong> cores with heavy CRT shaders at full speed</li>
+            <li>Enable <strong>run-ahead</strong> latency reduction (1–2 frames) for virtually zero input lag on SNES/Genesis</li>
+            <li>Integer-scale with <strong>interlacing shaders</strong> for that authentic 240p CRT look</li>
+        </ul>
+    </li>
+    <li><strong>N64 via D-pad Mapping:</strong> The Micro Classic has an AYANEO shortcut that maps the D-pad to emulate a left analog stick. This unlocks N64 games that don't need heavy analog precision: <em>Paper Mario, Mario Party, Pokémon Stadium (mini-games), Kirby 64, Harvest Moon 64</em>. The G99 handles N64 at 2–3× resolution effortlessly.</li>
+    <li><strong>Android Native Games:</strong> TMNT: Shredder's Revenge, Super Meat Boy, Dead Cells, Stardew Valley — all run beautifully with controller support and adapt well to the 3:2 aspect ratio.</li>
+</ol>
+
+<h3>⚡ Power User Tips</h3>
+<ul>
+    <li><strong>Frontend:</strong> ES-DE with a GBA-centric theme (e.g., "RetroBox" or "Minimal"). Use the AYA Window for quick brightness/performance toggles.</li>
+    <li><strong>Battery Management:</strong> The 2,600 mAh cell is the device's Achilles' heel. Use <strong>Balance Mode</strong> for GBA/SNES (5–6 hours) and save Max Mode for when shaders demand it. Carry a small USB-C power bank.</li>
+    <li><strong>Fan Note:</strong> The fan is essentially silent below 40°C. For GBA use, it may never spin up audibly.</li>
+    <li><strong>No Headphone Jack:</strong> Use a USB-C DAC dongle or Bluetooth 5.2 earbuds. The lack of a jack is a bummer but manageable.</li>
+    <li><strong>Start/Select Quirk:</strong> Learn to avoid the home/launcher buttons on the bottom-right chamfer. Consider remapping them with <strong>Button Mapper</strong> to prevent accidental exits.</li>
+</ul>
+
+<div class="highlight-box">
+    <strong>🏆 Why This Beats the Others at This Job:</strong> The Micro 2 is more powerful but its TMR sticks are wasted on GBA. The KONKR Pocket Advance is plastic and the G90T struggles with heavy shaders. The One35's G85 can't handle CRT-Royale at full speed. The Micro Classic is <em>the only one</em> with the premium build + shader headroom combo.
+</div>
+
+<hr class="divider">
+
+<!-- DEVICE 2: POCKET MICRO 2 -->
+<h2>🥈 Device #2: Ayaneo Pocket Micro 2</h2>
+<div class="card">
+    <p class="role-header" style="color: var(--accent-2);">🎯 Role: The 6th-Gen Powerhouse — PSP / Dreamcast / GameCube / PS2 / Saturn / Streaming</p>
+</div>
+
+<h3>Why This Role?</h3>
+<p>The Snapdragon 865 is in a <strong>completely different league</strong> from the MediaTek chips in the other three. With mature Turnip Vulkan drivers and ~220% of the G99's performance, this is the only device in the collection that can credibly handle GameCube, PS2, Saturn, and high-resolution PSP. The dual recessed TMR sticks (drift-resistant!) are the enabler.</p>
+
+<div class="spec-grid">
+    <div class="spec-item">
+        <div class="spec-label">Chip</div>
+        <div class="spec-value">SD865 / Adreno 650</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">~220% faster than G99</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Sticks</div>
+        <div class="spec-value">Dual TMR (recessed)</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Drift-resistant, pocketable</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Battery</div>
+        <div class="spec-value">3,950 mAh</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">52% larger than Classic</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Perfect For</div>
+        <div class="spec-value">PSP / DC / GC / PS2 / Saturn / Streaming</div>
+    </div>
+</div>
+
+<h3>🎨 Creative Assignment: The Analog-Era Portable</h3>
+<ol>
+    <li><strong>Primary Library: PlayStation Portable</strong> — PSP at 2× resolution (480×544 internal → 960×544 on a 960×640 panel) fits beautifully. The 3:2 display is <em>closer</em> to 16:9 than 4:3, so PSP's widescreen games have minimal black bars. PPSSPP on SD865 runs at 3×–4× resolution with texture upscaling. Key titles:
+        <ul>
+            <li><em>God of War: Chains of Olympus / Ghost of Sparta</em> — 3×, rock-solid 60 FPS</li>
+            <li><em>Final Fantasy Tactics: War of the Lions</em> — with HD texture packs</li>
+            <li><em>Persona 3 Portable, MGS: Peace Walker, Gran Turismo, Ridge Racer</em></li>
+        </ul>
+    </li>
+    <li><strong>Dreamcast (Flycast / Redream):</strong> SD865 runs the entire Dreamcast library at 2–3× resolution with per-pixel sorting. The TMR sticks are perfect for <em>Sonic Adventure, Jet Set Radio, Shenmue, SoulCalibur, Crazy Taxi</em>.</li>
+    <li><strong>GameCube (Dolphin MMJR2 / official):</strong> Most of the library runs at 1×–1.5× resolution. The 3:2 screen handles 4:3 GameCube with modest black bars. Highlights:
+        <ul>
+            <li><em>The Legend of Zelda: The Wind Waker</em> — 1.5×, widescreen hack</li>
+            <li><em>Super Mario Sunshine, Metroid Prime, F-Zero GX, Luigi's Mansion, Paper Mario TTYD</em></li>
+            <li>Use <strong>Dolphin MMJR2</strong> for the best SD865 performance profile</li>
+        </ul>
+    </li>
+    <li><strong>PS2 (NetherSX2 / AetherSX2):</strong> Cherry-pick titles. Lighter 3D games run well at 1×–1.5×. The heaviest PS2 titles (Shadow of the Colossus, Gran Turismo 4) will struggle. Best bets: <em>Kingdom Hearts I & II, Final Fantasy X, Dragon Quest VIII, Katamari Damacy, Persona 4</em>.</li>
+    <li><strong>Sega Saturn (Yaba Sanshiro 2 / Beetle Saturn):</strong> Saturn emulation is notoriously demanding. The SD865 handles it better than any MediaTek chip. <em>Panzer Dragoon Saga, NiGHTS, Guardian Heroes, Radiant Silvergun</em>.</li>
+    <li><strong>Game Streaming:</strong> WiFi 6 + SD865 = excellent Moonlight/Sunshine streaming from a gaming PC. Xbox Cloud Gaming, Steam Link, and GeForce Now all run smoothly. The 3:2 display and compact size make it a great couch-streaming companion.</li>
+    <li><strong>N64 at 3×–4×:</strong> With the TMR sticks, N64 is native and comfortable. The SD865 can push N64 to high resolutions with texture packs.</li>
+</ol>
+
+<h3>⚡ Power User Tips</h3>
+<ul>
+    <li><strong>Turnip Drivers:</strong> Install <strong>Mesa Turnip vulkan drivers</strong> (v24+) for Dolphin and NetherSX2. This is the SD865's secret weapon — MediaTek chips can't use these.</li>
+    <li><strong>Thermals:</strong> The active fan + SD865 means sustained performance. Use <strong>Gaming Mode</strong> for GC/PS2 and <strong>Max Mode</strong> only when needed.</li>
+    <li><strong>Battery:</strong> 3,950 mAh gives ~3.5–5.5 hours on heavier 3D emulation, ~5–8 hours on 8/16-bit. Significantly better than the Micro Classic.</li>
+    <li><strong>Video Out:</strong> USB-C with video out — you can dock this to a TV and use Bluetooth controllers for a hybrid console experience.</li>
+    <li><strong>3.5mm Jack:</strong> Finally present! Use wired IEMs for zero-latency audio — important for rhythm games and precise platformers.</li>
+</ul>
+
+<div class="highlight-box">
+    <strong>🏆 Why This Beats the Others at This Job:</strong> The Micro Classic and Pocket Advance have <em>no sticks</em>, so GC/PS2/PSP are non-starters. The One35's G85 can barely scrape the surface of GC/PS2. The Micro 2 is the <strong>only device here that can run this generation of games</strong> and has the sticks to control them.
+</div>
+
+<hr class="divider">
+
+<!-- DEVICE 3: KONKR POCKET ADVANCE -->
+<h2>🥉 Device #3: KONKR Pocket Advance (Peach)</h2>
+<div class="card">
+    <p class="role-header" style="color: var(--accent-3);">🎯 Role: The Everyday Carry GBA — Comfort King, PS1 JRPG Machine & ROM Hack Playground</p>
+</div>
+
+<h3>Why This Role?</h3>
+<p>The Pocket Advance is physically <strong>shaped like an original Game Boy Advance</strong> — curved body, rounded edges, ~224 g, anti-slip texture. It's the <em>only</em> device here that evokes the actual GBA ergonomics. The Helio G90T is the sweet spot: stronger than the G85 but way cheaper than the G99/SD865. At $89–$129, it's the device you <strong>throw in a bag without anxiety</strong>.</p>
+
+<div class="spec-grid">
+    <div class="spec-item">
+        <div class="spec-label">Chip</div>
+        <div class="spec-value">Helio G90T</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Sweet spot for GBA + PS1</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Ergonomics</div>
+        <div class="spec-value">Curved GBA body</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Most comfortable for hours</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Battery</div>
+        <div class="spec-value">4,000 mAh</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Excellent endurance</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Perfect For</div>
+        <div class="spec-value">GBA / PS1 / SNES / Genesis / NES</div>
+    </div>
+</div>
+
+<h3>🎨 Creative Assignment: The Comfort Binge Device</h3>
+<ol>
+    <li><strong>Primary Library: Game Boy Advance (Daily Driver)</strong> — While the Micro Classic is the <em>premium</em> GBA experience, the Pocket Advance is the <em>practical</em> one. Its curved body and anti-slip texture make it the most comfortable device for multi-hour GBA sessions. The G90T handles 4× GBA with light shaders (LCD3x, Grid) without breaking a sweat.
+        <ul>
+            <li><strong>GBA ROM Hack Paradise:</strong> Load this up with the best ROM hacks: <em>Pokémon Unbound, Pokémon Radical Red, Super Mariomon, Fire Emblem: Vision Quest, Mother 3 (fan translation), Metroid: Spooky Mission</em></li>
+            <li><strong>GBA Multiplayer:</strong> Use mGBA's netplay features over WiFi for retroachievements and linked gameplay (Pokémon trading, Four Swords, etc.)</li>
+            <li><strong>RetroAchievements:</strong> Enable hardcore mode on this device — the G90T is snappy enough for real-time achievement tracking without lag.</li>
+        </ul>
+    </li>
+    <li><strong>Secondary Library: PlayStation 1 (DuckStation / SwanStation)</strong> — The Pocket Advance is <em>the</em> PS1 JRPG machine. The D-pad is perfect for PS1's pre-DualShock library, and the 4,000 mAh battery means you can grind through <em>Final Fantasy VII–IX, Chrono Cross, Xenogears, Suikoden II, Vagrant Story, Legend of Dragoon</em> for hours. Run at 2×–3× resolution with PGXP texture correction for wobbly-polygon-free 3D.</li>
+    <li><strong>16-bit & 8-bit Consoles:</strong> SNES, Genesis/Mega Drive, NES, TG-16 — the Pocket Advance is the workhorse for these libraries. The volume wheel adds a satisfying tactile element that no other device here has.</li>
+    <li><strong>Light PSP:</strong> The G90T can handle PSP at 1×–2×, and while it lacks a stick, many PSP games work well with D-pad mapped to analog: <em>Lumines, Disgaea, Jeanne d'Arc, Tactics Ogre, Final Fantasy Tactics</em>.</li>
+</ol>
+
+<h3>⚡ Power User Tips</h3>
+<ul>
+    <li><strong>Frontend:</strong> Use <strong>Daijishō</strong> or <strong>ES-DE</strong>. The Pocket Advance's Android 12 + AYASpace software stack is lighter than Android 13, so use a community launcher.</li>
+    <li><strong>SD Card:</strong> The internal storage (32/64 GB) is tight. Use a 256–512 GB microSD for your ROM library. The microSD slot is easily accessible.</li>
+    <li><strong>Volume Wheel:</strong> Map the volume wheel carefully — it's a physical analog control, not a rocker. This is genuinely useful for quick volume changes mid-game.</li>
+    <li><strong>Fan:</strong> Active cooling via fan. The G90T under load may need it for sustained PS1 upscaling. It's there, use it.</li>
+    <li><strong>The Peach Color:</strong> While you said to ignore the Hello Kitty nostalgia, functionally the Peach variant is a matte, warm-toned plastic that may show less fingerprint wear than glossy finishes. It's also the easiest to spot in a bag.</li>
+</ul>
+
+<div class="highlight-box">
+    <strong>🏆 Why This Beats the Others at This Job:</strong> The Micro Classic's metal body is heavier and less comfortable for marathon sessions. The Micro 2 is overkill (and too expensive to casually toss in a bag). The One35's compact shape is less ergonomic. The Pocket Advance is <strong>the only one designed with the long-play GBA curve</strong>.
+</div>
+
+<hr class="divider">
+
+<!-- DEVICE 4: MAGICX ONE35 -->
+<h2>🏅 Device #4: MagicX One35</h2>
+<div class="card">
+    <p class="role-header" style="color: var(--accent-4);">🎯 Role: The TATE Arcade & DS Specialist — Vertical Shmups, Dual-Screen DS, WonderSwan, and PSP Lite</p>
+</div>
+
+<h3>Why This Role?</h3>
+<p>This is the <strong>most unique device in the collection</strong>. The dual D-pad layout, TATE shoulder buttons on top/bottom, Start/Select on the side, and Dawn Launcher's per-game orientation settings make the One35 the <strong>only handheld here capable of seamless vertical (TATE) gameplay.</strong> No other device can do this — not even close.</p>
+
+<div class="spec-grid">
+    <div class="spec-item">
+        <div class="spec-label">Unique Feature</div>
+        <div class="spec-value">🔄 TATE Mode</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Rotate 90° for vertical games</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Dual D-pads</div>
+        <div class="spec-value">Left + Right side</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">One for each orientation</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Battery</div>
+        <div class="spec-value">4,300 mAh 🏆</div>
+        <div style="color:var(--text-muted);font-size:0.82rem;">Best in collection</div>
+    </div>
+    <div class="spec-item">
+        <div class="spec-label">Perfect For</div>
+        <div class="spec-value">Vertical Arcade / NDS / WonderSwan / PSP</div>
+    </div>
+</div>
+
+<h3>🎨 Creative Assignment: The Arcade Cabinets in Your Pocket</h3>
+<ol>
+    <li><strong>Primary Library: Vertical Arcade Shmups (TATE Mode — The Killer App!)</strong> — This is why the One35 exists. Rotate 90° and you get a <strong>640×960 vertical canvas</strong> — perfect for the 3:4 aspect ratio of classic arcade shooters. The second D-pad + ABXY mapping in Dawn Launcher means you play these <em>in their native orientation</em>:
+        <ul>
+            <li><strong>CAVE Classics:</strong> <em>DoDonPachi, DoDonPachi DaiOuJou, ESP Ra.De., Ketsui, Mushihimesama, Deathsmiles</em></li>
+            <li><strong>Psikyo:</strong> <em>Strikers 1945 I–III, Gunbird 1 & 2, Dragon Blaze</em></li>
+            <li><strong>Toaplan:</strong> <em>Truxton, Fire Shark, Batsugun</em></li>
+            <li><strong>Raizing / 8ing:</strong> <em>Battle Garegga, Armed Police Batrider, Soukyugurentai</em></li>
+            <li><strong>Classics:</strong> <em>Galaga, Donkey Kong, Pac-Man, 1942, 1943, Raiden, Twin Cobra</em></li>
+            <li>Use <strong>FinalBurn Neo</strong> or <strong>MAME</strong> cores in RetroArch with Dawn Launcher's per-game TATE orientation preset</li>
+        </ul>
+    </li>
+    <li><strong>Nintendo DS (DraStic — Pre-configured!):</strong> The One35 ships with DraStic <em>already set to launch in vertical mode</em>. The two DS screens stack vertically on the rotated display. The side Start/Select buttons become conveniently placed. Best DS experiences:
+        <ul>
+            <li>Book-mode games: <em>Brain Age, Hotel Dusk: Room 215, Last Window, Trauma Center</em></li>
+            <li>Vertical hold games: <em>Mario & Luigi: Bowser's Inside Story, The World Ends With You, Ninja Gaiden: Dragon Sword</em></li>
+            <li>Pokémon (touch-screen heavy): <em>Pokémon Diamond/Pearl/Platinum, HeartGold/SoulSilver, Black/White</em></li>
+            <li>The 3.5″ display is admittedly small for dual-screen DS. Use the stylus on the touch panel for precision. For games that primarily use one screen, this is perfect.</li>
+        </ul>
+    </li>
+    <li><strong>WonderSwan / WonderSwan Color:</strong> The WonderSwan library includes both horizontal and vertical titles. The One35's TATE mode handles vertical WonderSwan games natively: <em>Judgement Silversword, Dicing Knight, Klonoa: Moonlight Museum</em>. The 3:2 screen is also ideal for horizontal WS titles.</li>
+    <li><strong>PSP (Horizontal Mode):</strong> The Helio G85 + Hall-effect analog stick handles PSP at 1×–2× resolution. The 3:2 display fits PSP's aspect ratio better than 4:3 handhelds. Best picks: <em>Lumines, Patapon, LocoRoco, Half-Minute Hero, Persona 3 Portable, Disgaea, Tactics Ogre</em>.</li>
+    <li><strong>Dreamcast & N64:</strong> The single Hall-effect stick is surprisingly good. N64 runs at full speed on the G85 at native resolution. Dreamcast via Flycast/Redream also performs well. <em>Super Mario 64, Ocarina of Time, Sonic Adventure, Crazy Taxi</em>.</li>
+    <li><strong>Vertical MAME for Classic Arcade:</strong> Beyond shmups, many golden-age arcade games use vertical orientation: <em>Donkey Kong, Frogger, BurgerTime, Dig Dug, Mr. Do!, Centipede, Galaxian</em>. The One35 in TATE mode is the most authentic way to play these on any device here.</li>
+</ol>
+
+<h3>⚡ Power User Tips</h3>
+<ul>
+    <li><strong>Dawn Launcher Orientation:</strong> Set per-game orientation in Dawn Launcher. For RetroArch, Dawn bypasses RetroArch's notoriously fiddly rotation settings. This is a first-class feature — use it.</li>
+    <li><strong>TATE Trigger Grip:</strong> The top/bottom TATE shoulder buttons use a "claw grip." It takes getting used to. Consider remapping them to less-used functions (rewind, fast-forward, save state) and rely on the face buttons for primary actions.</li>
+    <li><strong>Screen Brightness:</strong> The One35 can hit 500–700 nits — the brightest in the group. However, the minimum brightness may be too high for pitch-dark rooms. Use Android's <strong>Extra Dim</strong> toggle in the quick settings.</li>
+    <li><strong>microSD Caution:</strong> The card slot is reportedly tricky — inserting the card upside down can cause it to fall inside the unit. Be careful and insert slowly.</li>
+    <li><strong>Stick Quality:</strong> The Hall-effect stick is genuinely good — tight, responsive, and drift-proof. It's better than it has any right to be at this price.</li>
+    <li><strong>Button Mapping:</strong> Dawn Launcher includes a touch-to-button mapper for Android games without native controller support — very handy for the One35's unique layout.</li>
+</ul>
+
+<div class="highlight-box">
+    <strong>🏆 Why This Beats the Others at This Job:</strong> No other device here can physically rotate for TATE mode. The Micro Classic, Micro 2, and Pocket Advance are <strong>horizontal-only</strong>. Playing vertical arcade games letterboxed on a horizontal screen is a sad compromise. The One35 solves this with hardware — it's the <em>only</em> answer for vertical arcade gaming in this collection.
+</div>
+
+<hr class="divider">
+
+<!-- STRATEGY SUMMARY TABLE -->
+<h2>🗺️ Master Strategy Map</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Primary Role</th>
+            <th>Star Platforms</th>
+            <th>Unique Advantage</th>
+            <th>"Don't Bother"</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Micro Classic</strong></td>
+            <td>GBA Shrine + Shader Canvas</td>
+            <td>GBA, SNES, Genesis, NES, N64 (D-pad), Android games</td>
+            <td>Premium metal build + G99 shader headroom</td>
+            <td>GC, PS2, PSP (no sticks)</td>
+        </tr>
+        <tr>
+            <td><strong>Micro 2</strong></td>
+            <td>6th-Gen Powerhouse</td>
+            <td>PSP, Dreamcast, GameCube, PS2, Saturn, Streaming</td>
+            <td>SD865 + TMR sticks + Turnip drivers</td>
+            <td>GBA (waste of SD865), Switch (screen too small)</td>
+        </tr>
+        <tr>
+            <td><strong>Pocket Advance</strong></td>
+            <td>Comfort Daily GBA + PS1 JRPG</td>
+            <td>GBA, PS1, SNES, Genesis, ROM hacks</td>
+            <td>GBA ergonomics + volume wheel + affordable</td>
+            <td>GC, PS2, N64 (no sticks), PSP action games</td>
+        </tr>
+        <tr>
+            <td><strong>One35</strong></td>
+            <td>TATE Arcade & DS Specialist</td>
+            <td>Arcade Shmups (TATE), NDS, WonderSwan, PSP Lite</td>
+            <td>Dual D-pads + TATE triggers + Dawn Launcher</td>
+            <td>GC, heavy PS2 (G85 too weak)</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- PERFORMANCE TIER CHART -->
+<h2>📈 Emulation Capability by Device</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Platform</th>
+            <th>Micro Classic<br><span style="font-weight:400;font-size:0.8rem;">Helio G99</span></th>
+            <th>Micro 2<br><span style="font-weight:400;font-size:0.8rem;">SD865</span></th>
+            <th>Pocket Advance<br><span style="font-weight:400;font-size:0.8rem;">Helio G90T</span></th>
+            <th>One35<br><span style="font-weight:400;font-size:0.8rem;">Helio G85</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>GBA</strong></td>
+            <td>✅ 4× + Heavy Shaders</td>
+            <td>✅ 4× + Heavy Shaders</td>
+            <td>✅ 4× + Light Shaders</td>
+            <td>✅ 4× + Light Shaders</td>
+        </tr>
+        <tr>
+            <td><strong>SNES / Genesis / NES</strong></td>
+            <td>✅ Run-ahead + CRT</td>
+            <td>✅ Run-ahead + CRT</td>
+            <td>✅ Run-ahead + CRT</td>
+            <td>✅ Standard shaders</td>
+        </tr>
+        <tr>
+            <td><strong>PS1</strong></td>
+            <td>✅ 4× + PGXP</td>
+            <td>✅ 5× + PGXP</td>
+            <td>✅ 2–3× + PGXP</td>
+            <td>✅ 2× + PGXP</td>
+        </tr>
+        <tr>
+            <td><strong>N64</strong></td>
+            <td>✅ 2–3× (D-pad map)</td>
+            <td>✅ 3–4× + Texture packs</td>
+            <td>⚠️ 1–2× (no sticks)</td>
+            <td>✅ 1–2× (Hall stick)</td>
+        </tr>
+        <tr>
+            <td><strong>PSP</strong></td>
+            <td>⚠️ 2× (no sticks)</td>
+            <td>✅ 3–4× + Texture packs</td>
+            <td>⚠️ 1–2× (no sticks)</td>
+            <td>✅ 1–2× (Hall stick)</td>
+        </tr>
+        <tr>
+            <td><strong>Dreamcast</strong></td>
+            <td>⚠️ 1–2× (no sticks)</td>
+            <td>✅ 2–3×</td>
+            <td>⚠️ 1× (no sticks)</td>
+            <td>✅ 1–2× (Hall stick)</td>
+        </tr>
+        <tr>
+            <td><strong>GameCube</strong></td>
+            <td>⚠️ Light titles only</td>
+            <td>✅ Most library at 1–1.5×</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td><strong>PS2</strong></td>
+            <td>⚠️ Light titles only</td>
+            <td>✅ Cherry-pick at 1–1.5×</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td><strong>Sega Saturn</strong></td>
+            <td>⚠️ Some titles</td>
+            <td>✅ Most library</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td><strong>NDS (TATE)</strong></td>
+            <td>✅ But no TATE hardware</td>
+            <td>✅ But no TATE hardware</td>
+            <td>✅ But no TATE hardware</td>
+            <td>✅🏆 Pre-configured TATE</td>
+        </tr>
+        <tr>
+            <td><strong>Arcade (TATE)</strong></td>
+            <td>⚠️ Letterboxed</td>
+            <td>⚠️ Letterboxed</td>
+            <td>⚠️ Letterboxed</td>
+            <td>✅🏆 Full-screen vertical</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- CREATIVE X-FACTOR IDEAS -->
+<h2>💡 Creative X-Factor Ideas (Beyond the Obvious)</h2>
+
+<div class="card">
+    <h3>🔴 Micro Classic: The "TV Console Companion"</h3>
+    <p>Since this device lacks sticks, lean all the way into the <strong>console experience on a handheld</strong>. Set up a dedicated ES-DE collection called "Living Room" with: NES, SNES, Genesis, TG-16, and Neo Geo (AES). Use the <strong>CRT-Royale Kurozumi</strong> shader preset — it's the most demanding variant and only the G99 (and SD865) can run it smoothly. The Micro Classic becomes a <em>tiny, perfect CRT emulator</em> for console games. The Retro Gold (Famicom) color variant reinforces this theme beautifully.</p>
+</div>
+
+<div class="card">
+    <h3>🔵 Micro 2: The "Docked Party Machine"</h3>
+    <p>The USB-C video out + SD865 + WiFi 6 is a combo no other device here has. Set this up as a <strong>TV-dockable retro console</strong>: connect to a TV via USB-C → HDMI, pair 2–4 Bluetooth controllers, and run <strong>Mario Kart: Double Dash, Super Smash Bros. Melee, Mario Party 4–7, F-Zero GX</strong> (GameCube) or <strong>Power Stone 2, SoulCalibur, Virtua Tennis</strong> (Dreamcast) for multiplayer sessions. The Micro 2 becomes a portable party console.</p>
+</div>
+
+<div class="card">
+    <h3>🟣 Pocket Advance: The "Pokédex" Device</h3>
+    <p>Dedicate this to <strong>every mainline Pokémon game playable on GBA + GB/GBC</strong> (yes, even though you have the Pocket Vert — this is about the <em>GBA-native</em> experience). The GBA Pokémon games (<em>Ruby, Sapphire, Emerald, FireRed, LeafGreen</em>) fill the 3:2 screen perfectly. Add ROM hacks (<em>Unbound, Glazed, Gaia, Light Platinum</em>) and this becomes a bottomless Pokémon machine. The Pocket Advance's shape even resembles the wide, comfortable GBA that so many of us played Pokémon on.</p>
+</div>
+
+<div class="card">
+    <h3>🟢 One35: The "CAVE Shrine"</h3>
+    <p>Load the One35 with the <strong>complete CAVE shmup catalog</strong> (MAME/FBNeo) and nothing else. Set up a Dawn Launcher collection called "Vertical Arcade." Every game plays in full TATE glory. This is a <em>dedicated bullet-hell machine</em> — something no other device in the collection can claim. Add <strong>RetroAchievements</strong> for CAVE games to track 1CC (1-credit clear) progress.</p>
+</div>
+
+<hr class="divider">
+
+<!-- WHAT THE USER MIGHT HAVE MISSED -->
+<h2>🤔 Things You Might Not Have Considered</h2>
+
+<div class="card">
+    <h3>1. The Micro Classic Has No Headphone Jack — Plan Around It</h3>
+    <p>The Micro Classic is the <strong>only device without a 3.5mm jack</strong>. If you're traveling, you'll need either a USB-C DAC or Bluetooth earbuds. The Micro 2, Pocket Advance, and One35 all have headphone jacks. For the Micro Classic specifically, pick up a compact USB-C → 3.5mm dongle (like the Apple USB-C dongle, which has a surprisingly good DAC).</p>
+</div>
+
+<div class="card">
+    <h3>2. The Pocket Advance & One35 Only Have 32–64 GB Internal Storage</h3>
+    <p>Both budget devices use eMMC 5.1, not UFS. This means slower read/write speeds. More importantly, 32–64 GB fills up <em>fast</em> once you add PS1 ISOs or PSP CSOs. Budget for a <strong>256–512 GB microSD card</strong> for each (SanDisk Extreme or Samsung EVO Select). The Micro Classic and Micro 2 have 128–256 GB UFS 2.2 built in, which is faster and more spacious.</p>
+</div>
+
+<div class="card">
+    <h3>3. The One35's TATE Mode Is Great — But The Screen Is Small for DS</h3>
+    <p>When you rotate the One35 for DS emulation, each DS screen gets roughly <strong>320×427 pixels</strong> (half of the 640×960 rotated canvas). The original DS screens were 256×192. So it's technically bigger, but on a 3.5″ diagonal, the stacked screens are <em>tiny</em>. It works, but it's not ideal for DS games that require reading small text or precise touch input. For DS, consider this a "bonus" rather than the primary use case. The <strong>arcade TATE mode</strong> is the real star.</p>
+</div>
+
+<div class="card">
+    <h3>4. The Micro 2 Sold Out Extremely Fast — Protect Your Investment</h3>
+    <p>The Micro 2 had <strong>extremely limited production runs</strong> and sold out in minutes. If you secured one, it's a rare device. Get a good case. AYANEO's production model means replacements or repairs may be difficult. Treat this as a collector's item <em>and</em> a daily driver — but maybe don't toss it in a backpack unprotected.</p>
+</div>
+
+<div class="card">
+    <h3>5. All Four Run Android — Leverage Cross-Device Syncing</h3>
+    <p>Since every device runs Android, you can use <strong>Syncthing</strong> to keep save files synchronized across the Micro Classic, Micro 2, and Pocket Advance (the One35 runs Android 12 and should also work). Start a GBA game on the Pocket Advance during your commute, continue on the Micro Classic at home on the premium metal body. For RetroArch, sync the <code>saves/</code> and <code>states/</code> folders.</p>
+</div>
+
+<div class="card">
+    <h3>6. The "D-pad as Analog Stick" Feature Unlocks N64 on the Micro Classic</h3>
+    <p>AYANEO built in a shortcut that maps the D-pad to emulate a left analog stick. This means the Micro Classic can play <strong>N64 games</strong> surprisingly well. Games that are primarily D-pad with occasional stick use (like <em>The Legend of Zelda: Ocarina of Time</em> — mostly Z-targeting, or <em>Paper Mario</em>) are very playable. Full analog games like <em>GoldenEye</em> or <em>Perfect Dark</em> will be frustrating. Stick to <strong>RPGs, platformers, and puzzle games</strong> on N64 for the Micro Classic.</p>
+</div>
+
+<div class="card">
+    <h3>7. The Pocket Advance's G90T GPU Is Actually Better Than the G99's for Some Tasks</h3>
+    <p>This is counterintuitive but worth knowing: the Helio G90T uses a <strong>Mali-G76 MC4</strong> GPU, while the G99 uses a <strong>Mali-G57 MC2</strong>. The G76 has 4 cores vs the G57's 2 cores. For <em>some</em> GPU-bound tasks, the G90T can punch above its weight. However, the G99's CPU cores (Cortex-A76) are much faster than the G90T's (Cortex-A76 at lower clocks + A55), so CPU-heavy emulation (PS2, GC) still favors the G99. For pure GPU shader work, they're closer than you'd think.</p>
+</div>
+
+<div class="card">
+    <h3>8. The One35 Has the Brightest Screen — Outdoor Play Champion</h3>
+    <p>With up to <strong>700 nits</strong> peak brightness (some sources say 500 nits sustained), the One35 is the most visible outdoors. If you ever play in direct sunlight (park, beach, bus window), the One35 will be the most usable of the four. The Micro Classic and Micro 2's glass fronts create glare; the Pocket Advance and One35 have less reflective screens.</p>
+</div>
+
+<hr class="divider">
+
+<!-- FINAL VERDICT -->
+<h2>🏁 Final Assignment Summary</h2>
+
+<div class="card" style="border-left: 4px solid var(--accent-1);">
+    <h3>Ayaneo Pocket Micro Classic</h3>
+    <p><strong>"The Museum Piece"</strong> — GBA at 4× with CRT shaders that make every pixel glow. SNES, Genesis, NES with run-ahead and heavy CRT-Royale. Premium metal build stays at home or in a case. This is the <em>best-looking</em> way to play 2D games on any of these four devices.</p>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--accent-2);">
+    <h3>Ayaneo Pocket Micro 2</h3>
+    <p><strong>"The Workhorse"</strong> — PSP, Dreamcast, GameCube, PS2, Saturn, N64, streaming. This is the only device that breaks past the 2D ceiling. When you want 3D, this is it. TMR sticks, SD865, Turnip drivers, headphone jack, video out. The most capable device here by a wide margin.</p>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--accent-3);">
+    <h3>KONKR Pocket Advance (Peach)</h3>
+    <p><strong>"The Daily"</strong> — GBA and PS1 in a comfortable, affordable, ergonomic package. This is the device you grab for the bus, the waiting room, the lunch break. ROM hacks, RetroAchievements, PS1 JRPGs. The one you're least afraid to use everywhere.</p>
+</div>
+
+<div class="card" style="border-left: 4px solid var(--accent-4);">
+    <h3>MagicX One35</h3>
+    <p><strong>"The Specialist"</strong> — Vertical arcade shmups, NDS in book mode, WonderSwan, PSP Lite. The TATE mode is a genuine hardware differentiator. On the One35, <em>DoDonPachi</em> fills the screen in its native 3:4 orientation. That alone justifies this device's place in the collection.</p>
+</div>
+
+<hr class="divider">
+
+<!-- SOURCES -->
+<h2>📚 Sources</h2>
+<ul style="color: var(--text-muted); font-size: 0.88rem;">
+    <li><a href="https://www.androidauthority.com/ayaneo-pocket-micro-classic-review-3537418/">Android Authority — AYANEO Pocket Micro Classic Review</a></li>
+    <li><a href="https://retrohandhelds.gg/ayaneo-pocket-micro-classic-review/">Retro Handhelds — AYANEO Pocket Micro Classic Review</a></li>
+    <li><a href="https://www.pockettactics.com/ayaneo-pocket-micro-classic-review">Pocket Tactics — Ayaneo Pocket Micro Classic Review</a></li>
+    <li><a href="https://www.handheldpicker.com/blog/ayaneo-pocket-micro-2-review">Handheld Picker — AYANEO Pocket MICRO 2 Review</a></li>
+    <li><a href="https://www.geeky-gadgets.com/ayaneo-pocket-micro-2-review/">Geeky Gadgets — AYANEO Pocket Micro 2 Review</a></li>
+    <li><a href="https://heldgames.com/guides/ayaneo-pocket-micro-2">Held Games — AYANEO Pocket Micro 2 Specs Guide</a></li>
+    <li><a href="https://www.engadget.com/2203185/ayaneo-new-horizontal-handheld-is-an-even-better-remake-of-the-game-boy-micro/">Engadget — Pocket Micro 2 Announcement</a></li>
+    <li><a href="https://the-gadgeteer.com/2026/08/07/ayaneo-konkr-pocket-advance-specs/">The Gadgeteer — KONKR Pocket Advance Specs</a></li>
+    <li><a href="https://www.notebookcheck.net/Ayaneo-remakes-the-Game-Boy-Advance-with-modern-features-and-PS2-emulation-capability-for-89.1360745.0.html">Notebookcheck — KONKR Pocket Advance Full Specs & Pricing</a></li>
+    <li><a href="https://ayaneo.com/article/945">AYANEO Official — KONKR Pocket Advance Pre-Order</a></li>
+    <li><a href="https://guiltygamer.com/magicx-one-35-review/">Guilty Gamer — MagicX One 35 Review</a></li>
+    <li><a href="https://techtactician.com/magicx-one-35-hands-on-review/">Tech Tactician — MagicX One 35 Hands-On Review</a></li>
+    <li><a href="https://retrospecgame.com/en/device/magicx-one35">RetroSpecGame — MagicX One35 Specs & Review</a></li>
+    <li><a href="https://retrohandhelds.gg/magicx-one-35-first-impressions/">Retro Handhelds — MagicX One 35 First Impressions</a></li>
+</ul>
+
+<p style="text-align:center; color: var(--text-muted); margin-top: 3rem; font-size: 0.82rem;">
+    🎮 Happy gaming — may every device find its perfect purpose. Built with research data as of mid-2026.
+</p>
+
+</body>
+</html>
