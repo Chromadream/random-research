@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTR1 / KTR2 vs GameMT EX8 vs Ayaneo Pocket Ace — 3:2 Retro Handheld Comparison</title>
+    <style>
+        :root {
+            --bg: #111827;
+            --surface: #1f2937;
+            --surface2: #374151;
+            --text: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --accent: #60a5fa;
+            --accent2: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --border: #4b5563;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+        h3 {
+            font-size: 1.15rem;
+            margin: 1.5rem 0 0.6rem;
+            color: var(--accent2);
+        }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .subtitle { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 2rem; }
+        .badge {
+            display: inline-block;
+            padding: 0.2em 0.7em;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.4rem;
+        }
+        .badge-green { background: #065f46; color: #6ee7b7; }
+        .badge-yellow { background: #78350f; color: #fcd34d; }
+        .badge-red { background: #7f1d1d; color: #fca5a5; }
+        .badge-blue { background: #1e3a5f; color: #93c5fd; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0 2rem;
+            font-size: 0.92rem;
+            overflow-x: auto;
+            display: block;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        thead { background: var(--surface2); }
+        th {
+            padding: 0.8rem 0.9rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+        }
+        td {
+            padding: 0.7rem 0.9rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        tr:hover td { background: rgba(255,255,255,0.03); }
+        tr:last-child td { border-bottom: none; }
+        .winner { color: var(--accent2); font-weight: 600; }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .card h4 { margin-bottom: 0.6rem; color: var(--text); font-size: 1.1rem; }
+        .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1rem 0; }
+        @media (max-width: 650px) { .pros-cons { grid-template-columns: 1fr; } }
+        .pros, .cons { padding: 1rem; border-radius: 8px; }
+        .pros { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); }
+        .cons { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); }
+        .pros h4 { color: var(--accent2); }
+        .cons h4 { color: var(--danger); }
+        ul { margin-left: 1.2rem; margin-bottom: 0.8rem; }
+        li { color: var(--text-secondary); margin-bottom: 0.3rem; }
+        .verdict-box {
+            background: linear-gradient(135deg, #1e3a5f, #1f2937);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+        .verdict-box h3 { color: var(--accent); margin-top: 0; }
+        .tier-label {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15em 0.5em;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+        .tier-flagship { background: #7c3aed; color: #ddd6fe; }
+        .tier-mid { background: #d97706; color: #fef3c7; }
+        .tier-budget { background: #059669; color: #a7f3d0; }
+        .tier-unreleased { background: #4b5563; color: #d1d5db; }
+        .note {
+            background: rgba(251,191,36,0.1);
+            border-left: 3px solid var(--warning);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+            color: #fcd34d;
+        }
+        hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+        .sources { font-size: 0.8rem; color: var(--text-secondary); }
+        .sources a { color: var(--accent); }
+        .section-intro {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent);
+        }
+        .chip-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.4rem 0;
+        }
+        .chip-bar-fill {
+            height: 8px;
+            border-radius: 4px;
+        }
+        .emoji-bullet { margin-right: 0.4rem; }
+    </style>
+</head>
+<body>
+
+<h1>KTR1 / KTR2 vs GameMT EX8</h1>
+<p class="subtitle">A thorough 3:2 retro handheld comparison — with Ayaneo Pocket Ace as the benchmark</p>
+
+<div class="section-intro">
+    <p style="margin-bottom:0;">
+        <strong>Why this comparison matters:</strong> The <strong>Ayaneo Pocket Ace</strong> was (and arguably still is) the best 3:2 Android retro handheld ever made — a Snapdragon G3x Gen 2 powerhouse in a premium 4.5″ 1620×1080 form factor. But it's <strong>no longer readily available</strong> at retail. For anyone hunting a 3:2 handheld today, the natural alternatives are the <strong>KT Pocket KTR1 / KTR2</strong> line and the <strong>GameMT EX8</strong>. This comparison tells you what you're trading off — and what each device brings to the table.
+    </p>
+</div>
+
+<!-- ──────────────────────────────────────── -->
+<h2>📊 Quick Overview &amp; Positioning</h2>
+<!-- ──────────────────────────────────────── -->
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ayaneo Pocket Ace <span class="badge badge-green">Gold Std.</span></th>
+            <th>KTR2 (KT Pocket R2) <span class="badge badge-yellow">Unreleased</span></th>
+            <th>KTR1 (KT Pocket R1) <span class="badge badge-red">Discontinued</span></th>
+            <th>GameMT EX8 <span class="badge badge-blue">Available Now</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td>Limited stock / hard to find</td>
+            <td>Pre-sale (ships Feb–Mar 2026)</td>
+            <td>Originally sold 2023; unreliable availability</td>
+            <td>✅ In stock (~$140)</td>
+        </tr>
+        <tr>
+            <td><strong>Price (approx.)</strong></td>
+            <td>$339–$699</td>
+            <td>$142–$284</td>
+            <td>$169–$279 (at launch)</td>
+            <td><span class="winner">$140</span></td>
+        </tr>
+        <tr>
+            <td><strong>Tier</strong></td>
+            <td><span class="tier-label tier-flagship">Flagship</span></td>
+            <td><span class="tier-label tier-mid">Mid-Range</span></td>
+            <td><span class="tier-label tier-mid">Mid-Range</span></td>
+            <td><span class="tier-label tier-budget">Budget</span></td>
+        </tr>
+        <tr>
+            <td><strong>Chipset</strong></td>
+            <td>Snapdragon G3x Gen 2</td>
+            <td>MediaTek Dimensity 7300</td>
+            <td>MediaTek Helio G99</td>
+            <td>MediaTek Helio G99</td>
+        </tr>
+        <tr>
+            <td><strong>GPU</strong></td>
+            <td class="winner">Adreno A32</td>
+            <td>Mali-G615 MP2</td>
+            <td>Mali-G57 MC2</td>
+            <td>Mali-G57 MC2</td>
+        </tr>
+        <tr>
+            <td><strong>Emulation Ceiling</strong></td>
+            <td class="winner">PS2 / GC / Wii / Switch (many titles)</td>
+            <td>PS2 / GC (expected; unconfirmed)</td>
+            <td>PSP / Dreamcast (PS2 limited)</td>
+            <td>PSP / Dreamcast (PS2 limited)</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ──────────────────────────────────────── -->
+<h2>🔧 Full Specifications Comparison</h2>
+<!-- ──────────────────────────────────────── -->
+<table>
+    <thead>
+        <tr>
+            <th>Spec</th>
+            <th>Ayaneo Pocket Ace</th>
+            <th>KTR2</th>
+            <th>KTR1</th>
+            <th>GameMT EX8</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Screen</strong></td>
+            <td>4.5″ IPS, 1620×1080, 3:2, 433 PPI, 550 nits</td>
+            <td>4.5″ IPS, 1620×1080, 3:2 (or 4.2″ 4:3 1280×960)</td>
+            <td>4.5″ IPS, 1620×1080, 3:2, 433 PPI</td>
+            <td class="winner">4.88″ IPS, 1620×1080, 3:2, 399 PPI, 520 nits</td>
+        </tr>
+        <tr>
+            <td><strong>CPU</strong></td>
+            <td class="winner">Snapdragon G3x Gen 2 (Kryo Prime, up to 3.36 GHz)</td>
+            <td>Dimensity 7300 (Cortex-A78/A55, 2.0–2.5 GHz)</td>
+            <td>Helio G99 (Cortex-A76/A55, 2.0–2.2 GHz)</td>
+            <td>Helio G99 (Cortex-A76/A55, 2.0–2.2 GHz)</td>
+        </tr>
+        <tr>
+            <td><strong>RAM</strong></td>
+            <td class="winner">8 / 12 / 16 GB LPDDR5X (8533 MT/s)</td>
+            <td>6 / 8 / 12 GB</td>
+            <td>4 / 6 / 8 GB LPDDR4X</td>
+            <td>6 GB LPDDR4X</td>
+        </tr>
+        <tr>
+            <td><strong>Internal Storage</strong></td>
+            <td class="winner">128 GB – 1 TB UFS 4.0 (base UFS 3.1)</td>
+            <td>128 / 256 / 512 GB + microSD</td>
+            <td>64 / 128 / 256 GB UFS 2.1 + microSD</td>
+            <td>128 GB + microSD</td>
+        </tr>
+        <tr>
+            <td><strong>Battery</strong></td>
+            <td>6,000 mAh, 40W PD charging</td>
+            <td class="winner">6,000–6,920 mAh</td>
+            <td>5,000–7,000 mAh (sources vary)</td>
+            <td>5,000 mAh, USB-C 4.0</td>
+        </tr>
+        <tr>
+            <td><strong>Cooling</strong></td>
+            <td>Active (fan + copper plate + fins)</td>
+            <td>Active cooling</td>
+            <td>Active (fan + vapor chamber)</td>
+            <td>Active (fan, 20,000 RPM shark-fin)</td>
+        </tr>
+        <tr>
+            <td><strong>Joysticks</strong></td>
+            <td class="winner">Medium Hall-effect + Hall linear triggers</td>
+            <td>Hall-effect joysticks</td>
+            <td>Small analog (no Hall)</td>
+            <td>Hall-effect (capacitive rings)</td>
+        </tr>
+        <tr>
+            <td><strong>D-Pad</strong></td>
+            <td class="winner">Excellent, praised in all reviews</td>
+            <td>TBD</td>
+            <td>Average; some "wonky" reports</td>
+            <td>Decent; some units show input quirks ⚠️</td>
+        </tr>
+        <tr>
+            <td><strong>Wi-Fi</strong></td>
+            <td class="winner">Wi-Fi 7</td>
+            <td>Wi-Fi 6</td>
+            <td>Wi-Fi 5</td>
+            <td>Wi-Fi 5</td>
+        </tr>
+        <tr>
+            <td><strong>Bluetooth</strong></td>
+            <td class="winner">5.3</td>
+            <td>5.3</td>
+            <td>5.2</td>
+            <td>5.2</td>
+        </tr>
+        <tr>
+            <td><strong>Video Out</strong></td>
+            <td class="winner">✅ USB-C DP 1.4 (4K@60Hz)</td>
+            <td>Unknown</td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td><strong>Headphone Jack</strong></td>
+            <td>❌ No (USB-C audio only)</td>
+            <td>Unknown</td>
+            <td class="winner">✅ 3.5mm</td>
+            <td class="winner">✅ 3.5mm</td>
+        </tr>
+        <tr>
+            <td><strong>Speakers</strong></td>
+            <td>Front-facing stereo</td>
+            <td>TBD</td>
+            <td>Front-facing stereo</td>
+            <td>Dual stereo (bottom-facing)</td>
+        </tr>
+        <tr>
+            <td><strong>Build Material</strong></td>
+            <td>Premium plastic (UV coated)</td>
+            <td class="winner">Plastic / Magnesium alloy</td>
+            <td>Plastic / Aluminum</td>
+            <td>Plastic (glass front)</td>
+        </tr>
+        <tr>
+            <td><strong>Weight</strong></td>
+            <td>310 g</td>
+            <td>249–264 g (3:2)</td>
+            <td class="winner">260 g</td>
+            <td>290 g</td>
+        </tr>
+        <tr>
+            <td><strong>Dimensions</strong></td>
+            <td>176 × 82.5 × 18.4 mm</td>
+            <td>169.6 × 79.8 × 17.2 mm</td>
+            <td>169.8 × 79.5 × 18.3 mm</td>
+            <td>180 × 88 × 19 mm</td>
+        </tr>
+        <tr>
+            <td><strong>OS</strong></td>
+            <td>Android 13 + AYASpace</td>
+            <td>Android 14</td>
+            <td>Android 12</td>
+            <td>Android (Play Store)</td>
+        </tr>
+        <tr>
+            <td><strong>Extras</strong></td>
+            <td class="winner">Fingerprint sensor, 6-axis gyro, haptic motor, turbo button</td>
+            <td>4G optional, gyro, rumble</td>
+            <td>4G optional, dual vibration, gyro (6GB+)</td>
+            <td>6-axis gyro, linear motor haptics, RGB stick rings</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ──────────────────────────────────────── -->
+<h2>⚡ Performance &amp; Emulation Capabilities</h2>
+<!-- ──────────────────────────────────────── -->
+
+<h3>Ayaneo Pocket Ace — The Performance King</h3>
+<div class="card">
+    <p>The Snapdragon G3x Gen 2 is essentially a slightly tweaked Snapdragon 8 Gen 2 — one of the most powerful Android chips ever put in a retro handheld. Real-world testing shows:</p>
+    <ul>
+        <li><strong>PS2 / GameCube:</strong> Full speed at 3× resolution across virtually the entire library. No per-game tinkering needed.</li>
+        <li><strong>Wii:</strong> Smooth performance across most titles.</li>
+        <li><strong>Nintendo Switch:</strong> Many titles playable (Mario Kart 8, Super Mario Wonder, Mario RPG, Brothership) with occasional graphical glitches. Some heavier titles (Metroid Dread) struggle.</li>
+        <li><strong>PSP:</strong> 4×+ resolution with zero issues.</li>
+        <li><strong>Android games:</strong> Genshin Impact, Honkai: Star Rail, Diablo Immortal, CoD Mobile all run smoothly even on Balanced mode.</li>
+        <li><strong>Battery life:</strong> 12–15 hours on older systems (Balanced mode), ~8 hours on heavier emulation.</li>
+        <li><strong>x86 (Winlator):</strong> Light indie PC games run acceptably.</li>
+    </ul>
+    <p>Benchmarks: ~10% behind Odin 2 (Snapdragon 8 Gen 2) in CPU, nearly identical GPU. Peak temperature: 46°C under sustained load.</p>
+</div>
+
+<h3>KTR1 &amp; GameMT EX8 — The Helio G99 Ceiling</h3>
+<div class="card">
+    <p>Both the KTR1 and EX8 share the <strong>MediaTek Helio G99</strong> — a well-understood, proven mid-range chip. The emulation ceiling is well-mapped:</p>
+    <ul>
+        <li><strong>8-bit &amp; 16-bit (NES, SNES, Genesis, GBA):</strong> Perfect, full-speed. GBA is a <em>native fit</em> on the 3:2 screen with no letterboxing.</li>
+        <li><strong>PS1:</strong> Full library at full speed, 3–4× upscaling.</li>
+        <li><strong>N64:</strong> Strong — most of the library runs well at upscaled 1080p.</li>
+        <li><strong>Dreamcast:</strong> Good — most titles play at full speed via Flycast at 960p upscale.</li>
+        <li><strong>PSP:</strong> Good — most titles run well at 2× resolution. Heaviest titles (God of War) need tuning and may require frameskip.</li>
+        <li><strong>Sega Saturn:</strong> Passable — most games run with occasional frame drops; upscaling not recommended.</li>
+        <li><strong>PS2 &amp; GameCube:</strong> ⚠️ <strong>The ceiling.</strong> Only lighter titles are playable, and each requires per-game tweaking (PAL ROMs recommended, underclocking, switching between Vulkan/OpenGL). Frame drops and audio stutter are common. <strong>Do not buy for PS2/GC as a primary use case.</strong></li>
+        <li><strong>3DS:</strong> Hit or miss — lighter titles playable with compromises.</li>
+        <li><strong>Switch / Wii U:</strong> Not supported.</li>
+    </ul>
+    <p>Both handhelds include <strong>active cooling</strong>, which helps sustain the Helio G99's performance without thermal throttling during long sessions — a genuine advantage over passively cooled G99 handhelds.</p>
+</div>
+
+<h3>KTR2 — The Dimensity 7300 Wildcard</h3>
+<div class="card">
+    <p>The KTR2's <strong>MediaTek Dimensity 7300</strong> (2024, 4nm) represents a genuine step up from the Helio G99:</p>
+    <ul>
+        <li>4× Cortex-A78 (up to 2.5 GHz) + 4× Cortex-A55 (2.0 GHz) vs. the G99's 2× A76 + 6× A55</li>
+        <li>Mali-G615 MP2 GPU — newer architecture, better efficiency</li>
+        <li>Expected to sit <strong>between the Helio G99 and Snapdragon G3x Gen 2</strong> in real-world emulation</li>
+        <li><strong>PS2 / GameCube should be significantly more viable</strong> than on the G99, though still not at Ace/Odin levels</li>
+        <li>Retroshelf rates it as supporting "up to 3DS" at excellent quality, with Switch listed as "limited"</li>
+    </ul>
+    <div class="note">⚠️ <strong>Important caveat:</strong> The KTR2 has <strong>no independent reviews yet</strong>. All performance expectations are based on the Dimensity 7300's on-paper specs and KT Pocket's claims. Real-world performance is unverified. The KTR1 had similar promising specs but disappointed on PS2/GC in practice.</div>
+</div>
+
+<!-- ──────────────────────────────────────── -->
+<h2>📐 The 3:2 Screen Story</h2>
+<!-- ──────────────────────────────────────── -->
+<div class="card">
+    <p>All four devices share the same fundamental display concept: a <strong>3:2 aspect ratio</strong> at <strong>1620×1080 resolution</strong> — a panel type that the KTR1 originally pioneered and that Ayaneo later used for the Pocket Ace. According to Retro Handhelds' review, the Ace screen is <em>"essentially the same panel as the KTR1."</em></p>
+
+    <h4>Why 3:2?</h4>
+    <ul>
+        <li><strong>GBA:</strong> Native 3:2 — the perfect fit. No letterboxing, no pillarboxing. This is the aspect ratio's killer app.</li>
+        <li><strong>4:3 systems</strong> (SNES, Genesis, PS1, GameCube, PS2): Small black bars on left/right — much less intrusive than 16:9 letterboxing.</li>
+        <li><strong>16:9 systems</strong> (PSP, modern streaming): Black bars on top/bottom — acceptable and common on all non-widescreen handhelds.</li>
+        <li>It's the <strong>best compromise aspect ratio</strong> for playing both retro 4:3 and modern 16:9 content on one device.</li>
+    </ul>
+
+    <h4>Key Screen Differences</h4>
+    <table>
+        <thead><tr><th></th><th>Ace</th><th>KTR2</th><th>KTR1</th><th>EX8</th></tr></thead>
+        <tbody>
+            <tr><td>Size</td><td>4.5″</td><td>4.5″ (3:2) / 4.2″ (4:3)</td><td>4.5″</td><td class="winner">4.88″</td></tr>
+            <tr><td>Brightness</td><td class="winner">550 nits</td><td>TBD</td><td>Low (struggles outdoors)</td><td>520 nits</td></tr>
+            <tr><td>Light Bleed</td><td>⚠️ Noticeable in dark scenes</td><td>TBD</td><td>Reported on some units</td><td>Not widely reported</td></tr>
+            <tr><td>Color</td><td class="winner">130% sRGB</td><td>TBD</td><td>Good</td><td>Good</td></tr>
+        </tbody>
+    </table>
+    <p>The EX8's slightly larger <strong>4.88″</strong> panel is a real differentiator — it gives more breathing room for text-heavy games and makes the device feel less cramped.</p>
+</div>
+
+<!-- ──────────────────────────────────────── -->
+<h2>🏗️ Build Quality &amp; Reliability</h2>
+<!-- ──────────────────────────────────────── -->
+
+<h3>Ayaneo Pocket Ace — Premium, But Not Perfect</h3>
+<div class="pros-cons">
+    <div class="pros">
+        <h4>✅ Pros</h4>
+        <ul>
+            <li>Excellent fit & finish; one of the best-built retro handhelds</li>
+            <li>Best D-pad AYANEO has ever made</li>
+            <li>Hall-effect sticks & triggers feel great</li>
+            <li>Quiet, satisfying face buttons</li>
+            <li>Front-facing speakers — great clarity and bass</li>
+            <li>Fingerprint sensor in power button</li>
+        </ul>
+    </div>
+    <div class="cons">
+        <h4>❌ Cons</h4>
+        <ul>
+            <li>Light bleed on the IPS panel in low-light</li>
+            <li>No headphone jack</li>
+            <li>Tiny analog sticks — hard to use for modern games</li>
+            <li>Fan gets loud at max speed</li>
+            <li>No charger included in box</li>
+            <li>AYASpace software is still "tolerable" at best</li>
+        </ul>
+    </div>
+</div>
+
+<h3>KTR1 — Ambitious But Flawed</h3>
+<div class="pros-cons">
+    <div class="pros">
+        <h4>✅ Pros</h4>
+        <ul>
+            <li>Configurable D-pad/stick layout</li>
+            <li>Front-firing stereo speakers</li>
+            <li>Optional aluminum shell</li>
+            <li>Large battery options</li>
+            <li>Customizable colors</li>
+        </ul>
+    </div>
+    <div class="cons">
+        <h4>❌ Cons</h4>
+            <ul>
+                <li><strong>Major QC issues:</strong> Screens arriving detached, poor assembly</li>
+                <li>Flimsy shoulder triggers — lack crisp click, can rattle</li>
+                <li>D-pad described as "wonky" by multiple reviewers</li>
+                <li>Screen too dim for outdoor use</li>
+                <li>Small thumbsticks with limited travel</li>
+                <li>Extremely long wait times from order to delivery</li>
+                <li>One-person operation — thin documentation, uncertain support</li>
+                <li>No video output</li>
+            </ul>
+    </div>
+</div>
+
+<h3>KTR2 — Promising On Paper, Unproven</h3>
+<div class="card">
+    <p>The KTR2 addresses some KTR1 criticisms: <strong>magnesium alloy option</strong>, <strong>Hall-effect joysticks</strong>, <strong>updated chipset</strong>, and design refinements. But KT Pocket remains a <strong>tiny operation</strong> with a poor track record:</p>
+    <ul>
+        <li>KTR1 launch was "a disaster, poorly launched and poorly crafted" — <em>RetroDodo</em></li>
+        <li>Pre-sale requires a deposit ($59 plastic / $89 magnesium) with balance due "10 days before shipping"</li>
+        <li>Shipments expected Feb–Mar 2026 but KT Pocket has a history of delays</li>
+        <li>No independent reviews exist — all specs are from KT Pocket's marketing</li>
+        <li>International availability unclear; currently China-focused</li>
+    </ul>
+    <div class="note">⚠️ <strong>Our recommendation:</strong> Do not pre-order the KTR2 until independent reviews confirm quality and performance. The KTR1 taught us that specs on paper mean nothing if the device arrives broken or never ships.</div>
+</div>
+
+<h3>GameMT EX8 — Budget Build, Surprising Execution</h3>
+<div class="pros-cons">
+    <div class="pros">
+        <h4>✅ Pros</h4>
+        <ul>
+            <li>Better plastic than GameMT's earlier devices</li>
+            <li>Glass front panel — looks cleaner than price suggests</li>
+            <li>Blocky GBA-inspired design — comfortable and pocketable</li>
+            <li>Hall-effect joysticks with RGB rings</li>
+            <li>Active cooling (20,000 RPM fan) — rare at this price</li>
+            <li>6-axis gyro + linear haptic motor</li>
+            <li>Two nice colorways: Black/Red and White/Purple</li>
+        </ul>
+    </div>
+    <div class="cons">
+        <h4>❌ Cons</h4>
+        <ul>
+            <li><strong>D-pad input quirks</strong> reported on some units — bad for fighting games/platformers</li>
+            <li>Smaller brand with shorter support track record</li>
+            <li>Bottom-firing speakers (vs. front-firing on Ace/KTR1)</li>
+            <li>No video output</li>
+            <li>Only one RAM/storage config (6GB/128GB)</li>
+            <li>Plastic shell only — no metal option</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ──────────────────────────────────────── -->
+<h2>💰 Value Proposition</h2>
+<!-- ──────────────────────────────────────── -->
+<table>
+    <thead>
+        <tr><th>Device</th><th>Price Range</th><th>What You Get</th><th>Value Rating</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>GameMT EX8</strong></td>
+            <td class="winner">$140</td>
+            <td>Helio G99 + 6GB + active cooling + 4.88″ 3:2 screen</td>
+            <td>⭐⭐⭐⭐⭐ <span style="color:var(--accent2)">Excellent</span></td>
+        </tr>
+        <tr>
+            <td><strong>KTR2</strong></td>
+            <td>$142–$284</td>
+            <td>Dimensity 7300 + magnesium alloy option + 4G option</td>
+            <td>⭐⭐⭐ <span style="color:var(--warning)">Unproven</span></td>
+        </tr>
+        <tr>
+            <td><strong>KTR1</strong></td>
+            <td>$169–$279 (original)</td>
+            <td>Helio G99 + configurable layout + metal option</td>
+            <td>⭐⭐ <span style="color:var(--danger)">Poor (at MSRP)</span></td>
+        </tr>
+        <tr>
+            <td><strong>Ayaneo Pocket Ace</strong></td>
+            <td>$339–$699</td>
+            <td>Snapdragon G3x Gen 2 + premium everything</td>
+            <td>⭐⭐⭐⭐ <span style="color:var(--accent2)">Strong (if you can find it)</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>The EX8's Helio G99 at $140 is essentially the <strong>same chip found in the Ayaneo Pocket Micro ($229)</strong>. That's a staggering value proposition. The KTR2 could be compelling if it delivers the Dimensity 7300's promised performance bump at the low end of its price range ($142), but that's a big "if."</p>
+
+<!-- ──────────────────────────────────────── -->
+<h2>🎯 Who Should Buy What?</h2>
+<!-- ──────────────────────────────────────── -->
+
+<div class="card">
+    <h4>🟢 Buy the GameMT EX8 if…</h4>
+    <ul>
+        <li>You want a <strong>3:2 handheld available right now</strong> at a great price</li>
+        <li>Your emulation needs top out at <strong>PSP / Dreamcast / N64</strong></li>
+        <li>You're okay with an LCD (not OLED) and can accept the slight risk of d-pad quirks</li>
+        <li>You want the <strong>largest 3:2 screen</strong> in this comparison (4.88″)</li>
+        <li>You're on a budget but want active cooling and Hall sticks</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h4>🟡 Wait for the KTR2 if…</h4>
+    <ul>
+        <li>You can be patient (shipments not expected until mid-2026 and may be delayed further)</li>
+        <li>You want a <strong>step up from the Helio G99</strong> without paying Ace prices</li>
+        <li>You value the <strong>magnesium alloy build</strong> and premium feel</li>
+        <li>You're willing to take a risk on a small, unproven brand</li>
+        <li><strong>But wait for independent reviews first!</strong></li>
+    </ul>
+</div>
+
+<div class="card">
+    <h4>🔴 Try to find an Ayaneo Pocket Ace (or alternative) if…</h4>
+    <ul>
+        <li>You want <strong>PS2 / GameCube / Wii / Switch emulation</strong> without compromises</li>
+        <li>You want premium build quality, excellent controls, and a polished experience</li>
+        <li>You're willing to hunt one down on the secondary market or pay a premium</li>
+        <li>Alternative: Consider the <strong>AYN Odin 2 Mini</strong> ($349) or <strong>Retroid Pocket 6</strong> — both offer flagship performance without the 3:2 screen but with better availability</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h4>⚫ Skip the KTR1 entirely…</h4>
+    <ul>
+        <li>Unless you find one <strong>used at a steep discount</strong> and accept the QC risks</li>
+        <li>The EX8 delivers the same Helio G99 performance with better availability, a larger screen, and a lower price</li>
+        <li>The KTR1 was, as one reviewer put it, "an overpriced PSP emulator" at its original MSRP</li>
+    </ul>
+</div>
+
+<!-- ──────────────────────────────────────── -->
+<h2>🔮 The Bottom Line</h2>
+<!-- ──────────────────────────────────────── -->
+<div class="verdict-box">
+    <h3>🏆 Best Overall 3:2 Handheld (if you can find it): Ayaneo Pocket Ace</h3>
+    <p>The Ace remains the gold standard — Snapdragon G3x Gen 2 performance, premium build, fantastic controls, and that lovely 3:2 screen. But it's scarce and expensive. If you see one at a reasonable price, grab it.</p>
+
+    <h3>🥇 Best Available-Now 3:2 Handheld: GameMT EX8</h3>
+    <p>At <strong>$140</strong>, the EX8 is the <strong>clear winner for anyone who can't find an Ace</strong>. Same chip as the KTR1 and Pocket Micro, but with a bigger 4.88″ screen, active cooling, Hall sticks, and it's actually in stock. The d-pad quirks are the only real asterisk — check recent buyer reports if you play a lot of fighting games or precision platformers. For everything up through PSP and Dreamcast, it's a genuine budget sleeper.</p>
+
+    <h3>⏳ The KTR2 Is Intriguing, But Wait</h3>
+    <p>The Dimensity 7300 could make the KTR2 a compelling mid-range 3:2 option — better than the G99 but far cheaper than the Ace. <strong>But KT Pocket must prove itself first.</strong> The KTR1's disastrous launch overshadows everything. Wait for real reviews, real shipping dates, and real buyers confirming quality before putting money down.</p>
+</div>
+
+<hr>
+
+<h2>📋 Decision Flowchart</h2>
+<div class="card" style="font-family: monospace; font-size: 0.9rem; line-height: 2;">
+    <strong>Do you need PS2 / GameCube / Switch emulation?</strong><br>
+    ├── <strong>YES</strong> → Can you find an Ayaneo Pocket Ace?<br>
+    │   ├── YES → Buy it. You're done.<br>
+    │   └── NO → Consider AYN Odin 2 Mini or Retroid Pocket 6 (both non-3:2).<br>
+    └── <strong>NO</strong> (PSP/Dreamcast and below is fine) →<br>
+        ├── <strong>Buy the GameMT EX8 ($140)</strong> — available now, great value.<br>
+        └── If you can wait 6+ months AND accept risk → Watch for KTR2 reviews.
+</div>
+
+<hr>
+
+<h2>📚 Sources</h2>
+<div class="sources">
+    <ul>
+        <li><a href="https://www.androidauthority.com/ayaneo-pocket-ace-review-3563152/" target="_blank">Android Authority — Ayaneo Pocket Ace Review</a> (Jun 2025)</li>
+        <li><a href="https://retrohandhelds.gg/ayaneo-pocket-ace-review/" target="_blank">Retro Handhelds — Ayaneo Pocket Ace Review: Not Quite One &amp; Done</a> (Dec 2025)</li>
+        <li><a href="https://press-start.com.au/reviews/tech/2025/06/24/ayaneo-pocket-ace-review-the-final-form/" target="_blank">Press Start — Ayaneo Pocket Ace Review: The Final Form</a> (Jun 2025)</li>
+        <li><a href="https://overkill-media.ghost.io/ayaneo-pocket-ace-review/" target="_blank">Overkill Media — Ayaneo Pocket Ace: Retro Gaming Done Right</a> (Jul 2025)</li>
+        <li><a href="https://heldgames.com/reviews/gamemt-ex8" target="_blank">Held Games — GameMT EX8 Review: A $140 Budget Sleeper</a> (May 2026)</li>
+        <li><a href="https://the-gadgeteer.com/2026/03/15/this-140-gamemt-ex8-retro-handheld-wasnt-supposed-to-be-this-good/" target="_blank">The Gadgeteer — GameMT EX8 Review</a> (Mar 2026)</li>
+        <li><a href="https://handheldwiki.com/gamemt-ex8/" target="_blank">HandheldWiki — GameMT EX8 Specs</a></li>
+        <li><a href="https://retrohandhelds.gg/ktr1-game-on-or-game-over/" target="_blank">Retro Handhelds — KTR1: Game On or Game Over?</a> (Sep 2023)</li>
+        <li><a href="https://handheldwiki.com/kt-r1/" target="_blank">HandheldWiki — KTR1 Specs</a></li>
+        <li><a href="https://www.retroshelf.org/devices/kt-pocket-kt-r2" target="_blank">Retroshelf — KT Pocket KT-R2 Specs &amp; Notes</a></li>
+        <li><a href="https://retrohandhelds.gg/ktr2-could-shake-up-the-100-to-200-handheld-market/" target="_blank">Retro Handhelds — KTR2 Pre-Sales Open</a> (Dec 2025)</li>
+        <li><a href="https://retrododo.com/kt-pocket-r2-handheld-pricing-revealed/" target="_blank">RetroDodo — KT Pocket R2 Handheld &amp; Pricing Revealed</a> (Dec 2025)</li>
+        <li><a href="https://www.notebookcheck.net/KTR1S-becomes-KTR2-KT-Pocket-targets-budget-retro-gamers-with-premium-build-and-features.1193379.0.html" target="_blank">Notebookcheck — KTR2 Targets Budget Retro Gamers</a> (Dec 2025)</li>
+        <li><a href="https://zhangjiquan.com/compare/gamemt-ex8-vs-ayaneo-pocket-ace" target="_blank">掌机圈 — EX8 vs Pocket Ace Spec Comparison</a></li>
+        <li><a href="https://liliputing.com/kt-r1-is-a-configurable-handheld-game-console-with-a-32-display-and-mediatek-helio-g99-processor/" target="_blank">Liliputing — KTR1 Launch Details</a> (Feb 2023)</li>
+    </ul>
+</div>
+
+<p style="text-align:center; margin-top:3rem; color:var(--text-secondary); font-size:0.85rem;">
+    Comparison compiled July 2026. Prices and availability subject to change. Always verify with current retailer listings.
+</p>
+
+</body>
+</html>
