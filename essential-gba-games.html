@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential GBA Games — The Definitive Guide</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --gold: #f0c040;
+            --green: #3fb950;
+            --red: #f85149;
+            --purple: #a371f7;
+            --orange: #d2991d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a371f7, #58a6ff, #3fb950);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        header .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        header .stat-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem 1.4rem;
+            text-align: center;
+        }
+        header .stat-item .num { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        header .stat-item .lbl { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .intro {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .intro p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        .intro p:last-child { margin-bottom: 0; }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 2.5rem 0 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        h2 .emoji { font-size: 1.6rem; }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .game-card .info {
+            padding: 1.2rem;
+        }
+        .game-card .meta {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .game-card .meta span {
+            font-size: 0.72rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .tag-year { background: rgba(88,166,255,0.15); color: var(--accent); }
+        .tag-dev { background: rgba(163,113,247,0.15); color: var(--purple); }
+        .tag-score { background: rgba(63,185,80,0.15); color: var(--green); }
+
+        .game-card .description {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* Tier list */
+        .tier-section {
+            margin-bottom: 3rem;
+        }
+        .tier-label {
+            display: inline-block;
+            font-weight: 900;
+            font-size: 1.4rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 0.8rem;
+        }
+        .tier-s { background: #f0c04022; color: var(--gold); border: 2px solid var(--gold); }
+        .tier-a { background: #3fb95022; color: var(--green); border: 2px solid var(--green); }
+        .tier-b { background: #58a6ff22; color: var(--accent); border: 2px solid var(--accent); }
+
+        .tier-games {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .tier-chip {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.88rem;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-table th {
+            background: var(--card-bg);
+            text-align: left;
+            padding: 0.8rem 1rem;
+            border-bottom: 2px solid var(--border);
+            font-weight: 700;
+        }
+        .comparison-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .check { color: var(--green); }
+        .cross { color: var(--red); }
+
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(163,113,247,0.1), rgba(88,166,255,0.1));
+            border: 1px solid rgba(163,113,247,0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .game-grid { grid-template-columns: 1fr; }
+            .comparison-table { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎮 Essential GBA Games</h1>
+    <p class="subtitle">The definitive guide to the games that truly embody the Game Boy Advance — the titles everyone remembers when talking about Nintendo's 32-bit handheld legend.</p>
+    <div class="stats">
+        <div class="stat-item"><div class="num">81.5M</div><div class="lbl">Units Sold</div></div>
+        <div class="stat-item"><div class="num">1,538</div><div class="lbl">Licensed Games</div></div>
+        <div class="stat-item"><div class="num">2001–2008</div><div class="lbl">Lifespan</div></div>
+        <div class="stat-item"><div class="num">32-bit</div><div class="lbl">CPU (ARM7TDMI)</div></div>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- INTRO -->
+    <div class="intro">
+        <p>The <strong>Game Boy Advance</strong> (released 2001) was Nintendo's final handheld to carry the Game Boy name and perhaps its greatest. Often described as "a portable SNES," the GBA punched far above its weight with a stunning library spanning original IP, SNES-era ports, and genre-defining classics that still hold up today.</p>
+        <p>What follows is a thoroughly researched guide to the <strong>essential GBA games</strong> — the titles that critics, fans, and historians consistently point to as the defining experiences of the platform. This list draws from Metacritic's all-time rankings, Nintendo Life's 50 Best GBA Games, community user scores, and widely cited retrospective sources.</p>
+        <p><em>Note: Scores from Metacritic where available. Original cartridge prices are approximate market values as of 2025.</em></p>
+    </div>
+
+    <!-- TIER: S -->
+    <h2><span class="emoji">👑</span> Tier S — The Absolute Essentials</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">These are the games that <em>define</em> the GBA. If you only play a handful of GBA games, make it these. Universally acclaimed, endlessly replayable, and inseparable from the identity of the platform.</p>
+
+    <div class="game-grid">
+
+        <!-- Metroid: Zero Mission -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2004</span>
+                    <span class="tag-dev">Nintendo R&D1</span>
+                    <span class="tag-score">MC 89</span>
+                </div>
+                <h3>Metroid: Zero Mission</h3>
+                <p class="description">Nintendo Life's <strong>#1 GBA game of all time</strong>. A from-the-ground-up remake of the 1986 NES original, rebuilt with <em>Super Metroid</em>-inspired gameplay, gorgeous visuals, save rooms, new areas, mini-bosses, and an entirely new post-Mother Brain stealth section where Samus must survive in her Zero Suit. Widely considered one of the greatest remakes in gaming history — some even prefer it over <em>Super Metroid</em>.</p>
+            </div>
+        </div>
+
+        <!-- Metroid Fusion -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">Nintendo R&D1</span>
+                    <span class="tag-score">MC 92</span>
+                </div>
+                <h3>Metroid Fusion</h3>
+                <p class="description"><strong>"Metroid 4"</strong> — a bold continuation of Samus's story after <em>Super Metroid</em>. More linear than its predecessor, but that linearity serves a masterful horror-tinged atmosphere. The SA-X — an unkillable clone of Samus at full power — stalks you through the BSL research station in genuinely terrifying sequences. The game that directly inspired <em>Metroid Dread</em>. Metacritic score of 92 — among the highest on the platform.</p>
+            </div>
+        </div>
+
+        <!-- Castlevania: Aria of Sorrow -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2003</span>
+                    <span class="tag-dev">Konami (KCEK)</span>
+                    <span class="tag-score">MC 91</span>
+                </div>
+                <h3>Castlevania: Aria of Sorrow</h3>
+                <p class="description">The crown jewel of the GBA Castlevania trilogy and the game many fans consider <strong>second only to <em>Symphony of the Night</em></strong> in the entire series. Set in 2035, it introduces the brilliant "Soul System" — absorb enemy souls to gain their abilities, offering staggering replayability. The sheer number of weapons, items, and souls to collect is remarkable for a handheld title. Included in the <em>Castlevania Advance Collection</em> on modern platforms.</p>
+            </div>
+        </div>
+
+        <!-- Pokémon Emerald -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2005</span>
+                    <span class="tag-dev">Game Freak</span>
+                    <span class="tag-score">User 8.8</span>
+                </div>
+                <h3>Pokémon Emerald</h3>
+                <p class="description">The definitive Gen III experience. An enhanced version of Ruby & Sapphire featuring both Team Magma <em>and</em> Team Aqua as antagonists, animated Pokémon sprites in battle, and the legendary <strong>Battle Frontier</strong> — a massive post-game complex with seven unique battle facilities. After beating the Elite Four, you can rematch Gym Leaders. Rayquaza mediates the clash between Kyogre and Groudon in an epic conclusion. The Hoenn region never looked better.</p>
+            </div>
+        </div>
+
+        <!-- The Legend of Zelda: The Minish Cap -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2005</span>
+                    <span class="tag-dev">Capcom / Flagship</span>
+                    <span class="tag-score">MC 89</span>
+                </div>
+                <h3>The Legend of Zelda: The Minish Cap</h3>
+                <p class="description">The GBA's lone original single-player Zelda — and what a gem. Developed by Capcom (who also made the excellent Oracle games), Link gains the ability to <strong>shrink to microscopic size</strong> using Ezlo, a talking cap (and cursed Minish sage). The world is absolutely packed with secrets — Kinstone fusions, hidden Minish dwellings, sword techniques to learn. Gorgeous sprite work, wonderful dungeon design, and arguably the best-looking 2D Zelda ever made.</p>
+            </div>
+        </div>
+
+        <!-- Advance Wars -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2001</span>
+                    <span class="tag-dev">Intelligent Systems</span>
+                    <span class="tag-score">MC 92</span>
+                </div>
+                <h3>Advance Wars</h3>
+                <p class="description">The turn-based tactics game that <strong>defined a generation</strong>. So beloved that it spawned a franchise and a recent Switch remake. Command ground, air, and naval forces across 114 maps with charming pixel art and an infectiously catchy soundtrack. The game that proved strategy could work beautifully on a handheld. Perfectly balanced, deeply satisfying, and one of the highest-rated GBA games at 92 Metascore. The CO system (Commanding Officers with unique powers) adds incredible strategic depth.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TIER: A -->
+    <h2><span class="emoji">⭐</span> Tier A — Platform-Defining Classics</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">These are the games that any serious GBA collection must include. They represent the platform at its finest and are frequently cited as among the best games ever made, regardless of platform.</p>
+
+    <div class="game-grid">
+
+        <!-- Pokémon FireRed/LeafGreen -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2004</span>
+                    <span class="tag-dev">Game Freak</span>
+                    <span class="tag-score">User 8.6</span>
+                </div>
+                <h3>Pokémon FireRed & LeafGreen</h3>
+                <p class="description">The definitive way to revisit Kanto. These remakes of the original Red & Blue brought the first generation into the modern era with GBA visuals, the Sevii Islands post-game, wireless adapter support, and the ability to connect with Ruby/Sapphire/Emerald to complete the National Pokédex (350+ Pokémon). For millions of fans, this <em>is</em> Pokémon at its purest. Now also available on Nintendo Switch.</p>
+            </div>
+        </div>
+
+        <!-- Golden Sun -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2001</span>
+                    <span class="tag-dev">Camelot</span>
+                    <span class="tag-score">MC 91</span>
+                </div>
+                <h3>Golden Sun / The Lost Age</h3>
+                <p class="description"><strong>The original GBA RPG saga</strong>. Camelot's masterpiece introduced the Djinn system — collectible elemental creatures that modify your characters' classes and unleash powerful summons. A gripping story about the release of Alchemy into the world of Weyard, clever Psynergy-based puzzles, and some of the best 2D graphics on the system. <em>The Lost Age</em> continues and concludes the story. Both are available on Nintendo Switch Online.</p>
+            </div>
+        </div>
+
+        <!-- Mario & Luigi: Superstar Saga -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2003</span>
+                    <span class="tag-dev">AlphaDream</span>
+                    <span class="tag-score">MC 90</span>
+                </div>
+                <h3>Mario & Luigi: Superstar Saga</h3>
+                <p class="description">The debut of the beloved Mario & Luigi RPG series. A hilarious adventure through the Beanbean Kingdom with <strong>ingenious dual-brother gameplay</strong>: control both Mario and Luigi simultaneously on the overworld and in a timing-based battle system that rewards skillful play. Fawful is one of the most memorable villains Nintendo has ever created. The writing is genuinely funny, the animations are full of charm, and the Bros. Attacks are spectacular.</p>
+            </div>
+        </div>
+
+        <!-- Fire Emblem (Blazing Blade) -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2003</span>
+                    <span class="tag-dev">Intelligent Systems</span>
+                    <span class="tag-score">MC 88</span>
+                </div>
+                <h3>Fire Emblem (The Blazing Blade)</h3>
+                <p class="description"><strong>The game that introduced Fire Emblem to the West</strong>. After Roy and Marth appeared in <em>Super Smash Bros. Melee</em>, Western fans finally got to experience the tactical RPG series. This prequel follows Eliwood (Roy's father), Hector, and Lyn across the continent of Elibe. Permadeath, weapon triangles, support conversations, and branching story paths. With 8.9 user score on Metacritic, it remains one of the most beloved entries and the perfect introduction to the franchise.</p>
+            </div>
+        </div>
+
+        <!-- WarioWare Inc -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2003</span>
+                    <span class="tag-dev">Nintendo R&D1</span>
+                    <span class="tag-score">MC 89</span>
+                </div>
+                <h3>WarioWare, Inc.: Mega Microgame$!</h3>
+                <p class="description">The game that <strong>invented the microgame genre</strong>. Over 200 rapid-fire mini-games lasting just 3–5 seconds each, stitched together into an increasingly frantic fever dream. Nose-picking, jump-roping, dodging traffic — you never know what's coming next. Pure, distilled Nintendo creativity and one of the most uniquely <em>GBA</em> experiences imaginable. The series continues to this day on Switch.</p>
+            </div>
+        </div>
+
+        <!-- Final Fantasy Tactics Advance -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2003</span>
+                    <span class="tag-dev">Square</span>
+                    <span class="tag-score">MC 87</span>
+                </div>
+                <h3>Final Fantasy Tactics Advance</h3>
+                <p class="description">A tactical RPG that some players sank <strong>200+ hours into</strong>. Build a clan, master jobs, and battle across the fantasy world of Ivalice. The "Law" system adds a unique wrinkle — each battle has rules that restrict certain actions, forcing constant adaptation. The story follows children transported into a magical version of their hometown via an ancient book. Deeply addictive and one of the most replayable strategy games on any system.</p>
+            </div>
+        </div>
+
+        <!-- Mario Kart: Super Circuit -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2001</span>
+                    <span class="tag-dev">Intelligent Systems</span>
+                    <span class="tag-score">MC 93</span>
+                </div>
+                <h3>Mario Kart: Super Circuit</h3>
+                <p class="description"><strong>The highest-rated Mario Kart on Metacritic until Mario Kart 8 Deluxe</strong>. 40 tracks (20 new + all 20 from the SNES original), tight drifting mechanics, and the series' signature item-based chaos — all on a handheld. Four-player link cable multiplayer made this a schoolyard essential. The fact that it still plays beautifully today at 93 Metascore is a testament to its quality.</p>
+            </div>
+        </div>
+
+        <!-- A Link to the Past & Four Swords -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">Nintendo</span>
+                    <span class="tag-score">MC 95</span>
+                </div>
+                <h3>The Legend of Zelda: A Link to the Past & Four Swords</h3>
+                <p class="description"><strong>The highest-rated GBA game on Metacritic</strong> with an incredible 95. The definitive 2D Zelda experience, brought to handheld with added voice samples, tweaked gameplay, and — most importantly — the brand-new <em>Four Swords</em> multiplayer adventure. Up to four players could link up for a cooperative (and competitive) Zelda dungeon crawl. Two legendary games in one cartridge.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TIER: B — Must-Play Gems -->
+    <h2><span class="emoji">💎</span> Tier B — Must-Play Gems & Cult Classics</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">These games might not always be the first named in a "top 10," but they're absolutely essential to understanding what made the GBA special. Many are cult classics that hardcore fans treasure.</p>
+
+    <div class="game-grid">
+
+        <!-- Wario Land 4 -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2001</span>
+                    <span class="tag-dev">Nintendo R&D1</span>
+                    <span class="tag-score">MC 88</span>
+                </div>
+                <h3>Wario Land 4</h3>
+                <p class="description">A platforming masterclass. Non-linear levels that require exploration and multiple playthroughs, Wario's unique charging/rushing mechanics, and a surreal audiovisual style that paved the way for the <em>WarioWare</em> series. Each level ends with a frantic escape sequence after hitting the switch. Short but dense with content — quality over quantity at its finest. User score of 8.8 on Metacritic.</p>
+            </div>
+        </div>
+
+        <!-- Castlevania: Circle of the Moon -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2001</span>
+                    <span class="tag-dev">Konami (KCEK)</span>
+                    <span class="tag-score">MC 91</span>
+                </div>
+                <h3>Castlevania: Circle of the Moon</h3>
+                <p class="description">A <strong>GBA launch title</strong> and the first handheld "Metroidvania." Though notoriously dark on the original unlit GBA screen, it shines on modern backlit displays. The DSS (Dual Set-up System) card-combination magic system offers incredible variety. A challenging, atmospheric action-RPG that proved the GBA could handle <em>Symphony of the Night</em>-style gameplay. Metascore of 91 — tied for the highest among GBA Castlevanias.</p>
+            </div>
+        </div>
+
+        <!-- Mother 3 -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2006</span>
+                    <span class="tag-dev">Brownie Brown / HAL</span>
+                    <span class="tag-score">Cult Classic</span>
+                </div>
+                <h3>Mother 3</h3>
+                <p class="description">The legendary <strong>Japan-only sequel to EarthBound</strong>. A game so beloved that fans created their own professional-quality English translation patch. Follows Lucas (of <em>Super Smash Bros. Brawl</em> fame) through an emotionally devastating story about family, loss, and resisting an invading "Pig Mask Army." Features a rhythm-based battle system where tapping to the beat of the music deals extra damage. A masterwork of RPG storytelling that Nintendo has inexplicably never localized. Available on Japanese Nintendo Switch Online.</p>
+            </div>
+        </div>
+
+        <!-- Final Fantasy VI Advance -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2007</span>
+                    <span class="tag-dev">TOSE / Square Enix</span>
+                    <span class="tag-score">MC 92</span>
+                </div>
+                <h3>Final Fantasy VI Advance</h3>
+                <p class="description">Often cited as <strong>one of the greatest RPGs of all time</strong>, made portable. The GBA version features a re-translated script, new dungeons, new Espers (summons), and new superbosses. The only downside is slightly compressed music quality compared to the SNES original. Kefka remains one of gaming's most memorable villains, and the opera scene is legendary. A 92 Metascore confirms its status as essential.</p>
+            </div>
+        </div>
+
+        <!-- Kirby: Nightmare in Dream Land -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">HAL Laboratory</span>
+                    <span class="tag-score">User 8.4</span>
+                </div>
+                <h3>Kirby: Nightmare in Dream Land</h3>
+                <p class="description">A delightful remake of the NES classic <em>Kirby's Adventure</em> with completely redrawn visuals, vibrant colors, and the addition of Meta Knightmare mode (play through the entire game as Meta Knight). The game that introduced Kirby's copy abilities to the world, now in gorgeous 32-bit spritework. Charming, accessible, and perfect for players of all ages. The soundtrack — especially "Green Greens" and "Yogurt Yard" — is pure joy.</p>
+            </div>
+        </div>
+
+        <!-- Astro Boy: Omega Factor -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2004</span>
+                    <span class="tag-dev">Treasure / Hitmaker</span>
+                    <span class="tag-score">Cult Classic</span>
+                </div>
+                <h3>Astro Boy: Omega Factor</h3>
+                <p class="description"><strong>Treasure's GBA masterpiece</strong>. A stunning blend of beat-'em-up, platforming, and shoot-'em-up stages, all rendered with gorgeous spritework. Huge bosses, a deep (and surprisingly emotional) story that spans multiple playthroughs, and tight combat with Astro's laser cannon, drill attacks, and machine guns. One of the best-looking games on the system and proof that licensed games can be exceptional.</p>
+            </div>
+        </div>
+
+        <!-- Drill Dozer -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2005</span>
+                    <span class="tag-dev">Game Freak</span>
+                    <span class="tag-score">Hidden Gem</span>
+                </div>
+                <h3>Drill Dozer</h3>
+                <p class="description"><strong>Game Freak's non-Pokémon triumph</strong>. A drill-based action-platformer with a <em>rumble cartridge</em> — the GBA cart literally vibrates as you drill through blocks and enemies. Tight level design, clever puzzles, hidden treasures, and satisfying boss battles. Despite critical acclaim (it won GBA Game of the Year awards), it was a commercial disappointment, making it a prized collector's item today ($80–120 for authentic copies).</p>
+            </div>
+        </div>
+
+        <!-- Yoshi's Island: Super Mario Advance 3 -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">Nintendo</span>
+                    <span class="tag-score">MC 91</span>
+                </div>
+                <h3>Yoshi's Island: Super Mario Advance 3</h3>
+                <p class="description">The GBA port of what many consider <strong>the greatest 2D platformer ever made</strong>. The pastel storybook art style, Yoshi's flutter jump and egg-throwing mechanics, and that unforgettable final boss fight against Baby Bowser. The smaller screen slightly reduces the impact of the SNES original's visuals, but the core gameplay is timeless. 100% completion is a genuine challenge requiring mastery of every level. Metascore of 91, user score of 8.9.</p>
+            </div>
+        </div>
+
+        <!-- Castlevania: Harmony of Dissonance -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">Konami (KCEK)</span>
+                    <span class="tag-score">MC 87</span>
+                </div>
+                <h3>Castlevania: Harmony of Dissonance</h3>
+                <p class="description">The middle child of the GBA Castlevania trilogy and the first produced by <strong>Koji Igarashi</strong> himself, with art by <em>Symphony of the Night</em> illustrator Ayami Kojima. Features a dual-castle system where you warp between two versions of Dracula's castle. Deliberately brighter than <em>Circle of the Moon</em> to compensate for the original GBA's dark screen. Juste Belmont's spell-book + sub-weapon combination system offers impressive variety. Included in the <em>Castlevania Advance Collection</em>.</p>
+            </div>
+        </div>
+
+        <!-- Sonic Advance -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2002</span>
+                    <span class="tag-dev">Dimps / Sonic Team</span>
+                    <span class="tag-score">Essential Platformer</span>
+                </div>
+                <h3>Sonic Advance</h3>
+                <p class="description"><strong>The first Sonic game on a Nintendo console</strong> — a landmark moment in gaming history. Developer Dimps absolutely nailed the classic Genesis physics and sense of speed while adding fresh elements. Four playable characters (Sonic, Tails, Knuckles, Amy), vibrant visuals, a Tiny Chao Garden that linked to <em>Sonic Adventure 2: Battle</em> on GameCube, and multiplayer via link cable. The game that proved Sonic could thrive on Nintendo hardware.</p>
+            </div>
+        </div>
+
+        <!-- Mega Man Zero 3 -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2004</span>
+                    <span class="tag-dev">Inti Creates</span>
+                    <span class="tag-score">Series Peak</span>
+                </div>
+                <h3>Mega Man Zero 3</h3>
+                <p class="description">The peak of the <em>Mega Man Zero</em> quadrilogy on GBA. Refined gameplay from the first two entries, the "Recoil Rod" weapon, Cyber-Elf system, and a satisfying story. Zero wields the Z-Saber, Buster Shot, Shield Boomerang, and Recoil Rod through challenging levels with tough-as-nails boss fights. The Zero series is notably harder than the classic Mega Man games. The entire series is available in the <em>Mega Man Zero/ZX Legacy Collection</em>.</p>
+            </div>
+        </div>
+
+        <!-- Fire Emblem: The Sacred Stones -->
+        <div class="game-card">
+            <div class="info">
+                <div class="meta">
+                    <span class="tag-year">2005</span>
+                    <span class="tag-dev">Intelligent Systems</span>
+                    <span class="tag-score">MC 85</span>
+                </div>
+                <h3>Fire Emblem: The Sacred Stones</h3>
+                <p class="description">The GBA's Fire Emblem swansong. Stars royal twins Eirika and Ephraim in a branching story — choose which sibling's path to follow. Introduced a traversable world map, monster battles in the Tower of Valni for grinding, and class promotion branches. Slightly easier than <em>Blazing Blade</em>, making it a great entry point. The GBA Fire Emblem sprite animations remain arguably the best the series has ever looked.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- WHERE TO PLAY -->
+    <h2><span class="emoji">🕹️</span> Where to Play These Games Today</h2>
+    <div class="highlight-box">
+        <p style="margin-bottom: 1rem;">Many essential GBA games are now available on modern platforms through <strong>Nintendo Switch Online + Expansion Pack</strong>. Here's a quick reference:</p>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>NSO (Switch)</th>
+                    <th>Other Modern Platforms</th>
+                    <th>Original Cart Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Metroid: Zero Mission</td><td class="check">✅</td><td>Wii U VC (discontinued)</td><td>$80–120</td></tr>
+                <tr><td>Metroid Fusion</td><td class="check">✅</td><td>Wii U VC (discontinued), 3DS Ambassador</td><td>$60–90</td></tr>
+                <tr><td>Castlevania: Aria of Sorrow</td><td class="cross">❌</td><td><strong>Castlevania Advance Collection</strong> (Switch/PS4/Xbox/PC)</td><td>$120–180</td></tr>
+                <tr><td>Pokémon Emerald</td><td class="cross">❌</td><td>— (original hardware only)</td><td>$150–250</td></tr>
+                <tr><td>Zelda: The Minish Cap</td><td class="check">✅</td><td>Wii U VC, 3DS Ambassador</td><td>$80–120</td></tr>
+                <tr><td>Advance Wars</td><td class="cross">❌</td><td><strong>Advance Wars 1+2: Re-Boot Camp</strong> (Switch remake)</td><td>$40–60</td></tr>
+                <tr><td>Pokémon FireRed/LeafGreen</td><td class="cross">❌</td><td>— (original hardware only)</td><td>$100–150</td></tr>
+                <tr><td>Golden Sun</td><td class="check">✅</td><td>Wii U VC</td><td>$40–60</td></tr>
+                <tr><td>Mario & Luigi: Superstar Saga</td><td class="check">✅</td><td>3DS remake available</td><td>$35–50</td></tr>
+                <tr><td>Fire Emblem (Blazing Blade)</td><td class="check">✅</td><td>Wii U VC, 3DS Ambassador</td><td>$70–100</td></tr>
+                <tr><td>WarioWare, Inc.</td><td class="check">✅</td><td>Wii U VC, 3DS Ambassador</td><td>$40–55</td></tr>
+                <tr><td>FF Tactics Advance</td><td class="cross">❌</td><td>— (original hardware only)</td><td>$40–60</td></tr>
+                <tr><td>Wario Land 4</td><td class="check">✅</td><td>Wii U VC, 3DS Ambassador</td><td>$45–65</td></tr>
+                <tr><td>Castlevania: Circle of the Moon</td><td class="cross">❌</td><td><strong>Castlevania Advance Collection</strong> (Switch/PS4/Xbox/PC)</td><td>$30–50</td></tr>
+                <tr><td>Mother 3</td><td class="cross">❌</td><td>Japanese NSO only; fan translation patch required</td><td>$30–60 (JP import)</td></tr>
+                <tr><td>Drill Dozer</td><td class="cross">❌</td><td>Wii U VC (discontinued)</td><td>$80–120</td></tr>
+                <tr><td>Sonic Advance</td><td class="cross">❌</td><td>— (original hardware only)</td><td>$30–45</td></tr>
+                <tr><td>Mega Man Zero 3</td><td class="cross">❌</td><td><strong>Mega Man Zero/ZX Legacy Collection</strong> (all platforms)</td><td>$30–50</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- HARDWARE -->
+    <h2><span class="emoji">🔧</span> Which GBA Hardware Is Best?</h2>
+    <div class="intro">
+        <p>The original GBA (AGB-001) has the most comfortable horizontal form factor but <strong>no backlight</strong> — the screen is essentially unplayable in low light. Here's the consensus:</p>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Model</th><th>Screen</th><th>Form Factor</th><th>Best For</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>GBA SP AGS-101</strong></td><td>Proper backlit screen — best image quality</td><td>Clamshell, protected screen, pocketable</td><td>🏆 The gold standard</td></tr>
+                <tr><td>GBA SP AGS-001</td><td>Front-lit screen — serviceable but washed out</td><td>Clamshell</td><td>Budget option</td></tr>
+                <tr><td>Original GBA (modded)</td><td>IPS backlit screen mod — incredible</td><td>Horizontal — most comfortable grip</td><td>Enthusiast favorite</td></tr>
+                <tr><td>Game Boy Micro</td><td>Bright backlit screen — but tiny</td><td>Ultra-portable, stylish</td><td>Collector's item; GBA-only (no GB/C)</td></tr>
+                <tr><td>Nintendo DS / DS Lite</td><td>Backlit; DS Lite has great screen</td><td>Clamshell</td><td>Budget GBA player (GBA slot)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- HONORABLE MENTIONS -->
+    <h2><span class="emoji">📋</span> Honorable Mentions</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1rem;">The GBA library is so deep that even 30+ games can't cover everything. Here are more excellent titles worth seeking out:</p>
+    <div class="tier-games">
+        <span class="tier-chip">Advance Wars 2: Black Hole Rising (MC 89)</span>
+        <span class="tier-chip">Kingdom Hearts: Chain of Memories</span>
+        <span class="tier-chip">Super Mario Advance 4: SMB3 (MC 94)</span>
+        <span class="tier-chip">Mario vs. Donkey Kong</span>
+        <span class="tier-chip">Mario Golf: Advance Tour</span>
+        <span class="tier-chip">Mario Tennis: Power Tour</span>
+        <span class="tier-chip">Harvest Moon: Friends of Mineral Town</span>
+        <span class="tier-chip">Kirby & The Amazing Mirror</span>
+        <span class="tier-chip">Final Fantasy IV Advance</span>
+        <span class="tier-chip">Final Fantasy V Advance</span>
+        <span class="tier-chip">Tactics Ogre: The Knight of Lodis (MC 88)</span>
+        <span class="tier-chip">Gunstar Super Heroes</span>
+        <span class="tier-chip">Ninja Five-O (Ninja Cop)</span>
+        <span class="tier-chip">WarioWare: Twisted! (gyro sensor)</span>
+        <span class="tier-chip">Pokémon Ruby & Sapphire</span>
+        <span class="tier-chip">Pokémon Pinball: Ruby & Sapphire</span>
+        <span class="tier-chip">Klonoa: Empire of Dreams</span>
+        <span class="tier-chip">Rhythm Tengoku (Japan-only)</span>
+        <span class="tier-chip">F-Zero: Maximum Velocity</span>
+        <span class="tier-chip">Tony Hawk's Pro Skater 2 (MC 95)</span>
+        <span class="tier-chip">Mega Man Battle Network series</span>
+        <span class="tier-chip">Sword of Mana</span>
+        <span class="tier-chip">Summon Night: Swordcraft Story</span>
+        <span class="tier-chip">Dragon Ball: Advanced Adventure</span>
+        <span class="tier-chip">Banjo-Kazooie: Grunty's Revenge</span>
+        <span class="tier-chip">Boktai: The Sun Is in Your Hand</span>
+        <span class="tier-chip">Shining Force: Resurrection</span>
+        <span class="tier-chip">Riviera: The Promised Land</span>
+        <span class="tier-chip">Donkey Kong Country (GBA port)</span>
+    </div>
+
+    <!-- BY THE NUMBERS -->
+    <h2><span class="emoji">📊</span> By the Numbers — Critical Consensus</h2>
+    <div class="intro">
+        <p>Based on <strong>Metacritic</strong> data and aggregating critic + user scores across the platform's library, here's how the essential titles stack up:</p>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Rank</th><th>Game</th><th>Metascore</th><th>User Score</th><th>Genre</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>The Legend of Zelda: A Link to the Past & Four Swords</td><td class="check">95</td><td>8.8</td><td>Action-Adventure</td></tr>
+                <tr><td>2</td><td>Super Mario Advance 4: Super Mario Bros. 3</td><td class="check">94</td><td>8.6</td><td>Platformer</td></tr>
+                <tr><td>3</td><td>Mario Kart: Super Circuit</td><td class="check">93</td><td>8.3</td><td>Racing</td></tr>
+                <tr><td>4</td><td>Advance Wars / Metroid Fusion</td><td class="check">92</td><td>8.6 / 8.8</td><td>Strategy / Action</td></tr>
+                <tr><td>5</td><td>Super Mario World: SMA2 / FFVI Advance</td><td class="check">92</td><td>8.8 / —</td><td>Platformer / RPG</td></tr>
+                <tr><td>6</td><td>Golden Sun / Yoshi's Island: SMA3 / Castlevania: CotM</td><td class="check">91</td><td>8.8 / 8.9 / —</td><td>RPG / Platformer / Action</td></tr>
+                <tr><td>7</td><td>Castlevania: Aria of Sorrow</td><td class="check">91</td><td>8.8</td><td>Action-RPG (Metroidvania)</td></tr>
+                <tr><td>8</td><td>Mario & Luigi: Superstar Saga</td><td class="check">90</td><td>8.5</td><td>RPG</td></tr>
+                <tr><td>9</td><td>The Minish Cap / Metroid: Zero Mission</td><td class="check">89</td><td>8.8 / 8.9</td><td>Action-Adventure</td></tr>
+                <tr><td>10</td><td>WarioWare, Inc. / Advance Wars 2</td><td class="check">89</td><td>8.5 / —</td><td>Party / Strategy</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:1rem; font-size: 0.85rem; color: var(--text-secondary);">Data from Metacritic (accessed 2025). Only games with 7+ critic reviews counted for Metascore.</p>
+    </div>
+
+    <!-- GENRE BREAKDOWN -->
+    <h2><span class="emoji">🎯</span> Essential Picks by Genre</h2>
+    <div class="intro">
+        <p>If you're looking for the best the GBA has to offer in a specific genre:</p>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Genre</th><th>The Essential Pick</th><th>Runner-Up</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Metroidvania</strong></td><td>Metroid: Zero Mission</td><td>Castlevania: Aria of Sorrow</td></tr>
+                <tr><td><strong>Platformer</strong></td><td>Wario Land 4</td><td>Yoshi's Island: SMA3</td></tr>
+                <tr><td><strong>RPG</strong></td><td>Golden Sun / The Lost Age</td><td>Final Fantasy VI Advance</td></tr>
+                <tr><td><strong>Tactical RPG</strong></td><td>Fire Emblem (Blazing Blade)</td><td>Final Fantasy Tactics Advance</td></tr>
+                <tr><td><strong>Strategy</strong></td><td>Advance Wars</td><td>Advance Wars 2</td></tr>
+                <tr><td><strong>Action-Adventure</strong></td><td>The Legend of Zelda: The Minish Cap</td><td>A Link to the Past</td></tr>
+                <tr><td><strong>Pokémon</strong></td><td>Pokémon Emerald</td><td>Pokémon FireRed/LeafGreen</td></tr>
+                <tr><td><strong>Racing</strong></td><td>Mario Kart: Super Circuit</td><td>F-Zero: Maximum Velocity</td></tr>
+                <tr><td><strong>Puzzle / Arcade</strong></td><td>WarioWare, Inc.: Mega Microgame$!</td><td>Drill Dozer</td></tr>
+                <tr><td><strong>Fighting</strong></td><td>Street Fighter Alpha 3</td><td>Tekken Advance</td></tr>
+                <tr><td><strong>Action / Run & Gun</strong></td><td>Astro Boy: Omega Factor</td><td>Gunstar Super Heroes</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    <p>Research compiled from <a href="https://www.nintendolife.com/guides/50-best-game-boy-advance-games-of-all-time" target="_blank" rel="noopener">Nintendo Life</a>, 
+    <a href="https://www.metacritic.com/browse/game/game-boy-advance/all/all-time/metascore/" target="_blank" rel="noopener">Metacritic</a>, 
+    <a href="https://punishedbacklog.com/best-game-boy-advance-games/" target="_blank" rel="noopener">The Punished Backlog</a>, 
+    <a href="https://thechozoproject.com/the-best-game-boy-advance-games/" target="_blank" rel="noopener">The Chozo Project</a>,
+    <a href="https://retrododo.com/best-gameboy-advance-games/" target="_blank" rel="noopener">Retro Dodo</a>,
+    <a href="https://lofi-gaming.org.uk/articles/top-10-games/top-10-game-boy-advance-games/" target="_blank" rel="noopener">deKay's Lofi Gaming</a>, and
+    <a href="https://screenrant.com/greatest-rpgs-game-boy-advance-how-play-now/" target="_blank" rel="noopener">ScreenRant</a>.
+    All trademarks belong to their respective owners.</p>
+    <p style="margin-top: 0.5rem;">Last updated: June 2025 • Game Boy Advance: 2001–2008 • 81.51 million units sold • 1,538 licensed games</p>
+</footer>
+
+</body>
+</html>
