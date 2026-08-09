@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highly-Rated GBA ROM Hacks — Comprehensive Guide</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text2: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #f0883e;
+            --green: #3fb950;
+            --red: #f85149;
+            --purple: #a371f7;
+            --yellow: #d2991d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 0 1rem 3rem;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        header h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p {
+            color: var(--text2);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        nav {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        nav h2 { color: var(--accent); font-size: 1rem; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        nav ul { list-style: none; columns: 2; }
+        nav li { margin-bottom: 0.3rem; }
+        nav a { color: var(--text2); text-decoration: none; font-size: 0.92rem; }
+        nav a:hover { color: var(--accent); }
+
+        section { margin-bottom: 2.5rem; }
+        h2.section-title {
+            font-size: 1.55rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--accent);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.4rem 1.5rem;
+            margin-bottom: 1.2rem;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: var(--accent); }
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+        .card .meta {
+            font-size: 0.85rem;
+            color: var(--text2);
+            margin-bottom: 0.65rem;
+        }
+        .card .meta span {
+            display: inline-block;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 8px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+        }
+        .card .meta .badge-accent { color: var(--accent); border-color: var(--accent); }
+        .card .meta .badge-green { color: var(--green); border-color: var(--green); }
+        .card .meta .badge-orange { color: var(--accent2); border-color: var(--accent2); }
+        .card .meta .badge-purple { color: var(--purple); border-color: var(--purple); }
+        .card .meta .badge-yellow { color: var(--yellow); border-color: var(--yellow); }
+
+        .card p { font-size: 0.94rem; color: var(--text2); margin-bottom: 0.6rem; }
+        .card ul { padding-left: 1.3rem; color: var(--text2); font-size: 0.9rem; }
+        .card ul li { margin-bottom: 0.25rem; }
+
+        .rank-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            border-radius: 50%;
+            width: 24px; height: 24px;
+            text-align: center; line-height: 24px;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .warning-box {
+            background: #1a1010;
+            border: 1px solid #5c2a2a;
+            border-radius: 8px;
+            padding: 1rem 1.3rem;
+            margin-bottom: 1.8rem;
+            color: #fbb;
+            font-size: 0.88rem;
+        }
+        .warning-box strong { color: var(--red); }
+
+        hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+        footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text2);
+            font-size: 0.82rem;
+        }
+        footer a { color: var(--accent); }
+
+        @media (max-width: 640px) {
+            nav ul { columns: 1; }
+            header h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>🎮 Highly-Rated GBA ROM Hacks — A Comprehensive Guide</h1>
+    <p>Pokémon, Strategy, Action, Platformers &amp; the wonderfully weird</p>
+</header>
+
+<nav>
+    <h2>📑 Jump to Section</h2>
+    <ul>
+        <li><a href="#pokemon-top">🏆 Top-Tier Pokémon Hacks</a></li>
+        <li><a href="#pokemon-more">🔥 More Excellent Pokémon Hacks</a></li>
+        <li><a href="#non-pokemon">⚔️ Non-Pokémon GBA Hacks</a></li>
+        <li><a href="#unusual">🌀 Unusual, Creative &amp; Out-of-the-Ordinary</a></li>
+        <li><a href="#enhancement">🛠️ Enhancement &amp; Improvement Hacks</a></li>
+        <li><a href="#sources">📚 Sources</a></li>
+    </ul>
+</nav>
+
+<div class="warning-box">
+    <strong>⚠️ Disclaimer:</strong> ROM hacks exist in a legal grey area. Creating and using ROM hacks for personal use may be permissible only if you legally own the original game. Do not distribute ROM hack files containing copyrighted material. Always consult local laws.
+</div>
+
+<!-- ======== TOP TIER POKEMON ======== -->
+<section id="pokemon-top">
+<h2 class="section-title">🏆 Top-Tier Pokémon GBA ROM Hacks</h2>
+
+<div class="card">
+    <h3><span class="rank-badge">1</span> Pokémon Unbound</h3>
+    <div class="meta">
+        <span class="badge-accent">Base: FireRed</span>
+        <span class="badge-green">Complete</span>
+        <span class="badge-purple">Hack of the Year</span>
+    </div>
+    <p>Widely considered the most ambitious and polished Pokémon ROM hack ever created. Set in the new <strong>Borrius Region</strong> with a unique narrative involving a past war and the looming threat of "The Shadows." Built on the Complete FireRed Upgrade engine.</p>
+    <ul>
+        <li>🎭 Extensive character customization (multiple characters, costumes)</li>
+        <li>📋 Over <strong>80 missions</strong> and side quests</li>
+        <li>🎵 Brand-new 180-song soundtrack</li>
+        <li>🔧 Revamped HM system — no need to teach HMs to Pokémon</li>
+        <li>⚡ Modern battle mechanics: Physical/Special split, Mega Evolution, Abilities up to Gen 8</li>
+        <li>🌗 Day/night system, dynamic weather</li>
+        <li>🏆 Won multiple "Hack of the Year" awards across the community</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3><span class="rank-badge">2</span> Pokémon Radical Red</h3>
+    <div class="meta">
+        <span class="badge-accent">Base: FireRed</span>
+        <span class="badge-green">Complete</span>
+        <span class="badge-orange">Difficulty Hack</span>
+    </div>
+    <p>The definitive <strong>challenge hack</strong> for veteran players. Features competitive-grade battle AI that switches, strategic boss battles, and access to Pokémon up to Gen 9. Not for the faint of heart.</p>
+    <ul>
+        <li>🧠 Smart, competitive-level AI that predicts and switches</li>
+        <li>📊 All Pokémon up to Gen 9 with full modern abilities</li>
+        <li>💎 Mega Evolution, Z-Moves, Dynamax, and Terastal</li>
+        <li>🏋️ Gym Leaders use competitive strategies and optimized teams</li>
+        <li>⚙️ Extensive quality-of-life: infinite rare candies, portable PC, auto-heal between battles</li>
+        <li>🎯 Multiple difficulty modes and built-in Nuzlocke support</li>
+        <li>🔄 Built on the Complete FireRed Upgrade (CFRU) engine</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3><span class="rank-badge">3</span> Pokémon Gaia</h3>
+    <div class="meta">
+        <span class="badge-accent">Base: FireRed</span>
+        <span class="badge-green">Complete (v3.1)</span>
+        <span class="badge-purple">Multiple HoTY Winner</span>
+    </div>
+    <p>Set in the <strong>Orbtus Region</strong>, where ancient civilizations and seismic disasters intertwine. Often praised as feeling indistinguishable from an official Game Freak release. Won Hack of the Year in 2014 and 2015.</p>
+    <ul>
+        <li>🏛️ Rich archaeological storyline with original music</li>
+        <li>🦖 Pokémon from Kanto, Johto, Hoenn, Sinnoh, Unova, and Kalos</li>
+        <li>💎 In-battle Mega Evolution with hidden Mega Stones</li>
+        <li>🏊 Dive and underwater maps ported from R/S/E</li>
+        <li>🔍 Hidden Grottoes and Secret Temples rewarding exploration</li>
+        <li>🐛 Bug-Catching Contest and Battle Marsh facility</li>
+        <li>🧗 Rock Climb and climbable walls</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3><span class="rank-badge">4</span> Pokémon Glazed / Blazed Glazed</h3>
+    <div class="meta">
+        <span class="badge-accent">Base: Emerald</span>
+        <span class="badge-green">Complete</span>
+    </div>
+    <p>A massive adventure spanning <strong>three regions</strong> (Tunod, Johto, and Rankor) with a unique story where the Pokémon world and the real world collide. Blazed Glazed is an enhanced rebalance.</p>
+    <ul>
+        <li>🗺️ Travel across three full regions</li>
+        <li>🐾 <strong>Five</strong> starter choices instead of three (including Riolu and Shinx!)</li>
+        <li>💤 Dream World Pokémon and Pokémon from Sinnoh, Unova, and Kalos</li>
+        <li>🧣 Features a memorable scarfed Pikachu on a revenge quest</li>
+        <li>💎 Mega Evolution support</li>
+        <li>🔄 All starters can be caught in the wild — no trading needed</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3><span class="rank-badge">5</span> Pokémon Emerald Rogue</h3>
+    <div class="meta">
+        <span class="badge-accent">Base: Emerald</span>
+        <span class="badge-green">Complete</span>
+        <span class="badge-orange">Roguelike</span>
+    </div>
+    <p>A groundbreaking fusion of Pokémon and <strong>roguelike</strong> mechanics. Routes, encounters, items, and even gym leader teams are procedurally generated. Every run is unique. Widely praised as one of the most addictive and innovative hacks of 2024.</p>
+    <ul>
+        <li>🎲 Procedurally generated routes, encounters, and items each run</li>
+        <li>🏠 Hub area with permanent upgrades and new starter Pokémon between runs</li>
+        <li>⚡ Turbo battle speed option</li>
+        <li>✨ Boosted shiny rates</li>
+        <li>👤 Character and run customization (seeded, double battle mode, etc.)</li>
+        <li>🏆 Complete a run by defeating all gym leaders and the Champion</li>
+    </ul>
+</div>
+</section>
+
+<!-- ======== MORE POKEMON ======== -->
+<section id="pokemon-more">
+<h2 class="section-title">🔥 More Excellent Pokémon GBA ROM Hacks</h2>
+
+<div class="card">
+    <h3>Pokémon Emerald Seaglass</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-green">Complete</span><span class="badge-yellow">Visual Overhaul</span></div>
+    <p>A stunning <strong>visual overhaul</strong> of Pokémon Emerald that transforms Hoenn into a gorgeous Game Boy Color-style aesthetic. All sprites, tiles, and UI are remade in a beautiful retro GBC art style reminiscent of upgraded Gen 2 graphics. Includes Gen 1–3 Pokémon plus cross-gen evolutions up to Gen 9, Fairy type, Physical/Special split, following Pokémon, Z-Moves, a SCUBA Safari minigame, pinball machines, and a Wishing Well gacha system. Not a difficulty hack — just pure nostalgic beauty.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Elite Redux</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-green">Complete (v2.1)</span><span class="badge-orange">Difficulty Hack</span></div>
+    <p>Each Pokémon can have <strong>up to 4 abilities simultaneously</strong> plus 3 switchable ones. Over 370 abilities (~200 new), every trainer reworked with full custom movesets, smart competitive AI, and zero grinding (infinite rare candies, 100% catch rate, all 31 IVs by default). One of the wildest sandbox-difficulty experiences available.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Adventure Red Chapter</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete</span></div>
+    <p>A faithful adaptation of the <strong>Pokémon Adventures/Special Manga</strong>, following Red's journey from Pallet Town. Includes nearly every event from the manga with some expanded. Won 3rd place in PokeCommunity Hack of the Year for three consecutive years (2013–2015).</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon R.O.W.E. (Reloaded Open World Emerald)</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-green">Active Development (v2.0+)</span><span class="badge-yellow">Open World</span></div>
+    <p>A fully <strong>open-world</strong> take on Hoenn and the Sevii Islands with 16 badges. Every Pokémon available from the start. Features Pokémon up to Gen 8/9, Mega Evolutions, following Pokémon, flying taxis, achievement system, trainer skills, multiple game modes (Randomized, Double Battles, Scalemon, Inverse Type Chart), and RGB color-customizable outfits. Built for endless replayability.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon GS Chronicles</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete</span></div>
+    <p>A modern GBA reimagining of <strong>Gold &amp; Silver</strong> with updated graphics, expanded Pokémon roster, Mega Evolutions, and new areas to explore. Actively maintained with regular bug fixes and content updates.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Scorched Silver</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-green">Complete</span></div>
+    <p>Set <strong>20 years after Gold &amp; Silver</strong> in Johto. Created by longtime ROM hacker Sloo with ~750 Pokémon (Gen 1–8), Mega Evolutions, nature-changing items, new areas, and a mysterious group called Team Phoenix hunting Celebi. A simple but deeply polished adventure that earned #3 on SacredAlmighty's Top 10 of 2024.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Odyssey</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Final update early 2025</span></div>
+    <p>A story-driven hack featuring <strong>Etrian Variants</strong> (regional forms), a huge number of side quests, picnic mode (no level caps), and skip-able cutscenes. Praised for beautiful tile work, map design, and natural difficulty scaling. Ranked #2 on SacredAlmighty's Top 10 of 2024.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Flora Sky</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-green">Complete</span></div>
+    <p>A classic hack featuring an epic battle between <strong>Dialga and Palkia</strong>. Players must seal the rift to prevent chaos while confronting Team Magma and Team Aqua. Features a well-implemented day/night system with time-specific events, and access to legendary Pokémon including Mew and Shaymin.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Vega</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-yellow">Fakemon</span></div>
+    <p>Set in the <strong>Tohoak region</strong> with over <strong>150 custom Fakemon</strong> (including the infamous buff Pikachu), new moves, trainer rematches, and extensive post-game content. One of the most celebrated Fakemon hacks, known for matching the original's pixel art style perfectly.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Too Many Types</h3>
+    <div class="meta"><span class="badge-accent">Base: Emerald</span><span class="badge-yellow">Novelty</span></div>
+    <p>Exactly as the title says: adds nearly <strong>50 new types</strong> (Gamer, Smash, Furry, Magic, Sus, and more) for a total of <strong>62 types</strong>, 118 new moves, and Pokémon can have <strong>up to three types</strong>. A glorious chaos mod.</p>
+</div>
+</section>
+
+<!-- ======== NON-POKEMON ======== -->
+<section id="non-pokemon">
+<h2 class="section-title">⚔️ Highly-Rated Non-Pokémon GBA ROM Hacks</h2>
+
+<div class="card">
+    <h3>Advance Wars R: Advance Wars Returns</h3>
+    <div class="meta"><span class="badge-accent">Base: Advance Wars 2</span><span class="badge-green">Complete (2021)</span></div>
+    <p>A massive expansion that feels like an official sequel. Adds <strong>42 new campaign missions</strong>, 30 more War Room missions, fully reworked Commanding Officers, and even AWBW (Advance Wars By Web) multiplayer integration. The definitive way to play Advance Wars on GBA.</p>
+</div>
+
+<div class="card">
+    <h3>Fire Emblem: Vision Quest</h3>
+    <div class="meta"><span class="badge-accent">Base: Sacred Stones (FE8)</span><span class="badge-green">Complete (2021)</span></div>
+    <p>One of the most in-depth Fire Emblem hacks ever made. Features a <strong>completely original story</strong> across 4 arcs and 41 chapters (~34+ hours), <strong>62 recruitable units</strong>, unique promotion options, custom weapons, and quality-of-life features. Challenging but fair, with Easy and Hard modes.</p>
+</div>
+
+<div class="card">
+    <h3>Fire Emblem: Drums of War</h3>
+    <div class="meta"><span class="badge-accent">Base: Sacred Stones (FE8)</span><span class="badge-green">Complete (v2.725)</span></div>
+    <p>A gritty, grounded total conversion with <strong>22 chapters and 46 playable characters</strong>. Emphasizes aggressive, decisive play — passive tactics will be overwhelmed. Designed to be ironman-friendly with a nuanced, morally ambiguous story about rank-and-file soldiers, not plucky rebels. Variant modes include Max%, Min%, and Zero% growths. Praised for excellent writing and unique recruiting/ransoming mechanics.</p>
+</div>
+
+<div class="card">
+    <h3>Fire Emblem: The Last Promise</h3>
+    <div class="meta"><span class="badge-accent">Base: Blazing Sword (FE7)</span><span class="badge-green">Complete (2013)</span></div>
+    <p>Historically significant as the <strong>first completed English Fire Emblem hack</strong>. Feels like a genuine spin-off or sequel with impressive writing, twists, and polish. A landmark in the FE hacking community.</p>
+</div>
+
+<div class="card">
+    <h3>Fire Emblem: Sealed Hope</h3>
+    <div class="meta"><span class="badge-accent">Base: Sacred Stones (FE8)</span><span class="badge-green">Complete (2024)</span></div>
+    <p>20+ chapters, 30+ characters, featuring a <strong>durability system akin to Fates/Echoes</strong> (infinite durability, higher gold cost). Unique support system where A-supports grant <strong>Bond Essence</strong> (+1 all stats) and skills. Personal skills, movement skills, and promoted skills for every unit. Includes post-game content.</p>
+</div>
+
+<div class="card">
+    <h3>Fire Emblem: The Road to Ruin</h3>
+    <div class="meta"><span class="badge-accent">Base: Blazing Sword (FE7)</span><span class="badge-green">Complete</span></div>
+    <p>Perhaps the most widely recommended FE fan game. 21 chapters + 2 bonus chapters, 30 playable characters, <strong>original music</strong>, and a gripping story. Late game can get grindy, but the narrative payoff is worth it.</p>
+</div>
+
+<div class="card">
+    <h3>Doom: PC Doom Total Conversion</h3>
+    <div class="meta"><span class="badge-accent">Base: Doom (GBA)</span><span class="badge-green">Complete (2020)</span></div>
+    <p>An astonishing technical achievement that <strong>restores the original PC Doom experience</strong> on GBA. Full original levels with proper textures, red blood restored (was green in the GBA port), improved sound with correct level music, better framerate, and all censorship removed. Makes the official port obsolete.</p>
+</div>
+
+<div class="card">
+    <h3>Metroid: Spooky Mission</h3>
+    <div class="meta"><span class="badge-accent">Base: Zero Mission</span><span class="badge-green">Complete (2018)</span></div>
+    <p>A humorous, Halloween-themed reimagining of Zero Mission with spooky castles and forests. Features a <strong>sense of humour</strong> rare in Metroid games, pumpkins, jokes, and an infamous NSFW super-secret ending. Shorter and less challenging than the original — pure fun.</p>
+</div>
+
+<div class="card">
+    <h3>Castlevania HOD: Revenge of the Findesiecle</h3>
+    <div class="meta"><span class="badge-accent">Base: Harmony of Dissonance</span><span class="badge-green">Complete (2007)</span></div>
+    <p>Adds <strong>Mario, Mega Man, and Simon Belmont</strong> as playable characters alongside new color palettes, sprites, and music. A wild crossover that turns Harmony of Dissonance into a completely fresh experience.</p>
+</div>
+
+<div class="card">
+    <h3>Final Fight One: Arcade Remix</h3>
+    <div class="meta"><span class="badge-accent">Base: Final Fight One</span><span class="badge-green">Complete (2020)</span></div>
+    <p>Restores Final Fight to its <strong>arcade glory</strong> with proper color palettes, all characters with full details, corrected music, and all original arcade content. The definitive portable version of this beat-'em-up classic.</p>
+</div>
+
+<div class="card">
+    <h3>Final Fantasy Tactics Advanced Battle</h3>
+    <div class="meta"><span class="badge-accent">Base: FFTA</span><span class="badge-green">Complete (2020)</span></div>
+    <p>Adds a <strong>monster taming system</strong> where players can capture monsters and teach them abilities. Blends Pokémon-style collecting with the deep tactical combat of FFTA for a truly unique experience.</p>
+</div>
+
+<div class="card">
+    <h3>Crash Bandicoot Twisted</h3>
+    <div class="meta"><span class="badge-accent">Base: Original GBA homebrew</span><span class="badge-green">Demo (2025)</span><span class="badge-yellow">Homebrew</span></div>
+    <p>A short but impressive <strong>fan-made GBA game</strong> built from scratch in Rust, inspired by the classic GBA Crash games (Huge Adventure, N-Tranced). Features pixel-art Crash platforming with spin, body slam, and relic challenges. Runs on real GBA hardware via flashcart.</p>
+</div>
+</section>
+
+<!-- ======== UNUSUAL ======== -->
+<section id="unusual">
+<h2 class="section-title">🌀 Unusual, Creative &amp; Out-of-the-Ordinary GBA ROM Hacks</h2>
+
+<div class="card">
+    <h3>🐍 Pokémon Snakewood</h3>
+    <div class="meta"><span class="badge-accent">Base: Ruby</span><span class="badge-green">Complete (2013)</span><span class="badge-red" style="color:var(--red);border-color:var(--red);">Zombie Apocalypse</span></div>
+    <p>Hoenn has been <strong>invaded by zombies</strong>. Your brother and Professor Birch's daughter have gone missing. Features new "Zombiemon" (Boilbasaur, Electabugs), Denjuu creatures from another dimension that can talk, new Fakemon evolutions (like Skylax — Snorlax's flying evolution), and gyms destroyed by the undead. Campy, edgy, divisive, and unforgettable.</p>
+</div>
+
+<div class="card">
+    <h3>🚀 Space Ele: A Metroid Zero Mission Desert Bus Experience</h3>
+    <div class="meta"><span class="badge-accent">Base: Zero Mission</span><span class="badge-green">Complete (2024)</span><span class="badge-red" style="color:var(--red);border-color:var(--red);">April Fool's</span></div>
+    <p>The world's first <strong>"Verisimulahack"</strong> — a ROM hack stupifyingly like reality. Help Samus ride 108 Space Elevators to move 9 Chozo Artifacts. Takes <strong>~27.6 hours</strong> to complete. Based on the infamous Desert Bus minigame by Penn &amp; Teller. No saving. Any mistake is permanent. "After all, does your life have a save feature?" An absurdist masterpiece.</p>
+</div>
+
+<div class="card">
+    <h3>🏴‍☠️ Pokémon FireRed: Rocket Edition</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-yellow">Story-Driven</span></div>
+    <p>What if you said <strong>"Yes"</strong> to joining Team Rocket on Route 24? Play as a Rocket Grunt climbing the ranks of Team Rocket. Features a <strong>morality system</strong>, the ability to <strong>steal Pokémon</strong> from trainers, branching side quests, and a story with Shyamalan-level twists. Explores the dark side of Kanto — what's the connection between Oak and Giovanni? What really happened in the Pokémon War?</p>
+</div>
+
+<div class="card">
+    <h3>🍀 Pokémon Clover</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete</span><span class="badge-red" style="color:var(--red);border-color:var(--red);">Mature / Satire</span></div>
+    <p>A <strong>4chan-inspired</strong> complete overhaul featuring 386 custom Fakemon, two fully-featured regions, a completely custom soundtrack, competitive-grade battle AI, and over 100 hours of gameplay. A satire of both 4chan culture and Pokémon itself. <strong>Warning:</strong> contains mature themes and strong language. Not for everyone, but undeniably one of the most technically impressive hacks ever made.</p>
+</div>
+
+<div class="card">
+    <h3>🧩 Pokémon Naillevaihcam</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-yellow">Conceptual / Puzzle</span></div>
+    <p>"Machiavellian" spelled backwards. A 30-day contest-winning <strong>conceptual puzzle hack</strong> set in a single surreal, atmospheric realm. No Pokédex, no badges, no money, no shops, no map — just pure puzzle-driven exploration across parallel dimensions. Names are meaningless, communication is inconsistent, and reality bends around you. A short but deeply unnerving experience.</p>
+</div>
+
+<div class="card">
+    <h3>🤪 Pokémon Weird Type Fun</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-yellow">Type Swap Chaos</span></div>
+    <p>A <strong>complete type swap</strong> hack. Every Pokémon type has been replaced with new alternatives. Over 400 newly designed Pokémon (Fakemon), some goofy, some genuinely better than the originals. Throw out your entire type chart and learn a brand new meta. Includes beta Pokémon designs. DLC expanding to Johto in development.</p>
+</div>
+
+<div class="card">
+    <h3>🧟 Pokémon Dark Worship</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete</span></div>
+    <p>Set in the <strong>Seafood Region</strong>, an Evil Sect invades to capture the Holy Pokémon. Features familiar characters from other games, darker themes, and an original storyline. A solid entry in the "darker Pokémon" subgenre.</p>
+</div>
+
+<div class="card">
+    <h3>😈 Pokémon Dark Rising Series</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete (Series)</span><span class="badge-orange">High Difficulty</span></div>
+    <p>Arceus chooses <strong>you</strong> to save the Pokémon world. Set in the Core region with a significantly darker tone and increased difficulty. Integrates Pokémon from Diamond, Pearl, Black, and White. Multiple sequels (Dark Rising 2, Dark Rising 3) and spin-offs (Order Destroyed, Worlds Collide, Kaizo). Notable: <strong>no HMs</strong> needed, making it stand out among older hacks.</p>
+</div>
+
+<div class="card">
+    <h3>⚡ Pokémon Ash Gray</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete (2015)</span></div>
+    <p>Faithfully recreates the <strong>entire first season of the Pokémon anime</strong> in game form, plus elements from early movies. Play as Ash with Pikachu, Misty, and Brock. Relive every iconic moment — catch Pokémon in the same order as the show or forge your own path. Pure nostalgia for anime fans.</p>
+</div>
+
+<div class="card">
+    <h3>🧟 Just What Do I Need (Super Mario Advance 2)</h3>
+    <div class="meta"><span class="badge-accent">Base: SMA2 (SMW)</span><span class="badge-green">Complete (2025)</span><span class="badge-yellow">Kaizo / Puzzle</span></div>
+    <p>A 6-exit ROM hack that <strong>heavily abuses</strong> the strange additions unique to the GBA version of Super Mario World. Features pushing Yoshi without riding him, revamped color Yoshi spawning, Luigi's hilariously floaty jump, and a blend of Standard, Kaizo, and Puzzle elements. Includes a mandatory Player's Guide. Cryptic and borderline Kaizo — play at your own risk.</p>
+</div>
+
+<div class="card">
+    <h3>🏰 Fire Emblem: Void's Blitzarre Adventure</h3>
+    <div class="meta"><span class="badge-accent">Base: Sacred Stones (FE8)</span><span class="badge-green">Complete</span><span class="badge-yellow">Humor</span></div>
+    <p>A full 31-chapter Fire Emblem hack created in <strong>less than a week</strong>. Doesn't take itself too seriously with humorous dialogue and a lighthearted tone. Became so popular it received a <strong>3D remake/spoof</strong> by another fan. Perfect for when you want FE gameplay without the heavy drama.</p>
+</div>
+</section>
+
+<!-- ======== ENHANCEMENT ======== -->
+<section id="enhancement">
+<h2 class="section-title">🛠️ Enhancement &amp; Improvement Hacks</h2>
+
+<div class="card">
+    <h3>Super Mario Advance 4: All 38 e-Reader Levels</h3>
+    <div class="meta"><span class="badge-accent">Base: SMA4 (SMB3)</span><span class="badge-green">Complete (2016)</span></div>
+    <p>Restores all <strong>38 e-Reader levels</strong> that were only available via Japan-exclusive hardware. These range from challenging platforming to creative puzzles. Essential for any SMB3 fan who missed out on this content two decades ago.</p>
+</div>
+
+<div class="card">
+    <h3>Breath of Fire Improved</h3>
+    <div class="meta"><span class="badge-accent">Base: Breath of Fire</span><span class="badge-green">Complete (2020)</span></div>
+    <p>Brings the color palette closer to the SNES original, <strong>rewrites the script</strong> for clarity, and fully rebalances all characters. The definitive way to experience this Capcom RPG classic on GBA.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Throwback</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-green">Complete (2021)</span></div>
+    <p>Designed as the <strong>definitive Kanto experience</strong>. Features include: all meaningful items obtainable, trees stay cut, running indoors, tutorials removed, infinite reusable TMs and move tutors, GB Sounds item (switch between 8-bit and FR/LG music), all Gen 1–2 Pokémon obtainable through canonical methods, and bug fixes. Reviewed as "FLAWLESS" and "the definitive Gen 1 journey."</p>
+</div>
+
+<div class="card">
+    <h3>Metroid: RE:ZM [Definitive Redux]</h3>
+    <div class="meta"><span class="badge-accent">Base: Zero Mission (EUR)</span><span class="badge-green">Complete (2023)</span></div>
+    <p>An improvement hack for Zero Mission's 20th anniversary. Removes maroon/reddish outlines, makes unknown items completely optional, speeds up wall jumping, rebalances and recolors bosses, adds Prime-style charge beam that attracts drops, and enables faster exploration through hex tweaks.</p>
+</div>
+
+<div class="card">
+    <h3>Pokémon Sword &amp; Shield GBA</h3>
+    <div class="meta"><span class="badge-accent">Base: FireRed</span><span class="badge-yellow">Demake</span></div>
+    <p>An ambitious <strong>demake</strong> of the Nintendo Switch titles for GBA. Features the Galar region, Dynamax mechanics, day/night cycles, and a new starter called Pooka. It's not 100% the same as the Switch version, but as close as you'll get on GBA hardware.</p>
+</div>
+</section>
+
+<hr>
+
+<section id="sources">
+<h2 class="section-title">📚 Sources</h2>
+<div class="card">
+    <ul>
+        <li><a href="https://www.pokeharbor.com/2024/03/20-best-completed-pokemon-rom-hacks-of-2024/" target="_blank" rel="noopener">PokéHarbor — 20 Best Completed Pokémon ROM Hacks of 2024</a></li>
+        <li><a href="https://goombastomp.com/best-pokemon-gba-rom-hacks/" target="_blank" rel="noopener">GoombaStomp — Best Pokémon GBA ROM Hacks of 2024</a></li>
+        <li><a href="https://www.astartgaming.com/2024/12/top-10-best-pokemon-gba-rom-hacks-you.html" target="_blank" rel="noopener">AstartGaming — Top 10 Pokémon GBA ROM Hacks (Nov 2024)</a></li>
+        <li><a href="https://retrododo.com/best-gba-rom-hacks/" target="_blank" rel="noopener">Retro Dodo — 17 Best GBA ROM Hacks (2025)</a></li>
+        <li><a href="https://www.youtube.com/watch?v=cZoV3z9RFWc" target="_blank" rel="noopener">SacredAlmighty — Top 10 BEST Pokémon ROM Hacks of 2024 (YouTube)</a></li>
+        <li><a href="https://www.romhacking.net/" target="_blank" rel="noopener">ROMhacking.net — Various hack entries</a></li>
+        <li><a href="https://eeveeexpo.com/gaia/" target="_blank" rel="noopener">Eevee Expo — Pokémon Gaia Version</a></li>
+        <li><a href="https://gbatemp.net/threads/pokemon-emerald-romhack-pokemon-r-o-w-e.657753/" target="_blank" rel="noopener">GBAtemp — Pokémon R.O.W.E.</a></li>
+        <li><a href="https://drums-of-war.vercel.app/" target="_blank" rel="noopener">Drums of War — Official Website</a></li>
+        <li><a href="https://feuniverse.us/t/fe8-completed-fire-emblem-sealed-hope-20-chapters/25249" target="_blank" rel="noopener">FE Universe — Fire Emblem: Sealed Hope</a></li>
+        <li><a href="https://solorpgist.com/fire-emblem-gba-rom-hacks/" target="_blank" rel="noopener">SoloRPGist — Best Fire Emblem GBA ROM Hacks</a></li>
+        <li><a href="https://www.pokeharbor.com/wp-content/uploads/2024/08/Pokemon-Emerald-Seaglass-Documentation-v2.0.pdf" target="_blank" rel="noopener">Pokémon Emerald Seaglass — Official Documentation (PDF)</a></li>
+        <li><a href="https://boundbyflame.com/best-gba-rom-hacks/" target="_blank" rel="noopener">BoundByFlame — 18 Best GBA ROM Hacks (2026)</a></li>
+        <li><a href="https://www.emulatorhacks.com/2021/03/pokemon-naillevaihcam-gba-pokemon.html" target="_blank" rel="noopener">EmulatorHacks — Pokémon Naillevaihcam</a></li>
+        <li><a href="https://darayner.itch.io/crash-bandicoot-twisted" target="_blank" rel="noopener">Darcy Rayner — Crash Bandicoot Twisted (itch.io)</a></li>
+        <li><a href="https://www.thelostgamer.com/pokemon-gba-rom-hacks/" target="_blank" rel="noopener">The Lost Gamer — 10 Best Pokémon GBA ROM Hacks</a></li>
+        <li><a href="https://gbatemp.net/threads/pokemon-lazarus.677754/" target="_blank" rel="noopener">GBAtemp — Pokémon Lazarus Discussion</a></li>
+    </ul>
+</div>
+</section>
+
+<footer>
+    <p>Compiled with ❤️ for the ROM hacking community. All hacks belong to their respective creators. Support official releases when possible.</p>
+    <p style="margin-top:0.4rem;">Last updated: June 2025 · Research via web sources</p>
+</footer>
+
+</div>
+</body>
+</html>
