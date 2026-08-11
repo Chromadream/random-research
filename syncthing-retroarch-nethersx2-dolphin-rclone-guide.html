@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syncthing + rclone Guide: Sync Retroarch, NetherSX2 &amp; Dolphin Saves Across Android Handhelds with Google Drive Backup</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #79c0ff;
+            --green: #3fb950;
+            --orange: #d2991d;
+            --red: #f85149;
+            --purple: #a371f7;
+            --code-bg: #1c2128;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            padding: 0 1rem 4rem;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--accent2);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        h2 {
+            color: var(--accent2);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 1.8rem 0 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        h4 {
+            color: var(--purple);
+            margin: 1.2rem 0 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        :not(pre) > code {
+            background: var(--code-bg);
+            padding: 0.15em 0.4em;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            white-space: pre;
+        }
+
+        .note, .warning, .tip, .caution {
+            border-left: 4px solid;
+            padding: 0.75rem 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 6px 6px 0;
+            background: var(--surface2);
+        }
+
+        .note {
+            border-color: var(--accent);
+        }
+
+        .warning {
+            border-color: var(--orange);
+        }
+
+        .caution {
+            border-color: var(--red);
+        }
+
+        .tip {
+            border-color: var(--green);
+        }
+
+        .note::before, .warning::before, .tip::before, .caution::before {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        .note::before {
+            content: '📘 NOTE';
+            color: var(--accent);
+        }
+
+        .warning::before {
+            content: '⚠️ WARNING';
+            color: var(--orange);
+        }
+
+        .caution::before {
+            content: '🚨 CAUTION';
+            color: var(--red);
+        }
+
+        .tip::before {
+            content: '💡 TIP';
+            color: var(--green);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--surface2);
+            color: var(--accent2);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--surface);
+        }
+
+        ol, ul {
+            margin: 0.8rem 0 1rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--accent2);
+        }
+
+        .toc ol {
+            margin-bottom: 0;
+        }
+
+        .toc a {
+            color: var(--text);
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        .step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        .folder-structure {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+            pre {
+                font-size: 0.8rem;
+                padding: 0.7rem;
+            }
+            table {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🔄 Syncthing + rclone: Cross-Device Save Sync &amp; Cloud Backup</h1>
+    <p>Sync RetroArch, NetherSX2, and Dolphin saves across Android handhelds via a Linux desktop, with automated Google Drive backup</p>
+    <p style="font-size:0.85rem;margin-top:0.5rem;">Last updated: July 2026 &nbsp;|&nbsp; Research compiled from official docs, community guides, and GitHub discussions</p>
+</header>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+        <li><a href="#overview">Overview &amp; Architecture</a></li>
+        <li><a href="#save-locations">Emulator Save File Locations (Android)</a></li>
+        <li><a href="#syncthing-linux">Part 1: Setting Up Syncthing on Linux (Hub)</a></li>
+        <li><a href="#syncthing-android">Part 2: Setting Up Syncthing on Android Handhelds</a></li>
+        <li><a href="#syncthing-retroarch">Part 3: Syncing RetroArch Saves &amp; States</a></li>
+        <li><a href="#syncthing-nethersx2">Part 4: Syncing NetherSX2 / AetherSX2 Saves</a></li>
+        <li><a href="#syncthing-dolphin">Part 5: Syncing Dolphin Saves &amp; Save States</a></li>
+        <li><a href="#linking-all">Part 6: Linking All Devices Together</a></li>
+        <li><a href="#rclone">Part 7: rclone — Backup Synced Folder to Google Drive</a></li>
+        <li><a href="#rclone-automation">Part 8: Automating rclone with systemd Timer</a></li>
+        <li><a href="#battery">Part 9: Android Battery Optimization Tips</a></li>
+        <li><a href="#troubleshooting">Part 10: Troubleshooting &amp; Best Practices</a></li>
+        <li><a href="#sources">Sources</a></li>
+    </ol>
+</div>
+
+<!-- OVERVIEW -->
+<h2 id="overview">1. Overview &amp; Architecture</h2>
+
+<p>
+    This guide sets up a <strong>hub-and-spoke</strong> synchronization architecture. Your Linux desktop acts as the central hub — it runs Syncthing 24/7, collecting saves from all your Android handhelds. Whenever you finish playing on one device, its saves sync to the Linux hub. When you pick up another device, the latest saves are waiting for you. On top of that, <strong>rclone</strong> periodically backs up the entire synced folder to Google Drive for off-site redundancy.
+</p>
+
+<div class="folder-structure">
+┌──────────────────────────────────────────────────────┐
+│                 ARCHITECTURE OVERVIEW                │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│   Android Handheld #1          Android Handheld #2   │
+│   ┌──────────────┐            ┌──────────────┐      │
+│   │ RetroArch    │            │ RetroArch    │      │
+│   │ NetherSX2    │            │ NetherSX2    │      │
+│   │ Dolphin      │            │ Dolphin      │      │
+│   └──────┬───────┘            └──────┬───────┘      │
+│          │ Syncthing-Fork            │               │
+│          │                           │               │
+│          └──────────┬────────────────┘               │
+│                     ▼                                │
+│          ┌──────────────────┐                        │
+│          │  LINUX DESKTOP    │                        │
+│          │  (Syncthing Hub)  │                        │
+│          │  ~/Sync/Emulators/│                        │
+│          └────────┬─────────┘                        │
+│                   │ rclone copy                      │
+│                   ▼                                  │
+│          ┌──────────────────┐                        │
+│          │  GOOGLE DRIVE    │                        │
+│          │  (Cloud Backup)  │                        │
+│          └──────────────────┘                        │
+└──────────────────────────────────────────────────────┘
+</div>
+
+<div class="note">
+    <strong>Key concepts:</strong> Syncthing is peer-to-peer — there is no cloud middleman. Your data stays private and encrypted (TLS). Devices must be online simultaneously to sync. The Linux hub keeps all saves centralized, and rclone handles the off-site backup to Google Drive.
+</div>
+
+<!-- SAVE LOCATIONS -->
+<h2 id="save-locations">2. Emulator Save File Locations on Android</h2>
+
+<p>Knowing exactly where each emulator stores its files is critical. Here are the paths for Android devices:</p>
+
+<h3>RetroArch</h3>
+<table>
+    <tr><th>Data Type</th><th>Path</th><th>Accessible?</th></tr>
+    <tr>
+        <td>In-game saves (.srm)</td>
+        <td><code>/storage/emulated/0/RetroArch/saves/&lt;core_name&gt;/</code></td>
+        <td>✅ Yes — fully accessible</td>
+    </tr>
+    <tr>
+        <td>Save states (.state)</td>
+        <td><code>/storage/emulated/0/RetroArch/states/&lt;core_name&gt;/</code></td>
+        <td>✅ Yes — fully accessible</td>
+    </tr>
+    <tr>
+        <td>Cheats</td>
+        <td><code>/storage/emulated/0/RetroArch/cheats/</code></td>
+        <td>✅ Yes</td>
+    </tr>
+    <tr>
+        <td>Config</td>
+        <td><code>/storage/emulated/0/RetroArch/config/</code></td>
+        <td>✅ Yes</td>
+    </tr>
+</table>
+
+<div class="tip">
+    In RetroArch, go to <strong>Settings → Saving</strong> and ensure:<br>
+    ✅ <code>Sort Saves into Folders by Core Name</code> = <strong>ON</strong><br>
+    ✅ <code>Sort Save States into Folders by Core Name</code> = <strong>ON</strong><br>
+    ✅ <code>Write Saves to Content Directory</code> = <strong>OFF</strong><br>
+    ✅ <code>Write Save States to Content Directory</code> = <strong>OFF</strong><br><br>
+    This ensures saves go into the standard RetroArch folder structure, not alongside your ROMs.
+</div>
+
+<h3>NetherSX2 / AetherSX2</h3>
+<table>
+    <tr><th>Data Type</th><th>Path</th><th>Accessible?</th></tr>
+    <tr>
+        <td>Memory cards</td>
+        <td><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/memcards/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Save states</td>
+        <td><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/sstates/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Cheats</td>
+        <td><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/cheats/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Game settings</td>
+        <td><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/gamesettings/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Textures</td>
+        <td><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/textures/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+</table>
+
+<div class="caution">
+    <strong>Android scoped storage problem:</strong> On Android 11+, <code>Android/data/</code> is restricted. Normal file managers and even Syncthing's app UI cannot access it. However, <strong>Syncthing's Web GUI</strong> (accessed via browser at <code>127.0.0.1:8384</code>) <em>can</em> browse into these folders on some devices (Retroid, AYN Odin). On Anbernic Android devices, even the Web GUI is blocked — you may need root or the <a href="#nethersx2-workaround">manual workaround</a>.
+</div>
+
+<h3>Dolphin (Official)</h3>
+<table>
+    <tr><th>Data Type</th><th>Path</th><th>Accessible?</th></tr>
+    <tr>
+        <td>GameCube saves</td>
+        <td><code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/GC/&lt;Region&gt;/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Wii saves</td>
+        <td><code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/Wii/title/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Save states</td>
+        <td><code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/StateSaves/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Game settings</td>
+        <td><code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/GameSettings/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+    <tr>
+        <td>Load/Textures</td>
+        <td><code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/Load/Textures/</code></td>
+        <td>⚠️ Behind scoped storage</td>
+    </tr>
+</table>
+
+<div class="tip">
+    Recent Dolphin builds (2025+) have added a <strong>DocumentProvider</strong> flag that makes Dolphin appear as a "local" file provider. This means third-party apps like Syncthing can now detect and sync Dolphin's folder. Ensure you're on a recent Dolphin dev build for this to work. In Dolphin, you can also use <strong>Settings → Config → User Data → Export User Data</strong> as a manual backup method.
+</div>
+
+<!-- PART 1: SYNCTHING LINUX -->
+<h2 id="syncthing-linux">Part 1: Setting Up Syncthing on Linux (Hub)</h2>
+
+<h3>Installation</h3>
+
+<p><strong>Option A — Ubuntu/Debian via official repo (recommended for latest version):</strong></p>
+
+<pre><code># Add the release PGP keys:
+sudo mkdir -p /etc/apt/keyrings
+sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+
+# Add the stable channel:
+echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable-v2" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+# Update and install:
+sudo apt-get update
+sudo apt-get install syncthing</code></pre>
+
+<p><strong>Option B — From default repos (may be older):</strong></p>
+
+<pre><code>sudo apt update
+sudo apt install syncthing</code></pre>
+
+<p><strong>Option C — Fedora:</strong></p>
+<pre><code>sudo dnf install syncthing</code></pre>
+
+<p><strong>Option D — Arch:</strong></p>
+<pre><code>sudo pacman -S syncthing</code></pre>
+
+<h3>Enable as a User Service (Recommended)</h3>
+
+<pre><code># Enable and start Syncthing for your user:
+systemctl --user enable syncthing
+systemctl --user start syncthing
+
+# Check it's running:
+systemctl --user status syncthing
+
+# Optional: enable lingering so it runs even when logged out
+sudo loginctl enable-linger $USER</code></pre>
+
+<h3>Access the Web GUI</h3>
+
+<p>Open your browser and navigate to:</p>
+<pre><code>http://127.0.0.1:8384</code></pre>
+
+<div class="tip">
+    <strong>Set a GUI password!</strong> In the Web GUI, go to <strong>Actions → Settings → GUI</strong> and set a username and password. This is especially important if you allow remote access by changing the GUI listen address from <code>127.0.0.1:8384</code> to <code>0.0.0.0:8384</code> in <code>~/.config/syncthing/config.xml</code>.
+</div>
+
+<h3>Configure Firewall (if using UFW)</h3>
+
+<pre><code>sudo ufw allow 22000/tcp
+sudo ufw allow 22000/udp
+sudo ufw allow 21027/udp</code></pre>
+
+<h3>Create the Hub Sync Folders</h3>
+
+<p>We'll create a structured folder on your Linux desktop that mirrors what each emulator needs:</p>
+
+<div class="folder-structure">
+~/Sync/Emulators/
+├── RetroArch/
+│   ├── saves/          ← synced with Android RetroArch/saves/
+│   ├── states/         ← synced with Android RetroArch/states/
+│   └── cheats/         ← optional
+├── NetherSX2/
+│   ├── memcards/       ← synced with Android/data/.../files/memcards/
+│   ├── sstates/        ← synced with Android/data/.../files/sstates/
+│   └── gamesettings/   ← optional
+└── Dolphin/
+    ├── GC/             ← synced with Android/data/.../files/GC/
+    ├── Wii/            ← synced with Android/data/.../files/Wii/
+    ├── StateSaves/     ← synced with Android/data/.../files/StateSaves/
+    └── GameSettings/   ← optional
+</div>
+
+<pre><code>mkdir -p ~/Sync/Emulators/{RetroArch/{saves,states,cheats},NetherSX2/{memcards,sstates,gamesettings},Dolphin/{GC,Wii,StateSaves,GameSettings}}</code></pre>
+
+<p>Now, in the Syncthing Web GUI, add each subfolder you want to sync as a separate folder. Use <strong>Add Folder</strong> and set the path. Enable <strong>File Versioning → Simple File Versioning</strong> (keeps 5 old versions — a lifesaver if a save corrupts).</p>
+
+<div class="note">
+    <strong>Why separate folders per emulator and per type?</strong> This gives you fine-grained control. Maybe you only want to sync in-game saves (not save states) for Dolphin, or skip texture packs. Separate folders also avoid one emulator's file structure confusing another.
+</div>
+
+<!-- PART 2: SYNCTHING ANDROID -->
+<h2 id="syncthing-android">Part 2: Setting Up Syncthing on Android Handhelds</h2>
+
+<div class="warning">
+    <strong>Important:</strong> The official Syncthing Android app was discontinued in late 2024. You MUST use <strong>Syncthing-Fork</strong> by Catfriend1, available on <strong>F-Droid</strong>. Do not use the old Play Store version — it is unmaintained.
+</div>
+
+<h3>Install Syncthing-Fork</h3>
+
+<ol>
+    <li>Install <a href="https://f-droid.org/" target="_blank">F-Droid</a> on your Android handheld</li>
+    <li>Search for <strong>"Syncthing-Fork"</strong> and install it</li>
+    <li>Alternatively, download the APK directly from the <a href="https://github.com/catfriend1/syncthingandroid/releases" target="_blank">GitHub releases page</a></li>
+</ol>
+
+<h3>Initial Android Setup</h3>
+
+<ol>
+    <li>Open Syncthing-Fork and grant storage permissions when prompted</li>
+    <li>Turn off <strong>Battery Optimization</strong> for Syncthing-Fork (Android Settings → Apps → Syncthing → Battery → Unrestricted)</li>
+    <li><strong>IMPORTANT:</strong> Use the <strong>Web GUI</strong> for adding folders that are in <code>Android/data/</code> — the app's native UI cannot browse into scoped storage directories</li>
+</ol>
+
+<div class="step">
+    <span class="step-number">1</span> <strong>Open the Web GUI:</strong> In Syncthing-Fork, tap the menu → <strong>Web GUI</strong>. This opens <code>http://127.0.0.1:8384</code> in your browser. For scoped storage folders, this is the <em>only</em> way to browse into <code>Android/data/</code>.
+</div>
+
+<h3>Battery Optimization Settings (Critical!)</h3>
+
+<p>In Syncthing-Fork, go to <strong>Settings → Syncthing Options</strong> and set:</p>
+<ul>
+    <li><strong>Global discovery:</strong> OFF (if only syncing at home)</li>
+    <li><strong>Enable Relaying:</strong> OFF (if only syncing at home)</li>
+</ul>
+
+<p>Go to <strong>Settings → Run Conditions</strong>:</p>
+<ul>
+    <li><strong>Run on mobile data:</strong> OFF</li>
+    <li><strong>Run without network connection:</strong> OFF</li>
+    <li><strong>Run according to time schedule:</strong> ON</li>
+    <li><strong>Duration of the sync cycle:</strong> 5 minutes</li>
+</ul>
+
+<p>This makes Syncthing run for 5 minutes every hour, dramatically reducing battery drain. When you want to force an immediate sync (e.g., after a gaming session), tap <strong>FORCE START / IGNORE RUN CONDITIONS</strong> in the Status tab.</p>
+
+<!-- PART 3: RETROARCH -->
+<h2 id="syncthing-retroarch">Part 3: Syncing RetroArch Saves &amp; States</h2>
+
+<p>RetroArch is the easiest to sync because its saves and states are stored in a publicly accessible location. <strong>No root required.</strong></p>
+
+<h3>On Each Android Handheld</h3>
+<ol>
+    <li>Open <strong>RetroArch → Settings → Saving</strong> and confirm the settings from <a href="#save-locations">Section 2</a></li>
+    <li>Go to <strong>Main Menu → Configuration File → Save Current Configuration</strong></li>
+</ol>
+
+<h3>On the Linux Hub</h3>
+<ol>
+    <li>In Syncthing Web GUI, add a folder with path <code>~/Sync/Emulators/RetroArch/saves</code>, label it <code>ra-saves</code></li>
+    <li>Add another folder with path <code>~/Sync/Emulators/RetroArch/states</code>, label it <code>ra-states</code></li>
+    <li>Enable <strong>File Versioning → Simple File Versioning</strong> for both</li>
+</ol>
+
+<h3>Link Each Android Handheld</h3>
+<ol>
+    <li>On the Linux Syncthing Web GUI, click <strong>Add Remote Device</strong></li>
+    <li>Your Android device should appear in the list — click its Device ID</li>
+    <li>In the <strong>Sharing</strong> tab, check <code>ra-saves</code> and <code>ra-states</code></li>
+    <li>Click <strong>Save</strong></li>
+    <li>On the Android Syncthing Web GUI, accept the device connection prompt</li>
+    <li>Accept the folder share prompts. For <code>ra-saves</code>, set the folder path to:
+        <pre><code>/storage/emulated/0/RetroArch/saves</code></pre>
+    </li>
+    <li>For <code>ra-states</code>, set the folder path to:
+        <pre><code>/storage/emulated/0/RetroArch/states</code></pre>
+    </li>
+</ol>
+
+<div class="tip">
+    <strong>Using Ignore Patterns:</strong> Instead of creating separate folders for saves, states, and cheats, you can add the entire <code>RetroArch</code> folder as one sync folder and use ignore patterns to include only what you want:<br>
+    <code>!saves</code><br>
+    <code>!states</code><br>
+    <code>!cheats</code><br>
+    <code>*</code><br>
+    This tells Syncthing: "ignore everything except <code>saves</code>, <code>states</code>, and <code>cheats</code>."
+</div>
+
+<!-- PART 4: NETHERSX2 -->
+<h2 id="syncthing-nethersx2">Part 4: Syncing NetherSX2 / AetherSX2 Saves</h2>
+
+<div class="caution">
+    <strong>This is the trickiest emulator to sync.</strong> NetherSX2 stores data in <code>Android/data/xyz.aethersx2.android/files/</code>, which is behind Android's scoped storage. Also, NetherSX2 currently <strong>does not allow changing</strong> the memory card or save state directory. The workaround depends on your device.
+</div>
+
+<h3>Scenario A: Retroid / AYN Odin Devices (Syncthing Web GUI works)</h3>
+
+<p>On these devices, the Syncthing Web GUI can browse into <code>Android/data/</code>. Simply use the Web GUI to add the folder:</p>
+
+<ol>
+    <li>On your Linux hub, create a folder <code>~/Sync/Emulators/NetherSX2/memcards</code> and share it</li>
+    <li>On the Android device's Syncthing <strong>Web GUI</strong> (not the app UI), accept the share</li>
+    <li>Set the folder path to:
+        <pre><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/memcards</code></pre>
+    </li>
+    <li>Repeat for <code>sstates</code> (save states):
+        <pre><code>/storage/emulated/0/Android/data/xyz.aethersx2.android/files/sstates</code></pre>
+    </li>
+</ol>
+
+<h3 id="nethersx2-workaround">Scenario B: Anbernic Android / Locked Devices (Root Workaround)</h3>
+
+<p>If the Web GUI also cannot access <code>Android/data/</code>, you need an indirect approach. This method uses Syncthing to sync to a <em>different</em> accessible folder, then a root script copies files into the protected location:</p>
+
+<h4>Step 1: Set up a bridge folder</h4>
+<pre><code># On the Android device, create a folder Syncthing CAN access
+mkdir -p /storage/emulated/0/Syncthing/NetherSX2/memcards
+mkdir -p /storage/emulated/0/Syncthing/NetherSX2/sstates</code></pre>
+
+<h4>Step 2: Sync to the bridge folder</h4>
+<p>In Syncthing (Web GUI), accept folder shares and point them to the bridge folders above (NOT to <code>Android/data/</code>).</p>
+
+<h4>Step 3: Create a copy script (requires root via ADB)</h4>
+<p>Connect via ADB and create a sync script:</p>
+
+<pre><code>adb shell
+su
+cat > /data/media/0/sync_nethersx2.sh << 'EOF'
+#!/bin/sh
+# Copy from Syncthing bridge → protected NetherSX2 folder
+cp -r /data/media/0/Syncthing/NetherSX2/memcards/. \
+      /data/media/0/Android/data/xyz.aethersx2.android/files/memcards/
+cp -r /data/media/0/Syncthing/NetherSX2/sstates/. \
+      /data/media/0/Android/data/xyz.aethersx2.android/files/sstates/
+# Fix ownership
+STAT_OUT=$(stat /data/media/0/Android/data/xyz.aethersx2.android)
+UID=$(echo "$STAT_OUT" | grep "Uid:" | awk '{print $2}' | cut -d'/' -f1)
+chown -R $UID:ext_data_rw /data/media/0/Android/data/xyz.aethersx2.android/files/
+EOF
+chmod +x /data/media/0/sync_nethersx2.sh</code></pre>
+
+<h4>Step 4: Also sync in reverse (device → hub)</h4>
+<p>Create a second script that copies FROM the protected folder TO the bridge folder after you finish playing:</p>
+
+<pre><code>cat > /data/media/0/sync_nethersx2_reverse.sh << 'EOF'
+#!/bin/sh
+cp -r /data/media/0/Android/data/xyz.aethersx2.android/files/memcards/. \
+      /data/media/0/Syncthing/NetherSX2/memcards/
+cp -r /data/media/0/Android/data/xyz.aethersx2.android/files/sstates/. \
+      /data/media/0/Syncthing/NetherSX2/sstates/
+EOF
+chmod +x /data/media/0/sync_nethersx2_reverse.sh</code></pre>
+
+<div class="tip">
+    <strong>Automate with MacroDroid:</strong> Install MacroDroid from the Play Store. Create a macro: <strong>Trigger → Application Launched → NetherSX2</strong>, <strong>Action → Shell Script (root) → <code>/data/media/0/sync_nethersx2.sh</code></strong>. Create a second macro: <strong>Trigger → Application Closed → NetherSX2</strong>, with the reverse script. This automatically pulls saves before you play and pushes them when you're done.
+</div>
+
+<div class="note">
+    <strong>Manual fallback:</strong> If root is not an option at all, use NetherSX2's built-in <strong>Transfer Data → Export</strong> feature periodically. Open NetherSX2, go to the left menu → <strong>Transfer Data → Export</strong>, choose a folder (like Downloads), and then use Syncthing to sync that export folder. To restore, use <strong>Transfer Data → Import</strong>. This is manual but works on any device.
+</div>
+
+<!-- PART 5: DOLPHIN -->
+<h2 id="syncthing-dolphin">Part 5: Syncing Dolphin Saves &amp; Save States</h2>
+
+<p>Dolphin's data lives in <code>Android/data/org.dolphinemu.dolphinemu/files/</code>. Recent Dolphin builds (2025+) added a <strong>DocumentProvider</strong> with a "Local only" flag, which makes Dolphin's data visible to Syncthing on some devices.</p>
+
+<h3>On Your Linux Hub</h3>
+<p>Create the Dolphin sync folders:</p>
+<pre><code>mkdir -p ~/Sync/Emulators/Dolphin/{GC,StateSaves,GameSettings}</code></pre>
+
+<p>In Syncthing Web GUI, add each as a separate folder and share them.</p>
+
+<h3>On Android (Scenario A: Syncthing Can Access)</h3>
+
+<p>On Retroid and AYN devices, use the Syncthing Web GUI and point to:</p>
+<ul>
+    <li><strong>GC saves:</strong> <code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/GC</code></li>
+    <li><strong>Save states:</strong> <code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/StateSaves</code></li>
+    <li><strong>Game settings:</strong> <code>/storage/emulated/0/Android/data/org.dolphinemu.dolphinemu/files/GameSettings</code></li>
+</ul>
+
+<h3>On Android (Scenario B: Locked Device)</h3>
+<p>Use the same bridge-folder + root-script approach as NetherSX2, substituting the package name:</p>
+
+<pre><code># Bridge folders:
+mkdir -p /storage/emulated/0/Syncthing/Dolphin/{GC,StateSaves,GameSettings}
+
+# Copy script:
+cat > /data/media/0/sync_dolphin.sh << 'EOF'
+#!/bin/sh
+cp -r /data/media/0/Syncthing/Dolphin/GC/. \
+      /data/media/0/Android/data/org.dolphinemu.dolphinemu/files/GC/
+cp -r /data/media/0/Syncthing/Dolphin/StateSaves/. \
+      /data/media/0/Android/data/org.dolphinemu.dolphinemu/files/StateSaves/
+STAT_OUT=$(stat /data/media/0/Android/data/org.dolphinemu.dolphinemu)
+UID=$(echo "$STAT_OUT" | grep "Uid:" | awk '{print $2}' | cut -d'/' -f1)
+chown -R $UID:ext_data_rw /data/media/0/Android/data/org.dolphinemu.dolphinemu/files/
+EOF
+chmod +x /data/media/0/sync_dolphin.sh</code></pre>
+
+<div class="tip">
+    <strong>Dolphin's Export Feature:</strong> As a manual fallback, Dolphin has <strong>Settings → Config → User Data → Export User Data</strong>. This exports everything to a folder of your choice. You can then sync that export folder with Syncthing. When moving to another device, use <strong>Import User Data</strong>.
+</div>
+
+<!-- PART 6: LINKING -->
+<h2 id="linking-all">Part 6: Linking All Devices Together (Mesh Sync)</h2>
+
+<p>By default, all devices sync through the Linux hub. But you can also make devices sync directly with each other — useful when both handhelds are on but the Linux PC is off.</p>
+
+<h3>To Enable Direct Device-to-Device Sync:</h3>
+
+<ol>
+    <li>Open the Syncthing Web GUI on <strong>Device A</strong></li>
+    <li>Click <strong>Add Remote Device</strong></li>
+    <li>Select <strong>Device B</strong> from the list of nearby devices</li>
+    <li>In the <strong>Sharing</strong> tab, select the folders you want to share directly</li>
+    <li>Click <strong>Save</strong></li>
+    <li>On <strong>Device B</strong>, accept the connection and folder shares</li>
+</ol>
+
+<p>Now all three devices (Linux hub + two handhelds) form a mesh. If one is offline, the others still sync.</p>
+
+<div class="warning">
+    <strong>Conflict risk:</strong> With direct device-to-device sync, the same file could be modified on two devices simultaneously. Syncthing handles this by creating <code>.sync-conflict</code> files. Good habits prevent this: always save in-game and close the emulator on one device before starting to play on another.
+</div>
+
+<!-- PART 7: RCLONE -->
+<h2 id="rclone">Part 7: rclone — Backup Synced Folder to Google Drive</h2>
+
+<p>Syncthing syncs between devices, but it is <strong>not a backup</strong>. A corrupted save will sync everywhere. This is where rclone comes in — it backs up your Linux hub's synced folder to Google Drive on a schedule, giving you off-site redundancy.</p>
+
+<h3>Install rclone</h3>
+
+<pre><code># Ubuntu/Debian:
+sudo apt install rclone
+
+# Fedora:
+sudo dnf install rclone
+
+# Or the latest from the official install script:
+curl https://rclone.org/install.sh | sudo bash</code></pre>
+
+<h3>Configure Google Drive Remote</h3>
+
+<div class="caution">
+    <strong>Create your own OAuth Client ID!</strong> rclone's shared client ID is being retired in 2026. You should create your own in the Google Cloud Console to avoid interruption. See the <a href="https://rclone.org/drive/#making-your-own-client-id" target="_blank">rclone docs</a> for step-by-step instructions.
+</div>
+
+<pre><code>rclone config</code></pre>
+
+<p>Follow the interactive prompts:</p>
+
+<ol>
+    <li><strong>n</strong> → New remote</li>
+    <li><strong>Name:</strong> <code>gdrive</code></li>
+    <li><strong>Storage type:</strong> <code>drive</code> (or the number for Google Drive)</li>
+    <li><strong>client_id:</strong> Enter your own, or leave blank to use rclone's shared one (being retired)</li>
+    <li><strong>client_secret:</strong> Enter your own if applicable</li>
+    <li><strong>Scope:</strong> <code>1</code> (Full access — recommended for backup)</li>
+    <li><strong>root_folder_id:</strong> Leave blank (root of Drive)</li>
+    <li><strong>service_account_file:</strong> Leave blank</li>
+    <li><strong>Advanced config:</strong> <code>n</code></li>
+    <li><strong>Use auto config:</strong> <code>y</code> — browser opens for OAuth</li>
+    <li>Log in to Google and authorize rclone</li>
+    <li><strong>Shared Drive:</strong> <code>n</code></li>
+    <li><strong>Keep this remote:</strong> <code>y</code></li>
+</ol>
+
+<h3>Test the Connection</h3>
+<pre><code># List your Drive contents:
+rclone lsd gdrive:
+
+# Check quota:
+rclone about gdrive:</code></pre>
+
+<h3>Backup Strategy: rclone copy (Not sync!)</h3>
+
+<div class="warning">
+    <strong>Use <code>rclone copy</code>, NOT <code>rclone sync</code> for backups!</strong><br>
+    <code>sync</code> makes the destination an exact mirror — files deleted locally get deleted on Drive too. <code>copy</code> only uploads new and changed files; it <em>never</em> deletes anything from Drive. This is the safer choice for backups.
+</div>
+
+<h3>Manual Backup Command</h3>
+
+<pre><code>rclone copy ~/Sync/Emulators/ gdrive:EmulatorBackups/ \
+    --progress \
+    --create-empty-src-dirs \
+    --verbose</code></pre>
+
+<p>This uploads everything from <code>~/Sync/Emulators/</code> into a folder called <code>EmulatorBackups</code> on Google Drive. Only new or modified files are transferred. Nothing is ever deleted from Drive.</p>
+
+<h3>Useful rclone Flags for This Setup</h3>
+
+<table>
+    <tr><th>Flag</th><th>Purpose</th></tr>
+    <tr><td><code>--progress</code></td><td>Show transfer progress</td></tr>
+    <tr><td><code>--create-empty-src-dirs</code></td><td>Recreate empty directories on Drive</td></tr>
+    <tr><td><code>--verbose</code> / <code>-v</code></td><td>Detailed output for debugging</td></tr>
+    <tr><td><code>--dry-run</code></td><td>Simulate — show what would happen without doing it</td></tr>
+    <tr><td><code>--max-age 24h</code></td><td>Only copy files modified in the last 24 hours</td></tr>
+    <tr><td><code>--transfers 4</code></td><td>Number of parallel file transfers (default 4)</td></tr>
+    <tr><td><code>--bwlimit 1M</code></td><td>Limit bandwidth to 1 MB/s (avoid saturating your connection)</td></tr>
+    <tr><td><code>--drive-chunk-size 64M</code></td><td>Optimize upload chunk size for Google Drive</td></tr>
+    <tr><td><code>--exclude "*.state"</code></td><td>Exclude save state files if you only want battery saves</td></tr>
+    <tr><td><code>--log-file /var/log/rclone-backup.log</code></td><td>Write output to a log file</td></tr>
+</table>
+
+<h3>Restoring from Google Drive</h3>
+
+<pre><code># Download everything back:
+rclone copy gdrive:EmulatorBackups/ ~/Sync/Emulators/ --progress
+
+# Or just restore a specific save:
+rclone copy gdrive:EmulatorBackups/RetroArch/saves/ ~/Sync/Emulators/RetroArch/saves/ --progress</code></pre>
+
+<!-- PART 8: RCLONE AUTOMATION -->
+<h2 id="rclone-automation">Part 8: Automating rclone with systemd Timer</h2>
+
+<p>Instead of running rclone manually, let's set up a systemd timer that backs up your sync folder to Google Drive every 6 hours.</p>
+
+<h3>Step 1: Create the Backup Script</h3>
+
+<pre><code>sudo nano /usr/local/bin/backup-emulators-to-gdrive.sh</code></pre>
+
+<p>Paste the following:</p>
+
+<pre><code>#!/bin/bash
+# Backup script: copies Syncthing emulator folder to Google Drive
+
+SOURCE="$HOME/Sync/Emulators"
+DEST="gdrive:EmulatorBackups"
+LOG="/var/log/rclone-emulator-backup.log"
+LOCK="/tmp/rclone-emulator-backup.lock"
+
+# Prevent overlapping runs
+if [ -e "$LOCK" ]; then
+    PID=$(cat "$LOCK")
+    if ps -p "$PID" > /dev/null 2>&1; then
+        echo "$(date): Backup already running (PID $PID). Exiting." >> "$LOG"
+        exit 0
+    fi
+fi
+echo $$ > "$LOCK"
+
+echo "$(date '+%Y-%m-%d %H:%M:%S'): Starting backup to Google Drive..." >> "$LOG"
+
+/usr/bin/rclone copy "$SOURCE" "$DEST" \
+    --progress \
+    --create-empty-src-dirs \
+    --transfers 4 \
+    --exclude ".stfolder" \
+    --exclude ".stversions" \
+    --log-file "$LOG" \
+    --log-level INFO
+
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S'): Backup completed successfully." >> "$LOG"
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S'): Backup FAILED with exit code $EXIT_CODE." >> "$LOG"
+fi
+
+rm -f "$LOCK"
+exit $EXIT_CODE</code></pre>
+
+<pre><code>sudo chmod +x /usr/local/bin/backup-emulators-to-gdrive.sh</code></pre>
+
+<h3>Step 2: Create the systemd Service</h3>
+
+<pre><code>sudo nano /etc/systemd/system/rclone-emulator-backup.service</code></pre>
+
+<pre><code>[Unit]
+Description=RClone Backup — Emulator Saves to Google Drive
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=YOUR_USERNAME
+ExecStart=/usr/local/bin/backup-emulators-to-gdrive.sh
+StandardOutput=append:/var/log/rclone-emulator-backup.log
+StandardError=append:/var/log/rclone-emulator-backup.log
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+
+<div class="note">
+    Replace <code>YOUR_USERNAME</code> with your actual Linux username. The rclone config is stored per-user in <code>~/.config/rclone/</code>, so the service must run as your user.
+</div>
+
+<h3>Step 3: Create the systemd Timer</h3>
+
+<pre><code>sudo nano /etc/systemd/system/rclone-emulator-backup.timer</code></pre>
+
+<pre><code>[Unit]
+Description=RClone Backup Timer — Every 6 Hours
+Requires=rclone-emulator-backup.service
+
+[Timer]
+OnCalendar=*-*-* 00:00:00
+OnCalendar=*-*-* 06:00:00
+OnCalendar=*-*-* 12:00:00
+OnCalendar=*-*-* 18:00:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target</code></pre>
+
+<div class="tip">
+    <strong>Persistent=true</strong> means if the system was off during a scheduled backup, it runs immediately on boot. <strong>RandomizedDelaySec=300</strong> adds up to 5 minutes of random delay so multiple timers don't all fire at once.
+</div>
+
+<h3>Step 4: Enable and Start</h3>
+
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable rclone-emulator-backup.timer
+sudo systemctl start rclone-emulator-backup.timer
+
+# Verify:
+sudo systemctl status rclone-emulator-backup.timer
+systemctl list-timers | grep rclone</code></pre>
+
+<h3>Step 5: Test It</h3>
+
+<pre><code># Run the service immediately to test:
+sudo systemctl start rclone-emulator-backup.service
+
+# Check the log:
+sudo tail -f /var/log/rclone-emulator-backup.log</code></pre>
+
+<!-- PART 9: BATTERY -->
+<h2 id="battery">Part 9: Android Battery Optimization Tips</h2>
+
+<p>Syncthing on Android can drain battery because it constantly watches for file changes and maintains network connections. Here's how to minimize impact:</p>
+
+<table>
+    <tr><th>Setting</th><th>Recommendation</th><th>Why</th></tr>
+    <tr>
+        <td>Android Battery Optimization</td>
+        <td>Set to "Unrestricted" for Syncthing-Fork</td>
+        <td>Prevents Android from killing Syncthing mid-sync, which causes more battery drain from restarts</td>
+    </tr>
+    <tr>
+        <td>Run Conditions → Run on mobile data</td>
+        <td>OFF</td>
+        <td>Only sync on Wi-Fi</td>
+    </tr>
+    <tr>
+        <td>Run Conditions → Run without network</td>
+        <td>OFF</td>
+        <td>Don't waste battery scanning when offline</td>
+    </tr>
+    <tr>
+        <td>Run Conditions → Time schedule</td>
+        <td>ON (5 min cycle, 60 min interval)</td>
+        <td>Syncs once per hour for 5 minutes instead of continuously</td>
+    </tr>
+    <tr>
+        <td>Syncthing Options → Global Discovery</td>
+        <td>OFF</td>
+        <td>Don't announce to global discovery servers</td>
+    </tr>
+    <tr>
+        <td>Syncthing Options → Enable Relaying</td>
+        <td>OFF</td>
+        <td>Don't use relay servers (only direct connections)</td>
+    </tr>
+    <tr>
+        <td>Folder → Watch for Changes</td>
+        <td>OFF (use periodic rescan instead)</td>
+        <td>Filesystem watching uses CPU. Set a rescan interval instead (e.g., 3600 seconds)</td>
+    </tr>
+</table>
+
+<div class="tip">
+    <strong>Manual force sync trick:</strong> After finishing a gaming session, open Syncthing-Fork → <strong>Status tab → FORCE START / IGNORE RUN CONDITIONS</strong>. This triggers an immediate sync. When done, tap <strong>FOLLOW RUN CONDITIONS</strong> to return to the battery-saving schedule. This gives you instant syncs when needed without constant battery drain.
+</div>
+
+<!-- PART 10: TROUBLESHOOTING -->
+<h2 id="troubleshooting">Part 10: Troubleshooting &amp; Best Practices</h2>
+
+<h3>Best Practices</h3>
+
+<ol>
+    <li><strong>Standardize your ROM library.</strong> Save files are named after ROM files. If <code>Zelda.gba</code> is named differently on different devices, saves won't sync. Use the exact same ROM set everywhere.</li>
+    <li><strong>Use the same RetroArch core on all devices.</strong> Save states are core-specific. An <code>mGBA</code> save state won't load on <code>gPSP</code>. Use consistent cores.</li>
+    <li><strong>Prefer in-game (SRAM) saves over save states for cross-device play.</strong> Save states (.state) are fragile and core-version-specific. Battery saves (.srm) are portable and reliable.</li>
+    <li><strong>Always close the emulator properly.</strong> RetroArch writes battery saves on content close. If you just power off, the save may not be written and Syncthing won't see it.</li>
+    <li><strong>One device at a time.</strong> Don't play the same game on two devices simultaneously. Finish, save, close the emulator, let it sync, then start on the other device.</li>
+    <li><strong>Enable file versioning everywhere.</strong> Simple File Versioning (keep 5-10 copies) is a lifesaver if a save corrupts and syncs everywhere.</li>
+    <li><strong>Periodically verify your Google Drive backup.</strong> Download a random save file and test it. Trust but verify!</li>
+</ol>
+
+<h3>Common Issues</h3>
+
+<table>
+    <tr><th>Problem</th><th>Likely Cause</th><th>Solution</th></tr>
+    <tr>
+        <td>Devices not connecting</td>
+        <td>Firewall blocking ports</td>
+        <td>Ensure TCP/UDP 22000 and UDP 21027 are open. Check both devices are on the same network or have relay enabled.</td>
+    </tr>
+    <tr>
+        <td>"Out of sync" or "failed items"</td>
+        <td>File permissions on Android/data/</td>
+        <td>On locked devices, use the bridge-folder workaround with root scripts.</td>
+    </tr>
+    <tr>
+        <td>Save states not loading on another device</td>
+        <td>Different RetroArch core or version</td>
+        <td>Use the exact same core. Save states are NOT portable between different cores. Use battery saves instead.</td>
+    </tr>
+    <tr>
+        <td>Syncthing drains battery fast</td>
+        <td>Continuous syncing and file watching</td>
+        <td>Enable time-scheduled syncing (Section 9). Turn off file watcher, use periodic rescans.</td>
+    </tr>
+    <tr>
+        <td>Syncthing won't access Android/data/</td>
+        <td>Android scoped storage restrictions</td>
+        <td>Use the <strong>Web GUI</strong> (not the app UI). On some devices (Anbernic), this still won't work — use the bridge-folder method.</td>
+    </tr>
+    <tr>
+        <td>Duplicate or conflict files</td>
+        <td>Same file modified on two devices before sync</td>
+        <td>Syncthing creates <code>.sync-conflict</code> files. Develop the habit of closing one device before starting another.</td>
+    </tr>
+    <tr>
+        <td>rclone "User rate limit exceeded"</td>
+        <td>Google Drive API rate limiting</td>
+        <td>Create your own OAuth Client ID. Add <code>--tpslimit 10</code> to limit transactions per second.</td>
+    </tr>
+    <tr>
+        <td>rclone backup not running</td>
+        <td>systemd timer not enabled or user mismatch</td>
+        <td>Check <code>systemctl list-timers | grep rclone</code>. Ensure the service runs as the correct user (who has rclone config).</td>
+    </tr>
+</table>
+
+<h3>Syncthing Ignore Patterns — Advanced</h3>
+
+<p>Instead of creating many small shared folders, you can share one large folder and use ignore patterns to filter:</p>
+
+<div class="folder-structure">
+# Include only these (everything else ignored):
+!saves
+!states
+!cheats
+*
+
+# OR: Exclude specific items (everything else included):
+switch
+xbox
+xbox360
+*.tmp
+</div>
+
+<h3>Checking Sync Status</h3>
+
+<pre><code># On Linux, check the Syncthing logs:
+journalctl --user -u syncthing -f
+
+# On Android, check the Web GUI at:
+http://127.0.0.1:8384
+
+# rclone backup logs:
+sudo tail -f /var/log/rclone-emulator-backup.log</code></pre>
+
+<h3>Quick Reference: Folder Paths Summary</h3>
+
+<table>
+    <tr><th>Emulator</th><th>What to Sync</th><th>Android Path</th><th>Linux Hub Path</th></tr>
+    <tr>
+        <td>RetroArch</td>
+        <td>Saves</td>
+        <td><code>/storage/emulated/0/RetroArch/saves/</code></td>
+        <td><code>~/Sync/Emulators/RetroArch/saves/</code></td>
+    </tr>
+    <tr>
+        <td>RetroArch</td>
+        <td>States</td>
+        <td><code>/storage/emulated/0/RetroArch/states/</code></td>
+        <td><code>~/Sync/Emulators/RetroArch/states/</code></td>
+    </tr>
+    <tr>
+        <td>NetherSX2</td>
+        <td>Memory cards</td>
+        <td><code>.../Android/data/xyz.aethersx2.android/files/memcards/</code></td>
+        <td><code>~/Sync/Emulators/NetherSX2/memcards/</code></td>
+    </tr>
+    <tr>
+        <td>NetherSX2</td>
+        <td>Save states</td>
+        <td><code>.../Android/data/xyz.aethersx2.android/files/sstates/</code></td>
+        <td><code>~/Sync/Emulators/NetherSX2/sstates/</code></td>
+    </tr>
+    <tr>
+        <td>Dolphin</td>
+        <td>GC saves</td>
+        <td><code>.../Android/data/org.dolphinemu.dolphinemu/files/GC/</code></td>
+        <td><code>~/Sync/Emulators/Dolphin/GC/</code></td>
+    </tr>
+    <tr>
+        <td>Dolphin</td>
+        <td>Save states</td>
+        <td><code>.../Android/data/org.dolphinemu.dolphinemu/files/StateSaves/</code></td>
+        <td><code>~/Sync/Emulators/Dolphin/StateSaves/</code></td>
+    </tr>
+    <tr>
+        <td>rclone</td>
+        <td>Everything</td>
+        <td>—</td>
+        <td><code>gdrive:EmulatorBackups/</code></td>
+    </tr>
+</table>
+
+<hr>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+    <li><a href="https://www.joeysretrohandhelds.com/guides/syncthing-for-handhelds-guide/" target="_blank">Syncthing for Handhelds Guide — Joey's Retro Handhelds</a> — Comprehensive emulator folder paths and Syncthing setup for Android</li>
+    <li><a href="https://retrogamecorps.com/2024/08/11/guide-using-syncthing-with-retro-handhelds/" target="_blank">Guide: Using Syncthing with Retro Handhelds — Retro Game Corps</a> — Detailed setup for RetroArch, muOS, KNULLI, and Android</li>
+    <li><a href="https://docs.syncthing.net/intro/getting-started" target="_blank">Syncthing Official Documentation — Getting Started</a></li>
+    <li><a href="https://apt.syncthing.net/" target="_blank">Syncthing Debian/Ubuntu Packages</a></li>
+    <li><a href="https://www.joeysretrohandhelds.com/guides/nethersx2-setup-guide/" target="_blank">NetherSX2 Setup Guide — Joey's Retro Handhelds</a> — Save locations and Syncthing compatibility notes</li>
+    <li><a href="https://github.com/Trixarian/NetherSX2-patch/issues/301" target="_blank">NetherSX2 Issue #301: Ability to change save folder location</a> — Discussion of scoped storage challenges</li>
+    <li><a href="https://github.com/TheGammaSqueeze/GammaOSNext/discussions/330" target="_blank">GammaOS Discussion #330: Sync emulator save data with Syncthing</a> — Root workaround for Android/data/ access</li>
+    <li><a href="https://github.com/dolphin-emu/dolphin/pull/13908" target="_blank">Dolphin PR #13908: Set Dolphin documents as Local only</a> — DocumentProvider flag for Syncthing compatibility</li>
+    <li><a href="https://github.com/dolphin-emu/dolphin/pull/11524" target="_blank">Dolphin PR #11524: Implement DocumentProvider</a> — Scoped storage workaround</li>
+    <li><a href="https://rclone.org/drive/" target="_blank">rclone Google Drive Documentation</a> — Official rclone reference</li>
+    <li><a href="https://www.joeysretrohandhelds.com/guides/where-to-find-save-files-for-every-emulator-and-custom-firmware/" target="_blank">Where to find save files for every emulator — Joey's Retro Handhelds</a></li>
+    <li><a href="https://github.com/Jetup13/Retroid-Pocket-3-Plus-Wiki/wiki/Save-File-Locations" target="_blank">Save File Locations — Retroid Pocket 3+ Wiki</a></li>
+    <li><a href="https://dev.to/arunkrish11/sync-any-linux-folder-to-google-drive-using-rclone-systemd-8d2" target="_blank">Sync any Linux folder to Google Drive using Rclone + systemd — DEV Community</a></li>
+</ul>
+
+</div>
+
+<footer>
+    <p>Guide compiled from official documentation, community wikis, GitHub discussions, and retro handheld community resources.</p>
+    <p style="margin-top:0.5rem;">Syncthing is <a href="https://github.com/syncthing/syncthing" target="_blank">open source (MPL 2.0)</a>. rclone is <a href="https://github.com/rclone/rclone" target="_blank">open source (MIT)</a>. Always back up your saves!</p>
+</footer>
+
+</body>
+</html>
