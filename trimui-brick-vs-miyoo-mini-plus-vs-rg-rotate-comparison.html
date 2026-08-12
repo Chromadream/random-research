@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrimUI Brick vs Miyoo Mini Plus vs Anbernic RG Rotate — Daily Carry Upgrade Comparison</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --warn: #d2991d;
+    --danger: #f85149;
+    --pink: #db61a2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.7;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, var(--accent), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--accent);
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.75rem;
+    color: var(--text);
+  }
+  p, li { color: var(--text-muted); margin-bottom: 0.85rem; }
+  strong { color: var(--text); }
+  .subtitle { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+  th {
+    background: var(--surface);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  td { color: var(--text-muted); }
+  tr:nth-child(even) td { background: rgba(22,27,34,0.5); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .card h3 { margin-top: 0; }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .badge-win { background: #1a3a2a; color: var(--accent2); }
+  .badge-lose { background: #3a1a1a; color: var(--danger); }
+  .badge-neutral { background: #3a2a1a; color: var(--warn); }
+  .badge-info { background: #1a2a3a; color: var(--accent); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, #1a2a3a, #1a3a2a);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    margin: 2rem 0;
+  }
+  .verdict-box h2 { border: none; margin-top: 0; color: var(--accent2); }
+
+  .pro-con {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .pro { color: var(--accent2); }
+  .con { color: var(--danger); }
+  .pro::before { content: '✓ '; }
+  .con::before { content: '✗ '; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .winner { background: rgba(63,185,80,0.08); border-left: 3px solid var(--accent2); }
+
+  a { color: var(--accent); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    table { font-size: 0.78rem; }
+    th, td { padding: 0.4rem 0.5rem; }
+    .pro-con { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>TrimUI Brick vs Miyoo Mini Plus vs Anbernic RG Rotate</h1>
+<p class="subtitle">The ultimate daily-carry upgrade comparison for someone who already owns an original Miyoo Mini — with save-sync, USB DAC, and non-gaming considerations.</p>
+
+<!-- QUICK VERDICT BOX -->
+<div class="verdict-box">
+  <h2>🏆 The Short Answer</h2>
+  <p style="color:var(--text); font-size:1.05rem;">
+    <strong>For your specific needs (puzzle games, incremental RPGs, save sync, USB DAC, non-gaming, daily carry):</strong>
+  </p>
+  <p style="color:var(--text); font-size:1.05rem; margin-bottom:0;">
+    🥇 <strong>Anbernic RG Rotate (Silver)</strong> — best overall fit: Android means effortless Syncthing saves, native USB-C DAC support, full DAP/music player capabilities, unique form factor.<br>
+    🥈 <strong>TrimUI Brick / Brick Hammer</strong> — best screen quality and build; save-sync possible but fiddlier; USB DAC support depends on CFW.<br>
+    🥉 <strong>Miyoo Mini Plus</strong> — the "safe" pick with the best CFW (Onion OS), but lowest specs and least differentiation from your existing Miyoo Mini.
+  </p>
+</div>
+
+<!-- SPECS TABLE -->
+<h2>📊 Specifications at a Glance</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>TrimUI Brick</th>
+      <th>Brick Hammer</th>
+      <th>Miyoo Mini Plus</th>
+      <th>RG Rotate (Silver)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Screen</strong></td>
+      <td>3.2" IPS, 1024×768<br><span class="badge badge-win">405 PPI ✨</span></td>
+      <td>3.2" IPS, 1024×768<br><span class="badge badge-win">405 PPI ✨</span></td>
+      <td>3.5" IPS, 640×480<br><span class="badge badge-neutral">228 PPI</span></td>
+      <td>3.5" IPS, 720×720<br><span class="badge badge-neutral">290 PPI</span><br><span class="badge badge-info">1:1 swivel</span></td>
+    </tr>
+    <tr>
+      <td><strong>Processor</strong></td>
+      <td>Allwinner A133 Plus<br>(Quad A53 @ 1.8GHz)</td>
+      <td>Allwinner A133 Plus</td>
+      <td>ARM Cortex-A7<br>(Dual @ 1.2GHz)</td>
+      <td>Unisoc T618<br>(2×A75 + 6×A55)</td>
+    </tr>
+    <tr>
+      <td><strong>RAM</strong></td>
+      <td>1 GB</td>
+      <td>1 GB</td>
+      <td>128 MB</td>
+      <td><span class="badge badge-win">3 GB</span></td>
+    </tr>
+    <tr>
+      <td><strong>OS</strong></td>
+      <td>Linux (CrossMix, MinUI, NextUI, KNULLI, MuOS)</td>
+      <td>Linux (same CFW)</td>
+      <td>Linux (Onion OS, MinUI)</td>
+      <td><span class="badge badge-info">Android 12</span></td>
+    </tr>
+    <tr>
+      <td><strong>Battery</strong></td>
+      <td>3,000 mAh<br>~4–6 hrs</td>
+      <td>3,000 mAh<br>~4–5 hrs</td>
+      <td>3,000 mAh<br>~4–6 hrs</td>
+      <td>2,000 mAh<br>~3.5–5 hrs</td>
+    </tr>
+    <tr>
+      <td><strong>Weight</strong></td>
+      <td>159 g</td>
+      <td>192–199 g</td>
+      <td>162 g</td>
+      <td>204 g (silver)</td>
+    </tr>
+    <tr>
+      <td><strong>3.5mm Jack</strong></td>
+      <td><span class="badge badge-win">Yes</span></td>
+      <td><span class="badge badge-win">Yes</span></td>
+      <td><span class="badge badge-win">Yes</span></td>
+      <td><span class="badge badge-lose">No</span></td>
+    </tr>
+    <tr>
+      <td><strong>USB DAC Support</strong></td>
+      <td>CFW-dependent<br>(NextUI: ✅; MuOS: ❌)</td>
+      <td>Same as Brick</td>
+      <td>Unclear / limited</td>
+      <td><span class="badge badge-win">Officially supported ✅</span></td>
+    </tr>
+    <tr>
+      <td><strong>Wi-Fi / BT</strong></td>
+      <td>Wi-Fi 4, BT 4.2</td>
+      <td>Wi-Fi 4, BT 4.2</td>
+      <td>Wi-Fi 4, no BT</td>
+      <td><span class="badge badge-win">Wi-Fi 5, BT 5.0</span></td>
+    </tr>
+    <tr>
+      <td><strong>Analog Sticks</strong></td>
+      <td>❌ None</td>
+      <td>❌ None</td>
+      <td>❌ None</td>
+      <td>❌ None</td>
+    </tr>
+    <tr>
+      <td><strong>Price (approx.)</strong></td>
+      <td>$40–$80</td>
+      <td>$90–$155</td>
+      <td>$50–$70</td>
+      <td>$108–$140</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- DEEP DIVE: TRIMUI BRICK -->
+<h2>🧱 TrimUI Brick &amp; Brick Hammer</h2>
+
+<div class="card">
+  <h3>The Screen Is the Star</h3>
+  <p>The <strong>3.2" 1024×768 IPS display</strong> is the standout feature. At <strong>~400 PPI</strong>, it's the sharpest screen in this price bracket — sharper even than many premium handhelds. For puzzle games with fine details (think <em>Picross</em>, <em>Panel de Pon</em>) and RPG text, this display is a genuine pleasure. The high pixel density means non-integer scaling still looks clean — you spend less time fiddling with shaders and more time playing.</p>
+  <p>The Brick's screen is notably <em>brighter</em> and <em>sharper</em> than the Miyoo Mini Plus display. Multiple reviewers describe the Brick as making the MM+ screen look dated when held side-by-side.</p>
+</div>
+
+<div class="card">
+  <h3>Brick vs Brick Hammer — What's the Difference?</h3>
+  <p>The <strong>Brick Hammer</strong> is the same device internally, but replaces the plastic shell with a <strong>full CNC aluminum body</strong> — think of it as the "premium feel" edition. It adds about 31–40 g of weight (192–199 g vs 159 g for plastic). The Hammer also has nicer thermal characteristics since the metal body spreads heat more evenly. For daily carry, the plastic Brick is arguably better — lighter and cheaper. The Hammer is for those who prioritize <em>feel</em> over practicality.</p>
+</div>
+
+<div class="card">
+  <h3>Emulation Ceiling</h3>
+  <p>Both Brick models top out around <strong>PS1</strong> with some light N64/Dreamcast in "bonus territory." Performance is identical to the TrimUI Smart Pro. For puzzles (mostly 8-bit/16-bit/GBA) and retro RPGs (SNES, PS1), this is more than enough. The lack of analog sticks is actually a <em>plus</em> for pocketability — nothing to snag.</p>
+</div>
+
+<div class="pro-con">
+  <span class="pro">Stunning 400 PPI screen — best in class</span>
+  <span class="con">USB DAC support depends on CFW choice</span>
+  <span class="pro">Excellent build quality, even on plastic</span>
+  <span class="con">Save sync requires tinkering (Syncthing on Linux CFW)</span>
+  <span class="pro">Front-facing stereo speakers</span>
+  <span class="con">No Bluetooth headphones for music (BT 4.2, limited codec support)</span>
+  <span class="pro">Multiple CFW options (CrossMix, NextUI, MinUI, KNULLI)</span>
+  <span class="con">Stock OS is underwhelming — CFW strongly recommended</span>
+  <span class="pro">Wi-Fi for RetroAchievements &amp; box art scraping</span>
+  <span class="con">Cramped for larger hands</span>
+  <span class="pro">Swappable shoulder buttons included</span>
+  <span class="con">1 GB RAM limits multitasking</span>
+</div>
+
+<h2>🍄 Miyoo Mini Plus</h2>
+
+<div class="card">
+  <h3>The Community Darling — But Is It Different Enough?</h3>
+  <p>You <em>already own</em> the original Miyoo Mini. The Plus is essentially that device with a larger 3.5" screen, Wi-Fi, and a bigger battery. The internals are nearly identical — same ARM Cortex-A7, same 128 MB RAM, same emulation ceiling (up to PS1). For someone looking for an <em>upgrade</em>, the Plus doesn't move the needle enough.</p>
+  <p>Where the Plus shines is <strong>Onion OS</strong> — still arguably the most polished, mature CFW in the hobby. Game Switcher, activity tracker, RetroAchievements, and the vast theme ecosystem are genuinely delightful. But you can already experience most of this on your existing Miyoo Mini.</p>
+</div>
+
+<div class="card">
+  <h3>Non-Gaming Capabilities</h3>
+  <p>Onion OS offers the <strong>GMU music player</strong> (MP3, FLAC, OGG) and the <strong>Pixel Reader ebook app</strong> (epub, txt). There's also the excellent community-built <strong>MiyooPod</strong> app — a full iPod-inspired MP3 player with album art, lyrics, and theme support. For casual music listening and reading, it works. But editing config files for GMU keybinds and managing playlists is decidedly <em>not</em> user-friendly compared to Android alternatives.</p>
+</div>
+
+<div class="card">
+  <h3>Save Sync</h3>
+  <p>Syncthing is <strong>not natively supported</strong> on Onion OS — it requires a manual installation via a community package. Once set up, it works, but the process is fragile across Onion OS updates. Multiple users report that the Syncthing setup on Miyoo devices is "advanced" territory.</p>
+</div>
+
+<div class="pro-con">
+  <span class="pro">Best CFW ecosystem — Onion OS is sublime</span>
+  <span class="con">Least "upgrade" feel vs. your existing Miyoo Mini</span>
+  <span class="pro">Wi-Fi for RetroAchievements &amp; HTTP file transfer</span>
+  <span class="con">128 MB RAM — weakest of the three</span>
+  <span class="pro">MiyooPod &amp; GMU music players available</span>
+  <span class="con">No Bluetooth — wireless audio not an option</span>
+  <span class="pro">Ebook reader app built in</span>
+  <span class="con">Syncthing is a manual, advanced install</span>
+  <span class="pro">Vibrant aftermarket (buttons, cases, decals)</span>
+  <span class="con">Screen is only 640×480 — noticeably softer</span>
+  <span class="pro">Most affordable option (~$50)</span>
+  <span class="con">No USB DAC support information available</span>
+</div>
+
+<h2>🔁 Anbernic RG Rotate (Aurora Silver)</h2>
+
+<div class="card">
+  <h3>The Wildcard — and the Best Fit for <em>Your</em> Needs</h3>
+  <p>The RG Rotate is fundamentally different: a <strong>square 3.5" 720×720 display</strong> on a <strong>physical swivel hinge</strong> that reveals the controls underneath. It runs full <strong>Android 12</strong> with Play Store access. The Aurora Silver version uses a <strong>full aluminum body</strong> (204 g) that feels genuinely premium — multiple reviewers compared the hinge feel to high-end flip phones.</p>
+  <p>For puzzle games and retro RPGs, the square screen is surprisingly brilliant. Game Boy and Game Boy Color games fill nearly the entire panel. Vertical arcade shooters (shmups) run in their native portrait orientation by rotating the screen — a unique trick no other handheld here can do. PICO-8 games also shine on the 1:1 display.</p>
+</div>
+
+<div class="card winner">
+  <h3>🎵 The DAP Angle — This Matters for You</h3>
+  <p>Anbernic explicitly marketed the RG Rotate as a <strong>hybrid gaming handheld + digital audio player (DAP)</strong>. It ships with a cassette-themed music player, clock faces for desktop use, and — crucially — <strong>official USB-C DAC dongle support</strong> right on the product page. Since you already own a USB DAC dongle, this is a perfect match.</p>
+  <p>On Android, you can install <strong>USB Audio Player Pro</strong> (bypasses Android's internal audio mixer for bit-perfect playback), <strong>Square Pod</strong> (iPod-inspired UI), Spotify, Apple Music, or any streaming app. The Bluetooth 5.0 chip handles wireless headphones better than the BT 4.2 on the Brick. The device can even serve as a dedicated music source for your home speaker setup without draining your phone battery.</p>
+  <p>One reviewer noted: <em>"The RG Rotate isn't the best retro handheld, and it definitely isn't the best music player. But there's just something about combining those two worlds."</em></p>
+</div>
+
+<div class="card winner">
+  <h3>☁️ Save Sync — The Easiest of the Three</h3>
+  <p>Because the RG Rotate runs <strong>full Android 12</strong>, you can install <strong>Syncthing-Fork</strong> directly from F-Droid or the Play Store. No manual package installations, no CFW dependencies, no fragile terminal commands. The Android Syncthing experience is well-documented and actively maintained. You point it at your RetroArch saves folder and you're done.</p>
+  <p>For your use case — syncing saves across multiple handhelds including a home PC — Android is the path of least resistance. You can also sync saves from standalone emulators (PPSSPP, Drastic, DuckStation) via Syncthing, which is much harder to do consistently on Linux-based CFW.</p>
+</div>
+
+<div class="card">
+  <h3>Other Non-Gaming Perks</h3>
+  <p>Beyond music playback, the RG Rotate offers <strong>clock face modes</strong> (four included), voice recording via the hidden microphone, full web browsing, and access to any Android app. The square screen in closed position gives it a desk-clock aesthetic that the other devices can't match. It's the only device here that can genuinely moonlight as a desktop companion.</p>
+</div>
+
+<div class="pro-con">
+  <span class="pro">Full Android 12 — install any app</span>
+  <span class="con">No 3.5mm jack — USB DAC required (but you have one!)</span>
+  <span class="pro">Official USB-C DAC support confirmed</span>
+  <span class="con">2,000 mAh battery — smallest here; charge daily</span>
+  <span class="pro">Syncthing-Fork = easiest save sync setup</span>
+  <span class="con">No analog sticks (same as others)</span>
+  <span class="pro">Unique swivel hinge design is genuinely fun</span>
+  <span class="con">204 g — heaviest of the bunch (silver)</span>
+  <span class="pro">Square screen perfect for GB/GBC/PICO-8/vertical shmups</span>
+  <span class="con">Some ergonomic complaints for long sessions</span>
+  <span class="pro">Unisoc T618 can handle some GC/PS2 (bonus territory)</span>
+  <span class="con">Android 12 is starting to show its age (no Android 13+)</span>
+  <span class="pro">Clock faces, voice recorder, full DAP functionality</span>
+  <span class="con">Anbernic stock launcher is mediocre — install Daijisho</span>
+</div>
+
+<!-- COMPARISON TABLES -->
+<h2>🔍 Head-to-Head: What Matters for YOU</h2>
+
+<h3>🎮 For Puzzle Games &amp; Retro RPGs</h3>
+<table>
+  <thead><tr><th>Factor</th><th>TrimUI Brick</th><th>Miyoo Mini Plus</th><th>RG Rotate</th></tr></thead>
+  <tbody>
+    <tr><td>Screen sharpness (text readability)</td><td><span class="badge badge-win">Best</span></td><td><span class="badge badge-lose">Lowest</span></td><td><span class="badge badge-neutral">Good</span></td></tr>
+    <tr><td>GB / GBC display fit</td><td>Good (4:3 with bars)</td><td>Good (4:3 with bars)</td><td><span class="badge badge-win">Excellent (1:1 fills screen)</span></td></tr>
+    <tr><td>GBA display fit</td><td><span class="badge badge-win">Best (3:2 on 4:3)</span></td><td>Good</td><td>Good (3:2 on 1:1)</td></tr>
+    <tr><td>SNES / PS1 RPGs</td><td><span class="badge badge-win">Excellent</span></td><td>Excellent</td><td>Good (letterboxed on 1:1)</td></tr>
+  </tbody>
+</table>
+
+<h3>☁️ Save Sync Across Devices</h3>
+<table>
+  <thead><tr><th>Factor</th><th>TrimUI Brick</th><th>Miyoo Mini Plus</th><th>RG Rotate</th></tr></thead>
+  <tbody>
+    <tr><td>Syncthing availability</td><td>Via CrossMix / manual</td><td>Manual package install</td><td><span class="badge badge-win">Play Store app</span></td></tr>
+    <tr><td>Ease of setup</td><td>Moderate</td><td>Hard</td><td><span class="badge badge-win">Easy</span></td></tr>
+    <tr><td>Standalone emulator save sync</td><td>Difficult</td><td>Difficult</td><td><span class="badge badge-win">Possible (Android)</span></td></tr>
+    <tr><td>Wi-Fi required</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  </tbody>
+</table>
+
+<h3>🎵 Non-Gaming (Music / DAP)</h3>
+<table>
+  <thead><tr><th>Factor</th><th>TrimUI Brick</th><th>Miyoo Mini Plus</th><th>RG Rotate</th></tr></thead>
+  <tbody>
+    <tr><td>Music player apps</td><td>MuOS + RockBox via PortMaster</td><td>GMU, MiyooPod</td><td><span class="badge badge-win">Any Android app (Spotify, UAPP, Square Pod)</span></td></tr>
+    <tr><td>USB DAC support</td><td>CFW-dependent (NextUI: ✅)</td><td>Unknown / limited</td><td><span class="badge badge-win">Officially supported ✅</span></td></tr>
+    <tr><td>Bluetooth audio</td><td>BT 4.2 (limited)</td><td>❌ No BT</td><td><span class="badge badge-win">BT 5.0 (good)</span></td></tr>
+    <tr><td>Streaming services</td><td>❌</td><td>❌</td><td><span class="badge badge-win">✅ Spotify, Apple Music, etc.</span></td></tr>
+    <tr><td>Ebook reader</td><td>❌ Not available</td><td><span class="badge badge-win">✅ Pixel Reader</span></td><td><span class="badge badge-win">✅ Any Android reader app</span></td></tr>
+  </tbody>
+</table>
+
+<h3>🏋️ Daily Carry &amp; Pocketability</h3>
+<table>
+  <thead><tr><th>Factor</th><th>TrimUI Brick</th><th>Miyoo Mini Plus</th><th>RG Rotate</th></tr></thead>
+  <tbody>
+    <tr><td>Pocket footprint</td><td><span class="badge badge-win">Smallest (110×73×12–20mm)</span></td><td>Compact (108×78.5×22mm)</td><td>Unique (80×80×21mm closed)</td></tr>
+    <tr><td>Weight</td><td><span class="badge badge-win">159 g</span></td><td>162 g</td><td>204 g (silver)</td></tr>
+    <tr><td>Screen protection</td><td>Exposed (needs case)</td><td>Exposed (needs case)</td><td><span class="badge badge-win">Screen protected when closed</span></td></tr>
+    <tr><td>Hinge durability concern</td><td>❌ N/A</td><td>❌ N/A</td><td>⚠️ Unknown long-term</td></tr>
+  </tbody>
+</table>
+
+<!-- RECOMMENDATION -->
+<h2>📋 The Final Recommendation</h2>
+
+<div class="card winner">
+  <h3>🥇 Anbernic RG Rotate (Silver) — Best Fit for Your Needs</h3>
+  <p>For someone with an existing Miyoo Mini, multiple handhelds, a USB DAC dongle, and an interest in non-gaming use, the RG Rotate is the most logical upgrade — and the most <em>interesting</em> one. It's the only device here that:</p>
+  <ul>
+    <li><strong>Officially supports USB-C DAC</strong> — your dongle will work, and UAPP can provide bit-perfect audio</li>
+    <li><strong>Runs Android</strong> — Syncthing save sync is trivial to set up, and you can sync saves from Dolphin, PPSSPP, DuckStation, etc.</li>
+    <li><strong>Doubles as a competent DAP</strong> — Square Pod + your DAC dongle = a charming offline music player that won't distract you with notifications</li>
+    <li><strong>Feels genuinely different</strong> from your Miyoo Mini — the swivel is novel, the square screen changes how you think about retro games, and the aluminum build feels like a premium object</li>
+  </ul>
+  <p><strong>Caveats to accept:</strong> The 2,000 mAh battery is small — expect to charge daily. The 204 g weight (silver) is noticeable. And the square screen means 4:3 console games will be letterboxed. But for GB/GBC puzzles and RPGs? It's a match made in heaven.</p>
+  <p style="color: var(--accent2);"><strong>Price: ~$108–$140</strong> (Aurora Silver, aluminum body)</p>
+</div>
+
+<div class="card">
+  <h3>🥈 TrimUI Brick — Best Screen &amp; Value</h3>
+  <p>If the RG Rotate's quirks (square screen, weight, smaller battery) give you pause, the standard plastic TrimUI Brick is an excellent alternative. That <strong>1024×768 screen</strong> is genuinely transformative for reading RPG text and seeing puzzle details. At ~$40–$60 it's the best value here. Save sync via Syncthing on CrossMix OS is <em>possible</em> but requires more effort than Android. USB DAC support is available on NextUI but not guaranteed on all CFW. The Brick Hammer is a luxury pick — only worth it if you truly value the metal feel.</p>
+  <p style="color: var(--accent);"><strong>Price: ~$40–$80</strong> (plastic Brick), <strong>~$90–$155</strong> (Brick Hammer)</p>
+</div>
+
+<div class="card">
+  <h3>🥉 Miyoo Mini Plus — The Safe (But Incremental) Choice</h3>
+  <p>The MM+ is undeniably great — Onion OS is a joy, the community support is unmatched, and it's the cheapest option. But for someone who <em>already owns a Miyoo Mini</em>, it's less of an upgrade and more of a size bump with Wi-Fi. If you find your original Mini too cramped and want to stay in the Onion ecosystem, it makes sense. Otherwise, the Brick and Rotate offer more meaningful differentiation.</p>
+  <p style="color: var(--text-muted);"><strong>Price: ~$50–$70</strong></p>
+</div>
+
+<!-- KEY CONSIDERATIONS -->
+<h2>⚠️ Things You Might Not Have Thought Of</h2>
+
+<div class="card">
+  <h3>1. Save Sync Isn't "Set and Forget" on Any Device</h3>
+  <p>Syncthing is powerful but requires discipline: always make an in-game save (not just a save state) before switching devices, close the emulator cleanly, and give the device a moment to sync before powering down. Save states are core/version-sensitive and can break across different CFW setups. The RG Rotate's Android foundation makes this <em>easier</em> but not <em>effortless</em>.</p>
+</div>
+
+<div class="card">
+  <h3>2. The RG Rotate "Screen Protected When Closed" Is a Real Advantage</h3>
+  <p>The original Miyoo Mini is notorious for fragile screens — a single drop can shatter it. The Rotate's closed position protects the screen completely, which matters for a daily carry device. The Brick and MM+ both leave their screens exposed. Budget for a case if you go with either.</p>
+</div>
+
+<div class="card">
+  <h3>3. The Square Screen Trade-Off</h3>
+  <p>The RG Rotate's 1:1 screen is brilliant for GB/GBC, PICO-8, vertical arcade games, and Neo Geo Pocket — but 4:3 console games (SNES, PS1, Genesis) will have black bars. If most of your RPGs are on SNES/PS1 rather than GBA/GB, the Brick's 4:3 screen may serve you better. For puzzle games, however, many are on GB/GBC/GBA/NGPC — all of which look great on the Rotate.</p>
+</div>
+
+<div class="card">
+  <h3>4. The RG Rotate Hinge — Early But Promising</h3>
+  <p>The swivel hinge is the Rotate's biggest long-term question mark. One reviewer did a 1,000-cycle test and found only a hair's breadth of alignment shift afterward. Anbernic claims "high durability" alloy construction. It <em>feels</em> sturdy, but no one has had one for years. If hinge anxiety would bother you, the Brick is the safer mechanical bet.</p>
+</div>
+
+<div class="card">
+  <h3>5. Brick vs. Brick Hammer — The Value Equation</h3>
+  <p>The Hammer costs roughly 2× what the plastic Brick costs for the same internals in a metal shell. For a daily carry device that will inevitably pick up scratches, the plastic Brick is the pragmatic choice. The Hammer is for collectors and those who prioritize hand-feel above all else. If you're going to spend Hammer money (~$100+), seriously consider whether the RG Rotate at a similar price offers more <em>functional</em> differentiation.</p>
+</div>
+
+<!-- SOURCES -->
+<hr>
+<h2>📚 Sources</h2>
+<ul style="font-size:0.85rem;">
+  <li><a href="https://www.androidauthority.com/trimui-brick-review-3521208/" target="_blank" rel="noopener">Android Authority — TrimUI Brick Review</a> (Feb 2025)</li>
+  <li><a href="https://retrohandhelds.gg/trimui-brick-review/" target="_blank" rel="noopener">Retro Handhelds — TrimUI Brick Review</a> (Nov 2024)</li>
+  <li><a href="https://heldgames.com/reviews/trimui-brick" target="_blank" rel="noopener">Held Games — TrimUI Brick Review</a></li>
+  <li><a href="https://trimuibrick.com/trimui-brick-vs-brick-hammer/" target="_blank" rel="noopener">TrimUI Brick vs Brick Hammer Comparison</a></li>
+  <li><a href="https://trimuibrick.com/trimui-brick-hammer-review/" target="_blank" rel="noopener">TrimUI Brick Hammer Review</a></li>
+  <li><a href="https://techxreviews.com/trimui-brick-hammer-review/" target="_blank" rel="noopener">TechXReviews — TrimUI Brick Hammer Review</a> (Dec 2025)</li>
+  <li><a href="https://retrohandhelds.gg/anbernic-rg-rotate-review/" target="_blank" rel="noopener">Retro Handhelds — RG Rotate Review</a> (May 2026)</li>
+  <li><a href="https://www.androidauthority.com/anbernic-rg-rotate-review-3665035/" target="_blank" rel="noopener">Android Authority — RG Rotate Review</a> (May 2026)</li>
+  <li><a href="https://www.timeextension.com/reviews/anbernic-rg-rotate-the-most-charming-handheld-ive-seen-in-years" target="_blank" rel="noopener">Time Extension — RG Rotate Review</a> (May 2026)</li>
+  <li><a href="https://retrododo.com/anbernic-rg-rotate-review/" target="_blank" rel="noopener">Retro Dodo — RG Rotate Review</a> (May 2026)</li>
+  <li><a href="https://heldgames.com/reviews/anbernic-rg-rotate" target="_blank" rel="noopener">Held Games — RG Rotate Review</a></li>
+  <li><a href="https://anbernic.com/products/rg-rotate" target="_blank" rel="noopener">Anbernic Official — RG Rotate Product Page</a></li>
+  <li><a href="https://retrogamecorps.com/2024/08/11/guide-using-syncthing-with-retro-handhelds/" target="_blank" rel="noopener">Retro Game Corps — Syncthing Guide</a> (Aug 2024, updated Jan 2025)</li>
+  <li><a href="https://www.vomitron.com/2024/06/29/sync-your-saves-between-batocera-onion-and-muos/" target="_blank" rel="noopener">Sync Saves Between Batocera, Onion, and MuOS</a></li>
+  <li><a href="https://nextui.loveretro.games/docs/" target="_blank" rel="noopener">NextUI Docs — USB-C DAC Support</a></li>
+  <li><a href="https://duckyobrien.com/2024/03/13/using-the-miyoo-mini-plus-as-a-mp3-player-onion-os/" target="_blank" rel="noopener">Miyoo Mini Plus as MP3 Player (GMU)</a></li>
+  <li><a href="https://miyoopod.fragoso.dev/" target="_blank" rel="noopener">MiyooPod — iPod-style MP3 Player for Miyoo</a></li>
+  <li><a href="https://www.youtube.com/watch?v=d_lzjkLu9Ko" target="_blank" rel="noopener">Turning the Anbernic RG Rotate Into an MP3 Player (YouTube)</a></li>
+</ul>
+
+<p style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-top:3rem;">Last updated: July 2026 · Compiled from publicly available reviews and documentation</p>
+
+</body>
+</html>
