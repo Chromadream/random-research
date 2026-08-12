@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analogue Pocket vs ModRetro Chromatic — GB/GBC Showdown (Australia)</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-card-hover: #1c2333;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --warning: #d2991d;
+    --danger: #f85149;
+    --pocket: #7c3aed;
+    --chromatic: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.7; padding: 0 1rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 0; }
+  h1 { font-size: 2.2rem; margin-bottom: 0.3rem; text-align: center; }
+  .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
+  h2 { font-size: 1.6rem; border-bottom: 2px solid var(--border); padding-bottom: 0.4rem; margin: 2.5rem 0 1rem; }
+  h3 { font-size: 1.2rem; margin: 1.5rem 0 0.6rem; }
+  p { margin-bottom: 1rem; }
+
+  /* Comparison Table */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; min-width: 700px; }
+  th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--bg-card); font-weight: 600; white-space: nowrap; }
+  th:first-child { width: 30%; }
+  td:first-child { font-weight: 600; color: var(--text-muted); }
+  tr:hover td { background: var(--bg-card-hover); }
+  .win { color: var(--accent2); font-weight: 700; }
+  .tie { color: var(--warning); font-weight: 700; }
+
+  /* Cards */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+  }
+  .card.ap { border-top: 4px solid var(--pocket); }
+  .card.mr { border-top: 4px solid var(--chromatic); }
+  .card h3 { margin-top: 0; }
+  .price { font-size: 2rem; font-weight: 800; }
+  .price small { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; }
+
+  /* Pros/Cons */
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  @media (max-width: 700px) { .pros-cons { grid-template-columns: 1fr; } }
+  .pros, .cons { padding: 1.2rem; border-radius: 10px; }
+  .pros { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.2); }
+  .cons { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.2); }
+  .pros h4 { color: var(--accent2); margin-bottom: 0.6rem; }
+  .cons h4 { color: var(--danger); margin-bottom: 0.6rem; }
+  ul { padding-left: 1.3rem; }
+  li { margin-bottom: 0.35rem; }
+
+  /* Verdict box */
+  .verdict {
+    background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(124,58,237,0.1));
+    border: 1px solid var(--accent); border-radius: 12px; padding: 2rem;
+    margin: 2rem 0;
+  }
+  .verdict h2 { border: none; margin-top: 0; }
+
+  /* Highlight box */
+  .highlight {
+    background: rgba(210,153,29,0.1); border: 1px solid rgba(210,153,29,0.3);
+    border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0;
+  }
+  .highlight h4 { color: var(--warning); margin-bottom: 0.5rem; }
+
+  /* Footnotes */
+  .footnotes { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+  .footnotes h4 { color: var(--text); margin-bottom: 0.5rem; }
+  .footnotes p { margin-bottom: 0.4rem; }
+  a { color: var(--accent); }
+  .tag {
+    display: inline-block; padding: 0.15rem 0.6rem; border-radius: 99px;
+    font-size: 0.75rem; font-weight: 700; margin-right: 0.3rem;
+  }
+  .tag.ap-tag { background: rgba(124,58,237,0.2); color: #a78bfa; }
+  .tag.mr-tag { background: rgba(245,158,11,0.2); color: #fbbf24; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🎮 Analogue Pocket vs ModRetro Chromatic</h1>
+<p class="subtitle">A thorough GB/GBC-only comparison for Australian buyers &mdash; August 2026</p>
+
+<!-- ===== PRICE CARDS ===== -->
+<div class="cards">
+  <div class="card ap">
+    <h3><span class="tag ap-tag">Analogue</span> Pocket (Black/White)</h3>
+    <div class="price">~A$450&ndash;500 <small>AUD (estimated landed)</small></div>
+    <p>US RRP: <strong>$239.99 USD</strong> &mdash; not sold directly in Australia. Must import via Analogue's US store or parcel forwarder. Shipping ~$42&ndash;60 USD plus 10% GST on goods+shipping. Limited-edition colours are sold out; only Black and White are currently available.</p>
+  </div>
+  <div class="card mr">
+    <h3><span class="tag mr-tag">ModRetro</span> Chromatic (Gorilla Glass)</h3>
+    <div class="price">A$355 <small>AUD (as listed by ModRetro)</small></div>
+    <p>US RRP: <strong>$199.99 USD</strong> (Gorilla Glass) / <strong>$299.99 USD</strong> (Sapphire). ModRetro ships to Australia directly. Listed at ~A$355 for the Chromatic + Tetris bundle on the Australian storefront. Available in 7 colourways: Cloud, Midnight, Wave, Leaf, Inferno, Volt, Bubblegum.</p>
+  </div>
+</div>
+
+<!-- ===== QUICK COMPARISON TABLE ===== -->
+<h2>📊 At-a-Glance Comparison</h2>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Category</th><th>Analogue Pocket</th><th>ModRetro Chromatic</th><th>Edge</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Price (AUD, landed)</td>
+      <td>~A$450&ndash;500</td>
+      <td>~A$355</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Cartridge Support</td>
+      <td>GB, GBC (&#10003;), also GBA native + adapter systems</td>
+      <td>GB, GBC <strong>only</strong></td>
+      <td class="tie">Tie (GB/GBC focus)</td>
+    </tr>
+    <tr>
+      <td>Screen Size</td>
+      <td>3.5" LCD, 1600&times;1440 (615 ppi)</td>
+      <td>2.56" IPS LCD, 160&times;144 (native GBC resolution)</td>
+      <td class="tie">Philosophy split</td>
+    </tr>
+    <tr>
+      <td>Screen Glass</td>
+      <td>Gorilla Glass</td>
+      <td>Gorilla Glass ($199) or Sapphire Crystal ($299)</td>
+      <td class="win">Chromatic (Sapphire option)</td>
+    </tr>
+    <tr>
+      <td>Chassis Material</td>
+      <td>Polycarbonate plastic</td>
+      <td>Magnesium alloy (thixomolded)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Weight</td>
+      <td>~315 g (9.7 oz)</td>
+      <td>~175 g (6.2 oz)</td>
+      <td class="win">Chromatic (lighter)</td>
+    </tr>
+    <tr>
+      <td>Dimensions</td>
+      <td>14.9 &times; 8.8 &times; 2.2 cm</td>
+      <td>13.2 &times; 7.6 &times; 3.0 cm</td>
+      <td class="win">Chromatic (more pocketable)</td>
+    </tr>
+    <tr>
+      <td>D-Pad Quality</td>
+      <td>Good — serviceable</td>
+      <td>Exceptional — widely praised as best-in-class</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Buttons</td>
+      <td>Membrane-based</td>
+      <td>PBT plastic, tactile &amp; durable</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Input Latency</td>
+      <td>~1 frame (rotated display buffer)</td>
+      <td>Sub-1-frame (independently lag-tested, faster than Pocket)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>FPGA Accuracy</td>
+      <td>Excellent — reference-grade</td>
+      <td>Millisecond-level match to original hardware</td>
+      <td class="tie">Both top-tier</td>
+    </tr>
+    <tr>
+      <td>Display Colour Accuracy</td>
+      <td>Good — can use filters/shaders</td>
+      <td>Subpixel-accurate, tuned to GBC original palette</td>
+      <td class="win">Chromatic (for GBC authenticity)</td>
+    </tr>
+    <tr>
+      <td>Sunlight Readability</td>
+      <td>Good</td>
+      <td>Excellent — sunlight-readable backlit display</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Power</td>
+      <td>4300 mAh Li-ion (internal, sealed)</td>
+      <td>3&times; AA (included) or optional Rechargeable Power Core</td>
+      <td class="tie">Trade-off</td>
+    </tr>
+    <tr>
+      <td>Battery Life</td>
+      <td>6&ndash;10 hrs</td>
+      <td>6&ndash;8 hrs (AA) / up to 16 hrs (Power Core)</td>
+      <td class="win">Chromatic (with Power Core)</td>
+    </tr>
+    <tr>
+      <td>Save States</td>
+      <td>&#10003; Yes</td>
+      <td>&#10007; No (by design — "authentic" experience)</td>
+      <td class="win">Pocket</td>
+    </tr>
+    <tr>
+      <td>Sleep / Suspend</td>
+      <td>&#10003; Yes (10+ hrs sleep)</td>
+      <td>&#10007; No</td>
+      <td class="win">Pocket</td>
+    </tr>
+    <tr>
+      <td>Screenshots</td>
+      <td>&#10003; Yes</td>
+      <td>&#10007; No</td>
+      <td class="win">Pocket</td>
+    </tr>
+    <tr>
+      <td>TV Out (Dock)</td>
+      <td>&#10003; Optional Dock ($99.99 USD), HDMI 1080p, Bluetooth controllers</td>
+      <td>&#10007; USB-C video to PC/Mac only (streaming/capture)</td>
+      <td class="win">Pocket</td>
+    </tr>
+    <tr>
+      <td>Audio</td>
+      <td>Stereo speakers</td>
+      <td>Custom ultra-loud mono speaker + 3.5mm stereo out</td>
+      <td class="tie">Stereo vs louder mono</td>
+    </tr>
+    <tr>
+      <td>Volume Control</td>
+      <td>Digital buttons</td>
+      <td>Analog volume wheel (fine-grained)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>IR Port (for GBC IR games)</td>
+      <td>&#10007; No</td>
+      <td>&#10003; Yes — backwards-compatible IR emitter/receiver</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Link Cable Port</td>
+      <td>&#10003; Original-style link port</td>
+      <td>&#10003; Backwards-compatible link port</td>
+      <td class="tie">Tie</td>
+    </tr>
+    <tr>
+      <td>Flash Cart Support</td>
+      <td>&#10003; Yes (e.g. EverDrive)</td>
+      <td>&#10003; Yes (EverDrive-GB X7 confirmed working)</td>
+      <td class="tie">Tie</td>
+    </tr>
+    <tr>
+      <td>microSD / Firmware Updates</td>
+      <td>microSD <em>required</em> for firmware updates (extra cost)</td>
+      <td>USB-C firmware update — no SD card needed</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>New Physical Games</td>
+      <td>None (community/openFPGA only)</td>
+      <td>11+ new titles published by ModRetro, with Cart Clinic update system</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>In-Box Game</td>
+      <td>None</td>
+      <td>Tetris&reg; for Chromatic (licensed, with modern rules toggle)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Colour Options</td>
+      <td>Black, White only (limited colours sold out)</td>
+      <td>7 vibrant colourways + optional Mod Kit ($14.99 USD)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Availability</td>
+      <td>Frequently sold out; pre-order windows; limited drops</td>
+      <td>In stock, ships immediately; also at GameStop (US retail)</td>
+      <td class="win">Chromatic</td>
+    </tr>
+    <tr>
+      <td>Maker Controversy</td>
+      <td>None significant</td>
+      <td>Founder Palmer Luckey also runs Anduril (defence contractor) — divisive</td>
+      <td class="win">Pocket</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== BUILD QUALITY DEEP DIVE ===== -->
+<h2>🔨 Build Quality &amp; Materials</h2>
+
+<div class="cards">
+  <div class="card ap">
+    <h3>Analogue Pocket</h3>
+    <p>The Pocket uses a high-quality <strong>polycarbonate plastic shell</strong> that feels premium and modern. The front is protected by <strong>Gorilla Glass</strong>. At 315g it has noticeable heft — it feels substantial but some find it fatiguing for long sessions. The clean, minimalist aesthetic matches Analogue's design language.</p>
+    <p><strong>Concern:</strong> The internal sealed Li-ion battery will degrade over years and is not user-replaceable without opening the device. If left fully drained for extended periods, the battery can be permanently damaged.</p>
+  </div>
+  <div class="card mr">
+    <h3>ModRetro Chromatic</h3>
+    <p>The Chromatic takes build quality to another level with a <strong>magnesium alloy thixomolded shell</strong> — the same process used in high-end camera bodies and aerospace parts. It's cool to the touch, incredibly rigid, and ModRetro markets it as "indestructible" (their marketing shows it surviving being run over by a car). The display is protected by either <strong>Gorilla Glass</strong> or optional <strong>Sapphire Crystal</strong> (second only to diamond in hardness).</p>
+    <p><strong>Longevity advantage:</strong> AA batteries mean no built-in battery to degrade. In 20 years, just pop in fresh AAs. The optional Rechargeable Power Core ($29.99 USD) is also user-replaceable.</p>
+  </div>
+</div>
+
+<!-- ===== SCREEN PHILOSOPHY ===== -->
+<h2>🖥️ Screen Philosophy — Two Radically Different Approaches</h2>
+<p>This is perhaps the most important differentiator for GB/GBC purists, and one that casual buyers often overlook.</p>
+
+<div class="cards">
+  <div class="card ap">
+    <h3>Pocket: High-Resolution Canvas</h3>
+    <p>The 3.5" <strong>1600&times;1440</strong> LTPS LCD packs <strong>615 ppi</strong> — exactly 10&times; the GBC's resolution in each dimension. This enables razor-sharp integer scaling with <strong>optional filters</strong> that can mimic original DMG, Pocket, GBC, and GBA subpixel grids. The larger screen is immersive and flexible.</p>
+    <p>However, because the panel is <strong>rotated 90° from its native orientation</strong> (to enable Tate mode for vertical shooters), a frame buffer is required, introducing approximately <strong>one frame of additional latency</strong>.</p>
+  </div>
+  <div class="card mr">
+    <h3>Chromatic: Native-Perfect Authenticity</h3>
+    <p>The 2.56" IPS LCD runs at the <strong>exact native GBC resolution of 160&times;144 pixels</strong> — a custom panel built from scratch specifically for this device. No scaling, no filters, no interpretation. The colour gamut is <strong>subpixel-accurate</strong> to the original GBC palette. What you see is exactly what the original artists intended, just backlit and brighter.</p>
+    <p>The display is also specifically engineered for <strong>sunlight readability</strong> — reviewers confirm it's genuinely usable in direct midday sun. And because there's no rotation buffer, the Chromatic achieves <strong>sub-1-frame input latency</strong>, independently verified as faster than the Pocket.</p>
+  </div>
+</div>
+
+<!-- ===== COMPATIBILITY ===== -->
+<h2>📀 Compatibility &amp; Game Support (GB/GBC Focus)</h2>
+
+<p>Since this comparison is specifically about GB/GBC playing, both devices are technically tied — they both play <strong>every original Game Boy and Game Boy Color cartridge</strong> with FPGA-level accuracy. But there are subtle differences worth knowing:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Compatibility Detail</th><th>Analogue Pocket</th><th>ModRetro Chromatic</th></tr></thead>
+  <tbody>
+    <tr><td>GB cartridges</td><td>&#10003; Full support + custom palettes</td><td>&#10003; Full support + GBC-style colourisation (12+ palettes, including DMG "pea soup" green)</td></tr>
+    <tr><td>GBC cartridges</td><td>&#10003; Full support</td><td>&#10003; Full support</td></tr>
+    <tr><td>Flash carts (EverDrive, etc.)</td><td>&#10003; Yes</td><td>&#10003; Yes (EverDrive-GB X7 confirmed)</td></tr>
+    <tr><td>Game Boy Camera</td><td>&#10003; Yes</td><td>&#10003; Yes</td></tr>
+    <tr><td>IR games (e.g. Pokémon TCG, Mission: Impossible)</td><td>&#10007; No IR port</td><td>&#10003; Full IR support</td></tr>
+    <tr><td>Gyroscope games (Kirby Tilt 'n' Tumble)</td><td>&#10003; Yes</td><td>⚠️ Early firmware bug; fix promised</td></tr>
+    <tr><td>Link cable multiplayer</td><td>&#10003; Yes — Pocket-to-Pocket or to original GB/GBC</td><td>&#10003; Yes — Chromatic-to-Chromatic or to original GB/GBC <em>and</em> Pocket (cross-play confirmed)</td></tr>
+    <tr><td>New physical releases</td><td>&#10007; None (digital community cores only)</td><td>&#10003; 11 ModRetro Originals + 4 classic re-releases on new carts with modern save chips</td></tr>
+    <tr><td>SD-card game loading (ROMs)</td><td>&#10003; Via openFPGA community cores</td><td>&#10007; Cartridge-only by design</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== THINGS GAMERS MIGHT NOT THINK ABOUT ===== -->
+<h2>🧠 Things Gamers Might Not Intuitively Consider</h2>
+
+<div class="highlight">
+  <h4>⚠️ Before you buy — the hidden factors</h4>
+</div>
+
+<h3>1. Battery Longevity &amp; Heirloom Durability</h3>
+<p>The Analogue Pocket uses a <strong>sealed 4300 mAh Li-ion battery</strong>. Like all Li-ion cells, it will degrade over 3&ndash;5 years of regular use. If stored fully drained for months, it can enter a deep-discharge state and become permanently damaged. Replacement requires opening the device — not impossible, but not trivial either. In contrast, the Chromatic's AA battery design means <strong>zero internal battery degradation</strong>. The device should still work perfectly in 20 years with fresh batteries. This is a deliberate "heirloom" design choice that serious collectors should weigh carefully.</p>
+
+<h3>2. The Hidden Cost of Firmware Updates</h3>
+<p>The Analogue Pocket <strong>requires a microSD card</strong> (and a way to write to it) to update firmware. This is an extra purchase you might not think about. The Chromatic updates via <strong>USB-C cable to PC/Mac</strong> — no additional accessories needed.</p>
+
+<h3>3. D-Pad &amp; Competitive Play</h3>
+<p>Multiple reviewers — including those who own both devices — consistently rate the Chromatic's D-pad as <strong>the best on any retro handheld</strong>. The PBT plastic, precise actuation, and lack of ghost inputs make a tangible difference in games like Tetris, Pokémon Puzzle Challenge, or precision platformers. Combined with the Chromatic's verified <strong>zero input latency advantage</strong>, competitive or speedrunning players have a clear reason to prefer it.</p>
+
+<h3>4. The IR Port Matters for Some Classics</h3>
+<p>The GBC's IR port wasn't just a gimmick. Games like <strong>Pokémon Trading Card Game</strong> (card transfer), <strong>Pokémon Gold/Silver/Crystal</strong> (Mystery Gift), and <strong>Mission: Impossible</strong> use it for actual gameplay features. The Pocket lacks IR entirely. The Chromatic includes a backwards-compatible IR emitter/receiver — a small detail that shows where ModRetro's priorities lie.</p>
+
+<h3>5. Weight &amp; Actual Portability</h3>
+<p>At <strong>175g vs 315g</strong>, the Chromatic is nearly half the weight of the Pocket. Combined with smaller dimensions, it is genuinely pocketable in a way the Pocket is not. For a device you plan to carry daily, this matters more than spec sheets suggest.</p>
+
+<h3>6. Save States — Convenience vs Authenticity</h3>
+<p>The Pocket offers save states and sleep/suspend, which are genuinely useful modern conveniences. The Chromatic deliberately omits them — ModRetro's philosophy is that working within each game's original save system is part of the authentic experience. This may frustrate some players (especially for games with punishing continue systems), but purists will appreciate the discipline it enforces. ModRetro has not ruled out adding save states via firmware in the future.</p>
+
+<h3>7. Flash Cart Compatibility</h3>
+<p>Both devices work with EverDrive and other flash carts, which is crucial for playing homebrew, fan translations, ROM hacks, and legally-obtained ROM backups without paying collector prices for rare cartridges. This levels the playing field for those who don't own extensive physical collections.</p>
+
+<h3>8. The Hidden WiFi/Bluetooth Hardware</h3>
+<p>Teardowns of the Chromatic reveal <strong>WiFi and Bluetooth chips on the mainboard</strong> that are currently unused. ModRetro has hinted at future features being enabled. This suggests the Chromatic may gain wireless capabilities down the line — something to watch.</p>
+
+<h3>9. Cartridge Updating (Cart Clinic)</h3>
+<p>ModRetro's <strong>Cart Clinic</strong> tool lets you update their published game cartridges directly through the Chromatic via USB-C. This means games like Tetris for Chromatic can receive patches, balance updates, and new features <em>on the physical cartridge itself</em>. This is genuinely new in the retro space and has no equivalent on the Pocket.</p>
+
+<h3>10. Ethical Considerations</h3>
+<p>ModRetro was founded by <strong>Palmer Luckey</strong>, who also runs Anduril Industries — a defence contractor producing autonomous military drones. This has been controversial in the retro gaming community. Whether this matters to you is a personal decision, but it's worth knowing before you buy.</p>
+
+<h3>11. Shipping &amp; Import to Australia</h3>
+<p>Neither device has an Australian distributor. Both ship from the US. For the Pocket, Analogue charges ~$42&ndash;60 USD for shipping. Australian buyers also face <strong>10% GST</strong> on the total value (goods + shipping). Some buyers use parcel forwarding services to reduce costs. ModRetro ships internationally with pricing listed in AUD on their storefront. Real-world reports suggest a Chromatic lands at approximately <strong>A$355&ndash;380</strong> all-in, while a Pocket lands at approximately <strong>A$450&ndash;500</strong> all-in once shipping and GST are factored in. Local Australian resellers often mark the Pocket up to A$600&ndash;800 on secondary markets.</p>
+
+<!-- ===== PROS AND CONS ===== -->
+<h2>⚖️ GB/GBC-Only Pros &amp; Cons Summary</h2>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>✅ Analogue Pocket — Strengths for GB/GBC</h4>
+    <ul>
+      <li>Larger, sharper 3.5" display with beautiful scaling</li>
+      <li>Save states, sleep mode, screenshots — modern QoL</li>
+      <li>Optional TV dock for big-screen play</li>
+      <li>Stereo speakers</li>
+      <li>OpenFPGA community cores expand library</li>
+      <li>Original Display Modes simulate DMG/GBC/GBA screens</li>
+      <li>Rechargeable battery (convenient, until it degrades)</li>
+      <li>Future flexibility — can also play GBA if you change your mind</li>
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>❌ Analogue Pocket — Weaknesses for GB/GBC</h4>
+    <ul>
+      <li>Heavier (315g), less pocketable</li>
+      <li>D-pad is merely "good", not exceptional</li>
+      <li>~1 frame extra latency from rotated display</li>
+      <li>Colours less accurate to original GBC palette</li>
+      <li>No IR port for IR-enabled GBC games</li>
+      <li>Sealed battery degrades; replacement is non-trivial</li>
+      <li>Requires microSD card for firmware updates (extra cost)</li>
+      <li>Often out of stock; limited availability</li>
+      <li>More expensive landed in Australia (~A$450&ndash;500)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>✅ ModRetro Chromatic — Strengths for GB/GBC</h4>
+    <ul>
+      <li>Superior build quality — magnesium alloy + Sapphire option</li>
+      <li>Best-in-class D-pad, PBT buttons, analog volume wheel</li>
+      <li>Zero input lag — independently verified faster than Pocket</li>
+      <li>Pixel-accurate 160&times;144 native display with perfect colour</li>
+      <li>Sunlight-readable backlit screen</li>
+      <li>Lighter (175g), truly pocketable</li>
+      <li>IR port — full GBC feature parity</li>
+      <li>AA batteries = no degradation, heirloom longevity</li>
+      <li>Includes Tetris in the box</li>
+      <li>New physical cartridge releases with Cart Clinic updates</li>
+      <li>7 colour options + mod kits</li>
+      <li>Cheaper landed in Australia (~A$355)</li>
+      <li>Actually in stock and shipping</li>
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>❌ ModRetro Chromatic — Weaknesses for GB/GBC</h4>
+    <ul>
+      <li>No save states or sleep mode (by design)</li>
+      <li>No TV dock — USB-C video to PC only</li>
+      <li>Smaller 2.56" screen (though pixel-perfect at that size)</li>
+      <li>Mono speaker (though very loud and clear)</li>
+      <li>AA batteries are inconvenient (though Power Core solves this)</li>
+      <li>Cartridge-only — no ROM loading from SD</li>
+      <li>Founder controversy (Palmer Luckey / Anduril)</li>
+      <li>No future GBA option — GB/GBC forever</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== VERDICT ===== -->
+<div class="verdict">
+<h2>🏆 Verdict: Which One Should YOU Buy for GB/GBC?</h2>
+
+<h3>Buy the <span style="color:var(--chromatic);">ModRetro Chromatic</span> if…</h3>
+<ul>
+  <li>You are a <strong>GB/GBC purist</strong> who wants the most authentic experience possible</li>
+  <li>Build quality, D-pad precision, and input latency are your top priorities</li>
+  <li>You value <strong>heirloom longevity</strong> — a device that will still work perfectly in 20 years</li>
+  <li>You want something <strong>truly pocketable</strong> and lightweight for daily carry</li>
+  <li>You want the lowest price and the most colour options</li>
+  <li>You appreciate the IR port and full GBC feature parity</li>
+  <li>You want a device that's <strong>actually in stock</strong> and ships immediately</li>
+</ul>
+
+<h3>Buy the <span style="color:var(--pocket);">Analogue Pocket</span> if…</h3>
+<ul>
+  <li>You value <strong>modern conveniences</strong> — save states, sleep mode, screenshots</li>
+  <li>You want the larger, sharper screen with filtering options</li>
+  <li>TV-out via Dock is important to you</li>
+  <li>You might want to <strong>branch out</strong> into GBA or other handheld libraries later</li>
+  <li>You want stereo speakers and a more modern OS interface</li>
+  <li>You're comfortable with the higher Australian landed cost and availability challenges</li>
+  <li>The Palmer Luckey / Anduril association is a dealbreaker for you</li>
+</ul>
+
+<p style="margin-top:1.5rem; font-weight:600;">For the GB/GBC-only buyer in Australia, the ModRetro Chromatic is the stronger pure-play choice on build quality, authenticity, latency, portability, and value — if you can live without save states. The Analogue Pocket is the better choice if modern QoL features and future flexibility matter more to you than absolute authenticity.</p>
+</div>
+
+<!-- ===== SOURCES ===== -->
+<div class="footnotes">
+  <h4>📚 Sources &amp; References</h4>
+  <p><strong>Primary comparisons:</strong></p>
+  <p>&bull; <a href="https://www.theshortcut.com/p/modretro-chromatic-vs-analogue-pocket" target="_blank">The Shortcut — ModRetro Chromatic vs Analogue Pocket (Aug 2025)</a></p>
+  <p>&bull; <a href="https://heldgames.com/comparisons/analogue-pocket-vs-modretro-chromatic" target="_blank">Held Games — Analogue Pocket vs ModRetro Chromatic (May 2026)</a></p>
+  <p>&bull; <a href="https://www.theshortcut.com/p/modretro-chromatic-review" target="_blank">The Shortcut — ModRetro Chromatic Review (Aug 2025)</a></p>
+  <p><strong>Reviews:</strong></p>
+  <p>&bull; <a href="https://www.techradar.com/gaming/modretro-chromatic-review" target="_blank">TechRadar — ModRetro Chromatic Review (Dec 2024)</a></p>
+  <p>&bull; <a href="https://www.timeextension.com/reviews/modretro-chromatic-is-so-close-to-the-real-thing-youd-think-nintendo-made-it" target="_blank">Time Extension — ModRetro Chromatic Review (Nov 2024)</a></p>
+  <p>&bull; <a href="https://www.androidauthority.com/modretro-chromatic-review-3571862/" target="_blank">Android Authority — ModRetro Chromatic Review (Jul 2025)</a></p>
+  <p>&bull; <a href="https://www.theage.com.au/technology/video-games/the-modern-game-boy-with-ties-to-a-military-weapons-contractor-20241218-p5kzee.html" target="_blank">The Age (AU) — ModRetro Chromatic Review (Jan 2025)</a></p>
+  <p>&bull; <a href="https://boundbyflame.com/modretro-chromatic-review/" target="_blank">Bound by Flame — ModRetro Chromatic Review (Oct 2025)</a></p>
+  <p><strong>Latency testing:</strong></p>
+  <p>&bull; <a href="https://retrorgb.com/modretro-chromatic-in-stock-lag-tested.html" target="_blank">RetroRGB — Chromatic Lag Tested (Jul 2025)</a></p>
+  <p><strong>Pricing &amp; import:</strong></p>
+  <p>&bull; <a href="https://store.analogue.co/" target="_blank">Analogue Store — Pocket $239.99 USD</a></p>
+  <p>&bull; <a href="https://modretro.com/products/chromatic-tetris-bundle" target="_blank">ModRetro — Chromatic + Tetris Bundle $199.99 USD</a></p>
+  <p>&bull; <a href="https://retrogame.news/modretros-anduril-edition-chromatic-sparks-fierce-debate-amongst-retro-gamers/" target="_blank">RetroGame.News — Chromatic pricing in AUD: A$354.95</a></p>
+  <p>&bull; <a href="https://www.comgateway.com/blogs/securing-an-analogue-pocket-from-the-us-for-hundreds-less-than-local-australian-prices/" target="_blank">comGateway — Importing Analogue Pocket to Australia</a></p>
+  <p>&bull; <a href="https://www.abf.gov.au/importing-exporting-and-manufacturing/importing/cost-of-importing-goods/gst-and-other-taxes" target="_blank">Australian Border Force — GST on imports</a></p>
+  <p><strong>Exchange rate:</strong> USD/AUD ≈ 1.44 as of August 2026 (per Wise.com)</p>
+  <p style="margin-top:0.8rem;"><em>Prices and availability are current as of August 2026. Australian landed prices are estimates that include shipping and 10% GST. Actual costs may vary based on exchange rates, shipping method, and customs processing.</em></p>
+</div>
+
+</div>
+</body>
+</html>
