@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>After Hotel Dusk</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: a hotel register at dusk — one narrow reading column, games grouped by how close they sit to Kyle Hyde's room */
+:root{
+  --bg:#e9ecf1; --paper:#f6f7f9; --ink:#1c2230; --muted:#5b6476; --rule:#c9cfda;
+  --lamp:#b0611a; --lamp-soft:#f3e2cf; --night:#2a3550;
+  --display:"Bodoni Moda", "Didot", Georgia, serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161f; --paper:#181f2b; --ink:#e4e7ee; --muted:#9aa3b5; --rule:#2c3546;
+  --lamp:#e9a25b; --lamp-soft:#3a2c1e; --night:#c8d2ea; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161f; --paper:#181f2b; --ink:#e4e7ee; --muted:#9aa3b5; --rule:#2c3546;
+  --lamp:#e9a25b; --lamp-soft:#3a2c1e; --night:#c8d2ea; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+a{color:var(--lamp)}
+a:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
+
+header{display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:28px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(40px,8vw,64px);line-height:1.02;margin:0;text-wrap:balance}
+h1 em{color:var(--lamp)}
+.lede{max-width:62ch;margin:0;color:var(--ink)}
+.note{font-size:14px;color:var(--muted);max-width:62ch;margin:0}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.legend b{color:var(--ink);font-weight:500}
+
+section{display:flex;flex-direction:column;gap:20px}
+.sec-head{display:flex;flex-direction:column;gap:4px}
+h2{font-family:var(--display);font-style:italic;font-weight:500;font-size:28px;margin:0;color:var(--night)}
+.sec-head p{margin:0;color:var(--muted);font-size:15px;max-width:62ch}
+
+.game{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px}
+.game.key{border-color:var(--lamp);box-shadow:0 0 0 3px var(--lamp-soft)}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px}
+h3{font-family:var(--display);font-weight:700;font-size:23px;line-height:1.2;margin:0;text-wrap:balance;min-width:0}
+.orig{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14.5px;margin:0}
+.facts dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.facts dd{margin:0;min-width:0;font-variant-numeric:tabular-nums}
+.facts dd strong{font-weight:600}
+.game p{margin:0;max-width:65ch}
+.why{font-size:15px;border-left:2px solid var(--lamp);padding-left:12px;color:var(--ink)}
+.why::before{content:"Why it fits  ";font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lamp)}
+.caveat{font-size:14px;color:var(--muted)}
+.more{font-family:var(--mono);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 16px}
+
+.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.minor div{border-top:1px solid var(--rule);padding-top:10px;font-size:14.5px;min-width:0}
+.minor b{font-family:var(--display);font-size:17px;display:block}
+.minor span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+footer{border-top:1px solid var(--rule);padding-top:20px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+footer p{margin:0;max-width:65ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">Checkout list · after Room 215</span>
+  <h1>Where to go <em>after</em> Hotel Dusk</h1>
+  <p class="lede">Fourteen games picked for what makes Hotel Dusk work: one locked-in setting, a lot of talking to strangers with secrets, a melancholy lead, and puzzles that live inside the story. Each one says how long it runs and which of your handhelds to play it on.</p>
+  <p class="note">Plot blurbs cover only the setup. Cover art and screenshots can't be embedded here (the page can only load images it ships with), so each card links out to a gallery instead.</p>
+  <div class="legend"><span><b>Length</b> main story, HowLongToBeat-style</span><span><b>est.</b> means a review figure, not crowd data</span></div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <h2>Same studio: Cing</h2>
+    <p>The closest you can get. Cing made Hotel Dusk and these four, and you can feel the same hands in the writing and the hardware-trick puzzles.</p>
+  </div>
+
+  <article class="game key">
+    <div class="top"><h3>Last Window: The Secret of Cape West</h3><span class="orig">DS · 2010 · EU/JP only</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>12–15 h</strong></dd>
+      <dt>Play on</dt><dd><strong>DS Lite</strong> · PAL cart (DS is region-free)</dd>
+    </dl>
+    <p>A year on, Kyle Hyde is back in Los Angeles, out of work, and his apartment building is being sold out from under its tenants. A note arrives asking him to dig into the building's past, and the week before everyone moves out becomes a slow excavation of who lived there and why they never left.</p>
+    <p class="why">It is the direct sequel: same rotoscoped sketch art, same book-style hold, same structure of chapter-end quizzes and conversations you can fail. It even ships with an in-game novel of the story.</p>
+    <p class="caveat">Reviews split on whether it matches the original; the puzzles are thought to be weaker, the mood just as strong. It never came out in North America, so the English text is on the European release. Puzzles lean on the resistive screen, microphone and closing the lid, which is why real hardware wins.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Last+Window+The+Secret+of+Cape+West">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Another Code: Recollection</h3><span class="orig">Switch · 2024 · remake of DS 2005 + Wii 2009</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>10–16 h</strong> for both games together</dd>
+      <dt>Play on</dt><dd><strong>Switch</strong></dd>
+    </dl>
+    <p>Ashley, about to turn fourteen, gets a letter from a father she believed was dead, inviting her to a remote island. The second story picks her up two years later at a lakeside campsite where her memories of her mother start surfacing.</p>
+    <p class="why">Cing's other series: a quiet, closed setting, family secrets pried out through conversation and object puzzles. Lighter in tone than Kyle Hyde, but the same emotional register.</p>
+    <p class="caveat">The remake simplifies puzzles and trims the Wii sequel heavily. For Cing's original hardware puzzles, play <em>Trace Memory</em> (DS, ~5 h) on the DS Lite instead.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Another+Code+Recollection">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Time Hollow</h3><span class="orig">DS · 2008 · Konami</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>4–8 h</strong> plus a short new-game-plus</dd>
+      <dt>Play on</dt><dd><strong>DS Lite</strong></dd>
+    </dl>
+    <p>Ethan wakes on his 17th birthday to find his parents vanished twelve years ago, a fact nobody else finds strange. He's holding a pen that can open small holes into the past, and fixing one thing tends to break another.</p>
+    <p class="why">Not Cing, but directed by Junko Kawano of <em>Shadow of Memories</em>, and it plays like Hotel Dusk's younger cousin: anime cutscenes, a small town of suspects, and touch-driven puzzles that rewrite the story.</p>
+    <p class="caveat">Short enough to finish in an evening or two. Puzzles involve a lot of stylus circling.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Time+Hollow">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Glass Rose</h3><span class="orig">PS2 · 2003 · Capcom, EU/JP</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~10–15 h</strong> est.</dd>
+      <dt>Play on</dt><dd><strong>AYN Thor</strong> · NetherSX2 &nbsp;or&nbsp; <strong>Ally X</strong> · PCSX2</dd>
+    </dl>
+    <p>A young reporter visits an abandoned mansion where a family was murdered decades ago, blacks out, and wakes in 1929 with the house restored and the family still alive. He can briefly read the thoughts of whoever he's talking to, and the killings haven't happened yet.</p>
+    <p class="why">Cing's first game, written by Hotel Dusk writer Rika Suzuki. One building, a cast of guarded residents, a mystery tied to the past: the Hotel Dusk blueprint, four years earlier.</p>
+    <p class="caveat">Rougher than the DS games, with a timed hour-by-hour structure that restarts you if you miss something. Use the English PAL release. There's no known mouse support, so the cursor moves on the analog stick, which reviewers found clunky.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Glass+Rose">Cover &amp; screenshots ↗</a></div>
+  </article>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Same shelf: DS and 3DS era</h2>
+    <p>Different studios, same golden period of stylus-driven mysteries.</p>
+  </div>
+
+  <article class="game">
+    <div class="top"><h3>Jake Hunter Detective Story: Ghost of the Dusk</h3><span class="orig">3DS · 2018 · Aksys</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~12–18 h</strong> est., across six cases</dd>
+      <dt>Play on</dt><dd><strong>New 3DS XL</strong> · NA cart &nbsp;or&nbsp; <strong>AYN Thor</strong> · Azahar</dd>
+    </dl>
+    <p>A homeless man's death looks accidental, but it leads hard-boiled private eye Jake Hunter to a mansion whose owner insists the place is cursed. Five shorter side cases come bundled with the main one.</p>
+    <p class="why">The longest-running hard-boiled detective adventure in Japan (as Jinguji Saburo), complete with smoky jazz, cigarettes as a thinking mechanic, and interrogation-heavy scenes. The closest tonal match to Kyle Hyde's world-weariness.</p>
+    <p class="caveat">The 3DS eShop is closed, so it's physical only now. The localisation is serviceable rather than polished. <em>Memories of the Past</em> on DS is the older English entry if you want more; play that one on the DS Lite.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Jake+Hunter+Ghost+of+the+Dusk">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Ghost Trick: Phantom Detective</h3><span class="orig">DS 2010 · Switch / PC remaster 2023</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~13 h</strong></dd>
+      <dt>Play on</dt><dd><strong>Switch</strong> &nbsp;or&nbsp; <strong>Ally X</strong> · Steam &nbsp;or&nbsp; <strong>DS Lite</strong> · original</dd>
+    </dl>
+    <p>A man dies in a junkyard with no memory of who he was. As a ghost who can possess objects and rewind the four minutes before a death, he has one night to find out who killed him.</p>
+    <p class="why">Like Hotel Dusk, it all happens across a single night and it's built on rotoscoped-feeling, smooth character animation. Its plot clicks into place the way Hyde's case does.</p>
+    <p class="caveat">More puzzle-game than visual novel; the puzzles are timing-based rather than conversational. The remaster adds redrawn art and an arranged soundtrack.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Ghost+Trick+Phantom+Detective">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>999: Nine Hours, Nine Persons</h3><span class="orig">DS 2009 · PC/Switch in <em>The Nonary Games</em></span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~10 h</strong> to the first ending, more for the true one</dd>
+      <dt>Play on</dt><dd><strong>Ally X</strong> · Nonary Games &nbsp;or&nbsp; <strong>DS Lite</strong> · original</dd>
+    </dl>
+    <p>Nine strangers wake up on a ship rigged to sink in nine hours, with numbered bracelets and a set of doors only certain combinations can open. Nobody knows why they were chosen.</p>
+    <p class="why">A sealed location, a cast who each hide something, and a story that rewards keeping notes. It's darker than Hotel Dusk, but scratches the same piece-it-together itch.</p>
+    <p class="caveat">Escape-room segments alternate with long reading stretches. Needs multiple playthroughs for the real ending; the Nonary Games flowchart makes that painless.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=999+Nine+Hours+Nine+Persons">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Shadow of Memories</h3><span class="orig">PS2 2001 · also PC, PSP</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~5–7 h</strong> per run, with many endings</dd>
+      <dt>Play on</dt><dd><strong>AYANEO 2</strong> · PCSX2 &nbsp;or&nbsp; <strong>Pocket S2</strong> · PPSSPP (PSP port)</dd>
+    </dl>
+    <p>Eike is stabbed in a small German town and wakes in a café with a strange device and a chance to prevent his own death. He has a day to work out who wants him dead, hopping back through the town's history to change it.</p>
+    <p class="why">The earlier game from Time Hollow's director. It's slow, talky, and atmospheric, and it trusts you to piece a mystery together from conversations across eras.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Shadow+of+Memories">Cover &amp; screenshots ↗</a></div>
+  </article>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Modern heirs</h2>
+    <p>Newer games that carry the same mood, mostly on Switch or Steam.</p>
+  </div>
+
+  <article class="game">
+    <div class="top"><h3>Famicom Detective Club: The Missing Heir &amp; The Girl Who Stands Behind</h3><span class="orig">Switch · 2021 remakes of 1988–89 originals</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~8 h + ~10 h</strong></dd>
+      <dt>Play on</dt><dd><strong>Switch</strong> · in release order</dd>
+    </dl>
+    <p>A young assistant detective with amnesia investigates the death of a wealthy matriarch in a superstitious village; in the second game, a schoolgirl's murder ties back to a ghost story told at her school.</p>
+    <p class="why">Nintendo's own Japanese detective adventures, remade with animated portraits and full voice acting. Methodical questioning, an old-fashioned menu verb system, and creeping rural dread.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Famicom+Detective+Club">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Emio – The Smiling Man: Famicom Detective Club</h3><span class="orig">Switch · 2024</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~11 h</strong></dd>
+      <dt>Play on</dt><dd><strong>Switch</strong> · after the two remakes</dd>
+    </dl>
+    <p>A student is found dead with a paper bag over his head, drawn with a smile. It matches an urban legend about a killer from years earlier, and the agency reopens a case the police never closed.</p>
+    <p class="why">An entirely new story in the series, more mature in tone, and its ending sparked as much discussion as Hotel Dusk's did.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Emio+The+Smiling+Man">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Paranormasight: The Seven Mysteries of Honjo</h3><span class="orig">Switch / PC · 2023 · Square Enix</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~12 h</strong></dd>
+      <dt>Play on</dt><dd><strong>Ally X</strong> · Steam &nbsp;or&nbsp; <strong>Switch</strong></dd>
+    </dl>
+    <p>In 1980s Tokyo, several people are drawn into a curse ritual tied to old local legends, where anyone who collects enough souls can bring someone back. You switch between their stories as they cross paths over one night.</p>
+    <p class="why">An 80s setting, a flowchart of interlocking characters, and a quietly sad heart under the horror. It also breaks the fourth wall in ways Cing would have enjoyed.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Paranormasight">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Root Letter</h3><span class="orig">Vita 2016 · PC/Switch <em>Last Answer</em> 2018</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~10 h</strong> for one ending</dd>
+      <dt>Play on</dt><dd><strong>Ally X</strong> · Steam (<em>Last Answer</em>)</dd>
+    </dl>
+    <p>Fifteen years after his high-school pen pal stopped writing, a man rereads her last letter, which seems to confess to a crime. He travels to her town in Shimane to find out who she really was.</p>
+    <p class="why">An adult man piecing together a stranger's past through interviews, letters, and a place that has moved on. It's the closest structural echo of Hyde's search for Bradley.</p>
+    <p class="caveat">The ending is divisive and the confrontation scenes are a bit hammy.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Root+Letter">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Kentucky Route Zero</h3><span class="orig">PC / Switch · 2013–2020</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~10 h</strong> across five acts</dd>
+      <dt>Play on</dt><dd><strong>Ally X</strong> · Steam &nbsp;or&nbsp; <strong>Switch</strong></dd>
+    </dl>
+    <p>An aging antiques delivery driver needs to make one last drop at an address no one can find, somewhere along a hidden highway running beneath the Kentucky caves.</p>
+    <p class="why">No puzzles to speak of, but if what stayed with you was Hotel Dusk's lonely late-night mood and its delivery-man lead, this is that feeling stretched across a whole game.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Kentucky+Route+Zero">Cover &amp; screenshots ↗</a></div>
+  </article>
+
+  <article class="game">
+    <div class="top"><h3>Disco Elysium: The Final Cut</h3><span class="orig">PC / Switch / consoles · 2019–21</span></div>
+    <dl class="facts">
+      <dt>Length</dt><dd><strong>~25 h</strong></dd>
+      <dt>Play on</dt><dd><strong>Ally X</strong> · Steam, docked</dd>
+    </dl>
+    <p>A detective wakes up in a wrecked hotel room with no memory of who he is, and a body is hanging behind the hostel outside. He has to solve it with a partner he doesn't remember meeting.</p>
+    <p class="why">The modern peak of "conversation is the gameplay." It's a broken ex-cop, a hotel, and a murder, with interrogations you can fumble.</p>
+    <p class="caveat">Twice the length of anything else here and far more political and wordy, so a big screen helps.</p>
+    <div class="more"><a href="https://www.mobygames.com/search/?q=Disco+Elysium">Cover &amp; screenshots ↗</a></div>
+  </article>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>If those land, also try</h2>
+  </div>
+  <div class="minor">
+    <div><b>Ace Attorney Trilogy</b><span>Switch · ~70 h total</span><br>The obvious DS-era courtroom sibling.</div>
+    <div><b>Return of the Obra Dinn</b><span>Ally X · ~9 h</span><br>Pure deduction on one ship.</div>
+    <div><b>The Case of the Golden Idol</b><span>Ally X · ~9 h</span><br>Freeze-frame murders to reconstruct.</div>
+    <div><b>AI: The Somnium Files</b><span>Switch / Ally X · ~30 h</span><br>Detective VN with a hard-boiled lead.</div>
+  </div>
+</section>
+
+<footer>
+  <p>Worth watching: Nintendo has filed trademarks for Hotel Dusk's Japanese title and Last Window, which outlets read as a hint at a Switch-family return after Another Code: Recollection. Nothing has been announced.</p>
+  <p>Lengths come from HowLongToBeat, Deku Deals and review playtimes; ranges marked "est." are review figures rather than crowd averages.</p>
+</footer>
+</div>
+</body>
+</html>
