@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trails Route Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: one vertical rail (the route) down the page, arcs as coloured rail segments, games as stations with checkboxes; dashed side branch for the spin-off. */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --ink:#18202b; --muted:#5b6675; --line:#d3d9e1; --chip:#eceff2;
+  --liberl:#2f7fc1; --crossbell:#0f9488; --erebonia:#b0303f; --bridge:#7650b8; --calvard:#c47a12; --side:#6b7280;
+  --warn:#a86500; --warnbg:#fbefd9;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141b; --surface:#172029; --ink:#e7ecf2; --muted:#9aa6b4; --line:#2a3644; --chip:#212b36;
+  --liberl:#5aa6e6; --crossbell:#2cc3b4; --erebonia:#e0606e; --bridge:#a585e6; --calvard:#e9a23d; --side:#8f98a6;
+  --warn:#f0b65a; --warnbg:#3a2b12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --surface:#172029; --ink:#e7ecf2; --muted:#9aa6b4; --line:#2a3644; --chip:#212b36;
+  --liberl:#5aa6e6; --crossbell:#2cc3b4; --erebonia:#e0606e; --bridge:#a585e6; --calvard:#e9a23d; --side:#8f98a6;
+  --warn:#f0b65a; --warnbg:#3a2b12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:820px;margin:0 auto;display:grid;gap:24px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,6vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.lede{color:var(--muted);max-width:62ch;margin:8px 0 0}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:14px}
+.progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bar{flex:1 1 220px;height:10px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}
+.bar span{display:block;height:100%;transition:width .3s}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px}
+button.reset{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:5px 10px;cursor:pointer}
+button.reset:hover{color:var(--ink);border-color:var(--muted)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--liberl);outline-offset:2px}
+
+.route{display:grid}
+.arc{position:relative;padding-left:44px;--c:var(--muted)}
+.arc::before{content:"";position:absolute;left:15px;top:0;bottom:0;width:6px;background:var(--c);border-radius:3px}
+.arc-head{position:relative;padding:22px 0 10px}
+.arc-head::before{content:"";position:absolute;left:-37px;top:22px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:6px solid var(--c)}
+.arc-head h2{font-size:22px;font-weight:700;color:var(--c)}
+.arc-head p{margin:2px 0 0;color:var(--muted);font-size:14px;max-width:62ch}
+.stations{display:grid;gap:12px;padding-bottom:18px}
+.station{position:relative}
+.station::before{content:"";position:absolute;left:-34px;top:20px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--c)}
+.station.done::before{background:var(--c)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;cursor:pointer}
+.card > *{min-width:0}
+.station.done .card{opacity:.7}
+.check{grid-row:1/span 2;width:22px;height:22px;margin:2px 0 0;accent-color:var(--c);cursor:pointer}
+.title-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.num{font-family:var(--mono);font-size:12px;color:var(--c);font-weight:600;font-variant-numeric:tabular-nums}
+.card h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.station.done h3{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--c)}
+.jp{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.note{grid-column:2;color:var(--ink);font-size:14px;margin:6px 0 0;max-width:64ch}
+.meta{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12.5px;border-radius:6px;padding:3px 8px;line-height:1.35;background:var(--chip);color:var(--ink)}
+.chip .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.warn{font-size:13px;color:var(--warn);background:var(--warnbg);border-radius:6px;padding:6px 10px}
+
+.branch{margin:-6px 0 6px;position:relative;padding-left:44px}
+.branch::before{content:"";position:absolute;left:18px;top:0;height:30px;width:30px;border-left:3px dashed var(--side);border-bottom:3px dashed var(--side);border-bottom-left-radius:14px}
+.branch .station::before{display:none}
+.branch .card{border-style:dashed;margin-left:20px}
+
+.end{padding-left:44px;position:relative;color:var(--muted);font-size:14px}
+.end::before{content:"";position:absolute;left:15px;top:0;height:28px;width:6px;background:repeating-linear-gradient(var(--calvard) 0 6px,transparent 6px 12px);border-radius:3px}
+.end p{padding-top:30px;margin:0;max-width:62ch}
+
+aside.tips{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:8px}
+aside.tips h2{font-size:18px}
+aside.tips ul{margin:0;padding-left:18px;display:grid;gap:6px;max-width:66ch}
+@media (max-width:480px){.arc,.branch,.end{padding-left:36px}.arc::before,.end::before{left:11px}.arc-head::before{left:-31px}.station::before{left:-29px}.card{padding:12px}}
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">The Legend of Heroes · Zemuria saga · Steam route · Oct 2026</div>
+    <h1>Trails Route Map</h1>
+    <p class="lede">Every game in Japanese release order, all on Steam. Tick each one off as you finish it; your ticks stay in this browser.</p>
+    <div class="progress">
+      <div class="bar" id="bar" aria-hidden="true"></div>
+      <span class="count" id="count">0 / 13</span>
+      <button class="reset" id="reset" type="button">Clear ticks</button>
+    </div>
+  </header>
+
+  <div class="route" id="route"></div>
+
+  <aside class="tips">
+    <h2>Steam notes</h2>
+    <ul>
+      <li>Skip the 2014 and 2015 Steam versions of the original Trails in the Sky FC and SC. The 1st and 2nd Chapter remakes replace them.</li>
+      <li>Save carry-over between games reads from your local or Steam Cloud save folder, so keep each sequel in the same Steam library as the game before it.</li>
+      <li>The Cold Steel games have a turbo mode that speeds up battles and walking, which helps with grinding and replays.</li>
+    </ul>
+  </aside>
+</div>
+
+<script>
+const ARCS = [
+  { id:"liberl", name:"Liberl arc", c:"--liberl", blurb:"Estelle and Joshua. The foundation everything else builds on.", games:[
+    { id:"fc", n:1, t:"Trails in the Sky 1st Chapter", jp:"Sora no Kiseki FC · 2004 · remake 2025",
+      note:"The 2025 remake. Fully 3D, voiced, with modern combat options." },
+    { id:"sc", n:2, t:"Trails in the Sky 2nd Chapter", jp:"Sora no Kiseki SC · 2006 · remake 2026",
+      note:"Remake of SC, picking up right after 1st Chapter's cliffhanger.",
+      carry:"1st Chapter clear data: bonus items and the classic SC outfits" },
+    { id:"3rd", n:3, t:"Trails in the Sky the 3rd", jp:"Sora no Kiseki the 3rd · 2007",
+      note:"Not remade yet, so this is the original sprite version. A dungeon-crawler epilogue starring Kevin that matters a lot for Horizon." }
+  ]},
+  { id:"crossbell", name:"Crossbell arc", c:"--crossbell", blurb:"Lloyd and the Special Support Section.", games:[
+    { id:"zero", n:4, t:"Trails from Zero", jp:"Zero no Kiseki · 2010",
+      note:"NIS America's 2022 release of the Kai remaster." },
+    { id:"azure", n:5, t:"Trails to Azure", jp:"Ao no Kiseki · 2011",
+      note:"Its ending leads straight into Reverie.",
+      carry:"Zero clear data" }
+  ], warn:"Play Crossbell before Cold Steel. Cold Steel III spoils it heavily."},
+  { id:"erebonia", name:"Erebonia arc", c:"--erebonia", blurb:"Rean and Class VII. Four games, one long war story.", games:[
+    { id:"cs1", n:6, t:"Trails of Cold Steel", jp:"Sen no Kiseki · 2013", note:"Thors Military Academy, year one." },
+    { id:"cs2", n:7, t:"Trails of Cold Steel II", jp:"Sen no Kiseki II · 2014", note:"Direct continuation of I.", carry:"Cold Steel I clear data" },
+    { id:"cs3", n:8, t:"Trails of Cold Steel III", jp:"Sen no Kiseki III · 2017", note:"New class, new campus, and many Crossbell callbacks." },
+    { id:"cs4", n:9, t:"Trails of Cold Steel IV", jp:"Sen no Kiseki IV · 2018", note:"Finale of the first half of the saga.", carry:"Cold Steel III clear data" }
+  ]},
+  { id:"bridge", name:"Bridge", c:"--bridge", blurb:"Wraps up Liberl, Crossbell and Erebonia before the move to Calvard.", games:[
+    { id:"reverie", n:10, t:"Trails into Reverie", jp:"Hajimari no Kiseki · 2020", note:"Three routes: Rean, Lloyd and the masked C." }
+  ], branch:{ id:"nayuta", t:"Nayuta: Boundless Trails", jp:"Nayuta no Kiseki · 2012 · optional spin-off", note:"Action RPG with a separate story. Play it any time, or skip it." } },
+  { id:"calvard", name:"Calvard arc", c:"--calvard", blurb:"Van Arkride, the Arkride Solutions Office, and the run-up to the finale.", games:[
+    { id:"kuro1", n:11, t:"Trails through Daybreak", jp:"Kuro no Kiseki · 2021", note:"New engine and a new hybrid action and turn-based combat system." },
+    { id:"kuro2", n:12, t:"Trails through Daybreak II", jp:"Kuro no Kiseki II · 2022", note:"Needs Daybreak I fresh in mind.", carry:"Daybreak I clear data" },
+    { id:"kai", n:13, t:"Trails beyond the Horizon", jp:"Kai no Kiseki · 2024", note:"Rean, Kevin and Van share the lead. Draws on every earlier game." }
+  ], warn:"Finish both Daybreak games before Horizon."}
+];
+const KEY = "trails-route-v1";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { done = {}; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e) {} }
+
+function stationHTML(g, color){
+  const num = g.n ? `#${String(g.n).padStart(2,"0")}` : "side";
+  const carry = g.carry ? `<div class="meta"><span class="chip"><span class="k">Reads save</span>${g.carry}</span></div>` : "";
+  return `<div class="station${done[g.id]?" done":""}" data-id="${g.id}" style="--c:var(${color})">
+    <label class="card" for="cb-${g.id}">
+      <input class="check" type="checkbox" id="cb-${g.id}" ${done[g.id]?"checked":""}>
+      <div class="title-row"><span class="num">${num}</span><h3>${g.t}</h3></div>
+      <div class="jp">${g.jp}</div>
+      <p class="note">${g.note}</p>
+      ${carry}
+    </label></div>`;
+}
+function render(){
+  let h = "";
+  for (const a of ARCS){
+    h += `<div class="arc" style="--c:var(${a.c})"><div class="arc-head"><h2>${a.name}</h2><p>${a.blurb}</p></div><div class="stations">`;
+    for (const g of a.games) h += stationHTML(g, a.c);
+    if (a.warn) h += `<div class="warn">⚠ ${a.warn}</div>`;
+    h += `</div></div>`;
+    if (a.branch) h += `<div class="branch">${stationHTML(a.branch, "--side")}</div>`;
+  }
+  h += `<div class="end"><p>Next stop: Kai no Kiseki 2, the final arc. Its scenario is written and Falcom is aiming for its 50th anniversary.</p></div>`;
+  const route = document.getElementById("route");
+  route.innerHTML = h;
+  route.querySelectorAll("input.check").forEach(cb => cb.addEventListener("change", e => {
+    const st = e.target.closest(".station"), id = st.dataset.id;
+    if (e.target.checked) done[id] = true; else delete done[id];
+    st.classList.toggle("done", e.target.checked); save(); progress();
+  }));
+  progress();
+}
+function progress(){
+  let n = 0, segs = "";
+  for (const a of ARCS){ const c = a.games.filter(g => done[g.id]).length; n += c;
+    segs += `<span style="width:${(c/13*100).toFixed(2)}%;background:var(${a.c})"></span>`; }
+  document.getElementById("bar").innerHTML = segs;
+  document.getElementById("count").textContent = `${n} / 13` + (done.nayuta ? " + Nayuta" : "");
+}
+document.getElementById("reset").addEventListener("click", () => { done = {}; save(); render(); });
+render();
+</script>
+</body>
+</html>
