@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fire Emblem Campaign Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: a tactics-map campaign log. Route map up top, then one "unit card" per game, grouped by continent. Blue = your army (cleared), red = enemy phase (patch required). */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --ink:#1b2430; --muted:#5b6676; --line:#cfd6df;
+  --ally:#2f5fb3; --ally-soft:#dce6f7; --foe:#b3383a; --foe-soft:#f6dede; --gold:#a07a1c; --gold-soft:#f3ead2;
+  --grid:rgba(47,95,179,.07);
+  --f-display:"Marcellus SC","Trajan Pro",Georgia,serif;
+  --f-body:"Alegreya Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151c; --surface:#18202a; --ink:#e4e9ef; --muted:#97a3b3; --line:#2c3846;
+  --ally:#7aa2ea; --ally-soft:#1d2d47; --foe:#ec7c7c; --foe-soft:#3e2224; --gold:#d8b45a; --gold-soft:#352c16;
+  --grid:rgba(122,162,234,.07); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c; --surface:#18202a; --ink:#e4e9ef; --muted:#97a3b3; --line:#2c3846;
+  --ally:#7aa2ea; --ally-soft:#1d2d47; --foe:#ec7c7c; --foe-soft:#3e2224; --gold:#d8b45a; --gold-soft:#352c16;
+  --grid:rgba(122,162,234,.07); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:.02em;line-height:1.1}
+h2{font-size:1.5rem;letter-spacing:.03em}
+h3{font-size:1.3rem;letter-spacing:.02em}
+a{color:var(--ally)}
+a:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Header */
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+header p{margin:8px 0 0;max-width:60ch;color:var(--muted)}
+.tally{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 16px;text-align:right;min-width:170px}
+.tally b{font-family:var(--f-display);font-weight:400;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ally);transition:width .3s}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.88rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+@media (max-width:560px){header{grid-template-columns:1fr}.tally{text-align:left}}
+
+/* Route map */
+.map{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
+.map-scroll{overflow-x:auto}
+.map svg{display:block;min-width:820px;width:100%;height:auto}
+.map .node{cursor:pointer}
+.map .tile{fill:var(--surface);stroke:var(--ally);stroke-width:1.5}
+.map .node.patch .tile{stroke:var(--foe)}
+.map .node.done .tile{fill:var(--ally)}
+.map .node.done text.code{fill:var(--surface)}
+.map text{font-family:var(--f-mono);fill:var(--ink)}
+.map text.code{font-size:13px;font-weight:500}
+.map text.lbl{font-size:10.5px;fill:var(--muted)}
+.map text.realm{font-family:var(--f-display);font-size:13px;fill:var(--gold);letter-spacing:.06em}
+.map .band{fill:var(--gold-soft);opacity:.55}
+.map .path{stroke:var(--muted);stroke-width:1.2;fill:none;stroke-dasharray:4 4}
+.map-note{font-size:.85rem;color:var(--muted);margin:10px 0 0}
+
+/* Sagas */
+.saga{display:flex;flex-direction:column;gap:14px}
+.saga-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:8px}
+.saga-head p{margin:0;color:var(--muted);font-size:.95rem}
+.cards{display:flex;flex-direction:column;gap:14px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:64px 1fr;overflow:hidden;scroll-margin-top:16px}
+.card.done{border-color:var(--ally)}
+.rail{background:var(--ally-soft);display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 0}
+.card.patch .rail{background:var(--foe-soft)}
+.step{font-family:var(--f-display);font-size:1.6rem;color:var(--ally);line-height:1}
+.card.patch .step{color:var(--foe)}
+.check{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--ally);cursor:pointer;margin:0}
+.body{padding:16px 20px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.titlerow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--f-mono);font-size:.72rem;padding:3px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.off{background:var(--ally-soft);border-color:transparent;color:var(--ally)}
+.chip.fan{background:var(--foe-soft);border-color:transparent;color:var(--foe)}
+.replaces{font-size:.9rem;color:var(--gold);margin:-4px 0 0}
+.premise{margin:0;max-width:68ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 20px;margin:0;font-size:.92rem}
+.facts div{min-width:0}
+.facts dt{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0}
+.tips{margin:0;padding-left:18px;font-size:.94rem;max-width:70ch}
+.tips li{margin:2px 0}
+.patchbox{border:1px dashed var(--foe);border-radius:6px;padding:10px 14px;background:var(--foe-soft);font-size:.92rem;display:flex;flex-direction:column;gap:6px;min-width:0}
+.patchbox .name{font-weight:700;color:var(--ink)}
+.patchbox .links{display:flex;flex-wrap:wrap;gap:6px 16px}
+.patchbox code{font-family:var(--f-mono);font-size:.78rem;word-break:break-all}
+.card.patch .patchbox{display:flex}
+
+footer{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+.reset{align-self:flex-start;font:inherit;font-size:.85rem;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:4px 10px;cursor:pointer}
+@media (max-width:480px){.card{grid-template-columns:48px 1fr}.body{padding:14px 14px 16px}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Pre-Switch campaign · 12 games · English</div>
+      <h1>Fire Emblem Campaign Log</h1>
+      <p>Every pre-Switch story once, in English, in the order we settled on. Where a remake exists it replaces the original. Tick a game off when you clear it; ticks are saved in this browser.</p>
+    </div>
+    <div class="tally" aria-live="polite">
+      <div class="eyebrow">Games cleared</div>
+      <b id="count">0</b><span style="color:var(--muted)"> / 12</span>
+      <div class="bar"><i id="bar"></i></div>
+    </div>
+  </header>
+
+  <section class="map" aria-label="Route map">
+    <div class="legend" style="margin-bottom:10px">
+      <span><i class="sw" style="border:1.5px solid var(--ally)"></i>Official English release</span>
+      <span><i class="sw" style="border:1.5px solid var(--foe)"></i>Fan patch needed</span>
+      <span><i class="sw" style="background:var(--ally)"></i>Cleared</span>
+    </div>
+    <div class="map-scroll">
+      <svg id="route" viewBox="0 0 900 190" role="img" aria-labelledby="rt rd">
+        <title id="rt">Play order route map</title>
+        <desc id="rd">Twelve games in order across six regions: Archanea (FE11, FE15, FE12), Jugdral (FE4, FE5), Elibe (FE6, FE7), Magvel (FE8), Tellius (FE9, FE10), and the 3DS era (FE13, FE14).</desc>
+      </svg>
+    </div>
+    <p class="map-note">Tap a tile to jump to that game. FE15 sits in the Archanea leg for convenience; it's a side story on another continent, so it can move anywhere.</p>
+  </section>
+
+  <div id="sagas"></div>
+
+  <footer>
+    <div>Patches apply to clean Japanese ROMs/ISOs you dump yourself; check the hash listed on each patch page before patching. Links point to patch pages, not ROMs.</div>
+    <div>Sources: GameBrew (FE6 v1.2.1, FE12 v3.01 pages), Romhack Plaza (Lil' Manster), FEUniverse (Heroes of Light), Fanlore.</div>
+    <button class="reset" id="reset" type="button">Clear all ticks</button>
+  </footer>
+</div>
+
+<script>
+const SAGAS=[
+ {id:"archanea",name:"Archanea",era:"Marth's saga · DS & 3DS remakes",games:["fe11","fe15","fe12"]},
+ {id:"jugdral",name:"Jugdral",era:"Super Famicom · both fan-translated",games:["fe4","fe5"]},
+ {id:"elibe",name:"Elibe",era:"Game Boy Advance",games:["fe6","fe7"]},
+ {id:"magvel",name:"Magvel",era:"Game Boy Advance",games:["fe8"]},
+ {id:"tellius",name:"Tellius",era:"GameCube & Wii",games:["fe9","fe10"]},
+ {id:"modern",name:"3DS era",era:"Ylisse & beyond",games:["fe13","fe14"]}
+];
+const G={
+ fe11:{code:"FE11",title:"Shadow Dragon",plat:"Nintendo DS",year:"2008 JP · 2009 West",official:true,
+  replaces:"Replaces FE1, Shadow Dragon and the Blade of Light (Famicom, 1990)",
+  premise:"Marth, the young prince of Altea, is forced into exile when the Dolhr Empire and its allies overrun his homeland. Years later he leaves his island refuge with a handful of loyal knights to win back his kingdom and push back the darkness spreading across the continent of Archanea.",
+  facts:{Length:"25 chapters + prologue, roughly 20–25 hours",Feel:"Classic, lean, no support conversations",Emulator:"melonDS / DraStic"},
+  tips:["The tutorial prologue only appears on Normal difficulty; harder modes skip straight to Chapter 1.","Hidden side chapters unlock only when your living army is small. Don't chase them on a first run.","Permadeath is unforgiving and units are plentiful, so recruit everyone you can."]},
+ fe15:{code:"FE15",title:"Echoes: Shadows of Valentia",plat:"Nintendo 3DS",year:"2017",official:true,
+  replaces:"Replaces FE2, Gaiden (Famicom, 1992)",
+  premise:"On the continent of Valentia, the kingdoms of Zofia and Rigel are sliding toward war. Two childhood friends raised in a quiet village, Alm and Celica, are drawn into the conflict along separate paths, each leading their own army across the map.",
+  facts:{Length:"5 acts, roughly 30–40 hours",Feel:"Two armies, dungeons you walk through, full voice acting",Emulator:"Azahar"},
+  tips:["A side story on a different continent from Marth's. It doesn't need FE11 first; play it here or anywhere in the run.","Mila's Turnwheel lets you rewind turns, so permadeath bites less than in FE11.","Paid DLC chapters exist; they aren't needed for the story."]},
+ fe12:{code:"FE12",title:"New Mystery of the Emblem",plat:"Nintendo DS",year:"2010 JP only",official:false,
+  replaces:"Replaces FE3, Mystery of the Emblem (Super Famicom, 1994). FE3's first half retells FE1, so FE11 already covers it.",
+  premise:"A year after the war that ended FE11, peace in Archanea starts to fray. You create your own character, a new recruit training in Altea's royal guard, who rides alongside Marth as old allies and new rivals resurface.",
+  facts:{Length:"25+ chapters, roughly 25–30 hours",Feel:"FE11's engine plus an avatar, base conversations and a Casual mode",Emulator:"melonDS / DraStic"},
+  tips:["Direct sequel to FE11, so keep it close behind.","Casual mode (no permadeath) debuted here if you want a lighter run.","The Archanea Chronicles bonus episodes in the menu are translated too."],
+  patch:{name:"Heroes of Shadow complete translation v3.01 (2012)",
+   links:[["GameBrew page + download","https://www.gamebrew.org/wiki/Fire_Emblem_-_Heroes_of_Light_and_Shadow"],["Romhacking.net entry","https://www.romhacking.net/translations/1764/"]],
+   note:"Patcher included. Needs the Japanese ROM; the page lists both decrypted and encrypted hashes. Saves carry over between versions."}},
+ fe4:{code:"FE4",title:"Genealogy of the Holy War",plat:"Super Famicom",year:"1996 JP only",official:false,
+  premise:"Sigurd, heir to the duchy of Chalphy in the kingdom of Grannvale, rides out to help a neighbour and finds himself at the centre of a war that spreads across the whole continent of Jugdral. The story spans two generations, and the bonds formed in the first shape who fights in the second.",
+  facts:{Length:"12 huge chapters, roughly 40–50 hours",Feel:"Castles, giant maps, marriage and inheritance",Emulator:"Snes9x / bsnes"},
+  tips:["Maps are enormous and slow. Turn the animation speed up.","Pairing units in the first generation decides the second generation's army. A loose guide to pairings is spoiler-light and worth a glance.","Save often: suspend-anywhere is the main safety net."],
+  patch:{name:"Lil' Nordion (Miacis, based on Project Naga)",
+   links:[["Romhack Plaza page","https://romhackplaza.org/translations/lil-nordion-fire-emblem-genealogy-of-the-holy-war-english-translation-snes"]],
+   note:"Successor to the long-standing Project Naga beta; it adds official localized names, visual polish and bug fixes. Apply to a clean Japanese ROM."}},
+ fe5:{code:"FE5",title:"Thracia 776",plat:"Super Famicom",year:"1999 JP only",official:false,
+  premise:"Leif, the young prince of the fallen kingdom of Leonster, has grown up on the run. In the occupied Thracian peninsula he leads a small band of rebels, scraping for supplies and allies against an empire that holds every road.",
+  facts:{Length:"30+ chapters, roughly 30–40 hours",Feel:"Small army, tight resources, the series' hardest classic",Emulator:"Snes9x / bsnes"},
+  tips:["Takes place inside FE4's timeline, so play it straight after Genealogy.","Fatigue, fog of war and capture all matter here. Read the in-game help when a new mechanic appears.","A blind run is fine; the patch's localisation adds gentle warnings for the nastiest traps."],
+  patch:{name:"Lil' Manster v1.08 (built on Project Exile)",
+   links:[["Romhack Plaza page","https://romhackplaza.org/?p=1847"]],
+   note:"Completes Project Exile's translation, fixes inaccuracies, adds better fonts and optional quality-of-life add-ons.",hash:"ROM CRC32 17F75FD7"}},
+ fe6:{code:"FE6",title:"The Binding Blade",plat:"Game Boy Advance",year:"2002 JP only",official:false,
+  premise:"Roy, the son of a Lycian marquess, takes command of his father's forces when the kingdom of Bern launches a sudden invasion of its neighbours across the continent of Elibe.",
+  facts:{Length:"24 chapters + side chapters, roughly 25 hours",Feel:"Low hit rates, big cast, tough later maps",Emulator:"mGBA"},
+  tips:["The true ending depends on clearing optional side chapters. Look up the unlock conditions before the midgame; they're spoiler-light.","Hit rates are lower than in FE7 and FE8. Expect misses.","FE7 is its prequel and was released after it; playing FE6 first matches release order."],
+  patch:{name:"FE6 Localization v1.2.1 (gringe, 2024)",
+   links:[["GameBrew page + download","https://www.gamebrew.org/wiki/Fire_Emblem_-_The_Binding_Blade_GBA"],["Serenes Forest thread","https://forums.serenesforest.net/index.php?/topic/41095-fe6-localization-patch-v113-now-with-fully-functional-support-conversation-reader/"]],
+   note:"UPS patch, apply with NUPS or an online patcher. Names match Fire Emblem Heroes; adds a support-conversation reader.",hash:"ROM CRC32 D38763E1"}},
+ fe7:{code:"FE7",title:"The Blazing Blade",sub:"released in the West simply as Fire Emblem",plat:"Game Boy Advance",year:"2003",official:true,
+  premise:"Twenty years before FE6, a young plainswoman named Lyn, Eliwood of Pherae and Hector of Ostia cross paths while searching for Eliwood's missing father, and uncover a scheme reaching far beyond Lycia.",
+  facts:{Length:"30+ chapters, roughly 25–30 hours",Feel:"Polished, story-forward, gentle start",Emulator:"mGBA"},
+  tips:["The first ten chapters are a long tutorial. Hard mode is unlocked after a clear if you want more bite.","Hector Mode, unlocked after one clear, adds chapters and a different lead.","Many FE6 characters appear here as their younger selves."]},
+ fe8:{code:"FE8",title:"The Sacred Stones",plat:"Game Boy Advance",year:"2004 JP · 2005 West",official:true,
+  premise:"Twin heirs Eirika and Ephraim of Renais are scattered when the long-allied Grado Empire invades without warning. Each sets out to save their homeland and learn why an old friend turned enemy.",
+  facts:{Length:"20 chapters, roughly 20 hours",Feel:"Friendliest GBA entry, free-roam world map",Emulator:"mGBA"},
+  tips:["The story splits into two routes mid-game; both reach the same ending with different chapters.","Skirmishes and the Tower of Valni let you grind, so it's the easiest classic entry.","Standalone story: no prior game needed."]},
+ fe9:{code:"FE9",title:"Path of Radiance",plat:"GameCube",year:"2005",official:true,
+  premise:"Ike, a young member of his father's mercenary company, is swept into a war when the kingdom of Daein invades its neighbour Crimea on the continent of Tellius, where humans and the beast-like laguz share an uneasy history.",
+  facts:{Length:"Prologue + 28 chapters, roughly 30 hours",Feel:"Grounded, political, bonus-EXP growth",Emulator:"Dolphin"},
+  tips:["Bonus EXP earned by finishing chapters quickly lets you level up benched units.","Keep your clear save. Radiant Dawn can read cleared Path of Radiance data for small bonuses.","Original discs are expensive; Dolphin runs it well."]},
+ fe10:{code:"FE10",title:"Radiant Dawn",plat:"Wii",year:"2007 JP · 2007–08 West",official:true,
+  premise:"Three years after Path of Radiance, the land of Daein lives under occupation. A silver-haired girl named Micaiah and a small band of freedom fighters start a resistance, and the story widens across several armies before it ends.",
+  facts:{Length:"4 parts, 40+ chapters, roughly 50 hours",Feel:"Epic scope, steep difficulty",Emulator:"Dolphin"},
+  tips:["Direct sequel to Path of Radiance; play them back to back.","Western Normal is noticeably harder than Japanese Normal. Easy is fine for a first run.","Supports the GameCube controller layout, which maps cleanly to a handheld."]},
+ fe13:{code:"FE13",title:"Awakening",plat:"Nintendo 3DS",year:"2012 JP · 2013 West",official:true,
+  premise:"Chrom, prince of Ylisse, and his band of Shepherds find a tactician lying in a field with no memory: you. As neighbouring kingdoms grow restless, the Shepherds are pulled into a war with roots stretching back centuries.",
+  facts:{Length:"25+ chapters, roughly 30–40 hours",Feel:"Pair-up, marriage, children, Casual mode",Emulator:"Azahar"},
+  tips:["Set far in the future of Marth's world, with nods to every earlier saga. Saving it for last pays off.","Paid DLC maps can't be bought any more; the 3DS eShop closed in 2023.","Pair-up is strong. Lunatic difficulty is a separate challenge for later."]},
+ fe14:{code:"FE14",title:"Fates",sub:"Birthright · Conquest · Revelation",plat:"Nintendo 3DS",year:"2015 JP · 2016 West",official:true,
+  premise:"Raised as royalty in the dark kingdom of Nohr, your avatar learns they were born to the rival kingdom of Hoshido. Caught between the family who raised them and the family they lost, they must choose which side to stand with, or refuse both.",
+  facts:{Length:"Three campaigns, 25–30 chapters each",Feel:"Birthright easier, Conquest the tactical peak",Emulator:"Azahar"},
+  tips:["The usual order is Birthright, then Conquest, then Revelation.","Revelation was paid DLC on the 3DS eShop, which closed in 2023. The physical Special Edition cartridge includes all three routes.","Each route is a full game; take a break between them if you like."]}
+};
+let order=SAGAS.flatMap(s=>s.games);
+const KEY="fe-campaign-cleared";
+let done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderCards(){
+  const root=document.getElementById("sagas");
+  root.innerHTML=SAGAS.map(s=>`
+   <section class="saga" id="${s.id}">
+    <div class="saga-head"><h2>${s.name}</h2><p>${s.era}</p></div>
+    <div class="cards">${s.games.map(id=>{const g=G[id];const n=order.indexOf(id)+1;
+     return `<article class="card${g.official?"":" patch"}" id="${id}">
+      <div class="rail"><div class="step">${n}</div>
+        <label class="check" for="c-${id}"><input type="checkbox" id="c-${id}" data-id="${id}">Clear</label></div>
+      <div class="body">
+        <div class="titlerow"><div><div class="eyebrow">${g.code}</div><h3>${esc(g.title)}</h3>${g.sub?`<div style="color:var(--muted);font-size:.9rem">${esc(g.sub)}</div>`:""}</div>
+          <div class="chips"><span class="chip">${g.plat}</span><span class="chip">${g.year}</span>
+          <span class="chip ${g.official?"off":"fan"}">${g.official?"Official English":"Fan patch"}</span></div></div>
+        ${g.replaces?`<p class="replaces">${esc(g.replaces)}</p>`:""}
+        <p class="premise">${esc(g.premise)}</p>
+        <dl class="facts">${Object.entries(g.facts).map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+        <ul class="tips">${g.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+        ${g.patch?`<div class="patchbox"><div class="eyebrow" style="color:var(--foe)">English patch</div>
+          <div class="name">${esc(g.patch.name)}</div>
+          <div class="links">${g.patch.links.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>
+          <div>${esc(g.patch.note)}</div>${g.patch.hash?`<code>${g.patch.hash}</code>`:""}</div>`:""}
+      </div></article>`}).join("")}</div>
+   </section>`).join("");
+}
+
+function renderMap(){
+  const svg=document.getElementById("route");
+  const ns="http://www.w3.org/2000/svg";
+  const tile=46, gap=24, x0=20, y=78;
+  let parts=[], x=x0, pos={};
+  SAGAS.forEach((s,si)=>{
+    const w=s.games.length*tile+(s.games.length-1)*gap;
+    parts.push(`<rect class="band" x="${x-10}" y="${y-44}" width="${w+20}" height="${tile+88}" rx="4"/>`);
+    parts.push(`<text class="realm" x="${x-2}" y="${y-24}">${s.name.toUpperCase()}</text>`);
+    s.games.forEach(id=>{pos[id]=x;x+=tile+gap});
+    x+=14;
+  });
+  for(let i=0;i<order.length-1;i++){
+    const a=pos[order[i]]+tile, b=pos[order[i+1]];
+    parts.push(`<line class="path" x1="${a+3}" y1="${y+tile/2}" x2="${b-3}" y2="${y+tile/2}"/>`);
+  }
+  order.forEach((id,i)=>{const g=G[id],px=pos[id];
+    parts.push(`<g class="node${g.official?"":" patch"}${done[id]?" done":""}" data-id="${id}" tabindex="0" role="link" aria-label="${g.code} ${esc(g.title)}">
+      <rect class="tile" x="${px}" y="${y}" width="${tile}" height="${tile}" rx="3"/>
+      <text class="code" x="${px+tile/2}" y="${y+tile/2+4}" text-anchor="middle">${g.code.replace("FE","")}</text>
+      <text class="lbl" x="${px+tile/2}" y="${y+tile+18}" text-anchor="middle">${i+1}</text></g>`);
+  });
+  const total=x-x0+20;
+  svg.setAttribute("viewBox",`0 0 ${total} 190`);
+  svg.innerHTML=svg.querySelector("title").outerHTML+svg.querySelector("desc").outerHTML+parts.join("");
+  svg.querySelectorAll(".node").forEach(n=>{
+    const go=()=>document.getElementById(n.dataset.id).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+    n.addEventListener("click",go);
+    n.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});
+  });
+}
+
+function sync(){
+  let c=0;
+  order.forEach(id=>{const on=!!done[id];if(on)c++;
+    const cb=document.getElementById("c-"+id);if(cb)cb.checked=on;
+    document.getElementById(id).classList.toggle("done",on);
+    const node=document.querySelector(`#route .node[data-id="${id}"]`);if(node)node.classList.toggle("done",on);
+  });
+  document.getElementById("count").textContent=c;
+  document.getElementById("bar").style.width=(c/order.length*100)+"%";
+}
+
+renderCards();renderMap();sync();
+document.getElementById("sagas").addEventListener("change",e=>{
+  const id=e.target.dataset&&e.target.dataset.id;if(!id)return;
+  if(e.target.checked)done[id]=true;else delete done[id];save();sync();
+});
+const rb=document.getElementById("reset");
+rb.addEventListener("click",()=>{
+  if(rb.dataset.armed){done={};save();sync();rb.textContent="Clear all ticks";delete rb.dataset.armed;}
+  else{rb.dataset.armed="1";rb.textContent="Tap again to clear every tick";setTimeout(()=>{if(rb.dataset.armed){delete rb.dataset.armed;rb.textContent="Clear all ticks"}},4000);}
+});
+</script>
+
+</body></html>
