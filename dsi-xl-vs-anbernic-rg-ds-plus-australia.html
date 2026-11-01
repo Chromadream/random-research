@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DSi XL vs RG DS Plus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: a single reading column (~70ch) that widens for tables; two device "lanes" coloured burgundy (DSi XL) and metallic blue (RG DS Plus) run through every comparison. */
+:root{
+  --bg:#f2f4f7;
+  --surface:#ffffff;
+  --ink:#18202c;
+  --muted:#5a6475;
+  --line:#d9dee6;
+  --dsi:#8a2c44;        /* DSi XL burgundy */
+  --dsi-soft:#f5e6ea;
+  --rg:#2563a8;         /* RG DS Plus metallic blue */
+  --rg-soft:#e3edf8;
+  --tie:#6b7280;
+  --tie-soft:#eceef2;
+  --warn:#9a5b00;
+  --warn-soft:#fbf0dc;
+  --pixel-off:#e7eaf0;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151c; --surface:#181e28; --ink:#e6e9ef; --muted:#9aa3b2; --line:#2a3240;
+    --dsi:#e07a93; --dsi-soft:#3a1d26; --rg:#6fa8e8; --rg-soft:#172a40;
+    --tie:#9aa3b2; --tie-soft:#232a36; --warn:#e3a94f; --warn-soft:#33270f; --pixel-off:#232a36;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151c; --surface:#181e28; --ink:#e6e9ef; --muted:#9aa3b2; --line:#2a3240;
+  --dsi:#e07a93; --dsi-soft:#3a1d26; --rg:#6fa8e8; --rg-soft:#172a40;
+  --tie:#9aa3b2; --tie-soft:#232a36; --warn:#e3a94f; --warn-soft:#33270f; --pixel-off:#232a36;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--f-body); font-size:16px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0 64px;
+}
+.wrap{max-width:1040px; margin:0 auto}
+.col{max-width:70ch}
+a{color:var(--rg); text-underline-offset:2px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--rg); outline-offset:2px; border-radius:4px}
+h1,h2,h3{font-family:var(--f-display); text-wrap:balance; line-height:1.1; margin:0}
+h1{font-size:clamp(2.2rem, 6vw, 3.6rem); font-weight:800; letter-spacing:-0.02em}
+h2{font-size:clamp(1.5rem, 3.4vw, 2rem); font-weight:700; letter-spacing:-0.01em}
+h3{font-size:1.15rem; font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.dsi{color:var(--dsi)} .rg{color:var(--rg)}
+
+/* Header */
+header.hero{padding-block:48px 32px; display:grid; gap:18px; border-bottom:1px solid var(--line)}
+.hero h1 .vs{font-weight:500; color:var(--muted); font-size:.6em; padding:0 .15em}
+.lede{font-size:1.15rem; max-width:62ch; color:var(--ink)}
+.meta{display:flex; flex-wrap:wrap; gap:8px 18px; color:var(--muted); font-size:.9rem}
+
+/* Verdict */
+.verdict{margin-top:32px; display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:24px; align-items:start}
+.verdict-card{background:var(--rg-soft); border:1px solid color-mix(in srgb, var(--rg) 30%, transparent); border-radius:14px; padding:24px; display:grid; gap:12px}
+.verdict-card .tag{display:inline-block; font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--rg); font-weight:500}
+.verdict-card h2{font-size:1.6rem}
+.verdict ul{margin:0; padding-left:1.1em; display:grid; gap:6px}
+.side-note{display:grid; gap:10px; padding:4px 0}
+.side-note h3{color:var(--dsi)}
+
+/* Pixel figure */
+.figure{margin-top:48px; display:grid; gap:16px}
+.screens{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px}
+.screen{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px; display:grid; gap:12px; min-width:0}
+.screen-head{display:flex; justify-content:space-between; align-items:baseline; gap:8px; flex-wrap:wrap}
+.screen-head strong{font-family:var(--f-display); font-size:1.1rem}
+.grid8{display:grid; grid-template-columns:repeat(8,1fr); aspect-ratio:1; max-width:220px; width:100%; margin:0 auto; gap:0}
+.grid8 span{background:var(--pixel-off)}
+.grid8.a span.on{background:var(--dsi)}
+.grid8.b span.on{background:var(--rg)}
+.grid8.a span{box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--bg) 70%, transparent)}
+.grid8.b span{
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--bg) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--bg) 55%, transparent) 1px, transparent 1px);
+  background-size:25% 25%;
+}
+.screen dl{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:0; font-size:.88rem}
+.screen dt{color:var(--muted)} .screen dd{margin:0; font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.caption{color:var(--muted); font-size:.9rem; max-width:70ch}
+
+/* Sections */
+section{margin-top:56px; display:grid; gap:18px}
+.section-head{display:grid; gap:6px}
+.two{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:24px}
+.two > *{min-width:0}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px; display:grid; gap:12px; align-content:start}
+.panel h3{display:flex; align-items:center; gap:8px}
+.dot{width:10px; height:10px; border-radius:50%; flex:none}
+.dot.dsi{background:var(--dsi)} .dot.rg{background:var(--rg)}
+ul.clean{margin:0; padding-left:1.1em; display:grid; gap:6px}
+ul.clean li::marker{color:var(--muted)}
+
+/* Spec table */
+.tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:640px; font-size:.92rem}
+th,td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+thead th{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:500; background:color-mix(in srgb, var(--bg) 60%, var(--surface))}
+th.h-dsi{color:var(--dsi)} th.h-rg{color:var(--rg)}
+td.factor{font-weight:600; white-space:nowrap}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+.chip{display:inline-block; font-family:var(--f-mono); font-size:.72rem; font-weight:500; padding:3px 9px; border-radius:999px; white-space:nowrap}
+.chip.dsi{background:var(--dsi-soft); color:var(--dsi)}
+.chip.rg{background:var(--rg-soft); color:var(--rg)}
+.chip.tie{background:var(--tie-soft); color:var(--tie)}
+.tally{display:flex; flex-wrap:wrap; gap:10px; font-size:.9rem; color:var(--muted)}
+
+/* Reviews */
+.reviews{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
+.review{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px; display:grid; gap:8px; align-content:start; min-width:0}
+.review-head{display:flex; justify-content:space-between; gap:10px; align-items:baseline; flex-wrap:wrap}
+.review-head strong{font-family:var(--f-display); font-size:1.05rem}
+.score{font-family:var(--f-mono); font-size:.85rem; color:var(--muted)}
+.review p{font-size:.93rem}
+.flag{background:var(--warn-soft); color:var(--warn); border-radius:8px; padding:8px 10px; font-size:.88rem}
+
+/* Lane strip for overlap */
+.lanes{display:grid; gap:10px}
+.lane{display:grid; grid-template-columns:150px minmax(0,1fr); gap:14px; align-items:start; padding:14px 0; border-top:1px solid var(--line)}
+.lane:first-child{border-top:none}
+.lane .who{font-family:var(--f-display); font-weight:700}
+.pills{display:flex; flex-wrap:wrap; gap:6px}
+.pill{font-size:.84rem; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:var(--surface)}
+.pill.new{border-color:color-mix(in srgb, var(--rg) 45%, transparent); background:var(--rg-soft); color:var(--rg)}
+.pill.dup{color:var(--muted); text-decoration:line-through; text-decoration-color:color-mix(in srgb, var(--muted) 60%, transparent)}
+.pill.dsiadd{border-color:color-mix(in srgb, var(--dsi) 40%, transparent); background:var(--dsi-soft); color:var(--dsi)}
+.pill.loss{color:var(--warn); background:var(--warn-soft); border-color:transparent}
+
+/* Steps */
+ol.steps{margin:0; padding:0; list-style:none; counter-reset:s; display:grid; gap:14px}
+ol.steps > li{counter-increment:s; display:grid; grid-template-columns:36px minmax(0,1fr); gap:14px; align-items:start}
+ol.steps > li::before{content:counter(s); font-family:var(--f-display); font-weight:800; font-size:1.3rem; color:var(--rg); line-height:1.3; text-align:center}
+ol.steps h3{margin-bottom:4px}
+
+.alts{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:12px}
+.alt{border:1px solid var(--line); border-radius:10px; padding:14px; background:var(--surface); display:grid; gap:4px; align-content:start}
+.alt strong{font-family:var(--f-display)}
+.alt .price{font-family:var(--f-mono); font-size:.82rem; color:var(--muted)}
+
+.caveats{border-left:3px solid var(--warn); padding-left:16px}
+.sources{columns:2 280px; column-gap:28px; font-size:.85rem; margin:0; padding-left:1.1em}
+.sources li{break-inside:avoid; margin-bottom:4px}
+footer{margin-top:56px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:18px}
+
+@media (max-width:760px){
+  .verdict,.two,.reviews{grid-template-columns:minmax(0,1fr)}
+  .lane{grid-template-columns:minmax(0,1fr); gap:8px}
+}
+@media (max-width:480px){
+  .screens{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">Handheld buying research · Australia · November 2026</span>
+  <h1><span class="dsi">DSi XL</span><span class="vs">vs</span><span class="rg">RG DS Plus</span></h1>
+  <p class="lede">Which second DS device to buy for standard dual-screen and touch games, when a DS Lite is already handling the hardware-gimmick titles like Hotel Dusk's lid puzzles, mic blowing and GBA-slot accessories.</p>
+  <div class="meta"><span>Prices in AUD</span><span>RG DS Plus launched 15 Sept 2026</span><span>DSi XL launched 2009–10</span></div>
+</header>
+
+<div class="verdict">
+  <div class="verdict-card">
+    <span class="tag">Recommendation</span>
+    <h2>Buy the Anbernic RG DS Plus</h2>
+    <p>It costs about the same as a refurbished DSi XL here, shows DS games at a clean 4× integer scale on two 4.3" 1024×768 screens, and adds save states, upscaling, ROM library management and romhack support. A DSi XL adds very little your DS Lite doesn't already do.</p>
+    <ul>
+      <li>Weak spots: capacitive touch is worse for handwriting, the body is large, charging is slow, and there are early QC reports.</li>
+      <li>Send handwriting-heavy games to the DS Lite along with the gimmick games.</li>
+    </ul>
+  </div>
+  <div class="side-note">
+    <h3>When the DSi XL wins instead</h3>
+    <p>Pick it if authentic resistive touch, instant sleep and resume, and real Nintendo hardware matter more to you than sharpness and convenience, or if you want DSiWare and DSi-enhanced features.</p>
+    <p class="caption">Refurbished units run about A$135–250 and are 15+ years old, so budget for a battery and inspect the hinge.</p>
+  </div>
+</div>
+
+<div class="figure">
+  <div class="section-head">
+    <span class="eyebrow">The screen difference, magnified</span>
+    <h2>Same 8×8 patch of a DS frame</h2>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <div class="screen-head"><strong class="dsi">DSi XL</strong><span class="eyebrow">1 DS pixel = 1 panel pixel</span></div>
+      <div class="grid8 a" id="g-a" aria-label="8 by 8 grid where each DS pixel is one large panel pixel"></div>
+      <dl>
+        <dt>Panels</dt><dd>2 × 4.2", 256×192</dd>
+        <dt>Density</dt><dd>~76 PPI</dd>
+        <dt>Pixel size</dt><dd>~0.33 mm</dd>
+      </dl>
+    </div>
+    <div class="screen">
+      <div class="screen-head"><strong class="rg">RG DS Plus</strong><span class="eyebrow">1 DS pixel = 4×4 panel pixels</span></div>
+      <div class="grid8 b" id="g-b" aria-label="8 by 8 grid where each DS pixel is drawn by a 4 by 4 block of panel pixels"></div>
+      <dl>
+        <dt>Panels</dt><dd>2 × 4.3", 1024×768 IPS</dd>
+        <dt>Density</dt><dd>297.67 PPI</dd>
+        <dt>Scaling</dt><dd>exact 4×, 4:3</dd>
+      </dl>
+    </div>
+  </div>
+  <p class="caption">1024×768 is exactly four times 256×192 on each axis, so DS output maps with no uneven pixels and no letterbox. The DSi XL shows the original image on bigger, coarser pixels, which is why it looks soft up close. The RG DS Plus can also render 3D at 2× internally for most games.</p>
+</div>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Head-to-head</span>
+    <h2>Factor by factor</h2>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Factor</th><th class="h-dsi">Refurbished DSi XL</th><th class="h-rg">Anbernic RG DS Plus</th><th>Edge</th></tr></thead>
+      <tbody>
+        <tr><td class="factor">Price (AUD)</td><td class="num">~A$135–250</td><td class="num">~A$150–185 direct (est.)<br>A$188–207 eBay AU</td><td><span class="chip tie">Even</span></td></tr>
+        <tr><td class="factor">Accuracy</td><td>Real hardware, 100%</td><td>Full speed; HLE emulator with occasional audio and edge-case issues</td><td><span class="chip dsi">DSi XL</span></td></tr>
+        <tr><td class="factor">Screen</td><td>4.2", 256×192, ~76 PPI, soft</td><td>4.3", 1024×768, 4× integer, laminated IPS</td><td><span class="chip rg">RG DS Plus</span></td></tr>
+        <tr><td class="factor">Touch</td><td>Resistive, precise for handwriting</td><td>Capacitive, slight latency, weaker handwriting</td><td><span class="chip dsi">DSi XL</span></td></tr>
+        <tr><td class="factor">D-pad and buttons</td><td>Original Nintendo</td><td>Reviewed as close to the DSi XL</td><td><span class="chip tie">Tie</span></td></tr>
+        <tr><td class="factor">Size and weight</td><td class="num">161×91×21 mm, 314 g</td><td class="num">167×96×24 mm, 344 g</td><td><span class="chip dsi">DSi XL</span></td></tr>
+        <tr><td class="factor">Battery</td><td>4–17 h when new; aged cells unknown</td><td>~3.75 h measured to ~6 h claimed; slow charge</td><td><span class="chip dsi">DSi XL*</span></td></tr>
+        <tr><td class="factor">Sleep and resume</td><td>Instant</td><td>Hall-sensor sleep; few-second cold boot</td><td><span class="chip dsi">DSi XL</span></td></tr>
+        <tr><td class="factor">Save states, fast-forward, upscaling</td><td>Only via softmod, limited</td><td>Built in</td><td><span class="chip rg">RG DS Plus</span></td></tr>
+        <tr><td class="factor">Library, romhacks, translations</td><td>ROMs on SD via TWiLight Menu++</td><td>Native and easy, plus GBA, PS1 and more</td><td><span class="chip rg">RG DS Plus</span></td></tr>
+        <tr><td class="factor">Longevity</td><td>Hinge, battery and ribbon risks</td><td>New, but budget QC and short support tail</td><td><span class="chip tie">Mixed</span></td></tr>
+        <tr><td class="factor">Overlap with your DS Lite</td><td>High: same picture, same feel</td><td>Low: adds what the Lite can't do</td><td><span class="chip rg">RG DS Plus</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">* Only if the battery is healthy or replaced. The DSi XL takes more rows, but they are mostly about feel; the RG DS Plus wins the rows that decide whether it earns a place next to a DS Lite.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Why the DS Lite changes the answer</span>
+    <h2>What each device adds to what you already own</h2>
+  </div>
+  <div class="panel lanes">
+    <div class="lane">
+      <div class="who">DS Lite<br><span class="caption">already owned</span></div>
+      <div class="pills">
+        <span class="pill">Every DS cart</span><span class="pill">Resistive touch</span><span class="pill">Microphone</span><span class="pill">Lid-close puzzles</span><span class="pill">GBA slot</span>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="who dsi">+ DSi XL</div>
+      <div class="pills">
+        <span class="pill dup">Every DS cart</span><span class="pill dup">Resistive touch</span><span class="pill dsiadd">Bigger screens</span><span class="pill dsiadd">Longer battery</span><span class="pill dsiadd">Easy softmod</span><span class="pill dsiadd">DSiWare and camera</span><span class="pill loss">Loses GBA slot</span>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="who rg">+ RG DS Plus</div>
+      <div class="pills">
+        <span class="pill new">4× sharp screens</span><span class="pill new">Save states</span><span class="pill new">Fast-forward</span><span class="pill new">2× 3D upscaling</span><span class="pill new">Romhacks and translations</span><span class="pill new">GBA, PS1 and more</span>
+      </div>
+    </div>
+  </div>
+  <p class="caption">Struck-through items duplicate the DS Lite. A DSi XL is basically a DS Lite with a magnifying glass; nothing on the RG DS Plus row overlaps.</p>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Device profiles</span>
+    <h2>The two candidates</h2>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3><span class="dot rg"></span>Anbernic RG DS Plus</h3>
+      <ul class="clean">
+        <li><strong>Price:</strong> US$94.99 after a US$84.99 72-hour preorder. Successor to the Android RG DS (Dec 2025).</li>
+        <li><strong>Chip:</strong> Rockchip RK3568, 4× Cortex-A55 at 2.0 GHz, Mali-G52 2EE, 1 GB RAM.</li>
+        <li><strong>OS:</strong> Linux stock OS boots from microSD 1; microSD 2 holds games (up to 2 TB). No internal storage.</li>
+        <li><strong>Screens:</strong> Two 4.3" 1024×768 IPS at 60 Hz, OCA laminated. Only the bottom one is touch.</li>
+        <li><strong>Touch:</strong> Capacitive with a short rubber-tip stylus stored in the right side.</li>
+        <li><strong>Hinge:</strong> Alloy, stepless, holds 15°–180°. Hall sensor sleeps it on close.</li>
+        <li><strong>Battery:</strong> 4000 mAh, ~6 h rated, 5V/1.5A charging.</li>
+        <li><strong>Controls:</strong> D-pad, ABXY, four digital shoulders, one small analog stick, mic in the hinge.</li>
+        <li><strong>Extras:</strong> Wi-Fi 5, BT 4.2, 3.5 mm jack, two USB-C, front stereo speakers. Matte Black, Coral Pink, Metallic Blue.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="dot dsi"></span>Nintendo DSi XL (refurbished)</h3>
+      <ul class="clean">
+        <li><strong>Screens:</strong> Two 4.2" 256×192 panels. Sources disagree on IPS vs TFT, but angles beat the DS Lite. 18-bit colour.</li>
+        <li><strong>Battery:</strong> 1050 mAh (UTL-003). Nintendo quotes ~13–17 h at lowest brightness, ~4–5 h at highest.</li>
+        <li><strong>Common faults:</strong> Hinge wear and cracks, upper-screen ribbon stress, scratched screens, tired batteries.</li>
+        <li><strong>Battery swap:</strong> iFixit rates it Easy, two Phillips screws. Aftermarket quality varies.</li>
+        <li><strong>Region:</strong> DS carts are region-free; DSi-enhanced, DSi-exclusive and DSiWare titles are locked unless softmodded.</li>
+        <li><strong>Softmod:</strong> Unlaunch plus TWiLight Menu++ runs ROMs from SD via nds-bootstrap and guards against most bricks. Minor brick risk on install.</li>
+        <li><strong>Flashcarts:</strong> Needs DSi-compatible carts (R4i Gold 3DS Plus, DSTWO). Original R4s don't work.</li>
+        <li><strong>No GBA slot:</strong> gbaRunner2 GBA emulation is unreliable on DSi hardware.</li>
+        <li><strong>IPS mods:</strong> No drop-in laminated IPS kit found, unlike the DS Lite. USB-C mods exist.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Emulation on the RG DS Plus</span>
+    <h2>How DS games actually run</h2>
+  </div>
+  <div class="two">
+    <div class="col" style="display:grid; gap:12px">
+      <p><strong>Emulators.</strong> Stock firmware ships NNDDSS, Anbernic's closed-source DS emulator, reported to be based on neither melonDS nor DeSmuME. A DraStic RetroArch core is the fallback. ROCKNIX and GammaOS Nano both use DraStic. melonDS isn't realistic on the RK3568.</p>
+      <p><strong>Performance.</strong> Every reviewer reports full speed across the DS library at native resolution, and most games handle 2× upscaling. A community patch fixed audio crackle in heavy 3D scenes.</p>
+      <p><strong>Touch.</strong> The bottom 4:3 panel maps 1:1 to the DS touch screen. Good for tapping and dragging, weaker for fine handwriting.</p>
+    </div>
+    <div class="panel">
+      <h3>NNDDSS v1.0.2 features</h3>
+      <div class="pills">
+        <span class="pill">5 save states per game</span><span class="pill">Fast-forward</span><span class="pill">76+ shaders</span><span class="pill">2× internal resolution</span><span class="pill">Screen swap on L2</span><span class="pill">Cheats</span><span class="pill">Real-time clock</span><span class="pill">Per-game remapping</span><span class="pill">Working mic</span><span class="pill">7-language firmware</span>
+      </div>
+      <p class="caption">Bonus systems: everything up to PS1 at full speed. N64 and Dreamcast playable with fiddling. PSP hit and miss. 3DS not possible.</p>
+    </div>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Firmware options</h3>
+      <ul class="clean">
+        <li><strong>Stock:</strong> Works out of the box with a DSi/3DS-style tile launcher. No RetroAchievements; box art needs a PC scraper.</li>
+        <li><strong>ROCKNIX:</strong> Support merged into RK3566 nightlies at launch. Sleep, touch, both panels and both SD slots work. Audio fixes still landing late October; no stable release yet.</li>
+        <li><strong>GammaOS Nano:</strong> Stripped Android. Built-in scraping and softcore RetroAchievements. Some beta stability glitches reported.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Touch accuracy by game type</h3>
+      <div class="tbl-wrap" style="border:none">
+        <table style="min-width:0">
+          <tbody>
+            <tr><td>Tap and drag</td><td><span class="chip rg">Fine</span></td></tr>
+            <tr><td>Timing-based drag</td><td><span class="chip tie">Workable</span></td></tr>
+            <tr><td>Handwriting (Brain Age)</td><td><span class="chip dsi">Use DS Lite</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="caption">From Junub Games' side-by-side test with a real DSi.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Reviews</span>
+    <h2>What reviewers found</h2>
+  </div>
+  <div class="reviews">
+    <div class="review">
+      <div class="review-head"><strong>Time Extension</strong><span class="score">8/10 · 1 Oct</span></div>
+      <p>Calls it the reviewer's new favourite way to play DS. Praises the D-pad and buttons, says touch registers almost every tap with slight latency, and measured around six hours per charge. Recommends GammaOS Nano.</p>
+    </div>
+    <div class="review">
+      <div class="review-head"><strong>Retro Handhelds</strong><span class="score">28 Sept</span></div>
+      <p>One of the better clamshell D-pads, modelled on the DSi XL, and among the best dual-screen ergonomics, though wider than a DSi XL. Noted stylus delay and pressure marks on the top screen.</p>
+      <p class="flag">One of two review units died after charging and never came back.</p>
+    </div>
+    <div class="review">
+      <div class="review-head"><strong>Joey's Retro Handhelds</strong><span class="score">23 Sept</span></div>
+      <p>Excellent DS performance; Pokémon Black 2 at full speed after updates. Measured about 3h45m of DS play and ~3 h to charge. Viewing angles shift between screens, and the size rules it out for DS Lite-size fans.</p>
+    </div>
+    <div class="review">
+      <div class="review-head"><strong>Junub Games</strong><span class="score">8.1/10 · 16 Sept</span></div>
+      <p>A dozen DS games, all full speed. In Brain Age the real DSi read messy handwriting correctly while the RG DS Plus kept misreading numbers.</p>
+    </div>
+    <div class="review">
+      <div class="review-head"><strong>Retro Game Corps</strong><span class="score">short post</span></div>
+      <p>Praised ROCKNIX nightly on the device: most games play well at 2× upscale with excellent input latency. Recommends swapping the stock stylus for a woven-tip one.</p>
+    </div>
+    <div class="review">
+      <div class="review-head"><strong>Store ratings</strong><span class="score">low signal</span></div>
+      <p>Anbernic's own store averages 4.86/5. Walmart's listing averages 3.3/5 from 6 ratings.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Australian market</span>
+    <h2>Where to buy a DSi XL, and for how much</h2>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Source</th><th>Price (AUD)</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="factor">eBay AU, private</td><td class="num">~A$135–165 + A$10–50 post</td><td>Japanese "LL" imports common. Auctions start ~A$100. Sold prices not verified.</td></tr>
+        <tr><td class="factor">Gumtree (Adelaide)</td><td class="num">A$200 ono</td><td>Includes stylus and charger.</td></tr>
+        <tr><td class="factor">EB Games refurbished</td><td class="num">A$198</td><td>Includes stylus and AC adapter. Colour may vary.</td></tr>
+        <tr><td class="factor">Super Retro</td><td class="num">A$178–239</td><td>12-month warranty. Price varies by colour and grade.</td></tr>
+        <tr><td class="factor">Cash Converters (TAS)</td><td class="num">A$249.99</td><td>Little sign of wear, 90-day warranty.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3><span class="dot rg"></span>RG DS Plus total cost</h3>
+      <ul class="clean">
+        <li class="mono">A$150–207 device with 16 GB OS card</li>
+        <li class="mono">+ A$15–30 microSD for games</li>
+        <li class="mono">+ ~A$15 woven-tip stylus (optional)</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="dot dsi"></span>DSi XL total cost</h3>
+      <ul class="clean">
+        <li class="mono">A$135–250 console</li>
+        <li class="mono">+ likely battery replacement</li>
+        <li class="mono">+ A$0 softmod, or A$20–40 flashcart</li>
+        <li>Physical carts cost far more and dominate this route.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Plan</span>
+    <h2>What to do next</h2>
+  </div>
+  <ol class="steps col">
+    <li><div><h3>Buy the RG DS Plus</h3><p>Order direct from Anbernic (an Australian buyer reported delivery within a week) or via its eBay AU store for buyer protection. Take the base 16 GB model and add your own card.</p></div></li>
+    <li><div><h3>Test it inside the return window</h3><p>Check both screens, the hinge and charging, given Retro Handhelds' dead unit.</p></div></li>
+    <li><div><h3>Flash community firmware on a separate card</h3><p>ROCKNIX for the best latency and 2× DraStic, or GammaOS Nano for RetroAchievements and scraping. Keep the stock card as a fallback, and buy a woven-tip stylus.</p></div></li>
+    <li><div><h3>Route games by input</h3><p>Handwriting-heavy games (Brain Age, writing and precise drawing) go to the DS Lite, alongside the gimmick games.</p></div></li>
+  </ol>
+  <div class="panel col">
+    <h3><span class="dot dsi"></span>If you go DSi XL anyway</h3>
+    <p>Buy from EB Games (A$198) or Super Retro (12-month warranty) rather than as-is on eBay. Check the hinge and upper-screen ribbon, budget for a battery, and softmod with Unlaunch plus TWiLight Menu++.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Also considered</span>
+    <h2>Alternatives</h2>
+  </div>
+  <div class="alts">
+    <div class="alt"><strong>Retroid Pocket Duo Lite</strong><span class="price">US$149</span><p class="caption">Android, but a 16:9 top screen and no integer scaling.</p></div>
+    <div class="alt"><strong>Retroid Pocket Duo</strong><span class="price">US$269 · OLED</span><p class="caption">If you want 3DS too.</p></div>
+    <div class="alt"><strong>AYN Thor</strong><span class="price">US$329 · Lite US$259</span><p class="caption">Most powerful option; DS and 3DS at high resolution.</p></div>
+    <div class="alt"><strong>New 3DS XL + TWiLight Menu++</strong><span class="price">used market</span><p class="caption">Original hardware, but DS games are scaled or windowed.</p></div>
+    <div class="alt"><strong>IPS-laminated DS Lite mod</strong><span class="price">kit + labour</span><p class="caption">Sharpest original hardware, but duplicates the console you own.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Caveats</span>
+    <h2>Limits of this research</h2>
+  </div>
+  <ul class="clean caveats col">
+    <li>RG DS Plus AUD prices are partly estimated. At ~1.42–1.43 AUD per USD, US$94.99 is ~A$135, or ~A$149 with GST, before unverified shipping. The eBay AU A$188–207 is confirmed, but postage inclusion isn't.</li>
+    <li>DSi XL prices are asking prices from active listings, not sold prices. Facebook Marketplace wasn't checked.</li>
+    <li>RG DS Plus battery figures conflict (~6 h claimed vs ~3h45m measured); expect 4–6 h. Some spec sites list wrong RAM, storage and battery figures.</li>
+    <li>No written Taki Udon review or substantive r/SBCGaming threads were found. Retro Game Corps' view is from a short post.</li>
+    <li>NNDDSS is new, closed-source software with unproven long-term development. Anbernic historically offers limited first-party updates.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="section-head">
+    <span class="eyebrow">Sources</span>
+    <h2>References</h2>
+  </div>
+  <ul class="sources">
+    <li><a href="https://anbernic.com/en-au/products/rg-ds-plus">Anbernic: RG DS Plus product page</a></li>
+    <li><a href="https://anbernic.com/blogs/news/anbernic-rg-ds-plus-first-look">Anbernic: RG DS Plus first look</a></li>
+    <li><a href="https://win.anbernic.com/download_data/765.html">Anbernic: firmware downloads</a></li>
+    <li><a href="https://tech-insider.org/anbernic-rg-ds-plus-launch-pricing-2026/">Tech Insider: launch pricing</a></li>
+    <li><a href="https://www.timeextension.com/reviews/anbernic-rg-ds-plus-my-new-favourite-way-to-play-nintendo-ds-games">Time Extension review</a></li>
+    <li><a href="https://retrohandhelds.gg/anbernic-rg-ds-plus-review/">Retro Handhelds review</a></li>
+    <li><a href="https://retrohandhelds.gg/anbernic-rg-ds-plus-unboxing-reveals-full-specs-and-more/">Retro Handhelds unboxing and specs</a></li>
+    <li><a href="https://www.joeysretrohandhelds.com/reviews/anbernic-rg-ds-plus-quick-look/">Joey's Retro Handhelds quick look</a></li>
+    <li><a href="https://junubgames.com/anbernic-rg-ds-plus-review/">Junub Games review</a></li>
+    <li><a href="https://x.com/RetroGameCorps/status/2100719687428661541">Retro Game Corps post</a></li>
+    <li><a href="https://www.notebookcheck.net/Anbernic-RG-DS-Plus-officially-unveiled-Larger-screens-new-hinge-and-more-for-100.1387441.0.html">Notebookcheck announcement</a></li>
+    <li><a href="https://www.yankodesign.com/2026/09/04/anbernic-rg-ds-plus-dual-screen-handheld-comes-with-a-capacitive-stylus-and-microphone/">Yanko Design</a></li>
+    <li><a href="https://retrovault.ch/news/anbernic-nnddss-v102-emulateur-nds-rg-ds-plus-2026">RetroVault: NNDDSS v1.0.2</a></li>
+    <li><a href="https://ixbt.games/en/news/2026/09/22/konsol-anbernic-rg-ds-plus-polucila-2-kratnyi-apskeiling-ds-i-novye-seidery-s-vyxodom-nnddss-versii-102.html">iXBT Games: NNDDSS 1.0.2</a></li>
+    <li><a href="https://github.com/ROCKNIX/distribution-nightly/releases">ROCKNIX nightly releases</a></li>
+    <li><a href="https://github.com/JorreFog/ROCKNIXDS">ROCKNIXDS project</a></li>
+    <li><a href="https://handheldwiki.com/rg-ds-plus/">Handheld Wiki: RG DS Plus</a></li>
+    <li><a href="https://retrocatalog.com/retro-handhelds/anbernic-rg-ds-plus">RetroCatalog: RG DS Plus</a></li>
+    <li><a href="https://retrocatalog.com/retro-handhelds/dsi-xl">RetroCatalog: DSi XL</a></li>
+    <li><a href="https://www.walmart.com/ip/ANBERNIC-RG-DS-Plus-Dual-Screen-Retro-Handheld-Console-Linux-System-Metallic-Blue/20955258197">Walmart listing</a></li>
+    <li><a href="https://www.engadget.com/2009-10-30-dsi-xl-faq-sized-up.html">Engadget: DSi XL FAQ</a></li>
+    <li><a href="https://pocket-gaming.org/device/nintendo-dsi-xl/">Pocket Gaming: DSi XL</a></li>
+    <li><a href="https://www.ebay.com.au/b/Nintendo-DSi-XL-Video-Game-Handheld-Systems/139971/bn_7014613042">eBay AU: DSi XL listings</a></li>
+    <li><a href="https://www.gumtree.com.au/s-video-games-consoles/adelaide/nintendo+dsi+xl/k0c18459l3006878">Gumtree Adelaide listing</a></li>
+    <li><a href="https://www.ebgames.com.au/product/ds/149748-nintendo-dsi-xl-handheld-console-refurbished-by-eb-games-preowned">EB Games refurbished DSi XL</a></li>
+    <li><a href="https://superretro.com.au/products/console-nintendodsixlbronze">Super Retro: Bronze</a></li>
+    <li><a href="https://superretro.com.au/products/console-nintendodsixlburgundy">Super Retro: Burgundy</a></li>
+    <li><a href="https://www.cashconverters.com.au/shop/gaming/handheld-systems-equipment/handheld-consoles/nintendo-handheld-console/050100235216">Cash Converters listing</a></li>
+    <li><a href="https://videogame911.com/nintendo-dsi-xl-repair/">VideoGame911: DSi XL repair</a></li>
+    <li><a href="https://www.beetronix.com.au/gaming-consoles/nintendo-dsi.html">Beetronix: DSi parts</a></li>
+    <li><a href="https://dsi.cfw.guide/faq.html">DSi CFW Guide FAQ</a></li>
+    <li><a href="https://github.com/DS-Homebrew/wiki/blob/main/pages/_de-DE/twilightmenu/faq.md">TWiLight Menu++ FAQ</a></li>
+    <li><a href="https://www.vintageisthenewold.com/faq/are-dsi-enhanced-games-region-locked">DSi-enhanced region locking</a></li>
+    <li><a href="https://techcrunch.com/2008/10/06/nintendo-dsi-software-is-region-locked/amp/">TechCrunch: DSi region lock</a></li>
+    <li><a href="https://www.ifixit.com/Answers/View/43088/Why+isnt+my+R4+card+working+in+my+DSI">iFixit: R4 on DSi</a></li>
+    <li><a href="https://gbatemp.net/threads/flashcart-for-dsi-xl-and-3ds.491426/#post-7730302">GBAtemp: DSi XL flashcarts</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Nintendo_DSi_system_software">Wikipedia: DSi system software</a></li>
+    <li><a href="https://www.etsy.com/market/dsi_xl_mod">Etsy: DSi XL mods</a></li>
+    <li><a href="https://www.ofx.com/en-au/forex-news/historical-exchange-rates/usd/aud/">OFX: USD/AUD rates</a></li>
+  </ul>
+</section>
+
+<footer>Compiled 1 November 2026 for a DS Lite owner choosing a second DS device. Prices and firmware status change quickly; check listings before buying.</footer>
+</div>
+
+<script>
+(function(){
+  // 8x8 star sprite: 1 = lit DS pixel
+  var star=[
+    "00011000",
+    "00011000",
+    "11111111",
+    "01111110",
+    "00111100",
+    "01111110",
+    "01100110",
+    "11000011"
+  ];
+  ["g-a","g-b"].forEach(function(id){
+    var g=document.getElementById(id); if(!g) return;
+    star.join("").split("").forEach(function(c){
+      var s=document.createElement("span");
+      if(c==="1") s.className="on";
+      g.appendChild(s);
+    });
+  });
+})();
+</script>
+</body>
+</html>
