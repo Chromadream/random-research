@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RG476H vs RG477M</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: a buyer's dossier. Verdict first, then evidence; each device keeps its colour throughout (476H indigo, 477M bronze). */
+:root{
+  --bg:#ecebef; --surface:#f8f7fa; --fg:#211f2b; --muted:#615e6e; --line:#cfccd7;
+  --h:#3f46a8; --m:#8a5a2b; --h-soft:#dfe0f5; --m-soft:#f0e3d4;
+  --warn:#8c3a2e;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17161d; --surface:#211f29; --fg:#ecebf1; --muted:#a6a3b3; --line:#3a3745;
+  --h:#a3a9f5; --m:#dba873; --h-soft:#2b2d55; --m-soft:#43321f; --warn:#ef9a8a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17161d; --surface:#211f29; --fg:#ecebf1; --muted:#a6a3b3; --line:#3a3745;
+  --h:#a3a9f5; --m:#dba873; --h-soft:#2b2d55; --m-soft:#43321f; --warn:#ef9a8a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:48px}
+.wrap>*{min-width:0}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:700;letter-spacing:-.02em}
+h1 .h{color:var(--h)} h1 .m{color:var(--m)} h1 .v{color:var(--muted);font-weight:500}
+h2{font-size:1.6rem;font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0;max-width:68ch}
+a{color:inherit;text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--h);outline-offset:2px}
+.lede{font-size:1.15rem}
+.stack{display:grid;gap:14px}
+.stack>*{min-width:0}
+.sec{display:grid;gap:18px}
+.sec>*{min-width:0}
+.meta{font:12px/1.5 var(--mono);color:var(--muted)}
+.cite{font-size:.82em;color:var(--muted);white-space:nowrap}
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px;display:grid;gap:12px}
+.verdict h2{font-size:1.35rem}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:680px){.two{grid-template-columns:minmax(0,1fr)}}
+.col{display:grid;gap:10px;align-content:start;padding-top:12px;border-top:4px solid var(--c)}
+.col.h{--c:var(--h)} .col.m{--c:var(--m)}
+.col h3{color:var(--c)}
+ul{margin:0;padding-left:1.15em;display:grid;gap:7px}
+ol{margin:0;padding-left:1.4em;display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child>*{border-bottom:0}
+thead th{font-family:var(--display);font-size:1rem}
+thead th.h{color:var(--h)} thead th.m{color:var(--m)}
+tbody th{font-weight:600;width:22%}
+.grp th{font:600 11px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--bg)}
+td.win-h{background:var(--h-soft)} td.win-m{background:var(--m-soft)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.bars{display:grid;gap:18px}
+.bar-g{display:grid;gap:5px}
+.bar-t{font-weight:600;font-size:.93rem}
+.bar{display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px;align-items:center;font:12px var(--mono)}
+.track{display:flex;align-items:center;gap:8px;min-width:0}
+.fill{height:16px;border-radius:2px;flex:none}
+.fill.h{background:var(--h)} .fill.m{background:var(--m)}
+.tag{font:600 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--warn)}
+.miss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px}
+@media (max-width:680px){.miss{grid-template-columns:minmax(0,1fr)}}
+.miss>div{display:grid;gap:5px;align-content:start;min-width:0}
+.sources{columns:2;column-gap:28px;font-size:.88rem;padding-left:1.1em;display:block}
+.sources li{margin-bottom:6px;break-inside:avoid}
+@media (max-width:680px){.sources{columns:1}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="stack">
+    <div class="meta">Buying brief · PS1-and-below handheld · researched 3 Nov 2026 · US$ unless stated</div>
+    <h1><span class="h">RG476H</span> <span class="v">vs</span> <span class="m">RG477M</span></h1>
+    <p class="lede">Both use the same 4.7-inch 1280×960 120Hz LCD. The choice comes down to how much shader budget you want to pay for, and what you give up to get it.</p>
+  </header>
+
+  <section class="verdict">
+    <h2>Buy the RG476H, provided crt-geom-mini holds up in your RG Cube test</h2>
+    <p>Your Pocket S Mini already covers PS2 and up, so most of the RG477M's extra speed would duplicate it. The 476H is lighter, quieter and has the better shoulder setup. You pay less, though the gap can shrink a lot during sales.</p>
+    <p><strong>Switch to the RG477M</strong> if you decide you want crt-geom-deluxe with BFI, or plan to use crt-beam-simulator with a heavy CRT shader. That is the one job here the T820 probably can't do.</p>
+  </section>
+
+  <section class="sec">
+    <h2>What each one is better at</h2>
+    <div class="two">
+      <div class="col h">
+        <h3>RG476H: pros</h3>
+        <ul>
+          <li>About 65 g lighter, at 290 g</li>
+          <li>Quiet fan that reviewers rarely notice</li>
+          <li>Stacked shoulders with analog Hall triggers</li>
+          <li>Near-bezel-less glass front</li>
+          <li>Often about $100 cheaper at list price</li>
+          <li>Long battery life: 14 h on non-3D retro in one test</li>
+        </ul>
+        <h3>RG476H: cons</h3>
+        <ul>
+          <li>Far less GPU headroom for shaders and upscaling</li>
+          <li>Reviewers point to light CRT shaders</li>
+          <li>One long-term review calls Saturn "quite compromised"</li>
+          <li>Face buttons felt stiff to one reviewer</li>
+          <li>Glass front picks up fingerprints</li>
+        </ul>
+      </div>
+      <div class="col m">
+        <h3>RG477M: pros</h3>
+        <ul>
+          <li>About 4x the GPU score in the closest benchmark</li>
+          <li>Reported to run crt-geom-deluxe</li>
+          <li>Room to combine upscaling, shaders and BFI</li>
+          <li>PS1, Dreamcast, N64 and Saturn run effortlessly</li>
+          <li>Metal shell with a premium feel</li>
+          <li>Newer stock Android and Wi-Fi 6E</li>
+        </ul>
+        <h3>RG477M: cons</h3>
+        <ul>
+          <li>Whiny fan is its most repeated complaint</li>
+          <li>Heavy at 354–357 g, with one review calling it an "indoor handheld"</li>
+          <li>Digital inline triggers</li>
+          <li>Shell warms up, and it's more exposed to drop damage</li>
+          <li>Tall sticks snag in bags</li>
+          <li>Plain flat back with weak grips</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>How much faster is the 477M?</h2>
+    <p>The benchmark data comes from other devices with the same chips, so treat it as a rough ratio. Bars use one scale within each benchmark.</p>
+    <div class="bars" role="img" aria-label="Benchmarks: 3DMark Steel Nomad Light 206 for T820 and 882 for Dimensity 8300; Geekbench 6 single core 764 and 1506; Geekbench 6 multi core 2301 and 4844.">
+      <div class="bar-g"><div class="bar-t">3DMark Steel Nomad Light (GPU: the one that matters for shaders)</div>
+        <div class="bar"><span>T820</span><span class="track"><span class="fill h" style="width:18.7%"></span>206</span></div>
+        <div class="bar"><span>D8300</span><span class="track"><span class="fill m" style="width:80%"></span>882</span></div></div>
+      <div class="bar-g"><div class="bar-t">Geekbench 6 single core</div>
+        <div class="bar"><span>T820</span><span class="track"><span class="fill h" style="width:40.6%"></span>764</span></div>
+        <div class="bar"><span>D8300</span><span class="track"><span class="fill m" style="width:80%"></span>1506</span></div></div>
+      <div class="bar-g"><div class="bar-t">Geekbench 6 multi core</div>
+        <div class="bar"><span>T820</span><span class="track"><span class="fill h" style="width:38%"></span>2301</span></div>
+        <div class="bar"><span>D8300</span><span class="track"><span class="fill m" style="width:80%"></span>4844</span></div></div>
+    </div>
+    <p class="cite" style="white-space:normal">Source: <a href="https://cputronic.com/en/soc/compare/unisoc-t820-vs-mediatek-dimensity-8300">CPUTronic</a>. Steel Nomad compares a ZTE Nubia Neo 5G with a Lenovo Idea Tab Pro. Android Authority also saw 50–60% GPU stress-test stability on the 477M, though its lowest scores still beat similarly priced handhelds.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Side by side</h2>
+    <div class="key"><span><span class="sw" style="background:var(--h-soft)"></span>476H better for your use</span><span><span class="sw" style="background:var(--m-soft)"></span>477M better for your use</span><span>No tint: tied or doesn't matter much here</span></div>
+    <div class="tbl"><table>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="h">RG476H</th><th scope="col" class="m">RG477M</th></tr></thead>
+      <tbody>
+        <tr class="grp"><th colspan="3" scope="colgroup">Your actual use</th></tr>
+        <tr><th scope="row">Shaders</th><td>Light CRT shaders per reviewers. No published crt-geom-mini frame times.</td><td class="win-m">crt-geom-deluxe and CRT Mattias reported fine, in one non-technical review.</td></tr>
+        <tr><th scope="row">PS1, N64, Dreamcast</th><td>Runs well, including upscaling. It competes with the shader for GPU time.</td><td class="win-m">Runs effortlessly, with much more room to spare.</td></tr>
+        <tr><th scope="row">Saturn</th><td>Reviews conflict: "works well" (Retro Dodo) vs "quite compromised" (Zelpio).</td><td class="win-m">"Effortless" (Zelpio).</td></tr>
+        <tr><th scope="row">PS2</th><td>Mostly 1–1.5x, with tweaking.</td><td>2–2.5x. Your S Mini already handles this role.</td></tr>
+        <tr><th scope="row">Screen</th><td colspan="2">Same 4.7" 1280×960 120Hz LCD, rated 500 nits and 1200:1. BFI needs roughly 90–100% brightness on either.</td></tr>
+        <tr class="grp"><th colspan="3" scope="colgroup">In the hand</th></tr>
+        <tr><th scope="row">Weight</th><td class="win-h">290 g</td><td>354–357 g</td></tr>
+        <tr><th scope="row">Size</th><td>176 × 86 × 16 mm</td><td>176 × 89 × 16 mm</td></tr>
+        <tr><th scope="row">Shell</th><td>Textured plastic, glass front</td><td>CNC aluminium</td></tr>
+        <tr><th scope="row">Shoulders</th><td class="win-h">Stacked L1/R1 plus analog Hall L2/R2</td><td>Inline and digital. Third-party stacked buttons cost about $28, but stay digital.</td></tr>
+        <tr><th scope="row">D-pad and face buttons</th><td>Well-regarded D-pad. Face buttons: firm to some, stiff to Joey.</td><td class="win-m">Praised D-pad and buttons, described as soft or normal pressure.</td></tr>
+        <tr><th scope="row">Loud L1/R1</th><td colspan="2">Both. Reviewers call them loud on each device.</td></tr>
+        <tr><th scope="row">Fan</th><td class="win-h">Rarely spins up in one test, unobtrusive in another</td><td>Loud, whiny. Mesh removal and GammaOS curves can help.</td></tr>
+        <tr class="grp"><th colspan="3" scope="colgroup">Hardware</th></tr>
+        <tr><th scope="row">Chip and GPU</th><td>Unisoc T820, Mali-G57 MP4</td><td class="win-m">Dimensity 8300, Mali-G615 MC6</td></tr>
+        <tr><th scope="row">Memory and storage</th><td>8 GB LPDDR4X, 128 GB UFS 2.2</td><td>8 or 12 GB LPDDR5, 128 or 256 GB UFS. Reviewers say 8 GB is enough.</td></tr>
+        <tr><th scope="row">Battery</th><td class="win-h">5000 mAh. 14 h non-3D retro, 8 h upscaled PS1, N64 or Dreamcast (50% brightness).</td><td>5300 mAh, 27 W charging. 7–10 h retro at 120Hz in one test, 3–6 h on heavier systems.</td></tr>
+        <tr><th scope="row">Wireless</th><td>Wi-Fi 5, Bluetooth 5.0</td><td>Wi-Fi 6E, Bluetooth 5.3</td></tr>
+        <tr><th scope="row">Stock OS</th><td>Android 13</td><td>Android 14</td></tr>
+        <tr><th scope="row">GammaOS Next</th><td colspan="2">Available for both, with global BFI, global shaders and performance modes. The 476H build moves it to Android 14.</td></tr>
+        <tr class="grp"><th colspan="3" scope="colgroup">Cost</th></tr>
+        <tr><th scope="row">List price</th><td class="win-h">About $165</td><td>$240 (8/128) or $290 (12/256)</td></tr>
+        <tr><th scope="row">Lowest I saw</th><td>About $121 (AliExpress US, Dec 2025)</td><td>About $183 (AliExpress US, Mar 2026)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="cite" style="white-space:normal">Battery figures come from different reviewers and settings, so don't compare them directly.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Things you might miss</h2>
+    <div class="miss">
+      <div><h3>BFI has a recurring flicker on GammaOS</h3><p>Zelpio reports a periodic flicker about every 30 seconds to prevent image retention on the 477M. Expect similar behaviour on the same panel, and try it during your return window.</p></div>
+      <div><h3>BFI may feel subtle on this LCD</h3><p>One long-term 477M review calls the change small at first, but hard to give up later. The same reviewer says a good shader without BFI already looks great.</p></div>
+      <div><h3>The Mali driver question affects both</h3><p>Both chips use Mali GPUs, without the Turnip driver route Snapdragon has. A reviewer of the RG477V, which shares the 477M's chip, recommends Vulkan in RetroArch for BFI and run-ahead. I found no equivalent note for the T820. Dolphin may need swapping between Vulkan and OpenGL.</p></div>
+      <div><h3>Video out reports conflict on the 476H</h3><p>Joey says it has no video output. Retro Handhelds' spec list, a buyer report and GammaOS's docking mode all point to USB-C output. One buyer says you can't charge at the same time.</p></div>
+      <div><h3>Save access is awkward on stock firmware</h3><p>Joey notes restricted access to Android's data folders, which complicates save transfers for some standalone emulators. RetroArch can work around it. GammaOS relaxes these limits, which matters if you sync saves.</p></div>
+      <div><h3>GammaOS flashing has real costs</h3><p>The flash wipes the device and the 476H release is documented as Windows-only. It was Patreon-first, with public release scheduled for February 2026, so my earlier note made it sound more restricted than it should be now.</p></div>
+      <div><h3>Bloat comes with both</h3><p>Reviewers criticise the launcher and the bundled Anbernic AI on each. Android Authority also found outdated emulators on its 477M. Plan to replace these with your own frontend and RetroArch.</p></div>
+      <div><h3>Netflix games and DRM</h3><p>Forum buyers report that Netflix games work on the 476H but not the 477M, possibly because of Widevine. This is anecdotal, and only matters if you use them.</p></div>
+      <div><h3>Australian retail is a very different price</h3><p>Electro Arcade lists the 476H at A$328, far above AliExpress pricing. Check the landed price, warranty handling and return cost. I found no current AUD 477M price.</p></div>
+      <div><h3>Sales can narrow the gap</h3><p>The best prices I saw were about $62 apart, not $100+. AliExpress 11.11 is running now, so compare both on the same day. If the gap is small, the decision should turn on weight and fan noise.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Before you pay</h2>
+    <ol>
+      <li><strong>Run crt-geom-mini on your RG Cube</strong> with a PS1 game at your intended internal resolution. It has the same T820.</li>
+      <li><strong>Scale the shader cost by about 2.4x.</strong> The 476H has that many more pixels than the Cube's 720×720 screen.</li>
+      <li><strong>Check it against my rough limits.</strong> Under 5–6 ms on the Cube suits classic BFI. Under 3 ms is needed for a shader on every 120Hz sub-frame. These limits are estimates, not published figures.</li>
+      <li><strong>Test a Saturn game too</strong> if you play them, since this is where 476H reviews disagree.</li>
+    </ol>
+    <p><span class="tag">Biggest gap in the evidence</span><br>I found no frame-time measurements for specific shaders with BFI on either device, so the shader verdict rests on review impressions, GPU ratios and my own estimates. Your Cube test will tell you more than any of the reviews here.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Sources</h2>
+    <ul class="sources">
+      <li><a href="https://www.joeysretrohandhelds.com/reviews/anbernic-rg476h-review/">Joey's Retro Handhelds: RG476H review</a></li>
+      <li><a href="https://www.journaldugeek.com/test/test-anbernic-rg476h-belle-pratique-et-accessible-pour-la-console-retro-par-excellence/">Journal du Geek: RG476H review</a></li>
+      <li><a href="https://retrododo.com/anbernic-rg476h-review/">Retro Dodo: RG476H review</a></li>
+      <li><a href="https://retrohandhelds.gg/anbernic-rg476h-review/">Retro Handhelds: RG476H review</a></li>
+      <li><a href="https://retrohandhelds.gg/anbernic-rg476h-first-impressions/">Retro Handhelds: RG476H first impressions</a></li>
+      <li><a href="https://www.notebookcheck.net/Anbernic-RG476H-Official-unboxing-and-impressions-detail-new-retro-gaming-handheld-ahead-of-full-launch.1114841.0.html">Notebookcheck: RG476H impressions</a></li>
+      <li><a href="https://www.androidauthority.com/anbernic-rg-477m-review-3582472/">Android Authority: RG 477M review</a></li>
+      <li><a href="https://retrododo.com/anbernic-rg477m-review/">Retro Dodo: RG477M review</a></li>
+      <li><a href="https://retrohandhelds.gg/anbernic-rg477m-review/">Retro Handhelds: RG477M review</a></li>
+      <li><a href="https://www.zelpio.com/blog/anbernic-rg477m-review-2026/">Zelpio: RG477M a year later</a></li>
+      <li><a href="https://www.noobfeed.com/hardware/rg477m-review-crt-emulation-handheld-retro-gaming">NoobFeed: RG477M CRT review</a></li>
+      <li><a href="https://newreleases.io/project/github/TheGammaSqueeze/GammaOSNext/release/v.1.2.0-ANBERNICRG476H">GammaOS Next: RG476H release notes</a></li>
+      <li><a href="https://newreleases.io/project/github/TheGammaSqueeze/GammaOSNext/release/v.1.2.1-ANBERNICRG477M">GammaOS Next: RG477M release notes</a></li>
+      <li><a href="https://handheldsarena.com/compare/anbernic-rg-476h/anbernic-rg-477m/">Handhelds Arena: spec comparison</a></li>
+      <li><a href="https://cputronic.com/en/soc/compare/unisoc-t820-vs-mediatek-dimensity-8300">CPUTronic: T820 vs Dimensity 8300</a></li>
+      <li><a href="https://www.notebookcheck.net/Anbernic-RG477V-8-GB-model-may-be-the-better-buy-than-the-12-GB-variant-handheld-gaming-tester-explains-why.1194254.0.html">Notebookcheck: same-chip RG477V on Vulkan, BFI and run-ahead</a></li>
+      <li><a href="https://pocketretrogamer.com/blog/anbernic-rg-slide-review-psp-go-inspired-android-handheld">Pocket Retro Gamer: RG Slide BFI brightness</a></li>
+      <li><a href="https://slickdeals.net/f/18923035-anbernic-rg476h-android-gaming-handheld-4-7-1280x960-120hz-ips-121-44-free-u-s-shipping-aliexpress">Slickdeals: RG476H price and buyer notes</a></li>
+      <li><a href="https://slickdeals.net/f/18652912-anbernic-rg476h-retro-emulation-handheld-136-92-free-u-s-shipping-aliexpress">Slickdeals: Netflix games comments</a></li>
+      <li><a href="https://slickdeals.net/f/19312026-anbernic-gaming-handhelds-rg557-173-89-rg477m-183-13-rg77v-184-08-aliexpress-paypal-req">Slickdeals: RG477M price</a></li>
+      <li><a href="https://electroarcade.com.au/?p=18680">Electro Arcade: Australian pricing</a></li>
+      <li><a href="https://retrohandhelds.gg/aliexpress-11-11-sale-handheld-deals/">Retro Handhelds: AliExpress 11.11 deals</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
