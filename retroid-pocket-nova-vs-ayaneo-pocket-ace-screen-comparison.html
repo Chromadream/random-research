@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nova vs Ace Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Pixelify+Sans:wght@500;700&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: a bench test. Controls on top, two panels drawn at one shared mm scale, the full numbers underneath. */
+:root {
+  --bg: #eef0f4; --surface: #f9fafc; --fg: #1a1e2b; --muted: #5a6175; --line: #ccd1dd;
+  --nova: #0a7a78; --nova-soft: #d3ecea; --ace: #b4510f; --ace-soft: #f7e3d3; --mini: #6a4fb0;
+  --on-accent: #ffffff; --oled: #000000; --ips: #17181d; --bezel: #2a2d38; --screen-fg: #d9dce6;
+  --display: "Pixelify Sans", "IBM Plex Mono", monospace;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12141b; --surface: #1b1e28; --fg: #e8eaf1; --muted: #9aa1b5; --line: #343947;
+  --nova: #4cc9c3; --nova-soft: #143533; --ace: #f29a5c; --ace-soft: #3d2615;
+  --on-accent: #12141b; --bezel: #3a3e4c; --mini: #c5b3f5; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12141b; --surface: #1b1e28; --fg: #e8eaf1; --muted: #9aa1b5; --line: #343947;
+  --nova: #4cc9c3; --nova-soft: #143533; --ace: #f29a5c; --ace-soft: #3d2615;
+  --on-accent: #12141b; --bezel: #3a3e4c; --mini: #c5b3f5; color-scheme: dark }
+
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--body); }
+.wrap { max-width: 1100px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 24px; }
+.wrap > * { min-width: 0; }
+h1 { font: 700 clamp(30px, 6vw, 44px)/1.05 var(--display); margin: 0; text-wrap: balance; }
+h1 .n { color: var(--nova); } h1 .a { color: var(--ace); }
+h2 { font: 600 17px/1.3 var(--body); margin: 0; text-wrap: balance; }
+.lede { margin: 8px 0 0; max-width: 65ch; color: var(--muted); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-end; }
+.group { display: grid; gap: 5px; min-width: 0; }
+.group > span { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.seg { display: flex; flex-wrap: wrap; border: 1px solid var(--line); background: var(--surface); }
+.seg button { font: 500 13px/1.2 var(--mono); padding: 9px 12px; border: 0; background: none; color: var(--fg); cursor: pointer; }
+.seg button small { font: inherit; color: var(--muted); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.seg button[aria-pressed="true"] small { color: inherit; opacity: .75; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--nova); outline-offset: 2px; }
+
+.verdict { font-size: 17px; font-weight: 500; margin: 0; max-width: 70ch; text-wrap: pretty; }
+.stage { overflow-x: auto; }
+.pair { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; }
+.dev { display: grid; gap: 8px; margin: 0; }
+.dev header { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font: 500 13px/1.3 var(--mono); }
+.dev.nova header b { color: var(--nova); } .dev.ace header b { color: var(--ace); } .dev.mini header b { color: var(--mini); }
+.dev header b { font-weight: 500; }
+.dev header span { color: var(--muted); }
+.panel { position: relative; outline: 3px solid var(--bezel); }
+.dev.nova .panel { background: var(--oled); } .dev.ace .panel, .dev.mini .panel { background: var(--ips); }
+.panel canvas { position: absolute; display: block; image-rendering: pixelated; }
+.read { font: 400 13px/1.45 var(--mono); font-variant-numeric: tabular-nums; }
+.read div { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-block: 3px; }
+.read span:first-child { color: var(--muted); }
+
+.overlay { position: relative; margin: 0 auto; background: var(--oled); }
+.overlay > div { position: absolute; box-sizing: border-box; }
+.ov-panel { border: 1px dashed; }
+.ov-pic { border: 2px solid; }
+.ov-n { border-color: #4cc9c3; } .ov-a { border-color: #f29a5c; } .ov-m { border-color: #c5b3f5; }
+.ov-pic.ov-n { background: rgba(76,201,195,.26); } .ov-pic.ov-a { background: rgba(242,154,92,.26); } .ov-pic.ov-m { background: rgba(197,179,245,.2); }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; font: 500 13px/1.3 var(--mono); margin-top: 10px; }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+
+.calib { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); background: var(--surface); }
+.calib label { font-size: 14px; }
+.calib input { width: 100%; max-width: 480px; display: block; margin-top: 6px; }
+.card { max-width: 100%; border: 2px solid var(--fg); border-radius: 3mm; display: grid; place-items: center; font: 500 12px/1.3 var(--mono); color: var(--muted); text-align: center; box-sizing: border-box; padding: 4px; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font: 400 13px/1.4 var(--mono); font-variant-numeric: tabular-nums; }
+th { font-weight: 500; text-align: left; color: var(--muted); font-size: 12px; }
+th, td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td small { display: block; font: inherit; color: var(--muted); }
+tr.on td { background: var(--surface); }
+tr.on td:first-child { box-shadow: inset 3px 0 0 var(--fg); padding-left: 9px; }
+td:first-child { padding-left: 9px; } th:first-child { padding-left: 9px; }
+.pill { display: inline-block; padding: 2px 7px; white-space: nowrap; }
+.pill.n { background: var(--nova-soft); color: var(--nova); } .pill.a { background: var(--ace-soft); color: var(--ace); }
+.pill.t { color: var(--muted); }
+
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 32px; }
+.specs p { margin: 0; color: var(--muted); max-width: 65ch; font-size: 14px; }
+.specs a { color: inherit; }
+.specs h2 { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="n">Retroid Pocket Nova</span> vs <span class="a">AYANEO Pocket Ace</span></h1>
+    <p class="lede">Both are 4.5-inch screens, but the shapes differ. Pick a game shape to see how large it appears on each, drawn at the same physical scale. The AYANEO Pocket S Mini is the baseline.</p>
+  </header>
+
+  <div class="controls">
+    <div class="group"><span>Game shape</span><div class="seg" id="ratio"></div></div>
+    <div class="group"><span>Scaling</span><div class="seg" id="fit">
+      <button id="fit-full" data-v="full">Fill screen</button>
+      <button id="fit-int" data-v="int">Integer</button>
+    </div></div>
+    <div class="group"><span>View</span><div class="seg" id="view">
+      <button id="view-side" data-v="side">Side by side</button>
+      <button id="view-over" data-v="over">Overlaid</button>
+    </div></div>
+    <div class="group"><span>Size</span><div class="seg" id="size">
+      <button id="size-fit" data-v="fit">Fit window</button>
+      <button id="size-life" data-v="life">Life size</button>
+    </div></div>
+  </div>
+
+  <div class="calib" id="calib" hidden>
+    <label for="cal">Hold a bank card to your display and drag until the outline matches its width.
+      <input id="cal" type="range" min="2" max="9" step="0.01">
+    </label>
+    <div class="card" id="card">Bank card, 85.6 × 54 mm</div>
+  </div>
+
+  <p class="verdict" id="verdict" aria-live="polite"></p>
+
+  <div class="stage" id="stage">
+    <div class="pair" id="pair"></div>
+    <div id="over" hidden>
+      <div class="overlay" id="overlay"></div>
+      <div class="legend">
+        <span><i style="background:#c5b3f5"></i>S Mini</span>
+        <span><i style="background:#4cc9c3"></i>Nova</span>
+        <span><i style="background:#f29a5c"></i>Ace</span>
+        <span>Dashed: panel. Solid: picture.</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2 id="tbl-title"></h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Shape</th><th>S Mini (baseline)</th><th>Nova</th><th>Ace</th><th>Nova vs Ace</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="specs">
+    <div><h2>What the preview shows</h2><p>Size and shape are accurate. Sharpness is not, because your display has its own pixels. The bars are pure black on the Nova's AMOLED and slightly lit on the backlit S Mini and Ace, as an approximation of glow.</p></div>
+    <div><h2>Specs used</h2><p>S Mini: 4.2", 1280×960, LCD (<a href="https://ayaneo.com/article/915">AYANEO</a>). Nova: 4.5", 1280×960, AMOLED (<a href="https://androidauthority.com/retroid-pocket-nova-screen-design-3680207">Android Authority</a>). Ace: 4.5", 1620×1080, IPS (<a href="https://www.androidcentral.com/gaming/ayaneo-pocket-ace-pre-orders-open-ahead-of-next-months-launch">Android Central</a>). Millimetres are calculated from the diagonal and aspect ratio, so measured active areas may differ slightly.</p></div>
+  </section>
+</div>
+
+<script>
+const IN = 25.4;
+function panel(name, diag, W, H, key) {
+  const d = Math.hypot(W, H);
+  return { name, key, W, H, ppi: d / diag, wmm: diag * IN * W / d, hmm: diag * IN * H / d };
+}
+const DEV = [panel('S Mini', 4.2, 1280, 960, 'mini'), panel('Nova', 4.5, 1280, 960, 'nova'), panel('Ace', 4.5, 1620, 1080, 'ace')];
+const vsBase = (p, base) => { const d = Math.round((p.area / base.area - 1) * 100); return d === 0 ? 'Same size as S Mini' : `${d > 0 ? '+' : '−'}${Math.abs(d)}% vs S Mini`; };
+const short = s => s.replace(' vs S Mini', '').replace('Same size as S Mini', 'same size');
+const RATIOS = [
+  { id: '4x3',  label: '4:3',  r: 4/3,  sys: 'PS1 / N64', sw: 320, sh: 240 },
+  { id: '16x9', label: '16:9', r: 16/9, sys: 'PSP', sw: 480, sh: 272 },
+  { id: '3x2',  label: '3:2',  r: 3/2,  sys: 'GBA', sw: 240, sh: 160 },
+  { id: '10x9', label: '10:9', r: 10/9, sys: 'Game Boy', sw: 160, sh: 144 },
+  { id: '8x7',  label: '8:7',  r: 8/7,  sys: 'SNES raw', sw: 256, sh: 224 },
+];
+const state = { ratio: '4x3', fit: 'full', view: 'side', size: 'fit', cal: 3.78 };
+try {
+  const c = parseFloat(localStorage.getItem('pxPerMm'));
+  if (c >= 2 && c <= 9) state.cal = c;
+} catch (e) {}
+
+function picture(dev, R, fit) {
+  let w, h, k = null;
+  if (fit === 'int') {
+    k = Math.floor(Math.min(dev.W / R.sw, dev.H / R.sh));
+    w = k * R.sw; h = k * R.sh;
+  } else if (dev.W / dev.H > R.r) { h = dev.H; w = h * R.r; }
+  else { w = dev.W; h = w / R.r; }
+  const mmPerPx = dev.wmm / dev.W;
+  return { w: Math.round(w), h: Math.round(h), k, scale: h / R.sh, wmm: w * mmPerPx, hmm: h * mmPerPx,
+    area: w * h * mmPerPx * mmPerPx, share: w * h / (dev.W * dev.H) };
+}
+const mm = p => `${p.wmm.toFixed(1)} × ${p.hmm.toFixed(1)} mm`;
+const px = p => `${p.w} × ${p.h}`;
+function compare(a, b) {
+  const big = a.area >= b.area ? 0 : 1;
+  const pct = (Math.max(a.area, b.area) / Math.min(a.area, b.area) - 1) * 100;
+  return { big, pct: Math.round(pct) };
+}
+
+/* Original test scene, drawn at the system's source resolution. The ring stays round when the shape is correct. */
+function scene(c, w, h) {
+  c.width = w; c.height = h;
+  const x = c.getContext('2d'), u = h / 144;
+  const sky = ['#23306b', '#34408f', '#5459b5', '#8a6dc4', '#d584b0', '#f4b08e'];
+  sky.forEach((col, i) => { x.fillStyle = col; x.fillRect(0, Math.floor(i * h * .11), w, Math.ceil(h * .11)); });
+  x.fillStyle = '#ffe28a';
+  disc(x, w / 2, h * .42, 26 * u);
+  x.fillStyle = '#7d4f9f';
+  column(x, w, h, .58, 12 * u, 90 * u);
+  x.fillStyle = '#4a7a5d';
+  column(x, w, h, .68, 8 * u, 55 * u, 2);
+  const g = Math.floor(h * .8), t = Math.max(4, Math.round(8 * u));
+  for (let i = 0; i * t < w; i++) for (let j = 0; g + j * t < h; j++) {
+    x.fillStyle = (i + j) % 2 ? '#8a5a33' : '#a06c3f';
+    x.fillRect(i * t, g + j * t, t, t);
+  }
+  x.fillStyle = '#6fbf52'; x.fillRect(0, g, w, Math.max(2, Math.round(3 * u)));
+  x.fillStyle = '#ffffff';
+  ring(x, w / 2, h / 2, 44 * u, Math.max(1, Math.round(u)));
+  const m = Math.round(10 * u), l = Math.max(1, Math.round(u));
+  [[0, 0, 1, 1], [w, 0, -1, 1], [0, h, 1, -1], [w, h, -1, -1]].forEach(([a, b, sa, sb]) => {
+    x.fillRect(sa > 0 ? a : a - m, sb > 0 ? b : b - l, m, l);
+    x.fillRect(sa > 0 ? a : a - l, sb > 0 ? b : b - m, l, m);
+  });
+}
+function disc(x, cx, cy, r) {
+  for (let y = -Math.ceil(r); y <= r; y++) {
+    const d = Math.floor(Math.sqrt(Math.max(0, r * r - y * y)));
+    x.fillRect(Math.round(cx - d), Math.round(cy + y), 2 * d, 1);
+  }
+}
+function ring(x, cx, cy, r, t) {
+  for (let i = 0, n = Math.ceil(r * 8); i < n; i++) {
+    const a = i / n * Math.PI * 2;
+    x.fillRect(Math.round(cx + Math.cos(a) * r), Math.round(cy + Math.sin(a) * r), t, t);
+  }
+}
+function column(x, w, h, base, amp, wave, off = 0) {
+  for (let i = 0; i < w; i++) {
+    const y = Math.round(h * base - amp * Math.abs(Math.sin(i / wave + off)));
+    x.fillRect(i, y, 1, h - y);
+  }
+}
+
+/* Build controls */
+const ratioEl = document.getElementById('ratio');
+RATIOS.forEach(R => {
+  const b = document.createElement('button');
+  b.id = 'ratio-' + R.id; b.dataset.v = R.id;
+  b.innerHTML = `${R.label} <small>${R.sys}</small>`;
+  ratioEl.append(b);
+});
+[['ratio', 'ratio'], ['fit', 'fit'], ['view', 'view'], ['size', 'size']].forEach(([el, k]) => {
+  document.getElementById(el).addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) { state[k] = b.dataset.v; render(); }
+  });
+});
+
+/* Build panels once */
+const pair = document.getElementById('pair');
+DEV.forEach(d => {
+  const f = document.createElement('figure');
+  f.className = 'dev ' + d.key;
+  f.innerHTML = `<header><b>${d.name}</b><span>${d.W}×${d.H} · ${Math.round(d.ppi)} ppi</span></header>
+    <div class="panel"><canvas></canvas></div><div class="read"></div>`;
+  pair.append(f); d.el = f;
+});
+
+const calEl = document.getElementById('cal');
+calEl.value = state.cal;
+calEl.addEventListener('input', () => {
+  state.cal = parseFloat(calEl.value);
+  try { localStorage.setItem('pxPerMm', state.cal); } catch (e) {}
+  render();
+});
+
+function pxPerMm() {
+  if (state.size === 'life') return state.cal;
+  const W = document.getElementById('stage').clientWidth - 6;
+  const maxW = Math.max(...DEV.map(d => d.wmm)), sumW = DEV.reduce((t, d) => t + d.wmm, 0);
+  if (state.view === 'over') return Math.min(W / maxW, 6);
+  const side = (W - 40 - 18) / sumW;
+  return W >= 760 ? Math.min(side, 6) : Math.min((W - 6) / maxW, 6);
+}
+
+function render() {
+  const R = RATIOS.find(r => r.id === state.ratio);
+  document.querySelectorAll('.seg button').forEach(b => {
+    const k = b.parentElement.id;
+    b.setAttribute('aria-pressed', String(state[k] === b.dataset.v));
+  });
+  const s = pxPerMm();
+  const pics = DEV.map(d => picture(d, R, state.fit));
+
+  DEV.forEach((d, i) => {
+    const p = pics[i], pan = d.el.querySelector('.panel'), c = d.el.querySelector('canvas');
+    d.el.style.width = d.wmm * s + 'px';
+    pan.style.width = d.wmm * s + 'px'; pan.style.height = d.hmm * s + 'px';
+    if (c.dataset.src !== R.id) { scene(c, R.sw, R.sh); c.dataset.src = R.id; }
+    c.style.width = p.wmm * s + 'px'; c.style.height = p.hmm * s + 'px';
+    c.style.left = (d.wmm - p.wmm) / 2 * s + 'px'; c.style.top = (d.hmm - p.hmm) / 2 * s + 'px';
+    const scale = state.fit === 'int' ? `${p.k}× integer` : `${p.scale.toFixed(2)}×`;
+    d.el.querySelector('.read').innerHTML = `
+      <div><span>Picture</span><span>${mm(p)}</span></div>
+      <div><span>Pixels</span><span>${px(p)}</span></div>
+      <div><span>Scale from ${R.sw}×${R.sh}</span><span>${scale}</span></div>
+      <div><span>Panel used</span><span>${Math.round(p.share * 100)}%</span></div>
+      <div><span>Picture area</span><span>${i === 0 ? 'Baseline' : vsBase(p, pics[0])}</span></div>`;
+  });
+
+  const ov = document.getElementById('overlay');
+  document.getElementById('pair').hidden = state.view !== 'side';
+  document.getElementById('over').hidden = state.view !== 'over';
+  if (state.view === 'over') {
+    const OW = Math.max(...DEV.map(d => d.wmm)), OH = Math.max(...DEV.map(d => d.hmm));
+    ov.style.width = OW * s + 'px'; ov.style.height = OH * s + 'px';
+    const box = (cls, w, h) => `<div class="${cls}" style="width:${w * s}px;height:${h * s}px;left:${(OW - w) / 2 * s}px;top:${(OH - h) / 2 * s}px"></div>`;
+    ov.innerHTML = DEV.map((d, i) => {
+      const t = ['ov-m', 'ov-n', 'ov-a'][i];
+      return box('ov-panel ' + t, d.wmm, d.hmm) + box('ov-pic ' + t, pics[i].wmm, pics[i].hmm);
+    }).join('');
+  }
+
+  const calib = document.getElementById('calib');
+  calib.hidden = state.size !== 'life';
+  const card = document.getElementById('card');
+  card.style.width = 85.6 * s + 'px'; card.style.height = 53.98 * s + 'px';
+
+  const cmp = compare(pics[1], pics[2]), win = cmp.big ? 'Ace' : 'Nova', lose = cmp.big ? 'Nova' : 'Ace';
+  const shape = `${R.label} ${R.sys}`;
+  const lead = cmp.pct === 0 ? `At ${shape}, the two pictures are about the same size.`
+    : `At ${shape}, the ${win}'s picture is ${cmp.pct}% larger than the ${lose}'s by area.`;
+  document.getElementById('verdict').textContent = `${lead} Against the S Mini at ${mm(pics[0])}: Nova ${short(vsBase(pics[1], pics[0]))}, Ace ${short(vsBase(pics[2], pics[0]))}.`;
+
+  document.getElementById('tbl-title').textContent = state.fit === 'int'
+    ? 'Every shape at integer scale, using each system\'s native resolution'
+    : 'Every shape, filling as much of the screen as possible';
+  document.getElementById('rows').innerHTML = RATIOS.map(r => {
+    const [m, a, b] = DEV.map(d => picture(d, r, state.fit)), c = compare(a, b);
+    const cell = (p, base) => `${mm(p)}<small>${px(p)}${state.fit === 'int' ? ` · ${p.k}×` : ''} · ${Math.round(p.share * 100)}% of panel</small>${base ? `<small>${vsBase(p, base)}</small>` : ''}`;
+    const pill = c.pct === 0 ? '<span class="pill t">Tie</span>'
+      : `<span class="pill ${c.big ? 'a' : 'n'}">${c.big ? 'Ace' : 'Nova'} +${c.pct}%</span>`;
+    return `<tr class="${r.id === R.id ? 'on' : ''}"><td>${r.label}<small>${r.sys} ${r.sw}×${r.sh}</small></td><td>${cell(m)}</td><td>${cell(a, m)}</td><td>${cell(b, m)}</td><td>${pill}</td></tr>`;
+  }).join('');
+}
+
+new ResizeObserver(() => render()).observe(document.getElementById('stage'));
+render();
+</script>
+</body>
+</html>
