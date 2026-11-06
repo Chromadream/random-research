@@ -58,16 +58,16 @@ button:hover{border-color:var(--accent)}
 <body>
 <div class="wrap">
   <h1>Pocket Block · Arcade Fighters</h1>
-  <p class="sub">2D arcade and Neo Geo fighting games for the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad, 8 buttons), all on FinalBurn Neo. Grouped by ES-DE ROM folder.</p>
+  <p class="sub">3- and 4-button arcade and Neo Geo fighting games for the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad), all on FinalBurn Neo. Grouped by ES-DE ROM folder.</p>
   <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
   <p class="legend"><span class="star">★</span> = start here</p>
   <div class="note">
     <h2>Setup on the Block</h2>
     <ul>
-      <li><b>Folders:</b> Neo Geo games go in <code>neogeo</code>; everything else goes in <code>fbneo</code>, including the Capcom boards. ES-DE's <code>cps1</code>/<code>cps2</code>/<code>cps3</code> systems default to <i>MAME – Current</i> on Android, while <code>neogeo</code> and <code>fbneo</code> default to FinalBurn Neo.</li>
-      <li><b>Buttons:</b> Neo Geo is 4 buttons (A–D), so it fits the face buttons with no compromise. For Capcom's 6 buttons, use the SNES layout: punches on Y / X / L1 and kicks on B / A / R1. Leave L2/R2 for macros or coin/hotkeys.</li>
-      <li><b>D-pad only:</b> everything here plays fine on a d-pad, including charge and motion inputs.</li>
-      <li><b>Scaling:</b> CPS1/2/3 and Neo Geo are 224 lines, so 3× = 672 tall with the width stretched to 4:3. Daraku Tenshi is 240 lines, so 3× = 720. The Midway games are about 254 lines, so integer scaling only gets 2× (508); use non-integer scaling for those.</li>
+      <li><b>Only 3–4 button games are listed here.</b> The 6-button games (Street Fighter, Darkstalkers, Marvel, Mortal Kombat, Kaiser Knuckle) are on the separate Retroid Pocket Classic 6 list, whose Saturn-style face buttons suit them better.</li>
+      <li><b>Folders:</b> Neo Geo games go in <code>neogeo</code>; the Capcom and Psikyo games go in <code>fbneo</code>. ES-DE's <code>cps1</code>/<code>cps2</code>/<code>cps3</code> systems default to <i>MAME – Current</i> on Android, while <code>neogeo</code> and <code>fbneo</code> default to FinalBurn Neo.</li>
+      <li><b>Buttons:</b> Neo Geo's A–D map straight to the four face buttons.</li>
+      <li><b>Scaling:</b> Neo Geo and the Capcom boards are 224 lines, so 3× = 672 tall with the width stretched to 4:3. Daraku Tenshi is 240 lines, so 3× = 720 fills the screen.</li>
       <li><b>Short bursts:</b> an arcade ladder is roughly 10–15 minutes. Save-state before the boss if you only have a few stops.</li>
       <li><b>Not here:</b> 3D arcade fighters (Tekken, Soul Edge, Street Fighter EX) run on ZN boards that need MAME, so play their PS1 ports instead. Neo Geo Battle Coliseum and the other Atomiswave games need Flycast.</li>
     </ul>
@@ -85,7 +85,7 @@ const DATA = [
  {
   "sys": "Neo Geo",
   "folder": "neogeo",
-  "note": "4-button layout. Needs neogeo.zip (BIOS) in RetroArch's system/ folder.",
+  "note": "4 buttons. Needs neogeo.zip (BIOS) in RetroArch's system/ folder.",
   "groups": [
    [
     "The King of Fighters",
@@ -203,142 +203,43 @@ const DATA = [
   ]
  },
  {
-  "sys": "Capcom (CPS1 / CPS2)",
+  "sys": "Capcom with fewer buttons",
   "folder": "fbneo",
-  "note": "6-button layout. Runs on FinalBurn Neo in the fbneo folder.",
   "groups": [
    [
-    "Street Fighter",
-    [
-     [
-      "Super Street Fighter II Turbo",
-      "ssf2t",
-      "The definitive SF2.",
-      true
-     ],
-     [
-      "Street Fighter II': Hyper Fighting",
-      "sf2hf",
-      "CPS1. Fast and simple."
-     ],
-     [
-      "Street Fighter Alpha 3",
-      "sfa3",
-      "Biggest roster; three play styles (ism)."
-     ],
-     [
-      "Street Fighter Alpha 2",
-      "sfa2",
-      ""
-     ],
-     [
-      "Hyper Street Fighter II",
-      "hsf2",
-      "Pick any SF2 revision per character."
-     ]
-    ]
-   ],
-   [
-    "Darkstalkers & Marvel",
-    [
-     [
-      "Vampire Savior (Darkstalkers 3)",
-      "vsav",
-      "Fast, expressive, short rounds.",
-      true
-     ],
-     [
-      "X-Men: Children of the Atom",
-      "xmcota",
-      ""
-     ],
-     [
-      "Marvel Super Heroes",
-      "msh",
-      ""
-     ],
-     [
-      "X-Men vs. Street Fighter",
-      "xmvsf",
-      "Tag-team."
-     ],
-     [
-      "Marvel Super Heroes vs. Street Fighter",
-      "mshvsf",
-      "Tag-team."
-     ],
-     [
-      "Marvel vs. Capcom",
-      "mvsc",
-      "Tag-team; most chaotic of the four."
-     ]
-    ]
-   ],
-   [
-    "Something different",
+    "",
     [
      [
       "Super Gem Fighter Mini Mix (Pocket Fighter)",
       "sgemf",
-      "Simplified chibi fighter: ideal for 5-minute bursts."
+      "CPS2, 3 buttons. Simplified chibi fighter: ideal for 5-minute bursts.",
+      true
      ],
      [
       "Cyberbots",
       "cybots",
-      "Mech fighter with part customisation."
-     ]
-    ]
-   ]
-  ]
- },
- {
-  "sys": "Capcom CPS3",
-  "folder": "fbneo",
-  "note": "FBNeo supports CPS3, but it's the heaviest board here. Test speed on the G85 first.",
-  "groups": [
-   [
-    "",
-    [
-     [
-      "Street Fighter III: 3rd Strike",
-      "sfiii3",
-      "Parries, and arguably Capcom's best 2D fighter."
+      "CPS2, 4 buttons (two attacks, boost, weapon). Mech fighter with part customisation."
      ],
      [
       "JoJo's Bizarre Adventure: Heritage for the Future",
       "jojoba",
-      ""
+      "CPS3, 4 buttons (three attacks + Stand). CPS3 is the heaviest board here, so test speed on the G85."
      ]
     ]
    ]
   ]
  },
  {
-  "sys": "Other boards in FBNeo",
+  "sys": "Other boards",
   "folder": "fbneo",
   "groups": [
    [
     "",
     [
      [
-      "Mortal Kombat II",
-      "mk2",
-      "Midway; about 254 lines, see scaling note."
-     ],
-     [
-      "Ultimate Mortal Kombat 3",
-      "umk3",
-      "Midway."
-     ],
-     [
       "Daraku Tenshi: The Fallen Angels",
       "daraku",
       "Psikyo SH-2 (same board as TGM2). 240 lines, so 3× fills the screen."
-     ],
-     [
-      "Kaiser Knuckle",
-      "kaiserkn",
-      "Taito F3. Test that it runs."
      ]
     ]
    ]
