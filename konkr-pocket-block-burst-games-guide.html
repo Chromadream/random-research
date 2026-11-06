@@ -48,6 +48,11 @@ input:checked + span .d{color:var(--done)}
 button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
 button:hover{border-color:var(--accent)}
 .legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+.scale{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.scale th,.scale td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.scale th{font-weight:600;color:var(--muted);font-size:12px}
+.scale td:nth-child(2),.scale td:nth-child(3),.scale td:nth-child(4){font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.scale td.ok{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -59,15 +64,39 @@ button:hover{border-color:var(--accent)}
 
   <div class="note">
     <h2>Arcade in ES-DE: split or combine?</h2>
-    <p><b>Use two folders: <code>neogeo</code> + <code>fbneo</code>.</b> Avoid <code>cps1</code>/<code>cps2</code>/<code>arcade</code> for this list.</p>
+    <p><b>Use <code>neogeo</code> + <code>fbneo</code>, or just <code>fbneo</code>.</b> Avoid <code>cps1</code>/<code>cps2</code>/<code>arcade</code> for this list.</p>
     <ul>
       <li><b>Default emulators decide it.</b> On Android, ES-DE's <code>cps1</code>, <code>cps2</code> and <code>arcade</code> systems default to <i>MAME – Current</i>, which is heavier on the G85 and needs MAME-version romsets. <code>fbneo</code> and <code>neogeo</code> default to the FinalBurn Neo core, so your games just launch.</li>
       <li><b>Board-splitting leaves tiny systems.</b> Of this list, CPS2 would hold two games and CPS1 none. Pang, Snow Bros, Klax and others aren't CPS anyway, so they'd still end up in <code>fbneo</code>.</li>
-      <li><b>Neo Geo is worth its own folder.</b> It's about half the arcade list, and 320 px wide × 3 = exactly 960, so it scales pixel-perfect on the Block. CPS2 is 384 wide, and 3× overflows. Separate folders let you use RetroArch <i>content-directory overrides</i> for scaling and shaders, even though both run on the same core.</li>
+      <li><b>A separate Neo Geo folder is only for tidiness.</b> It's about half the arcade list. Scaling doesn't need it: Neo Geo and CPS2 both have 224 lines, so both are 3× = 672 tall, and one integer-Y + 4:3 setup covers every board. Putting everything in <code>fbneo</code> works just as well.</li>
       <li>ES-DE sorts by the full game name (translated from the MAME short name, or scraped), so mixing boards in <code>fbneo</code> still lists cleanly A–Z.</li>
       <li>Put <code>neogeo.zip</code> (BIOS) in RetroArch's <code>system/</code> folder so both folders find it.</li>
       <li>Optional: make an ES-DE <b>custom collection</b> (e.g. "Commute") that pulls your favourites across GBA, PS1 and arcade into one list.</li>
     </ul>
+  </div>
+
+  <div class="note">
+    <h2>Integer scaling on the Y axis (720 lines)</h2>
+    <p>Scale the height by a whole number and stretch the width to 4:3. Arcade and console pixels weren't square on CRTs, so matching the width isn't the goal. Largest whole multiple that fits within 720 lines:</p>
+    <table class="scale">
+      <thead><tr><th>Source</th><th>Lines</th><th>Scale</th><th>Height</th><th>Fit</th></tr></thead>
+      <tbody>
+        <tr><td>TGM2 (Psikyo SH-2) · 320×240</td><td>240</td><td>3×</td><td>720</td><td class="ok">Full screen, square pixels</td></tr>
+        <tr><td>Pang / Super Pang (Mitchell) · 384×240</td><td>240</td><td>3×</td><td>720</td><td class="ok">Exact</td></tr>
+        <tr><td>Klax (Atari) · 336×240</td><td>240</td><td>3×</td><td>720</td><td class="ok">Exact</td></tr>
+        <tr><td>PS1 (most games, 240p)</td><td>240</td><td>3×</td><td>720</td><td class="ok">Exact; some NTSC games are 224</td></tr>
+        <tr><td>GB / GBC · 160×144</td><td>144</td><td>5×</td><td>720</td><td class="ok">Exact (800 wide)</td></tr>
+        <tr><td>Taito F3 (Puzzle Bobble 2) · 320×232</td><td>232</td><td>3×</td><td>696</td><td>12 px bars</td></tr>
+        <tr><td>Neo Geo · 320×224</td><td>224</td><td>3×</td><td>672</td><td>24 px bars</td></tr>
+        <tr><td>CPS2 · 384×224</td><td>224</td><td>3×</td><td>672</td><td>24 px bars</td></tr>
+        <tr><td>Sega C2, Snow Bros, Bubble Bobble · 224 lines</td><td>224</td><td>3×</td><td>672</td><td>24 px bars</td></tr>
+        <tr><td>SNES · 256×224</td><td>224</td><td>3×</td><td>672</td><td>24 px bars</td></tr>
+        <tr><td>GBA · 240×160</td><td>160</td><td>4×</td><td>640</td><td class="ok">960 wide, so 4× on both axes</td></tr>
+        <tr><td>NGPC · 160×152</td><td>152</td><td>4×</td><td>608</td><td>56 px bars</td></tr>
+        <tr><td>WonderSwan · 224×144</td><td>144</td><td>4×</td><td>576</td><td>5× would be 720 tall but 1120 wide, which doesn't fit</td></tr>
+      </tbody>
+    </table>
+    <p class="secnote">The handhelds (GB/GBC, GBA, NGPC, WonderSwan) use square pixels, so scale them 1:1 on both axes rather than stretching to 4:3.</p>
   </div>
 
   <div id="list"></div>
@@ -106,7 +135,7 @@ const DATA = [
     ["Einhänder","Horizontal shmup with short stages."],
     ["Klonoa: Door to Phantomile","Puzzle-platformer."]
   ]},
-  {sys:"Neo Geo", folder:"neogeo", note:"Default core: FinalBurn Neo. 320×224 → 3× = 960×672, integer-perfect.", groups:[
+  {sys:"Neo Geo", folder:"neogeo", note:"Default core: FinalBurn Neo. 224 lines → 3× = 672 tall, width stretched to 4:3.", groups:[
     ["Puzzle",[
       ["Twinkle Star Sprites","twinspri","Puzzle-shmup hybrid, my top arcade pick.",true],
       ["Magical Drop III","magdrop3",""],
