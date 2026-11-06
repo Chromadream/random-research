@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Block — Arcade Fighting Games Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ec; --card:#fffdf8; --ink:#1d1b22; --muted:#6d6876; --line:#dcd7cd;
+  --accent:#6b4fd8; --accent-soft:#ebe5ff; --done:#9a95a3; --tag:#efeae0;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+    --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font:700 26px/1.15 "Space Grotesk",sans-serif;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.count{font:500 13px "IBM Plex Mono",monospace;color:var(--muted);min-width:64px;text-align:right}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:0 0 26px}
+.note h2{font:700 15px "Space Grotesk",sans-serif;margin:0 0 6px}
+.note p{margin:6px 0}
+.note ul{margin:6px 0;padding-left:18px}
+code{font:500 12.5px "IBM Plex Mono",monospace;background:var(--tag);padding:1px 5px;border-radius:4px}
+section{margin:0 0 22px}
+section>header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+section h3{font:700 17px "Space Grotesk",sans-serif;margin:0}
+.folder{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.group{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.secnote{color:var(--muted);font-size:13px;margin:4px 0 6px}
+label.item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer}
+label.item:hover{background:var(--card)}
+label.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+.t{font-weight:600}
+.t .rom{font:400 12px "IBM Plex Mono",monospace;color:var(--muted);margin-left:6px}
+.d{color:var(--muted);font-size:13.5px}
+.star{color:var(--accent);font-size:12px;margin-left:4px}
+input:checked + span .t{color:var(--done);text-decoration:line-through}
+input:checked + span .d{color:var(--done)}
+.tools{display:flex;gap:8px;margin:28px 0 0}
+button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+.scale{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.scale th,.scale td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.scale th{font-weight:600;color:var(--muted);font-size:12px}
+.scale td:nth-child(2),.scale td:nth-child(3),.scale td:nth-child(4){font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.scale td.ok{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pocket Block · Arcade Fighters</h1>
+  <p class="sub">2D arcade and Neo Geo fighting games for the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad, 8 buttons), all on FinalBurn Neo. Grouped by ES-DE ROM folder.</p>
+  <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
+  <p class="legend"><span class="star">★</span> = start here</p>
+  <div class="note">
+    <h2>Setup on the Block</h2>
+    <ul>
+      <li><b>Folders:</b> Neo Geo games go in <code>neogeo</code>; everything else goes in <code>fbneo</code>, including the Capcom boards. ES-DE's <code>cps1</code>/<code>cps2</code>/<code>cps3</code> systems default to <i>MAME – Current</i> on Android, while <code>neogeo</code> and <code>fbneo</code> default to FinalBurn Neo.</li>
+      <li><b>Buttons:</b> Neo Geo is 4 buttons (A–D), so it fits the face buttons with no compromise. For Capcom's 6 buttons, use the SNES layout: punches on Y / X / L1 and kicks on B / A / R1. Leave L2/R2 for macros or coin/hotkeys.</li>
+      <li><b>D-pad only:</b> everything here plays fine on a d-pad, including charge and motion inputs.</li>
+      <li><b>Scaling:</b> CPS1/2/3 and Neo Geo are 224 lines, so 3× = 672 tall with the width stretched to 4:3. Daraku Tenshi is 240 lines, so 3× = 720. The Midway games are about 254 lines, so integer scaling only gets 2× (508); use non-integer scaling for those.</li>
+      <li><b>Short bursts:</b> an arcade ladder is roughly 10–15 minutes. Save-state before the boss if you only have a few stops.</li>
+      <li><b>Not here:</b> 3D arcade fighters (Tekken, Soul Edge, Street Fighter EX) run on ZN boards that need MAME, so play their PS1 ports instead. Neo Geo Battle Coliseum and the other Atomiswave games need Flycast.</li>
+    </ul>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="tools">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+ {
+  "sys": "Neo Geo",
+  "folder": "neogeo",
+  "note": "4-button layout. Needs neogeo.zip (BIOS) in RetroArch's system/ folder.",
+  "groups": [
+   [
+    "The King of Fighters",
+    [
+     [
+      "The King of Fighters '98",
+      "kof98",
+      "The series' high point for many players; huge roster, 3-on-3 teams.",
+      true
+     ],
+     [
+      "The King of Fighters 2002",
+      "kof2002",
+      "Faster, combo-heavy; good if you liked '98."
+     ],
+     [
+      "The King of Fighters '97",
+      "kof97",
+      ""
+     ],
+     [
+      "The King of Fighters 2000",
+      "kof2000",
+      "Striker system, so it plays differently from the others."
+     ]
+    ]
+   ],
+   [
+    "SNK standouts",
+    [
+     [
+      "Garou: Mark of the Wolves",
+      "garou",
+      "SNK's last and most refined 2D fighter.",
+      true
+     ],
+     [
+      "The Last Blade 2",
+      "lastbld2",
+      "Weapon-based, deliberate pace.",
+      true
+     ],
+     [
+      "Samurai Shodown II",
+      "samsho2",
+      "Big-damage swordplay; matches end fast."
+     ],
+     [
+      "Samurai Shodown V Special",
+      "samsh5sp",
+      ""
+     ],
+     [
+      "Real Bout Fatal Fury Special",
+      "rbffspec",
+      "Lane-switching Fatal Fury."
+     ],
+     [
+      "Real Bout Fatal Fury 2",
+      "rbff2",
+      ""
+     ],
+     [
+      "Fatal Fury Special",
+      "fatfursp",
+      ""
+     ],
+     [
+      "Art of Fighting 3",
+      "aof3",
+      ""
+     ]
+    ]
+   ],
+   [
+    "Oddballs worth a go",
+    [
+     [
+      "Waku Waku 7",
+      "wakuwak7",
+      "Sunsoft parody fighter; gorgeous sprites."
+     ],
+     [
+      "Breakers Revenge",
+      "breakrev",
+      "Visco's underrated fighter."
+     ],
+     [
+      "Ninja Master's",
+      "ninjamas",
+      "ADK; weapon switching."
+     ],
+     [
+      "Kizuna Encounter",
+      "kizuna",
+      "Tag-team fighting."
+     ],
+     [
+      "World Heroes Perfect",
+      "whp",
+      ""
+     ],
+     [
+      "Matrimelee",
+      "matrim",
+      "Late Neo Geo release (2002); chaotic fun."
+     ],
+     [
+      "Rage of the Dragons",
+      "rotd",
+      "Tag-team; Double Dragon-inspired cast."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Capcom (CPS1 / CPS2)",
+  "folder": "fbneo",
+  "note": "6-button layout. Runs on FinalBurn Neo in the fbneo folder.",
+  "groups": [
+   [
+    "Street Fighter",
+    [
+     [
+      "Super Street Fighter II Turbo",
+      "ssf2t",
+      "The definitive SF2.",
+      true
+     ],
+     [
+      "Street Fighter II': Hyper Fighting",
+      "sf2hf",
+      "CPS1. Fast and simple."
+     ],
+     [
+      "Street Fighter Alpha 3",
+      "sfa3",
+      "Biggest roster; three play styles (ism)."
+     ],
+     [
+      "Street Fighter Alpha 2",
+      "sfa2",
+      ""
+     ],
+     [
+      "Hyper Street Fighter II",
+      "hsf2",
+      "Pick any SF2 revision per character."
+     ]
+    ]
+   ],
+   [
+    "Darkstalkers & Marvel",
+    [
+     [
+      "Vampire Savior (Darkstalkers 3)",
+      "vsav",
+      "Fast, expressive, short rounds.",
+      true
+     ],
+     [
+      "X-Men: Children of the Atom",
+      "xmcota",
+      ""
+     ],
+     [
+      "Marvel Super Heroes",
+      "msh",
+      ""
+     ],
+     [
+      "X-Men vs. Street Fighter",
+      "xmvsf",
+      "Tag-team."
+     ],
+     [
+      "Marvel Super Heroes vs. Street Fighter",
+      "mshvsf",
+      "Tag-team."
+     ],
+     [
+      "Marvel vs. Capcom",
+      "mvsc",
+      "Tag-team; most chaotic of the four."
+     ]
+    ]
+   ],
+   [
+    "Something different",
+    [
+     [
+      "Super Gem Fighter Mini Mix (Pocket Fighter)",
+      "sgemf",
+      "Simplified chibi fighter: ideal for 5-minute bursts."
+     ],
+     [
+      "Cyberbots",
+      "cybots",
+      "Mech fighter with part customisation."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Capcom CPS3",
+  "folder": "fbneo",
+  "note": "FBNeo supports CPS3, but it's the heaviest board here. Test speed on the G85 first.",
+  "groups": [
+   [
+    "",
+    [
+     [
+      "Street Fighter III: 3rd Strike",
+      "sfiii3",
+      "Parries, and arguably Capcom's best 2D fighter."
+     ],
+     [
+      "JoJo's Bizarre Adventure: Heritage for the Future",
+      "jojoba",
+      ""
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Other boards in FBNeo",
+  "folder": "fbneo",
+  "groups": [
+   [
+    "",
+    [
+     [
+      "Mortal Kombat II",
+      "mk2",
+      "Midway; about 254 lines, see scaling note."
+     ],
+     [
+      "Ultimate Mortal Kombat 3",
+      "umk3",
+      "Midway."
+     ],
+     [
+      "Daraku Tenshi: The Fallen Angels",
+      "daraku",
+      "Psikyo SH-2 (same board as TGM2). 240 lines, so 3× fills the screen."
+     ],
+     [
+      "Kaiser Knuckle",
+      "kaiserkn",
+      "Taito F3. Test that it runs."
+     ]
+    ]
+   ]
+  ]
+ }
+];
+
+const KEY="pocketblock-fighters-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+const list=document.getElementById("list");
+let html="";
+function row(id,title,rom,desc,star){
+  return `<label class="item"><input type="checkbox" data-id="${esc(id)}"${state[id]?" checked":""}><span><div class="t">${esc(title)}${rom?`<span class="rom">${esc(rom)}.zip</span>`:""}${star?'<span class="star">★</span>':""}</div>${desc?`<div class="d">${esc(desc)}</div>`:""}</span></label>`;
+}
+DATA.forEach(s=>{
+  html+=`<section><header><h3>${esc(s.sys)}</h3><span class="folder">roms/${esc(s.folder)}</span></header>`;
+  if(s.note) html+=`<p class="secnote">${esc(s.note)}</p>`;
+  if(s.items) s.items.forEach(([t,d,st])=>{html+=row(s.folder+"|"+t,t,null,d,st)});
+  if(s.groups) s.groups.forEach(([g,items])=>{
+    if(g) html+=`<div class="group">${esc(g)}</div>`;
+    items.forEach(([t,r,d,st])=>{html+=row(s.folder+"|"+t,t,r,d,st)});
+  });
+  html+=`</section>`;
+});
+list.innerHTML=html;
+
+function update(){
+  const boxes=[...document.querySelectorAll('input[type=checkbox]')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`${done} / ${boxes.length}`;
+  document.getElementById("fill").style.width=(boxes.length?done/boxes.length*100:0)+"%";
+}
+list.addEventListener("change",e=>{
+  const b=e.target; if(!b.dataset.id) return;
+  if(b.checked) state[b.dataset.id]=1; else delete state[b.dataset.id];
+  save(); update();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={}; save();
+  document.querySelectorAll('input[type=checkbox]').forEach(b=>b.checked=false);
+  update();
+});
+update();
+</script>
+</body>
+</html>
