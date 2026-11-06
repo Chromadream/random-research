@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Block — Burst Games Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ec; --card:#fffdf8; --ink:#1d1b22; --muted:#6d6876; --line:#dcd7cd;
+  --accent:#6b4fd8; --accent-soft:#ebe5ff; --done:#9a95a3; --tag:#efeae0;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+    --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font:700 26px/1.15 "Space Grotesk",sans-serif;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.count{font:500 13px "IBM Plex Mono",monospace;color:var(--muted);min-width:64px;text-align:right}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:0 0 26px}
+.note h2{font:700 15px "Space Grotesk",sans-serif;margin:0 0 6px}
+.note p{margin:6px 0}
+.note ul{margin:6px 0;padding-left:18px}
+code{font:500 12.5px "IBM Plex Mono",monospace;background:var(--tag);padding:1px 5px;border-radius:4px}
+section{margin:0 0 22px}
+section>header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+section h3{font:700 17px "Space Grotesk",sans-serif;margin:0}
+.folder{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.group{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.secnote{color:var(--muted);font-size:13px;margin:4px 0 6px}
+label.item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer}
+label.item:hover{background:var(--card)}
+label.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+.t{font-weight:600}
+.t .rom{font:400 12px "IBM Plex Mono",monospace;color:var(--muted);margin-left:6px}
+.d{color:var(--muted);font-size:13.5px}
+.star{color:var(--accent);font-size:12px;margin-left:4px}
+input:checked + span .t{color:var(--done);text-decoration:line-through}
+input:checked + span .d{color:var(--done)}
+.tools{display:flex;gap:8px;margin:28px 0 0}
+button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pocket Block · Burst Games</h1>
+  <p class="sub">Short-session puzzle and arcade picks for the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad only). Grouped by ES-DE system folder.</p>
+  <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
+  <p class="legend"><span class="star">★</span> = start here (top five)</p>
+
+  <div class="note">
+    <h2>Arcade in ES-DE: split or combine?</h2>
+    <p><b>Use two folders: <code>neogeo</code> + <code>fbneo</code>.</b> Avoid <code>cps1</code>/<code>cps2</code>/<code>arcade</code> for this list.</p>
+    <ul>
+      <li><b>Default emulators decide it.</b> On Android, ES-DE's <code>cps1</code>, <code>cps2</code> and <code>arcade</code> systems default to <i>MAME – Current</i>, which is heavier on the G85 and needs MAME-version romsets. <code>fbneo</code> and <code>neogeo</code> default to the FinalBurn Neo core, so your games just launch.</li>
+      <li><b>Board-splitting leaves tiny systems.</b> Of this list, CPS2 would hold two games and CPS1 none. Pang, Snow Bros, Klax and others aren't CPS anyway, so they'd still end up in <code>fbneo</code>.</li>
+      <li><b>Neo Geo is worth its own folder.</b> It's about half the arcade list, and 320 px wide × 3 = exactly 960, so it scales pixel-perfect on the Block. CPS2 is 384 wide, and 3× overflows. Separate folders let you use RetroArch <i>content-directory overrides</i> for scaling and shaders, even though both run on the same core.</li>
+      <li>ES-DE sorts by the full game name (translated from the MAME short name, or scraped), so mixing boards in <code>fbneo</code> still lists cleanly A–Z.</li>
+      <li>Put <code>neogeo.zip</code> (BIOS) in RetroArch's <code>system/</code> folder so both folders find it.</li>
+      <li>Optional: make an ES-DE <b>custom collection</b> (e.g. "Commute") that pulls your favourites across GBA, PS1 and arcade into one list.</li>
+    </ul>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="tools">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {sys:"GBA", folder:"gba", items:[
+    ["Kuru Kuru Kururin","EU/JP release. Spinning-stick maze stages of 1–2 min.",true],
+    ["Kururin Paradise","JP-only, fan translation available. More Kururin."],
+    ["WarioWare, Inc.: Mega Microgame$","5-second microgames. (Twisted! needs a gyro, so leave it to the sensor devices.)",true],
+    ["Rhythm Tengoku","Fan translation. Each stage is one short song."],
+    ["Mario vs. Donkey Kong","Single-screen puzzle-platformer."],
+    ["Polarium Advance","Line-flip puzzles, d-pad controlled."],
+    ["Dr. Mario & Puzzle League","Panel de Pon in your pocket."],
+    ["Denki Blocks!","Hundreds of small block-sliding puzzles."],
+    ["ChuChu Rocket!","Puzzle mode is perfect for short sessions."],
+    ["Mr. Driller 2","Score-attack runs."],
+    ["Klonoa: Empire of Dreams","Short puzzle-platformer levels."]
+  ]},
+  {sys:"PlayStation", folder:"psx", note:"Avoid analog-required games (e.g. Ape Escape): the Block has no sticks.", items:[
+    ["Kurushi Final: Mental Blocks (I.Q Final)","PAL version is in English. 3-round stages, move-par PERFECTs, 100 Attack and Survival modes.",true],
+    ["Intelligent Qube (Kurushi)","The original. Optional if you're playing Final."],
+    ["Kula World (Roll Away)","Timed 3D ball-rolling puzzle levels."],
+    ["Devil Dice (XI)","Dice-rolling puzzler."],
+    ["Mr. Driller","PS1 port of the arcade game."],
+    ["Puzzle Bobble 2 / 4 (Bust-a-Move)",""],
+    ["Puchi Carat","Taito's Arkanoid crossed with a falling-block puzzler."],
+    ["Bishi Bashi Special","Konami microgame collection."],
+    ["PaRappa the Rapper / Um Jammer Lammy","Song-length sessions, best with headphones."],
+    ["Vib-Ribbon","Rhythm game, short runs."],
+    ["Einhänder","Horizontal shmup with short stages."],
+    ["Klonoa: Door to Phantomile","Puzzle-platformer."]
+  ]},
+  {sys:"Neo Geo", folder:"neogeo", note:"Default core: FinalBurn Neo. 320×224 → 3× = 960×672, integer-perfect.", groups:[
+    ["Puzzle",[
+      ["Twinkle Star Sprites","twinspri","Puzzle-shmup hybrid, my top arcade pick.",true],
+      ["Magical Drop III","magdrop3",""],
+      ["Money Idol Exchanger","miexchng","Coin-merging puzzler."],
+      ["Pop 'n Bounce","popbounc","Paddle-based breakout game."]
+    ]],
+    ["Sports / shmup",[
+      ["Neo Turf Masters","turfmast","A 9-hole round is about commute length."],
+      ["Windjammers","wjammers",""],
+      ["Blazing Star","blazstar","Horizontal shmup."],
+      ["Pulstar","pulstar","Horizontal shmup."],
+      ["Last Resort","lresort","Horizontal shmup."]
+    ]]
+  ]},
+  {sys:"FinalBurn Neo (everything else)", folder:"fbneo", note:"Default core: FinalBurn Neo. Mixed boards, sorted A–Z by full name.", groups:[
+    ["Puzzle",[
+      ["Super Puzzle Fighter II Turbo","spf2t","CPS2 original."],
+      ["Puzzle Bobble 2","pbobble2","Taito F3."],
+      ["Puyo Puyo 2","puyo2","Sega C2."],
+      ["Columns II","columns2","Sega C2."],
+      ["Klax","klax","Atari."],
+      ["Tetris: The Absolute – The Grand Master 2 Plus","tgm2p","Psikyo SH-2. Non-merged set: tgm2p.zip on its own is enough. Split set: keep tgm2.zip (parent) beside it. Test speed on the G85."]
+    ]],
+    ["Single-screen action",[
+      ["Pang (Buster Bros.)","pang","Mitchell."],
+      ["Super Pang (Super Buster Bros.)","spang","Mitchell."],
+      ["Snow Bros.","snowbros",""],
+      ["Bubble Bobble","bublbobl",""]
+    ]],
+    ["Shmup",[
+      ["Progear","progear","Cave, CPS2, and horizontal, so it fits the 4:3 screen."]
+    ]]
+  ]},
+  {sys:"Arcade (MAME), optional", folder:"arcade", note:"Only for games FBNeo doesn't support. Test performance first.", groups:[
+    ["",[
+      ["Tetris: The Grand Master","tgmj","Sony ZN-2 board, which FBNeo doesn't emulate. Needs a MAME core: performance on the G85 is unverified."]
+    ]]
+  ]},
+  {sys:"WonderSwan", folder:"wswan / wswanc", items:[
+    ["Gunpey / Gunpey EX","Gunpei Yokoi's line-connecting puzzler. Very little text.",true]
+  ]},
+  {sys:"Neo Geo Pocket Color", folder:"ngpc", items:[
+    ["Puzzle Link 2",""],
+    ["Magical Drop Pocket",""],
+    ["SNK vs. Capcom: Card Fighters' Clash","Quick card matches."]
+  ]},
+  {sys:"SNES / Super Famicom", folder:"snes", items:[
+    ["Tetris Attack",""],
+    ["Wario's Woods",""],
+    ["Kirby's Avalanche",""],
+    ["Picross NP","Satellaview, fan translated."],
+    ["Sutte Hakkun","Fan translation. A gorgeous level-based puzzler."]
+  ]},
+  {sys:"Game Boy / Color", folder:"gb / gbc", items:[
+    ["Mario's Picross",""],
+    ["Pokémon Puzzle Challenge",""],
+    ["Kirby's Star Stacker",""],
+    ["Tetris DX",""]
+  ]}
+];
+
+const KEY="pocketblock-burst-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+const list=document.getElementById("list");
+let html="";
+function row(id,title,rom,desc,star){
+  return `<label class="item"><input type="checkbox" data-id="${esc(id)}"${state[id]?" checked":""}><span><div class="t">${esc(title)}${rom?`<span class="rom">${esc(rom)}.zip</span>`:""}${star?'<span class="star">★</span>':""}</div>${desc?`<div class="d">${esc(desc)}</div>`:""}</span></label>`;
+}
+DATA.forEach(s=>{
+  html+=`<section><header><h3>${esc(s.sys)}</h3><span class="folder">roms/${esc(s.folder)}</span></header>`;
+  if(s.note) html+=`<p class="secnote">${esc(s.note)}</p>`;
+  if(s.items) s.items.forEach(([t,d,st])=>{html+=row(s.folder+"|"+t,t,null,d,st)});
+  if(s.groups) s.groups.forEach(([g,items])=>{
+    if(g) html+=`<div class="group">${esc(g)}</div>`;
+    items.forEach(([t,r,d,st])=>{html+=row(s.folder+"|"+t,t,r,d,st)});
+  });
+  html+=`</section>`;
+});
+list.innerHTML=html;
+
+function update(){
+  const boxes=[...document.querySelectorAll('input[type=checkbox]')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`${done} / ${boxes.length}`;
+  document.getElementById("fill").style.width=(boxes.length?done/boxes.length*100:0)+"%";
+}
+list.addEventListener("change",e=>{
+  const b=e.target; if(!b.dataset.id) return;
+  if(b.checked) state[b.dataset.id]=1; else delete state[b.dataset.id];
+  save(); update();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={}; save();
+  document.querySelectorAll('input[type=checkbox]').forEach(b=>b.checked=false);
+  update();
+});
+update();
+</script>
+</body>
+</html>
