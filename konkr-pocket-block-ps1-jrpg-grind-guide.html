@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Block — PS1 JRPG Grind List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ec; --card:#fffdf8; --ink:#1d1b22; --muted:#6d6876; --line:#dcd7cd;
+  --accent:#6b4fd8; --accent-soft:#ebe5ff; --done:#9a95a3; --tag:#efeae0;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+    --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font:700 26px/1.15 "Space Grotesk",sans-serif;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.count{font:500 13px "IBM Plex Mono",monospace;color:var(--muted);min-width:64px;text-align:right}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:0 0 26px}
+.note h2{font:700 15px "Space Grotesk",sans-serif;margin:0 0 6px}
+.note p{margin:6px 0}
+.note ul{margin:6px 0;padding-left:18px}
+code{font:500 12.5px "IBM Plex Mono",monospace;background:var(--tag);padding:1px 5px;border-radius:4px}
+section{margin:0 0 22px}
+section>header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+section h3{font:700 17px "Space Grotesk",sans-serif;margin:0}
+.folder{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.group{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.secnote{color:var(--muted);font-size:13px;margin:4px 0 6px}
+label.item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer}
+label.item:hover{background:var(--card)}
+label.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+.t{font-weight:600}
+.t .rom{font:400 12px "IBM Plex Mono",monospace;color:var(--muted);margin-left:6px}
+.d{color:var(--muted);font-size:13.5px}
+.star{color:var(--accent);font-size:12px;margin-left:4px}
+input:checked + span .t{color:var(--done);text-decoration:line-through}
+input:checked + span .d{color:var(--done)}
+.tools{display:flex;gap:8px;margin:28px 0 0}
+button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+.scale{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.scale th,.scale td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.scale th{font-weight:600;color:var(--muted);font-size:12px}
+.scale td:nth-child(2),.scale td:nth-child(3),.scale td:nth-child(4){font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.scale td.ok{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pocket Block · PS1 JRPGs</h1>
+  <p class="sub">Long PS1 RPGs to grind through on the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad only). Pick one or two at a time; save states make every stop a save point.</p>
+  <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
+  <p class="legend"><span class="star">★</span> = good first picks</p>
+  <div class="note">
+    <h2>Setup on the Block</h2>
+    <ul>
+      <li><b>Folder:</b> <code>psx</code>. Convert discs to <code>.chd</code> to save space; for multi-disc games, put the CHDs in a <code>.m3u</code> playlist so ES-DE shows one entry and the emulator can swap discs.</li>
+      <li><b>Speed-up:</b> the G85 has headroom for fast-forward on PS1, which is most of what makes grinding bearable. Map it to a shoulder or hotkey.</li>
+      <li><b>Scaling:</b> most PS1 games are 240 lines, so 3× = 720 exactly fills the screen height. Some games switch to 480i for menus or FMV; that still fits at 1.5×.</li>
+      <li><b>D-pad only:</b> none of these need analog sticks.</li>
+      <li><b>Fan translations:</b> marked where the game never came out in English.</li>
+    </ul>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="tools">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+ {
+  "sys": "Big JRPGs",
+  "folder": "psx",
+  "groups": [
+   [
+    "Square & Enix",
+    [
+     [
+      "Dragon Warrior VII",
+      "",
+      "Enormous, slow-burn, class-system grinding. The ultimate pocket grind.",
+      true
+     ],
+     [
+      "Final Fantasy VII",
+      "",
+      ""
+     ],
+     [
+      "Final Fantasy VIII",
+      "",
+      "Junction system rewards drawing and card-play over raw grinding."
+     ],
+     [
+      "Final Fantasy IX",
+      "",
+      "Ability learning from equipment suits steady grinding.",
+      true
+     ],
+     [
+      "Chrono Cross",
+      "",
+      ""
+     ],
+     [
+      "Xenogears",
+      "",
+      "Long and story-heavy; disc 2 is mostly narration."
+     ],
+     [
+      "SaGa Frontier",
+      "",
+      "Seven scenarios, free-form growth."
+     ],
+     [
+      "SaGa Frontier 2",
+      "",
+      ""
+     ],
+     [
+      "Vagrant Story",
+      "",
+      "Action-RPG with deep weapon crafting."
+     ]
+    ]
+   ],
+   [
+    "Classic series",
+    [
+     [
+      "Suikoden",
+      "",
+      "Shorter, but sets up a save transfer."
+     ],
+     [
+      "Suikoden II",
+      "",
+      "108 recruits; one of the era's best.",
+      true
+     ],
+     [
+      "Breath of Fire III",
+      "",
+      "Fishing and Master apprenticeships give plenty to grind."
+     ],
+     [
+      "Breath of Fire IV",
+      "",
+      ""
+     ],
+     [
+      "Wild ARMs",
+      "",
+      ""
+     ],
+     [
+      "Wild ARMs 2",
+      "",
+      ""
+     ],
+     [
+      "Lunar: Silver Star Story Complete",
+      "",
+      ""
+     ],
+     [
+      "Lunar 2: Eternal Blue Complete",
+      "",
+      ""
+     ],
+     [
+      "Grandia",
+      "",
+      "Combat system built around interrupting turns; skill levels grow with use."
+     ],
+     [
+      "Star Ocean: The Second Story",
+      "",
+      "Item creation and skills can eat dozens of hours."
+     ],
+     [
+      "Valkyrie Profile",
+      "",
+      "Recruit, train and send warriors off; great on a pocket device."
+     ],
+     [
+      "The Legend of Dragoon",
+      "",
+      "Timed-input combos (Additions) you level by using them."
+     ],
+     [
+      "Legend of Legaia",
+      "",
+      "Button-combo battle system."
+     ],
+     [
+      "Thousand Arms",
+      "",
+      ""
+     ]
+    ]
+   ],
+   [
+    "Tales & Persona",
+    [
+     [
+      "Tales of Destiny",
+      "",
+      ""
+     ],
+     [
+      "Tales of Destiny II (Tales of Eternia)",
+      "",
+      ""
+     ],
+     [
+      "Tales of Phantasia (PS1)",
+      "",
+      "Fan translation. The GBA version is official but a weaker port."
+     ],
+     [
+      "Revelations: Persona",
+      "",
+      ""
+     ],
+     [
+      "Persona 2: Innocent Sin",
+      "",
+      "Fan translation of the PS1 version; also official on PSP."
+     ],
+     [
+      "Persona 2: Eternal Punishment",
+      "",
+      ""
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Grind-friendly in short bursts",
+  "folder": "psx",
+  "note": "Loops that suit a few minutes at a time, not just long runtimes.",
+  "groups": [
+   [
+    "",
+    [
+     [
+      "Azure Dreams",
+      "",
+      "Roguelike tower dives plus monster raising; each run is short.",
+      true
+     ],
+     [
+      "Jade Cocoon: Story of the Tamamayu",
+      "",
+      "Capture and merge monsters."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Strategy RPGs",
+  "folder": "psx",
+  "groups": [
+   [
+    "",
+    [
+     [
+      "Final Fantasy Tactics",
+      "",
+      "Job grinding at its best."
+     ],
+     [
+      "Tactics Ogre: Let Us Cling Together",
+      "",
+      "PS1 version."
+     ],
+     [
+      "Front Mission 3",
+      "",
+      ""
+     ],
+     [
+      "Vandal Hearts",
+      "",
+      ""
+     ],
+     [
+      "Brigandine: The Legend of Forsena",
+      "",
+      "Grand strategy with monster units; long campaigns."
+     ],
+     [
+      "Arc the Lad Collection",
+      "",
+      "Arc I–III plus Monster Arena; III carries over from II."
+     ],
+     [
+      "Hoshigami: Ruining Blue Earth",
+      "",
+      "Very hard; built for grinding."
+     ]
+    ]
+   ]
+  ]
+ }
+];
+
+const KEY="pocketblock-ps1-rpgs-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+const list=document.getElementById("list");
+let html="";
+function row(id,title,rom,desc,star){
+  return `<label class="item"><input type="checkbox" data-id="${esc(id)}"${state[id]?" checked":""}><span><div class="t">${esc(title)}${rom?`<span class="rom">${esc(rom)}.zip</span>`:""}${star?'<span class="star">★</span>':""}</div>${desc?`<div class="d">${esc(desc)}</div>`:""}</span></label>`;
+}
+DATA.forEach(s=>{
+  html+=`<section><header><h3>${esc(s.sys)}</h3><span class="folder">roms/${esc(s.folder)}</span></header>`;
+  if(s.note) html+=`<p class="secnote">${esc(s.note)}</p>`;
+  if(s.items) s.items.forEach(([t,d,st])=>{html+=row(s.folder+"|"+t,t,null,d,st)});
+  if(s.groups) s.groups.forEach(([g,items])=>{
+    if(g) html+=`<div class="group">${esc(g)}</div>`;
+    items.forEach(([t,r,d,st])=>{html+=row(s.folder+"|"+t,t,r,d,st)});
+  });
+  html+=`</section>`;
+});
+list.innerHTML=html;
+
+function update(){
+  const boxes=[...document.querySelectorAll('input[type=checkbox]')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`${done} / ${boxes.length}`;
+  document.getElementById("fill").style.width=(boxes.length?done/boxes.length*100:0)+"%";
+}
+list.addEventListener("change",e=>{
+  const b=e.target; if(!b.dataset.id) return;
+  if(b.checked) state[b.dataset.id]=1; else delete state[b.dataset.id];
+  save(); update();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={}; save();
+  document.querySelectorAll('input[type=checkbox]').forEach(b=>b.checked=false);
+  update();
+});
+update();
+</script>
+</body>
+</html>
