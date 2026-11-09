@@ -75,6 +75,15 @@ button:hover{border-color:var(--accent)}
   </div>
 
   <div class="note">
+    <h2>Using the fan patches</h2>
+    <ul>
+      <li><b>Patch a clean Japanese dump.</b> Most ship as xdelta or BPS and are checked against a specific hash, so a trimmed or pre-patched ROM can fail.</li>
+      <li><b>Not finished, so not listed:</b> Xenosaga I+II (beta covering three chapters) and Shiren the Wanderer DS2 (unfinished alpha). I couldn't confirm a complete Tales of Hearts patch or any Yggdra Unison patch.</li>
+      <li><b>No patch needed:</b> Panel de Pon DS is Planet Puzzle League, and Fire Emblem: New Mystery stays with your series run.</li>
+    </ul>
+  </div>
+
+  <div class="note">
     <h2>Keep these on the DS Lite</h2>
     <ul>
       <li><b>Hotel Dusk, Last Window, Trace Memory:</b> fold-the-console puzzles, and Hotel Dusk has a two-point touch puzzle.</li>
@@ -135,8 +144,7 @@ const DATA = [
       ["Sudoku Gridmaster","400-plus hand-picked Nikoli puzzles. The D-pad moves the cursor.",false,true]
     ]],
     ["Tap and drag",[
-      ["Picross 3D","Stylus plus D-pad modifiers to chip away at a block. The best puzzle-game pick for the built-in stylus.",true,true],
-      ["Puzzle Series Vol. 5: Slitherlink","Japan-only Nikoli logic loops. A fan patch provides English menus."]
+      ["Picross 3D","Stylus plus D-pad modifiers to chip away at a block. The best puzzle-game pick for the built-in stylus.",true,true]
     ]]
   ]},
   {sys:"Story puzzlers", pill:"mixed", groups:[
@@ -164,6 +172,48 @@ const DATA = [
     ["Puzzle Quest: Galactrix","Sci-fi sequel with a shifted hex board that slides in the direction of your last move.",false,true],
     ["Mario vs. Donkey Kong 2: March of the Minis","Tap Minis to steer them to the exit, Lemmings-style. Buttons only scroll the view.",false,true],
     ["Mario vs. Donkey Kong: Mini-Land Mayhem!","More of the same with stronger level design."]
+  ]},
+  {part:"Fan translations"},
+  {sys:"Patched RPGs and strategy", pill:"mixed", groups:[
+    ["Buttons",[
+      ["Soma Bringer","Monolith Soft's Diablo-style action RPG with a Yasunori Mitsuda score. Skills map to the face buttons and touch goes unused. Patch is 98% done; only the glossary is left.",true,true],
+      ["Tales of Innocence","D-pad and face buttons only, with a much stronger battle system than Tales of the Tempest. Absolute Zero's v1.0 patch.",false,true]
+    ]],
+    ["Controls unchecked",[
+      ["7th Dragon","Etrian Odyssey's challenge and class-building with a proper overworld and a Yuzo Koshiro score. Complete patch, and the USA version cuts the encounter rate.",true],
+      ["Luminous Arc 3: Eyes","Battles improve a little on Luminous Arc 2. Full patch from 2021."],
+      ["SaGa 2: Goddess of Destiny","DS remake of Final Fantasy Legend II. Complete Crimson Nocturnal patch."],
+      ["SaGa 3: Shadow or Light","DS remake of Final Fantasy Legend III. Still labelled beta, and tech combo names stay in Japanese."],
+      ["Summon Night X: Tears Crown","99% of the text is translated."],
+      ["Super Robot Wars W","Long crossover SRPG. Complete patch."],
+      ["Endless Frontier EXCEED","Sequel to the officially released Endless Frontier. Patched in 2019."],
+      ["Metal Max 2: Reloaded","Post-apocalyptic tank-hunting RPG. Patched in 2021."],
+      ["Metal Max 3","Patched in 2020."],
+      ["Digimon Story: Lost Evolution","Monster-raising RPG. Patched in 2023."],
+      ["Nora and the Time Studio","The witch-and-alchemy RPG people long asked for. Patched in 2022."],
+      ["Zoids Saga DS: Legend of Arcadia","Mech RPG. Patched in 2022."],
+      ["Rockman EXE: Operate Shooting Star","Battle Network 1 port with a Star Force crossover scenario. Patched in 2018."],
+      ["Dungeon of Windaria","Dungeon crawler with a full patch, last updated in 2024."]
+    ]],
+    ["Stylus required",[
+      ["Ni no Kuni: The Jet-Black Mage","You draw runes from a 372-page translated PDF, so keep it open on a phone or tablet. Use the patch's alternate ARM7 version if it won't boot in DraStic.",false,true]
+    ]]
+  ]},
+  {sys:"Patched adventures and visual novels", pill:"check controls", items:[
+    ["Ace Attorney Investigations 2","Patch of Gyakuten Kenji 2. A newer addendum ports Capcom's official 2024 script to the DS; the older Prosecutor's Path patch has English voices too.",true],
+    ["Nanashi no Game","Square Enix horror about a cursed 8-bit RPG. Complete patch."],
+    ["Nanashi no Game: Me","The sequel. All text and graphics translated."],
+    ["Twilight Syndrome: Kinjirareta Toshi Densetsu","Urban-legend horror mystery. Full patch, updated October 2026."],
+    ["Detective Conan & Kindaichi Case Files","Crossover mystery adventure with a complete patch. The final chapter plays differently per detective."],
+    ["Haruhi Suzumiya no Chokuretsu","Puzzle-tinged adventure from the Haroohie Translation Club."],
+    ["Game Center CX: Arino no Chousenjou 2","Sequel to Retro Game Challenge, with more fake 8-bit games."]
+  ]},
+  {sys:"Patched puzzlers", pill:"check controls", note:"Puyo should suit the D-pad as Puyo Pop Fever does, but I haven't confirmed each game.", items:[
+    ["Puyo Puyo!! 20th Anniversary","Full patch covering menus, story, tutorials and victory quips.",true],
+    ["Puyo Puyo 7","Playable start to finish in English."],
+    ["Puyo Puyo! 15th Anniversary",""],
+    ["Puzzle Series Vol. 5: Slitherlink","Japan-only Nikoli logic loops. All menus are translated, but not the tutorial."],
+    ["Puzzle Series Vol. 12: Akari","Nikoli's light-placement logic puzzle."]
   ]}
 ];
 
