@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RG DS Plus — RPG &amp; Puzzle Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f1ec; --card:#fffdf8; --ink:#1d1b22; --muted:#6d6876; --line:#dcd7cd;
+  --accent:#6b4fd8; --accent-soft:#ebe5ff; --done:#9a95a3; --tag:#efeae0;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+    --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731; color-scheme:dark;}
+}
+:root[data-theme="dark"]{--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+  --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731; color-scheme:dark;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font:700 26px/1.15 "Space Grotesk",sans-serif;margin:0 0 4px;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.count{font:500 13px "IBM Plex Mono",monospace;color:var(--muted);min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:0 0 26px}
+.note h2{font:700 15px "Space Grotesk",sans-serif;margin:0 0 6px}
+.note p{margin:6px 0}
+.note ul{margin:6px 0;padding-left:18px}
+section{margin:0 0 22px}
+section>header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+section h3{font:700 17px "Space Grotesk",sans-serif;margin:0}
+.part{font:700 20px "Space Grotesk",sans-serif;margin:30px 0 12px}
+.folder{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.group{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.secnote{color:var(--muted);font-size:13px;margin:4px 0 6px}
+label.item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer}
+label.item:hover{background:var(--card)}
+label.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+label.item input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.t{font-weight:600}
+.d{color:var(--muted);font-size:13.5px}
+.star{color:var(--accent);font-size:12px;margin-left:4px}
+.chk{color:var(--muted);font:500 12px "IBM Plex Mono",monospace;margin-left:5px}
+input:checked + span .t{color:var(--done);text-decoration:line-through}
+input:checked + span .d{color:var(--done)}
+.tools{display:flex;gap:8px;margin:28px 0 0}
+button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+@media (prefers-reduced-motion: reduce){.bar>i{transition:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <h1>RG DS Plus · RPGs &amp; Puzzlers</h1>
+  <p class="sub">DS games for the Anbernic RG DS Plus on GammaOS Nano that need no real resistive screen. Sorted by genre, with each game's control demands marked.</p>
+  <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
+  <p class="legend"><span class="star">★</span> = start here &nbsp;·&nbsp; <span class="chk">✓</span> = controls checked against a manual or review. The rest are from general knowledge of the game.</p>
+
+  <div class="note">
+    <h2>Setup and scope</h2>
+    <ul>
+      <li><b>Firmware:</b> use GammaOS 1.4.4 or later. It fixes touch not reaching the whole screen on the Plus and includes general microphone fixes.</li>
+      <li><b>Scaling:</b> each 1024×768 panel is exactly 4× the DS's 256×192.</li>
+      <li><b>Capacitive:</b> taps and drags should translate fine. None of the tap and drag games here have been tested on the Plus, so try a few minutes first.</li>
+      <li><b>DSiWare left out:</b> as far as I know, DraStic doesn't run it, which rules out the Art Style puzzlers.</li>
+      <li><b>Left out on purpose:</b> Shin Megami Tensei and Devil Survivor (better on your 3DS), and Fire Emblem (covered by your separate series run).</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <h2>Keep these on the DS Lite</h2>
+    <ul>
+      <li><b>Hotel Dusk, Last Window, Trace Memory:</b> fold-the-console puzzles, and Hotel Dusk has a two-point touch puzzle.</li>
+      <li><b>Mario &amp; Luigi: Bowser's Inside Story:</b> giant battles need the stylus and mic with the DS held vertically.</li>
+      <li><b>The World Ends With You:</b> frantic stylus combat.</li>
+      <li><b>Meteos:</b> a fast-drag game whose button controls are too slow to be useful.</li>
+      <li><b>Phantom Hourglass and Spirit Tracks:</b> fully stylus-driven, with lid and mic moments.</li>
+    </ul>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="tools">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</div>
+
+<script>
+// Item shape: [title, description, star, controls-checked]
+const DATA = [
+  {part:"RPGs"},
+  {sys:"Turn-based JRPGs", pill:"buttons", items:[
+    ["Radiant Historia","Time-travel JRPG with a 3×3 grid where you shove enemies around and rearrange turn order. The stylus is never needed.",true,true],
+    ["Chrono Trigger","The SNES classic with extra content.",true],
+    ["Dragon Quest V: Hand of the Heavenly Bride","Generational story across a whole life. The one to prioritise in the series.",true],
+    ["Dragon Quest IV: Chapters of the Chosen","Party members get their own chapters before the group forms."],
+    ["Dragon Quest VI: Realms of Revelation","Two-world structure and a deep vocation system."],
+    ["Dragon Quest IX: Sentinels of the Starry Skies","Custom party and a huge amount of side content."],
+    ["Pokémon HeartGold / SoulSilver","A few side activities use touch."],
+    ["Pokémon Black / White","A few side activities use touch."],
+    ["Mario & Luigi: Partners in Time","Timing-based battles with no touch or mic, unlike its sequel.",false,true]
+  ]},
+  {sys:"Strategy RPGs", pill:"buttons", items:[
+    ["Final Fantasy Tactics A2: Grimoire of the Rift","Huge job system and a long list of side quests.",true],
+    ["Luminous Arc 2","Light witch-themed SRPG with full D-pad control. About 11 hours at speed, so treat it as a palate cleanser.",false,true]
+  ]},
+  {sys:"Dungeon crawlers", pill:"mixed", groups:[
+    ["Buttons",[
+      ["The Dark Spire","Punishing Wizardry homage with no stylus option at all. The automap shows layout but not your position. Classic wireframe mode also walks faster.",false,true]
+    ]],
+    ["Tap and draw your own map",[
+      ["Etrian Odyssey","Hand-drawn maps on the touch screen are the signature feature. Combat and movement stay on buttons.",false,true],
+      ["Etrian Odyssey II: Heroes of Lagaard","",false,true],
+      ["Etrian Odyssey III: The Drowned City","Adds sea exploration between labyrinths.",false,true]
+    ]]
+  ]},
+  {part:"Puzzlers"},
+  {sys:"Falling blocks and panel swapping", pill:"buttons", items:[
+    ["Planet Puzzle League","Panel de Pon at its deepest. Either control method works in either orientation, so play it sideways or flat.",true,true],
+    ["Henry Hatsworth in the Puzzling Adventure","Platformer on top, Puzzle League-style blocks below, all on the same buttons. Only activating Tea Time needs a touch.",true,true],
+    ["Tetris DS","Standard modes play on buttons. Skip Touch mode if you like."],
+    ["Puyo Pop Fever","Traditional D-pad play is the way to go; the touch scheme is clumsy.",false,true],
+    ["Zoo Keeper","Match-three that still works on the D-pad.",false,true]
+  ]},
+  {sys:"Logic grids", pill:"mixed", groups:[
+    ["Buttons",[
+      ["Picross DS","Full D-pad cell selection, so it plays like the older Picross games.",true,true],
+      ["Sudoku Gridmaster","400-plus hand-picked Nikoli puzzles. The D-pad moves the cursor.",false,true]
+    ]],
+    ["Tap and drag",[
+      ["Picross 3D","Stylus plus D-pad modifiers to chip away at a block. The best puzzle-game pick for the built-in stylus.",true,true],
+      ["Puzzle Series Vol. 5: Slitherlink","Japan-only Nikoli logic loops. A fan patch provides English menus."]
+    ]]
+  ]},
+  {sys:"Story puzzlers", pill:"mixed", groups:[
+    ["Buttons supported",[
+      ["Ghost Trick: Phantom Detective","Designed for the stylus, but the manual confirms full button control. From Ace Attorney's creator.",true,true]
+    ]],
+    ["Tap and draw",[
+      ["Professor Layton and the Curious Village","Tapped and circled answers, with a memo pad for working."],
+      ["Professor Layton and the Diabolical Box","Needs the mic shortly before the end. The Plus has one.",false,true],
+      ["Professor Layton and the Unwound Future","The series high point for many players.",true],
+      ["Professor Layton and the Last Specter","Over 170 puzzles, and a prequel to the first three."],
+      ["999: Nine Hours, Nine Persons, Nine Doors","Escape rooms between visual novel sections."]
+    ]],
+    ["Mostly menus",[
+      ["Phoenix Wright: Ace Attorney","The DS-only fifth case adds stylus and mic forensics."],
+      ["Phoenix Wright: Justice for All",""],
+      ["Phoenix Wright: Trials and Tribulations",""],
+      ["Apollo Justice: Ace Attorney","Forensics use the stylus and mic."],
+      ["Ace Attorney Investigations: Miles Edgeworth",""]
+    ]]
+  ]},
+  {sys:"Stylus puzzlers", pill:"tap + drag", note:"No useful button option, but nothing here relies on resistive behaviour. Try these first if you want to see how the capacitive screen feels.", items:[
+    ["Polarium","Solve each grid with a single stroke. Puzzle mode is untimed, so a capacitive drag has room to breathe.",false,true],
+    ["Puzzle Quest: Challenge of the Warlords","Match-three battles inside a long RPG. Tap or drag the orbs; the buttons are slow at best.",false,true],
+    ["Puzzle Quest: Galactrix","Sci-fi sequel with a shifted hex board that slides in the direction of your last move.",false,true],
+    ["Mario vs. Donkey Kong 2: March of the Minis","Tap Minis to steer them to the exit, Lemmings-style. Buttons only scroll the view.",false,true],
+    ["Mario vs. Donkey Kong: Mini-Land Mayhem!","More of the same with stronger level design."]
+  ]}
+];
+
+const KEY="rgdsplus-rpg-puzzle-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+const list=document.getElementById("list");
+let html="";
+function row(id,title,desc,star,checked){
+  return `<label class="item"><input type="checkbox" data-id="${esc(id)}"${state[id]?" checked":""}><span><div class="t">${esc(title)}${star?'<span class="star">★</span>':""}${checked?'<span class="chk">✓</span>':""}</div>${desc?`<div class="d">${esc(desc)}</div>`:""}</span></label>`;
+}
+DATA.forEach(s=>{
+  if(s.part){html+=`<h2 class="part">${esc(s.part)}</h2>`;return;}
+  html+=`<section><header><h3>${esc(s.sys)}</h3><span class="folder">${esc(s.pill)}</span></header>`;
+  if(s.note) html+=`<p class="secnote">${esc(s.note)}</p>`;
+  if(s.items) s.items.forEach(([t,d,st,c])=>{html+=row(t,t,d,st,c)});
+  if(s.groups) s.groups.forEach(([g,items])=>{
+    if(g) html+=`<div class="group">${esc(g)}</div>`;
+    items.forEach(([t,d,st,c])=>{html+=row(t,t,d,st,c)});
+  });
+  html+=`</section>`;
+});
+list.innerHTML=html;
+
+function update(){
+  const boxes=[...document.querySelectorAll('input[type=checkbox]')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`${done} / ${boxes.length}`;
+  document.getElementById("fill").style.width=(boxes.length?done/boxes.length*100:0)+"%";
+}
+list.addEventListener("change",e=>{
+  const b=e.target; if(!b.dataset.id) return;
+  if(b.checked) state[b.dataset.id]=1; else delete state[b.dataset.id];
+  save(); update();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={}; save();
+  document.querySelectorAll('input[type=checkbox]').forEach(b=>b.checked=false);
+  update();
+});
+update();
+</script>
+</body>
+</html>
