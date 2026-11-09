@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Block — SNES JRPG Grind List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ec; --card:#fffdf8; --ink:#1d1b22; --muted:#6d6876; --line:#dcd7cd;
+  --accent:#6b4fd8; --accent-soft:#ebe5ff; --done:#9a95a3; --tag:#efeae0;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16151a; --card:#1f1d25; --ink:#ece9f2; --muted:#9a95a6; --line:#33303c;
+    --accent:#a48cff; --accent-soft:#2a2540; --done:#6a6675; --tag:#2a2731;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font:700 26px/1.15 "Space Grotesk",sans-serif;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.count{font:500 13px "IBM Plex Mono",monospace;color:var(--muted);min-width:64px;text-align:right}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin:0 0 26px}
+.note h2{font:700 15px "Space Grotesk",sans-serif;margin:0 0 6px}
+.note p{margin:6px 0}
+.note ul{margin:6px 0;padding-left:18px}
+code{font:500 12.5px "IBM Plex Mono",monospace;background:var(--tag);padding:1px 5px;border-radius:4px}
+section{margin:0 0 22px}
+section>header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+section h3{font:700 17px "Space Grotesk",sans-serif;margin:0}
+.folder{font:500 12px "IBM Plex Mono",monospace;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.group{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.secnote{color:var(--muted);font-size:13px;margin:4px 0 6px}
+label.item{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 6px;border-radius:8px;cursor:pointer}
+label.item:hover{background:var(--card)}
+label.item input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);cursor:pointer}
+.t{font-weight:600}
+.t .rom{font:400 12px "IBM Plex Mono",monospace;color:var(--muted);margin-left:6px}
+.d{color:var(--muted);font-size:13.5px}
+.star{color:var(--accent);font-size:12px;margin-left:4px}
+input:checked + span .t{color:var(--done);text-decoration:line-through}
+input:checked + span .d{color:var(--done)}
+.tools{display:flex;gap:8px;margin:28px 0 0}
+button{font:500 13px Inter,sans-serif;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:-10px 0 18px}
+.scale{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.scale th,.scale td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.scale th{font-weight:600;color:var(--muted);font-size:12px}
+.scale td:nth-child(2),.scale td:nth-child(3),.scale td:nth-child(4){font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.scale td.ok{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pocket Block · SNES JRPGs</h1>
+  <p class="sub">Long SNES and Super Famicom RPGs to grind through on the KONKR Pocket Block (Helio G85, 960×720 4:3, d-pad only), including Japan-only games with complete English fan translations.</p>
+  <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
+  <p class="legend"><span class="star">★</span> = good first picks</p>
+  <div class="note">
+    <h2>Setup on the Block</h2>
+    <ul>
+      <li><b>Folder:</b> <code>snes</code> (Snes9x by default). Put patched fan translations in as their own <code>.sfc</code> files with an English name so ES-DE scrapes and sorts them properly.</li>
+      <li><b>Enhancement chips:</b> Star Ocean (S-DD1) and Tengai Makyou Zero (SPC7110 plus an expanded ROM from the patch) need a current core. If one won't boot, try the bsnes core.</li>
+      <li><b>Scaling:</b> SNES is 224 lines, so 3× = 672 tall with 24 px bars, width stretched to 4:3.</li>
+      <li><b>Fast-forward:</b> trivial for the G85 on SNES. Map it to a shoulder for grinding.</li>
+      <li><b>Left out on purpose:</b> Tales of Phantasia (matching the PS1 list) and Fire Emblem (covered by your separate series run).</li>
+    </ul>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="tools">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+ {
+  "sys": "Official English releases",
+  "folder": "snes",
+  "groups": [
+   [
+    "Square & Enix",
+    [
+     [
+      "Final Fantasy VI (III in the US)",
+      "",
+      "",
+      true
+     ],
+     [
+      "Final Fantasy IV (II in the US)",
+      "",
+      "The US release is simplified; the fan translation of the Japanese version restores the harder original."
+     ],
+     [
+      "Chrono Trigger",
+      "",
+      ""
+     ],
+     [
+      "Secret of Mana",
+      "",
+      "Action RPG; weapon and magic levels reward grinding."
+     ],
+     [
+      "The 7th Saga",
+      "",
+      "Notoriously grindy, which makes it ideal here.",
+      true
+     ],
+     [
+      "Brain Lord",
+      "",
+      "Action RPG with dungeon puzzles."
+     ],
+     [
+      "Illusion of Gaia",
+      "",
+      ""
+     ],
+     [
+      "Terranigma",
+      "",
+      "English only in the PAL release (50 Hz)."
+     ],
+     [
+      "Final Fantasy Mystic Quest",
+      "",
+      "Short and gentle."
+     ]
+    ]
+   ],
+   [
+    "Others",
+    [
+     [
+      "Breath of Fire",
+      "",
+      ""
+     ],
+     [
+      "Breath of Fire II",
+      "",
+      "Slow, encounter-heavy: built for a pocket grind."
+     ],
+     [
+      "Lufia & the Fortress of Doom",
+      "",
+      ""
+     ],
+     [
+      "Lufia II: Rise of the Sinistrals",
+      "",
+      "Puzzle dungeons, plus the 100-floor Ancient Cave for endless runs.",
+      true
+     ],
+     [
+      "Paladin's Quest",
+      "",
+      "Magic costs HP, not MP."
+     ],
+     [
+      "Super Mario RPG",
+      "",
+      "Timed hits; short but replayable."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Japan-only, fan-translated",
+  "folder": "snes",
+  "groups": [
+   [
+    "Dragon Quest",
+    [
+     [
+      "Dragon Quest V",
+      "",
+      "Monster recruiting across three generations. Fan translation (DeJap, 2001).",
+      true
+     ],
+     [
+      "Dragon Quest VI",
+      "",
+      "Class system to grind. Fan translation (DeJap and NoPrgress, 2001)."
+     ],
+     [
+      "Dragon Quest III",
+      "",
+      "SFC remake with personalities and a bonus dungeon. Fan translation (DQ Translations, 2009)."
+     ],
+     [
+      "Dragon Quest I & II",
+      "",
+      "SFC remake. Fan translation."
+     ]
+    ]
+   ],
+   [
+    "Square",
+    [
+     [
+      "Final Fantasy V",
+      "",
+      "Job system: the definitive grind. Fan translation (RPGe); also official on later ports.",
+      true
+     ],
+     [
+      "Seiken Densetsu 3",
+      "",
+      "Class changes for six characters. Fan translation; also official in Collection of Mana."
+     ],
+     [
+      "Romancing SaGa 2",
+      "",
+      "Generational emperors; free-form growth. Fan translation; official remaster exists elsewhere."
+     ],
+     [
+      "Romancing SaGa 3",
+      "",
+      "Fan translation; official remaster exists elsewhere."
+     ]
+    ]
+   ],
+   [
+    "Others",
+    [
+     [
+      "Star Ocean",
+      "",
+      "Skill system and private actions. Fan translation (DeJap). Needs S-DD1 support."
+     ],
+     [
+      "Lennus II",
+      "",
+      "True sequel to Paladin's Quest. Fan translation (Dynamic Designs)."
+     ],
+     [
+      "Dual Orb II",
+      "",
+      "Fan translation (Nightcrawler, 2002)."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Oddballs",
+  "folder": "snes",
+  "note": "Strange or experimental RPGs, official and fan-translated.",
+  "groups": [
+   [
+    "Fan-translated",
+    [
+     [
+      "Tengai Makyou Zero",
+      "",
+      "Hudson's huge, comedic RPG with a real-time clock that triggers events by time of day and date. Fan translation (Tom and team, 2017).",
+      true
+     ],
+     [
+      "Treasure of the Rudras",
+      "",
+      "Square's last SFC game: you write your own spells from words. Fan translation (Aeon Genesis).",
+      true
+     ],
+     [
+      "Live A Live",
+      "",
+      "Seven short chapters in different eras, each a different style. Fan translation (Aeon Genesis); also an official HD-2D remake."
+     ],
+     [
+      "Mystic Ark",
+      "",
+      "Enix's surreal 'The 8th Saga' about mysterious doors. Fan translations by Dynamic Designs and Aeon Genesis."
+     ],
+     [
+      "Treasure Hunter G",
+      "",
+      "Square's late SFC RPG with a grid-based battle system. Fan translation (Aeon Genesis)."
+     ],
+     [
+      "Shin Megami Tensei",
+      "",
+      "Post-apocalyptic Tokyo dungeon crawl with demon negotiation. Fan translation (Aeon Genesis); official on iOS later."
+     ],
+     [
+      "Shin Megami Tensei II",
+      "",
+      "Fan translation (Aeon Genesis)."
+     ]
+    ]
+   ],
+   [
+    "Official",
+    [
+     [
+      "EarthBound",
+      "",
+      "",
+      true
+     ],
+     [
+      "Robotrek",
+      "",
+      "Build and program your own robots."
+     ],
+     [
+      "Inindo: Way of the Ninja",
+      "",
+      "Koei's ninja RPG with a strategy-game map."
+     ],
+     [
+      "Uncharted Waters: New Horizons",
+      "",
+      "Koei trading and exploration RPG; open-ended grind."
+     ],
+     [
+      "Soul Blazer",
+      "",
+      "Release souls to rebuild towns."
+     ],
+     [
+      "Shadowrun",
+      "",
+      "Western cyberpunk RPG, unlike anything else on the system."
+     ]
+    ]
+   ]
+  ]
+ },
+ {
+  "sys": "Strategy RPGs",
+  "folder": "snes",
+  "groups": [
+   [
+    "",
+    [
+     [
+      "Ogre Battle: The March of the Black Queen",
+      "",
+      "Real-time army campaign; official English."
+     ],
+     [
+      "Tactics Ogre: Let Us Cling Together",
+      "",
+      "SFC original. Fan translation (Aeon Genesis, 2010)."
+     ],
+     [
+      "Bahamut Lagoon",
+      "",
+      "Square tactics RPG where you raise dragons by feeding them. Fan translation (DeJap; revised by Near/byuu, 2021)."
+     ],
+     [
+      "Front Mission",
+      "",
+      "Mech tactics with part customisation. Fan translation (Aeon Genesis)."
+     ],
+     [
+      "Der Langrisser",
+      "",
+      "Branching campaign. Fan translation."
+     ]
+    ]
+   ]
+  ]
+ }
+];
+
+const KEY="pocketblock-snes-rpgs-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+const list=document.getElementById("list");
+let html="";
+function row(id,title,rom,desc,star){
+  return `<label class="item"><input type="checkbox" data-id="${esc(id)}"${state[id]?" checked":""}><span><div class="t">${esc(title)}${rom?`<span class="rom">${esc(rom)}.zip</span>`:""}${star?'<span class="star">★</span>':""}</div>${desc?`<div class="d">${esc(desc)}</div>`:""}</span></label>`;
+}
+DATA.forEach(s=>{
+  html+=`<section><header><h3>${esc(s.sys)}</h3><span class="folder">roms/${esc(s.folder)}</span></header>`;
+  if(s.note) html+=`<p class="secnote">${esc(s.note)}</p>`;
+  if(s.items) s.items.forEach(([t,d,st])=>{html+=row(s.folder+"|"+t,t,null,d,st)});
+  if(s.groups) s.groups.forEach(([g,items])=>{
+    if(g) html+=`<div class="group">${esc(g)}</div>`;
+    items.forEach(([t,r,d,st])=>{html+=row(s.folder+"|"+t,t,r,d,st)});
+  });
+  html+=`</section>`;
+});
+list.innerHTML=html;
+
+function update(){
+  const boxes=[...document.querySelectorAll('input[type=checkbox]')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`${done} / ${boxes.length}`;
+  document.getElementById("fill").style.width=(boxes.length?done/boxes.length*100:0)+"%";
+}
+list.addEventListener("change",e=>{
+  const b=e.target; if(!b.dataset.id) return;
+  if(b.checked) state[b.dataset.id]=1; else delete state[b.dataset.id];
+  save(); update();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={}; save();
+  document.querySelectorAll('input[type=checkbox]').forEach(b=>b.checked=false);
+  update();
+});
+update();
+</script>
+</body>
+</html>
