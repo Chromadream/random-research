@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mangmi Air Y Pro vs Anbernic RG477V (vs Pocket DMG)</title>
+<style>
+:root{
+  --bg:#f6f4ef;--fg:#1d1d1f;--muted:#5d5d63;--card:#ffffff;--line:#e2ded5;
+  --accent:#c2410c;--good:#15803d;--mid:#a16207;--bad:#b91c1c;--chip:#efe9dd;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141416;--fg:#ececee;--muted:#a1a1a8;--card:#1d1d21;--line:#2f2f35;
+  --accent:#fb923c;--good:#4ade80;--mid:#facc15;--bad:#f87171;--chip:#2a2a30;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 18px 80px}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 8px}
+h2{font-size:1.3rem;margin:44px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:24px 0 8px}
+p,li{color:var(--fg)}
+.sub{color:var(--muted);margin:0 0 20px}
+.verdict{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 18px;margin:18px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card h3{margin-top:0}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--muted);margin-bottom:6px}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.92rem}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--chip);font-weight:600;position:sticky;top:0}
+tbody th{font-weight:600;color:var(--muted);white-space:nowrap}
+tr:last-child td,tr:last-child th{border-bottom:none}
+.g{color:var(--good);font-weight:600}.m{color:var(--mid);font-weight:600}.b{color:var(--bad);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:.92rem}
+nav.toc ol{margin:6px 0;padding-left:20px}
+a{color:var(--accent)}
+.note{font-size:.88rem;color:var(--muted)}
+.sources{font-size:.85rem;columns:2 300px;column-gap:24px}
+.sources li{break-inside:avoid;margin-bottom:4px}
+</style>
+</head>
+<body>
+<main>
+<h1>Mangmi Air Y Pro (8GB) vs Anbernic RG477V</h1>
+<p class="sub">Baseline: AYANEO Pocket DMG (no true right stick). Use case: PS2 / original Xbox / GameCube / Wii, plus Xbox 360 if Xendroid+ is good enough. Researched November 2026.</p>
+
+<div class="verdict">
+<strong>Verdict:</strong> if you buy one, buy the <strong>RG477V</strong>. It is roughly on par with the Pocket DMG for PS2/GC (up to ~2.25x), adds a real right stick, has a 4.7" 4:3 120Hz panel with BFI, and gets ~5h of PS2/GC play. The catch is its Mali GPU: weaker for Dolphin, original Xbox and PC emulation. The <strong>Air Y Pro 8GB</strong> is ~US$70 cheaper, on the well-supported Snapdragon 865 + Turnip path, but tops out around 2x, its panel has documented ghosting, the L2/R2 rocker is disliked, and battery is ~3h. <strong>Neither is an Xbox 360 device</strong>; Xendroid+ is legitimate but experimental and targets Adreno 7xx/8xx.
+</div>
+
+<nav class="toc"><strong>Contents</strong>
+<ol>
+<li><a href="#specs">Specs side by side</a></li>
+<li><a href="#controls">Controls: the right-stick question</a></li>
+<li><a href="#emulation">Emulation vs the Pocket DMG</a></li>
+<li><a href="#xendroid">Xendroid+ (Xbox 360)</a></li>
+<li><a href="#issues">Known issues & reception</a></li>
+<li><a href="#summary">Summary & recommendations</a></li>
+<li><a href="#sources">Sources</a></li>
+</ol></nav>
+
+<div class="cards">
+<div class="card"><span class="tag">Best buy</span><h3>Anbernic RG477V</h3>Dimensity 8300 · Mali-G615 · 4.7" 120Hz LTPS · 5,500mAh · 334g · US$259.99 direct</div>
+<div class="card"><span class="tag">Budget / Adreno</span><h3>Mangmi Air Y Pro 8GB</h3>Snapdragon 865 · Adreno 650 · 4.2" 60Hz IPS · 5,000mAh · 286g · US$189.99 direct</div>
+<div class="card"><span class="tag">Baseline (owned)</span><h3>AYANEO Pocket DMG</h3>G3x Gen 2 · Adreno A32 (740-class) · 3.92" OLED · 6,000mAh · 278g · touchpad instead of right stick</div>
+</div>
+
+<h2 id="specs">1. Specs side by side</h2>
+<div class="tbl"><table>
+<thead><tr><th></th><th>Mangmi Air Y Pro (8GB)</th><th>Anbernic RG477V</th><th>AYANEO Pocket DMG</th></tr></thead>
+<tbody>
+<tr><th>SoC</th><td>Snapdragon 865 (7nm; 1× A77 2.84GHz + 3× A77 + 4× A55)</td><td>Dimensity 8300 (4nm; 1× A715 3.35GHz + 3× A715 3.2GHz + 4× A510)</td><td>Snapdragon G3x Gen 2 (≈ 8 Gen 2-class, up to 3.36GHz)</td></tr>
+<tr><th>GPU / drivers</th><td>Adreno 650 — Turnip supported</td><td>Mali-G615 MC6 — stock driver; experimental MaliSX2</td><td>Adreno A32 (740-class) — Turnip supported</td></tr>
+<tr><th>RAM</th><td>8GB LPDDR4X</td><td>8 / 12GB LPDDR5 (one reseller says LPDDR4X)</td><td>8 / 12 / 16GB LPDDR5X-8533</td></tr>
+<tr><th>Storage</th><td>128GB UFS 3.1 + microSD</td><td>128 / 256GB UFS + microSD</td><td>128GB UFS 3.1 – 1TB UFS 4.0 + microSD</td></tr>
+<tr><th>Display</th><td>4.2" 1280×960 4:3 IPS, 60Hz (measures slightly under), 500 nits claimed</td><td>4.7" 1280×960 4:3 LTPS in-cell LCD, 120Hz, BFI</td><td>3.92" 1240×1080 (~8:7) OLED, 60Hz, ~450 nits</td></tr>
+<tr><th>Battery / charging</th><td>5,000mAh / 18W</td><td>5,500mAh / up to 27W</td><td>6,000mAh / 25W PD</td></tr>
+<tr><th>Real-world battery</th><td>~3h02m ARMSX2 at 2x (Joey); ~3h PS2 (Retro Dodo)</td><td>~5h PS2/GC; 7–10h older systems (Android Authority)</td><td>~2–3h heavy emulation</td></tr>
+<tr><th>Cooling</th><td>Active fan (Auto/Silent/Extreme)</td><td>Heatpipe + fan, rear intake</td><td>Active fan, 15W</td></tr>
+<tr><th>Size / weight</th><td>144.8 × 94.6 × 23mm, 286g</td><td>153 × 105.7 × 23mm, 334g</td><td>151 × 91.5 × 22.3mm, 278g</td></tr>
+<tr><th>OS</th><td>Android 13, M Space 2.0; small brand</td><td>Android 14; V1.38 / V1.39 OTAs; GammaOS available</td><td>Android 13, AYASpace</td></tr>
+<tr><th>Wireless</th><td>Wi-Fi 6, BT 5.1</td><td>Wi-Fi 6E, BT 5.3</td><td>Wi-Fi 6, BT 5.3</td></tr>
+<tr><th>Price (USD)</th><td>$175.99 early bird → $189.99</td><td>$199.99 launch → now $259.99 (8/128), $309.99 (12/256)</td><td>From $339 (IGG early bird)</td></tr>
+<tr><th>Release</th><td>12 Aug 2026</td><td>20 Dec 2025</td><td>Nov 2024</td></tr>
+</tbody></table></div>
+
+<h3>Australian pricing</h3>
+<ul>
+<li><strong>RG477V:</strong> Anbernic AU storefront US$259.99 (8/128). Amazon AU third-party ~AU$470–477; eBay AU ~AU$422–479; Anbernic official eBay from ~AU$524. Price has risen since launch, with resellers citing global memory supply constraints.</li>
+<li><strong>Air Y Pro:</strong> no Australian retailer found. Direct from mangmi.com at US$189.99 ≈ AU$265 before shipping/GST. Used units seen on eBay AU at ~AU$229.</li>
+<li><strong>Pocket DMG (reference):</strong> from AU$629.95 at The Gamesmen.</li>
+</ul>
+
+<h3>Spec takeaways</h3>
+<ul>
+<li><strong>CPU (the PS2 bottleneck):</strong> the RG477V's A715s are the strongest on paper; in Android Authority's Geekbench 6 testing it beat a Snapdragon 865 stand-in. The Air Y Pro's A77s are a 2020 flagship design.</li>
+<li><strong>GPU:</strong> the DMG's Adreno 740-class part is clearly ahead, and it is the class the 360 projects target.</li>
+<li><strong>RAM:</strong> 8GB is the minimum on the Air Y Pro; reviewers found the 4GB model at the edge in ARMSX2.</li>
+</ul>
+
+<h2 id="controls">2. Controls: the right-stick question</h2>
+<p>Both fix the DMG's main problem with a real second Hall-effect stick (no TMR on either). The DMG's touchpad is fine for camera control but poor for aiming; DROIX called it not an effective substitute for analog controls.</p>
+<div class="cards">
+<div class="card"><h3>Mangmi Air Y Pro</h3>
+<ul>
+<li>Dual Hall sticks, low and symmetrical — serviceable, though Retro Handhelds calls placement awkward.</li>
+<li><span class="b">Digital L2/R2 on a single rear rocker</span> (same idea as the DMG): pressing one lifts the other. Widely called the cheapest-feeling part.</li>
+<li>Large, loose D-pad with lots of pivot; diagonals can misfire.</li>
+<li>Quiet face buttons with good travel. Volume wheel, programmable button, 6-axis gyro.</li>
+<li>Soft-touch shell smudges; slightly top-heavy.</li>
+</ul></div>
+<div class="card"><h3>Anbernic RG477V</h3>
+<ul>
+<li>Dual Hall sticks with RGB rings, inset near the centre; right thumb doesn't rub the stick on face buttons.</li>
+<li>Large square deadzones out of the box — tune in-emulator.</li>
+<li><span class="b">Digital microswitch triggers placed too far out</span>; L1/R1 small. Hurts twin-stick shooters and racers.</li>
+<li>D-pad a bit soft but accurate.</li>
+<li>Glass front collects fingerprints. Comfort opinions split (most fine; Joey found it top-heavy).</li>
+</ul></div>
+</div>
+<p><strong>Bottom line:</strong> neither has analog triggers, so racing games lose nothing vs the DMG. The RG477V's right stick is better placed but its shoulders are worse; the Air Y Pro's shoulders are better placed but feel worse.</p>
+
+<h2 id="emulation">3. Emulation vs the Pocket DMG</h2>
+<p><strong>Baseline:</strong> the DMG handles GC/PS2 at 3x comfortably, with Adreno/Turnip and the GPU class every Xbox/360 project targets.</p>
+
+<h3>PS2 (NetherSX2 / ARMSX2)</h3>
+<ul>
+<li><strong>RG477V:</strong> Android Authority saw no slowdown in tested PS2/GC games on the lowest “Auto” profile at about native panel res; Retro Game Corps rates up to 2.25x. The Dimensity 8300 is one of two chips ARMSX2 optimises against: v2.6.9 cut Xenosaga frame times 84% on it, and 22/22 project test games now fit the worst-case frame budget (up from 16). Vulkan auto-selected.</li>
+<li><strong>MaliSX2:</strong> ARMSX2 2.8.2 shipped a custom Mali driver for G615/G715, broadened as MaliSX2 in 2.8.3. The headline Ace Combat result was on a Mali-G57, not the G615.</li>
+<li><strong>RG477V quirk:</strong> use “Performance” or “Auto”, not “High Performance” (throttles sooner; 105°C on pre-release firmware).</li>
+<li><strong>Air Y Pro:</strong> 2x fine with the usual problem games; demanding titles need per-game settings. ARMSX2 2.6.9 cut Xenosaga frame times 38% on the 865.</li>
+<li><strong>vs DMG:</strong> RG477V ≈ DMG; Air Y Pro a tier below (2x vs 3x; CPU-heavy titles like Xenosaga/Burnout/MGS3 hit the A77 limit first).</li>
+</ul>
+
+<h3>GameCube / Wii (Dolphin)</h3>
+<ul>
+<li><strong>Air Y Pro:</strong> GameCube near-perfect; ~2x in most, 1–1.5x in heavy games. Adreno 650 + Turnip is the mature Dolphin path.</li>
+<li><strong>RG477V:</strong> fine on the stock Mali driver up to ~2.25x; heavier titles need tweaks. Mali's weak spots are driver-specific graphical bugs and shader stutter rather than raw speed.</li>
+<li><strong>MaliSX2 in Dolphin:</strong> dev builds only; Android Authority saw no significant boost on the RG477V in Nov 2026.</li>
+<li><strong>Wii pointer:</strong> both have gyro and a right stick — far more practical than the DMG's touchpad.</li>
+</ul>
+
+<h3>Original Xbox (hakuX / X1 BOX)</h3>
+<ul>
+<li><strong>hakuX 1.0.0</strong> (23 Oct 2026) replaced xemu's CPU path with FEX x86→ARM translation and a native kernel reimplementation (no BIOS). 1.1.0 added experimental Mali/Xclipse/PowerVR support. Rated on 8 Gen 2 devices (Retroid Pocket Nova, AYN Thor) with Turnip T30.</li>
+<li><strong>X1 BOX</strong> is a contested xemu port (publicly criticised by the xemu developer); it now defaults to the hakuX core. Upstream xemu still has no official Android build.</li>
+<li><strong>Air Y Pro:</strong> gets the main Turnip path, with far less GPU headroom. Lighter games (Halo, DOA3) reported playable on SD865 hardware.</li>
+<li><strong>RG477V:</strong> experimental Mali path (a HakuX-Mali fork tested on the D8300 RG477M). Expect it to work with more glitches.</li>
+<li><strong>DMG:</strong> closest of the three to the hakuX reference hardware.</li>
+</ul>
+
+<h3>Driver summary</h3>
+<p>Adreno + Turnip (Air Y Pro, DMG, Thor) is still the safe bet for Dolphin, hakuX, Xendroid+ and PC (Winlator/GameHub). Mali (RG477V) is now very good for PS2 thanks to direct D8300 tuning but second-class elsewhere: PC emulation barely functional, though Switch via Eden was playable for a healthy number of games.</p>
+
+<h2 id="xendroid">4. Xendroid+ (Xbox 360)</h2>
+<ul>
+<li><strong>What / who:</strong> Android Xbox 360 emulator by GitHub user <strong>phforner0</strong>, forked from rfandango's <strong>XenDroid</strong> (itself rebased onto Xenia Edge). Xenia/Canary code, ARM64 JIT, Vulkan, tuned for Snapdragon/Adreno.</li>
+<li><strong>Legitimacy:</strong> open source (AGPL-3.0 since build 87, 18 Oct 2026), free, non-commercial. Stable v0.2.2 (4 Nov 2026), previews ongoing (v152, 9 Nov). No scam or vibe-coding accusations found — unlike X1 BOX, “PSX2” and the empty “Xanite” app.</li>
+<li><strong>Download only from</strong> github.com/phforner0/Xendroid-Plus or phforner0.github.io. The SEO-style xendroid.org looks unofficial. Upstream warns that anyone who paid for it was scammed.</li>
+<li><strong>Requirements:</strong> Android 10+, arm64, Vulkan; Snapdragon 8 Gen 2 or newer recommended. Custom drivers load only on Adreno.</li>
+</ul>
+<h3>Developer-published results (POCO F7, Snapdragon 8s Gen 4, Turnip, Oct 2026)</h3>
+<div class="tbl"><table style="min-width:420px">
+<thead><tr><th>Game</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Forza Horizon</td><td class="g">30fps (cap)</td></tr>
+<tr><td>Forza Horizon 2</td><td class="g">27–30fps</td></tr>
+<tr><td>Gears of War 3</td><td class="g">30fps cap</td></tr>
+<tr><td>Crysis 3</td><td class="g">30fps (up from ~22)</td></tr>
+<tr><td>Halo 4</td><td class="m">~26–30fps</td></tr>
+<tr><td>Sonic Unleashed</td><td class="g">50–52fps</td></tr>
+<tr><td>Need for Speed: Most Wanted</td><td class="b">~21fps</td></tr>
+<tr><td>Rise of the Tomb Raider</td><td class="b">~20fps</td></tr>
+<tr><td>Halo: Reach</td><td class="m">30fps menus/intro, dips to 19</td></tr>
+<tr><td>GTA IV</td><td class="b">~22fps menus/intro</td></tr>
+<tr><td>Red Dead Redemption</td><td class="m">~25fps menus/intro</td></tr>
+</tbody></table></div>
+<p class="note">No public compatibility list; frame generation experimental and off by default. Independent verification is thin. For the original XenDroid, Android Authority found CoD2, Forza Motorsport 2 and PGR3 playable on a G3x Gen 2 AYANEO Pocket — the DMG's chip.</p>
+<ul>
+<li><strong>Air Y Pro:</strong> Adreno 650 is below even the original XenDroid's Adreno 740 minimum. Light/XBLA-class at best.</li>
+<li><strong>RG477V:</strong> not targeted. A separate fork, XenDroid Ultimate Mali (first build 31 Oct 2026), is tested on a Mali-G720; G615 listed only as “should work”.</li>
+<li><strong>Verdict:</strong> genuine and moving fast — worth trying on your Pocket DMG and AYN Thor now, but not a reason to buy either handheld. The ROG Xbox Ally X with Xenia Canary remains far ahead.</li>
+</ul>
+
+<h2 id="issues">5. Known issues & reception</h2>
+<div class="cards">
+<div class="card"><h3>Mangmi Air Y Pro</h3>
+<ul>
+<li><strong>Ghosting:</strong> same 4.2" panel as the AYANEO Pocket Air Mini / Pocket S Mini — you can judge it on yours. Joey called it extreme; Retro Dodo very minor after an update; Zelpio says later firmware reduces it significantly.</li>
+<li>Slightly-under-60Hz refresh; buggy pre-launch launcher; <strong>locked Android/data</strong> (breaks Syncthing workflows); no per-app profiles; weak speakers.</li>
+<li>Reception: Retro Dodo 7.3; Held Games 4.1/5 as a value play, flagging Mangmi's short support history; Joey says the RG477V wins on most metrics for ~$60 more.</li>
+</ul></div>
+<div class="card"><h3>Anbernic RG477V</h3>
+<ul>
+<li>Early firmware ran hot in High Performance (fixed by OTA). A community unbricker exists, suggesting some failed updates.</li>
+<li><strong>V1.38</strong> (May 2026): RG Home frontend, Control Center, key mapping. <strong>V1.39:</strong> fixed sticks freezing when LEDs toggled, SystemUI crashes, intermittent trigger dropouts. Offline packages for failed OTAs.</li>
+<li>Reception: Retro Game Corps called it probably Anbernic's best vertical; Android Authority Editor's Choice (cons: cramped triggers, Mali drivers).</li>
+</ul></div>
+</div>
+<p class="note">Pocket DMG context: touchpad as right-stick substitute, some portrait-panel jelly scrolling, high price, fan up to 67dB in max mode.</p>
+
+<h2 id="summary">6. Summary & recommendations</h2>
+<div class="tbl"><table>
+<thead><tr><th>Criterion</th><th>Air Y Pro 8GB</th><th>RG477V</th><th>Pocket DMG (owned)</th></tr></thead>
+<tbody>
+<tr><th>Right analog stick</th><td class="g">Hall</td><td class="g">Hall</td><td class="b">Touchpad</td></tr>
+<tr><th>PS2</th><td class="m">Good, ~2x</td><td class="g">Very good, ~2–2.25x+, D8300-tuned</td><td class="g">Excellent, ~3x</td></tr>
+<tr><th>GameCube / Wii</th><td class="m">Good, ~2x, mature Turnip</td><td class="g">Very good; occasional Mali bugs</td><td class="g">Excellent, 3x</td></tr>
+<tr><th>Original Xbox (hakuX)</th><td class="m">Turnip path, low headroom</td><td class="m">Experimental Mali path</td><td class="g">Best of three</td></tr>
+<tr><th>Xbox 360 (Xendroid+)</th><td class="b">Below minimum</td><td class="b">Not targeted (Mali fork)</td><td class="g">Recommended class</td></tr>
+<tr><th>Screen</th><td class="b">4.2" IPS 60Hz, ghosting</td><td class="g">4.7" 120Hz + BFI</td><td class="g">3.92" OLED</td></tr>
+<tr><th>Battery (PS2/GC)</th><td class="m">~3h</td><td class="g">~5h</td><td class="m">~2–3h</td></tr>
+<tr><th>Triggers</th><td class="b">Digital rocker</td><td class="m">Digital, placed far out</td><td class="m">Digital</td></tr>
+<tr><th>Weight</th><td>286g</td><td>334g</td><td>278g</td></tr>
+<tr><th>Software</th><td class="m">Android 13, young brand</td><td class="g">Android 14, OTAs, GammaOS</td><td>Android 13, AYASpace</td></tr>
+<tr><th>Price</th><td>US$189.99 (~AU$265 + ship/GST)</td><td>US$259.99 direct; ~AU$420–480 local</td><td>Owned</td></tr>
+</tbody></table></div>
+
+<ol>
+<li><strong>Buy the RG477V (8/128 is enough)</strong> if you're buying one. Update to V1.39+, use Performance/Auto rather than High Performance, use ARMSX2 (try MaliSX2 per game), Dolphin stable for GC/Wii (dev builds + MaliSX2 for testing only), consider GammaOS. Direct from Anbernic is usually cheaper than Amazon AU listings.</li>
+<li><strong>Choose the Air Y Pro 8GB only if</strong> cost matters most, or Turnip-tested hakuX matters more than PS2/GC upscaling. Check your tolerance for the ghosting on your Pocket S Mini / Air Mini first.</li>
+<li><strong>Keep the Pocket DMG</strong> for OLED retro play, single-stick systems and as your best vertical for Xendroid+ / hakuX experiments.</li>
+<li><strong>For Xbox 360,</strong> use the ROG Xbox Ally X (Xenia Canary), or test Xendroid+ on the Thor and DMG. Watch for a public compatibility list and independent benchmarks.</li>
+</ol>
+
+<h3>Caveats</h3>
+<ul class="note">
+<li>Most device performance claims come from launch reviews (RG477V Dec 2025–Jan 2026; Air Y Pro Aug–Sep 2026). Emulator updates since then (ARMSX2 2.6.9/2.8.x, hakuX 1.x, MaliSX2) have mostly favoured the RG477V.</li>
+<li>Spec sheets conflict on RG477V RAM type, storage and battery; most sources agree on LPDDR5 / UFS / 5,500mAh. Some call its panel IPS; it's LTPS in-cell LCD.</li>
+<li>All Xendroid+ fps figures are the developer's, on a Snapdragon 8s Gen 4 phone; no independent Xendroid+ tests were found on SD865, D8300 or G3x Gen 2. Reddit wasn't accessible.</li>
+<li>AUD conversions are approximate and exclude shipping, GST and fees.</li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul class="sources">
+<li><a href="https://www.androidauthority.com/anbernic-rg-477v-review-3634194/">Android Authority — RG477V review</a></li>
+<li><a href="https://www.notebookcheck.net/Anbernic-RG477V-Early-review-calls-it-an-excellent-retro-gaming-handheld-drawn-back-by-its-GPU.1187965.0.html">Notebookcheck — RG477V early review (Retro Game Corps)</a></li>
+<li><a href="https://heldgames.com/reviews/anbernic-rg477v">Held Games — RG477V review</a></li>
+<li><a href="https://imp.news/gaming/anbernic-rg477v-review-retro-power-with-a-gpu-catch-82544/">imp.news — RG477V review</a></li>
+<li><a href="https://handheldwiki.com/rg-477v/">Handheld Wiki — RG477V</a></li>
+<li><a href="https://www.technetbooks.com/2025/12/anbernic-rg477v-review-early-look-at.html">Technetbooks — RG477V early look</a></li>
+<li><a href="https://anbernic.com/en-au/products/rg477v">Anbernic AU — RG477V</a></li>
+<li><a href="https://anbernic.com/blogs/news/rg-477v-v1-38-firmware-update">Anbernic — V1.38 firmware</a></li>
+<li><a href="https://anbernic.com/blogs/news/anbernic-rg477m-rg477v-firmware-update">Anbernic — RG477M/V firmware update</a></li>
+<li><a href="https://www.notebookcheck.net/Anbernic-updates-RG477M-with-new-features-while-the-RG477V-gets-bug-fixes.1310341.0.html">Notebookcheck — RG477V bug fixes</a></li>
+<li><a href="https://github.com/TheGammaSqueeze/Anbernic_RG477V_Unbricker/releases">TheGammaSqueeze — RG477V Unbricker</a></li>
+<li><a href="https://www.amazon.com.au/Voacle-Anbernic-Bluetooth-Dimensity-Processor/dp/B0G7DXS63R">Amazon AU — RG477V listing</a></li>
+<li><a href="https://www.ebay.com.au/str/anbernicofficialstore">eBay AU — Anbernic official store</a></li>
+<li><a href="https://www.joeysretrohandhelds.com/reviews/mangmi-air-y-pro-review/">Joey's Retro Handhelds — Air Y Pro review</a></li>
+<li><a href="https://retrohandhelds.gg/mangmi-air-y-pro-review/">Retro Handhelds — Air Y Pro review</a></li>
+<li><a href="https://retrododo.com/mangmi-air-y-pro-review-a-powerful-vertical-with-no-magic/">Retro Dodo — Air Y Pro review</a></li>
+<li><a href="https://heldgames.com/reviews/mangmi-air-y-pro">Held Games — Air Y Pro review</a></li>
+<li><a href="https://www.zelpio.com/blog/mangmi-air-y-vs-air-y-pro-review/">Zelpio — Air Y vs Air Y Pro</a></li>
+<li><a href="https://hometechnologyreview.com/mangmi-air-y-pro-review-the-sweet-spot-between-an-r36s-and-a-retroid-pocket/">Home Technology Review — Air Y Pro</a></li>
+<li><a href="https://www.handheldpicker.com/blog/mangmi-air-y-launch">Handheld Picker — Air Y launch</a></li>
+<li><a href="https://retrocatalog.com/retro-handhelds/mangmi-air-y-pro">Retro Catalog — Air Y Pro</a></li>
+<li><a href="https://www.dockandplay.com/products/mangmi-air-y-air-y-pro">Dock and Play — Air Y / Air Y Pro</a></li>
+<li><a href="https://www.ebay.com.au/itm/117449695619">eBay AU — used Air Y Pro</a></li>
+<li><a href="https://press-start.com.au/reviews/tech/2024/12/29/ayaneo-pocket-dmg-handheld-review-a-fantastic-all-rounder/">Press Start — Pocket DMG review</a></li>
+<li><a href="https://droix.net/blogs/ayaneo-pocket-dmg-review/">DROIX — Pocket DMG review</a></li>
+<li><a href="https://retrododo.com/ayaneo-pocket-dmg-review/">Retro Dodo — Pocket DMG review</a></li>
+<li><a href="https://handheldpicks.com/database/ayaneo-pocket-dmg">Handheld Picks — Pocket DMG</a></li>
+<li><a href="https://heldgames.com/guides/armsx2-2-6-9-handheld-performance">Held Games — ARMSX2 2.6.9 performance</a></li>
+<li><a href="https://web.matrixnews.in/news/7dwtwnwmi3lk4/armsx2-adds-mali-gpu-driver-to-improve-ps2-emulation-on-android">MatrixNews — ARMSX2 Mali driver</a></li>
+<li><a href="https://www.androidauthority.com/malisx2-vulkan-driver-mediatek-dolphin-hakux-emulators-3731982/">Android Authority — MaliSX2</a></li>
+<li><a href="https://www.androidauthority.com/hakux-original-xbox-emulator-android-3727845/">Android Authority — hakuX</a></li>
+<li><a href="https://heldgames.com/guides/hakux-xbox-android-handhelds">Held Games — hakuX on handhelds</a></li>
+<li><a href="https://github.com/jreinach-alt/hakuX">GitHub — hakuX</a></li>
+<li><a href="https://github.com/Wannamingo/HakuX-Mali">GitHub — HakuX-Mali</a></li>
+<li><a href="https://averagetechnerds.com/original-xbox-emulator-android-hakux/">Average Tech Nerds — hakuX</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Xemu_(emulator)">Wikipedia — xemu</a></li>
+<li><a href="https://www.generationamiga.com/2026/08/05/best-retro-handhelds-for-xbox-and-xbox-360-emulation/">GenerationAmiga — handhelds for Xbox/360</a></li>
+<li><a href="https://www.generationamiga.com/2026/08/19/xbox-360-emulation-gets-faster-on-android-with-xendroid/">GenerationAmiga — XenDroid faster</a></li>
+<li><a href="https://phforner0.github.io/Xendroid-Plus/">Xendroid+ project site</a></li>
+<li><a href="https://overclockedhq.com/news/xendroid-plus-xbox-360-emulator-android-fork-first-look">Overclocked — Xendroid+ first look</a></li>
+<li><a href="https://github.com/rfandango/XenDroid">GitHub — rfandango/XenDroid</a></li>
+<li><a href="https://www.androidauthority.com/xendroid-xbox-360-emulator-android-3699252/">Android Authority — XenDroid</a></li>
+<li><a href="https://github.com/DEGROUCHO/xendroid-mali">GitHub — XenDroid Ultimate Mali</a></li>
+<li><a href="https://github.com/Us5rman/Xendroid-Mali">GitHub — Xendroid-Mali (Us5rman)</a></li>
+<li><a href="https://xendroid.org/">xendroid.org (unofficial)</a></li>
+<li><a href="https://www.youtube.com/watch?v=sMGFCap-6NE">YouTube — Xendroid+ community video</a></li>
+<li><a href="https://www.timeextension.com/news/2025/10/wed-like-to-warn-you-to-not-fall-for-the-trap-new-android-ps2-emulator-accused-of-being-vibe-coded-rip-off">Time Extension — PSX2 accusations</a></li>
+<li><a href="https://www.notebookcheck.net/Xanite-promises-native-Xbox-gaming-on-Android-but-debuts-as-nothing-but-a-hollow-shell.1084567.0.html">Notebookcheck — Xanite</a></li>
+</ul>
+</main>
+</body>
+</html>
