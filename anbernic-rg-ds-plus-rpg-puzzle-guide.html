@@ -59,7 +59,7 @@ button:hover{border-color:var(--accent)}
 <body>
 <div class="wrap">
   <h1>RG DS Plus · RPGs &amp; Puzzlers</h1>
-  <p class="sub">DS games for the Anbernic RG DS Plus on GammaOS Nano that need no real resistive screen. Sorted by genre, with each game's control demands marked.</p>
+  <p class="sub">DS games for the Anbernic RG DS Plus on GammaOS Nano. Its capacitive screen and stylus handle fast touch games, and the emulator handles closing the lid, so only two-point touch and tight-timing rhythm games stay on the DS Lite.</p>
   <div class="progress"><div class="bar"><i id="fill"></i></div><span class="count" id="count">0 / 0</span></div>
   <p class="legend"><span class="star">★</span> = start here &nbsp;·&nbsp; <span class="chk">✓</span> = controls checked against a manual or review. The rest are from general knowledge of the game.</p>
 
@@ -68,7 +68,7 @@ button:hover{border-color:var(--accent)}
     <ul>
       <li><b>Firmware:</b> use GammaOS 1.4.4 or later. It fixes touch not reaching the whole screen on the Plus and includes general microphone fixes.</li>
       <li><b>Scaling:</b> each 1024×768 panel is exactly 4× the DS's 256×192.</li>
-      <li><b>Capacitive:</b> taps and drags should translate fine. None of the tap and drag games here have been tested on the Plus, so try a few minutes first.</li>
+      <li><b>Capacitive:</b> the built-in stylus is good enough for Meteos, so taps, drags and fast stylus play are fine. Touch latency is the remaining unknown, which is why rhythm games stay on the DS Lite.</li>
       <li><b>DSiWare left out:</b> as far as I know, DraStic doesn't run it, which rules out the Art Style puzzlers.</li>
       <li><b>Left out on purpose:</b> Shin Megami Tensei and Devil Survivor (better on your 3DS), and Fire Emblem (covered by your separate series run).</li>
     </ul>
@@ -86,11 +86,8 @@ button:hover{border-color:var(--accent)}
   <div class="note">
     <h2>Keep these on the DS Lite</h2>
     <ul>
-      <li><b>Hotel Dusk, Last Window, Trace Memory:</b> fold-the-console puzzles, and Hotel Dusk has a two-point touch puzzle.</li>
-      <li><b>Mario &amp; Luigi: Bowser's Inside Story:</b> giant battles need the stylus and mic with the DS held vertically.</li>
-      <li><b>The World Ends With You:</b> frantic stylus combat.</li>
-      <li><b>Meteos:</b> a fast-drag game whose button controls are too slow to be useful.</li>
-      <li><b>Phantom Hourglass and Spirit Tracks:</b> fully stylus-driven, with lid and mic moments.</li>
+      <li><b>Hotel Dusk:</b> one puzzle needs two points touched at once. Its fold-the-console puzzles are fine on the Plus.</li>
+      <li><b>Elite Beat Agents, Osu! Tatakae! Ouendan 1 &amp; 2, Rhythm Heaven:</b> timing-critical tapping, where touch and audio latency on the Plus could cost you.</li>
     </ul>
   </div>
 
@@ -130,6 +127,12 @@ const DATA = [
       ["Etrian Odyssey III: The Drowned City","Adds sea exploration between labyrinths.",false,true]
     ]]
   ]},
+  {sys:"Touch-heavy RPGs", pill:"stylus", note:"Moved off the DS Lite now that the Plus's screen has proven quick enough. Real-time stylus action, but nothing timed to music.", items:[
+    ["The World Ends With You","Frantic two-screen stylus combat with one of the DS's best stories. The best test of how far the Plus's touch can go.",true],
+    ["Mario & Luigi: Bowser's Inside Story","The best Mario & Luigi. Giant battles use the stylus and blowing into the mic with the DS held sideways, so check the Plus lets you rotate the layout.",true,true],
+    ["Magical Starsign","Brightly coloured space-magic RPG with a touch-based battle system."],
+    ["Summon Night: Twin Age","Stylus-driven action RPG with a light story."]
+  ]},
   {part:"Puzzlers"},
   {sys:"Falling blocks and panel swapping", pill:"buttons", items:[
     ["Planet Puzzle League","Panel de Pon at its deepest. Either control method works in either orientation, so play it sideways or flat.",true,true],
@@ -166,7 +169,8 @@ const DATA = [
       ["Ace Attorney Investigations: Miles Edgeworth",""]
     ]]
   ]},
-  {sys:"Stylus puzzlers", pill:"tap + drag", note:"No useful button option, but nothing here relies on resistive behaviour. Try these first if you want to see how the capacitive screen feels.", items:[
+  {sys:"Stylus puzzlers", pill:"tap + drag", note:"No useful button option, but nothing here relies on resistive behaviour.", items:[
+    ["Meteos","Fast drag-the-blocks puzzler from the Lumines team. The buttons are too slow to be useful, but the Plus's stylus keeps up.",true],
     ["Polarium","Solve each grid with a single stroke. Puzzle mode is untimed, so a capacitive drag has room to breathe.",false,true],
     ["Puzzle Quest: Challenge of the Warlords","Match-three battles inside a long RPG. Tap or drag the orbs; the buttons are slow at best.",false,true],
     ["Puzzle Quest: Galactrix","Sci-fi sequel with a shifted hex board that slides in the direction of your last move.",false,true],
