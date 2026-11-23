@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analogue Pocket Starter Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a calm owner's manual, practical, confident.
+   IDEA: Analogue's own printed user guide: white paper, black type, the device's colour as the only flourish.
+   PICTURE: the pink Pocket itself, drawn, its menu showing the systems it does best.
+   COLOUR and TYPE: GB Pocket pink field, deep plum ink, LCD green accent; Archivo 800 titles, Inter body.
+   LAYOUT: pink hero band edge to edge, section links, then ruled sections up to 1100px. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#170f14);--ink:light-dark(#1c1218,#f6e9ef);--muted:light-dark(#6d5a64,#b9a3ae);
+--pink:light-dark(#f0a6bf,#7a3a52);--pinkdeep:#d9668d;--plum:light-dark(#3a1f2b,#f3c6d6);
+--rule:light-dark(#ecdfe5,#3a2730);--panel:light-dark(#fbf3f6,#211720);--lcd:#9fd38b;--code:light-dark(#f6eef2,#2a1d25)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration-color:var(--pinkdeep);text-underline-offset:3px}
+.hero{background:var(--pink);color:#2a1520;padding:clamp(28px,5vw,64px) max(5vw,16px)}
+:root[data-theme=dark] .hero{color:#fbe8ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .hero{color:#fbe8ef}}
+.hero-in{max-width:1100px;margin:auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+h1{font:800 clamp(34px,5.2vw,52px)/1.05 Archivo,sans-serif;margin:0 0 16px;text-wrap:balance;letter-spacing:-.01em}
+.lead{font-size:18px;max-width:34em;margin:0 0 20px}
+.meta{font-size:14px;opacity:.8;margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 8px}
+.split div{background:rgba(255,255,255,.45);border-radius:12px;padding:12px 14px}
+:root[data-theme=dark] .split div{background:rgba(0,0,0,.25)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .split div{background:rgba(0,0,0,.25)}}
+.split b{display:block;font:600 14px Archivo,sans-serif;margin-bottom:4px}
+.split span{font-size:14px;line-height:1.45}
+.fig{position:relative;aspect-ratio:300/440;max-height:440px;justify-self:center;width:100%;max-width:300px}
+.fig svg{width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(60,20,40,.25))}
+.lcd{font:600 13px Inter,sans-serif;fill:#cfe9c4}.lcd.sel{fill:#ffffff}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+nav .scroll{display:flex;gap:4px;max-width:1100px;margin:auto;padding:8px max(5vw,16px);white-space:nowrap}
+nav a{flex:none;padding:10px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600;min-height:44px;display:flex;align-items:center}
+nav a:hover,nav a:focus-visible{background:var(--panel);outline:2px solid var(--pinkdeep);outline-offset:-2px}
+@media(max-width:900px){nav{position:static}}
+main{max-width:1100px;margin:auto}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px);border-bottom:1px solid var(--rule)}
+h2{font:800 clamp(26px,3.4vw,34px)/1.1 Archivo,sans-serif;margin:0 0 14px;text-wrap:balance}
+h3{font:600 20px/1.25 Archivo,sans-serif;margin:28px 0 10px}
+p,li{max-width:72ch}
+li{margin:6px 0}
+ol{padding-left:1.4em}ol li::marker{font-weight:700;color:var(--pinkdeep)}
+code{background:var(--code);padding:1px 5px;border-radius:5px;font-size:.9em;overflow-wrap:anywhere}
+.src{font-size:14px;color:var(--muted)}
+pre,.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}
+th{text-align:left;font:600 14px Archivo,sans-serif;background:var(--panel);padding:10px 12px;border-bottom:2px solid var(--pinkdeep)}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px;white-space:nowrap}
+#which-device ~ .stack td:first-child,#cores ~ .stack td:first-child{font-weight:600}
+@media(max-width:760px){.hero-in{grid-template-columns:1fr}.fig{max-width:220px;order:-1}}
+@media(max-width:600px){table{font-size:13px}.split{grid-template-columns:1fr}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--muted);font-size:12px}.stack td:empty{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.blink{animation:none!important}}
+.blink{animation:bl 1.2s steps(2) infinite}@keyframes bl{50%{opacity:0}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+<div>
+<h1>Analogue Pocket Starter Guide</h1>
+<p class="lead">Update to firmware 2.7, let pupdate build the SD card, and make the Pocket your home for Game Boy, Game Boy Color, Game Gear and Neo Geo Pocket. Leave 4:3 consoles and long on-the-go JRPGs to handhelds that sync saves.</p>
+<div class="split">
+<div><b>Play it here</b><span>GB, GBC, GBA from carts, Game Gear, NGPC, Lynx carts, Pok&eacute;mon Mini and other LCD oddities</span></div>
+<div><b>Play it elsewhere</b><span>NES/SNES/Genesis on the go, PC Engine ROMs, GBA sensor games, PS1 and newer</span></div>
+</div>
+<p class="meta">Researched 23 November 2026, current to firmware 2.7.</p>
+</div>
+<div class="fig" role="img" aria-label="A pink Analogue Pocket showing a menu of Game Boy, Game Boy Color, Game Boy Advance, Game Gear, Neo Geo Pocket and Atari Lynx">
+<svg viewBox="0 0 300 440" aria-hidden="true">
+<defs><linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#f7bcd0"/><stop offset=".55" stop-color="#ec97b4"/><stop offset="1" stop-color="#d9789b"/></linearGradient>
+<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2a30"/><stop offset="1" stop-color="#0f0f12"/></linearGradient></defs>
+<rect x="18" y="12" width="264" height="416" rx="26" fill="#c45f85"/>
+<rect x="14" y="6" width="264" height="416" rx="26" fill="url(#sh)"/>
+<rect x="30" y="24" width="232" height="232" rx="10" fill="url(#gl)"/>
+<rect x="62" y="56" width="168" height="168" rx="2" fill="#1d3a2a"/>
+<text x="76" y="80" class="lcd" style="font-size:11px;fill:#9fd38b">openFPGA  &#183;  Cartridge</text>
+<text x="98" y="104" class="lcd sel">&#9656; Game Boy</text><text x="98" y="126" class="lcd">  Game Boy Color</text><text x="98" y="148" class="lcd">  Game Boy Advance</text><text x="98" y="170" class="lcd">  Game Gear</text><text x="98" y="192" class="lcd">  Neo Geo Pocket</text><text x="98" y="214" class="lcd">  Atari Lynx</text>
+<rect x="91" y="92" width="130" height="18" rx="3" fill="#3f7a52" opacity=".55"/>
+<text x="196" y="218" class="lcd blink" style="fill:#9fd38b">&#9632;</text>
+<g fill="#2a1520" opacity=".9">
+<rect x="58" y="300" width="22" height="66" rx="5"/><rect x="36" y="322" width="66" height="22" rx="5"/>
+<circle cx="214" cy="306" r="15"/><circle cx="246" cy="290" r="15"/><circle cx="182" cy="322" r="15"/><circle cx="214" cy="338" r="15"/>
+<rect x="104" y="392" width="26" height="8" rx="4"/><rect x="170" y="392" width="26" height="8" rx="4"/>
+</g>
+<circle cx="150" cy="278" r="9" fill="#f7d3df" stroke="#c45f85" stroke-width="2"/>
+<rect x="22" y="12" width="250" height="3" rx="1.5" fill="#fff" opacity=".45"/>
+</svg>
+</div>
+</div></header>
+<nav aria-label="Sections"><div class="scroll"><a href="#checklist">Checklist</a><a href="#sd-card">SD card</a><a href="#flashcarts">Flashcarts</a><a href="#cores">Cores & ROMs</a><a href="#display">Display</a><a href="#dock">Dock</a><a href="#which-device">Which device</a><a href="#gotchas">Gotchas</a></div></nav>
+<main>
+<section class="band"><h2 id="checklist">Day-one checklist</h2>
+<ol>
+<li>Format a microSD card as exFAT (FAT32 also works, up to 1 TB) and boot the Pocket with it inserted once, so it creates its folder structure. Pocket Sync won't recognise a card the Pocket hasn't initialised.</li>
+<li>Update firmware. The latest is <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/latest">2.7 (4 Sep 2026)</a>: drop the single <code>.bin</code> on the card root, with no other firmware files, and power on.</li>
+<li>Install <a rel="noopener" href="https://github.com/hallem/pupdate">pupdate</a> (CLI, cross-platform) or <a rel="noopener" href="https://github.com/neil-morrison44/pocket-sync">Pocket Sync</a> (GUI). Either one installs cores, firmware, BIOS files and arcade assets. Pick only the cores you want rather than everything.</li>
+<li>Turn on <strong>Tools &gt; Developer &gt; USB SD Access</strong> so you can manage the card over USB-C without pulling it. Since 2.1 you can also toggle it any time with Analogue + X (on) and Analogue + Y (off).</li>
+<li>Add your ROMs (No-Intro, unzipped) to each core's <code>Assets/&lt;platform&gt;/common/</code> folder, plus the BIOS files the updater can't fetch (see the table below).</li>
+<li>Set <strong>Auto Dim</strong> and <strong>Auto Off</strong> under the power settings (added in 2.6).</li>
+<li>If you run GB games from carts, try <strong>Settings &gt; Pocket &gt; Systems &gt; GB &gt; Hardware &gt; Force GBC Mode</strong> with an APGB palette, which makes DMG games look much nicer.</li>
+<li>Back up <code>Saves/</code> and <code>Memories/</code> before you try a flashcart or a new core version.</li>
+</ol>
+<p><strong>Pre-setting the card before the Pocket arrives:</strong> format it as exFAT and run <code>pupdate -p /path/to/sdcard/</code>. pupdate creates the folders, installs the cores you pick and drops the firmware <code>.bin</code> on the root, so it updates on first boot. Add ROMs and BIOS the same way. Only Pocket Sync has to wait, because it needs a card the Pocket has initialised.</p>
+</section><section class="band"><h2 id="sd-card">Firmware, SD card and folders</h2>
+<p>Every openFPGA core is a zip you merge into the card root. The updaters do that for you, so you rarely touch the folders by hand except to add ROMs.</p>
+<table class="stack">
+<thead>
+<tr>
+<th>Folder</th>
+<th>What lives there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Assets/&lt;platform&gt;/common/</code></td>
+<td>ROMs and BIOS for that platform, e.g. <code>Assets/gba/common/</code></td>
+</tr>
+<tr>
+<td><code>Cores/</code></td>
+<td>Core bitstreams and JSON, one folder per <code>Author.Core</code></td>
+</tr>
+<tr>
+<td><code>Platforms/</code></td>
+<td>Platform definitions and artwork; two cores for the same system share one platform and you pick via Change Core</td>
+</tr>
+<tr>
+<td><code>Saves/</code></td>
+<td>In-game saves (SRAM) per platform</td>
+</tr>
+<tr>
+<td><code>Memories/</code></td>
+<td>Save states and screenshots</td>
+</tr>
+<tr>
+<td><code>System/</code></td>
+<td>Settings, palettes, logs</td>
+</tr>
+</tbody>
+</table>
+<p>Things worth knowing:</p>
+<ul>
+<li><strong>Removing a core</strong> means deleting its files from <code>Assets</code>, <code>Cores</code> and <code>Platforms</code> by hand. Updaters let you skip cores, so it's easier not to install clutter.</li>
+<li><strong>Core count limit.</strong> Firmware 2.7 raised the maximum platform/core count and made the cached core list load about twice as fast. Still, curate.</li>
+<li><strong>Two cores per system is normal.</strong> NES (spiritualized and agg23), GB/GBC (spiritualized and budude2) and Genesis (Eric Lewis and spiritualized) all have alternatives. Install both where one has a feature you need, such as budude2's RTC support.</li>
+<li><strong>Mac:</strong> when copying core zips manually, choose <em>Merge</em>, not <em>Replace</em>, or you'll wipe other cores' files.</li>
+<li><strong>Save sync:</strong> nothing on the Pocket syncs saves. With USB SD Access on, the card mounts like a drive, so a script that copies <code>Saves/</code> to your Syncthing folder after a session is the practical bridge to your other handhelds.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://retrogamecorps.com/2022/08/07/analogue-pocket-jailbreak-guide/">Retro Game Corps openFPGA guide</a>, <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/latest">firmware 2.7 notes</a>, <a rel="noopener" href="https://github.com/hallem/pupdate">pupdate</a>.</p>
+</section><section class="band"><h2 id="flashcarts">Carts, adapters and flashcarts</h2>
+<p>For most GB/GBC play, openFPGA cores from the SD card make a flashcart unnecessary. Buy a flashcart only for the cases below.</p>
+<h3>When a flashcart (or real cart) is worth it</h3>
+<table class="stack">
+<thead>
+<tr>
+<th>Reason</th>
+<th>Why the SD card route falls short</th>
+<th>What to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GBA games with a real-time clock (Pokémon R/S/E, Boktai, etc.)</td>
+<td>spiritualized's GBA core has no RTC. budude2 has been porting the MiSTer GBA core with RTC, but there's no confirmed release yet.</td>
+<td>EZ-Flash Omega Definitive Edition (has RTC), or the real cart</td>
+</tr>
+<tr>
+<td>Physical link-cable play with a real GB/GBA or a second Pocket</td>
+<td>Cart path uses Analogue's own cores</td>
+<td>Real carts or a flashcart</td>
+</tr>
+<tr>
+<td>Cart hardware: tilt, gyro, solar sensor, rumble</td>
+<td>No SD-card equivalent</td>
+<td>Real carts, or a handheld with built-in sensors</td>
+</tr>
+<tr>
+<td>Trying games before buying the loose cart</td>
+<td>Not a limitation, just a collecting workflow</td>
+<td>A flashcart in the same slot as your carts keeps one Library</td>
+</tr>
+<tr>
+<td>Lynx games</td>
+<td>There's no Lynx openFPGA core; Lynx is adapter-only</td>
+<td>Lynx adapter plus real carts or a Lynx flashcart</td>
+</tr>
+</tbody>
+</table>
+<p>GB/GBC RTC games (Pokémon G/S/C) <strong>don't</strong> need a flashcart. Use budude2's GB/GBC core, which has RTC and full save states.</p>
+<h3>Which flashcarts</h3>
+<ul>
+<li><strong>GB/GBC:</strong> EZ-Flash Junior (about US$59, built-in RTC, reported working on the Pocket) is the safe pick. The Everdrive GB X7 adds save states and has an Analogue Pocket compatibility toggle in its firmware.</li>
+<li><strong>GBA:</strong> EZ-Flash Omega Definitive Edition (about US$75) is the value pick with RTC. The Everdrive GBA X5 Mini and GBA Pro are the alternatives. After saving on the Omega, wait about 10 seconds before powering off so it can copy the save to its SD card.</li>
+<li><strong>NGPC:</strong> the Pocket's adapters work with flashcarts. Time Extension ran a Retro HQ NeoPocket GameDrive through the NGP adapter.</li>
+</ul>
+<h3>The 2026 Everdrive warning</h3>
+<p>In June 2026 Krikzz reported that Pockets from a <strong>newer production batch</strong> corrupt the flashcart's file system when it writes a file, such as a save. The same firmware works on older units, so he blames a hardware change. Other reports point at component changes in newer Everdrive Minis. No fix had been reported, and Analogue doesn't support third-party carts. A Pink Classic Limited Edition went on preorder in November 2023, well before that batch, so this most likely doesn't apply to it. If you buy a newer Pocket:</p>
+<ul>
+<li>Prefer EZ-Flash carts, or test an Everdrive with a throwaway save before trusting it.</li>
+<li>Use the flashcart's own save system rather than Pocket Memories for anything you care about. Sleep/wake doesn't work reliably with Everdrives either.</li>
+</ul>
+<h3>Adapters</h3>
+<p>Analogue sells a Game Gear adapter and a three-pack for NGP/NGPC, Atari Lynx and TurboGrafx-16/PC Engine/SuperGrafx. Each has its own Original Display Modes, and Memories plus sleep/wake work for TG16/PCE/SuperGrafx and Lynx. Only Lynx actually <em>needs</em> an adapter: Game Gear, NGPC and PC Engine all have openFPGA cores.</p>
+<p class="src">Sources: <a rel="noopener" href="https://timeextension.com/news/2026/06/latest-hardware-run-of-the-analogue-pocket-isnt-playing-nice-with-everdrive-carts">Time Extension on the Everdrive issue</a>, <a rel="noopener" href="https://www.engadget.com/the-analogue-pocket-will-soon-come-in-eight-game-boy-pocketadvance-colors-160009109.html">Classic Limited Editions</a>, <a rel="noopener" href="https://consolemods.org/wiki/GBA:EZ_Flash_Omega_/_Definitive">ConsoleMods: EZ-Flash Omega</a>, <a rel="noopener" href="https://retrorgb.com/everdrive-gb-x7-analogue-pocket-fix.html">Everdrive GB X7 Pocket fix</a>, <a rel="noopener" href="https://www.timeextension.com/reviews/analogue-pocket-adapters-lynx-pc-engine-and-ngpc-support-is-finally-here">Time Extension adapter review</a>.</p>
+</section><section class="band"><h2 id="cores">openFPGA cores and ROM formats</h2>
+<p>Use unzipped No-Intro ROMs. The Pocket reads loose files only, and the file name is the name shown in the list.</p>
+<table class="stack">
+<thead>
+<tr>
+<th>System</th>
+<th>Core (dev)</th>
+<th>Folder</th>
+<th>Extensions</th>
+<th>BIOS / notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Game Boy</td>
+<td>spiritualized1997, budude2</td>
+<td><code>Assets/gb/common/</code></td>
+<td>.gb</td>
+<td><code>dmg_bios.bin</code> in the same folder</td>
+</tr>
+<tr>
+<td>Game Boy Color</td>
+<td>spiritualized1997, budude2</td>
+<td><code>Assets/gbc/common/</code></td>
+<td>.gbc</td>
+<td><code>gbc_bios.bin</code>. Use budude2 for RTC games and fast-forward</td>
+</tr>
+<tr>
+<td>Game Boy Advance</td>
+<td>spiritualized1997</td>
+<td><code>Assets/gba/common/</code></td>
+<td>.gba</td>
+<td><code>gba_bios.bin</code>. Sleep/wake and Memories work; no RTC</td>
+</tr>
+<tr>
+<td>Super Game Boy</td>
+<td>spiritualized1997 (packaged by hallem)</td>
+<td><code>Assets/sgb/&lt;core&gt;/</code></td>
+<td>.gb</td>
+<td><code>sgb_boot.bin</code> plus <code>sgb_snes.smc</code> (or <code>sgb2_snes.smc</code>). Also runs real carts in the slot</td>
+</tr>
+<tr>
+<td>NES / FDS</td>
+<td>spiritualized1997, agg23</td>
+<td><code>Assets/nes/common/</code></td>
+<td>.nes</td>
+<td>Optional <code>fds.bios</code>. Turn on Hide Overscan, Mask Both and Extra Sprites</td>
+</tr>
+<tr>
+<td>SNES</td>
+<td>agg23 (drizzt nightly adds save states)</td>
+<td><code>Assets/snes/common/</code></td>
+<td>.sfc, .smc</td>
+<td>No copier header; strip with Advanced SNES ROM Utility if a game won't boot. Default aspect is 8:7, so set 4:3 in core settings. SA-1, Super FX, DSP and CX4 supported; S-DD1 dropped</td>
+</tr>
+<tr>
+<td>Genesis / Mega Drive</td>
+<td>Eric Lewis, spiritualized1997</td>
+<td><code>Assets/genesis/common/</code></td>
+<td>.md, .bin</td>
+<td>No PAL. Reload the ROM if you see graphical glitches</td>
+</tr>
+<tr>
+<td>Master System / Game Gear / SG-1000</td>
+<td>spiritualized1997</td>
+<td><code>Assets/&lt;core&gt;/common/</code></td>
+<td>.sms, .gg, .sg</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PC Engine / TG-16 / SuperGrafx</td>
+<td>agg23</td>
+<td><code>Assets/pce/common/</code></td>
+<td>.pce</td>
+<td>None. A separate PCE CD core is listed in Time Extension's directory</td>
+</tr>
+<tr>
+<td>Neo Geo</td>
+<td>Mazamars312</td>
+<td><code>Assets/ng/common/&lt;game&gt;/</code></td>
+<td>Darksoft folders only (not .zip)</td>
+<td><code>uni-bios_1_0.rom</code>, <code>000-lo.lo</code>, <code>sfix.sfix</code>. No save states</td>
+</tr>
+<tr>
+<td>Neo Geo Pocket / Color</td>
+<td>JOTEGO</td>
+<td>per core</td>
+<td>.ngp, .ngc</td>
+<td>Check the core's readme for BIOS</td>
+</tr>
+<tr>
+<td>WonderSwan / Color</td>
+<td>agg23</td>
+<td>per core</td>
+<td>.ws, .wsc</td>
+<td></td>
+</tr>
+<tr>
+<td>Pokémon Mini</td>
+<td>agg23</td>
+<td><code>Assets/poke_mini/common/</code></td>
+<td>.min</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Watara Supervision</td>
+<td>spiritualized1997, OpenGateware</td>
+<td><code>Assets/supervision/common/</code></td>
+<td>.sv</td>
+<td></td>
+</tr>
+<tr>
+<td>Arcade</td>
+<td>JOTEGO and others</td>
+<td>handled by updater</td>
+<td>MRA/JSON-driven</td>
+<td>pupdate and Pocket Sync fetch arcade assets</td>
+</tr>
+</tbody>
+</table>
+<p>Also available: Atari 2600/7800, ColecoVision, Intellivision, Vectrex, Odyssey 2, Channel F, Game &amp; Watch, Tamagotchi, Mega Duck, Gamate, GameKing and Arduboy.</p>
+<p>Two cores of the same system share one platform tile. Switch between them with <strong>Change Core</strong> on the platform screen.</p>
+<p class="src">Sources: <a rel="noopener" href="https://retrogamecorps.com/2022/08/07/analogue-pocket-jailbreak-guide/">Retro Game Corps</a> (folders, BIOS names, core quirks; last updated Nov 2023, so core quirks may have changed), <a rel="noopener" href="https://timeextension.com/guides/all-analogue-pocket-openfpga-cores-and-where-to-download-them">Time Extension core directory</a>, <a rel="noopener" href="https://github.com/hallem/openFPGA-Super-GB">openFPGA Super GB</a>, <a rel="noopener" href="https://www.timeextension.com/news/2026/07/snes-save-states-are-coming-to-analogue-pocket">SNES save states</a>. Extensions for SMS/GG/SG, NGP, WonderSwan and the arcade format are the standard ones, not confirmed from a source.</p>
+</section><section class="band"><h2 id="display">Display modes, settings and features</h2>
+<p>The 1600×1440 panel is exactly 10× Game Boy resolution and an integer 6× for GBA. 4:3 home consoles end up letterboxed on its 10:9 shape. That's why the Pocket shines on handheld systems and is merely good on SNES or Genesis.</p>
+<ul>
+<li><strong>Original Display Modes.</strong> Analogue's cart cores and adapters get per-system LCD simulations. GBA offers Analogue GBA, Original GBA LCD and GBA SP 101, and Game Gear offers Analogue GG, Original GG and Original GG+. Since firmware 2.0, openFPGA cores can use them too. The CRT Trinitron mode unlocks automatically for suitable cores, but other modes only appear if the core author enabled them, so expect fewer options on community cores.</li>
+<li><strong>GB palettes.</strong> Firmware 2.0 added custom APGB palettes. Pair them with Force GBC Mode (checklist step 7) for the best results.</li>
+<li><strong>Memories (save states).</strong> Press Analogue + Up in game to save a state; screenshots and thumbnails sit alongside. Support depends on the core: yes for GB/GBC/GBA (budude2 too), PCE and Lynx via adapter; no for Neo Geo; SNES only in the drizzt nightly. A state from one game can't be loaded while another is running.</li>
+<li><strong>Sleep/wake.</strong> Pressing power mid-game suspends on cores that support it. Treat it like a save state, not a save, and don't rely on it with Everdrives.</li>
+<li><strong>Library and Boot to Cartridge.</strong> Inserted carts are catalogued in Library. Boot to Cartridge skips the Game Detail screen, which is handy for a dedicated Tetris DX cart.</li>
+<li><strong>Power.</strong> Firmware 2.6 added Auto Dim and Auto Off. Set them, because battery life is the Pocket's weak spot next to newer Android handhelds.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/2.0">firmware 2.0 notes</a>, <a rel="noopener" href="https://www.analogue.co/pocket">Analogue Pocket page</a>, <a rel="noopener" href="https://retrododo.com/analogue-updates-pocket-handheld-with-new-auto-dim-feature/">2.6 coverage</a>, <a rel="noopener" href="https://admin.retrorgb.com/?p=43873">adapter firmware notes</a>.</p>
+</section><section class="band"><h2 id="dock">Dock</h2>
+<p>The Dock makes the Pocket a decent stand-in for a Super Nt / Mega Sg if you're happy playing ROMs, but not if you want to play SNES carts.</p>
+<ul>
+<li><strong>What it adds:</strong> HDMI out with the same Original Display Modes as handheld, and wired or Bluetooth controllers. Firmware 2.5 added the Nintendo Switch Online wireless pads via the Dock, and 2.6 added the 8BitDo 64. The Dock's own firmware updates through the Pocket's firmware file.</li>
+<li><strong>Aspect ratio:</strong> since 2.0, cores can output a different aspect ratio when docked. The letterboxing you get handheld on SNES and Genesis doesn't carry over to the TV.</li>
+<li><strong>Versus a Super Nt+:</strong> the Pocket plus Dock covers SNES, Genesis, PCE and Neo Geo from the SD card, with save states only where the core supports them. A Super Nt plays original SNES carts (and an FXPak). If the point is a cart collection, wait for the Super Nt+. If it's just playing SNES on the TV, the Dock covers it, and so does a docked PC handheld with shaders.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://lemmy.dormedas.com/post/979888">firmware 2.5 summary</a>, <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/2.6.0">firmware 2.6</a>, <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/2.0">firmware 2.0</a>, <a rel="noopener" href="https://www.retrorgb.com/?p=32726">Dock firmware via Pocket</a>.</p>
+</section><section class="band"><h2 id="which-device">What to play on the Pocket vs other handhelds</h2>
+<p>Make the Pocket your home for the original handhelds whose resolution it was built around (GB, GBC, Game Gear, NGPC, oddball LCD systems) and for anything on cart. Leave 4:3 console systems and long on-the-go JRPGs to Android devices that sync saves.</p>
+<table class="stack">
+<thead>
+<tr>
+<th>System</th>
+<th>Best device</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Game Boy</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>10× integer scale, DMG/Pocket display modes and APGB palettes, and it plays loose carts</td>
+</tr>
+<tr>
+<td>Game Boy Color</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>Same strengths. budude2's core covers G/S/C RTC with no flashcart</td>
+</tr>
+<tr>
+<td>GBA, at home or from carts</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>6× integer scale, GBA LCD/SP display modes, real carts and link cable</td>
+</tr>
+<tr>
+<td>GBA, long JRPGs on the go</td>
+<td>KONKR Pocket Advance / Pocket Block</td>
+<td>Syncthing saves across devices. The Pocket can't sync, and its GBA core lacks RTC</td>
+</tr>
+<tr>
+<td>GBA sensor games</td>
+<td>AYANEO Pocket Micro Classic / Micro 2 (or real carts on the Pocket)</td>
+<td>No SD-card sensor support on the Pocket</td>
+</tr>
+<tr>
+<td>Game Gear / Master System</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>Core plus GG adapter with Original GG display modes. Few devices do GG's LCD look this well</td>
+</tr>
+<tr>
+<td>Neo Geo Pocket / Color</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>JOTEGO core or adapter with NGPC display modes</td>
+</tr>
+<tr>
+<td>WonderSwan / Color</td>
+<td><strong>Analogue Pocket</strong> for horizontal games</td>
+<td>agg23 core. For vertical-only titles, check how the core handles rotation; a portrait handheld may suit them better</td>
+</tr>
+<tr>
+<td>Atari Lynx</td>
+<td><strong>Analogue Pocket</strong>, if you go physical</td>
+<td>Adapter plus carts or a Lynx flashcart is the most authentic Lynx option. There's no SD-card Lynx core, so for ROMs use emulation on an Android handheld</td>
+</tr>
+<tr>
+<td>PC Engine / TG-16 HuCards</td>
+<td>A 4:3 Android handheld (Pocket Block, RG476H)</td>
+<td>4:3 fills the screen and you get CRT shaders. Use the Pocket only for real HuCards</td>
+</tr>
+<tr>
+<td>NES / SNES / Genesis on the go</td>
+<td>KONKR Pocket Block</td>
+<td>4:3 panel, Syncthing, save states everywhere. The Pocket letterboxes these and SNES save states are nightly-only</td>
+</tr>
+<tr>
+<td>NES / SNES / Genesis on the TV</td>
+<td>Pocket + Dock</td>
+<td>A ROM-based Super Nt / Mega Sg substitute</td>
+</tr>
+<tr>
+<td>Pokémon Mini, Game &amp; Watch, Tamagotchi, Supervision, Mega Duck</td>
+<td><strong>Analogue Pocket</strong></td>
+<td>FPGA cores for systems most emulator frontends cover thinly. A good reason to explore the core list</td>
+</tr>
+<tr>
+<td>N64</td>
+<td>Analogue 3D</td>
+<td>Cart-based</td>
+</tr>
+<tr>
+<td>PS1 and newer, DS, 3DS</td>
+<td>Android/PC handhelds, DS Lite, RG DS Plus, New 3DS XL</td>
+<td>Out of the Pocket's range</td>
+</tr>
+</tbody>
+</table>
+</section><section class="band"><h2 id="gotchas">Gotchas you might miss</h2>
+<ul>
+<li><strong>Saves and Memories are different things.</strong> A Memory (save state) belongs to a specific core, so keep real in-game saves for anything long. Back up <code>Saves/</code> before updating cores.</li>
+<li><strong>Updating cores can change behaviour.</strong> Some users found a GBA homebrew crashing on certain Pocket batches until they downgraded the spiritualized GBA core. If one game misbehaves, try another core version or the cart before blaming the ROM.</li>
+<li><strong>Headered or zipped ROMs silently fail.</strong> The Pocket won't read .zip, and SNES needs unheadered .sfc. Neo Geo wants Darksoft-format folders, not MAME zips.</li>
+<li><strong>No PAL on Genesis.</strong> Use NTSC/JP dumps.</li>
+<li><strong>Firmware updates need exactly one .bin</strong> on the card root. Remove old ones, or nothing happens.</li>
+<li><strong>Pocket Sync needs an initialised card.</strong> Boot the Pocket with the card once first.</li>
+<li><strong>Flashcarts:</strong> test Everdrive saves on a new unit before trusting them, and on the EZ-Flash Omega wait about 10 seconds after saving before you power off.</li>
+<li><strong>Homebrew .pocket files:</strong> GB Studio can export <code>.pocket</code> files that run on Analogue's own GB core from the SD card, so you get the official display modes and features without a cart.</li>
+<li><strong>Adapters are sold as a three-pack</strong> (NGP, Lynx, PCE), with Game Gear separate. Only buy them if you'll play original carts. Cores cover everything but Lynx.</li>
+<li><strong>Watch the core list.</strong> Check the <a rel="noopener" href="https://openfpga-cores-inventory.github.io/analogue-pocket/">openFPGA cores inventory</a> occasionally for a GBA core with RTC (budude2's MiSTer port has been in progress) and for the SNES save-state build leaving nightly.</li>
+</ul></section>
+</main>
+</body>
+</html>
