@@ -109,7 +109,7 @@ footer ul{padding-left:18px;color:var(--mute);font-size:14px}footer a{color:var(
   <h2>How much of the screen each system fills</h2>
   <p class="lede">Largest whole-number scale that fits 1600×1440. Integer scaling is why the pixel-grid modes look so convincing. Share of the panel used:</p>
   <div class="bars" id="bars"></div>
-  <p class="note">PC Engine figure assumes the common 256×224 mode; the system can change resolution per game, so some HuCards scale differently. Atari Lynx at 10× uses the full width; vertical Lynx games rotate instead.</p>
+  <p class="note">PC Engine figure assumes the common 256×224 mode; the system can change resolution per game, so some HuCards scale differently. Atari Lynx at 10× uses the full width; vertical Lynx games rotate instead. WonderSwan portrait games are turned upright by the core, so the panel's height caps them at 6× — about half the screen.</p>
 </div></section>
 
 <div id="systems"></div>
@@ -120,7 +120,7 @@ footer ul{padding-left:18px;color:var(--mute);font-size:14px}footer a{color:var(
     <div><h3>Flip modes mid-game</h3><p>Hold <kbd>Analogue</kbd> and press <kbd>←</kbd> / <kbd>→</kbd>. The fastest way to compare raw colour with the original LCD on the same scene.</p></div>
     <div><h3>Frame blending for flicker</h3><p>Old LCDs smeared frames, so games flickered sprites to fake transparency. Turn blending on for those; leave it off elsewhere, as it softens motion.</p></div>
     <div><h3>Raw vs "Original" colour</h3><p>GBC and early GBA games pushed saturation to survive unlit screens. "Analogue" modes show the raw data; "Original" modes show what the artists actually saw.</p></div>
-    <div><h3>Rotation &amp; tate</h3><p>The display rotates a full 360°, which is what you want for vertical Lynx games and portrait WonderSwan titles.</p></div>
+    <div><h3>Rotation &amp; tate</h3><p>The display rotates a full 360°, which is what you want for vertical Lynx games. The WonderSwan core rotates portrait games itself.</p></div>
     <div><h3>Adapter wobble</h3><p>HuCards and Lynx carts stick out of their adapters; a knock can crash the game. Play those seated, or from a flash cart.</p></div>
     <div><h3>Your own palettes</h3><p>Analogue GB mode takes custom palettes, so monochrome games can wear any four colours without the grid.</p></div>
   </div>
@@ -136,6 +136,7 @@ footer ul{padding-left:18px;color:var(--mute);font-size:14px}footer a{color:var(
     <li><a href="https://gbstudiocentral.com/?p=5187">GB Studio Central: FPGA Game Boy Shootout</a> — GB/GBC mode list</li>
     <li><a href="https://www.timeextension.com/reviews/analogue-pocket-adapter-set-lynx-pc-engine-and-ngpc-support-is-finally-here">Time Extension: Pocket adapter set review</a></li>
     <li><a href="https://timeextension.com/guides/all-analogue-pocket-openfpga-cores-and-where-to-download-them">Time Extension: all openFPGA cores</a></li>
+    <li><a href="https://github.com/agg23/openfpga-wonderswan">agg23/openfpga-wonderswan README</a> — orientation and control mapping</li>
     <li><a href="https://gbstudiocentral.com/?p=2287">GB Studio Central: colour reproduction on GBC/GBA</a></li>
     <li><a href="https://hackaday.com/2023/10/27/why-game-boy-ips-screens-flicker">Hackaday: why Game Boy IPS screens flicker</a></li>
     <li><a href="https://en.wikipedia.org/wiki/Analogue_Pocket">Wikipedia: Analogue Pocket</a> — 30–62 Hz variable refresh</li>
@@ -173,7 +174,7 @@ const starter=[
  ["Blue Lightning","Atari Lynx","Original Lynx"],["Soldier Blade","PC Engine","CRT Trinitron"]];
 document.getElementById('starter').innerHTML=starter.map(s=>`<li><b>${s[0]}</b><small>${s[1]}</small><br><span class="tag">${s[2]}</span></li>`).join('');
 
-const bars=[["GB / GBC","160×144","×10",1600,1440],["Game Gear","160×144","×10",1600,1440],["PC Engine / TG16","256×224","×6",1536,1344],["Neo Geo Pocket","160×152","×9",1440,1368],["Atari Lynx","160×102","×10",1600,1020],["WonderSwan (core)","224×144","×7",1568,1008],["Pokémon Mini (core)","96×64","×16",1536,1024],["GBA","240×160","×6",1440,960]];
+const bars=[["GB / GBC","160×144","×10",1600,1440],["Game Gear","160×144","×10",1600,1440],["PC Engine / TG16","256×224","×6",1536,1344],["Neo Geo Pocket","160×152","×9",1440,1368],["Atari Lynx","160×102","×10",1600,1020],["WonderSwan (core)","224×144","×7",1568,1008],["WonderSwan portrait","144×224","×6",864,1344],["Pokémon Mini (core)","96×64","×16",1536,1024],["GBA","240×160","×6",1440,960]];
 document.getElementById('bars').innerHTML=bars.map(b=>{const p=b[3]*b[4]/(1600*1440)*100;return `<div class="bar"><span><b>${b[0]}</b> ${b[2]}</span><div class="tr" role="img" aria-label="${p.toFixed(0)} percent"><i style="width:${p.toFixed(1)}%"></i></div><span class="n">${b[3]}×${b[4]} · ${p.toFixed(0)}%</span></div>`}).join('');
 
 const sys=[
@@ -240,8 +241,8 @@ const sys=[
   ["Bomberman '94","Clean, vibrant multiplayer classic.","Analogue TG16"],
   ["Neutopia II","Bright top-down adventure colours.","TurboExpress"],
   ["Ghouls 'n Ghosts (SuperGrafx)","Uses the SuperGrafx's extra layer for depth.","CRT Trinitron"]]},
- {id:"cores",name:"openFPGA cores (from SD)",how:"ROMs you've dumped",modes:["All Pocket modes","CRT Trinitron","Vacuum Fluorescent"],intro:"Since openFPGA 2.0, community cores can use the Pocket's display modes, and 2.3 added the NGP, NGPC, TG16 and Lynx modes plus a Vacuum Fluorescent one. These run from SD, not carts.",games:[
-  ["WonderSwan Color: Judgement Silversword","Dense shmup; portrait titles use rotation.","LCD mode"],
+ {id:"cores",name:"openFPGA cores (from SD)",how:"ROMs you've dumped",note:"<b>WonderSwan portrait games:</b> keep holding the Pocket normally. With the core's Orientation setting on Auto, it rotates the picture upright and remaps controls — vertical: d-pad → Y pad, A/B/X/Y → X3/X4/X2/X1, L/R → A/B; horizontal: d-pad → X pad, A/B → A/B, X/Y → Y3/Y4, L/R → Y1/Y2. In both, + is Start and − is Fast Forward. Portrait games scale 6× (864×1344, about half the panel) versus 7× for horizontal ones. Orientation can also be locked if a game picks the wrong way, and Flickerblend (2 or 3 frames) softens sprite flicker.",modes:["All Pocket modes","CRT Trinitron","Vacuum Fluorescent"],intro:"Since openFPGA 2.0, community cores can use the Pocket's display modes, and 2.3 added the NGP, NGPC, TG16 and Lynx modes plus a Vacuum Fluorescent one. These run from SD, not carts.",games:[
+  ["WonderSwan Color: Judgement Silversword","Dense, flicker-heavy shmup — the Flickerblend test.","Flickerblend on"],
   ["WonderSwan: Klonoa: Moonlight Museum","Charming monochrome platformer.","LCD mode"],
   ["Pokémon Mini: Pokémon Pinball Mini","96×64 blown up 16× — absurdly crisp.","LCD mode"],
   ["Pokémon Mini: Pokémon Party Mini","Tiny minigames, perfect pick-up-and-play.","LCD mode"],
@@ -250,7 +251,7 @@ const sys=[
 ];
 document.getElementById('systems').innerHTML=sys.map(s=>`<section class="band sys" id="${s.id}"><div class="wrap">
  <div class="syshead"><div><h2>${s.name}</h2><p class="lede">${s.intro}</p></div><div><p style="margin:0 0 8px;font-size:14px;color:var(--mute)">${s.how} · display modes</p><div class="chips">${s.modes.map(m=>`<span>${m}</span>`).join('')}</div></div></div>
- <div class="shelf">${s.games.map(g=>`<article class="cart"><h3>${g[0]}</h3><p>${g[1]}</p><span class="tag">Try: ${g[2]}</span></article>`).join('')}</div>
+ <div class="shelf">${s.games.map(g=>`<article class="cart"><h3>${g[0]}</h3><p>${g[1]}</p><span class="tag">Try: ${g[2]}</span></article>`).join('')}</div>${s.note?`<p class="note">${s.note}</p>`:''}
 </div></section>`).join('');
 }
 </script>
