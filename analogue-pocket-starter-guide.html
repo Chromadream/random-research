@@ -71,8 +71,8 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 <h1>Analogue Pocket Starter Guide</h1>
 <p class="lead">Update to firmware 2.7, let pupdate build the SD card, and make the Pocket your home for Game Boy, Game Boy Color, Game Gear and Neo Geo Pocket. Leave 4:3 consoles and long on-the-go JRPGs to handhelds that sync saves.</p>
 <div class="split">
-<div><b>Play it here</b><span>GB, GBC, GBA from carts, sensor carts like Kirby Tilt 'n' Tumble, Game Gear, NGPC, Lynx carts, Pok&eacute;mon Mini</span></div>
-<div><b>Play it elsewhere</b><span>NES/SNES/Genesis on the go, PC Engine ROMs, long GBA JRPGs, PS1 and newer</span></div>
+<div><b>Play it here</b><span>GB, GBC, GBA from carts, Game Boy Camera, Game Gear, NGPC, Lynx carts, Pok&eacute;mon Mini</span></div>
+<div><b>Play it elsewhere</b><span>NES/SNES/Genesis on the go, GB/GBC tilt and rumble games, PC Engine ROMs, long GBA JRPGs</span></div>
 </div>
 <p class="meta">Researched 23 November 2026, current to firmware 2.7.</p>
 </div>
@@ -198,7 +198,7 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 </table>
 <p>GB/GBC RTC games (Pokémon G/S/C) <strong>don't</strong> need a flashcart. Use budude2's GB/GBC core, which has RTC and full save states.</p>
 <h3>GB/GBC games with special cart hardware</h3>
-<p>On GB/GBC the extra hardware is inside the cartridge, and no GB/GBC flashcart we found replicates it. Real carts are the answer, and the Pocket handles them well: Destructoid confirmed the Game Boy Printer, Game Boy Camera carts and tilt/rumble/gyro carts all work.</p>
+<p>On GB/GBC the extra hardware is inside the cartridge, and no GB/GBC flashcart we found replicates it. Play these on an AYANEO Pocket Vert instead. It has the same 1600×1440 3.5-inch screen as the Analogue Pocket, plus a gyroscope and a vibration motor that Android emulators can map to the cart's tilt sensor and rumble. The Game Boy Camera is the exception: play the real cart on the Analogue Pocket, which saves photos to the SD card.</p>
 <table class="stack">
 <thead>
 <tr>
@@ -211,12 +211,12 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 <tr>
 <td>Tilt (MBC7 accelerometer)</td>
 <td>Kirby Tilt 'n' Tumble, Command Master (JP)</td>
-<td>The real cart. Like the GBC, the Pocket takes the cart upright in a rear slot, so the tilt axes should match what the game expects (GBA-family consoles hold the cart differently). Alternatives: Nintendo Switch Online's Game Boy app with motion controls, or an accelerometer-removal patch for D-pad play from the SD card</td>
+<td>Pocket Vert, with an emulator that maps its motion sensor to the cart's tilt sensor, such as SkyEmu. RetroArch's mGBA core is reported to misbehave in portrait. Fallbacks: Nintendo Switch Online's Game Boy app, or an accelerometer-removal patch for D-pad play</td>
 </tr>
 <tr>
 <td>Rumble</td>
 <td>Pokémon Pinball, Perfect Dark, Top Gear Rally</td>
-<td>The real cart, since the motor and its AAA battery are in the cart. Flashcarts and openFPGA cores play these without rumble</td>
+<td>Pocket Vert, with an emulator that drives its vibration motor for cart rumble. On the Analogue Pocket, flashcarts and openFPGA cores play these without rumble</td>
 </tr>
 <tr>
 <td>Camera</td>
@@ -226,7 +226,7 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 <tr>
 <td>Infrared</td>
 <td>Pokémon G/S/C Mystery Gift and other GBC IR games</td>
-<td>The Pocket has an IR port, so these carts work. Flashcarts should too, since GBC infrared is in the console. HuC-1/HuC-3 carts such as Robopon carry their own IR LED, so use the real cart</td>
+<td>Pocket Vert, with an emulator that emulates IR, such as SkyEmu. For a real IR exchange with another console, the Analogue Pocket has an IR port and plays the carts</td>
 </tr>
 </tbody>
 </table>
@@ -244,7 +244,7 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 </ul>
 <h3>Adapters</h3>
 <p>Analogue sells a Game Gear adapter and a three-pack for NGP/NGPC, Atari Lynx and TurboGrafx-16/PC Engine/SuperGrafx. Each has its own Original Display Modes, and Memories plus sleep/wake work for TG16/PCE/SuperGrafx and Lynx. Only Lynx actually <em>needs</em> an adapter: Game Gear, NGPC and PC Engine all have openFPGA cores.</p>
-<p class="src">Sources: <a rel="noopener" href="https://timeextension.com/news/2026/06/latest-hardware-run-of-the-analogue-pocket-isnt-playing-nice-with-everdrive-carts">Time Extension on the Everdrive issue</a>, <a rel="noopener" href="https://www.engadget.com/the-analogue-pocket-will-soon-come-in-eight-game-boy-pocketadvance-colors-160009109.html">Classic Limited Editions</a>, <a rel="noopener" href="https://consolemods.org/wiki/GBA:EZ_Flash_Omega_/_Definitive">ConsoleMods: EZ-Flash Omega</a>, <a rel="noopener" href="https://retrorgb.com/everdrive-gb-x7-analogue-pocket-fix.html">Everdrive GB X7 Pocket fix</a>, <a rel="noopener" href="https://www.timeextension.com/reviews/analogue-pocket-adapters-lynx-pc-engine-and-ngpc-support-is-finally-here">Time Extension adapter review</a>, <a rel="noopener" href="https://www.timeextension.com/reviews/everdrive-gba-pro-praise-the-sun">Time Extension: EverDrive GBA Pro review</a>, <a rel="noopener" href="https://www.notebookcheck.net/EverDrive-GBA-Pro-announced-Krikkz-adds-save-states-real-time-clock-and-gyro-support-for-Game-Boy-Advance.1192512.0.html">Notebookcheck on the GBA Pro</a>, <a rel="noopener" href="https://destructoid.com/?p=299962">Destructoid Pocket impressions</a>, <a rel="noopener" href="https://nintendowire.com/news/2023/06/09/nintendo-demonstrates-how-to-control-kirby-tilt-n-tumble-in-cheeky-tweet/">Nintendo Wire on Kirby Tilt 'n' Tumble for Switch Online</a>.</p>
+<p class="src">Sources: <a rel="noopener" href="https://timeextension.com/news/2026/06/latest-hardware-run-of-the-analogue-pocket-isnt-playing-nice-with-everdrive-carts">Time Extension on the Everdrive issue</a>, <a rel="noopener" href="https://www.engadget.com/the-analogue-pocket-will-soon-come-in-eight-game-boy-pocketadvance-colors-160009109.html">Classic Limited Editions</a>, <a rel="noopener" href="https://consolemods.org/wiki/GBA:EZ_Flash_Omega_/_Definitive">ConsoleMods: EZ-Flash Omega</a>, <a rel="noopener" href="https://retrorgb.com/everdrive-gb-x7-analogue-pocket-fix.html">Everdrive GB X7 Pocket fix</a>, <a rel="noopener" href="https://www.timeextension.com/reviews/analogue-pocket-adapters-lynx-pc-engine-and-ngpc-support-is-finally-here">Time Extension adapter review</a>, <a rel="noopener" href="https://www.timeextension.com/reviews/everdrive-gba-pro-praise-the-sun">Time Extension: EverDrive GBA Pro review</a>, <a rel="noopener" href="https://www.notebookcheck.net/EverDrive-GBA-Pro-announced-Krikkz-adds-save-states-real-time-clock-and-gyro-support-for-Game-Boy-Advance.1192512.0.html">Notebookcheck on the GBA Pro</a>, <a rel="noopener" href="https://destructoid.com/?p=299962">Destructoid Pocket impressions</a>, <a rel="noopener" href="https://nintendowire.com/news/2023/06/09/nintendo-demonstrates-how-to-control-kirby-tilt-n-tumble-in-cheeky-tweet/">Nintendo Wire on Kirby Tilt 'n' Tumble for Switch Online</a>, <a rel="noopener" href="https://www.androidauthority.com/ayaneo-pocket-vert-specs-3620170/">Android Authority: Pocket Vert specs</a>, <a rel="noopener" href="https://liliputing.com/ayaneo-pocket-vert-handheld-game-console-is-269-and-up-during-crowdfunding/">Liliputing: Pocket Vert gyro and motor</a>, <a rel="noopener" href="https://emulation.gametechwiki.com/index.php/GB">Emulation General Wiki: GB/GBC emulators</a>.</p>
 </section><section class="band"><h2 id="cores">openFPGA cores and ROM formats</h2>
 <p>Use unzipped No-Intro ROMs. The Pocket reads loose files only, and the file name is the name shown in the list.</p>
 <table class="stack">
@@ -409,9 +409,9 @@ td strong{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px
 <td>Same strengths. budude2's core covers G/S/C RTC with no flashcart</td>
 </tr>
 <tr>
-<td>GB/GBC special carts (Kirby Tilt 'n' Tumble, rumble, Camera, IR)</td>
-<td><strong>Analogue Pocket</strong> with the real cart</td>
-<td>No flashcart replicates in-cart sensors. Switch Online is the fallback for Kirby Tilt 'n' Tumble</td>
+<td>GB/GBC tilt, rumble and IR games (Kirby Tilt 'n' Tumble, Pokémon Pinball)</td>
+<td>AYANEO Pocket Vert</td>
+<td>Same screen as the Analogue Pocket, plus a gyro and vibration motor for emulated tilt and rumble. Game Boy Camera stays a real cart on the Analogue Pocket</td>
 </tr>
 <tr>
 <td>GBA, at home or from carts</td>
