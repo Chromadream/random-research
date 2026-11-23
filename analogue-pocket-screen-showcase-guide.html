@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Screen Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: an enthusiast's field guide — confident, specific, a little playful.
+IDEA: the Pocket's own Library screen — a cart shelf per system, each cart saying which display mode to flip to.
+PICTURE: a drawn Pocket whose screen swaps between real Original Display Mode looks as you tap.
+COLOUR and TYPE: Pocket black hero, white shelves, DMG pea-green accent; Space Grotesk titles, Inter body.
+LAYOUT: hero (title + live Pocket), starter ten, scaling bars, then one shelf per system with sticky section links.
+*/
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0c0d0c);--ink:light-dark(#141614,#eef0ea);--mute:light-dark(#5b615a,#a3aa9f);--line:light-dark(#e3e6df,#262a25);--card:light-dark(#f6f7f3,#151815);--hero:#0d0e0d;--green:#8bac0f;--green2:light-dark(#4f6a00,#a8cc1c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,5vw,52px)}h2{font-size:clamp(26px,3.2vw,36px)}h3{font-size:18px;line-height:1.2}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}
+.hero{background:var(--hero);color:#eef0ea}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero p{color:#c4cabf;max-width:60ch;font-size:17px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:22px 0 0;padding:0;list-style:none}
+.facts b{display:block;font:700 26px "Space Grotesk",sans-serif;color:#fff}.facts span{font-size:14px;color:#a3aa9f}
+.pocket{display:grid;justify-items:center;gap:14px}
+.pocket svg{width:min(100%,320px);height:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+.modes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.modes button{font:600 14px Inter,sans-serif;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid #3a4038;background:#171a16;color:#dfe4d8;cursor:pointer}
+.modes button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#0f1a00}
+.modes button:focus-visible,.nav a:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.modecap{font-size:14px;color:#a3aa9f;text-align:center;max-width:38ch;min-height:3em}
+.nav{position:relative;display:flex;gap:6px;padding:10px max(5vw,16px);border-bottom:1px solid var(--line);background:var(--bg);z-index:5}
+.nav a{flex:none;color:var(--ink);text-decoration:none;font-weight:600;font-size:14px;padding:10px 12px;border-radius:8px}
+.nav a:hover{background:var(--card)}
+@media(min-width:900px){.nav{position:sticky;top:0}}
+.lede{color:var(--mute);max-width:70ch;margin:10px 0 0}
+.starter{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px;padding:0;list-style:none;counter-reset:s}
+.starter li{background:var(--card);border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+.starter b{display:block}.starter small{color:var(--mute);font-size:14px}
+.tag{display:inline-block;font-size:13px;font-weight:600;padding:2px 8px;border-radius:6px;background:light-dark(#e8f0cf,#25300a);color:var(--green2);margin-top:6px}
+.bars{margin-top:22px;display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr) 9.5em;gap:12px;align-items:center;font-size:15px}
+.bar .tr{height:22px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar .tr i{display:block;height:100%;background:var(--green)}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute);font-size:14px}
+.sys{border-top:1px solid var(--line)}
+.syshead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 40px;align-items:end}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips span{font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:14px;color:var(--mute)}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:24px}
+.cart{position:relative;background:var(--card);border:1px solid var(--line);border-radius:6px 22px 6px 6px;padding:16px 18px 16px}
+.cart p{margin:6px 0 0;font-size:15px;color:var(--mute)}
+.cart .tag{margin-top:10px}
+.note{margin-top:18px;font-size:15px;color:var(--mute);max-width:75ch;border-left:3px solid var(--green);padding-left:12px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}
+.tips div{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--line)}
+.tips p{margin:6px 0 0;font-size:15px;color:var(--mute)}
+kbd{font:600 13px Inter,sans-serif;border:1px solid var(--line);border-radius:5px;padding:1px 6px;background:var(--bg);white-space:nowrap}
+footer ul{padding-left:18px;color:var(--mute);font-size:14px}footer a{color:var(--green2)}
+@media(max-width:860px){.hero .wrap,.syshead{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.bar{grid-template-columns:minmax(0,1fr) 8.5em}.bar .tr{grid-column:1/-1;grid-row:2}}
+@media(prefers-reduced-motion:no-preference){.scr rect{transition:fill .25s}}
+</style>
+</head>
+<body>
+<header class="band hero">
+  <div class="wrap">
+    <div>
+      <h1>The carts that make the Analogue Pocket's screen sing</h1>
+      <p>A 1600×1440, 615 ppi panel is exactly ten times a Game Boy. These are the games, system by system, that best show it off — and which Original Display Mode to flip to while they're running.</p>
+      <ul class="facts">
+        <li><b>10×</b><span>GB, GBC &amp; Game Gear, edge to edge</span></li>
+        <li><b>8</b><span>cart systems via 4 adapters</span></li>
+        <li><b>Analogue + ←/→</b><span>cycles display modes in-game</span></li>
+      </ul>
+    </div>
+    <div class="pocket">
+      <svg viewBox="0 0 260 400" role="img" aria-label="Drawing of an Analogue Pocket showing the selected display mode">
+        <defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f1"/><stop offset="1" stop-color="#d7d8d2"/></linearGradient></defs>
+        <rect x="10" y="10" width="240" height="380" rx="22" fill="url(#body)" stroke="#bfc1ba"/>
+        <rect x="22" y="24" width="216" height="206" rx="8" fill="#050505"/>
+        <g id="scr" class="scr" transform="translate(36 38)"></g>
+        <circle cx="74" cy="300" r="34" fill="#cfd0ca"/>
+        <path d="M66 270h16v22h22v16h-22v22h-16v-22h-22v-16h22z" fill="#1b1b1b"/>
+        <g fill="#1b1b1b"><circle cx="186" cy="276" r="11"/><circle cx="210" cy="300" r="11"/><circle cx="162" cy="300" r="11"/><circle cx="186" cy="324" r="11"/></g>
+        <g fill="#9d9f98"><rect x="96" y="354" width="18" height="6" rx="3"/><rect x="122" y="354" width="18" height="6" rx="3"/><rect x="148" y="354" width="18" height="6" rx="3"/></g>
+      </svg>
+      <div class="modes" id="modes" role="group" aria-label="Display mode"></div>
+      <div class="modecap" id="modecap" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav scroll" aria-label="Sections">
+  <a href="#start">Starter ten</a><a href="#scaling">Scaling</a><a href="#gb">Game Boy</a><a href="#gbc">GB Color</a><a href="#gba">GBA</a><a href="#gg">Game Gear</a><a href="#ngp">Neo Geo Pocket</a><a href="#lynx">Lynx</a><a href="#pce">PC Engine</a><a href="#cores">openFPGA</a><a href="#tips">Tips</a>
+</nav>
+
+<main>
+<section class="band" id="start"><div class="wrap">
+  <h2>If you only try ten</h2>
+  <p class="lede">One showpiece per trick the screen can do: the 10× grid, the LCD recreations, raw versus "as-designed" colour, and the adapter systems.</p>
+  <ol class="starter" id="starter"></ol>
+</div></section>
+
+<section class="band sys" id="scaling"><div class="wrap">
+  <h2>How much of the screen each system fills</h2>
+  <p class="lede">Largest whole-number scale that fits 1600×1440. Integer scaling is why the pixel-grid modes look so convincing. Share of the panel used:</p>
+  <div class="bars" id="bars"></div>
+  <p class="note">PC Engine figure assumes the common 256×224 mode; the system can change resolution per game, so some HuCards scale differently. Atari Lynx at 10× uses the full width; vertical Lynx games rotate instead.</p>
+</div></section>
+
+<div id="systems"></div>
+
+<section class="band sys" id="tips"><div class="wrap">
+  <h2>Getting the most out of the panel</h2>
+  <div class="tips">
+    <div><h3>Flip modes mid-game</h3><p>Hold <kbd>Analogue</kbd> and press <kbd>←</kbd> / <kbd>→</kbd>. The fastest way to compare raw colour with the original LCD on the same scene.</p></div>
+    <div><h3>Frame blending for flicker</h3><p>Old LCDs smeared frames, so games flickered sprites to fake transparency. Turn blending on for those; leave it off elsewhere, as it softens motion.</p></div>
+    <div><h3>Raw vs "Original" colour</h3><p>GBC and early GBA games pushed saturation to survive unlit screens. "Analogue" modes show the raw data; "Original" modes show what the artists actually saw.</p></div>
+    <div><h3>Rotation &amp; tate</h3><p>The display rotates a full 360°, which is what you want for vertical Lynx games and portrait WonderSwan titles.</p></div>
+    <div><h3>Adapter wobble</h3><p>HuCards and Lynx carts stick out of their adapters; a knock can crash the game. Play those seated, or from a flash cart.</p></div>
+    <div><h3>Your own palettes</h3><p>Analogue GB mode takes custom palettes, so monochrome games can wear any four colours without the grid.</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer class="band sys"><div class="wrap">
+  <h3>Sources</h3>
+  <ul>
+    <li><a href="https://www.analogue.co/pocket">Analogue Pocket product page</a> — display specs and adapter display modes</li>
+    <li><a href="https://assets.analogue.co/pdf/f48dbccc2a7c529e3ef677db3b4ab9d8/Analogue+Pocket+User+Manual+v1.2.pdf">Analogue Pocket user manual v1.2</a> — button combos, compatible carts</li>
+    <li><a href="https://www.analogue.co/developer/docs/changelog/2-0">openFPGA changelog 2.0</a> and <a href="https://www.analogue.co/developer/docs/changelog">2.3</a> — display modes for cores</li>
+    <li><a href="https://gbstudiocentral.com/?p=5187">GB Studio Central: FPGA Game Boy Shootout</a> — GB/GBC mode list</li>
+    <li><a href="https://www.timeextension.com/reviews/analogue-pocket-adapter-set-lynx-pc-engine-and-ngpc-support-is-finally-here">Time Extension: Pocket adapter set review</a></li>
+    <li><a href="https://timeextension.com/guides/all-analogue-pocket-openfpga-cores-and-where-to-download-them">Time Extension: all openFPGA cores</a></li>
+    <li><a href="https://gbstudiocentral.com/?p=2287">GB Studio Central: colour reproduction on GBC/GBA</a></li>
+    <li><a href="https://hackaday.com/2023/10/27/why-game-boy-ips-screens-flicker">Hackaday: why Game Boy IPS screens flicker</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Analogue_Pocket">Wikipedia: Analogue Pocket</a> — 30–62 Hz variable refresh</li>
+  </ul>
+  <p style="color:var(--mute);font-size:14px">Game picks are curated from the systems' best-regarded showpieces; mode suggestions are starting points, not rules. Researched November 2026.</p>
+</div></footer>
+
+<script>
+{
+const scene=["00000000000000000000","00000000000000000000","00011100000000000000","00111110000000111000","00000000000001111100","00000000000000000000","00000000333300000000","00000000312300000000","00000000333300000000","00000000000000000000","00000000000000220000","00033300000002222000","00331130000022222200","00033300000222222220","00323230002222222222","22222222222222222222","32323232323232323232","33333333333333333333"];
+const colourPal=["#78ccff","#ffffff","#38b24a","#6b2f12"];
+const modes=[
+ {id:"agb",name:"Analogue GB",pal:["#f2f2ee","#a9aaa4","#55574f","#121310"],grid:false,f:"none",cap:"Analogue GB: your chosen palette, no grid. The crispest look."},
+ {id:"dmg",name:"Original DMG",pal:["#9bbc0f","#8bac0f","#306230","#0f380f"],grid:true,f:"blur(.25px)",cap:"Original DMG: pea-green panel, visible pixel grid, soft smear."},
+ {id:"gbp",name:"Original GBP",pal:["#c5cba6","#8e9673","#4c5240","#1d1f19"],grid:true,f:"none",cap:"Original GBP: the Game Boy Pocket's sharper grey-on-grey."},
+ {id:"gbl",name:"Original Light",pal:["#22c79a","#0ea37c","#076a51","#03463a"],grid:true,f:"drop-shadow(0 0 2px #2affc0)",cap:"Original Light: the Japan-only Game Boy Light's teal backlight."},
+ {id:"agbc",name:"Analogue GBC",pal:colourPal,grid:false,f:"none",cap:"Analogue GBC: raw colour data. Punchy, often over-saturated."},
+ {id:"ogbc",name:"Original GBC",pal:colourPal,grid:true,f:"saturate(.6) brightness(.86) contrast(.9)",cap:"Original GBC: desaturated, gridded, how artists tuned it."},
+ {id:"ogba",name:"Original GBA",pal:colourPal,grid:true,f:"saturate(.5) brightness(.68) contrast(.85)",cap:"Original GBA: the dim, unlit AGB-001 look early games fought."}
+];
+const scr=document.getElementById('scr'),W=188,H=169.2,cw=W/20,ch=H/18;
+const draw=m=>{let s=`<rect width="${W}" height="${H}" fill="${m.grid?m.pal[0]:m.pal[0]}" style="filter:brightness(1.06)"/>`;const g=m.grid?.9:0;
+ scene.forEach((row,y)=>[...row].forEach((c,x)=>{s+=`<rect x="${(x*cw+g/2).toFixed(2)}" y="${(y*ch+g/2).toFixed(2)}" width="${(cw-g).toFixed(2)}" height="${(ch-g).toFixed(2)}" fill="${m.pal[+c]}"/>`}));
+ scr.innerHTML=s;scr.style.filter=m.f;document.getElementById('modecap').textContent=m.cap;
+ document.querySelectorAll('#modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===m.id))};
+const mb=document.getElementById('modes');
+mb.innerHTML=modes.map(m=>`<button type="button" data-id="${m.id}" aria-pressed="false">${m.name}</button>`).join('');
+mb.addEventListener('click',e=>{const b=e.target.closest('button');if(b)draw(modes.find(m=>m.id===b.dataset.id))});
+draw(modes[1]);
+
+const starter=[
+ ["Super Mario Land 2","Game Boy","Original DMG"],["Link's Awakening DX","Game Boy Color","Analogue ↔ Original GBC"],["Metroid II: Return of Samus","Game Boy","Original Light"],
+ ["Metroid Fusion","GBA","Analogue GBA"],["Castlevania: Aria of Sorrow","GBA","Analogue GBA"],["Golden Sun","GBA","GBA SP"],
+ ["Sonic Triple Trouble","Game Gear","Original GG+"],["SNK vs Capcom: Card Fighters' Clash","Neo Geo Pocket Color","Original NGPC+"],
+ ["Blue Lightning","Atari Lynx","Original Lynx"],["Soldier Blade","PC Engine","CRT Trinitron"]];
+document.getElementById('starter').innerHTML=starter.map(s=>`<li><b>${s[0]}</b><small>${s[1]}</small><br><span class="tag">${s[2]}</span></li>`).join('');
+
+const bars=[["GB / GBC","160×144","×10",1600,1440],["Game Gear","160×144","×10",1600,1440],["PC Engine / TG16","256×224","×6",1536,1344],["Neo Geo Pocket","160×152","×9",1440,1368],["Atari Lynx","160×102","×10",1600,1020],["WonderSwan (core)","224×144","×7",1568,1008],["Pokémon Mini (core)","96×64","×16",1536,1024],["GBA","240×160","×6",1440,960]];
+document.getElementById('bars').innerHTML=bars.map(b=>{const p=b[3]*b[4]/(1600*1440)*100;return `<div class="bar"><span><b>${b[0]}</b> ${b[2]}</span><div class="tr" role="img" aria-label="${p.toFixed(0)} percent"><i style="width:${p.toFixed(1)}%"></i></div><span class="n">${b[3]}×${b[4]} · ${p.toFixed(0)}%</span></div>`}).join('');
+
+const sys=[
+ {id:"gb",name:"Game Boy",how:"Built in",modes:["Analogue GB","Original DMG","Original GBP","Original Light"],intro:"Four shades at 10× is where the Pocket started. The LCD modes recreate each model's tint and pixel grid, so the same cart feels like three different handhelds.",games:[
+  ["Super Mario Land 2: 6 Golden Coins","Big, chunky sprites and a detailed overworld — the cleanest demo of the 10× grid.","Original DMG"],
+  ["The Legend of Zelda: Link's Awakening","Dense dungeon tiles read beautifully; the green panel makes it feel like 1993.","Original DMG"],
+  ["Metroid II: Return of Samus","Sparse, moody caverns that suit a glowing backlight.","Original Light"],
+  ["Wario Land: Super Mario Land 3","Large, expressive animation that holds up at any scale.","Original GBP"],
+  ["Kirby's Dream Land 2","Soft four-tone shading — try it with a custom palette.","Analogue GB"],
+  ["Gargoyle's Quest","Brooding, detailed overworld and side-scrolling stages that make the most of four shades.","Original DMG"],
+  ["Tetris","The baseline: every block shows the grid recreation up close.","Original GBP"],
+  ["Chikyuu Kaihou Gun ZAS","Known for flickering to fake extra shades — the frame-blending test cart.","Blending on"]]},
+ {id:"gbc",name:"Game Boy Color",how:"Built in",modes:["Analogue GBC","Original GBC LCD","Original GBC LCD+"],intro:"GBC art was tuned for a dim, unlit panel. Analogue GBC shows the raw, often over-saturated data; Original GBC LCD desaturates it back; LCD+ keeps raw colour but adds the grid.",games:[
+  ["Link's Awakening DX","The best A/B test for raw versus as-designed colour.","Analogue ↔ Original GBC"],
+  ["Oracle of Seasons / Ages","Season swaps repaint whole screens — lovely with the grid.","Original GBC LCD+"],
+  ["Wario Land 3","Lush layered backgrounds and day/night palettes.","Original GBC LCD"],
+  ["Pokémon Crystal","Animated battle sprites; caves and night areas look truer desaturated.","Original GBC LCD"],
+  ["Shantae","WayForward's late-era showpiece with huge animation counts.","Analogue GBC"],
+  ["Alone in the Dark: The New Nightmare","Pre-rendered, high-colour backgrounds that stretch the hardware.","Analogue GBC"],
+  ["Tetris DX","Clean colour blocks — the ideal cart to leave in the slot.","Original GBC LCD+"],
+  ["Metal Gear Solid (Ghost Babel)","Detailed top-down environments with fine shading.","Original GBC LCD"]]},
+ {id:"gba",name:"Game Boy Advance",how:"Built in",modes:["Analogue GBA","Original GBA","GBA SP (AGS-101)"],intro:"6× integer leaves letterboxing, but detail density is the highest of any cart system here. Colour behaviour varies by era: early games were made for a dark screen, later ones for a backlit SP.",games:[
+  ["Metroid Fusion","Lighting, atmosphere and enemy animation that look better than they ever did on the original.","Analogue GBA"],
+  ["Castlevania: Aria of Sorrow","Lavish gothic backgrounds — cracked barrels, waterfalls, overgrown brick.","Analogue GBA"],
+  ["Castlevania: Circle of the Moon","Infamously too dark on the original GBA; the bright raw mode finally shows it.","Analogue GBA"],
+  ["Castlevania: Harmony of Dissonance","Over-brightened to fight the unlit screen; Original GBA tames the glare.","Original GBA"],
+  ["Golden Sun / The Lost Age","Psynergy effects and pseudo-3D summons — peak GBA spectacle.","GBA SP"],
+  ["The Legend of Zelda: The Minish Cap","Some of the richest sprite art on the system.","Analogue GBA"],
+  ["Final Fantasy VI Advance","Huge, detailed enemy sprites and painterly backgrounds.","GBA SP"],
+  ["Sonic Advance 2","Pure speed; variable refresh keeps fast scrolling smooth.","Analogue GBA"]]},
+ {id:"gg",name:"Game Gear",how:"GG adapter (sold alone)",modes:["Analogue GG","Original GG","Original GG+"],intro:"Same 160×144 as the Game Boy, so it also fills the panel at 10×, but with a 4,096-colour palette. The adapter even accepts the original Master System converter.",games:[
+  ["Sonic Triple Trouble","Bright zones and smooth scrolling, edge to edge.","Original GG+"],
+  ["Shinobi II: The Silent Fury","Moody stage art and some of the best colour work on the system.","Analogue GG"],
+  ["Gunstar Heroes","Treasure's effects-heavy action squeezed onto 8-bit hardware.","Analogue GG"],
+  ["Power Strike II (GG Aleste II)","Fast, busy shmup — try tate rotation off and on.","Original GG"],
+  ["Defenders of Oasis","Rich RPG palettes and large battle portraits.","Original GG+"],
+  ["Ristar","Big, colourful character sprite with tons of animation.","Analogue GG"],
+  ["Streets of Rage 2","Chunky fighters that read well at 10×.","Original GG"],
+  ["Wonder Boy: The Dragon's Trap","A great port of the Master System classic.","Original GG+"]]},
+ {id:"ngp",name:"Neo Geo Pocket / Color",how:"Adapter set",modes:["Analogue NGPC","Original NGPC","Original NGPC+","Original NGP"],intro:"9× scale fills 85% of the panel. SNK's pixel artists made the most of a small palette, and there's a dedicated mode for the monochrome original.",games:[
+  ["SNK vs Capcom: Card Fighters' Clash","Charming card art; the sequel is playable fan-translated via flash cart.","Original NGPC+"],
+  ["SNK vs Capcom: Match of the Millennium","Super-deformed fighters with remarkable animation.","Analogue NGPC"],
+  ["Metal Slug 1st & 2nd Mission","Metal Slug's detail, shrunk without losing charm.","Original NGPC"],
+  ["Sonic the Hedgehog Pocket Adventure","Fast and colourful; a great clicky-stick test too.","Analogue NGPC"],
+  ["Faselei!","Tactical mech RPG with detailed portraits.","Original NGPC+"],
+  ["Biomotor Unitron","Clean RPG sprite work.","Original NGPC"],
+  ["King of Fighters R-1 / Samurai Shodown!","Monochrome originals — the reason the NGP mode exists.","Original NGP"]]},
+ {id:"lynx",name:"Atari Lynx",how:"Adapter set",modes:["Analogue Lynx","Original Lynx","Original Lynx+"],intro:"160×102 scales to 10× across the full width. The Lynx had hardware sprite scaling and a backlit colour screen in 1989, so its showpieces are about zoom and depth.",games:[
+  ["Blue Lightning","Scaled-sprite jet combat — the original Lynx tech demo.","Original Lynx"],
+  ["S.T.U.N. Runner","Pseudo-3D tunnels that still impress.","Analogue Lynx"],
+  ["Klax","Played vertically: rotate the Pocket.","Original Lynx+"],
+  ["Gauntlet: The Third Encounter","Another vertical game; rotation makes it shine.","Original Lynx"],
+  ["Chip's Challenge","Crisp tile puzzles, perfect for 10×.","Analogue Lynx"],
+  ["California Games","Colourful pack-in sports that still look great.","Original Lynx+"],
+  ["Rampage","Big destructible buildings and monster sprites.","Original Lynx"],
+  ["Todd's Adventures in Slime World","Gooey colour and scrolling; strong showcase of the palette.","Analogue Lynx"],
+  ["Alpine Games","Modern homebrew praised for its graphics.","Analogue Lynx"]]},
+ {id:"pce",name:"PC Engine / TurboGrafx-16 / SuperGrafx",how:"Adapter set · HuCards only",modes:["Analogue TG16","TurboExpress","PC Engine LT","CRT Trinitron"],intro:"A home console in your hand, as the TurboExpress promised. 6× fills 90% of the screen, and the CRT Trinitron mode makes it the most dramatic transformation on the Pocket.",games:[
+  ["Soldier Blade","Fast, flashy shmup with layered effects.","CRT Trinitron"],
+  ["Blazing Lazers (Gunhed)","Relentless sprite count; a stress test for the panel.","CRT Trinitron"],
+  ["Bonk's Revenge","Enormous, cartoony sprites.","Analogue TG16"],
+  ["Devil's Crush","Dark, detailed pinball table art.","CRT Trinitron"],
+  ["R-Type","Arcade-grade sprites on a HuCard.","CRT Trinitron"],
+  ["Bomberman '94","Clean, vibrant multiplayer classic.","Analogue TG16"],
+  ["Neutopia II","Bright top-down adventure colours.","TurboExpress"],
+  ["Ghouls 'n Ghosts (SuperGrafx)","Uses the SuperGrafx's extra layer for depth.","CRT Trinitron"]]},
+ {id:"cores",name:"openFPGA cores (from SD)",how:"ROMs you've dumped",modes:["All Pocket modes","CRT Trinitron","Vacuum Fluorescent"],intro:"Since openFPGA 2.0, community cores can use the Pocket's display modes, and 2.3 added the NGP, NGPC, TG16 and Lynx modes plus a Vacuum Fluorescent one. These run from SD, not carts.",games:[
+  ["WonderSwan Color: Judgement Silversword","Dense shmup; portrait titles use rotation.","LCD mode"],
+  ["WonderSwan: Klonoa: Moonlight Museum","Charming monochrome platformer.","LCD mode"],
+  ["Pokémon Mini: Pokémon Pinball Mini","96×64 blown up 16× — absurdly crisp.","LCD mode"],
+  ["Pokémon Mini: Pokémon Party Mini","Tiny minigames, perfect pick-up-and-play.","LCD mode"],
+  ["Super Game Boy core: Kirby's Dream Land 2","SGB borders and palettes, which the cart slot doesn't give you.","Default"],
+  ["Super Game Boy core: Donkey Kong ('94)","Its SGB colour and border are worth seeing.","Default"]]}
+];
+document.getElementById('systems').innerHTML=sys.map(s=>`<section class="band sys" id="${s.id}"><div class="wrap">
+ <div class="syshead"><div><h2>${s.name}</h2><p class="lede">${s.intro}</p></div><div><p style="margin:0 0 8px;font-size:14px;color:var(--mute)">${s.how} · display modes</p><div class="chips">${s.modes.map(m=>`<span>${m}</span>`).join('')}</div></div></div>
+ <div class="shelf">${s.games.map(g=>`<article class="cart"><h3>${g[0]}</h3><p>${g[1]}</p><span class="tag">Try: ${g[2]}</span></article>`).join('')}</div>
+</div></section>`).join('');
+}
+</script>
+</body>
+</html>
