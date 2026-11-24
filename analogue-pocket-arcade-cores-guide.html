@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analogue Pocket Arcade Cores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a calm owner's manual, practical, confident; same family as the Pocket Starter Guide.
+   IDEA: Analogue's printed user guide, this time the arcade chapter: board by board, then what to actually play.
+   PICTURE: the pink Pocket with its openFPGA Arcade menu lit up; later, a drawn screen-geometry plate for upright vs Tate.
+   COLOUR and TYPE: GB Pocket pink field, deep plum ink, LCD green accent; Archivo 800 titles, Inter body.
+   LAYOUT: pink hero band edge to edge, sticky section links, ruled sections up to 1100px, stacked tables on phones. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#170f14);--ink:light-dark(#1c1218,#f6e9ef);--muted:light-dark(#6d5a64,#b9a3ae);
+--pink:light-dark(#f0a6bf,#7a3a52);--pinkdeep:#d9668d;--plum:light-dark(#3a1f2b,#f3c6d6);
+--rule:light-dark(#ecdfe5,#3a2730);--panel:light-dark(#fbf3f6,#211720);--lcd:#9fd38b;--code:light-dark(#f6eef2,#2a1d25)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration-color:var(--pinkdeep);text-underline-offset:3px}
+.hero{background:var(--pink);color:#2a1520;padding:clamp(28px,5vw,64px) max(5vw,16px)}
+:root[data-theme=dark] .hero{color:#fbe8ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .hero{color:#fbe8ef}}
+.hero-in{max-width:1100px;margin:auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+h1{font:800 clamp(34px,5.2vw,52px)/1.05 Archivo,sans-serif;margin:0 0 16px;text-wrap:balance;letter-spacing:-.01em}
+.lead{font-size:18px;max-width:34em;margin:0 0 20px}
+.meta{font-size:14px;opacity:.8;margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 8px}
+.split div{background:rgba(255,255,255,.45);border-radius:12px;padding:12px 14px}
+:root[data-theme=dark] .split div{background:rgba(0,0,0,.25)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .split div{background:rgba(0,0,0,.25)}}
+.split b{display:block;font:600 14px Archivo,sans-serif;margin-bottom:4px}
+.split span{font-size:14px;line-height:1.45}
+.fig{position:relative;aspect-ratio:300/440;max-height:440px;justify-self:center;width:100%;max-width:300px}
+.fig svg{width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(60,20,40,.25))}
+.lcd{font:600 13px Inter,sans-serif;fill:#cfe9c4}.lcd.sel{fill:#ffffff}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+nav .scroll{display:flex;gap:4px;max-width:1100px;margin:auto;padding:8px max(5vw,16px);white-space:nowrap}
+nav a{flex:none;padding:10px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600;min-height:44px;display:flex;align-items:center}
+nav a:hover,nav a:focus-visible{background:var(--panel);outline:2px solid var(--pinkdeep);outline-offset:-2px}
+@media(max-width:900px){nav{position:static}}
+main{max-width:1100px;margin:auto}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px);border-bottom:1px solid var(--rule)}
+h2{font:800 clamp(26px,3.4vw,34px)/1.1 Archivo,sans-serif;margin:0 0 14px;text-wrap:balance}
+h3{font:600 20px/1.25 Archivo,sans-serif;margin:28px 0 10px}
+p,li{max-width:72ch}
+li{margin:6px 0}
+ol{padding-left:1.4em}ol li::marker{font-weight:700;color:var(--pinkdeep)}
+code{background:var(--code);padding:1px 5px;border-radius:5px;font-size:.9em;overflow-wrap:anywhere}
+.src{font-size:14px;color:var(--muted)}
+pre,.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}
+th{text-align:left;font:600 14px Archivo,sans-serif;background:var(--panel);padding:10px 12px;border-bottom:2px solid var(--pinkdeep)}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td:first-child{font-weight:600}
+td strong,p strong.pk{background:var(--pink);color:#2a1520;padding:1px 7px;border-radius:6px}
+:root[data-theme=dark] td strong{color:#fbe8ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) td strong{color:#fbe8ef}}
+.st{display:inline-block;font:600 12px/1 Inter,sans-serif;padding:5px 8px;border-radius:999px;white-space:nowrap;margin:1px 0;border:1.5px solid var(--plum)}
+.st.m{background:var(--plum);color:var(--bg)}
+.st.s{background:var(--pink);color:#2a1520;border-color:var(--pink)}
+.st.e{background:transparent;color:var(--ink)}
+.st.b{background:transparent;color:var(--ink);border-style:dashed}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted);margin:8px 0 4px}
+.legend span{display:flex;gap:8px;align-items:center}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:18px}
+.pick{background:var(--panel);border-radius:14px;padding:16px 18px}
+.pick h3{margin:0 0 8px}
+.pick ul{margin:0;padding-left:1.1em}
+.pick li{margin:5px 0;font-size:15px}
+.pick li span{color:var(--muted);font-size:13px}
+.plate{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 6px;max-width:760px}
+.plate figure{margin:0;background:var(--panel);border-radius:14px;padding:14px;text-align:center}
+.plate svg{width:100%;height:auto;max-height:190px;display:block}
+.plate figcaption{font-size:14px;margin-top:8px}
+.plate b{display:block;font:600 15px Archivo,sans-serif}
+.callout{background:var(--panel);border-radius:14px;padding:14px 18px;margin:16px 0;max-width:78ch}
+@media(max-width:760px){.hero-in{grid-template-columns:1fr}.fig{max-width:220px;order:-1}}
+@media(max-width:600px){table{font-size:13px}.split,.plate{grid-template-columns:1fr}.plate{max-width:320px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--muted);font-size:12px;font-weight:400}.stack td:empty{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.blink{animation:none!important}}
+.blink{animation:bl 1.2s steps(2) infinite}@keyframes bl{50%{opacity:0}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="hero"><div class="hero-in">
+<div>
+<h1>Analogue Pocket Arcade Cores</h1>
+<p class="lead">Start with JOTEGO's free Capcom CPS1, CPS1.5 and CPS2 cores, then add Frazilpop's Cave and Toaplan V2 cores for shmups and NeoMillie for Neo Geo. Treat the late-2026 wave (Taito F3, Psikyo, System 32, Namco System 11) as betas worth trying, not foundations.</p>
+<div class="split">
+<div><b>Install first</b><span>CPS1/1.5/2, Sega System 16/16B/18 and Out Run, JOTEGO's Konami cores, Cave 68000, Toaplan V2, Raizing, Irem M72/M92, NeoMillie</span></div>
+<div><b>Try, but keep expectations low</b><span>Taito F3, Psikyo (only Tengai tested), System 32 (two games), Namco System 11, Tekken 3, System C (no samples yet)</span></div>
+</div>
+<p class="meta">Researched 24 November 2026 against the openFPGA cores inventory (updated 23 Nov 2026) and JOTEGO's Pocket builds of 15 Nov 2026.</p>
+</div>
+<div class="fig" role="img" aria-label="A pink Analogue Pocket showing the openFPGA Arcade menu with CPS-2, Cave 68000, Toaplan V2, Neo Geo, System 16B and Taito F3">
+<svg viewBox="0 0 300 440" aria-hidden="true">
+<defs><linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#f7bcd0"/><stop offset=".55" stop-color="#ec97b4"/><stop offset="1" stop-color="#d9789b"/></linearGradient>
+<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2a30"/><stop offset="1" stop-color="#0f0f12"/></linearGradient></defs>
+<rect x="18" y="12" width="264" height="416" rx="26" fill="#c45f85"/>
+<rect x="14" y="6" width="264" height="416" rx="26" fill="url(#sh)"/>
+<rect x="30" y="24" width="232" height="232" rx="10" fill="url(#gl)"/>
+<rect x="62" y="56" width="168" height="168" rx="2" fill="#1d3a2a"/>
+<text x="76" y="80" class="lcd" style="font-size:11px;fill:#9fd38b">openFPGA  &#183;  Arcade</text>
+<rect x="91" y="92" width="130" height="18" rx="3" fill="#3f7a52" opacity=".55"/>
+<text x="98" y="104" class="lcd sel">&#9656; CPS-2</text><text x="98" y="126" class="lcd">  Cave 68000</text><text x="98" y="148" class="lcd">  Toaplan V2</text><text x="98" y="170" class="lcd">  Neo Geo</text><text x="98" y="192" class="lcd">  System 16B</text><text x="98" y="214" class="lcd">  Taito F3</text>
+<text x="196" y="218" class="lcd blink" style="fill:#9fd38b">&#9632;</text>
+<g fill="#2a1520" opacity=".9">
+<rect x="58" y="300" width="22" height="66" rx="5"/><rect x="36" y="322" width="66" height="22" rx="5"/>
+<circle cx="214" cy="306" r="15"/><circle cx="246" cy="290" r="15"/><circle cx="182" cy="322" r="15"/><circle cx="214" cy="338" r="15"/>
+<rect x="104" y="392" width="26" height="8" rx="4"/><rect x="170" y="392" width="26" height="8" rx="4"/>
+</g>
+<circle cx="150" cy="278" r="9" fill="#f7d3df" stroke="#c45f85" stroke-width="2"/>
+<rect x="22" y="12" width="250" height="3" rx="1.5" fill="#fff" opacity=".45"/>
+</svg>
+</div>
+</div></header>
+<nav aria-label="Sections"><div class="scroll"><a href="#shortlist">Shortlist</a><a href="#capcom">Capcom CPS</a><a href="#neogeo">Neo Geo</a><a href="#konami">Konami</a><a href="#sega">Sega</a><a href="#shmups">Shmup boards</a><a href="#more">More boards</a><a href="#games">Best games</a><a href="#setup">ROM setup</a><a href="#display">Screen &amp; controls</a><a href="#which-device">Which device</a><a href="#watch">Gotchas</a></div></nav>
+<main>
+
+<section class="band"><h2 id="shortlist">The shortlist</h2>
+<p>The inventory lists 250 arcade cores for the Pocket (243 plus seven Analogizer variants). JOTEGO alone accounts for 87 of them. These are the ones that matter, ranked by how much good arcade they unlock and how finished they are.</p>
+<div class="legend"><span><i class="st m">Mature</i> public for a year or more, widely used</span><span><i class="st s">Solid</i> new but checked against MAME or tested game by game</span><span><i class="st e">Early</i> playable, few games tested, expect bugs</span><span><i class="st b">Patreon</i> needs a beta key</span></div>
+<table class="stack">
+<thead><tr><th>Core</th><th>Author, version</th><th>Status</th><th>What it unlocks</th></tr></thead>
+<tbody>
+<tr><td>CPS2 <code>jtcps2</code></td><td>JOTEGO, 15 Nov 2026 build</td><td><i class="st m">Mature</i></td><td>40 main titles: the Street Fighter Alpha and Super SF2 line, Darkstalkers, Marvel games, both D&amp;D beat 'em ups, Alien vs. Predator, Progear, 19XX, 1944, Giga Wing, Mars Matrix, Puzzle Fighter</td></tr>
+<tr><td>CPS1 <code>jtcps1</code></td><td>JOTEGO</td><td><i class="st m">Mature</i></td><td>33 titles: Final Fight, Strider, Ghouls'n Ghosts, Captain Commando, Knights of the Round, King of Dragons, Mercs, U.N. Squadron, every CPS1 Street Fighter II</td></tr>
+<tr><td>CPS1.5 <code>jtcps15</code></td><td>JOTEGO</td><td><i class="st m">Mature</i></td><td>Cadillacs and Dinosaurs, The Punisher, Warriors of Fate, Saturday Night Slam Masters, Muscle Bomber Duo</td></tr>
+<tr><td>Sega System 16 / 16B / 18, Out Run</td><td>JOTEGO (<code>jts16</code>, <code>jts16b</code>, <code>jts18</code>, <code>jtoutrun</code>, <code>jtshanon</code>)</td><td><i class="st m">Mature</i></td><td>Shinobi, Golden Axe, Altered Beast, Alien Syndrome, Wonder Boy III, Shadow Dancer, Alien Storm, D.D. Crew, Moonwalker, Out Run, Turbo Out Run, Super Hang-On</td></tr>
+<tr><td>Konami (JOTEGO set)</td><td>JOTEGO (<code>jttmnt</code>, <code>jtriders</code>, <code>jtsimson</code>, <code>jtxmen</code>, <code>jtparoda</code>, <code>jtcontra</code> and more)</td><td><i class="st m">Mature</i></td><td>TMNT, Turtles in Time, Sunset Riders, The Simpsons, Vendetta, X-Men, Parodius Da!, Contra, Haunted Castle, Vulcan Venture</td></tr>
+<tr><td>Cave 68000</td><td>Frazilpop v1.1.2, 5 Nov 2026</td><td><i class="st s">Solid</i></td><td>DonPachi, DoDonPachi, ESP Ra.De., Guwange, Dangun Feveron, Puzzle Uo Poko and four more. Checked against MAME in simulation, with a Tate setting</td></tr>
+<tr><td>Toaplan V2</td><td>Frazilpop v1.0.2, 4 Nov 2026</td><td><i class="st s">Solid</i></td><td>Batsugun, Dogyuun, FixEight, Grind Stormer, Knuckle Bash</td></tr>
+<tr><td>Raizing / Toaplan (Coin-Op Collection)</td><td>pram0d, atrac17, coc (free cores)</td><td><i class="st m">Mature</i></td><td>Battle Garegga, Armed Police Batrider, Battle Bakraid, Sorcer Striker, Truxton II, Twin Cobra, Flying Shark, Zero Wing, Snow Bros. 1 and 2</td></tr>
+<tr><td>NeoMillie</td><td>uniplexed v0.6.0, 15 Nov 2026</td><td><i class="st s">Solid</i></td><td>Neo Geo MVS/AES from the current MiSTer RTL, plus a Neo Geo CD core. Replaces Mazamars312's 2023 core</td></tr>
+<tr><td>Irem M72 / M92</td><td>opengateware</td><td><i class="st m">Mature</i></td><td>R-Type, R-Type II, Image Fight, Ninja Spirit, Hammerin' Harry; In the Hunt, R-Type Leo, Gunforce, Ninja Baseball Bat Man, Undercover Cops</td></tr>
+<tr><td>Data East DECO-16 (Coin-Op Collection)</td><td>coc, Jul to Aug 2026</td><td><i class="st s">Solid</i></td><td>Caveman Ninja, Crude Buster, Edward Randy, Vapor Trail, Tumble Pop, Wizard Fire, Rohga, Robocop 2</td></tr>
+<tr><td>Taito F3 (SpaceFish)</td><td>DanimanX v1.0.1, 17 Nov 2026</td><td><i class="st e">Early</i></td><td>Darius Gaiden, Ray Force, Elevator Action Returns, Bubble Bobble II, Puzzle Bobble 2 to 4, Cleopatra Fortune, Kaiser Knuckle: 36 games listed as supported</td></tr>
+<tr><td>Konami pre-GX</td><td>mmmax4 v0.4.0, 8 Nov 2026</td><td><i class="st e">Early</i></td><td>Mystic Warriors, Violent Storm, Metamorphic Force, Gaiapolis, each tested on a Pocket</td></tr>
+</tbody></table>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/openfpga-cores-inventory/analogue-pocket">openFPGA cores inventory data</a> (core counts, versions, dates), <a rel="noopener" href="https://github.com/jotego/jtbin">jtbin</a> Pocket game files (game lists), each core's README (linked in its section).</p>
+</section>
+
+<section class="band"><h2 id="capcom">Capcom CPS1, CPS1.5 and CPS2</h2>
+<p>JOTEGO's three CPS cores are the reason to put arcade on a Pocket at all. All three are public and free (CPS2 since October 2023) and are rebuilt alongside the MiSTer versions; the current Pocket builds are dated 15 November 2026. The Pocket game list is the full mainline library, with regional versions in <code>_alternatives</code>.</p>
+<table class="stack">
+<thead><tr><th>Core</th><th>Games on the Pocket</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>CPS1 (<code>jtcps1</code>)</td><td>1941, Captain Commando, Carrier Air Wing, Dynasty Wars, Final Fight, Forgotten Worlds, Ghouls'n Ghosts, Knights of the Round, Magic Sword, Mega Man: The Power Battle, Mega Twins, Mercs, Nemo, Pang! 3, Quiz &amp; Dragons, Street Fighter II (World Warrior, Champion Edition, Hyper Fighting), Street Fighter Zero (CPS Changer), Strider, The King of Dragons, Three Wonders, U.N. Squadron, Varth, Willow, plus Japan-only quiz and puzzle games</td><td>Mercs and Varth are vertical. Street Fighter II needs six buttons, so two attacks sit on L and R</td></tr>
+<tr><td>CPS1.5 (<code>jtcps15</code>)</td><td>Cadillacs and Dinosaurs, The Punisher, Warriors of Fate, Saturday Night Slam Masters, Muscle Bomber Duo, Tenchi wo Kurau II</td><td>The Q-Sound boards. Three of the best beat 'em ups Capcom made</td></tr>
+<tr><td>CPS2 (<code>jtcps2</code>)</td><td>1944, 19XX, Alien vs. Predator, Armored Warriors, Battle Circuit, Cyberbots, Darkstalkers, Night Warriors, Vampire Savior, D&amp;D Tower of Doom, D&amp;D Shadow over Mystara, Eco Fighters, Giga Wing, Mars Matrix, Dimahoo, Progear, Marvel Super Heroes, X-Men: Children of the Atom, X-Men vs. Street Fighter, Marvel Super Heroes vs. Street Fighter, Marvel vs. Capcom, Street Fighter Alpha 1 to 3, Super SF2 and Super Turbo, Hyper SF2, Ring of Destruction, Super Puzzle Fighter II Turbo, Super Gem Fighter, Puzz Loop 2, Mighty! Pang, Mega Man 2: The Power Fighters, Capcom Sports Club</td><td>40 main titles and 280 alternative sets. 19XX, Giga Wing, Mars Matrix and Dimahoo are vertical; Progear and 1944 are horizontal</td></tr>
+</tbody></table>
+<ul>
+<li><strong>No CPS3.</strong> JOTEGO doesn't build Street Fighter III for the Pocket; his build config gives "not enough BRAM" as the reason. Play SF3 on an Android handheld.</li>
+<li><strong>CPS2 settings live in NVRAM, not DIP switches.</strong> Set difficulty and lives in the game's test menu; the core saves NVRAM per game to <code>Saves/</code>.</li>
+<li><strong>Extra games.</strong> <a rel="noopener" href="https://github.com/dyreschlock/pocket-extras">pocket-extras</a> adds MRA/JSON pairs for conversions and hacks that run on the released cores, such as Final Fight 30th Anniversary Edition and CPS1 games converted to CPS2.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://timeextension.com/news/2023/10/cadillacs-and-dinosaurs-the-punisher-and-bubble-bobble-come-to-analogue-pocket">Time Extension on CPS2 going public</a>, <a rel="noopener" href="https://github.com/jotego/jtbin">jtbin Pocket files</a>, <a rel="noopener" href="https://cartandpixel.com/articles/analogue-pocket-openfpga-cores-guide/">Cart &amp; Pixel 2026 guide</a> (CPS3), <a rel="noopener" href="https://github.com/jotego/jtcps">jtcps README</a> (NVRAM).</p>
+</section>
+
+<section class="band"><h2 id="neogeo">Neo Geo</h2>
+<p>Switch to <strong class="pk">NeoMillie</strong>. Mazamars312's core was the only option for three years, but it hasn't changed since January 2023. NeoMillie is ported from the current MiSTer Neo Geo RTL and reads the same Darksoft-format ROM folders and BIOS, so you can install it alongside and move over without rebuilding anything.</p>
+<table class="stack">
+<thead><tr><th></th><th>NeoMillie (uniplexed)</th><th>Neo Geo (Mazamars312)</th></tr></thead>
+<tbody>
+<tr><td>Latest</td><td>v0.6.0, 15 Nov 2026</td><td>v0.8.1, 17 Jan 2023</td></tr>
+<tr><td>Base</td><td>Current MiSTer Neo Geo RTL with a new Pocket hardware layer; JOTEGO's current YM2610</td><td>Furrtek's MiSTer core as it was in 2022</td></tr>
+<tr><td>Modes</td><td>MVS and AES, region via UniBIOS, MVS DIP switches, plus a separate Neo Geo CD core (CDZ 2× and a beta 4× read)</td><td>MVS and AES; switching reboots the core</td></tr>
+<tr><td>Extras</td><td>68000 overclock to 16 or 24 MHz to cut slowdown, L/R as A+B and C+D, stereo mix, per-channel mute</td><td>None</td></tr>
+<tr><td>Fixes</td><td>SMA-chip timing fix for KOF '99, Garou, Metal Slug 3 and KOF 2000</td><td>Known sprite glitches in Art of Fighting; the clock doesn't work</td></tr>
+<tr><td>Saves</td><td>Memory card written on Quit or Reset Core; no Memories listed</td><td>No Memories; delete saves over 8 KB if you hit error 257</td></tr>
+<tr><td>Testing</td><td>One Pocket. Logged: Metal Slug 1 to 3 and X, KOF '94, '98 and 2003, Garou, SVC Chaos, Samurai Shodown V Special, Fatal Fury 3</td><td>Years of community use</td></tr>
+</tbody></table>
+<p>Setup for both: <code>uni-bios_4_0.rom</code>, <code>000-lo.lo</code> and <code>sfix.sfix</code> in <code>Assets/ng/common/</code>, one Darksoft-layout folder per game. MAME zips don't work directly.</p>
+<p>Neo Geo fighters want four buttons in a row, which the Pocket's diamond doesn't give you. The run-and-guns (Metal Slug, Shock Troopers), Twinkle Star Sprites, Pulstar and Puzzle Bobble suit it better than the fighters do.</p>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/uniplexed/neomillie">NeoMillie README</a>, <a rel="noopener" href="https://github.com/uniplexed/neomillie/releases/tag/cart-v0.5.1">NeoMillie 0.5.1 notes</a>, <a rel="noopener" href="https://github.com/Mazamars312/Analogue_Pocket_Neogeo">Mazamars312 README</a>.</p>
+</section>
+
+<section class="band"><h2 id="konami">Konami</h2>
+<p>JOTEGO has the deepest Konami coverage of any FPGA platform, and nearly all of it is public on the Pocket. The four-player beat 'em ups play two-player on the Dock, or one-player handheld.</p>
+<table class="stack">
+<thead><tr><th>Core</th><th>Games</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><code>jttmnt</code></td><td>Teenage Mutant Ninja Turtles, Punk Shot, M.I.A., Thunder Cross II</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtriders</code></td><td>Sunset Riders, TMNT: Turtles in Time, Lightning Fighters, Golfing Greats</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtsimson</code></td><td>The Simpsons, Vendetta, Escape Kids</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtxmen</code></td><td>X-Men (four-player version)</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtaliens</code></td><td>Aliens, Crime Fighters, Super Contra, Gang Busters, Thunder Cross</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtparoda</code></td><td>Parodius Da!, Surprise Attack</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jttwin16</code></td><td>Vulcan Venture (Gradius II's Western name), Devil World</td><td><i class="st m">Mature</i></td></tr>
+<tr><td><code>jtcontra</code>, <code>jtcastle</code>, <code>jtcomsc</code>, <code>jtrungun</code>, <code>jtajax</code></td><td>Contra, Haunted Castle, Combat School, Run and Gun, Ajax</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Early Konami</td><td>Yie Ar Kung-Fu, Circus Charlie, Track &amp; Field, Hyper Sports, Mikie, Roc'n Rope, Mega Zone, Konami's Ping-Pong (JOTEGO); Green Beret, Pooyan, Gyruss, Jailbreak (other authors); Time Pilot and Time Pilot '84 (plasticbugs, 2026)</td><td><i class="st m">Mature</i> / <i class="st s">Solid</i></td></tr>
+<tr><td><code>jtgrad3</code>, <code>jt88game</code>, <code>jtroller</code></td><td>Gradius III, '88 Games, Rollergames</td><td><i class="st b">Patreon</i></td></tr>
+<tr><td>Konami pre-GX (mmmax4)</td><td>Mystic Warriors, Violent Storm, Metamorphic Force, Gaiapolis; Martial Champion and Monster Maulers planned</td><td><i class="st e">Early</i></td></tr>
+<tr><td>G.I. Joe (Coin-Op Collection)</td><td>G.I. Joe: A Real American Hero on the Xexex platform</td><td><i class="st s">Solid</i></td></tr>
+<tr><td>Moo Mesa (plasticbugs)</td><td>Wild West C.O.W.-Boys of Moo Mesa, checked pixel for pixel against MAME</td><td><i class="st e">Early</i></td></tr>
+</tbody></table>
+<p>Two Turtles in Time builds exist: JOTEGO's <code>jtriders</code> and the Coin-Op Collection's <code>pram0d.tmnt2</code>. Either is fine; keep one so the menu stays tidy.</p>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/jotego/jtbin">jtbin Pocket files</a>, <a rel="noopener" href="https://github.com/mmmax4/openFPGA-Konami-PreGX">Konami pre-GX README</a>, <a rel="noopener" href="https://github.com/plasticbugs/moomesa">Moo Mesa</a>.</p>
+</section>
+
+<section class="band"><h2 id="sega">Sega</h2>
+<table class="stack">
+<thead><tr><th>Board</th><th>Core</th><th>Games</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>System 16A</td><td>JOTEGO <code>jts16</code></td><td>Shinobi, Fantasy Zone, Alex Kidd: The Lost Stars, Tetris, Quartet, SDI, Action Fighter</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>System 16B</td><td>JOTEGO <code>jts16b</code></td><td>Golden Axe, Altered Beast, Alien Syndrome, Wonder Boy III: Monster Lair, ESWAT, Dynamite Dux, Aurail, Cotton, Fantasy Zone II, Riot City, Tough Turf, Wrestle War, Passing Shot and 12 more</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>System 18</td><td>JOTEGO <code>jts18</code></td><td>Shadow Dancer, Alien Storm, D.D. Crew, Moonwalker, Desert Breaker, Laser Ghost, Clockwork Aquario, Bloxeed</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Out Run / Hang-On</td><td>JOTEGO <code>jtoutrun</code>, <code>jtshanon</code></td><td>Out Run, Turbo Out Run, Super Hang-On</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Space Harrier board</td><td>JOTEGO <code>jtharier</code></td><td>Space Harrier, Hang-On, Enduro Racer</td><td><i class="st b">Patreon</i></td></tr>
+<tr><td>System 1 / 2</td><td>opengateware or finn2k1</td><td>Wonder Boy, Choplifter, Sega Ninja, Flicky and the rest of the Z80 era</td><td><i class="st s">Solid</i></td></tr>
+<tr><td>System C / C2</td><td>finn2k1 v0.20 or opengateware</td><td>Columns, Bloxeed, Tant-R, Ichidant-R. finn2k1's doesn't play ADPCM samples yet</td><td><i class="st e">Early</i></td></tr>
+<tr><td>System 32</td><td>mmnbass v0.1.0, 21 Nov 2026</td><td>Golden Axe: The Revenge of Death Adder, Spider-Man: The Video Game; two-player run-throughs on a Pocket; no high-score saving</td><td><i class="st e">Early</i></td></tr>
+</tbody></table>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/jotego/jtbin">jtbin Pocket files</a>, <a rel="noopener" href="https://www.timeextension.com/news/2023/07/sega-system-16b-arcade-games-come-to-analogue-pocket">Time Extension on System 16B</a>, <a rel="noopener" href="https://github.com/mmnbass/openfpga-System32">System 32 README</a>, <a rel="noopener" href="https://github.com/finner/openFPGA-SEGASYSC">System C README</a>.</p>
+</section>
+
+<section class="band"><h2 id="shmups">Shmup boards</h2>
+<p>This is where the Pocket arcade scene grew most in 2026. The near-square screen also helps: a vertical game loses less on a Pocket than on a wide handheld (see <a href="#display">Screen &amp; controls</a>).</p>
+<table class="stack">
+<thead><tr><th>Board</th><th>Core</th><th>Games</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Cave first generation</td><td>Frazilpop Cave 68000 v1.1.2</td><td>DonPachi, DoDonPachi, ESP Ra.De., Guwange, Dangun Feveron, Air Gallet, Gaia Crusaders, Thunder Heroes, Puzzle Uo Poko, Sailor Moon. Slowdown matches the board frame for frame. R is rapid fire</td><td><i class="st s">Solid</i></td></tr>
+<tr><td>Toaplan V2</td><td>Frazilpop Toaplan V2 v1.0.2</td><td>Batsugun (and Special Version), Dogyuun, Grind Stormer / V-Five, FixEight (three players on the Dock), Knuckle Bash</td><td><i class="st s">Solid</i></td></tr>
+<tr><td>Toaplan V2 (separate cores)</td><td>atrac17</td><td>Truxton II, Whoopee!, Teki Paki</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Raizing (GP9001)</td><td>pram0d</td><td>Battle Garegga, Armed Police Batrider, Battle Bakraid, Sorcer Striker, Kingdom Grandprix</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Toaplan V1 and Twin Cobra</td><td>Coin-Op Collection</td><td>Zero Wing, Demon's World, Twin Cobra, Flying Shark, Wardner. Twin Cobra left beta in Dec 2025, when its developer called the Pocket build ahead of the MiSTer one</td><td><i class="st s">Solid</i></td></tr>
+<tr><td>Taito F3</td><td>DanimanX SpaceFish v1.0.1</td><td>Darius Gaiden, Ray Force (Layer Section), Gekirindan, Grid Seeker, Twin Cobra II, plus F3's puzzle games</td><td><i class="st e">Early</i></td></tr>
+<tr><td>Psikyo 68k</td><td>DanimanX TengaiPoketto v1.0.0</td><td>Targets Samurai Aces, Gunbird, Strikers 1945, Tengai, Battle K-Road. Only Tengai has booted on hardware</td><td><i class="st e">Early</i></td></tr>
+<tr><td>Irem M72</td><td>opengateware</td><td>R-Type, R-Type II, Image Fight, X Multiply, Dragon Breed, Air Duel, Mr. Heli, Ninja Spirit, Legend of Hero Tonma, Gallop, Hammerin' Harry</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Irem M92</td><td>opengateware</td><td>In the Hunt, R-Type Leo, Gunforce, Gunforce II, Lethal Thunder, Blade Master, Mystic Riders, Hook, Ninja Baseball Bat Man, Undercover Cops</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>Capcom</td><td>JOTEGO</td><td>1942, 1943, 1943 Kai, Commando, Exed Exes, Section Z, Legendary Wings, Side Arms, Gun.Smoke, plus the CPS shooters above</td><td><i class="st m">Mature</i></td></tr>
+<tr><td>NMK / Banpresto</td><td>August</td><td>Macross, Macross II, Mazinger Z</td><td><i class="st e">Early</i></td></tr>
+<tr><td>Seta and Taito X</td><td>JOTEGO <code>jtcal50</code>, <code>jtarblst</code>, <code>jttaitox</code></td><td>Caliber 50, Arbalester, Meta Fox; Twin Hawk, Superman, Gigandes (Taito X needs the beta key)</td><td><i class="st m">Mature</i> / <i class="st b">Patreon</i></td></tr>
+</tbody></table>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/Frazilpop/Cave-68000-Pocket">Cave 68000 README</a>, <a rel="noopener" href="https://github.com/Frazilpop/Toaplan-V2-Pocket">Toaplan V2 README</a>, <a rel="noopener" href="https://github.com/DanimanX/SpaceFish">SpaceFish README</a>, <a rel="noopener" href="https://github.com/DanimanX/TengaiPoketto">TengaiPoketto README</a>, <a rel="noopener" href="https://www.patreon.com/posts/145440329">Coin-Op Collection: Twin Cobra release</a>, <a rel="noopener" href="https://github.com/opengateware/arcade-irem_m72">M72</a> and <a rel="noopener" href="https://github.com/opengateware/arcade-irem_m92">M92</a> repos.</p>
+</section>
+
+<section class="band"><h2 id="more">More boards worth installing</h2>
+<table class="stack">
+<thead><tr><th>Maker</th><th>Cores</th><th>Highlights</th></tr></thead>
+<tbody>
+<tr><td>Data East</td><td>Coin-Op Collection DECO-16 and DECO-32; JOTEGO <code>jtninja</code>, <code>jtmidres</code>, <code>jtcop</code>, <code>jtslyspy</code>, <code>jtkarnov</code></td><td>Caveman Ninja, Crude Buster, Edward Randy, Dark Seal, Wizard Fire, Rohga, Tumble Pop, Captain America and the Avengers, Bad Dudes, Midnight Resistance, Heavy Barrel, RoboCop, Karnov, Chelnov</td></tr>
+<tr><td>Taito</td><td>JOTEGO <code>jtrastan</code>, <code>jtkiwi</code>, <code>jtbubl</code>, <code>jtvlfied</code>, <code>jtflstory</code>; plasticbugs Cadash and Master of Weapon; antongale System SJ</td><td>Rastan, Rainbow Islands, Operation Wolf (d-pad aiming), The NewZealand Story, Arkanoid: Revenge of DOH, Bubble Bobble, Tokio, Volfied, Cadash, Elevator Action</td></tr>
+<tr><td>Namco</td><td>JOTEGO <code>jtshouse</code> (System 1), <code>jtthundr</code> (System 86), <code>jtpaclan</code>, <code>jtskykid</code>; plasticbugs ND-1 and Pole Position; Namco System 11 (McNast13)</td><td>Splatterhouse, Galaga '88, Dragon Spirit, Pac-Mania, Märchen Maze, Rolling Thunder, Genpei Toumaden, Wonder Momo, Pac-Land, Namco Classic Collection 1 and 2, Tekken 1 and 2, Soul Edge (System 11 is beta)</td></tr>
+<tr><td>Technos</td><td>JOTEGO <code>jtdd</code>, <code>jtdd2</code>, <code>jtkunio</code>, <code>jtwwfss</code>; Coin-Op Double Dragon 3, Combatribes, WrestleFest; RndMnkIII Xain'd Sleena</td><td>Double Dragon 1 to 3, Renegade, WWF Superstars, WWF WrestleFest, The Combatribes</td></tr>
+<tr><td>Tecmo</td><td>JOTEGO <code>jtgaiden</code>; nullobject Tecmo</td><td>Shadow Warriors (arcade Ninja Gaiden), Wild Fang, Raiga, Rygar, Silkworm, Gemini Wing</td></tr>
+<tr><td>Atari, Williams, Midway</td><td>obsidian (Atari System 1, Gauntlet, Robotron, Defender, Joust 2); plasticbugs (Atari System 2, Toobin', S.T.U.N. Runner, NBA Jam, Smash TV); Coin-Op Midway Y/Z-unit</td><td>Marble Madness, Paperboy, 720°, Super Sprint, Gauntlet, Robotron, NBA Jam and Tournament Edition. Coin-Op's Mortal Kombat, Terminator 2, Total Carnage and NARC need a Patreon key; plasticbugs' Smash TV and NBA Jam are free</td></tr>
+<tr><td>Kaneko, Gaelco, Seta</td><td>JOTEGO <code>jtgals</code>, <code>jtgae1</code>; Frazilpop rally cores</td><td>Gals Panic, Biomechanical Toy, Thunder Hoop, World Rally 1 and 2, Great 1000 Miles Rally (one of only two arcade cores with sleep)</td></tr>
+<tr><td>Nintendo</td><td>obsidian, ericlewis, plasticbugs</td><td>Donkey Kong, Donkey Kong Jr. and 3, Mario Bros., Punch-Out!! and Super Punch-Out!! (two screens stacked on one)</td></tr>
+</tbody></table>
+<p class="src">Sources: inventory data and READMEs for <a rel="noopener" href="https://github.com/opengateware/arcade-deco32">DECO-32</a>, <a rel="noopener" href="https://github.com/McNast13/NamcoSystem11-Pocket">Namco System 11</a>, <a rel="noopener" href="https://github.com/obsidian-dot-dev/openFPGA-AtariSystem1">Atari System 1</a>, <a rel="noopener" href="https://github.com/plasticbugs/analogue-pocket-namco-volume-1">Namco Classic Collection</a>, <a rel="noopener" href="https://github.com/nullobject/openfpga-tecmo">Tecmo</a>.</p>
+</section>
+
+<section class="band"><h2 id="games">Best games to play on it</h2>
+<p>Picked for a 3.5-inch screen, four face buttons plus shoulders, and play in sessions, since arcade cores don't save states. Core in grey.</p>
+<div class="picks">
+<div class="pick"><h3>Beat 'em ups</h3><ul>
+<li>Cadillacs and Dinosaurs <span>CPS1.5</span></li>
+<li>The Punisher <span>CPS1.5</span></li>
+<li>D&amp;D: Shadow over Mystara <span>CPS2</span></li>
+<li>Alien vs. Predator <span>CPS2</span></li>
+<li>Battle Circuit <span>CPS2</span></li>
+<li>Final Fight, Captain Commando <span>CPS1</span></li>
+<li>TMNT: Turtles in Time, Sunset Riders <span>jtriders</span></li>
+<li>The Simpsons, Vendetta <span>jtsimson</span></li>
+<li>Ninja Baseball Bat Man, Undercover Cops <span>M92</span></li>
+<li>Golden Axe <span>System 16B</span>; Revenge of Death Adder <span>System 32, early</span></li>
+<li>Violent Storm <span>pre-GX, early</span></li>
+</ul></div>
+<div class="pick"><h3>Shmups</h3><ul>
+<li>Progear <span>CPS2</span></li>
+<li>DoDonPachi, ESP Ra.De., Guwange <span>Cave 68000</span></li>
+<li>Batsugun, Dogyuun <span>Toaplan V2</span></li>
+<li>Battle Garegga, Armed Police Batrider <span>Raizing</span></li>
+<li>Darius Gaiden, Ray Force <span>Taito F3, early</span></li>
+<li>R-Type, Image Fight <span>M72</span>; In the Hunt, R-Type Leo <span>M92</span></li>
+<li>Parodius Da!, Vulcan Venture <span>Konami</span></li>
+<li>19XX, Giga Wing, Mars Matrix <span>CPS2</span></li>
+<li>Truxton II <span>atrac17</span>; Twin Cobra <span>Coin-Op</span></li>
+<li>Gaiapolis <span>pre-GX, early</span></li>
+</ul></div>
+<div class="pick"><h3>Action and run 'n' gun</h3><ul>
+<li>Ghouls'n Ghosts, Strider <span>CPS1</span></li>
+<li>Metal Slug 1 to 3 and X <span>NeoMillie</span></li>
+<li>Shinobi <span>System 16A</span>; Shadow Dancer <span>System 18</span></li>
+<li>Contra, Haunted Castle <span>Konami</span></li>
+<li>Rolling Thunder, Splatterhouse <span>Namco</span></li>
+<li>Midnight Resistance, Caveman Ninja <span>Data East</span></li>
+<li>Gunforce II, Hammerin' Harry <span>Irem</span></li>
+<li>Shadow Warriors <span>jtgaiden</span></li>
+<li>Rastan, Cadash <span>Taito</span></li>
+</ul></div>
+<div class="pick"><h3>Puzzle and quick games</h3><ul>
+<li>Super Puzzle Fighter II Turbo, Puzz Loop 2 <span>CPS2</span></li>
+<li>Pang! 3 <span>CPS1</span>; Super Pang, Block Block <span>jtpang</span></li>
+<li>Puzzle Bobble 2 to 4, Cleopatra Fortune <span>Taito F3, early</span></li>
+<li>Bubble Bobble, Rainbow Islands, The NewZealand Story <span>JOTEGO</span></li>
+<li>Tetris <span>System 16A</span>; Columns <span>System C</span></li>
+<li>Puzzle Uo Poko <span>Cave 68000</span></li>
+<li>Tumble Pop, Snow Bros. <span>Coin-Op</span></li>
+<li>Marble Madness <span>Atari System 1</span></li>
+</ul></div>
+<div class="pick"><h3>Racing and sports</h3><ul>
+<li>Out Run, Turbo Out Run, Super Hang-On <span>JOTEGO</span></li>
+<li>Super Sprint, Paperboy <span>Atari System 2</span></li>
+<li>NBA Jam Tournament Edition <span>plasticbugs</span></li>
+<li>Punch-Out!! <span>plasticbugs</span></li>
+<li>World Rally 2 <span>Frazilpop</span></li>
+<li>Track &amp; Field, Hyper Sports <span>Konami</span></li>
+</ul></div>
+<div class="pick"><h3>Fighters, if you must</h3><ul>
+<li>Super Street Fighter II Turbo, Street Fighter Alpha 3 <span>CPS2</span></li>
+<li>Vampire Savior, Marvel vs. Capcom <span>CPS2</span></li>
+<li>Street Fighter II' Hyper Fighting <span>CPS1</span></li>
+<li>Garou, KOF '98 <span>NeoMillie</span></li>
+<li>Tekken 2 <span>System 11, beta</span></li>
+<li>Six-button games put two attacks on the shoulders. See <a href="#which-device">Which device</a></li>
+</ul></div>
+</div>
+</section>
+
+<section class="band"><h2 id="setup">ROM setup</h2>
+<p>Every arcade core loads a game as a small instance <code>.json</code> plus one <code>.rom</code> file built from your MAME-format zip. The Pocket can't read zips, so something has to assemble the chips first.</p>
+<ol>
+<li><strong>JOTEGO cores:</strong> get the game's MRA from jtbin's <code>mra</code> folder and run <code>mra my-game.mra</code> with mra-tools-c in the folder holding the MAME zip. Copy the resulting <code>.rom</code> to <code>Assets/&lt;core&gt;/common/</code>, for example <code>Assets/jtcps2/common/</code>.</li>
+<li><strong>Beta cores</strong> (anything marked Patreon): unzip <code>jtbeta.zip</code> from JOTEGO's Patreon into <code>Assets/jtpatreon/common/</code> so <code>beta.bin</code> sits there. Once a core goes public, you no longer need it. Coin-Op Collection's Patreon cores use their own <code>coinop.key</code> instead; follow their install notes.</li>
+<li><strong>Newer cores</strong> ship their own builders: <code>tools/pocket/build_rom.py</code> for Cave and Toaplan V2, <code>tools/build_rom.py</code> for Taito F3 and Psikyo, a browser page for DECO-32. System 32 and Namco System 11 have pupdate and Pocket Sync plugins that build the files straight onto the card.</li>
+<li><strong>Match the romset version.</strong> Builders check CRCs against current MAME sets (SpaceFish names MAME 0.288). Clones need their parent zip unless your set is merged.</li>
+<li><strong>Let an updater do the bookkeeping.</strong> pupdate and Pocket Sync install cores, list each core's required files and flag what's missing. Skipping <code>_alternatives</code> keeps the game lists short.</li>
+</ol>
+<table class="stack">
+<thead><tr><th>Core</th><th>ROM folder</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>JOTEGO (all)</td><td><code>Assets/jt&lt;name&gt;/common/</code></td><td>Beta key in <code>Assets/jtpatreon/common/</code></td></tr>
+<tr><td>NeoMillie, Mazamars312</td><td><code>Assets/ng/common/</code></td><td>Darksoft folders plus three BIOS files</td></tr>
+<tr><td>Neo Geo CD (NeoMillieCD)</td><td><code>Assets/ngcd/common/</code></td><td><code>uni-bioscd.rom</code>, <code>000-lo.lo</code>, one folder per disc with .cue and .bin</td></tr>
+<tr><td>Cave 68000</td><td><code>Assets/cave68000/common/</code></td><td>e.g. <code>ddonpach.rom</code></td></tr>
+<tr><td>Toaplan V2 (Frazilpop)</td><td><code>Assets/toaplan2/common/</code></td><td>Appears under Arcade Multi</td></tr>
+<tr><td>Taito F3</td><td><code>Assets/taitof3/common/</code></td><td>The .rom carries a header that configures the board</td></tr>
+<tr><td>Psikyo</td><td><code>Assets/psikyo/common/</code></td><td></td></tr>
+<tr><td>System 32</td><td><code>Assets/segas32/common/</code></td><td>Eight .bin images per two games; leave the shipped config files there</td></tr>
+<tr><td>Namco System 11</td><td><code>Assets/namco_system11/common/&lt;set&gt;/</code></td><td>Plus <code>c76.bin</code> sound BIOS</td></tr>
+<tr><td>Atari System 1</td><td><code>Assets/system1/common/</code></td><td>Needs a pre-patch script before mra-tool</td></tr>
+</tbody></table>
+<h3>Saves, high scores and save states</h3>
+<ul>
+<li><strong>No save states, almost everywhere.</strong> Of the 250 arcade cores, only Great 1000 Miles Rally and Nibbler declare sleep support, and none of the major ones offer Memories. Opening the Pocket menu pauses the newer cores (Cave, Toaplan V2, System 32, pre-GX), which covers a short break, but plan to finish a credit.</li>
+<li><strong>NVRAM and EEPROM do save.</strong> JOTEGO cores have an NVRAM slot; CPS2, Konami pre-GX and Namco System 11 keep each game's operator settings between sessions. Cave settings also stick. System 32 doesn't save high scores yet.</li>
+<li><strong>Change difficulty in the test menu.</strong> Cave, Toaplan V2 and others expose Test Mode under Core Settings.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/jotego/jtbin/wiki/Analogue-Pocket-Cores">jtbin wiki: Analogue Pocket cores</a>, core READMEs above, inventory <code>sleep_supported</code> flags.</p>
+</section>
+
+<section class="band"><h2 id="display">Screen and controls</h2>
+<p>The 1600×1440 panel is close to square. A 4:3 horizontal game fills 1600×1200, or 83% of it. A 3:4 vertical game held upright fills 1080×1440, or 68%. Turn the Pocket on its side in a core with a Tate setting and the same game gets 1200×1600, back to 83% and 11% taller. Vertical games are fine upright, and on a wide 16:9 handheld they'd lose far more.</p>
+<div class="plate">
+<figure><svg viewBox="0 0 180 170" role="img" aria-label="Horizontal 4:3 game filling 1600 by 1200 of the 1600 by 1440 screen"><rect x="10" y="10" width="160" height="144" rx="3" fill="#1d3a2a"/><rect x="10" y="22" width="160" height="120" fill="#9fd38b"/><text x="90" y="88" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1d3a2a">1600 × 1200</text></svg><figcaption><b>Horizontal 4:3</b>83% of the screen</figcaption></figure>
+<figure><svg viewBox="0 0 180 170" role="img" aria-label="Vertical 3:4 game upright, 1080 by 1440"><rect x="10" y="10" width="160" height="144" rx="3" fill="#1d3a2a"/><rect x="36" y="10" width="108" height="144" fill="#f0a6bf"/><text x="90" y="86" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#2a1520">1080 × 1440</text></svg><figcaption><b>Vertical, upright</b>68% of the screen</figcaption></figure>
+<figure><svg viewBox="0 0 180 170" role="img" aria-label="Vertical 3:4 game in Tate with the Pocket on its side, 1200 by 1600"><rect x="18" y="2" width="144" height="160" rx="3" fill="#1d3a2a"/><rect x="30" y="2" width="120" height="160" fill="#d9668d"/><text x="90" y="86" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#fff">1200 × 1600</text></svg><figcaption><b>Vertical, Tate</b>83%, Pocket on its side</figcaption></figure>
+</div>
+<ul>
+<li><strong>Tate.</strong> Cave 68000 and Toaplan V2 offer Upright, Tate (left) and Tate (right) under Core Settings. Other cores show vertical games upright. In Tate the controls sit along the Pocket's long edges, which works best for shooters that only need shot and bomb.</li>
+<li><strong>Buttons.</strong> The Pocket has four face buttons in a diamond plus L and R. Select is coin, Start is start. Cave and Toaplan V2 put rapid fire on R. Remap per core under <strong>Controls</strong> in the Pocket menu.</li>
+<li><strong>Display modes.</strong> openFPGA cores get the Pocket's display modes from firmware 2.0, including the CRT Trinitron mode where the core allows it.</li>
+<li><strong>Dock.</strong> Up to four players on JOTEGO cores. Controllers 2 to 4 are ignored until you press an action button on each to claim it. System 32 accepts four (three and four untested) and FixEight three.</li>
+<li><strong>Analogizer.</strong> RndMnkIII's cartridge-slot adapter sends the board's own 15 kHz RGB to a CRT on JOTEGO, Cave, Toaplan V2, M72, Tecmo and Gauntlet cores, among others. Rotate the CRT for vertical games; the Tate setting only turns the Pocket's own screen.</li>
+</ul>
+<p class="src">Sources: <a rel="noopener" href="https://www.analogue.co/pocket">Analogue Pocket specs</a> (1600×1440, 360° rotation), <a rel="noopener" href="https://github.com/Frazilpop/Cave-68000-Pocket">Cave 68000 README</a> (Tate, Analogizer), <a rel="noopener" href="https://github.com/jotego/jtbin/wiki/Analogue-Pocket-Cores">jtbin wiki</a> (controllers), <a rel="noopener" href="https://www.analogue.co/support/pocket/firmware/2.0">firmware 2.0 notes</a>. Area figures are 4:3 and 3:4 output fitted to the panel.</p>
+</section>
+
+<section class="band"><h2 id="which-device">Which handheld for which arcade game</h2>
+<p>The Pocket is the most accurate arcade handheld you own. It's as good as anything you own for vertical games, and the weakest for long sessions and six-button fighters.</p>
+<table class="stack">
+<thead><tr><th>Game type</th><th>Best device</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>CPS, Konami, Sega and Data East beat 'em ups</td><td><strong>Analogue Pocket</strong></td><td>FPGA timing and the boards' own sound chips, and they're built for one-credit sessions</td></tr>
+<tr><td>Vertical shmups (Cave, Toaplan, Raizing, 19XX)</td><td><strong>Analogue Pocket</strong>, in Tate where offered</td><td>The square panel loses little to a vertical game. The AYANEO Pocket Vert has the same panel, so the picture is no bigger; it only adds save states and FBNeo's wider library</td></tr>
+<tr><td>Horizontal shmups and run 'n' guns</td><td><strong>Analogue Pocket</strong></td><td>The Cave and Toaplan V2 cores were checked against MAME in simulation, slowdown included</td></tr>
+<tr><td>Six-button fighters (Street Fighter, Darkstalkers, Marvel)</td><td>Retroid Pocket Classic</td><td>Six face buttons instead of two on the shoulders. See the <a rel="noopener" href="https://chromadream.github.io/random-research/retroid-pocket-classic-6-six-button-fighting-games-guide.html">6-button fighters list</a></td></tr>
+<tr><td>Neo Geo and four-button fighters on the go</td><td>KONKR Pocket Block</td><td>4:3 screen, save states and Syncthing. See the <a rel="noopener" href="https://chromadream.github.io/random-research/konkr-pocket-block-arcade-fighting-games-guide.html">Pocket Block arcade fighting list</a></td></tr>
+<tr><td>CPS3, Psikyo SH-2, Cave SH-3, NAOMI</td><td>Android handhelds</td><td>No Pocket core exists</td></tr>
+<tr><td>Four-player Konami and Capcom brawlers</td><td>Pocket + Dock</td><td>Up to four Bluetooth or 2.4 GHz pads on the TV</td></tr>
+</tbody></table>
+</section>
+
+<section class="band"><h2 id="watch">Gotchas and what to watch</h2>
+<ul>
+<li><strong>The late-2026 wave is young.</strong> Between September and November 2026, cores arrived for Atari System 2, Gaiapolis, Cave, Namco System 11, Toaplan V2, Neo Geo (NeoMillie), Taito F3, Psikyo, System 32 and Tekken 3, mostly from single developers testing on one Pocket. Back up <code>Saves/</code> before updating, and keep the older core installed where one exists (Mazamars312 Neo Geo, plasticbugs Gaiapolis) until the new one proves itself.</li>
+<li><strong>Psikyo isn't ready.</strong> Strikers 1945 and Gunbird are listed, but only Tengai has booted on hardware.</li>
+<li><strong>Tekken 3 is a first experiment.</strong> McNast13's System 12 core is v0.0.1. Namco System 11 (Tekken 1 and 2, Soul Edge) is the more usable one, at 99% of the FPGA.</li>
+<li><strong>Duplicate cores clutter the menu.</strong> Twin Cobra, Flying Shark and Wardner exist as both JOTEGO betas and free Coin-Op cores; Turtles in Time, Gaiapolis, Smash TV, Sega System 1/2 and System C all come twice. Install one of each.</li>
+<li><strong>Headers and zips fail silently.</strong> A <code>.rom</code> built from the wrong set version either won't boot or boots with garbage. Rebuild with the core's own builder before blaming the core.</li>
+<li><strong>Patreon status changes weekly.</strong> JOTEGO releases new cores on Patreon first and makes them public later, so check before paying for one game. Currently beta on the Pocket: Gradius III, '88 Games, Space Harrier/Hang-On/Enduro Racer, Taito X, Rollergames, and JOTEGO's Twin Cobra/Flying Shark and Wardner (free from Coin-Op instead).</li>
+<li><strong>Watch for:</strong> Martial Champion and Monster Maulers on pre-GX, Fighter's History and Night Slashers on DECO-32, more System 32 games, ADPCM on System C, and the other Psikyo games booting.</li>
+</ul>
+<p>For SD card basics, firmware and the GB/GBA side, see the <a rel="noopener" href="https://chromadream.github.io/random-research/analogue-pocket-starter-guide.html">Analogue Pocket Starter Guide</a>.</p>
+<p class="src">Sources: <a rel="noopener" href="https://github.com/openfpga-cores-inventory/analogue-pocket">openFPGA cores inventory</a>, <a rel="noopener" href="https://openfpga-library.github.io/analogue-pocket/">openFPGA Library</a>, <a rel="noopener" href="https://github.com/McNast13/NamcoSystem11-Pocket">Namco System 11 README</a>, <a rel="noopener" href="https://github.com/dyreschlock/pocket-extras">pocket-extras</a>.</p>
+</section>
+</main>
+</body>
+</html>
