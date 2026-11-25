@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First Pedalboard Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday hobby guide, confident and practical
+   IDEA the pedalboard itself: grip-cloth board, enamelled stompboxes, patch cables, numbered left to right
+   PICTURE a full-width drawn board of seven pedals in chain order; each pedal links to its section
+   COLOUR charcoal board band, white page, each slot keeps its enclosure colour; hot pink marks the oddballs
+   TYPE Archivo expanded 800 for titles (stompbox screen-print), Archivo for text
+   LAYOUT dark band: title + figures across top, board full width beneath; phone: pedals wrap into a numbered grid */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121315);--ink:light-dark(#16171a,#ecebe7);--mute:light-dark(#5b5d63,#a3a3a0);--rule:light-dark(#e2e1dc,#2b2d31);--panel:light-dark(#f5f4f0,#1b1c1f);--board:#1c1d20;--odd:#ff4f8b;--oddsoft:light-dark(#fff0f5,#2a1820)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:24px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-stretch:118%;font-weight:800;letter-spacing:-.02em;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3.2vw,36px)}
+h3{font-size:19px;letter-spacing:-.01em}
+a{color:inherit}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.top{background:var(--board);color:#f1efe9;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.018) 0 2px,transparent 2px 6px)}
+.head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px 48px;align-items:end}
+.head p{margin:14px 0 0;color:#c9c6be;max-width:60ch}
+.figs{display:flex;flex-wrap:wrap;gap:0 30px;border-top:1px solid #3a3b40}
+.figs div{padding:12px 0 0;max-width:12em}
+.figs b{display:block;font-size:clamp(22px,2.6vw,32px);font-stretch:118%;font-weight:800;white-space:nowrap}
+.figs span{font-size:13.5px;color:#aeaba3}
+.board{margin-top:34px;position:relative;background:#26272b;border-radius:14px;padding:30px 22px 26px;box-shadow:inset 0 2px 0 #34353a,0 18px 0 -8px #111214;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 5px)}
+.chain{display:flex;align-items:center;gap:0}
+.jack{flex:none;font-size:13px;color:#cfcac0;writing-mode:vertical-rl;transform:rotate(180deg);padding:10px 6px;border:1px solid #4a4b50;border-radius:6px;background:#1c1d20}
+.cable{flex:1 1 10px;min-width:8px;height:7px;background:#0c0c0d;border-radius:4px;box-shadow:0 1px 0 #3d3e43}
+.pedal{flex:0 1 128px;position:relative;aspect-ratio:3/4.4;border:0;border-radius:10px;padding:12px 10px 10px;background:var(--c);color:var(--t,#141414);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;box-shadow:inset 0 -10px 0 rgba(0,0,0,.18),inset 0 2px 0 rgba(255,255,255,.35),0 10px 0 -3px rgba(0,0,0,.45);transition:transform .18s}
+.pedal:hover,.pedal:focus-visible{transform:translateY(-5px)}
+.pedal:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.knobs{display:flex;gap:7px;justify-content:center}
+.knob{width:clamp(14px,2.2vw,22px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5a5b60,#121214 70%);box-shadow:0 2px 0 rgba(0,0,0,.35);position:relative}
+.knob::after{content:"";position:absolute;left:46%;top:8%;width:8%;height:38%;background:#e8e6e0;border-radius:2px;transform-origin:50% 110%;transform:rotate(var(--r,0deg))}
+.led{width:8px;height:8px;border-radius:50%;background:#e33;box-shadow:0 0 8px #f55}
+.pname{font-stretch:120%;font-weight:800;font-size:clamp(13px,1.35vw,16px);line-height:1.05;text-align:center;margin-top:auto}
+.ptag{font-size:13px;opacity:.8}
+.stomp{width:38%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,#f4f4f2,#9a9a98 70%);box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.num{position:absolute;top:-12px;left:-8px;width:26px;height:26px;border-radius:50%;background:#f1efe9;color:#141414;font-weight:800;font-size:13px;display:grid;place-items:center}
+.opt .num{background:#26272b;color:#f1efe9;border:1.5px dashed #9a978f}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13.5px;color:#bdb9b0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px;vertical-align:-1px;background:#f1efe9}
+.legend i.d{background:transparent;border:1.5px dashed #9a978f}
+.legend i.o{background:var(--odd)}
+.nav{display:flex;flex-wrap:wrap;gap:6px 18px;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);font-size:15px}
+.nav a{text-decoration:none;padding:8px 0;border-bottom:2px solid transparent}
+.nav a:hover{border-color:var(--ink)}
+.slot{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr) minmax(0,1fr);gap:20px 34px;padding-block:38px;border-top:1px solid var(--rule)}
+.slot:first-child{border-top:0}
+.why .chip{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;margin-bottom:12px}
+.why .chip i{width:16px;height:16px;border-radius:4px;background:var(--c)}
+.why p{margin:10px 0 0;color:var(--mute)}
+.why p.where{color:var(--ink);font-size:15px;border-left:3px solid var(--c);padding-left:10px}
+.col h4{margin:0 0 6px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.col.oddc h4{color:var(--odd)}
+.col.oddc{background:var(--oddsoft);border-radius:10px;padding:14px 16px 6px;margin-top:-14px}
+.item{padding:10px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px}
+.oddc .item{border-color:color-mix(in srgb,var(--odd) 22%,transparent)}
+.item:last-child{border-bottom:0}
+.item b{font-weight:700}
+.item .pr{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600;font-size:15px}
+.item span{grid-column:1/-1;color:var(--mute);font-size:15px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 56px;align-items:start}
+.panel{background:var(--panel);border-radius:12px;padding:20px 22px}
+.pw{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.pw div{background:var(--bg);border-radius:8px;padding:12px}
+.pw b{display:block;font-size:20px;font-stretch:118%}
+.pw span{font-size:14px;color:var(--mute)}
+ul.tick{padding:0;margin:14px 0 0;list-style:none}
+ul.tick li{padding:9px 0 9px 26px;border-bottom:1px solid var(--rule);position:relative}
+ul.tick li::before{content:"";position:absolute;left:2px;top:17px;width:12px;height:3px;background:var(--ink);border-radius:2px}
+.builds{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:24px}
+.build{border-radius:12px;padding:20px;background:var(--panel);display:flex;flex-direction:column}
+.build.weird{background:var(--oddsoft);outline:2px solid color-mix(in srgb,var(--odd) 45%,transparent)}
+.build .tot{font-size:clamp(30px,3vw,40px);font-stretch:118%;font-weight:800;margin:8px 0 2px;white-space:nowrap}
+.build p{margin:0 0 10px;color:var(--mute);font-size:15px}
+.build ol{margin:8px 0 0;padding-left:20px;font-size:15px}
+.build li{padding:3px 0}
+.build li em{font-style:normal;color:var(--mute);white-space:nowrap}
+.note{font-size:14px;color:var(--mute);margin-top:18px}
+.src{font-size:14.5px;columns:2 260px;column-gap:40px;padding-left:18px}
+.src li{break-inside:avoid;padding:3px 0}
+.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;margin-top:26px}
+.mcard{background:var(--panel);border-radius:12px;padding:16px 18px 8px}
+.mcard .chip{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;margin-bottom:4px}
+.mcard .chip i{width:16px;height:16px;border-radius:4px;background:var(--c)}
+.mcard .item span{font-size:14.5px}
+@media(max-width:900px){.slot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.why{grid-column:1/-1}.col.oddc{margin-top:0}}
+@media(max-width:820px){.head{grid-template-columns:minmax(0,1fr)}.two{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 12px}.cable,.jack{display:none}.pedal{flex:none}.board{padding:26px 16px 20px}}
+@media(max-width:600px){.slot{grid-template-columns:minmax(0,1fr)}.chain{grid-template-columns:repeat(3,minmax(0,1fr))}.pw{grid-template-columns:minmax(0,1fr)}.figs b{font-size:24px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pedal{transition:none}}
+</style>
+</head>
+<body>
+<header class="band top">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h1>A first pedalboard: four pedals, one order, clean power</h1>
+        <p>Tuner, a drive, a delay and a reverb cover most of what a beginner needs. Put them in the order below, power them properly, and swap any slot for something stranger once the basics feel boring.</p>
+      </div>
+      <div class="figs">
+        <div><b>4 + 3</b><span>core pedals, then optional ones</span></div>
+        <div><b>~US$180</b><span>shoestring board, all in</span></div>
+        <div><b>~US$690</b><span>solid board that lasts years</span></div>
+      </div>
+    </div>
+    <div class="board" aria-label="Pedalboard in signal-chain order">
+      <div class="chain" id="chain"></div>
+    </div>
+    <div class="legend"><span><i></i>Core slot</span><span><i class="d"></i>Optional, add later</span><span><i class="o"></i>Pink = oddball alternatives below</span><span>Signal runs guitar → amp, left to right. Tap a pedal to jump to it.</span></div>
+  </div>
+</header>
+
+<nav class="nav scroll" id="nav"></nav>
+
+<main>
+  <section class="band"><div class="wrap" id="slots"></div>
+    <p class="wrap note">Prices are approximate US street prices from late-2026 listings and reviews. In Australia expect roughly 1.4–1.6× that in AUD; the used market (Reverb, Gumtree, Facebook) knocks off a third or more, and pedals hold value well if you resell.</p>
+  </section>
+
+  <section class="band" id="mini" style="border-top:1px solid var(--rule)">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <h2>Go mini: the same board in about half the space</h2>
+          <p>Mini pedals are roughly half the width of a standard stompbox, usually with three knobs and one footswitch. Most sound the same as the full-size version, and a seven-pedal mini board fits on a board you can carry in one hand. Every slot has a good mini option now.</p>
+        </div>
+        <div>
+          <h3>What you give up</h3>
+          <ul class="tick">
+            <li>No battery compartment: they all need a power supply, so budget for one from day one.</li>
+            <li>Fewer controls. Extra features hide behind internal trim pots, toggles on the side, or an app.</li>
+            <li>Footswitches sit close together; easy to stomp the wrong one. Fix them down firmly.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="minis" id="miniList"></div>
+    </div>
+  </section>
+
+  <section class="band" style="background:var(--panel)" id="power">
+    <div class="wrap two">
+      <div>
+        <h2>Power is the pedal nobody mentions, and the usual cause of hum</h2>
+        <p>Every pedal needs the right <b>voltage</b> (usually 9V), the right <b>polarity</b> (almost always centre-negative) and at least as much <b>current</b> as it draws. Extra current capacity is fine; too little causes noise and glitches. Digital delays, reverbs and modelers draw far more than a drive pedal.</p>
+        <div class="pw">
+          <div><b>Daisy chain</b><span>One adapter, one split cable. Fine for two or three simple analog pedals. Cheap.</span></div>
+          <div><b>Isolated brick</b><span>Each output has its own power and ground, so one pedal's noise can't leak into another. Buy this once.</span></div>
+          <div><b>Batteries</b><span>Work, die mid-song, and most mini pedals have no room for one. Avoid.</span></div>
+        </div>
+      </div>
+      <div>
+        <h3>Plumbing checklist</h3>
+        <ul class="tick">
+          <li>Isolated supplies to look at: Truetone 1 Spot Pro CS6, Voodoo Lab Iso-5 or Pedal Power 3, Strymon Zuma; budget isolated bricks from Donner, Joyo and Caline are fine to start.</li>
+          <li>Add up each pedal's mA (printed near the jack) and check every output can cover it. Digital pedals often want 250–500 mA.</li>
+          <li>Short, decent patch cables. Flat "pancake" plugs let pedals sit closer. Bad cables cause more crackle than bad pedals.</li>
+          <li>A board with hook-and-loop tape. Any flat plank works; the point is that nothing moves and you can reorder freely.</li>
+          <li>Keep power cables away from (or crossing at right angles to) audio cables.</li>
+          <li>Amp with its own distortion and an effects loop? Drives go in front of the amp; modulation, delay and reverb can sit in the loop so they don't get smeared by the amp's gain.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="builds">
+    <div class="wrap">
+      <h2>Four ways to fill the board</h2>
+      <p style="color:var(--mute);margin:10px 0 0;max-width:70ch">Each list is in chain order. Totals add up the approximate prices and include power.</p>
+      <div class="builds" id="buildList"></div>
+    </div>
+  </section>
+
+  <section class="band" style="border-top:1px solid var(--rule)" id="sources">
+    <div class="wrap">
+      <h3>Sources</h3>
+      <ul class="src">
+        <li><a href="https://www.guitarbrothers.com.au/blogs/news/building-your-first-pedalboard-a-practical-guide-for-guitarists">Guitar Brothers: Building your first pedalboard</a></li>
+        <li><a href="https://www.thomann.de/blog/en/gear/order-connect-effect-pedals/">Thomann: Pedalboard basics and effects order</a></li>
+        <li><a href="https://www.adorama.com/alc/building-your-pedal-board-101-setting-up-your-effect-signal-chain">Adorama: Pedal board 101, signal chain</a></li>
+        <li><a href="https://www.guitarcenter.com/riffs/gear-tips/amplifiers--effects/best-guitar-pedal-order">Guitar Center: Best guitar pedal order and effects loops</a></li>
+        <li><a href="https://voodoolab.com/pedalboard-power-supply-complete-guide/">Voodoo Lab: Complete guide to powering your pedalboard</a></li>
+        <li><a href="https://www.sweetwater.com/insync/power-guitar-pedals/">Sweetwater: Daisy-chain vs isolated power</a></li>
+        <li><a href="https://www.musicradar.com/news/9-reasons-you-need-to-upgrade-your-pedalboard-power-supply">MusicRadar: Reasons to upgrade your power supply</a></li>
+        <li><a href="https://delicious-audio.com/?p=60481">Delicious Audio: Unusual and weird delay pedals</a></li>
+        <li><a href="https://www.gearnews.com/best-ambient-reverb-pedals-guitar/">Gearnews: Best ambient reverb pedals</a></li>
+        <li><a href="https://www.guitarworld.com/gear/amp-modeler-pedals/valeton-gp-5">Guitar World: Valeton GP-5 vs TONEX One</a></li>
+        <li><a href="https://www.guitarpedalx.com/news/gpx-blog/12-unique-and-unusual-guitar-effects-pedals-for-your-consideration">GuitarPedalX: 12 unusual effects pedals</a></li>
+        <li><a href="https://www.guitarguitar.co.uk/news/140993/">guitarguitar: Gamechanger Audio Plasma and Plus</a></li>
+        <li><a href="https://www.bax-shop.co.uk/pitch-shifter/earthquaker-devices-arpanoid-v2-polyphonic-pitch-arpeggiator-effect-pedal">Bax: Arpanoid V2 listed as discontinued</a></li>
+        <li><a href="https://www.musiciansfriend.com/delay-reverb-effects-pedals/earthquaker-devices--new">Musician's Friend: current EarthQuaker delays and reverbs</a></li>
+        <li><a href="https://guitar.com/reviews/effects-pedal/review-earthquaker-devices-astral-destiny/">Guitar.com: Astral Destiny review</a></li>
+        <li><a href="https://mixdownmag.com.au/?p=81524">Mixdown: Plumes Jr and Blumes Jr limited editions</a></li>
+        <li><a href="https://www.premierguitar.com/gear/mxr-carbon-copy-mini-review">Premier Guitar: Carbon Copy Mini review</a></li>
+        <li><a href="https://www.guitarworld.com/news/electro-harmonix-pico-mini-pedal-announcement">Guitar World: EHX Pico mini range</a></li>
+        <li><a href="https://www.happynewguitarday.com/best-mini-reverb-pedal/">Happy New Guitar Day: best mini reverbs</a></li>
+        <li><a href="https://findingdulcinea.com/best-guitar-pedals-for-beginners/">Finding Dulcinea: Budget beginner pedals 2026</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+{
+const slots=[
+ {id:"tuner",n:"Tuner",tag:"core",c:"#e8e6df",k:1,where:"First in the chain. It needs the cleanest signal, and on most tuners stepping on it mutes you too.",why:"The boring essential. Every guide starts here: being in tune matters more than any effect.",ess:[["Boss TU-3","~$110","Big readable meter, built like a brick. Its 9V DC OUT jack can feed a few other pedals via Boss's PCS-20A daisy-chain cable (adapter only, not on battery; non-isolated)."],["TC Electronic PolyTune 3 Mini","~$100","Strum all six strings and it shows which are off at once. Small footprint."],["A clip-on tuner","~$15","Honestly fine for the first few months at home."]],odd:[["Peterson StroboStomp HD","~$130","A strobe tuner: far finer accuracy than needles, loved by people who intonate their own guitars."],["Walrus Audio Canvas Tuner","~$130","Treats the tuner as a design piece with a proper display, plus clean buffered outputs."],["Skip it: use a modeler's tuner","—","Valeton GP-5 and TONEX One both include one; see the one-box route below."]]},
+ {id:"comp",n:"Comp",tag:"optional",c:"#2f6fde",t:"#fff",k:2,where:"After the tuner, before drives, so it evens out your picking before anything adds gain.",why:"Evens out loud and quiet notes and adds sustain. Great for clean funk and country; easy to skip at first.",ess:[["MXR Dyna Comp Mini","~$100","The classic squash, half the size."],["Keeley Compressor Mini","~$110","Gentler and more transparent; good always-on pedal."],["Mooer Yellow Comp","~$50","Cheap way to find out if you even like compression."]],odd:[["Gamechanger Audio Plus","~$300","Not a compressor: a piano-style sustain pedal. Hold it down and notes ring on and layer."],["EHX Freeze / Superego","~$150","Grabs the note you're playing and holds it forever, so you can solo over a drone."],["Boss HM-2W in front of nothing else","~$240","Not a comp either, but the reason many people want sustain: the Swedish chainsaw tone."]]},
+ {id:"drive",n:"Drive",tag:"core",c:"#f2c230",k:3,where:"After compression, before modulation and time effects. If you have both fuzz and overdrive, fuzz usually goes first.",why:"Your crunch and lead tones. Start with one low-to-medium-gain pedal; it also makes a small amp sound bigger.",ess:[["Boss SD-1 Super Overdrive","~$60","Tube Screamer-style mid hump, three knobs, works on any amp."],["Ibanez Tube Screamer Mini","~$80","The overdrive every other one is compared to."],["ProCo RAT2","~$90","Goes from crunch to full distortion; a punk and grunge staple."],["EarthQuaker Plumes","~$100","Tube Screamer-family drive with three clipping modes; a modern beginner favourite."]],odd:[["Gamechanger Audio Plasma","~$300","Fires your signal across a xenon tube as visible sparks. Somewhere between high-gain distortion and fuzz."],["Death By Audio Echo Dream 2","~$280","Nasty fuzz and a warbling delay in one box: two slots for the price of a weird one."],["Boss HM-2W","~$240","The cranked-mids Swedish death metal pedal, reissued. Ridiculous; perfect for one thing."]]},
+ {id:"mod",n:"Mod",tag:"optional",c:"#36b5a2",k:2,where:"After drives, before delay. Chorus or phaser into distortion sounds smeared; after it, it shimmers.",why:"Chorus, phaser, flanger, tremolo: movement in the sound. Fun, but rarely the second pedal you need.",ess:[["Donner Tutti Love Chorus","~$35","Tiny, cheap, honest chorus."],["EHX Small Clone","~$90","Thick, watery chorus with one knob and a depth switch."],["Boss CE-2W","~$200","The 80s chorus, reissued, with a vibrato mode."]],odd:[["Boss SL-2 Slicer","~$150","Chops held chords into rhythmic step patterns, like a sequencer gating your guitar."],["Chase Bliss Warped Vinyl","~$350","Record-player wow and warble with deep tweakability."],["EHX Pitch Fork","~$150","Octaves and harmonies; also makes a decent fake twelve-string."],["EarthQuaker Data Corrupter","~$280","Turns single notes into a harmonised square-wave synth. Not subtle."]]},
+ {id:"delay",n:"Delay",tag:"core",c:"#e8562c",t:"#fff",k:3,where:"Near the end, after drive and modulation, so the repeats stay clean instead of distorting into mush.",why:"Echoes. Short slapback for rockabilly, long trails for ambience. The most useful first effect after a drive.",ess:[["Boss DD-8","~$180","Eleven modes, long delay times and a built-in looper. A one-stop delay."],["TC Electronic Flashback 2","~$130","Several delay types plus a small looper; often on sale."],["Donner Yellow Fall","~$40","Warm, dark mini delay. Shoestring pick."],["MXR Carbon Copy","~$170","Classic analog repeats with optional modulation."]],odd:[["Old Blood Noise Rêver","~$250","Momentary reverse delay plus a modulated reverb feeding it. Instant backwards guitar."],["EarthQuaker Rainbow Machine V2","~$300","Polyphonic pitch shifter with regeneration: shimmering, warped, seasick repeats."],["EarthQuaker Arpanoid V2","used ~$160","Turns your notes into arpeggios. Discontinued at most shops; buy second-hand."],["Red Panda Raster 2","~$300","Pitch shifting inside the feedback loop, so repeats climb or fall forever."],["Caroline Megabyte","~$250","Lo-fi 80s karaoke-machine echo that runs away into oscillation."],["Hologram Microcosm","~$450","Granular looping, phrase looping and reverb; more synth than delay. The ambient cheat code."]]},
+ {id:"reverb",n:"Reverb",tag:"core",c:"#6a54c4",t:"#fff",k:3,where:"Last effect, or after delay. Reverb is the room the sound is in, so it goes after everything that changes the sound.",why:"Space and depth. Many amps have it already; a pedal gives you more types and longer, lusher tails.",ess:[["TC Electronic Hall of Fame 2","~$150","Several room types plus downloadable presets; a sensible long-term pick."],["Walrus Audio Fundamental Reverb","~$100","Simple, sounds great, boutique build at a budget price."],["Donner Verb Square / Behringer DR600","~$35–45","Ultra-cheap starters; the DR600 even has a freeze function."]],odd:[["Old Blood Noise Dark Star","~$230","Pad reverb that switches into pitch, delay or bitcrush modes."],["EarthQuaker Afterneath V3","~$250","A swarm of short delays smeared into a cavernous reverb, with a drag control that warps pitch."],["EarthQuaker Astral Destiny","~$250","Eight octave and shimmer reverb modes with modulation, on simple controls."],["Keeley Memphis Sun","~$180","Lo-fi 1950s recording sound: slapback, doubling and filtered reverb."],["Hungry Robot The Wash","~$250","Built for low-in-the-mix shoegaze slurry."],["Gamechanger Audio Light","~$400","A real spring tank read by optical sensors instead of a pickup."]]},
+ {id:"looper",n:"Looper",tag:"optional",c:"#22a35e",t:"#fff",k:1,where:"Very end of the chain, so it records whatever the rest of the board sounds like.",why:"Record a chord part, play over it. The best practice tool on the board.",ess:[["TC Electronic Ditto","~$100","One knob, one switch, does exactly one thing."],["Boss RC-1","~$110","Visual ring shows where you are in the loop."],["Skip it: Boss DD-8 / Flashback 2","—","Both delays above have a basic looper built in."]],odd:[["Chase Bliss Habit","~$400","Always listening: it remembers the last three minutes so you can grab something you played earlier."],["Red Panda Tensor","~$300","Looper with stutter, reverse, tape-stop and time-stretch."],["Chase Bliss MOOD","~$400","Two channels that merge: a granular looper and a delay that freeze and smear each other."]]}
+];
+const builds=[
+ {n:"Shoestring",d:"Everything you need to learn on, for the price of one boutique pedal.",items:[["Clip-on tuner",15],["Boss SD-1",60],["Donner Yellow Fall",40],["Behringer DR600",35],["9V adapter + daisy chain",25]]},
+ {n:"Solid",d:"Pedals you won't outgrow, on clean isolated power.",items:[["Boss TU-3",110],["ProCo RAT2 or Boss SD-1",90],["Boss DD-8",180],["Hall of Fame 2",150],["Isolated supply",110],["Small board + cables",50]]},
+ {n:"One box",d:"Skip the board: an amp-modeler pedal with drives, delays, reverbs and a tuner built in. Plays into an amp, headphones or a computer. IK TONEX One (~$179) is the step-up alternative.",items:[["Valeton GP-5 (loads NAM captures)",79],["9V supply or USB power bank",20]]},
+ {n:"Weird but useful",d:"Every core slot covered, each with a twist.",odd:1,items:[["PolyTune 3 Mini",100],["Gamechanger Plasma",300],["EarthQuaker Rainbow Machine V2",300],["Behringer DR600 (freeze)",35],["Boss SL-2 Slicer",150],["Isolated supply",110]]},
+ {n:"Mini board",d:"The core four in mini enclosures; fits a board the size of a laptop.",items:[["PolyTune 3 Mini",100],["Ibanez Tube Screamer Mini",80],["MXR Carbon Copy Mini",150],["EHX Pico Oceans 3-Verb",154],["Isolated supply",110]]}
+];
+const minis={tuner:[["TC Electronic PolyTune 3 Mini","~$100","Already mini; polyphonic strum-tuning."]],comp:[["MXR Dyna Comp Mini","~$100","The classic squash, with an attack toggle."],["Xotic SP Compressor","~$130","Has a blend knob to mix in your dry signal; very natural."]],drive:[["Ibanez Tube Screamer Mini","~$80","The TS sound in about half the space. The default mini drive."],["EarthQuaker Plumes Jr MOSFET Mod","~$129","Plumes in a small box with a punchier MOSFET mode. Limited to 2,000, so grab one while stock lasts."],["MXR Timmy","~$130","Transparent overdrive: adds grit without changing your tone much."]],mod:[["MXR Phase 95","~$100","Two classic phasers in one tiny box."],["EHX Pico Deep Freeze","~$150","Oddball: a sustainer that holds a chord under what you play next."]],delay:[["MXR Carbon Copy Mini","~$150","Same 600ms analog delay as the big one, plus a bright switch."],["TC Electronic Flashback 2 Mini","~$110","Several delay types via TonePrint app."],["EHX Pico Canyon Echo","~$150","Goes from straight echo to genuinely weird; the oddball mini delay."]],reverb:[["TC Electronic Hall of Fame 2 Mini","~$110","Shimmer and the pressure-sensitive MASH switch."],["EHX Pico Oceans 3-Verb","~$154","Spring, plate and hall, plus an infinite-reverb freeze. PSU included."],["Wampler Mini Faux Spring","~$150","One sound, done really well: bouncy surf spring."],["Valeton Coral Verb II","~$50","Sixteen reverb modes for not much money."]],looper:[["TC Electronic Ditto","~$100","Already mini; one knob, one switch."]]};
+const slotName={Comp:"Compressor",Mod:"Modulation"};
+const pos=[-130,-40,40,120];
+const knobs=k=>'<div class="knobs">'+Array.from({length:k},(_,i)=>`<span class="knob" style="--r:${pos[(i+k)%4]}deg"></span>`).join('')+'</div>';
+const chain=document.getElementById('chain');
+chain.innerHTML='<span class="jack">Guitar</span><span class="cable"></span>'+slots.map((s,i)=>`<a class="pedal ${s.tag==='optional'?'opt':''}" href="#${s.id}" style="--c:${s.c};--t:${s.t||'#141414'}"><span class="num">${i+1}</span>${knobs(s.k)}<span class="led"></span><span class="pname">${s.n}</span><span class="ptag">${s.tag}</span><span class="stomp"></span></a>`).join('<span class="cable"></span>')+'<span class="cable"></span><span class="jack">Amp</span>';
+document.getElementById('nav').innerHTML=slots.map((s,i)=>`<a href="#${s.id}">${i+1}. ${s.n==='Comp'?'Compressor':s.n==='Mod'?'Modulation':s.n}</a>`).join('')+'<a href="#mini">Mini pedals</a><a href="#power">Power</a><a href="#builds">Starter builds</a>';
+const row=a=>`<div class="item"><b>${a[0]}</b><span class="pr">${a[1]}</span><span>${a[2]}</span></div>`;
+document.getElementById('slots').innerHTML=slots.map((s,i)=>`<article class="slot" id="${s.id}" style="--c:${s.c}">
+ <div class="why"><div class="chip"><i></i>Slot ${i+1} · ${s.tag==='core'?'core':'optional, add later'}</div><h2>${s.n==='Comp'?'Compressor':s.n==='Mod'?'Modulation':s.n}</h2><p>${s.why}</p><p class="where">${s.where}</p></div>
+ <div class="col"><h4>Sensible picks</h4>${s.ess.map(row).join('')}</div>
+ <div class="col oddc"><h4>Oddball swaps</h4>${s.odd.map(row).join('')}</div>
+</article>`).join('');
+document.getElementById('miniList').innerHTML=slots.map(s=>`<div class="mcard" style="--c:${s.c}"><div class="chip"><i></i>${slotName[s.n]||s.n}</div>${minis[s.id].map(row).join('')}</div>`).join('');
+document.getElementById('buildList').innerHTML=builds.map(b=>{const t=b.items.reduce((a,x)=>a+x[1],0);return `<div class="build ${b.odd?'weird':''}"><h3>${b.n}</h3><div class="tot">~US$${t.toLocaleString()}</div><p>${b.d}</p><ol>${b.items.map(x=>`<li>${x[0]} <em>$${x[1]}</em></li>`).join('')}</ol></div>`}).join('');
+}
+</script>
+</body>
+</html>
