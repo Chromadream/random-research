@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedal Clone Lineages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a reference to read and come back to, dense and exact
+   IDEA a pedalboard read as a family tree: each lineage is a row of enclosures in its own enamel colour
+   PICTURE a true-scale 1962–2026 timeline, one row per family, every pedal a dot from the original onward
+   COLOUR board-black or white ground; each family carries its enclosure colour (TS green, Klon gold, Muff violet…)
+   TYPE Archivo 800 for titles, Archivo for text
+   LAYOUT title and finding across the top, timeline full width beneath; family sections stacked, tables stacked on phones */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121316);--ink:light-dark(#141518,#ecedef);--mute:light-dark(#5b5f66,#a2a7ae);--rule:light-dark(#e2e3e6,#2a2c31);--panel:light-dark(#f4f4f5,#1b1c20);
+--tb:#9a6b3e;--ff:#d8322c;--rm:light-dark(#7d858d,#9aa2aa);--bm:#7b46b0;--dc:#e0712b;--dp:#e0b100;--ts:#2b9a4a;--rat:light-dark(#26272b,#c9ced4);--bb:#2f66c4;--kl:#b48a2c}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font-weight:800;font-size:clamp(32px,5vw,50px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+h2{font-weight:800;font-size:clamp(24px,3vw,32px);line-height:1.1;letter-spacing:-.015em;margin:0 0 8px;text-wrap:balance}
+h3{font-size:17px;margin:22px 0 8px}
+p{max-width:70ch;margin:0 0 12px}
+.lede{font-size:18px;max-width:62ch}
+.mute{color:var(--mute)}
+a{color:inherit;text-underline-offset:3px}
+.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+.nav .scroll{display:flex;gap:6px;padding:10px max(5vw,16px);max-width:1240px;margin:0 auto}
+.nav a{flex:none;text-decoration:none;font-size:14px;font-weight:500;padding:6px 10px;border-radius:999px;border:1px solid var(--rule);display:flex;align-items:center;gap:6px}
+.nav a:hover,.nav a:focus-visible{border-color:var(--ink);outline:none}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+.scroll{overflow-x:auto}
+/* timeline */
+.tl{margin-top:22px;border-top:1px solid var(--rule)}
+.axis,.row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);align-items:center}
+.axis .tk{position:relative;height:26px}
+.axis .tk span{position:absolute;top:6px;transform:translateX(-50%);font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.row{border-bottom:1px solid var(--rule);min-height:54px;cursor:pointer;text-decoration:none;color:inherit}
+.row:hover,.row:focus-visible{background:var(--panel);outline:none}
+.row .nm{font-weight:700;font-size:15px;padding:8px 12px 8px 0;display:flex;gap:8px;align-items:center;line-height:1.2}
+.row .nm small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+.track{position:relative;height:54px}
+.track .gl{position:absolute;top:0;bottom:0;width:1px;background:var(--rule)}
+.track .ln{position:absolute;top:26px;height:3px;border-radius:2px;opacity:.45}
+.dot{position:absolute;top:27px;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--bg)}
+.dot.og{width:20px;height:20px;border-radius:5px}
+.dot:hover{transform:translate(-50%,-50%) scale(1.35)}
+.ogl{position:absolute;top:2px;font-size:13px;font-weight:700;white-space:nowrap;transform:translateX(-10px)}
+.tip{position:fixed;z-index:9;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;padding:6px 9px;border-radius:6px;max-width:260px;opacity:0;transition:opacity .12s}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:14px;color:var(--mute)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--mute);vertical-align:-1px;margin-right:6px}
+.legend i.sq{border-radius:3px;width:16px;height:16px;vertical-align:-3px}
+/* parts */
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:14px;margin-top:16px}
+.part{background:var(--panel);border-radius:10px;padding:16px 18px}
+.part b{display:block;font-size:17px;margin-bottom:4px}
+.part p{font-size:15px;margin:0}
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(13em,1fr));gap:10px 22px;margin-top:14px}
+.kinds div{font-size:15px}
+/* family */
+.fam{border-top:6px solid var(--c)}
+.fam .hd{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;font-size:15px;background:var(--panel);border-radius:10px;padding:16px 18px;margin:0}
+.facts dt{color:var(--mute)}.facts dd{margin:0;font-weight:500}
+.take{border-left:4px solid var(--c);padding:4px 0 4px 14px;margin:14px 0 0;font-weight:500;max-width:70ch}
+table{border-collapse:collapse;width:100%;font-size:15px;margin-top:6px}
+th{text-align:left;font-size:13px;color:var(--mute);font-weight:500;border-bottom:1px solid var(--ink);padding:8px 10px 6px 0}
+td{border-bottom:1px solid var(--rule);padding:10px 10px 10px 0;vertical-align:top}
+td:first-child{font-weight:700;width:22%}
+td.yr{white-space:nowrap;font-variant-numeric:tabular-nums;width:6em}
+.k{display:inline-block;font-size:13px;font-weight:500;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.k.og{background:var(--c);border-color:var(--c);color:#fff}
+.k.cl{color:var(--c)}
+.gen1 td:first-child{padding-left:0}.gen2 td:first-child{padding-left:14px}.gen3 td:first-child{padding-left:28px}
+.gen2 td:first-child::before,.gen3 td:first-child::before{content:"└ ";color:var(--mute);font-weight:400}
+.src li{margin-bottom:6px;font-size:15px}
+.avail{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17em),1fr));gap:12px}
+.card{background:var(--panel);border-radius:10px;padding:14px 16px;border-top:3px solid var(--c);display:flex;flex-direction:column;gap:6px}
+.card p{font-size:15px;margin:0;flex:1}
+.ct{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.ct b{font-size:15px;line-height:1.3}
+.pr{white-space:nowrap;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;color:var(--mute)}
+.meta .k{color:var(--ink)}
+.k.t-off{background:var(--c);border-color:var(--c);color:#fff}
+.filt{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.filt button{font:inherit;font-size:14px;min-height:40px;padding:6px 14px;border-radius:999px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);cursor:pointer}
+.filt button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filt button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+body[data-tier=off] .card:not([data-tier=off]),body[data-tier=bud] .card:not([data-tier=bud]),body[data-tier=mid] .card:not([data-tier=mid]),body[data-tier=btq] .card:not([data-tier=btq]),body[data-tier=kit] .card:not([data-tier=kit]){display:none}
+footer{font-size:14px}
+@media(max-width:760px){.fam .hd{grid-template-columns:minmax(0,1fr)}.axis,.row{grid-template-columns:minmax(0,108px) minmax(0,1fr)}.row .nm small{display:none}.ogl{display:none}.row .nm{font-size:14px}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--rule)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7.2em;width:auto}.stack td::before{content:attr(data-l);float:inline-start;width:6.8em;margin-inline-start:-7.2em;color:var(--mute);font-weight:400}.gen2 td:first-child,.gen3 td:first-child{padding-left:7.2em}.gen2 td:first-child::before,.gen3 td:first-child::before{content:attr(data-l)}}
+@media(prefers-reduced-motion:reduce){.dot,.tip{transition:none}.dot:hover{transform:translate(-50%,-50%)}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band" style="padding-bottom:12px">
+ <div class="wrap">
+  <h1>Pedal clone lineages: ten famous circuits and everything that copied them</h1>
+  <p class="lede">Most clones change one part on purpose: a clipping diode, an op-amp or a transistor. That one part is usually what the whole argument is about. The famous originals often began as copies too: the Tube Screamer descends from the Boss OD-1, the Ross from the Dyna Comp, and the Tone Bender from the Maestro Fuzz-Tone.</p>
+  <div class="tl" id="tl" aria-label="Timeline of pedal families, 1962 to 2026"></div>
+  <div class="legend"><span><i class="sq"></i>The original</span><span><i></i>Revision, reissue, clone or derivative (hover or tap a dot)</span><span>Tap a row to jump to its family</span></div>
+ </div>
+</header>
+<nav class="nav"><div class="scroll" id="nav"></div></nav>
+
+<section class="band">
+ <div class="wrap">
+  <h2>Three parts decide most of the "it's not the same" arguments</h2>
+  <p class="mute">Simple circuits have few parts, so swapping one of them changes a lot. These are the swaps that keep coming up in every family below.</p>
+  <div class="parts">
+   <div class="part"><b>Clipping diodes</b><p>Germanium clips early and soft. Silicon clips harder at about 0.7 V. Red LEDs clip at about 2 V, which means more output and less compression. Asymmetric pairs add even harmonics. This one difference separates the Klon from the Soul Food, the Distortion+ from the DOD 250, and the RAT from the Turbo RAT.</p></div>
+   <div class="part"><b>Op-amp</b><p>The JRC4558 in the Tube Screamer, the LM308 in the RAT, the TL072 in the Klon and the LM741 in the DOD 250. Slew rate and noise matter most when the chip itself is part of the gain stage, as in the RAT. In most other circuits the difference is smaller than forums suggest.</p></div>
+   <div class="part"><b>Transistors</b><p>Germanium (NKT275, AC128, OC44, OC75) against silicon (BC108, BC109). Germanium is warmer, varies a lot from part to part and is sensitive to heat. Silicon is brighter, has more gain and is consistent. This is the main fault line in every fuzz family.</p></div>
+  </div>
+  <h3>How to read the "kind" labels</h3>
+  <div class="kinds">
+   <div><span class="k">Revision</span> The original maker changed its own circuit</div>
+   <div><span class="k">Reissue</span> The rights holder rebuilt an old version</div>
+   <div><span class="k">Rebadge</span> The same circuit sold under another brand</div>
+   <div><span class="k">Clone</span> A third party copied the circuit closely</div>
+   <div><span class="k">Mod</span> An existing unit was altered</div>
+   <div><span class="k">Derivative</span> Built on the same topology but voiced differently, like the King of Tone</div>
+  </div>
+  <h3>Filter the "Still available" lists</h3>
+  <p class="mute" style="font-size:15px">Each family ends with pedals you can buy new today. Prices are US launch or street prices as reported in reviews, shown only where a source gave one. Stock and batch status change often.</p>
+  <div class="filt" id="filt" role="group" aria-label="Filter by price tier">
+   <button data-t="" aria-pressed="true">All</button><button data-t="off" aria-pressed="false">Official / rights holder</button><button data-t="bud" aria-pressed="false">Budget</button><button data-t="mid" aria-pressed="false">Mid-price</button><button data-t="btq" aria-pressed="false">Boutique</button><button data-t="kit" aria-pressed="false">DIY kits</button>
+  </div>
+ </div>
+</section>
+
+<main id="fams"></main>
+
+<section class="band" style="border-top:1px solid var(--rule)">
+ <div class="wrap">
+  <h2>Patterns across the families</h2>
+  <p><b>"The original" is often more than one circuit.</b> EHX's own historian says there was never one Triangle or Ram's Head schematic, only dozens of variants. Fuzz Faces changed transistors partway through production. Tube Screamers shipped with several different chips. When someone clones "a Ram's Head", they are really cloning one particular unit.</p>
+  <p><b>Patents and cost drive changes as much as tone does.</b> According to Ibanez's former product manager, Boss's patent on asymmetric clipping is a likely reason the TS808 clips symmetrically. Arbiter moved to silicon because it was cheaper and more stable. ProCo moved to the OP07 because the LM308 was hard to get.</p>
+  <p><b>Scarcity creates the clone market.</b> The Klon, Rangemaster and early Bluesbreaker all became expensive because few were made or because the parts ran out. Klones only boomed after Centaur supply dried up.</p>
+  <p><b>Derivatives often outsell their source.</b> The Morning Glory and King of Tone are better known than the 1991 Marshall pedal they came from. Many builders now treat the Ross, not the Dyna Comp, as the reference compressor.</p>
+ </div>
+</section>
+
+<footer class="band" style="border-top:1px solid var(--rule)">
+ <div class="wrap">
+  <h2>Sources</h2>
+  <ul class="src" id="src"></ul>
+  <p class="mute">Dates for vintage pedals are often disputed. Where the sources disagree, as with the DOD 250 and the Rangemaster's first year, the table uses an approximate year marked with "c.". A few details marked "commonly cited" come from well-known community knowledge rather than from the sources above.</p>
+ </div>
+</footer>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+{
+const F=[
+{id:'fuzztone',c:'--tb',name:'Fuzz-Tone → Tone Bender',og:'Maestro FZ-1',sub:'Fuzz, 3 germanium transistors',
+ facts:[['Original','Gibson Maestro FZ-1 Fuzz-Tone, 1962'],['Designers','Glenn Snoddy and Revis Hobbs'],['Core','3 × RCA 2N270 germanium, two 1.5 V cells'],['Big break','"Satisfaction", 1965']],
+ intro:'The first mass-market fuzz sat unsold until Keith Richards used it on "Satisfaction". It was scarce in Britain, so a session player took one to Gary Hurst in London. Hurst\'s modified version became the Tone Bender, which then went through several quick revisions and was sold under other brands.',
+ take:'The Tone Bender started as a Maestro clone. Its higher supply voltage and tweaked resistors made it louder and gave it more sustain, which made it a new species.',
+ n:[['Maestro FZ-1 Fuzz-Tone',1962,'og',1,'—','Gritty, gravelly, thin sustain. Bass-oriented at launch'],
+  ['Maestro FZ-1A',1965,'rev',2,'Revised Maestro circuit, one of three early versions','Close to FZ-1'],
+  ['Sola Sound Tone Bender MkI',1965,'cl',2,'Gary Hurst\'s modified FZ-1. 3 germanium transistors (often OC75), run at a higher voltage','Louder, more sustain than the FZ-1'],
+  ['Tone Bender MkI.5',1966,'rev',3,'Cut to 2 transistors, a circuit similar to the Fuzz Face','Choppy, gated, Stooges-like'],
+  ['Tone Bender Professional MkII',1966,'rev',3,'Back to 3 germanium transistors','Thick, saturated. The classic "Tone Bender"'],
+  ['Marshall Supa Fuzz / Park Fuzz Sound / Rotosound Fuzz',1966,'rb',3,'MkII circuit with minor changes, sold under other brands','Close to the MkII'],
+  ['D*A*M and other boutique MkIIs','2000s','cl',3,'Hand-built replicas with selected germanium','Depends on the transistors chosen'],
+  ['EarthQuaker × Park Fuzz Sound',2023,'ri',3,'Revival of the Park, using NOS germanium transistors','MkII family voice']]},
+{id:'fuzzface',c:'--ff',name:'Fuzz Face',og:'Arbiter Fuzz Face',sub:'Fuzz, 2 transistors',
+ facts:[['Original','Arbiter Fuzz Face, late 1966'],['Maker','Ivor Arbiter, London'],['Core','2 × NKT275 or AC128 germanium PNP, about 11 parts'],['Famous user','Jimi Hendrix']],
+ intro:'A two-transistor circuit in a mic-stand-base enclosure. The silicon switch in the late 60s splits the family in two, and the extremely simple circuit is why almost every boutique builder sells one.',
+ take:'With so few parts, the transistors and how well they are matched matter most. Dunlop even sells a germanium version with deliberately mismatched transistors, to match the vintage units.',
+ n:[['Arbiter Fuzz Face',1966,'og',1,'—','Fat, woolly, cleans up with the guitar volume'],
+  ['Dallas-Arbiter silicon Fuzz Face',1968,'rev',2,'Switch to silicon (BC108/BC183 types) for cost and stability','Harsher, brighter, more gain'],
+  ['Dallas Music Industries reissue',1976,'ri',2,'Brief silicon reissue','Silicon voice'],
+  ['Crest Audio Fuzz Face','c. 1986','ri',2,'BC109C silicon. Grey, blue or red finish','Silicon voice'],
+  ['Dunlop JDF2',1993,'ri',2,'Dunlop takes over the name. Built to original Dallas-Arbiter specs','Close to vintage'],
+  ['Dunlop Hendrix JH-F1 / FFM6',2000,'ri',3,'Modelled on 1969–70 BC108 units','Band of Gypsys-era silicon'],
+  ['Dunlop FFM1 / FFM2 minis',2014,'ri',3,'Silicon BC108 (FFM1) or mismatched germanium (FFM2). LED, DC jack, true bypass','Small-board versions of both voices'],
+  ['Boutique clones (Analogman Sun Face and others)','1990s–','cl',2,'Hand-selected NKT275 or BC108 transistors. Often a bias trim','Narrowly tuned to one vintage unit']]},
+{id:'rangemaster',c:'--rm',name:'Rangemaster',og:'Dallas Rangemaster',sub:'Treble booster, 1 germanium transistor',
+ facts:[['Original','Dallas Rangemaster Treble Booster, c. 1965–66'],['Maker','Dallas Musical Ltd, London'],['Core','1 × OC44 germanium, amp-top box, built-in cable'],['Users','Iommi, Gallagher, May, Bolan, Blackmore']],
+ intro:'It wasn\'t a pedal but a box that sat on top of the amp, sold to brighten dark British amps. It turned out to work as an overdrive into a cranked amp. One transistor plus rarity makes it an ideal circuit to clone.',
+ take:'The legend that Clapton used one on the "Beano" album has no photographic evidence. It is believed to have spread in the late 1990s, around the time clone makers began selling Rangemasters.',
+ n:[['Dallas Rangemaster',1965,'og',1,'—','Focused upper-mid boost that pushes the amp into breakup'],
+  ['Iommi\'s modified unit','c. 1968','mod',2,'Modified to boost the full range instead of just the treble','Heavier, fuller'],
+  ['Hornby Skewes Treble Booster','c. 1968','cl',2,'Rival amp-top treble booster','Similar idea'],
+  ['British Pedal Co. OC44 / OC71','2010s','ri',2,'Licensed replicas with NOS Mullard transistors. Choice of OC44 or OC71','OC44 smoother, OC71 brighter'],
+  ['Ananashead Range Booster','2020s','cl',2,'Pedal-format clone of the 1966 unit','Close to vintage'],
+  ['Boutique pedal-format boosters (KAT, Ananashead, Toneman)','1990s–','cl',2,'Usually a 9 V pedal, often with a range switch','From faithful to loose interpretations']]},
+{id:'bigmuff',c:'--bm',name:'Big Muff Pi',og:'Triangle Big Muff',sub:'Fuzz/sustainer, 4 transistor stages',
+ facts:[['Original','EHX Big Muff Pi "Triangle", 1969'],['Designers','Bob Myers and Mike Matthews'],['Core','4 silicon transistor stages, passive tone stack'],['Famous users','Hendrix, Gilmour, Santana, Mascis, Corgan']],
+ intro:'Four gain stages and a mid-scooped tone stack. Production moved between New York and Russia, and component values changed so often that every version name covers a range of sounds.',
+ take:'EHX\'s own historian says there is no single Triangle or Ram\'s Head schematic. Tone-cap values alone ran from 470 to 680 pF. Clones of "a Ram\'s Head" really copy one particular unit.',
+ n:[['V1 "Triangle"',1969,'og',1,'—','Clear note definition, more bass'],
+  ['V2 "Ram\'s Head"',1973,'rev',2,'New enclosure graphics. Component values varied widely between units','Often more mid-scooped and darker. Gilmour\'s Muff'],
+  ['V3 red/black',1977,'rev',2,'Started as a graphics change and gradually became a different circuit','More gain, brighter'],
+  ['Op-amp Big Muff',1978,'rev',2,'Transistor stages replaced with op-amps','Harder, grainier. The Siamese Dream sound'],
+  ['Sovtek "Civil War"',1992,'rev',2,'Made in Russia after the US factory closed','Smooth, warm'],
+  ['Sovtek "Green Russian"',1994,'rev',2,'Russian components, big army-green box','Bassy and smooth, but grittier than the Triangle'],
+  ['Black Russian',1998,'rev',3,'Slightly modified Green Russian circuit, black box','Similar to the Green'],
+  ['EHX NYC reissue → Nano, Ram\'s Head, Triangle and Green Russian reissues','1990s–2020','ri',2,'The modern line rebuilds each era in small enclosures','One unit\'s voice per era'],
+  ['Green Russian clones (ARC Big Green, Stomp Under Foot, Fredric, GGG kit)','2000s–','cl',3,'Russian-era circuit, often with a mids switch','Faithful, fat low end']]},
+{id:'compressor',c:'--dc',name:'Dyna Comp → Ross',og:'MXR Dyna Comp',sub:'CA3080 OTA compressor',
+ facts:[['Original','MXR Dyna Comp, 1972'],['Core','CA3080 OTA controlled by an envelope follower'],['Controls','Output, Sensitivity'],['The famous copy','Ross Compressor, late 1970s']],
+ intro:'The Dyna Comp is the source of almost every "squishy" pedal compressor. Ross, a company in Kansas, copied it with a few component changes. The grey Ross box is now more sought-after than the original and is the most-copied compressor circuit.',
+ take:'Many "Dyna Comp-style" boutique compressors are actually Ross clones. Keeley, Analogman and Xotic all start from the Ross circuit.',
+ n:[['MXR Dyna Comp',1972,'og',1,'—','Pronounced squash and attack "pop"'],
+  ['MXR script-logo units',1976,'rev',2,'Metal-can CA3080. Reissued as the Custom Shop \'76','The collectors\' Dyna Comp'],
+  ['Ross Compressor (grey)',1978,'cl',2,'Near-copy of the Dyna Comp with a few part changes','Smoother, fuller. Trey Anastasio\'s comp'],
+  ['Keeley Compressor (2- then 4-knob)','2000s','cl',3,'Ross circuit plus clip and attack controls','Cleaner, more adjustable'],
+  ['Analogman CompROSSor','2000s','cl',3,'Hand-built Ross','Close to vintage Ross'],
+  ['Xotic SP Compressor','2010s','der',3,'Ross-based, mini, with a blend control','More transparent'],
+  ['Keeley Compressor Plus',2014,'der',3,'Blend, tone, single-coil/humbucker toggle','Parallel compression'],
+  ['MXR Dyna Comp Mini','2010s','ri',2,'Adds an attack toggle','Original voice, smaller box'],
+  ['Behringer DC9','2000s','cl',2,'Budget Dyna Comp clone','Approximate']]},
+{id:'distplus',c:'--dp',name:'Distortion+ → DOD 250',og:'MXR Distortion+',sub:'Op-amp + clipping diodes to ground',
+ facts:[['Original','MXR Distortion+, early-to-mid 1970s'],['Core','One op-amp, 2 germanium diodes to ground, no tone control'],['Controls','Output, Distortion'],['The famous copy','DOD Overdrive Preamp 250']],
+ intro:'This is the simplest circuit here, and the one that shows most clearly what diodes do. DOD copied MXR nearly part for part and swapped germanium diodes for silicon. The result has its own following: Randy Rhoads played the MXR and Yngwie Malmsteen the DOD.',
+ take:'The usual modern clone mod is a three-way switch between silicon (DOD 250), germanium (Distortion+) and no diodes (roughly an MXR Micro Amp). DOD now builds that switch into the 250 itself.',
+ n:[['MXR Distortion+','c. 1973','og',1,'—','Mild, raspy, low-gain distortion'],
+  ['DOD Overdrive Preamp 250','c. 1974','cl',2,'Changed component values, silicon diodes, LM741','Harder clipping, brighter edge'],
+  ['Ross Distortion (tan)','c. 1978','cl',2,'Another near-copy','Only subtly different'],
+  ['DOD 250 reissues','2013–','ri',3,'Several reissues. One returned to the LM741 and the original parts list','Close to vintage gray/yellow units'],
+  ['DOD 250 50th Anniversary',2024,'ri',3,'Switch for silicon, asymmetric germanium or no diodes (lift)','Three pedals in one'],
+  ['VFE Distortion 3, Loophole Grey Matter','2010s','der',2,'Combine the 250, Distortion+ and Micro Amp, or two 250s, in one pedal','Switchable']]},
+{id:'tubescreamer',c:'--ts',name:'OD-1 → Tube Screamer',og:'Boss OD-1',sub:'Soft clipping in op-amp feedback',
+ facts:[['Root','Boss OD-1, 1977 (patented asymmetric clipping)'],['TS designer','Susumu Tamura, Maxon/Nisshin Onpa'],['TS808','1979, symmetric clipping, tone control, JRC4558'],['Big break','Stevie Ray Vaughan']],
+ intro:'Ibanez\'s former product manager says the TS808 and OD-1 schematics are "almost exactly the same thing". The main differences are that the Tube Screamer clips symmetrically (possibly to avoid Boss\'s patent) and adds a tone control. After that, the 808-versus-TS9 output stage and the op-amp became the topics of decades of argument.',
+ take:'The TS9 and TS808 are nearly the same circuit. The TS9\'s different output resistors make it brighter. That is why the best-known "mod" simply converts a TS9 back to 808 values.',
+ n:[['Boss OD-1',1977,'og',1,'—','Sweet, compressed, asymmetric'],
+  ['Boss SD-1',1981,'rev',2,'OD-1 plus a tone control, still asymmetric','Brighter, more mids'],
+  ['Maxon OD-808 / Ibanez TS808',1979,'der',2,'Symmetric clipping, tone control. JRC4558 (some units have TI RC4558P)','Mid hump, smooth'],
+  ['Ibanez TS9 / Maxon OD-9',1981,'rev',3,'Same core, different output resistors','Brighter, less smooth'],
+  ['Ibanez TS10',1986,'rev',3,'Reworked output stage','A favourite of John Mayer'],
+  ['Keeley Mod Plus / Analogman 808 mod','1990s–','mod',3,'TS9 converted to 808 output values, often with a socketed op-amp','Smoother, fuller'],
+  ['Maxon and Ibanez reissues (incl. TS808HW)','2000s–2016','ri',3,'Maxon reissues after the split with Ibanez in 2002. The TS808HW is hand-wired','Close to vintage'],
+  ['Ibanez Bonsai','2019','ri',3,'Nine Tube Screamer variants in one pedal','Switchable history']]},
+{id:'rat',c:'--rat',name:'ProCo RAT',og:'ProCo RAT',sub:'LM308 gain stage + diodes to ground',
+ facts:[['Original','Pro Co "The RAT", late 1970s, Kalamazoo'],['Core','LM308 op-amp with high gain, silicon diodes to ground'],['Controls','Distortion, Filter, Volume'],['Notable users','Thom Yorke (Turbo RAT)']],
+ intro:'The RAT\'s distortion comes partly from the op-amp hitting its slew-rate limit, which is why the LM308 matters more here than op-amps do in other pedals. ProCo kept the core circuit and made its variations mostly by changing the diodes.',
+ take:'The diodes define ProCo\'s own lineup: silicon (RAT2), red LEDs (Turbo RAT) and germanium (You Dirty RAT). Players who swap an OP07 for an LM308 often report only a tiny difference.',
+ n:[['The RAT (big box)',1978,'og',1,'—','Raw, fuzzy distortion. The filter sweeps it from dark to fizzy'],
+  ['RAT2',1988,'rev',2,'Smaller housing, LED, minor tweaks','Classic RAT'],
+  ['Turbo RAT',1989,'rev',2,'Red LED clipping','More output, less compression'],
+  ['Vintage RAT reissue',1991,'ri',2,'Big-box reissue','Earlier voice'],
+  ['OP07 era',2002,'rev',2,'LM308 replaced with OP07DP','Very slightly different, according to most players'],
+  ['You Dirty RAT',2004,'rev',2,'Germanium clipping diodes','Softer, looser'],
+  ['Mightier Mouse mod','2000s','mod',2,'Switch for silicon, LED or MOSFET clipping','Three RATs in one'],
+  ['JHS PackRat',2021,'cl',2,'Nine historic RAT circuits switched through analogue paths','Every RAT in one box']]},
+{id:'bluesbreaker',c:'--bb',name:'Bluesbreaker → King of Tone',og:'Marshall Bluesbreaker',sub:'Low-gain, amp-like overdrive',
+ facts:[['Original','Marshall Bluesbreaker pedal, 1991 ("Black Box" series)'],['Named after','The 1962 combo on the Mayall/Clapton "Beano" album'],['Circuit','Non-inverting op-amp stage → EQ → inverting stage'],['Famous derivative','Analogman King of Tone, 2003']],
+ intro:'The pedal was ignored in shops in the 90s, then became a holy-grail item through its descendants. Analogman\'s King of Tone took the topology and revoiced it heavily. JHS\'s Morning Glory followed, based on a pre-production prototype.',
+ take:'Josh Scott of JHS argues that calling the King of Tone a Bluesbreaker clone is "really, really wrong". It shares the topology but is a different pedal. It is a derivative, not a clone.',
+ n:[['Marshall Bluesbreaker',1991,'og',1,'—','Transparent, low gain, quiet output'],
+  ['Analogman King of Tone',2003,'der',2,'Two channels, internal switches for boost, overdrive or distortion, revoiced','Benchmark "transparent" drive, years-long waitlist'],
+  ['JHS Morning Glory',2008,'der',2,'Based on a pre-production Bluesbreaker prototype. V4 adds gain and bright cut','Brighter, more output'],
+  ['Analogman Prince of Tone','2010s','der',3,'One King of Tone channel, made overseas','Same circuit, single channel'],
+  ['MXR Duke of Tone',2020,'der',3,'MXR and Analogman collaboration, mini','Mass-market King of Tone'],
+  ['Wampler Pantheon, Snouse BlackBox, Keeley 1962X','2010s','der',2,'Each builder\'s own take on the topology','Varies'],
+  ['Marshall Bluesbreaker reissue',2023,'ri',2,'Reissue of the original pedal','Reported to have less output than the prototype JHS based the Morning Glory on'],
+  ['Warm Audio Throne of Tone','2020s','cl',3,'Combines Bluesbreaker and King of Tone modes, adds presence','Both voices in one']]},
+{id:'klon',c:'--kl',name:'Klon Centaur',og:'Klon Centaur',sub:'Clean/dirty blend overdrive',
+ facts:[['Original','Klon Centaur, 1994–2008'],['Designer','Bill Finnegan (who gave much credit to Fred Fenning)'],['Core','TL072, NOS germanium diodes, 9 V → 18 V charge pump, dual-gang gain pot'],['Used price','Up to $20,000 as of 2024']],
+ intro:'It took four and a half years to develop. Its circuit was covered in goop to hide it, but it was traced by 2009. The exact diode type remained a mystery. Klones flooded in once the originals ran out, and Finnegan himself redesigned it as the KTR in 2014.',
+ take:'Klone makers argue most about the germanium diodes. Measured EQ curves can match almost exactly (as with the Soul Food) and still feel different, because silicon clips harder.',
+ n:[['Klon Centaur',1994,'og',1,'—','Clean signal blended with soft clipping, lots of headroom, treble lift'],
+  ['Klon KTR',2014,'ri',2,'Finnegan\'s own redesign, surface-mount, made by contract manufacturers','The official "Klon"'],
+  ['EHX Soul Food',2013,'cl',2,'TL072, dual-gang gain, but silicon diodes, surface-mount','Thinner, less gain, same EQ shape'],
+  ['J. Rockett Archer','2010s','cl',2,'Close to the original circuit','Some players prefer it to the Centaur'],
+  ['Wampler Tumnus',2015,'cl',2,'Faithful circuit, charge pump, mini box','Close to the original in blind tests'],
+  ['Wampler Tumnus Deluxe','2010s','der',3,'Adds bass and mid controls, normal/hot switch','More flexible'],
+  ['Germanium Tumnus','2020s','cl',3,'Limited run with original-type germanium diodes','Most faithful, sold out'],
+  ['Warm Audio Centavo',2022,'cl',2,'Copies the Centaur\'s look. TL072, vintage-style diodes, charge pump, buffered bypass','Very close. Mod switch adds bass'],
+  ['Way Huge Conspiracy Theory, Origin Halcyon Gold, NUX Horseman, Mosky Golden Horse','2010s–','der',2,'Budget clones to feature-rich derivatives','Varies']]}
+];
+// still-available: [name, tier, status, what it is, price]
+const A={
+fuzztone:[['Boss TB-2W Tone Bender','off','Limited run of 3,000, mostly used now','Made with Sola Sound and modelled on MkII serial #500. Germanium transistors, 3-way voltage selector, true or buffered bypass','$349 street'],
+ ['British Pedal Co. Tone Bender Professional MkII','off','In production','Detailed replica of Gary Hurst\'s 1966 MkII, using OC75 transistors',''],
+ ['D*A*M Professional MkII','btq','Small batches','David Main\'s replica. He also built the Sola Sound reissues',''],
+ ['Expresso FX Fuzz Bender MkII','btq','Made to order','UK-built, with two NOS OC75s and one OC76',''],
+ ['Thorpy FX Six Zero','btq','In production since Jan 2025','Started as an Andertons 60th-anniversary limited run. MkI voice, not MkII',''],
+ ['EarthQuaker × Park Fuzz Sound','mid','Check stock','Park revival with NOS germanium transistors',''],
+ ['Toetags Toe Bender MkII','btq','Small builder','A cheaper homage to the 1966–68 MkII',''],
+ ['JHS Legends of Fuzz Bender','bud','In production','Note: this is the later MkIII voice, with modern features',''],
+ ['BYOC Bender','kit','Kit','MkII clone you build yourself','']],
+fuzzface:[['Dunlop JDF2 / JH-F1 (full size)','off','In production','The classic round enclosure. JDF2 is germanium; JH-F1 uses BC108 silicon to 1969–70 Hendrix spec',''],
+ ['Dunlop FFM1 / FFM2 / FFM6 minis','off','In production','FFM1 uses BC108 silicon, FFM2 mismatched germanium, FFM6 is the Band of Gypsys voicing. All have DC jacks and true bypass',''],
+ ['Dunlop FFM5 Eric Johnson, JB-F3 Bonamassa','off','In production','Signature voicings tuned from particular players\' units',''],
+ ['Analogman Sun Face','btq','Order direct','Hand-selected NKT275 or BC108 transistors, with a bias control option (commonly cited)',''],
+ ['North Effects Fuzz Face','btq','Small builder','Matched BC108s and close to the original circuit, keeping the low end',''],
+ ['Monsterpiece Classic Fuzz','btq','Small builder','Straight Fuzz Face clone','']],
+rangemaster:[['British Pedal Co. Compact Rangemaster','off','In production','Licensed pedal-format replica with a gain-selected OC44. The amp-top Vintage Series is often out of stock',''],
+ ['Vox VTB-1 Treble Booster','mid','In production','Rangemaster-inspired, with a Fat switch','$149.99 street'],
+ ['Catalinbread Naga Viper','mid','In production','Rangemaster-style booster with a range control (commonly cited)',''],
+ ['KAT Treble Booster','btq','Small builder','Pedal version of the type of booster Brian May uses',''],
+ ['Ananashead Range Booster','btq','Small builder','Based on the 1966 unit',''],
+ ['Hand-wired Mullard clones (e.g. H&T Electronics)','btq','One-offs on Reverb','NOS OC41/OC44 transistors, often with an added range switch','']],
+bigmuff:[['EHX reissues: NYC, Nano, Triangle, Ram\'s Head, Green Russian, Op-Amp, Deluxe, Bass','off','In production','EHX\'s current catalogue has about 11 Muffs, one for each historic era',''],
+ ['JHS Muffuletta','mid','In production','Several historic Muff circuits switchable in one pedal',''],
+ ['EarthQuaker Hoof','mid','In production','Green Russian-style, with a Shift control for the mids',''],
+ ['ARC Effects Big Green','btq','In production','Green Russian replica with a mids switch. Also good on bass',''],
+ ['Wren and Cuff (Caprid, Garbage Picker and others)','btq','In production','Obsessively detailed clones of specific eras',''],
+ ['Stomp Under Foot Green Russian and others','btq','In production','Highly regarded Russian-era clones',''],
+ ['Fredric Effects Green Russian','btq','Small builder','UK-built, faithful Sovtek tone',''],
+ ['GGG Big Muff Pi Replica Kit','kit','Kit','Green Russian version is a well-liked build','']],
+compressor:[['Ross Compressor reissue (Ross Audibles × JHS)','off','In production','"Era 2" grey-box circuit in the slanted enclosure. Vintage and Bright modes',''],
+ ['MXR Dyna Comp M102 / Mini / \'76 Custom Shop','off','In production','Original MXR line. The Mini adds an attack toggle; the \'76 uses a metal-can CA3080',''],
+ ['Keeley Compressor Plus','mid','In production','Ross-based, with blend, tone and a single-coil/humbucker switch',''],
+ ['Wampler Ego','mid','In production','The Ross-style comp with the most forum hype, plus a blend control (commonly cited)',''],
+ ['Analogman CompROSSor / Bi-CompROSSor','btq','Order direct','Hand-built Ross clone. The Bi version pairs it with an Orange Squeezer',''],
+ ['Barber Tone Press','btq','In production','Ross circuit with a clean blend, which keeps the low end. Good on bass',''],
+ ['Xotic SP Compressor','mid','In production','Mini Ross-type with blend',''],
+ ['Behringer DC9','bud','In production','Budget Dyna Comp clone',''],
+ ['BYOC RossComp','kit','Kit','Popular Ross kit','']],
+distplus:[['DOD Overdrive Preamp 250 reissue / 250-X','off','In production','The 250-X adds a 3-way clipping switch',''],
+ ['DOD 250 50th Anniversary','off','Limited','Hand-built in the USA. Silicon, asymmetric germanium or lift (no diodes)',''],
+ ['MXR M104 Distortion+ / CSP-104 \'73 / RR104 Randy Rhoads','off','In production','The original\'s rights holder still makes all three',''],
+ ['Loophole Grey Matter','btq','Small batches','Dual 250 with an extended range','$249'],
+ ['Fredric Effects Liquid Fox','btq','Small builder','Two Distortion+ circuits cascaded',''],
+ ['BYOC 250+ / GGG Distortion Plus kits','kit','Kit','Build either the DOD or the MXR version by swapping a few parts','']],
+tubescreamer:[['Ibanez TS9, TS808, TS Mini, TS808HW','off','In production','The originals are still made. The TS Mini is the cheapest real one',''],
+ ['Maxon OD808 / OD-9','off','In production','The original OEM\'s own versions',''],
+ ['Boss SD-1','off','In production','The OD-1 line\'s continuation, with asymmetric clipping',''],
+ ['JHS Bonsai','mid','In production','Nine Tube Screamer variants in one analogue pedal','$249'],
+ ['Warm Audio Tube Squealer','mid','In production','Switches between TS808, TS9 and TS10 by rewiring the circuit itself','£139'],
+ ['EarthQuaker Plumes','bud','In production','Single-channel evolution with clipping modes',''],
+ ['Joyo Vintage Overdrive','bud','In production','Budget TS clone','under $60'],
+ ['Analogman TS mods','btq','Service','A stock TS9 converted to 808 specs','']],
+rat:[['ProCo RAT2, Turbo RAT, You Dirty RAT, Lil\' RAT, Deucetone, FAT RAT','off','In production','ProCo\'s own range, which differs mainly by diode type',''],
+ ['JHS PackRat','mid','In production','Nine RAT circuits (V1, White Face, Turbo, BRAT, Dirty, LA, Landgraff, Caroline, JHS mod) routed through analogue paths','$249'],
+ ['Walrus Audio Iron Horse V3','mid','In production','RAT-based with a clipping switch',''],
+ ['TC Electronic Magus Pro','bud','In production','Budget RAT-style',''],
+ ['Mooer Black Secret / Joyo Splinter','bud','In production','Micro and budget RAT clones',''],
+ ['Fuzzrocious Rat King','btq','Small builder','LM308 chip, diode selector, momentary feedback footswitch',''],
+ ['Thorpy FX Warthog','btq','In production','British boutique RAT derivative',''],
+ ['Stomp Under Foot Skinner Box','btq','Small builder','Boutique RAT clone','']],
+bluesbreaker:[['Marshall Bluesbreaker reissue','off','In production','Reissue of the original Marshall pedal',''],
+ ['MXR Duke of Tone','mid','In production','King of Tone circuit in a mini, made with Analogman',''],
+ ['Analogman King of Tone','btq','Waitlist, reportedly 4+ years','The original derivative',''],
+ ['Analogman Prince of Tone','mid','In production','One King of Tone channel, made overseas','$239+'],
+ ['JHS Morning Glory V4','mid','In production','Adds a gain switch and bright cut',''],
+ ['Wampler Pantheon','mid','In production','Bluesbreaker topology with added EQ',''],
+ ['Warm Audio Throne of Tone','mid','In production','A Bluesbreaker side (TL072) and a King side (JRC4580). The King of Tone\'s internal trims are moved outside','$229'],
+ ['Origin Effects Halcyon Blue','btq','In production','Bluesbreaker tones refined into one highly responsive setting','$299'],
+ ['Snouse BlackBox / Keeley 1962X','mid','In production','Other well-known Bluesbreaker-style pedals',''],
+ ['Tone City King of Blues / NUX Queen of Tone','bud','In production','Budget dual-channel takes on the King of Tone','']],
+klon:[['Klon KTR','off','Intermittent','Finnegan\'s own current version',''],
+ ['Warm Audio Centavo / Centavo Mod','mid','In production','Copies the Centaur\'s look. TL072, vintage-style diodes, charge pump, Mod switch for more bass. The Mod is the smaller box','$179 / $189'],
+ ['Wampler Tumnus / Tumnus Deluxe','mid','In production','Faithful mini. The Deluxe adds bass and mid controls and a hot switch',''],
+ ['J. Rockett Archer','mid','In production','Close to the original circuit. Some players prefer it to a real Centaur',''],
+ ['EHX Soul Food','bud','In production','Silicon diodes, thinner, adapter included','~$86 street'],
+ ['TC Electronic Zeus','bud','In production','Budget pick','under $100'],
+ ['Mosky Golden Horse / NUX Horseman','bud','In production','Cheapest way to try the sound',''],
+ ['Way Huge Conspiracy Theory','mid','In production','Compact Klon-type',''],
+ ['Origin Effects Halcyon Gold','btq','In production','Klon voice with modern controls','']]
+};
+const T={off:'Official / rights holder',bud:'Budget',mid:'Mid-price',btq:'Boutique',kit:'DIY kit'};
+const K={og:'Original',rev:'Revision',ri:'Reissue',rb:'Rebadge',cl:'Clone',mod:'Mod',der:'Derivative'};
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const yr=y=>{const m=String(y).match(/\d{4}/);let v=m?+m[0]:1990;if(/s$/.test(y)&&!/–/.test(y))v+=4;return v};
+const Y0=1960,Y1=2027,pct=y=>((yr(y)-Y0)/(Y1-Y0)*100).toFixed(2);
+const ticks=[1960,1970,1980,1990,2000,2010,2020];
+const tl=document.getElementById('tl');
+tl.innerHTML='<div class="axis"><div></div><div class="tk">'+ticks.map(t=>`<span style="left:${pct(String(t))}%">${t}</span>`).join('')+'</div></div>'+
+ F.map(f=>{const ys=f.n.map(n=>yr(n[1])),mn=Math.min(...ys),mx=Math.max(...ys);
+  return `<a class="row" href="#${f.id}"><div class="nm"><span class="sw" style="background:var(${f.c})"></span><span>${esc(f.name)}<small>${esc(f.sub)}</small></span></div><div class="track">${ticks.map(t=>`<i class="gl" style="left:${pct(String(t))}%"></i>`).join('')}<i class="ln" style="left:${pct(String(mn))}%;width:${(pct(String(mx))-pct(String(mn))).toFixed(2)}%;background:var(${f.c})"></i>${f.n.map(n=>`<i class="dot${n[2]==='og'?' og':''}" tabindex="0" data-t="${esc(n[0]+' · '+n[1]+' · '+K[n[2]])}" style="left:${pct(n[1])}%;background:var(${f.c})"></i>`).join('')}<span class="ogl" style="left:${pct(f.n[0][1])}%;color:var(${f.c})">${esc(f.og)}</span></div></a>`}).join('');
+document.getElementById('nav').innerHTML=F.map(f=>`<a href="#${f.id}"><span class="sw" style="background:var(${f.c})"></span>${esc(f.name)}</a>`).join('');
+document.getElementById('fams').innerHTML=F.map(f=>`<section class="band fam" id="${f.id}" style="--c:var(${f.c})"><div class="wrap">
+ <div class="hd"><div><h2>${esc(f.name)}</h2><p>${esc(f.intro)}</p><p class="take">${esc(f.take)}</p></div>
+ <dl class="facts">${f.facts.map(([a,b])=>`<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join('')}</dl></div>
+ <h3>Lineage and what changed</h3>
+ <table class="stack"><thead><tr><th>Pedal</th><th>Year</th><th>Kind</th><th>What changed</th><th>Sound vs. parent</th></tr></thead><tbody>
+ ${f.n.map(n=>`<tr class="gen${n[3]}"><td>${esc(n[0])}</td><td class="yr">${esc(n[1])}</td><td><span class="k ${n[2]==='og'?'og':n[2]==='cl'?'cl':''}">${K[n[2]]}</span></td><td>${esc(n[4])}</td><td>${esc(n[5])}</td></tr>`).join('')}
+ </tbody></table>
+ <h3>Still available</h3>
+ <div class="avail">${(A[f.id]||[]).map(a=>`<div class="card" data-tier="${a[1]}"><div class="ct"><b>${esc(a[0])}</b>${a[4]?`<span class="pr">${esc(a[4])}</span>`:''}</div><p>${esc(a[3])}</p><div class="meta"><span class="k t-${a[1]}">${T[a[1]]}</span><span class="st">${esc(a[2])}</span></div></div>`).join('')}</div></div></section>`).join('');
+const fl=document.getElementById('filt');
+fl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const x of fl.querySelectorAll('button'))x.setAttribute('aria-pressed',x===b);document.body.dataset.tier=b.dataset.t});
+const tip=document.getElementById('tip');
+const show=(e,el)=>{tip.textContent=el.dataset.t;const r=el.getBoundingClientRect();tip.style.opacity=1;const w=tip.offsetWidth;tip.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';tip.style.top=(r.top-tip.offsetHeight-8)+'px'};
+tl.addEventListener('mouseover',e=>{const d=e.target.closest('.dot');if(d)show(e,d)});
+tl.addEventListener('focusin',e=>{const d=e.target.closest('.dot');if(d)show(e,d)});
+tl.addEventListener('mouseout',e=>{if(e.target.closest('.dot'))tip.style.opacity=0});
+tl.addEventListener('focusout',()=>tip.style.opacity=0);
+tl.addEventListener('click',e=>{const d=e.target.closest('.dot');if(d&&matchMedia('(hover:none)').matches){e.preventDefault();show(e,d);setTimeout(()=>tip.style.opacity=0,2200)}});
+addEventListener('scroll',()=>tip.style.opacity=0,{passive:true});
+const S=[['Boss TB-2W press release — Roland','https://www.roland.com/us/company/press_releases/2020/BOSS-Introduces-Waza-Craft-TB-2W-Tone-Bender-Pedal/'],['Boss TB-2W review — Premier Guitar','https://www.premierguitar.com/gear/reviews/boss-tb-2w-tone-bender'],['JHS PackRat — Guitar World','https://www.guitarworld.com/news/jhs-packrat-pedal'],['Warm Audio Throne of Tone review — Sound On Sound','https://www.soundonsound.com/reviews/warm-audio-throne-tone'],['Warm Audio Centavo Mod review — MusicRadar','https://www.musicradar.com/guitars/guitar-pedals/warm-audio-centavo-mod-review'],['Best Klon clones 2025 — Guitar Player','https://guitarplayer.com/gear/best-klon-clones'],['Warm Audio Tube Squealer — Sound On Sound','https://www.soundonsound.com/reviews/warm-audio-tube-squealer'],['Best Tube Screamer clones — Delicious Audio','https://delicious-audio.com/best-tube-screamer-clones-and-reissues/'],['12 best Rangemaster-style boosters — GuitarPedalX','https://www.guitarpedalx.com/news/gpx-blog/12-of-the-best-currently-available-rangemaster-treble-booster-pedals'],['Ross Compressor reissue — Sweetwater','https://www.sweetwater.com/store/detail/RossComp--ross-compressor-guitar-effects-pedal'],['Extended-range DOD 250-style overdrives — GuitarPedalX','https://www.guitarpedalx.com/news/gpx-blog/4-great-extended-range-dod250-style-overdrives'],['Best Blues Breaker-style pedals — Delicious Audio','https://delicious-audio.com/best-blues-breaker-style-pedals/'],['Russian Muff clones — Reverb','https://reverb.com/news/mean-green-rock-machine-a-glance-at-russian-muff-clones'],['You Dirty Rat — Guitar Player','https://www.pressreader.com/uk/guitar-player/20221213/281788518092369'],['Klon Centaur — Wikipedia','https://en.wikipedia.org/wiki/Klon_Centaur'],['Best Klon clones (blind comparison) — Premier Guitar','https://www.premierguitar.com/gear/reviews/best-klon-clone'],['The FX files: Klon Centaur — MusicRadar','https://www.musicradar.com/how-to/the-fx-files-klon-centaur'],['Green Giant: History of the Tube Screamer — Premier Guitar','https://www.premierguitar.com/gear/green-giant-history-of-the-tube-screamer'],['Ibanez Tube Screamer history — Analogman','https://analogman.com/tshist.htm'],['Boss SD-1 — Wikipedia','https://www.wikiwand.com/en/articles/Boss_SD-1'],['Big Muff Pi — Wikipedia','https://en.wikipedia.org/wiki/Big_Muff'],['History of all Big Muff versions — EHX / Kit Rae','https://www.ehx.com/distortion-ltd.-celebrates-the-big-muff-pi'],['Pro Co RAT — Wikipedia','https://wikipedia.com/wiki/ProCo_Rat'],['Vintage vs. modern ProCo RAT — Reverb','https://reverb.com/guide/buying-guide-the-proco-rat'],['What is a Bluesbreaker? — JHS Pedals','https://jhspedals.info/blogs/news/what-is-a-bluesbreaker'],['MXR Duke of Tone review — Guitar.com','https://guitar.com/reviews/effects-pedal/the-big-review-mxr-duke-of-tone/'],['Fuzz Face — Wikipedia','https://en.wikipedia.org/wiki/Fuzz_Face'],['Classic gear: Fuzz Faces — Guitar World','https://guitarworld.com/features/classic-gear-fuzz-faces'],['Maestro FZ-1 Fuzz-Tone — Wikipedia','https://wikipedia.com/wiki/Maestro_FZ-1_Fuzz-Tone'],['Stompbox classics: Tone Bender — Premier Guitar','https://www.premierguitar.com/gear/stompbox-classics-tone-bender'],['History of the Tone Bender — Guitar Center','https://www.guitarcenter.com/riffs/gear-tips/amplifiers--effects/history-tone-bender'],['Dallas Rangemaster Treble Booster — Wikipedia','https://en.wikipedia.org/wiki/Dallas_Rangemaster_Treble_Booster'],['Ross Effects history — Reverb','https://reverb.com/news/ross-effects-pedals-the-history-and-the-comeback-of-a-legendary-line'],['Ross clones and variations — OvniLab','https://ovnilab.com/reviews/rossclones.shtml'],['DOD Overdrive Preamp 250-X review — Guitar World','https://www.guitarworld.com/gear/effects-pedals/dod-overdrive-preamp-250-x-review'],['MXR Distortion+ — Wikipedia mirror','https://en.wikipedia-on-ipfs.org/wiki/MXR_Distortion_%2B']];
+document.getElementById('src').innerHTML=S.map(([t,u])=>`<li><a href="${esc(u)}">${esc(t)}</a></li>`).join('');
+}
+</script>
+</body>
+</html>
